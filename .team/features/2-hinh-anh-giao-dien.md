@@ -17,7 +17,7 @@ Test nằm ở `tests/**/*.test.ts(x)`, môi trường node. Test render dùng `
 | id | Kích thước | Ghi chú |
 |---|---|---|
 | `Video` | 1920×1080, 30 fps | thời lượng/fps/kích thước do `calculateMetadata` quyết |
-| `KitDemo` | 1920×1080, 30 fps, 90 frame | chỉ để test linh kiện. Nền `COLORS.bg`. Vẽ: `Node` ở `POS.phone`, `Link` từ `POS.phone` tới `POS.server`, `Packet` chạy trên Link với `start=0`, `duration=60`. Không có props |
+| `KitDemo` | 1920×1080, 30 fps, 90 frame | chỉ để test linh kiện. Nền `COLORS.bg`. Vẽ: `Node` ở `POS.phone`, `Link` từ `POS.phone` tới `POS.server`, `Packet` chạy trên Link với `start=0`, `duration=60`. Không có props. Có animation: `Link.progress` 0→1 trong 60 frame, `Node` điện thoại `progress` 0,2→1 trong 30 frame, Node máy chủ (`POS.server`, kind `server`) tĩnh |
 
 `Video` props: `{ timeline: Timeline | null }`, `defaultProps = { timeline: null }`.
 - `timeline === null`: `calculateMetadata` nạp `staticFile("timeline.json")` bằng `fetch` rồi `validateTimeline`.
@@ -73,7 +73,7 @@ Font: Be Vietnam Pro 400/700, mỗi weight 3 tập con: `public/fonts/be-vietnam
 ```ts
 export const SCENES: Record<SceneId, React.FC<{ scene: Scene }>>;
 ```
-Mỗi cảnh: nền `COLORS.bg`, SVG viewBox 1920×1080, không vẽ gì dưới y=880 (chừa 200 px đáy cho phụ đề). Không đơn sắc; animation neo `useBeat` theo cue trong `kich-ban-mau.md`.
+Mỗi cảnh: nền `COLORS.bg`, SVG viewBox 1920×1080, không vẽ gì ở y ≥ 830 (chừa 250 px đáy cho phụ đề, decisions D10). Không đơn sắc; animation neo `useBeat` theo cue trong `kich-ban-mau.md`.
 
 ## `src/Video.tsx`, `src/Root.tsx`, `src/index.ts`
 - `export const Video: React.FC<VideoProps>`: `<Audio>`, mỗi cảnh một `<Sequence from={scene.startFrame} durationInFrames={scene.durationFrames}>` chứa `SCENES[id]` bọc fade 12 frame (vào/ra), `Subtitle` ngoài các Sequence, `text` = `activeBeat(timeline, frame)?.text`, không có beat thì không render phần tử `data-testid="subtitle"`.
@@ -81,3 +81,7 @@ Mỗi cảnh: nền `COLORS.bg`, SVG viewBox 1920×1080, không vẽ gì dưới
 
 ## Tệp dữ liệu khi test (gitignore)
 `public/timeline.json` (chép từ `.team/contract/timeline.sample.json`) và `public/audio/narration.wav` im lặng dài `durationInFrames/fps - 0,5` giây, như bước "Prepare timeline" của CI.
+
+## Trình duyệt khi render / test
+`remotion.config.ts` đọc biến môi trường `REMOTION_BROWSER_EXECUTABLE`; có thì `Config.setBrowserExecutable(...)`, không có thì dùng Headless Shell mặc định (CI Linux). Trên Mac: `export REMOTION_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`. Config chỉ áp cho CLI; test dùng API `@remotion/renderer` tự truyền `browserExecutable: process.env.REMOTION_BROWSER_EXECUTABLE`.
+`remotion.config.ts` đặt `setVideoImageFormat("png")` để MP4 ra `yuv420p` với mọi trình duyệt.

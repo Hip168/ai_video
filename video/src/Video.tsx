@@ -8,7 +8,7 @@ import {
   useCurrentFrame,
 } from "remotion";
 import { loadFonts } from "./font";
-import { Subtitle, subtitleOpacity } from "./kit";
+import { COLORS, Subtitle, subtitleOpacity } from "./kit";
 import { SCENES } from "./scenes";
 import { activeBeat, type Scene, type Timeline } from "./timeline";
 
@@ -46,7 +46,7 @@ const Subtitles: React.FC<{ timeline: Timeline }> = ({ timeline }) => {
 export const Video: React.FC<VideoProps> = ({ timeline }) => {
   if (!timeline) return null;
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0b1220" }}>
+    <AbsoluteFill style={{ backgroundColor: COLORS.bg }}>
       <Audio src={staticFile(timeline.audio.src)} />
       {timeline.scenes.map((scene) => (
         <Sequence

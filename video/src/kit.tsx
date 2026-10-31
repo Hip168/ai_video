@@ -15,7 +15,7 @@ export const COLORS = {
 
 export type Point = { x: number; y: number };
 
-/** Toạ độ dùng chung giữa các cảnh (viewBox 1920x1080, vùng hình chính y < 880). */
+/** Toạ độ dùng chung giữa các cảnh (viewBox 1920x1080, vùng hình chính y < 830). */
 export const POS: Record<
   "phone" | "router" | "isp1" | "isp2" | "isp3" | "dns" | "server" | "receiver",
   Point

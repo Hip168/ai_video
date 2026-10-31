@@ -23,7 +23,8 @@ Composition: `Video` (thời lượng, fps, kích thước lấy từ timeline q
 ## Quyết định
 - Mọi chuyển động là hàm thuần của frame; mốc neo vào `cue` của beat (`useBeat`, `useBeatStart`), không hardcode frame.
 - Font Be Vietnam Pro (OFL-1.1) lưu cục bộ ở `public/fonts/` (nguồn, giấy phép: `public/fonts/README.md`), render không cần mạng.
-- Phụ đề nằm ngoài các Sequence; hình chính chừa 200 px đáy. Fade 12 frame giữa cảnh.
+- Phụ đề nằm ngoài các Sequence; hình chính trong `y < 830`, chừa 250 px đáy.
+- Ảnh khung hình dùng PNG (`setVideoImageFormat("png")`): với JPEG, Chrome của máy cho MP4 `yuvj420p` thay vì `yuv420p`. Fade 12 frame giữa cảnh.
 - Phiên bản ghim chính xác: remotion và @remotion/* 4.0.539, react/react-dom 19.1.10, TypeScript 5.7.2, vitest 5.0.5.
 
 ## Kiểm các mục "chưa xác minh" của `stack.md` (phần Remotion), 2026-10-31
@@ -34,7 +35,7 @@ Composition: `Video` (thời lượng, fps, kích thước lấy từ timeline q
 | `remotion.config.ts` | `Config.setCodec/setPixelFormat/setCrf/setConcurrency/setVideoImageFormat/setOverwriteOutput` đều có trong `@remotion/cli/config`. Đã qua `tsc`. |
 | `delayRender`/`continueRender` | Có, dùng cho nạp font. |
 | `npx remotion browser ensure` | Chạy được, tải Headless Shell. |
-| Chạy trình duyệt (`remotion compositions`, `npm run render`) | Trên Mac này Headless Shell tải về crash: `icudtl.dat not found in bundle`, GPU process exit 6, `Target closed`. Nguyên nhân KHÔNG phải sandbox (BA đã chạy ngoài sandbox vẫn lỗi). Dùng Chrome của máy thì chạy được: `Video` 2307 frame, `KitDemo` 90 frame. |
+| Chạy trình duyệt (`remotion compositions`, `npm run render`) | Trên Mac này Headless Shell tải về crash: `icudtl.dat not found in bundle`, GPU process exit 6, `Target closed`. Nguyên nhân Headless Shell crash chưa xác định; phiên chính crash trong và ngoài sandbox, TEST-LEAD-2 chạy được. Dùng Chrome của máy thì chạy được: `Video` 2307 frame, `KitDemo` 90 frame. |
 
 ## Chạy trên Mac khi Headless Shell lỗi
 Đặt biến môi trường (`remotion.config.ts` đọc và gọi `Config.setBrowserExecutable`; không đặt thì giữ mặc định, CI Linux không đổi):

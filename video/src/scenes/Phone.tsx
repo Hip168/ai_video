@@ -11,7 +11,7 @@ export const Phone: React.FC<{ scene: Scene }> = ({ scene }) => {
   const enter = useSpring(send);
   const press = interpolate(send, [20, 26, 32], [1, 0.8, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const linkP = interpolate(far, [0, 60], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const dest = { x: 1680, y: 440 };
+  const dest = POS.receiver;
   return (
     <Stage>
       <Link from={POS.phone} to={dest} progress={linkP} dashed />

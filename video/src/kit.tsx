@@ -22,12 +22,12 @@ export const POS: Record<
 > = {
   phone: { x: 240, y: 440 },
   router: { x: 640, y: 440 },
-  isp1: { x: 940, y: 270 },
-  isp2: { x: 1000, y: 610 },
-  isp3: { x: 1280, y: 440 },
+  isp1: { x: 880, y: 270 },
+  isp2: { x: 900, y: 610 },
+  isp3: { x: 1140, y: 440 },
   dns: { x: 1500, y: 440 },
-  server: { x: 1580, y: 440 },
-  receiver: { x: 1680, y: 440 },
+  server: { x: 1440, y: 440 },
+  receiver: { x: 1720, y: 440 },
 };
 
 export function packetPosition(

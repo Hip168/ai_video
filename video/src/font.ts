@@ -1,4 +1,4 @@
-import { continueRender, delayRender, staticFile } from "remotion";
+import { cancelRender, continueRender, delayRender, staticFile } from "remotion";
 
 export const FONT_FAMILY = "BeVietnamPro";
 
@@ -31,8 +31,5 @@ export function loadFonts(): void {
   }
   Promise.all(jobs)
     .then(() => continueRender(handle))
-    .catch((err) => {
-      // Lỗi font phải làm hỏng render rõ ràng, không im lặng dùng font khác.
-      throw err;
-    });
+    .catch((err) => cancelRender(err));
 }

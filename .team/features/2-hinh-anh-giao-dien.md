@@ -85,3 +85,12 @@ Mỗi cảnh: nền `COLORS.bg`, SVG viewBox 1920×1080, không vẽ gì ở y �
 ## Trình duyệt khi render / test
 `remotion.config.ts` đọc biến môi trường `REMOTION_BROWSER_EXECUTABLE`; có thì `Config.setBrowserExecutable(...)`, không có thì dùng Headless Shell mặc định (CI Linux). Trên Mac: `export REMOTION_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`. Config chỉ áp cho CLI; test dùng API `@remotion/renderer` tự truyền `browserExecutable: process.env.REMOTION_BROWSER_EXECUTABLE`.
 `remotion.config.ts` đặt `setVideoImageFormat("png")` để MP4 ra `yuv420p` với mọi trình duyệt.
+
+`remotion.config.ts` còn đặt `setCodec("h264")`, `setPixelFormat("yuv420p")`, `setCrf(18)`, `setConcurrency(4)`, `setOverwriteOutput(true)` (render ghi đè `../out/video.mp4`).
+
+## Toạ độ `POS` và bố cục từng cảnh
+`POS` (viewBox 1920×1080): phone (240,440), router (640,440), isp1 (880,270), isp2 (900,610), isp3 (1140,440), dns (1500,440), server (1440,440), receiver (1720,440).
+- Cảnh `server`: máy chủ ở `POS.server`, người nhận ở `POS.receiver`; hàng ô gói ở x=420..960, y=440; gửi lại chạy trên trục y=560 giữa x=300 và máy chủ.
+- Cảnh `receiver`: máy chủ vẽ ở `POS.phone` (bên trái, cùng hàng), người nhận ở `POS.receiver`.
+- Cảnh `phone`: đích "Người bạn" ở `POS.receiver`. Các cảnh khác dùng `POS` trực tiếp.
+- Gửi lại (cue `resend`): gói yêu cầu "Gửi lại #3?" đi từ máy chủ về phía người gửi (8–38 frame sau mốc beat), gói #3 quay về lấp ô thiếu (38–70), sau frame 70 ô ma và nhãn "Thiếu #3" biến mất.

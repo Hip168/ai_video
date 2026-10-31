@@ -26,16 +26,23 @@ loadFonts();
 
 export const Root: React.FC = () => (
   <>
-  <Composition
-    id="Video"
-    component={Video}
-    durationInFrames={30}
-    fps={30}
-    width={1920}
-    height={1080}
-    defaultProps={{ timeline: null } as VideoProps}
-    calculateMetadata={calculateMetadata}
-  />
-  <Composition id="KitDemo" component={KitDemo} durationInFrames={90} fps={30} width={1920} height={1080} />
+    <Composition
+      id="Video"
+      component={Video}
+      durationInFrames={30}
+      fps={30}
+      width={1920}
+      height={1080}
+      defaultProps={{ timeline: null } as VideoProps}
+      calculateMetadata={calculateMetadata}
+    />
+    <Composition
+      id="KitDemo"
+      component={KitDemo}
+      durationInFrames={90}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
   </>
 );

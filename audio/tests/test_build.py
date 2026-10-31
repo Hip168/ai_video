@@ -361,6 +361,7 @@ def test_build_timeline_hong_nem_runtime_error(tmp_path, spy):
     with pytest.raises(RuntimeError):
         project.build()
     assert not project.timeline_path.exists()
+    assert not project.srt_path.exists()
 
 
 def test_cli_build_thanh_cong_tra_0_va_ghi_file_mac_dinh(project, monkeypatch):

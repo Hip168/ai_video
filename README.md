@@ -49,7 +49,10 @@ Kết quả nằm trong `out/` và các file sinh ra khác đều đã gitignore
 
 - Giọng korva: `bao_kim`, `gia_bao`, `hoang_nam`, `huu_dat`, `khanh_vy`, `ngoc_huyen`, `phuong_linh`, `quang_huy`, `quynh_nhu`, `thanh_phong`. Ví dụ `./make-video.sh --voice ngoc_huyen`.
 - Tốc độ: `--speed 1.25` mặc định. Với 1.0 kịch bản thật ra khoảng 105,7 giây, vượt 90 giây; giữ video trong 60–90 giây thì dùng khoảng 1.25.
-- Engine khác (`vieneu`) cần extras `vieneu` (`uv pip install -e ".[vieneu]"`) và không hỗ trợ `--speed` khác 1.0.
+- Engine `vieneu` cần extras `vieneu` (`uv pip install -e ".[vieneu]"`). Engine này không hỗ trợ tốc độ khác 1.0, nên dùng `vieneu` phải thêm `--speed 1.0` (mặc định của script là 1.25 sẽ bị từ chối). Ví dụ:
+  ```bash
+  ./make-video.sh --engine vieneu --voice "Ngọc Huyền" --speed 1.0
+  ```
 
 ### Sửa cách phát âm
 

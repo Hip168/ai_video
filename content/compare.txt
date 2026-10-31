@@ -1,0 +1,1 @@
+Điện thoại gửi từng packet qua Wi-Fi tới router trong nhà bạn. Router hỏi DNS để biết địa chỉ IP của máy chủ, rồi đẩy các packet ra Internet.

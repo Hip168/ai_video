@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aivideo"
+version = "0.1.0"
+description = "Giọng đọc, timeline và SRT cho video giải thích"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy==2.5.4",
+    "soundfile==0.14.0",
+]
+
+[project.optional-dependencies]
+korva = ["korvatts==0.1.3"]
+vieneu = ["vieneu==3.8.3"]
+dev = ["pytest==9.2.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["real: chạy mô hình TTS thật, chỉ trên Mac (pytest -m real)"]

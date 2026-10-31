@@ -1,0 +1,173 @@
+name: CI
+
+# Chạy khi mở/cập nhật PR vào main và khi push lên main.
+# audio/ và video/ do hai đề mục tạo sau: job tự bỏ qua (xanh) khi thư mục
+# hoặc file cấu hình chưa có, và tự chạy đầy đủ khi chúng xuất hiện.
+#   audio: chạy khi có audio/pyproject.toml
+#   video: chạy khi có video/package.json và video/package-lock.json
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repo-checks:
+    name: Kiểm tra repo (khoá, media)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify locked files
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=(.team/locks/*.sha256)
+          if [ ${#files[@]} -gt 0 ]; then sha256sum -c --quiet "${files[@]}"; fi
+          if [ -f .team/locks/dirs.txt ]; then
+            while IFS= read -r d; do
+              [ -z "$d" ] && continue
+              find "$d" -type f | while IFS= read -r f; do
+                grep -qF "  $f" "${files[@]}" || { echo "File lạ trong thư mục khoá: $f"; exit 1; }
+              done || exit 1
+            done < .team/locks/dirs.txt
+          fi
+
+      - name: No committed media
+        shell: bash
+        run: |
+          bad=$(git ls-files -- '*.wav' '*.mp3' '*.mp4')
+          if [ -n "$bad" ]; then
+            echo "Không được commit file media (sinh ra khi chạy):"
+            echo "$bad"
+            exit 1
+          fi
+
+  audio:
+    name: audio (pytest, Python 3.12)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect audio project
+        id: detect
+        shell: bash
+        run: |
+          if [ -f audio/pyproject.toml ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::audio/pyproject.toml chưa có, bỏ qua job audio."
+          fi
+
+      - name: Install uv
+        if: steps.detect.outputs.present == 'true'
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: audio/pyproject.toml
+
+      - name: Install ffmpeg
+        if: steps.detect.outputs.present == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libsndfile1
+
+      - name: Create venv and install (no TTS models)
+        if: steps.detect.outputs.present == 'true'
+        working-directory: audio
+        run: |
+          uv venv --python 3.12
+          uv pip install -e ".[dev]"
+
+      - name: Run tests (not real)
+        if: steps.detect.outputs.present == 'true'
+        working-directory: audio
+        run: .venv/bin/pytest -m "not real"
+
+  video:
+    name: video (tsc, vitest, render)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect video project
+        id: detect
+        shell: bash
+        run: |
+          if [ -f video/package.json ] && [ -f video/package-lock.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::video/package.json hoặc package-lock.json chưa có, bỏ qua job video."
+          fi
+
+      - name: Setup Node 22
+        if: steps.detect.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+
+      - name: Install ffmpeg
+        if: steps.detect.outputs.present == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: npm ci
+        if: steps.detect.outputs.present == 'true'
+        working-directory: video
+        run: npm ci
+
+      # Đặt sau npm ci vì npm ci xoá node_modules; trình duyệt headless nằm trong node_modules/.remotion.
+      - name: Cache Remotion browser
+        if: steps.detect.outputs.present == 'true'
+        uses: actions/cache@v4
+        with:
+          path: video/node_modules/.remotion
+          key: remotion-browser-${{ runner.os }}-${{ hashFiles('video/package-lock.json') }}
+
+      - name: Ensure Remotion browser
+        if: steps.detect.outputs.present == 'true'
+        working-directory: video
+        run: npx remotion browser ensure
+
+      - name: Type check
+        if: steps.detect.outputs.present == 'true'
+        working-directory: video
+        run: npx tsc --noEmit
+
+      # Hợp đồng timeline (D1/D2): mẫu chung + âm thanh im lặng đúng thời lượng.
+      # Độ dài âm thanh = durationInFrames / fps - 0,5 giây (luật 9 của hợp đồng).
+      - name: Prepare timeline and silent narration
+        if: steps.detect.outputs.present == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          sample=.team/contract/timeline.sample.json
+          mkdir -p video/public
+          cp "$sample" video/public/timeline.json
+          src=$(jq -r '.audio.src' "$sample")
+          dur=$(jq -r '(.durationInFrames / .fps) - 0.5' "$sample")
+          mkdir -p "video/public/$(dirname "$src")"
+          ffmpeg -hide_banner -loglevel error -y \
+            -f lavfi -i "anullsrc=r=44100:cl=mono" -t "$dur" \
+            "video/public/$src"
+          ffprobe -v error -show_entries format=duration -of csv=p=0 "video/public/$src"
+
+      - name: Vitest (with render)
+        if: steps.detect.outputs.present == 'true'
+        working-directory: video
+        env:
+          RENDER_TEST: "1"
+        run: npx vitest run

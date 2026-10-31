@@ -1,0 +1,4 @@
+.worktrees/
+.team/status.md
+.team/tests/*-anh/
+.DS_Store

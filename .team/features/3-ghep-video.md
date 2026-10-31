@@ -18,6 +18,8 @@ Không có dữ liệu mới. Dùng `content/script.json`, `content/lexicon.json
 ## Kiến trúc đã chọn
 Một script zsh gọi `audio` rồi `video`, không có hệ thống build riêng. Engine và giọng mặc định là lựa chọn của người dùng ở [1-4].
 
+Chốt của BA (D13): script chỉ chạy trên Mac, zsh. Thiếu `audio/.venv` hoặc `video/node_modules` thì báo và thoát, không tự cài; README ghi cách cài. `REMOTION_BROWSER_EXECUTABLE` chỉ truyền qua nếu người dùng đặt, README ghi cách đặt. KorvaTTS không cần khoá API, mô hình tải từ Hugging Face lần đầu nên cần mạng, README ghi rõ. Test là `audio/tests/test_make_video.py` bằng pytest, bỏ qua khi không có `zsh` để CI Linux không đỏ.
+
 ## File quan trọng
 `.team/features/1-am-thanh.md`, `.team/features/2-hinh-anh.md`, `.team/stack.md`.
 

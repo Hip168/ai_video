@@ -33,3 +33,6 @@ Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chư
 - Hình chính vẽ trong `y < 830`, tức chừa 250 px đáy, vì phụ đề 2 dòng cao tới y=836. Thay cho mốc 200 px cũ.
 - `durationFrames` ≥ 1; `text` chỉ có khoảng trắng bị coi là rỗng (`0-hop-dong-timeline.md`).
 - Bên đề mục 1: `compare` có `lexicon_path`, tên file bỏ dấu, `number_to_words` chỉ cam kết 0–99, `pause_ms` là số nguyên ≥ 0, `validate_timeline` kiểm luật 1-8 và 10, luật 9 kiểm ở bước build.
+- `build` validate trước khi ghi `timeline.json`; timeline hỏng thì không ghi file.
+- Luật 10 là mô tả, không có kiểm tra riêng trong `validate_timeline`. `startFrame` của cảnh bằng beat đầu (trừ cảnh đầu) được kiểm ở test build.
+- Luật 2 và 7 đổi trước khi hợp đồng được phát hành nên `version` giữ 1.

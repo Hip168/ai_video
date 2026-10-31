@@ -27,7 +27,7 @@ Các đề mục không tự viết `.github/workflows/`. CI cần chạy `pytes
 `phone → dns → packets → wifi → hops → server → receiver`. DNS đứng trước `packets` vì điện thoại cần biết địa chỉ trước khi gửi. Đây là sửa đổi của BA so với thứ tự trong prompt gửi kiến trúc sư; người dùng duyệt qua kịch bản ở Pha 4d.
 
 ## D9. Giao diện xem agent (ngoài dự án)
-Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chưa commit) và build. Hook chỉ bật cho dự án này qua `.claude/settings.local.json` (không commit). Không chạy `npx vibecraft setup`, không cài tmux. Không thuộc phạm vi đề mục nào.
+Đã dùng Vibecraft để xem đội, rồi gỡ hẳn theo yêu cầu người dùng (2026-10-31). Không còn thuộc dự án.
 
 ## D10. Vùng an toàn và khe hở hợp đồng (BA chốt, 2026-10-31, từ duyệt của TEST-LEAD)
 - Hình chính vẽ trong `y < 830`, tức chừa 250 px đáy, vì phụ đề 2 dòng cao tới y=836. Thay cho mốc 200 px cũ.
@@ -38,7 +38,10 @@ Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chư
 - Luật 2 và 7 đổi trước khi hợp đồng được phát hành nên `version` giữ 1.
 
 ## D11. Cơ cấu Lead (người dùng chốt, 2026-10-31)
-Có thêm `dev-lead`, `deploy-lead`, `ops-lead`, và chỉ một TEST-LEAD (CONVENTIONS §0c). Áp dụng từ các việc mới; đề mục 1 và 2 đang chạy dở vẫn đi nốt, `dev-lead` kiểm trước khi sang DEPLOY.
+Có `dev-lead` và một TEST-LEAD (CONVENTIONS §0c). `deploy-lead`, `ops-lead` đã bỏ sau khi chạy thử. Áp dụng từ các việc mới; đề mục 1 và 2 đang chạy dở vẫn đi nốt, `dev-lead` kiểm trước khi sang DEPLOY.
 
 ## D12. Giọng đọc (người dùng chốt sau khi nghe, 2026-10-31)
 KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` và `packet` cần sửa cách đọc bằng chính giọng này; `DNS`, `Wi-Fi`, `IP` giữ nguyên. Không ghép giọng tiếng Anh. Người dùng nghe 7 mẫu mỗi từ và chọn: `router` đọc "râu tơ" (mẫu 3), `packet` giữ nguyên. `lexicon.json` chỉ còn `router`. Tốc độ `--speed 1.25` (2631 frame, 87,7 giây): người dùng xem bản có giọng và nhắn "ok" ngày 2026-10-31. `lexicon.json` là dữ liệu sửa được: test chỉ kiểm dạng, không ghim từ nào.
+
+## D13. Đề mục 3 (BA chốt, 2026-10-31)
+`make-video.sh` chỉ chạy trên Mac, không tự cài, chỉ truyền qua `REMOTION_BROWSER_EXECUTABLE`. Hợp đồng đầu ra tối thiểu ghi ở `features/3-ghep-video.md`.

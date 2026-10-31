@@ -18,7 +18,7 @@ Không có dữ liệu mới. Dùng `content/script.json`, `content/lexicon.json
 ## Kiến trúc đã chọn
 Một script zsh gọi `audio` rồi `video`, không có hệ thống build riêng. Engine và giọng mặc định là lựa chọn của người dùng ở [1-4].
 
-Chốt của BA (D13): script chỉ chạy trên Mac, zsh. Thiếu `audio/.venv` hoặc `video/node_modules` thì báo và thoát, không tự cài; README ghi cách cài. `REMOTION_BROWSER_EXECUTABLE` chỉ truyền qua nếu người dùng đặt, README ghi cách đặt. KorvaTTS không cần khoá API, mô hình tải từ Hugging Face lần đầu nên cần mạng, README ghi rõ. Test là `audio/tests/test_make_video.py` bằng pytest, bỏ qua khi không có `zsh` để CI Linux không đỏ.
+Chốt của BA (D13): script chỉ chạy trên Mac, zsh. Thiếu `audio/.venv` hoặc `video/node_modules` thì báo và thoát, không tự cài; README ghi cách cài. `REMOTION_BROWSER_EXECUTABLE` chỉ truyền qua nếu người dùng đặt, README ghi cách đặt. KorvaTTS không cần khoá API, mô hình tải từ Hugging Face lần đầu nên cần mạng, README ghi rõ. Test là `audio/tests/test_make_video.py` bằng pytest, bỏ qua khi `sys.platform != "darwin"`. Hợp đồng đầu ra của script chỉ gồm: mã thoát 2 khi sai tham số, khác 0 khi lỗi; dòng có `Bước N/3` cho từng bước và khi lỗi; tên thứ bị thiếu; `XONG` khi thành công. Câu chữ còn lại không phải hợp đồng, test không ghim. Engine `vieneu` không hỗ trợ speed khác 1.0 nên phải truyền `--speed 1.0`, README ghi rõ.
 
 ## File quan trọng
 `.team/features/1-am-thanh.md`, `.team/features/2-hinh-anh.md`, `.team/stack.md`.

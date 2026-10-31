@@ -33,6 +33,12 @@ RENDER_TEST=1 npx vitest run  # có render khung hình
 npm run render                # ra ../out/video.mp4
 ```
 
+Ở phiên chính trên Mac này, `chrome-headless-shell` do Remotion tải về crash (`icudtl.dat not found in bundle`), trong và ngoài sandbox; TEST-LEAD-2 chạy được nó. Nguyên nhân chưa xác định. Cách chạy ổn định là dùng Chrome của máy:
+```bash
+export REMOTION_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+```
+Người dùng cho phép chạy ngoài sandbox riêng các lệnh Remotion trong worktree (2026-10-31).
+
 ## Giấy phép
 Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTTS, VieNeu: Apache-2.0.
 

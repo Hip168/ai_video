@@ -1,5 +1,5 @@
 import {describe, expect, test} from 'vitest';
-import {packetPosition} from '../src/kit';
+import {POS, packetPosition, subtitleOpacity} from '../src/kit';
 
 describe('[2-3] packetPosition(from, to, start, duration, frame)', () => {
   const from = {x: 100, y: 200};
@@ -58,5 +58,56 @@ describe('[2-3] packetPosition(from, to, start, duration, frame)', () => {
     const a = packetPosition(from, to, 5, 30, 17);
     const b = packetPosition(from, to, 5, 30, 17);
     expect(a).toEqual(b);
+  });
+});
+
+describe('[2-3] packetPosition: biên theo giao diện công khai', () => {
+  const from = {x: 0, y: 0};
+  const to = {x: 100, y: 50};
+  test('duration <= 0 trả về to', () => {
+    expect(packetPosition(from, to, 10, 0, 10)).toEqual(to);
+    expect(packetPosition(from, to, 10, -5, 3)).toEqual(to);
+  });
+  test('nội suy tuyến tính ở 1/4 và 3/4', () => {
+    const q = packetPosition(from, to, 0, 40, 10);
+    expect(q.x).toBeCloseTo(25, 5);
+    expect(q.y).toBeCloseTo(12.5, 5);
+    const r = packetPosition(from, to, 0, 40, 30);
+    expect(r.x).toBeCloseTo(75, 5);
+    expect(r.y).toBeCloseTo(37.5, 5);
+  });
+});
+
+describe('[2-3] POS nằm trong khung và phía trên dải phụ đề', () => {
+  test.each(Object.entries(POS))('%s', (_name, p) => {
+    expect(p.x).toBeGreaterThanOrEqual(0);
+    expect(p.x).toBeLessThanOrEqual(1920);
+    expect(p.y).toBeGreaterThanOrEqual(0);
+    expect(p.y).toBeLessThan(880);
+  });
+  test('đủ 8 điểm và không có hai điểm trùng nhau', () => {
+    const keys = Object.keys(POS).sort();
+    expect(keys).toEqual(
+      ['dns', 'isp1', 'isp2', 'isp3', 'phone', 'receiver', 'router', 'server'].sort(),
+    );
+    const set = new Set(Object.values(POS).map((p) => `${p.x},${p.y}`));
+    expect(set.size).toBe(8);
+  });
+});
+
+describe('[2-2] subtitleOpacity (fade 4 frame)', () => {
+  const beat = {id: 'b', startFrame: 100, durationFrames: 50, text: 'x'};
+  test('0 tại start, tăng dần, 1 từ start+4', () => {
+    expect(subtitleOpacity(beat, 100)).toBe(0);
+    expect(subtitleOpacity(beat, 102)).toBeCloseTo(0.5, 5);
+    expect(subtitleOpacity(beat, 104)).toBe(1);
+    expect(subtitleOpacity(beat, 125)).toBe(1);
+  });
+  test('giảm về cuối: start+dur-1 là 0.25, ngoài beat là 0', () => {
+    expect(subtitleOpacity(beat, 145)).toBe(1);
+    expect(subtitleOpacity(beat, 149)).toBeCloseTo(0.25, 5);
+    expect(subtitleOpacity(beat, 150)).toBe(0);
+    expect(subtitleOpacity(beat, 99)).toBe(0);
+    expect(subtitleOpacity(beat, 500)).toBe(0);
   });
 });

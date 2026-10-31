@@ -1,10 +1,17 @@
 import {spawnSync} from 'node:child_process';
-import {cpSync, existsSync, mkdirSync, mkdtempSync, writeFileSync} from 'node:fs';
+import {
+  copyFileSync,
+  cpSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  writeFileSync,
+} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {bundle} from '@remotion/bundler';
 import {renderStill, selectComposition} from '@remotion/renderer';
-import {VIDEO_DIR} from './sample';
+import {SAMPLE_PATH, VIDEO_DIR, loadSample} from './sample';
 
 export const RENDER_TEST = process.env.RENDER_TEST === '1';
 
@@ -142,4 +149,38 @@ export function diffRatio(
     }
   }
   return diff / ((end - start) / 3);
+}
+
+/** Nếu video/public chưa có timeline.json (gitignore) thì dựng từ mẫu + audio im lặng. */
+export function ensureDefaultPublic(): void {
+  const tl = path.join(VIDEO_DIR, 'public', 'timeline.json');
+  if (existsSync(tl)) return;
+  const s = loadSample();
+  mkdirSync(path.join(VIDEO_DIR, 'public', 'audio'), {recursive: true});
+  writeSilentWav(
+    path.join(VIDEO_DIR, 'public', s.audio.src),
+    s.durationInFrames / s.fps,
+  );
+  copyFileSync(SAMPLE_PATH, tl);
+}
+
+/** Chụp still của một composition bất kỳ theo id (vd KitDemo). */
+export async function stillOf(
+  serveUrl: string,
+  id: string,
+  frame: number,
+): Promise<Pixels> {
+  const composition = await selectComposition({serveUrl, id});
+  const output = path.join(
+    mkdtempSync(path.join(tmpdir(), 'tl-still-')),
+    `${id}-${frame}.png`,
+  );
+  await renderStill({composition, serveUrl, frame, output, imageFormat: 'png'});
+  return decodePng(output);
+}
+
+/** Điểm ảnh (x, y) dạng [r, g, b]. */
+export function px(p: Pixels, x: number, y: number): [number, number, number] {
+  const i = (y * p.width + x) * 3;
+  return [p.data[i], p.data[i + 1], p.data[i + 2]];
 }

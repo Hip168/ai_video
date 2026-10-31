@@ -1,9 +1,12 @@
 import {beforeAll, describe, expect, test} from 'vitest';
+import {COLORS, POS} from '../src/kit';
 import {
   RENDER_TEST,
   diffRatio,
   distinctColors,
+  px,
   stage,
+  stillOf,
   type Pixels,
   type Stage,
 } from './helpers/render';
@@ -31,6 +34,70 @@ d('[2-1] composition Video theo timeline mẫu', () => {
     expect(c.width).toBe(1920);
     expect(c.height).toBe(1080);
   }, 120_000);
+});
+
+d('[2-3] linh kiện SVG qua composition KitDemo', () => {
+  let st: Stage;
+  const hex = (h: string): [number, number, number] => {
+    const n = parseInt(h.replace('#', ''), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  };
+  const frames = [0, 30, 59];
+  const imgs: Pixels[] = [];
+  beforeAll(async () => {
+    st = await stage(loadSample());
+    for (const f of frames) imgs.push(await stillOf(st.serveUrl, 'KitDemo', f));
+  }, 300_000);
+
+  test('KitDemo: 1920x1080, nền COLORS.bg ở góc, có vẽ linh kiện (không đơn sắc)', () => {
+    for (const p of imgs) {
+      expect(p.width).toBe(1920);
+      expect(p.height).toBe(1080);
+      expect(px(p, 2, 2)).toEqual(hex(COLORS.bg));
+      expect(distinctColors(p)).toBeGreaterThan(5);
+    }
+  });
+
+  test('ba mốc frame (đầu, giữa, cuối) cho ba ảnh đôi một khác nhau', () => {
+    expect(diffRatio(imgs[0], imgs[1])).toBeGreaterThan(0.0002);
+    expect(diffRatio(imgs[1], imgs[2])).toBeGreaterThan(0.0002);
+    expect(diffRatio(imgs[0], imgs[2])).toBeGreaterThan(0.0002);
+  });
+
+  test('gói tin ở giữa nằm trong hộp bao của đoạn Link, khác ảnh đầu quanh điểm giữa', () => {
+    const mx = Math.round((POS.phone.x + POS.server.x) / 2);
+    const my = Math.round((POS.phone.y + POS.server.y) / 2);
+    // vùng 80x80 quanh điểm giữa Link: khung giữa có Packet, khung đầu thì không
+    const cut = (p: Pixels) => ({
+      width: 80,
+      height: 80,
+      data: Buffer.concat(
+        Array.from({length: 80}, (_, r) =>
+          p.data.subarray(
+            ((my - 40 + r) * p.width + (mx - 40)) * 3,
+            ((my - 40 + r) * p.width + (mx + 40)) * 3,
+          ),
+        ),
+      ),
+    });
+    expect(diffRatio(cut(imgs[0]), cut(imgs[1]))).toBeGreaterThan(0.01);
+  });
+
+  test('không tràn khung: viền 2 px quanh ảnh giữ màu nền ở mọi mốc', () => {
+    const bg = hex(COLORS.bg);
+    for (const p of imgs) {
+      for (let k = 0; k < 2; k++) {
+        for (let x = 0; x < p.width; x++) {
+          expect(px(p, x, k)).toEqual(bg);
+          expect(px(p, x, p.height - 1 - k)).toEqual(bg);
+        }
+        for (let y = 0; y < p.height; y++) {
+          expect(px(p, k, y)).toEqual(bg);
+          expect(px(p, p.width - 1 - k, y)).toEqual(bg);
+        }
+      }
+    }
+  });
 });
 
 d('[2-2] phụ đề trên khung hình', () => {

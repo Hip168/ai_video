@@ -12,6 +12,7 @@ describe('[2-1] validateTimeline: file mẫu hợp lệ', () => {
     expect(t.height).toBe(1080);
     expect(t.durationInFrames).toBe(2307);
     expect(t.audio.src).toBe('audio/narration.wav');
+    expect(t).toEqual(loadSample());
     expect(t.scenes.map((s: any) => s.id)).toEqual([
       'phone',
       'dns',
@@ -66,82 +67,82 @@ const BROKEN: Array<[string, Mutate, RegExp]> = [
   [
     'id cảnh không thuộc tập cho phép',
     (t) => (t.scenes[2].id = 'khong-co'),
-    /scenes\[2\]|khong-co/,
+    /scenes\[2\]\.id/,
   ],
   [
     'id cảnh trùng lặp',
     (t) => (t.scenes[3].id = 'dns'),
-    /scenes\[3\]|dns/,
+    /scenes\[3\]\.id/,
   ],
   [
     'cảnh đầu không bắt đầu ở frame 0',
     (t) => {
       t.scenes[0].startFrame = 1;
     },
-    /scenes\[0\]|phone/,
+    /scenes\[0\]\.startFrame/,
   ],
   [
     'cảnh hở (cảnh sau bắt đầu muộn hơn cuối cảnh trước)',
     (t) => {
       t.scenes[1].startFrame += 5;
     },
-    /scenes\[1\]|dns/,
+    /scenes\[1\]\.startFrame/,
   ],
   [
     'cảnh chồng (cảnh sau bắt đầu sớm hơn cuối cảnh trước)',
     (t) => {
       t.scenes[2].startFrame -= 5;
     },
-    /scenes\[2\]|packets/,
+    /scenes\[2\]\.startFrame/,
   ],
   [
     'cảnh cuối không kết thúc đúng durationInFrames',
     (t) => {
       t.durationInFrames += 10;
     },
-    /durationInFrames|scenes\[6\]|receiver/,
+    /durationInFrames/,
   ],
   [
     'beat chồng beat trước',
     (t) => {
       t.scenes[0].beats[1].startFrame = 100;
     },
-    /s02|beats\[1\]/,
+    /scenes\[0\]\.beats\[1\]/,
   ],
   [
     'beat tràn ra ngoài cảnh',
     (t) => {
       t.scenes[0].beats[2].durationFrames = 500;
     },
-    /s03|beats\[2\]/,
+    /scenes\[0\]\.beats\[2\]/,
   ],
   [
     'beat id trùng toàn file',
     (t) => {
       t.scenes[1].beats[0].id = 's01';
     },
-    /s01|beats\[0\]/,
+    /scenes\[1\]\.beats\[0\]\.id/,
   ],
   [
     'cảnh không có beat nào',
     (t) => {
       t.scenes[4].beats = [];
     },
-    /scenes\[4\]|hops|beats/,
+    /scenes\[4\]\.beats/,
   ],
   [
     'text rỗng',
     (t) => {
       t.scenes[0].beats[0].text = '';
     },
-    /s01|text/,
+    /scenes\[0\]\.beats\[0\]\.text/,
   ],
   [
     'text dài hơn 100 ký tự',
     (t) => {
       t.scenes[0].beats[0].text = 'a'.repeat(101);
     },
-    /s01|text/,
+    /scenes\[0\]\.beats\[0\]\.text/,
   ],
   [
     'text không ở dạng NFC',
@@ -149,28 +150,28 @@ const BROKEN: Array<[string, Mutate, RegExp]> = [
       // "ế" tách thành e + dấu mũ + dấu sắc
       t.scenes[0].beats[0].text = 'Tin nhắn đi tế';
     },
-    /s01|text/,
+    /scenes\[0\]\.beats\[0\]\.text/,
   ],
   [
     'số frame âm',
     (t) => {
       t.scenes[0].beats[0].startFrame = -1;
     },
-    /s01|startFrame/,
+    /scenes\[0\]\.beats\[0\]\.startFrame/,
   ],
   [
     'số frame không nguyên',
     (t) => {
       t.scenes[0].beats[2].durationFrames = 55.5;
     },
-    /s03|durationFrames/,
+    /scenes\[0\]\.beats\[2\]\.durationFrames/,
   ],
   [
     'thiếu audio.src',
     (t) => {
       delete t.audio.src;
     },
-    /audio/,
+    /audio\.src/,
   ],
   [
     'thiếu scenes',
@@ -204,6 +205,14 @@ describe('[2-1] validateTimeline: timeline hỏng bị từ chối bằng lỗi 
       expect(() => validateTimeline(input)).toThrow(Error);
     },
   );
+
+  test('audio.src rỗng hoặc không phải chuỗi bị từ chối', () => {
+    for (const bad of ['', 5, null]) {
+      const s = loadSample();
+      s.audio.src = bad;
+      expect(() => validateTimeline(s)).toThrow(/audio\.src/);
+    }
+  });
 
   test('validateTimeline không sửa đối tượng đầu vào', () => {
     const s = loadSample();

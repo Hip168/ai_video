@@ -1,15 +1,9 @@
 import {spawnSync} from 'node:child_process';
-import {
-  copyFileSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  rmSync,
-} from 'node:fs';
+import {existsSync, readFileSync, rmSync} from 'node:fs';
 import path from 'node:path';
 import {beforeAll, describe, expect, test} from 'vitest';
-import {RENDER_TEST, writeSilentWav} from './helpers/render';
-import {SAMPLE_PATH, VIDEO_DIR, loadSample} from './helpers/sample';
+import {RENDER_TEST, ensureDefaultPublic} from './helpers/render';
+import {VIDEO_DIR} from './helpers/sample';
 
 const d = describe.skipIf(!RENDER_TEST);
 const OUT = path.resolve(VIDEO_DIR, '..', 'out', 'video.mp4');
@@ -26,16 +20,8 @@ d('[2-5] npm run render ra MP4 đúng thông số', () => {
   let timeline: any;
   beforeAll(() => {
     // Dùng file thật nếu đã có; nếu chưa thì dựng từ mẫu + âm thanh im lặng.
+    ensureDefaultPublic();
     const tl = path.join(VIDEO_DIR, 'public', 'timeline.json');
-    if (!existsSync(tl)) {
-      mkdirSync(path.join(VIDEO_DIR, 'public', 'audio'), {recursive: true});
-      const s = loadSample();
-      writeSilentWav(
-        path.join(VIDEO_DIR, 'public', s.audio.src),
-        s.durationInFrames / s.fps,
-      );
-      copyFileSync(SAMPLE_PATH, tl);
-    }
     timeline = JSON.parse(readFileSync(tl, 'utf8'));
     rmSync(OUT, {force: true});
     const r = spawnSync('npm', ['run', 'render'], {

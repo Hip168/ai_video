@@ -86,7 +86,7 @@ jobs:
         working-directory: audio
         run: |
           uv venv --python 3.12
-          uv pip install -e ".[dev]"
+          uv pip install --python .venv/bin/python -e ".[dev]"
 
       - name: Run tests (not real)
         if: steps.detect.outputs.present == 'true'

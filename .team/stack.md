@@ -13,6 +13,7 @@ cd audio
 uv venv --python /opt/homebrew/bin/python3.12
 uv pip install -e ".[dev]"            # CI và test thường
 uv pip install -e ".[dev,korva,vieneu]"   # trên Mac, chạy giọng thật
+export PYTHONPATH=$PWD/src            # trên Mac: cờ hidden của file .pth trong .venv tự bật lại, chưa rõ nguyên nhân
 .venv/bin/pytest -m "not real"        # không cần mô hình TTS
 .venv/bin/pytest -m real              # chỉ trên Mac
 ```
@@ -32,6 +33,12 @@ npx vitest run
 RENDER_TEST=1 npx vitest run  # có render khung hình
 npm run render                # ra ../out/video.mp4
 ```
+
+Ở phiên chính trên Mac này, `chrome-headless-shell` do Remotion tải về crash (`icudtl.dat not found in bundle`), trong và ngoài sandbox; TEST-LEAD-2 chạy được nó. Nguyên nhân chưa xác định. Cách chạy ổn định là dùng Chrome của máy:
+```bash
+export REMOTION_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+```
+Người dùng cho phép chạy ngoài sandbox riêng các lệnh Remotion trong worktree (2026-10-31).
 
 ## Giấy phép
 Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTTS, VieNeu: Apache-2.0.

@@ -3,6 +3,19 @@ import { useCurrentFrame } from "remotion";
 import { COLORS, Label, Link, Node, Packet, POS, Stage, useBeat, useBeatStart, useSpring } from "../kit";
 import type { Scene } from "../timeline";
 
+const SLOTS = [
+  { x: 1640, y: 300 },
+  { x: 1640, y: 440 },
+  { x: 1640, y: 580 },
+];
+
+// Gói #2 về trước, rồi #1, rồi #3: đến nơi không đúng thứ tự (offset so với đầu cue paths).
+const ROUTES = [
+  { label: "#1", via: [POS.isp2, POS.isp3], legs: [34, 24, 34], start: 8, slot: 1 },
+  { label: "#2", via: [POS.isp1, POS.isp3], legs: [22, 20, 22], start: 20, slot: 0 },
+  { label: "#3", via: [POS.isp3], legs: [42, 28], start: 40, slot: 2 },
+];
+
 export const Hops: React.FC<{ scene: Scene }> = ({ scene }) => {
   const frame = useCurrentFrame();
   const hop = useBeat(scene, "hop");
@@ -29,21 +42,21 @@ export const Hops: React.FC<{ scene: Scene }> = ({ scene }) => {
       {hop >= 20 && next < 0 && route1.slice(1).map((p, i) => frame >= hopAt + 20 + i * 24 && (
         <Packet key={i} from={route1[i]} to={p} start={hopAt + 20 + i * 24} duration={22} />
       ))}
-      <g opacity={useSpring(next, 0)}>
+      <g opacity={paths < 0 ? useSpring(next, 0) : 0}>
         <rect x={POS.isp1.x - 110} y={POS.isp1.y - 105} width={220} height={175} rx={30} fill="none" stroke={COLORS.accent} strokeWidth={5} />
         <Label x={POS.isp1.x} y={POS.isp1.y - 140} size={34} color={COLORS.accent}>Chỉ chọn chặng kế</Label>
         <Label x={POS.isp1.x + 190} y={POS.isp1.y + 10} size={90} color={COLORS.accent}>➜</Label>
       </g>
-      {paths >= 0 && [0, 1, 2].filter((i) => frame >= pathsAt + 10 + i * 20).map((i) => (
-        <Packet
-          key={i}
-          from={a}
-          to={i === 1 ? POS.isp2 : POS.isp1}
-          start={pathsAt + 10 + i * 20}
-          duration={30 + i * 14}
-          label={`#${i + 1}`}
-        />
-      ))}
+      {paths >= 0 && ROUTES.filter((r) => frame >= pathsAt + r.start).map((r) => {
+        const pts = [a, ...r.via, SLOTS[r.slot]];
+        let t = pathsAt + r.start;
+        let k = 0;
+        while (k < r.legs.length - 1 && frame >= t + r.legs[k]) {
+          t += r.legs[k];
+          k++;
+        }
+        return <Packet key={r.label} from={pts[k]} to={pts[k + 1]} start={t} duration={r.legs[k]} label={r.label} />;
+      })}
     </Stage>
   );
 };

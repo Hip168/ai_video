@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "durationInFrames": 2307,
+  "audio": {
+    "src": "audio/narration.wav"
+  },
+  "scenes": [
+    {
+      "id": "phone",
+      "startFrame": 0,
+      "durationFrames": 349,
+      "beats": [
+        {
+          "id": "s01",
+          "startFrame": 0,
+          "durationFrames": 153,
+          "text": "Bạn vừa bấm gửi một tin nhắn, và chỉ khoảng một giây sau, người bạn ở đầu bên kia đã nhận được.",
+          "cue": "send"
+        },
+        {
+          "id": "s02",
+          "startFrame": 161,
+          "durationFrames": 112,
+          "text": "Trong khoảnh khắc ngắn ngủi đó, tin nhắn đã đi qua cả một chặng đường dài."
+        },
+        {
+          "id": "s03",
+          "startFrame": 280,
+          "durationFrames": 56,
+          "text": "Hãy cùng đi theo nó, từng chặng một."
+        }
+      ]
+    },
+    {
+      "id": "dns",
+      "startFrame": 349,
+      "durationFrames": 371,
+      "beats": [
+        {
+          "id": "s04",
+          "startFrame": 349,
+          "durationFrames": 105,
+          "text": "Trước hết, điện thoại cần biết địa chỉ của máy chủ ứng dụng nhắn tin.",
+          "cue": "dns-need"
+        },
+        {
+          "id": "s05",
+          "startFrame": 462,
+          "durationFrames": 104,
+          "text": "Nó hỏi DNS, một hệ thống hoạt động giống như cuốn danh bạ của Internet.",
+          "cue": "dns-query"
+        },
+        {
+          "id": "s06",
+          "startFrame": 574,
+          "durationFrames": 132,
+          "text": "Đưa vào một cái tên, DNS trả về một địa chỉ IP, dãy số mà máy tính hiểu được.",
+          "cue": "dns-reply"
+        }
+      ]
+    },
+    {
+      "id": "packets",
+      "startFrame": 720,
+      "durationFrames": 265,
+      "beats": [
+        {
+          "id": "s07",
+          "startFrame": 720,
+          "durationFrames": 125,
+          "text": "Có địa chỉ rồi, tin nhắn được chia thành nhiều packet, tức là những gói dữ liệu nhỏ.",
+          "cue": "split"
+        },
+        {
+          "id": "s08",
+          "startFrame": 853,
+          "durationFrames": 118,
+          "text": "Mỗi packet giống như một phong bì, ghi rõ nơi gửi, nơi đến và số thứ tự.",
+          "cue": "label"
+        }
+      ]
+    },
+    {
+      "id": "wifi",
+      "startFrame": 985,
+      "durationFrames": 244,
+      "beats": [
+        {
+          "id": "s09",
+          "startFrame": 985,
+          "durationFrames": 105,
+          "text": "Từ điện thoại, các packet bay qua sóng Wi-Fi để tới router trong nhà bạn.",
+          "cue": "wifi"
+        },
+        {
+          "id": "s10",
+          "startFrame": 1097,
+          "durationFrames": 119,
+          "text": "Router giống như người gác cổng, đưa chúng ra khỏi mạng gia đình và đi vào Internet.",
+          "cue": "gateway"
+        }
+      ]
+    },
+    {
+      "id": "hops",
+      "startFrame": 1229,
+      "durationFrames": 364,
+      "beats": [
+        {
+          "id": "s11",
+          "startFrame": 1229,
+          "durationFrames": 98,
+          "text": "Trên Internet, packet nhảy qua rất nhiều router của các nhà mạng khác nhau.",
+          "cue": "hop"
+        },
+        {
+          "id": "s12",
+          "startFrame": 1334,
+          "durationFrames": 105,
+          "text": "Mỗi router không cần biết toàn bộ đường đi, nó chỉ chọn chặng kế tiếp.",
+          "cue": "next-hop"
+        },
+        {
+          "id": "s13",
+          "startFrame": 1447,
+          "durationFrames": 132,
+          "text": "Vì vậy, các packet có thể đi những con đường khác nhau và đến nơi không đúng thứ tự.",
+          "cue": "paths"
+        }
+      ]
+    },
+    {
+      "id": "server",
+      "startFrame": 1593,
+      "durationFrames": 370,
+      "beats": [
+        {
+          "id": "s14",
+          "startFrame": 1593,
+          "durationFrames": 132,
+          "text": "Tại máy chủ, các packet được sắp xếp lại theo số thứ tự, ghép thành tin nhắn ban đầu.",
+          "cue": "reorder"
+        },
+        {
+          "id": "s15",
+          "startFrame": 1733,
+          "durationFrames": 97,
+          "text": "Nếu thiếu mất packet nào, máy chủ sẽ yêu cầu gửi lại phần đó.",
+          "cue": "resend"
+        },
+        {
+          "id": "s16",
+          "startFrame": 1838,
+          "durationFrames": 111,
+          "text": "Sau đó, máy chủ tìm xem người nhận là ai và chuyển tin nhắn đi tiếp.",
+          "cue": "forward"
+        }
+      ]
+    },
+    {
+      "id": "receiver",
+      "startFrame": 1963,
+      "durationFrames": 344,
+      "beats": [
+        {
+          "id": "s17",
+          "startFrame": 1963,
+          "durationFrames": 119,
+          "text": "Tin nhắn lại được chia thành các packet, đi qua mạng tới điện thoại của người nhận.",
+          "cue": "deliver"
+        },
+        {
+          "id": "s18",
+          "startFrame": 2089,
+          "durationFrames": 98,
+          "text": "Điện thoại rung lên, và dòng chữ của bạn hiện ra trên màn hình.",
+          "cue": "notify"
+        },
+        {
+          "id": "s19",
+          "startFrame": 2194,
+          "durationFrames": 98,
+          "text": "Cả chặng đường ấy, từ đầu đến cuối, thường chỉ mất khoảng một giây.",
+          "cue": "end"
+        }
+      ]
+    }
+  ]
+}

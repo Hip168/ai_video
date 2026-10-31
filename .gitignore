@@ -2,3 +2,21 @@
 .team/status.md
 .team/tests/*-anh/
 .DS_Store
+.claude/settings.local.json
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Sản phẩm sinh ra (không commit media)
+out/
+*.wav
+*.mp3
+*.mp4
+*.srt
+video/public/timeline.json
+video/public/audio/

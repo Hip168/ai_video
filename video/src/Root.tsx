@@ -1,6 +1,8 @@
 import React from "react";
 import { Composition, staticFile, type CalculateMetadataFunction } from "remotion";
 import { Video, type VideoProps } from "./Video";
+import { KitDemo } from "./KitDemo";
+import { loadFonts } from "./font";
 import { validateTimeline } from "./timeline";
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props }) => {
@@ -20,7 +22,10 @@ const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props 
   };
 };
 
+loadFonts();
+
 export const Root: React.FC = () => (
+  <>
   <Composition
     id="Video"
     component={Video}
@@ -31,4 +36,6 @@ export const Root: React.FC = () => (
     defaultProps={{ timeline: null } as VideoProps}
     calculateMetadata={calculateMetadata}
   />
+  <Composition id="KitDemo" component={KitDemo} durationInFrames={90} fps={30} width={1920} height={1080} />
+  </>
 );

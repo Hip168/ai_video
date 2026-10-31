@@ -36,3 +36,6 @@ Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chư
 - `build` validate trước khi ghi `timeline.json`; timeline hỏng thì không ghi file.
 - Luật 10 là mô tả, không có kiểm tra riêng trong `validate_timeline`. `startFrame` của cảnh bằng beat đầu (trừ cảnh đầu) được kiểm ở test build.
 - Luật 2 và 7 đổi trước khi hợp đồng được phát hành nên `version` giữ 1.
+
+## D11. Cơ cấu Lead (người dùng chốt, 2026-10-31)
+Có thêm `dev-lead`, `deploy-lead`, `ops-lead`, và chỉ một TEST-LEAD (CONVENTIONS §0c). Áp dụng từ các việc mới; đề mục 1 và 2 đang chạy dở vẫn đi nốt, `dev-lead` kiểm trước khi sang DEPLOY.

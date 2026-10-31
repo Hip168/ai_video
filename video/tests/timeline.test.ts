@@ -147,10 +147,52 @@ const BROKEN: Array<[string, Mutate, RegExp]> = [
   [
     'text không ở dạng NFC',
     (t) => {
-      // "ế" tách thành e + dấu mũ + dấu sắc
+      // dạng NFD: dấu tách rời khỏi chữ cái
       t.scenes[0].beats[0].text = 'Tin nhắn đi tế';
     },
     /scenes\[0\]\.beats\[0\]\.text/,
+  ],
+  [
+    'text chỉ có khoảng trắng',
+    (t) => {
+      t.scenes[0].beats[0].text = '   \t ';
+    },
+    /scenes\[0\]\.beats\[0\]\.text/,
+  ],
+  [
+    'beat có durationFrames = 0',
+    (t) => {
+      t.scenes[0].beats[2].durationFrames = 0;
+    },
+    /scenes\[0\]\.beats\[2\]\.durationFrames/,
+  ],
+  [
+    'cảnh có durationFrames = 0',
+    (t) => {
+      t.scenes[1].durationFrames = 0;
+    },
+    /scenes\[1\]\.durationFrames/,
+  ],
+  [
+    'cảnh có durationFrames không nguyên',
+    (t) => {
+      t.scenes[1].durationFrames = 371.5;
+    },
+    /scenes\[1\]\.durationFrames/,
+  ],
+  [
+    'beat bắt đầu trước đầu cảnh',
+    (t) => {
+      t.scenes[1].beats[0].startFrame = 348; // cảnh dns bắt đầu ở 349
+    },
+    /scenes\[1\]\.beats\[0\]/,
+  ],
+  [
+    'cue không phải chuỗi',
+    (t) => {
+      t.scenes[0].beats[0].cue = 5;
+    },
+    /scenes\[0\]\.beats\[0\]\.cue/,
   ],
   [
     'số frame âm',
@@ -222,6 +264,42 @@ describe('[2-1] validateTimeline: timeline hỏng bị từ chối bằng lỗi 
   });
 });
 
+describe('[2-1] validateTimeline: biên hợp lệ phải được nhận', () => {
+  test('text đúng 100 ký tự (ASCII và có dấu NFC) được nhận', () => {
+    for (const ch of ['a', 'ế']) {
+      const s = loadSample();
+      s.scenes[0].beats[0].text = ch.repeat(100);
+      expect(() => validateTimeline(s)).not.toThrow();
+    }
+  });
+
+  test('beat kết thúc đúng cuối cảnh và hai beat liền nhau được nhận', () => {
+    const s = loadSample();
+    // s02: 161..280 liền s03 (280); s03 kéo tới 349 = cuối cảnh phone
+    s.scenes[0].beats[1].durationFrames = 119;
+    s.scenes[0].beats[2].durationFrames = 69;
+    expect(() => validateTimeline(s)).not.toThrow();
+  });
+
+  test('timeline ngắn (< 1800 frame, 2 cảnh) vẫn được nhận', () => {
+    const s = loadSample();
+    s.scenes = s.scenes.slice(0, 2);
+    s.durationInFrames = 720;
+    const t = validateTimeline(s);
+    expect(t.scenes).toHaveLength(2);
+    expect(t.durationInFrames).toBe(720);
+  });
+
+  test('chỉ một cảnh, một beat dài đúng bằng cảnh được nhận', () => {
+    const s = loadSample();
+    s.scenes = [s.scenes[0]];
+    s.scenes[0].beats = [s.scenes[0].beats[0]];
+    s.scenes[0].beats[0].durationFrames = 349;
+    s.durationInFrames = 349;
+    expect(() => validateTimeline(s)).not.toThrow();
+  });
+});
+
 describe('[2-2] activeBeat', () => {
   const t: any = validateTimeline(loadSample());
   const id = (frame: number) => activeBeat(t, frame)?.id ?? null;
@@ -280,5 +358,18 @@ describe('[2-2] activeBeat', () => {
         expect(id(b.startFrame + b.durationFrames)).not.toBe(b.id);
       }
     }
+  });
+
+  test('frame âm: null', () => {
+    expect(activeBeat(t, -1)).toBeNull();
+    expect(activeBeat(t, -100)).toBeNull();
+  });
+
+  test('hai beat liền nhau: ranh giới chuyển đúng beat, không có null', () => {
+    const s = loadSample();
+    s.scenes[0].beats[1].durationFrames = 119; // 161..280, liền s03
+    const adj: any = validateTimeline(s);
+    expect(activeBeat(adj, 279)?.id).toBe('s02');
+    expect(activeBeat(adj, 280)?.id).toBe('s03');
   });
 });

@@ -1,5 +1,5 @@
 import {spawnSync} from 'node:child_process';
-import {existsSync, readFileSync, rmSync} from 'node:fs';
+import {existsSync, readFileSync, statSync} from 'node:fs';
 import path from 'node:path';
 import {beforeAll, describe, expect, test} from 'vitest';
 import {RENDER_TEST, ensureDefaultPublic} from './helpers/render';
@@ -11,6 +11,7 @@ const OUT = path.resolve(VIDEO_DIR, '..', 'out', 'video.mp4');
 function probe(args: string[]): any {
   const r = spawnSync('ffprobe', ['-v', 'error', '-of', 'json', ...args, OUT], {
     encoding: 'utf8',
+    timeout: 60_000,
   });
   expect(r.status, r.stderr).toBe(0);
   return JSON.parse(r.stdout);
@@ -18,22 +19,27 @@ function probe(args: string[]): any {
 
 d('[2-5] npm run render ra MP4 đúng thông số', () => {
   let timeline: any;
+  let startedAt = 0;
   beforeAll(() => {
     // Dùng file thật nếu đã có; nếu chưa thì dựng từ mẫu + âm thanh im lặng.
     ensureDefaultPublic();
     const tl = path.join(VIDEO_DIR, 'public', 'timeline.json');
     timeline = JSON.parse(readFileSync(tl, 'utf8'));
-    rmSync(OUT, {force: true});
+    startedAt = Date.now();
     const r = spawnSync('npm', ['run', 'render'], {
       cwd: VIDEO_DIR,
       encoding: 'utf8',
       maxBuffer: 1 << 28,
+      timeout: 1_100_000,
+      env: process.env,
     });
     expect(r.status, `${r.stdout}\n${r.stderr}`).toBe(0);
   }, 1_200_000);
 
   test('npm run render tạo ../out/video.mp4', () => {
     expect(existsSync(OUT)).toBe(true);
+    // phải là file mới do lần render này ghi (không dùng bản cũ)
+    expect(statSync(OUT).mtimeMs).toBeGreaterThanOrEqual(startedAt - 1000);
   });
 
   test('video: h264, yuv420p, 1920x1080, 30 fps', () => {

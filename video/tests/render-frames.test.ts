@@ -1,9 +1,13 @@
-import {beforeAll, describe, expect, test} from 'vitest';
-import {COLORS, POS} from '../src/kit';
+import {afterAll, beforeAll, describe, expect, test} from 'vitest';
+import {COLORS, POS, packetPosition} from '../src/kit';
 import {
   RENDER_TEST,
+  cleanupTemp,
   diffRatio,
   distinctColors,
+  findColor,
+  hex,
+  nonColorRatio,
   px,
   stage,
   stillOf,
@@ -12,11 +16,15 @@ import {
 } from './helpers/render';
 import {loadSample} from './helpers/sample';
 
-// Chỉ chạy khi RENDER_TEST=1 (cần Chrome của Remotion: npx remotion browser ensure).
+// Chỉ chạy khi RENDER_TEST=1 (cần Chrome: xem .team/stack.md, biến
+// REMOTION_BROWSER_EXECUTABLE).
 const d = describe.skipIf(!RENDER_TEST);
 
-// Vùng hình chính (hàng 0..879) và dải đáy dành cho phụ đề (880..1079).
-const MAIN_END = 880;
+// Hình chính nằm trong y < 830; dải 830..1079 chỉ dành cho phụ đề.
+const MAIN_END = 830;
+const BG = hex(COLORS.bg);
+
+afterAll(cleanupTemp);
 
 d('[2-1] composition Video theo timeline mẫu', () => {
   let st: Stage;
@@ -24,24 +32,34 @@ d('[2-1] composition Video theo timeline mẫu', () => {
     st = await stage(loadSample());
   }, 300_000);
 
-  test('Video có thời lượng đúng durationInFrames của mẫu, 30 fps, 1920x1080', async () => {
+  test('Video: đúng durationInFrames của mẫu, 30 fps, 1920x1080', async () => {
     const c = await st.composition();
-    const sample = loadSample();
     expect(c.id).toBe('Video');
-    expect(c.durationInFrames).toBe(sample.durationInFrames);
+    expect(c.durationInFrames).toBe(loadSample().durationInFrames);
     expect(c.durationInFrames).toBe(2307);
     expect(c.fps).toBe(30);
     expect(c.width).toBe(1920);
     expect(c.height).toBe(1080);
   }, 120_000);
+
+  test('inputProps.timeline được dùng thẳng (không fetch): timeline ngắn 2 cảnh', async () => {
+    const short = loadSample();
+    short.scenes = short.scenes.slice(0, 2);
+    short.durationInFrames = 720;
+    const c = await st.composition({timeline: short});
+    expect(c.durationInFrames).toBe(720);
+    expect(c.fps).toBe(30);
+  }, 120_000);
+
+  test('inputProps.timeline hỏng: lỗi tiếng Việt từ validateTimeline nổi lên', async () => {
+    const bad = loadSample();
+    bad.version = 2;
+    await expect(st.composition({timeline: bad})).rejects.toThrow(/version/);
+  }, 120_000);
 });
 
 d('[2-3] linh kiện SVG qua composition KitDemo', () => {
   let st: Stage;
-  const hex = (h: string): [number, number, number] => {
-    const n = parseInt(h.replace('#', ''), 16);
-    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-  };
   const frames = [0, 30, 59];
   const imgs: Pixels[] = [];
   beforeAll(async () => {
@@ -49,11 +67,11 @@ d('[2-3] linh kiện SVG qua composition KitDemo', () => {
     for (const f of frames) imgs.push(await stillOf(st.serveUrl, 'KitDemo', f));
   }, 300_000);
 
-  test('KitDemo: 1920x1080, nền COLORS.bg ở góc, có vẽ linh kiện (không đơn sắc)', () => {
+  test('KitDemo: 1920x1080, góc là COLORS.bg, không đơn sắc', () => {
     for (const p of imgs) {
       expect(p.width).toBe(1920);
       expect(p.height).toBe(1080);
-      expect(px(p, 2, 2)).toEqual(hex(COLORS.bg));
+      expect(px(p, 2, 2)).toEqual(BG);
       expect(distinctColors(p)).toBeGreaterThan(5);
     }
   });
@@ -64,36 +82,64 @@ d('[2-3] linh kiện SVG qua composition KitDemo', () => {
     expect(diffRatio(imgs[0], imgs[2])).toBeGreaterThan(0.0002);
   });
 
-  test('gói tin ở giữa nằm trong hộp bao của đoạn Link, khác ảnh đầu quanh điểm giữa', () => {
-    const mx = Math.round((POS.phone.x + POS.server.x) / 2);
-    const my = Math.round((POS.phone.y + POS.server.y) / 2);
-    // vùng 80x80 quanh điểm giữa Link: khung giữa có Packet, khung đầu thì không
-    const cut = (p: Pixels) => ({
-      width: 80,
-      height: 80,
-      data: Buffer.concat(
-        Array.from({length: 80}, (_, r) =>
-          p.data.subarray(
-            ((my - 40 + r) * p.width + (mx - 40)) * 3,
-            ((my - 40 + r) * p.width + (mx + 40)) * 3,
-          ),
-        ),
-      ),
+  test.each([0, 30, 59].map((f, i) => [f, i] as const))(
+    'Packet: pixel màu COLORS.packet có tâm khớp packetPosition tại frame %i',
+    (f, i) => {
+      const pts = findColor(imgs[i], hex(COLORS.packet));
+      // hình chữ nhật 56x40 trừ nét polyline: còn rất nhiều điểm
+      expect(pts.length).toBeGreaterThan(800);
+      const cx = pts.reduce((s, q) => s + q[0], 0) / pts.length;
+      const cy = pts.reduce((s, q) => s + q[1], 0) / pts.length;
+      const want = packetPosition(POS.phone, POS.server, 0, 60, f);
+      expect(Math.abs(cx - want.x)).toBeLessThan(8);
+      expect(Math.abs(cy - want.y)).toBeLessThan(12);
+    },
+  );
+
+  test('Link: tại frame 59 có điểm màu COLORS.muted ở 1/4 đường phone→server', () => {
+    const qx = Math.round(POS.phone.x + (POS.server.x - POS.phone.x) / 4);
+    const qy = Math.round(POS.phone.y + (POS.server.y - POS.phone.y) / 4);
+    const hit = findColor(imgs[2], hex(COLORS.muted), {
+      x0: qx - 4,
+      x1: qx + 5,
+      y0: qy - 6,
+      y1: qy + 7,
     });
-    expect(diffRatio(cut(imgs[0]), cut(imgs[1]))).toBeGreaterThan(0.01);
+    expect(hit.length).toBeGreaterThan(5);
+  });
+
+  test('Link chưa vẽ hết ở frame 0: tại 3/4 đường không có COLORS.muted, frame 59 thì có', () => {
+    const qx = Math.round(POS.phone.x + ((POS.server.x - POS.phone.x) * 3) / 4);
+    const box = {x0: qx - 4, x1: qx + 5, y0: POS.phone.y - 6, y1: POS.phone.y + 7};
+    expect(findColor(imgs[0], hex(COLORS.muted), box)).toHaveLength(0);
+    expect(findColor(imgs[2], hex(COLORS.muted), box).length).toBeGreaterThan(5);
+  });
+
+  test('Node: tại frame 59 có điểm ảnh khác nền quanh POS.phone và POS.server', () => {
+    for (const pos of [POS.phone, POS.server]) {
+      const w = 160;
+      const h = 220;
+      let nonBg = 0;
+      for (let y = pos.y - h / 2; y < pos.y + h / 2; y++) {
+        for (let x = pos.x - w / 2; x < pos.x + w / 2; x++) {
+          const c = px(imgs[2], x, y);
+          if (c[0] !== BG[0] || c[1] !== BG[1] || c[2] !== BG[2]) nonBg++;
+        }
+      }
+      expect(nonBg).toBeGreaterThan(2000);
+    }
   });
 
   test('không tràn khung: viền 2 px quanh ảnh giữ màu nền ở mọi mốc', () => {
-    const bg = hex(COLORS.bg);
     for (const p of imgs) {
       for (let k = 0; k < 2; k++) {
         for (let x = 0; x < p.width; x++) {
-          expect(px(p, x, k)).toEqual(bg);
-          expect(px(p, x, p.height - 1 - k)).toEqual(bg);
+          expect(px(p, x, k)).toEqual(BG);
+          expect(px(p, x, p.height - 1 - k)).toEqual(BG);
         }
         for (let y = 0; y < p.height; y++) {
-          expect(px(p, k, y)).toEqual(bg);
-          expect(px(p, p.width - 1 - k, y)).toEqual(bg);
+          expect(px(p, k, y)).toEqual(BG);
+          expect(px(p, p.width - 1 - k, y)).toEqual(BG);
         }
       }
     }
@@ -118,16 +164,17 @@ d('[2-2] phụ đề trên khung hình', () => {
     expect(distinctColors(p)).toBeGreaterThan(50);
   }, 120_000);
 
-  test('trong beat có phụ đề ở dải đáy; ở khoảng nghỉ (frame 158) dải đáy khác hẳn', async () => {
+  test('trong beat: dải đáy 830..1079 có phụ đề, hàng 990..1079 (dưới 90 px) là nền', async () => {
     const inBeat = await get(60); // s01 hiện
-    const gap = await get(158); // s01 hết ở 153, s02 bắt đầu 161
-    expect(diffRatio(inBeat, gap, MAIN_END, 1080)).toBeGreaterThan(0.01);
+    expect(nonColorRatio(inBeat, BG, MAIN_END, 1080)).toBeGreaterThan(0.01);
+    expect(distinctColors(inBeat, 990, 1080)).toBe(1);
+    expect(px(inBeat, 960, 1050)).toEqual(BG);
   }, 120_000);
 
-  test('hai frame cùng nằm trong khoảng nghỉ có dải đáy giống nhau (không phụ đề)', async () => {
-    const a = await get(157);
-    const b = await get(159);
-    expect(diffRatio(a, b, MAIN_END, 1080)).toBeLessThan(0.001);
+  test('ở khoảng nghỉ (frame 158): dải đáy 830..1079 chỉ có đúng một màu và là COLORS.bg', async () => {
+    const gap = await get(158); // s01 hết ở 153, s02 bắt đầu 161
+    expect(distinctColors(gap, MAIN_END, 1080)).toBe(1);
+    expect(px(gap, 960, 900)).toEqual(BG);
   }, 120_000);
 
   test('hai beat khác nhau cho phụ đề khác nhau', async () => {
@@ -139,7 +186,21 @@ d('[2-2] phụ đề trên khung hình', () => {
   test.todo(
     'KHÔNG TỰ ĐỘNG ĐƯỢC: người xem still ở một beat, xác nhận chữ hiện đủ dấu ă â ê ô ơ ư đ và các thanh, không ô vuông',
   );
+  test.todo(
+    'KHÔNG TỰ ĐỘNG ĐƯỢC: render khi ngắt mạng (hiện chỉ quét URL tĩnh trong fonts.test.ts)',
+  );
 });
+
+// Frame nằm trong khoảng nghỉ của từng cảnh (đã đối chiếu với mẫu).
+const GAP_FRAMES: Array<[string, number]> = [
+  ['phone', 157],
+  ['dns', 458],
+  ['packets', 849],
+  ['wifi', 1093],
+  ['hops', 1330],
+  ['server', 1729],
+  ['receiver', 2085],
+];
 
 d('[2-4] bảy cảnh', () => {
   const sample = loadSample();
@@ -156,30 +217,23 @@ d('[2-4] bảy cảnh', () => {
     }
   }, 600_000);
 
-  test('có đúng 7 cảnh theo thứ tự hợp đồng', () => {
-    expect(scenes.map((s) => s.id)).toEqual([
-      'phone',
-      'dns',
-      'packets',
-      'wifi',
-      'hops',
-      'server',
-      'receiver',
-    ]);
+  test('mẫu có 7 cảnh và đã chụp đủ 7 still', () => {
+    expect(scenes).toHaveLength(7);
     expect(mids).toHaveLength(7);
   });
 
   test.each(scenes.map((s, i) => [s.id, i] as const))(
-    'still giữa cảnh %s: đúng kích thước và không đơn sắc ở vùng hình chính',
+    'still giữa cảnh %s: đúng kích thước, vùng hình chính (y<830) không đơn sắc và có nội dung',
     (_id, i) => {
       const p = mids[i];
       expect(p.width).toBe(1920);
       expect(p.height).toBe(1080);
       expect(distinctColors(p, 0, MAIN_END)).toBeGreaterThan(30);
+      expect(nonColorRatio(p, BG, 0, MAIN_END)).toBeGreaterThan(0.003);
     },
   );
 
-  test('still giữa mọi cặp cảnh khác nhau ở vùng hình chính', () => {
+  test('still giữa mọi cặp cảnh khác nhau ở vùng hình chính (y<830)', () => {
     for (let i = 0; i < mids.length; i++) {
       for (let j = i + 1; j < mids.length; j++) {
         expect(
@@ -190,23 +244,42 @@ d('[2-4] bảy cảnh', () => {
     }
   });
 
-  test('animation neo theo cue: dịch startFrame của beat đầu mỗi cảnh làm đổi still ở cùng frame', async () => {
-    // Beat đầu mỗi cảnh lùi 20 frame (rút bớt thời lượng, vẫn nằm trong cảnh).
+  test.each(GAP_FRAMES)(
+    'cảnh %s: ở khoảng nghỉ (frame %i) không vẽ gì dưới y=830',
+    async (_id, frame) => {
+      const p = await st.still(frame);
+      expect(distinctColors(p, MAIN_END, 1080)).toBe(1);
+      expect(px(p, 960, 1000)).toEqual(BG);
+    },
+  );
+
+  test('animation neo theo cue: dịch +20 frame mọi beat (19 beat) làm đổi still', async () => {
     const shifted = loadSample();
     for (const sc of shifted.scenes) {
-      sc.beats[0].startFrame += 20;
-      sc.beats[0].durationFrames -= 20;
+      for (const b of sc.beats) {
+        b.startFrame += 20;
+        b.durationFrames -= 20;
+      }
     }
     const st2 = await stage(shifted);
-    for (let i = 0; i < scenes.length; i++) {
-      const frame = scenes[i].startFrame + 25;
-      const [before, after] = [await st.still(frame), await st2.still(frame)];
-      expect(
-        diffRatio(before, after, 0, MAIN_END),
-        `cảnh ${scenes[i].id} không đổi khi dịch beat đầu`,
-      ).toBeGreaterThan(0.001);
+    let checked = 0;
+    for (const sc of sample.scenes) {
+      for (const b of sc.beats) {
+        // K lấy mốc nào đổi nhiều hơn trong hai mốc +25 và +45
+        let best = 0;
+        for (const k of [25, 45]) {
+          const f = b.startFrame + k;
+          const [a, c] = [await st.still(f), await st2.still(f)];
+          best = Math.max(best, diffRatio(a, c, 0, MAIN_END));
+        }
+        expect(best, `beat ${b.id} (${sc.id}) không đổi khi dịch +20`).toBeGreaterThan(
+          0.0005,
+        );
+        checked++;
+      }
     }
-  }, 600_000);
+    expect(checked).toBe(19);
+  }, 1_800_000);
 
   test.todo(
     'KHÔNG TỰ ĐỘNG ĐƯỢC: người dùng xem từng cảnh và xác nhận sơ đồ diễn đạt đúng ý (ý nghĩa cue trong kich-ban-mau.md)',

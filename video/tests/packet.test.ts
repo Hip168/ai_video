@@ -78,12 +78,12 @@ describe('[2-3] packetPosition: biên theo giao diện công khai', () => {
   });
 });
 
-describe('[2-3] POS nằm trong khung và phía trên dải phụ đề', () => {
+describe('[2-3] POS nằm trong khung và trong vùng hình chính y<830', () => {
   test.each(Object.entries(POS))('%s', (_name, p) => {
     expect(p.x).toBeGreaterThanOrEqual(0);
     expect(p.x).toBeLessThanOrEqual(1920);
     expect(p.y).toBeGreaterThanOrEqual(0);
-    expect(p.y).toBeLessThan(880);
+    expect(p.y).toBeLessThan(830);
   });
   test('đủ 8 điểm và không có hai điểm trùng nhau', () => {
     const keys = Object.keys(POS).sort();

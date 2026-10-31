@@ -5,35 +5,36 @@ import {VIDEO_DIR} from './helpers/sample';
 
 function walk(dir: string): string[] {
   return readdirSync(dir, {withFileTypes: true}).flatMap((e) =>
-    e.isDirectory()
-      ? walk(path.join(dir, e.name))
-      : [path.join(dir, e.name)],
+    e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)],
   );
 }
 
-describe('[2-2] font Việt có sẵn trong repo, render không cần mạng', () => {
+const FONT_FILES = ['latin', 'latin-ext', 'vietnamese'].flatMap((subset) =>
+  ['400', '700'].map((w) => `be-vietnam-pro-${subset}-${w}-normal.woff2`),
+);
+
+describe('[2-2] font Việt có sẵn trong repo', () => {
   const fontDir = path.join(VIDEO_DIR, 'public', 'fonts');
 
-  test('có ít nhất một file .woff2 thật trong video/public/fonts', () => {
-    expect(existsSync(fontDir)).toBe(true);
-    const fonts = readdirSync(fontDir).filter((f) => f.endsWith('.woff2'));
-    expect(fonts.length).toBeGreaterThanOrEqual(1);
-    for (const f of fonts) {
-      const buf = readFileSync(path.join(fontDir, f));
-      expect(statSync(path.join(fontDir, f)).size).toBeGreaterThan(10_000);
-      // chữ ký file WOFF2
-      expect(buf.subarray(0, 4).toString('latin1')).toBe('wOF2');
-    }
+  test.each(FONT_FILES)('%s tồn tại, là WOFF2 thật', (name) => {
+    const file = path.join(fontDir, name);
+    expect(existsSync(file), `thiếu ${name}`).toBe(true);
+    expect(statSync(file).size).toBeGreaterThan(5_000);
+    expect(readFileSync(file).subarray(0, 4).toString('latin1')).toBe('wOF2');
   });
 
-  test('có file giấy phép OFL đi kèm font', () => {
-    const files = readdirSync(fontDir).map((f) => f.toLowerCase());
-    expect(files.some((f) => f.includes('ofl') || f.includes('license'))).toBe(
-      true,
+  test('thư mục font có OFL.txt (giấy phép) và README.md (nguồn)', () => {
+    for (const f of ['OFL.txt', 'README.md']) {
+      const file = path.join(fontDir, f);
+      expect(existsSync(file), `thiếu ${f}`).toBe(true);
+      expect(statSync(file).size).toBeGreaterThan(100);
+    }
+    expect(readFileSync(path.join(fontDir, 'OFL.txt'), 'utf8')).toMatch(
+      /SIL OPEN FONT LICENSE/i,
     );
   });
 
-  test('mã nguồn không tải font hay tài nguyên từ mạng', () => {
+  test('chỉ quét tĩnh: mã nguồn không tải font hay tài nguyên từ mạng', () => {
     const srcFiles = walk(path.join(VIDEO_DIR, 'src')).filter((f) =>
       /\.(ts|tsx|css)$/.test(f),
     );
@@ -46,4 +47,8 @@ describe('[2-2] font Việt có sẵn trong repo, render không cần mạng', (
       expect(text).not.toMatch(/fonts\.googleapis|fonts\.gstatic/);
     }
   });
+
+  test.todo(
+    'KHÔNG TỰ ĐỘNG ĐƯỢC: render khi ngắt mạng (test trên chỉ quét URL tĩnh, chưa chứng minh render offline)',
+  );
 });

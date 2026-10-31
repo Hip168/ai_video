@@ -34,6 +34,11 @@ if [ "$1" = "-c" ]; then
 fi
 pwd > "$FAKE_CALLS/python.cwd"
 echo "$PYTHONPATH" > "$FAKE_CALLS/python.pythonpath"
+if [ -n "$FAKE_AUDIO_SRT_THEN_FAIL" ]; then
+  echo "1" > ../out/video.srt
+  echo "giả lập: ghi srt rồi lỗi" >&2
+  exit 3
+fi
 if [ -n "$FAKE_AUDIO_FAIL" ]; then
   echo "giả lập: build lỗi" >&2
   exit 3
@@ -267,6 +272,16 @@ def test_buoc_giong_loi_thoat_khac_0_neu_ten_buoc_va_khong_render(proj):
     assert "Bước 2/3" in r.stderr
     assert proj.lines("npm.args") == []
     assert not (proj.root / "out" / "video.mp4").exists()
+
+
+def test_audio_build_ghi_srt_roi_thoat_3_thi_script_van_loi(proj):
+    r = proj.run(FAKE_AUDIO_SRT_THEN_FAIL="1")
+    assert (proj.root / "out" / "video.srt").exists()
+    assert r.returncode != 0
+    assert "Bước 2/3" in r.stderr
+    assert proj.lines("npm.args") == []
+    assert "XONG" not in r.stdout
+    assert "XONG" not in r.stderr
 
 
 def test_giong_thoat_0_nhung_khong_co_srt_la_loi(proj):

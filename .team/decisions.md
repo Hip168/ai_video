@@ -27,7 +27,7 @@ Các đề mục không tự viết `.github/workflows/`. CI cần chạy `pytes
 `phone → dns → packets → wifi → hops → server → receiver`. DNS đứng trước `packets` vì điện thoại cần biết địa chỉ trước khi gửi. Đây là sửa đổi của BA so với thứ tự trong prompt gửi kiến trúc sư; người dùng duyệt qua kịch bản ở Pha 4d.
 
 ## D9. Giao diện xem agent (ngoài dự án)
-Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chưa commit) và build. Hook chỉ bật cho dự án này qua `.claude/settings.local.json` (không commit). Không chạy `npx vibecraft setup`, không cài tmux. Không thuộc phạm vi đề mục nào.
+Đã dùng Vibecraft để xem đội, rồi gỡ hẳn theo yêu cầu người dùng (2026-10-31). Không còn thuộc dự án.
 
 ## D10. Vùng an toàn và khe hở hợp đồng (BA chốt, 2026-10-31, từ duyệt của TEST-LEAD)
 - Hình chính vẽ trong `y < 830`, tức chừa 250 px đáy, vì phụ đề 2 dòng cao tới y=836. Thay cho mốc 200 px cũ.

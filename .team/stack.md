@@ -13,6 +13,7 @@ cd audio
 uv venv --python /opt/homebrew/bin/python3.12
 uv pip install -e ".[dev]"            # CI và test thường
 uv pip install -e ".[dev,korva,vieneu]"   # trên Mac, chạy giọng thật
+export PYTHONPATH=$PWD/src            # trên Mac: cờ hidden của file .pth trong .venv tự bật lại, chưa rõ nguyên nhân
 .venv/bin/pytest -m "not real"        # không cần mô hình TTS
 .venv/bin/pytest -m real              # chỉ trên Mac
 ```

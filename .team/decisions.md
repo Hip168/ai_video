@@ -41,4 +41,4 @@ Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chư
 Có thêm `dev-lead`, `deploy-lead`, `ops-lead`, và chỉ một TEST-LEAD (CONVENTIONS §0c). Áp dụng từ các việc mới; đề mục 1 và 2 đang chạy dở vẫn đi nốt, `dev-lead` kiểm trước khi sang DEPLOY.
 
 ## D12. Giọng đọc (người dùng chốt sau khi nghe, 2026-10-31)
-KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` và `packet` cần sửa cách đọc bằng chính giọng này; `DNS`, `Wi-Fi`, `IP` giữ nguyên. Không ghép giọng tiếng Anh. Người dùng nghe 7 mẫu mỗi từ và chọn: `router` đọc "râu tơ" (mẫu 3), `packet` giữ nguyên. `lexicon.json` chỉ còn `router`.
+KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` và `packet` cần sửa cách đọc bằng chính giọng này; `DNS`, `Wi-Fi`, `IP` giữ nguyên. Không ghép giọng tiếng Anh. Người dùng nghe 7 mẫu mỗi từ và chọn: `router` đọc "râu tơ" (mẫu 3), `packet` giữ nguyên. `lexicon.json` chỉ còn `router`. Tốc độ `--speed 1.25` (2631 frame, 87,7 giây): người dùng xem bản có giọng và nhắn "ok" ngày 2026-10-31. `lexicon.json` là dữ liệu sửa được: test chỉ kiểm dạng, không ghim từ nào.

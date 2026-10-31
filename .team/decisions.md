@@ -28,3 +28,8 @@ Các đề mục không tự viết `.github/workflows/`. CI cần chạy `pytes
 
 ## D9. Giao diện xem agent (ngoài dự án)
 Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chưa commit, chưa build). Người dùng chọn chỉ bật hook cho dự án này qua `.claude/settings.local.json` (không commit), tạo sau khi kiểm thử bản build đạt. Không chạy `npx vibecraft setup`, không cài tmux. Không thuộc phạm vi đề mục nào.
+
+## D12. Giọng đọc (người dùng chốt sau khi nghe, 2026-10-31)
+KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` và `packet` cần sửa cách đọc bằng chính giọng này; `DNS`, `Wi-Fi`, `IP` giữ nguyên. Không ghép giọng tiếng Anh. Người dùng nghe 7 mẫu mỗi từ và chọn: `router` đọc "râu tơ" (mẫu 3), `packet` giữ nguyên. `lexicon.json` chỉ còn `router`.
+
+(Dựng bản giọng thật: speed 1.25 vì speed 1.0 ra 105.7 s, vượt 90 s.)

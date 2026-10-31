@@ -94,3 +94,5 @@ Mỗi cảnh: nền `COLORS.bg`, SVG viewBox 1920×1080, không vẽ gì ở y �
 - Cảnh `receiver`: máy chủ vẽ ở `POS.phone` (bên trái, cùng hàng), người nhận ở `POS.receiver`.
 - Cảnh `phone`: đích "Người bạn" ở `POS.receiver`. Các cảnh khác dùng `POS` trực tiếp.
 - Gửi lại (cue `resend`): gói yêu cầu "Gửi lại #3?" đi từ máy chủ về phía người gửi (8–38 frame sau mốc beat), gói #3 quay về lấp ô thiếu (38–70), sau frame 70 ô ma và nhãn "Thiếu #3" biến mất.
+
+- `SLOTS` trong `video/src/scenes/Hops.tsx` là tọa độ riêng của ba ô đích ở cảnh các chặng (s13), không thuộc `POS` dùng chung.

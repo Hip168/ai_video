@@ -21,7 +21,7 @@ def synth(engine: str, text: str, voice: str, speed: float = 1.0) -> tuple[np.nd
 - Trả `(wav, sample_rate)`: `wav` là `np.ndarray` dtype `float32`, `ndim == 1` (mono), giá trị trong [-1, 1].
 - `engine` ngoài `ENGINES` -> `ValueError`. `text` rỗng/chỉ khoảng trắng -> `ValueError`.
 - `fake`: sóng sin, `sample_rate = 24000`; độ dài thân = `len(text) * 0.06 / speed` giây (tỉ lệ số ký tự, xác định, không ngẫu nhiên), cộng 0,3 giây lặng (giá trị 0) mỗi đầu. Cùng đầu vào -> cùng đầu ra. `voice` bất kỳ chuỗi nào, đổi `voice` đổi tần số sin (để cache khác nhau).
-- `korva`, `vieneu`: import engine khi gọi (lazy). Thiếu gói -> `RuntimeError` có hướng dẫn cài extra.
+- `korva`, `vieneu`: import engine khi gọi (lazy). Thiếu gói -> `RuntimeError` có hướng dẫn cài extra. korva ném `ValueError` kèm danh sách giọng nếu giọng ngoài `VOICES`; lỗi nạp mô hình thành `RuntimeError`.
 - `VOICES: dict[str, list[str]]` — danh sách giọng thử khi `compare` (điền sau khi kiểm gói thật; `fake` có `["a", "b"]`).
 
 ## aivideo.audio — hàm
@@ -77,5 +77,5 @@ python -m aivideo.audio build --engine {korva|vieneu|fake} --voice ID [--speed 1
 
 ## Dữ liệu
 - `content/script.json`: `{title, voice, segments:[{id, scene, text, spoken?, pause_ms, cue?}]}`, 19 nhịp s01..s19 nguyên văn `kich-ban-mau.md`; `scene` thuộc tập 7 cảnh; `pause_ms` số nguyên >= 0.
-- `content/lexicon.json`: object chuỗi->chuỗi, có tối thiểu `DNS`, `IP`, `Wi-Fi`, `router`, `packet`.
+- `content/lexicon.json`: dữ liệu sửa được; object chuỗi -> chuỗi, giá trị không rỗng và khác khoá.
 - `content/compare.txt`: 2-3 câu chứa `router`, `packet`, `DNS`, `Wi-Fi`, `IP`.

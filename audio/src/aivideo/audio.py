@@ -59,8 +59,8 @@ def validate_timeline(doc) -> list[str]:
             errs.append(f"luật 3: cảnh {sid!r} xuất hiện nhiều hơn một lần")
         seen_scenes.add(sid)
         s0, sd = sc.get("startFrame"), sc.get("durationFrames")
-        if not (_is_frame(s0) and _is_frame(sd)):
-            errs.append(f"luật 2: scenes[{si}] startFrame/durationFrames phải là số nguyên >= 0")
+        if not (_is_frame(s0) and _is_frame(sd) and sd >= 1):
+            errs.append(f"luật 2: scenes[{si}] startFrame phải là số nguyên >= 0, durationFrames >= 1")
             continue
         if s0 != expected_start:
             errs.append(f"luật 4: cảnh {sid!r} bắt đầu {s0}, phải là {expected_start} (hở hoặc chồng)")
@@ -81,8 +81,8 @@ def validate_timeline(doc) -> list[str]:
                 errs.append(f"luật 6: beat id {bid!r} bị trùng")
             seen_beats.add(bid)
             b0, bd = b.get("startFrame"), b.get("durationFrames")
-            if not (_is_frame(b0) and _is_frame(bd)):
-                errs.append(f"luật 2: beat {bid!r} startFrame/durationFrames phải là số nguyên >= 0")
+            if not (_is_frame(b0) and _is_frame(bd) and bd >= 1):
+                errs.append(f"luật 2: beat {bid!r} startFrame phải là số nguyên >= 0, durationFrames >= 1")
             else:
                 if b0 < prev_end:
                     errs.append(f"luật 5: beat {bid!r} bắt đầu {b0} < {prev_end} (chồng hoặc không tăng dần)")

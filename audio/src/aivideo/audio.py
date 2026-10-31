@@ -1,9 +1,19 @@
 """Chuẩn hóa, ghép âm thanh, xuất timeline + SRT, kiểm timeline, CLI."""
 from __future__ import annotations
 
+import argparse
 import json
 import re
+import subprocess
+import sys
+import tempfile
 import unicodedata
+from pathlib import Path
+
+import numpy as np
+import soundfile as sf
+
+from aivideo import engines
 
 SCENE_IDS = ("phone", "dns", "packets", "wifi", "hops", "server", "receiver")
 FPS, WIDTH, HEIGHT = 30, 1920, 1080
@@ -181,3 +191,113 @@ def load_script(path) -> dict:
 def load_lexicon(path) -> dict[str, str]:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+# ---- FFmpeg: loudnorm ---------------------------------------------------------
+
+OUT_SR = 48000
+TARGET_I, TARGET_TP, TARGET_LRA = -16.0, -1.5, 11.0
+
+
+def _ffmpeg(args: list[str]) -> str:
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostdin", "-y", *args],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"ffmpeg lỗi: {r.stderr[-800:]}")
+    return r.stderr
+
+
+def _measure(src: str, pre: str) -> dict:
+    af = (pre + "," if pre else "") + f"loudnorm=I={TARGET_I}:TP={TARGET_TP}:LRA={TARGET_LRA}:print_format=json"
+    err = _ffmpeg(["-i", src, "-af", af, "-f", "null", "-"])
+    return json.loads(err[err.rindex("{"):err.rindex("}") + 1])
+
+
+def loudnorm(wav: np.ndarray, sr: int, pre: str = "") -> np.ndarray:
+    """Qua `pre` (chuỗi lọc FFmpeg, tuỳ chọn) rồi loudnorm 2 lượt (-16 LUFS, TP -1.5).
+    Trả float32 mono 48 kHz. `linear=true` nên không đổi độ dài."""
+    with tempfile.TemporaryDirectory() as d:
+        src, dst = str(Path(d) / "in.wav"), str(Path(d) / "out.wav")
+        sf.write(src, wav, sr, subtype="FLOAT")
+        pre_chain = (pre + "," if pre else "") + f"aresample={OUT_SR},aformat=channel_layouts=mono"
+        m = _measure(src, pre_chain)
+        af = (pre_chain + f",loudnorm=I={TARGET_I}:TP={TARGET_TP}:LRA={TARGET_LRA}"
+              f":measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+              f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}"
+              f":offset={m['target_offset']}:linear=true,aresample={OUT_SR}")
+        _ffmpeg(["-i", src, "-af", af, "-c:a", "pcm_f32le", dst])
+        out, out_sr = sf.read(dst, dtype="float32")
+    assert out_sr == OUT_SR
+    return out.reshape(-1)
+
+
+def measure_lufs(path) -> float:
+    """Loudness tích hợp (LUFS) của một file, đo bằng ebur128."""
+    err = _ffmpeg(["-i", str(path), "-af", "ebur128=framelog=quiet", "-f", "null", "-"])
+    return float(re.findall(r"I:\s+(-?[\d.]+)\s+LUFS", err)[-1])
+
+
+# ---- compare ------------------------------------------------------------------
+
+def _slug(name: str) -> str:
+    base = unicodedata.normalize("NFKD", name.replace("đ", "d").replace("Đ", "D"))
+    base = "".join(c for c in base if not unicodedata.combining(c))
+    return re.sub(r"[^A-Za-z0-9_-]", "-", base)
+
+
+def compare(text_file, out_dir, engines_list=None, voices=None, lexicon_path=None) -> list[Path]:
+    """Cùng một văn bản, mọi (engine, giọng), cùng loudness; ghi <engine>_<giọng>.wav."""
+    lexicon = load_lexicon(lexicon_path) if lexicon_path else {}
+    text = normalize_text(Path(text_file).read_text(encoding="utf-8").strip(), lexicon)
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    names = list(engines_list) if engines_list else [e for e in engines.ENGINES if e != "fake"]
+    paths: list[Path] = []
+    for eng in names:
+        for voice in (voices or {}).get(eng) or engines.VOICES[eng]:
+            wav, sr = engines.synth(eng, text, voice)
+            norm = loudnorm(wav, sr, pre=SILENCE_FILTER)
+            path = out_dir / f"{eng}_{_slug(voice)}.wav"
+            sf.write(path, norm, OUT_SR, subtype="PCM_16")
+            paths.append(path)
+            print(f"{path}  {measure_lufs(path):.2f} LUFS", flush=True)
+    return paths
+
+
+SILENCE_FILTER = (
+    "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse,"
+    "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,areverse"
+)
+
+
+# ---- CLI --------------------------------------------------------------------
+
+def _parse_voices(items: list[str] | None) -> dict[str, list[str]]:
+    out: dict[str, list[str]] = {}
+    for it in items or []:
+        for pair in it.split(","):
+            eng, _, voice = pair.partition("=")
+            out.setdefault(eng.strip(), []).append(voice.strip())
+    return out
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="aivideo.audio")
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    c = sub.add_parser("compare")
+    c.add_argument("--text-file", required=True)
+    c.add_argument("--out-dir", default="../out/compare")
+    c.add_argument("--engines")
+    c.add_argument("--voices", action="append")
+    c.add_argument("--lexicon", default="../content/lexicon.json")
+    a = ap.parse_args(argv)
+    if a.cmd == "compare":
+        eng = a.engines.split(",") if a.engines else None
+        paths = compare(a.text_file, a.out_dir, eng, _parse_voices(a.voices), a.lexicon)
+        print(f"{len(paths)} file trong {a.out_dir}")
+        return 0
+    return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())

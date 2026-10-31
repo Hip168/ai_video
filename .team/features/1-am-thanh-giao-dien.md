@@ -36,7 +36,9 @@ def srt_timestamp(seconds: float) -> str              # "HH:MM:SS,mmm", làm tr�
 def write_srt(beats: list[dict], path, fps: int = 30) -> None
 def build(engine: str, voice: str, speed: float = 1.0, *, script_path, lexicon_path,
           public_dir, out_dir) -> dict                # trả timeline dict đã ghi
-def compare(text_file, out_dir, engines=None, voices=None) -> list[Path]
+def compare(text_file, out_dir, engines_list=None, voices=None, lexicon_path=None) -> list[Path]   # voices: dict[engine, list[giọng]]
+def loudnorm(wav, sr, pre: str = "") -> np.ndarray   # float32 mono 48 kHz, -16 LUFS, 2 lượt
+def measure_lufs(path) -> float
 def main(argv: list[str] | None = None) -> int        # CLI
 ```
 - `validate_timeline`: mỗi vi phạm một chuỗi (không cần khớp nguyên văn thông báo; test chỉ kiểm `len > 0` và có chứa từ khoá luật nếu hợp đồng nêu, hoặc kiểm số lỗi >= 1). File mẫu `.team/contract/timeline.sample.json` -> `[]`. Doc không phải dict / thiếu khoá -> trả lỗi, không ném ngoại lệ.
@@ -69,7 +71,7 @@ python -m aivideo.audio build --engine {korva|vieneu|fake} --voice ID [--speed 1
         [--public-dir ../video/public] [--out-dir ../out]
 ```
 - `--engine`, `--voice` bắt buộc với `build`; thiếu -> thoát mã 2 (argparse). `main` trả 0 khi thành công, khác 0 khi lỗi.
-- `compare`: ghi `<out-dir>/<engine>_<giọng>.wav` cho mọi cặp (engine, giọng) (mặc định: các engine thật trong `ENGINES` với giọng trong `VOICES`; `--engines fake` được phép để test). Cùng văn bản (toàn bộ nội dung file, qua lexicon), cùng loudness (loudnorm -16 LUFS mỗi file); chênh loudness giữa các file <= 0,5 LU. Tên giọng trong tên file thay ký tự ngoài `[A-Za-z0-9_-]` bằng `-`. Trả danh sách đường dẫn.
+- `compare`: ghi `<out-dir>/<engine>_<giọng>.wav` cho mọi cặp (engine, giọng) (mặc định: các engine thật trong `ENGINES` với giọng trong `VOICES`; `--engines fake` được phép để test). Cùng văn bản (toàn bộ nội dung file, qua lexicon), cùng loudness (loudnorm -16 LUFS mỗi file); chênh loudness giữa các file <= 0,5 LU. Tên giọng trong tên file: bỏ dấu tiếng Việt (đ->d), rồi thay ký tự ngoài `[A-Za-z0-9_-]` bằng `-` (vd `Trúc Ly` -> `Truc-Ly`). CLI thêm `--lexicon` (mặc định `../content/lexicon.json`); hàm `compare` không áp lexicon khi `lexicon_path=None`. `--voices` lặp được: `--voices korva=khanh_vy --voices korva=bao_kim`. `VOICES['vieneu']` = 10 giọng featured của VieNeu. Trả danh sách đường dẫn.
 
 ## Dữ liệu
 - `content/script.json`: `{title, voice, segments:[{id, scene, text, spoken?, pause_ms, cue?}]}`, 19 nhịp s01..s19 nguyên văn `kich-ban-mau.md`; `scene` thuộc tập 7 cảnh; `pause_ms` số nguyên 250..450.

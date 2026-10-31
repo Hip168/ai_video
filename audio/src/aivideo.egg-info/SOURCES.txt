@@ -1,8 +1,0 @@
-pyproject.toml
-src/aivideo/__init__.py
-src/aivideo/audio.py
-src/aivideo.egg-info/PKG-INFO
-src/aivideo.egg-info/SOURCES.txt
-src/aivideo.egg-info/dependency_links.txt
-src/aivideo.egg-info/requires.txt
-src/aivideo.egg-info/top_level.txt

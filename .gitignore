@@ -20,3 +20,4 @@ out/
 *.srt
 video/public/timeline.json
 video/public/audio/
+*.egg-info/

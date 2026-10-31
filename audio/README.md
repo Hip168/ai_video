@@ -22,4 +22,12 @@ cd audio
 .venv/bin/python -m aivideo.audio compare --text-file ../content/compare.txt
 .venv/bin/python -m aivideo.audio build --engine fake --voice a
 ```
+Bản giọng thật (đã chạy, ra 2631 frame, 87,7 giây):
+```bash
+cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.audio build --engine korva --voice hoang_nam --speed 1.25
+```
+- `--speed` mặc định 1.0; với tốc độ này kịch bản thật ra 105,7 giây, vượt 90 giây, nên dùng 1.25.
+- `voice` trong `content/script.json` chỉ để tham khảo; `build` lấy giọng từ `--voice`.
+- `build` chỉ tính `durationInFrames`. Khoảng 1800–2700 frame (60–90 giây) được kiểm bằng test `real` bản giọng thật, `build` không ép.
+
 Ghi chú macOS: nếu `import aivideo` báo không thấy gói, file `.pth` trong venv bị gắn cờ hidden; chạy `chflags nohidden .venv/lib/python3.12/site-packages/*.pth`.

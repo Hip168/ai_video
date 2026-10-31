@@ -40,9 +40,14 @@ def _korva(text: str, voice: str, speed: float) -> tuple[np.ndarray, int]:
         import korvatts
     except ImportError as e:
         raise RuntimeError("Thiếu korvatts: uv pip install -e '.[korva]'") from e
+    if voice not in VOICES["korva"]:
+        raise ValueError(f"giọng korva không hợp lệ: {voice!r}; chọn một trong {VOICES['korva']}")
     tts = _cache.get("korva")
     if tts is None:
-        tts = _cache["korva"] = korvatts.TTS()
+        try:
+            tts = _cache["korva"] = korvatts.TTS()
+        except Exception as e:
+            raise RuntimeError(f"không tải được mô hình korva (cần mạng lần đầu): {e}") from e
     wav, _dur = tts.synthesize(text, voice=voice, lang="vi", total_steps=32, speed=speed)
     return np.asarray(wav, dtype=np.float32).reshape(-1), int(tts.sample_rate)
 

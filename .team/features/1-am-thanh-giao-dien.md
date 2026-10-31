@@ -26,7 +26,7 @@ def synth(engine: str, text: str, voice: str, speed: float = 1.0) -> tuple[np.nd
 
 ## aivideo.audio — hàm
 ```python
-def validate_timeline(doc: dict) -> list[str]        # rỗng = hợp lệ; kiểm luật 1-8 của hợp đồng (luật 10 là mô tả, không có kiểm tra riêng); luật 9 (độ dài) kiểm ở bước build
+def validate_timeline(doc: dict) -> list[str]        # rỗng = hợp lệ; kiểm luật 1-8 của hợp đồng (luật 10 là mô tả, không có kiểm tra riêng); luật 9 (độ dài): `build` chỉ tính `durationInFrames`, khoảng 1800–2700 kiểm bằng test `real`
 def number_to_words(n: int) -> str                    # tiếng Việt; chỉ cam kết 0..99 (vd 1 -> "một", 25 -> "hai mươi lăm"); code hiện đọc được tới 999_999_999
 def normalize_text(text: str, lexicon: dict[str, str]) -> str
 def spoken_text(segment: dict, lexicon: dict[str, str]) -> str

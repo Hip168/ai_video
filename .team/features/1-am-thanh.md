@@ -46,7 +46,7 @@ aresample=48000,aformat=channel_layouts=mono
 ```
 Lượt 1 `loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json`; lượt 2 thêm giá trị đo và `linear=true`. Xuất PCM 16-bit mono 48 kHz.
 
-API đã đọc từ tài liệu, chưa chạy: `korvatts.TTS().synthesize(text, voice=, lang="vi", total_steps=32, speed=1.05)` trả `(wav, duration)`, 44,1 kHz; `vieneu.Vieneu().infer(text, voice=)`, Turbo 48 kHz. vieneu không có `speed`; chỉnh độ dài bằng `pause_ms`. `compare(..., engines_list, lexicon_path)`, CLI `--engines`, `--lexicon`; tên file bỏ dấu (`vieneu_Truc-Ly.wav`). `number_to_words` cam kết 0–99. `validate_timeline` kiểm luật 1-8 và 10; luật 9 kiểm ở `build`. `pause_ms` chỉ cần số nguyên ≥ 0. Engine `fake` sinh sóng sin, độ dài tỉ lệ số ký tự, có 0,3 giây lặng ở hai đầu.
+API đã đọc từ tài liệu, chưa chạy: `korvatts.TTS().synthesize(text, voice=, lang="vi", total_steps=32, speed=1.05)` trả `(wav, duration)`, 44,1 kHz; `vieneu.Vieneu().infer(text, voice=)`, Turbo 48 kHz. vieneu không có `speed`; chỉnh độ dài bằng `pause_ms`. `compare(..., engines_list, lexicon_path)`, CLI `--engines`, `--lexicon`; tên file bỏ dấu (`vieneu_Truc-Ly.wav`). `number_to_words` cam kết 0–99. `validate_timeline` kiểm luật 1-8 và 10; `build` chỉ tính `durationInFrames`; khoảng 1800–2700 (60–90 giây) kiểm bằng test `real` bản giọng thật, không ép trong `build`. `pause_ms` chỉ cần số nguyên ≥ 0. Engine `fake` sinh sóng sin, độ dài tỉ lệ số ký tự, có 0,3 giây lặng ở hai đầu.
 
 ## File quan trọng
 `.team/features/0-hop-dong-timeline.md`, `.team/contract/timeline.sample.json`, `.team/features/kich-ban-mau.md`, `.team/decisions.md`.
@@ -59,3 +59,7 @@ API đã đọc từ tài liệu, chưa chạy: `korvatts.TTS().synthesize(text,
 - **[1-5] Tổng hợp, cắt lặng, ghép, loudnorm, cache.** Với engine `fake`: lặng thừa mỗi đầu nhịp ≤ 100 ms; kết quả -16 ±1 LUFS, true peak ≤ -1,5 dBTP; chạy lần hai không gọi lại `synth`, sửa một nhịp chỉ gọi một lần.
 - **[1-6] Xuất SRT và timeline, `build` chạy đầu cuối.** Với engine `fake`: timeline qua `validate_timeline`; độ dài wav lệch mốc timeline ≤ 1 frame; số cue SRT bằng số nhịp, mốc khớp timeline, định dạng `HH:MM:SS,mmm`.
 - **[1-7] Bản giọng thật.** Chạy kịch bản thật bằng giọng đã chọn; dài 60–90 giây; timeline qua validate; người dùng nghe và duyệt các từ `router`, `packet`, `DNS`, `Wi-Fi`, `IP`.
+
+## Lệnh dựng bản giọng thật ([1-7])
+`cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.audio build --engine korva --voice hoang_nam --speed 1.25`
+Kết quả thật: 2631 frame, 87,7 giây. Tốc độ mặc định 1.0 ra 105,7 giây (vượt 90 giây) nên phải dùng `--speed 1.25`. `--speed` vẫn mặc định 1.0. Đề mục 3 đưa tham số này vào `make-video.sh`. `voice` trong `content/script.json` chỉ để tham khảo, `build` lấy giọng từ `--voice`.

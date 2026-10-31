@@ -4,7 +4,7 @@ Giọng đọc, `timeline.json` và SRT cho video giải thích. Lệnh và lệ
 
 ## Kết quả kiểm engine thật (Mac arm64, 2026-10-31)
 
-| Engine | Gọi | Kiểu trả về | Sample rate |
+| Engine | Gọi | Kiểu trả về | Sample rate (Hz) |
 |---|---|---|---|
 | korva (`korvatts` 0.1.3) | `TTS().synthesize(text, voice=, lang="vi", total_steps=32, speed=)` -> `(wav, duration)` | `numpy float32`, 1 chiều | 44100 |
 | vieneu (`vieneu` 3.8.3) | `Vieneu().infer(text, voice=)` -> `wav` | `numpy float32`, 1 chiều | 48000 |

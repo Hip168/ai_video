@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import math
 import re
 import subprocess
 import sys
@@ -197,6 +199,10 @@ def load_lexicon(path) -> dict[str, str]:
 
 OUT_SR = 48000
 TARGET_I, TARGET_TP, TARGET_LRA = -16.0, -1.5, 11.0
+SILENCE_FILTER = (
+    "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse,"
+    "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,areverse"
+)
 
 
 def _ffmpeg(args: list[str]) -> str:
@@ -264,10 +270,120 @@ def compare(text_file, out_dir, engines_list=None, voices=None, lexicon_path=Non
     return paths
 
 
-SILENCE_FILTER = (
-    "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse,"
-    "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,areverse"
+TRIM_FULL = (
+    SILENCE_FILTER + ","
+    "silenceremove=stop_periods=-1:stop_duration=0.5:stop_threshold=-45dB:stop_silence=0.25"
 )
+
+
+# ---- build: tổng hợp, cắt lặng, ghép, timeline, SRT ---------------------------
+
+def _filter_wav(wav: np.ndarray, sr: int, af: str) -> np.ndarray:
+    with tempfile.TemporaryDirectory() as d:
+        src, dst = str(Path(d) / "in.wav"), str(Path(d) / "out.wav")
+        sf.write(src, wav, sr, subtype="FLOAT")
+        _ffmpeg(["-i", src, "-af", f"{af},aresample={OUT_SR},aformat=channel_layouts=mono",
+                 "-c:a", "pcm_f32le", dst])
+        out, out_sr = sf.read(dst, dtype="float32")
+    assert out_sr == OUT_SR
+    return out.reshape(-1)
+
+
+def _cache_key(engine: str, voice: str, speed: float, spoken: str) -> str:
+    return hashlib.sha256(f"{engine}|{voice}|{speed!r}|{spoken}".encode()).hexdigest()
+
+
+def _synth_cached(cache_dir: Path, engine: str, voice: str, speed: float, spoken: str):
+    path = cache_dir / f"{_cache_key(engine, voice, speed, spoken)}.wav"
+    if path.exists():
+        wav, sr = sf.read(path, dtype="float32")
+        return wav.reshape(-1), sr
+    wav, sr = engines.synth(engine, spoken, voice, speed)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    sf.write(path, wav, sr, subtype="FLOAT")
+    return wav, sr
+
+
+def srt_timestamp(seconds: float) -> str:
+    ms = int(round(seconds * 1000))
+    h, ms = divmod(ms, 3_600_000)
+    m, ms = divmod(ms, 60_000)
+    sec, ms = divmod(ms, 1000)
+    return f"{h:02d}:{m:02d}:{sec:02d},{ms:03d}"
+
+
+def write_srt(beats: list[dict], path, fps: int = FPS) -> None:
+    blocks = []
+    for i, b in enumerate(beats, 1):
+        t0 = b["startFrame"] / fps
+        t1 = (b["startFrame"] + b["durationFrames"]) / fps
+        blocks.append(f"{i}\n{srt_timestamp(t0)} --> {srt_timestamp(t1)}\n{b['text']}\n")
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    Path(path).write_text("\n".join(blocks), encoding="utf-8")
+
+
+def build(engine: str, voice: str, speed: float = 1.0, *, script_path, lexicon_path,
+          public_dir, out_dir) -> dict:
+    if engine not in engines.ENGINES:
+        raise ValueError(f"engine không hợp lệ: {engine!r}")
+    script = load_script(script_path)
+    lexicon = load_lexicon(lexicon_path)
+    public_dir, out_dir = Path(public_dir), Path(out_dir)
+    cache_dir = out_dir / "cache"
+
+    chunks: list[np.ndarray] = []
+    spans: list[tuple[int, int]] = []  # [mẫu đầu, mẫu cuối) của từng nhịp trong wav ghép
+    pos = 0
+    segs = script["segments"]
+    for i, seg in enumerate(segs):
+        raw, sr = _synth_cached(cache_dir, engine, voice, speed, spoken_text(seg, lexicon))
+        wav = _filter_wav(raw, sr, TRIM_FULL)
+        chunks.append(wav)
+        spans.append((pos, pos + len(wav)))
+        pos += len(wav)
+        if i < len(segs) - 1:
+            gap = int(round(seg.get("pause_ms", 0) * OUT_SR / 1000))
+            chunks.append(np.zeros(gap, dtype=np.float32))
+            pos += gap
+    joined = np.concatenate(chunks)
+    final = loudnorm(joined, OUT_SR)
+
+    wav_path = public_dir / "audio" / "narration.wav"
+    wav_path.parent.mkdir(parents=True, exist_ok=True)
+    sf.write(wav_path, final, OUT_SR, subtype="PCM_16")
+    seconds = len(final) / OUT_SR
+    total = math.ceil((seconds + 0.5) * FPS)
+
+    beats = []
+    for seg, (a, b) in zip(segs, spans):
+        f0, f1 = round(a / OUT_SR * FPS), round(b / OUT_SR * FPS)
+        beat = {"id": seg["id"], "startFrame": f0, "durationFrames": f1 - f0,
+                "text": unicodedata.normalize("NFC", seg["text"])}
+        if seg.get("cue"):
+            beat["cue"] = seg["cue"]
+        beats.append((seg["scene"], beat))
+
+    scenes: list[dict] = []
+    for scene_id, beat in beats:
+        if scenes and scenes[-1]["id"] == scene_id:
+            scenes[-1]["beats"].append(beat)
+        else:
+            scenes.append({"id": scene_id, "startFrame": 0 if not scenes else beat["startFrame"],
+                           "durationFrames": 0, "beats": [beat]})
+    for i, sc in enumerate(scenes):
+        end = scenes[i + 1]["startFrame"] if i + 1 < len(scenes) else total
+        sc["durationFrames"] = end - sc["startFrame"]
+
+    timeline = {"version": 1, "fps": FPS, "width": WIDTH, "height": HEIGHT,
+                "durationInFrames": total, "audio": {"src": "audio/narration.wav"},
+                "scenes": scenes}
+    errs = validate_timeline(timeline)
+    if errs:
+        raise RuntimeError("timeline không hợp lệ: " + "; ".join(errs))
+    (public_dir / "timeline.json").write_text(
+        json.dumps(timeline, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_srt([b for _, b in beats], out_dir / "video.srt")
+    return timeline
 
 
 # ---- CLI --------------------------------------------------------------------
@@ -290,7 +406,20 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("--engines")
     c.add_argument("--voices", action="append")
     c.add_argument("--lexicon", default="../content/lexicon.json")
+    bd = sub.add_parser("build")
+    bd.add_argument("--engine", required=True, choices=engines.ENGINES)
+    bd.add_argument("--voice", required=True)
+    bd.add_argument("--speed", type=float, default=1.0)
+    bd.add_argument("--script", default="../content/script.json")
+    bd.add_argument("--lexicon", default="../content/lexicon.json")
+    bd.add_argument("--public-dir", default="../video/public")
+    bd.add_argument("--out-dir", default="../out")
     a = ap.parse_args(argv)
+    if a.cmd == "build":
+        tl = build(a.engine, a.voice, a.speed, script_path=a.script, lexicon_path=a.lexicon,
+                   public_dir=a.public_dir, out_dir=a.out_dir)
+        print(f"timeline: {tl['durationInFrames']} frame ({tl['durationInFrames'] / FPS:.1f} s)")
+        return 0
     if a.cmd == "compare":
         eng = a.engines.split(",") if a.engines else None
         paths = compare(a.text_file, a.out_dir, eng, _parse_voices(a.voices), a.lexicon)

@@ -14,3 +14,12 @@ Giọng đọc, `timeline.json` và SRT cho video giải thích. Lệnh và lệ
 - vieneu tải `pnnbao-ump/VieNeu-TTS-v3-Turbo` (~0,9 GB) và codec MOSS. `Vieneu()` mặc định lỗi trên máy này: onnxruntime từ chối file dữ liệu ngoài khi cache Hugging Face dùng symlink ("External data path escapes model directory"). `engines.py` vá `OnnxV3LiteEngine._fetch` để liên kết cứng file thật vào `~/.cache/aivideo/` (đổi bằng biến `AIVIDEO_MODELS`).
 - vieneu không có tham số `speed`; `synth("vieneu", ..., speed != 1.0)` báo `ValueError`.
 - vieneu có 25 giọng; `compare` chỉ lấy 10 giọng "featured" của tác giả.
+
+## Chạy
+
+```bash
+cd audio
+.venv/bin/python -m aivideo.audio compare --text-file ../content/compare.txt
+.venv/bin/python -m aivideo.audio build --engine fake --voice a
+```
+Ghi chú macOS: nếu `import aivideo` báo không thấy gói, file `.pth` trong venv bị gắn cờ hidden; chạy `chflags nohidden .venv/lib/python3.12/site-packages/*.pth`.

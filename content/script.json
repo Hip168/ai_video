@@ -1,0 +1,137 @@
+{
+  "title": "Một tin nhắn đi qua Internet thế nào",
+  "voice": "",
+  "segments": [
+    {
+      "id": "s01",
+      "scene": "phone",
+      "text": "Bạn vừa bấm gửi một tin nhắn, và chỉ khoảng một giây sau, người bạn ở đầu bên kia đã nhận được.",
+      "pause_ms": 250,
+      "cue": "send"
+    },
+    {
+      "id": "s02",
+      "scene": "phone",
+      "text": "Trong khoảnh khắc ngắn ngủi đó, tin nhắn đã đi qua cả một chặng đường dài.",
+      "pause_ms": 300
+    },
+    {
+      "id": "s03",
+      "scene": "phone",
+      "text": "Hãy cùng đi theo nó, từng chặng một.",
+      "pause_ms": 450
+    },
+    {
+      "id": "s04",
+      "scene": "dns",
+      "text": "Trước hết, điện thoại cần biết địa chỉ của máy chủ ứng dụng nhắn tin.",
+      "pause_ms": 350,
+      "cue": "dns-need"
+    },
+    {
+      "id": "s05",
+      "scene": "dns",
+      "text": "Nó hỏi DNS, một hệ thống hoạt động giống như cuốn danh bạ của Internet.",
+      "pause_ms": 300,
+      "cue": "dns-query"
+    },
+    {
+      "id": "s06",
+      "scene": "dns",
+      "text": "Đưa vào một cái tên, DNS trả về một địa chỉ IP, dãy số mà máy tính hiểu được.",
+      "pause_ms": 400,
+      "cue": "dns-reply"
+    },
+    {
+      "id": "s07",
+      "scene": "packets",
+      "text": "Có địa chỉ rồi, tin nhắn được chia thành nhiều packet, tức là những gói dữ liệu nhỏ.",
+      "pause_ms": 300,
+      "cue": "split"
+    },
+    {
+      "id": "s08",
+      "scene": "packets",
+      "text": "Mỗi packet giống như một phong bì, ghi rõ nơi gửi, nơi đến và số thứ tự.",
+      "pause_ms": 450,
+      "cue": "label"
+    },
+    {
+      "id": "s09",
+      "scene": "wifi",
+      "text": "Từ điện thoại, các packet bay qua sóng Wi-Fi để tới router trong nhà bạn.",
+      "pause_ms": 300,
+      "cue": "wifi"
+    },
+    {
+      "id": "s10",
+      "scene": "wifi",
+      "text": "Router giống như người gác cổng, đưa chúng ra khỏi mạng gia đình và đi vào Internet.",
+      "pause_ms": 400,
+      "cue": "gateway"
+    },
+    {
+      "id": "s11",
+      "scene": "hops",
+      "text": "Trên Internet, packet nhảy qua rất nhiều router của các nhà mạng khác nhau.",
+      "pause_ms": 300,
+      "cue": "hop"
+    },
+    {
+      "id": "s12",
+      "scene": "hops",
+      "text": "Mỗi router không cần biết toàn bộ đường đi, nó chỉ chọn chặng kế tiếp.",
+      "pause_ms": 300,
+      "cue": "next-hop"
+    },
+    {
+      "id": "s13",
+      "scene": "hops",
+      "text": "Vì vậy, các packet có thể đi những con đường khác nhau và đến nơi không đúng thứ tự.",
+      "pause_ms": 450,
+      "cue": "paths"
+    },
+    {
+      "id": "s14",
+      "scene": "server",
+      "text": "Tại máy chủ, các packet được sắp xếp lại theo số thứ tự, ghép thành tin nhắn ban đầu.",
+      "pause_ms": 300,
+      "cue": "reorder"
+    },
+    {
+      "id": "s15",
+      "scene": "server",
+      "text": "Nếu thiếu mất packet nào, máy chủ sẽ yêu cầu gửi lại phần đó.",
+      "pause_ms": 350,
+      "cue": "resend"
+    },
+    {
+      "id": "s16",
+      "scene": "server",
+      "text": "Sau đó, máy chủ tìm xem người nhận là ai và chuyển tin nhắn đi tiếp.",
+      "pause_ms": 400,
+      "cue": "forward"
+    },
+    {
+      "id": "s17",
+      "scene": "receiver",
+      "text": "Tin nhắn lại được chia thành các packet, đi qua mạng tới điện thoại của người nhận.",
+      "pause_ms": 300,
+      "cue": "deliver"
+    },
+    {
+      "id": "s18",
+      "scene": "receiver",
+      "text": "Điện thoại rung lên, và dòng chữ của bạn hiện ra trên màn hình.",
+      "pause_ms": 300,
+      "cue": "notify"
+    },
+    {
+      "id": "s19",
+      "scene": "receiver",
+      "text": "Cả chặng đường ấy, từ đầu đến cuối, thường chỉ mất khoảng một giây.",
+      "pause_ms": 450,
+      "cue": "end"
+    }
+  ]
+}

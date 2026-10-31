@@ -1,6 +1,8 @@
 """Chuẩn hóa, ghép âm thanh, xuất timeline + SRT, kiểm timeline, CLI."""
 from __future__ import annotations
 
+import json
+import re
 import unicodedata
 
 SCENE_IDS = ("phone", "dns", "packets", "wifi", "hops", "server", "receiver")
@@ -88,3 +90,94 @@ def validate_timeline(doc) -> list[str]:
     if total is not None and expected_start != total:
         errs.append(f"luật 4: cảnh cuối kết thúc tại {expected_start}, durationInFrames là {total}")
     return errs
+
+
+# ---- chuẩn hóa văn bản ------------------------------------------------------
+
+_DIGITS = ["không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"]
+
+
+def _below_100(n: int, full: bool) -> str:
+    """0..99. full=True: có chữ số hàng trăm đứng trước (dùng 'linh' cho 1..9)."""
+    if n < 10:
+        return ("linh " + _DIGITS[n]) if full and n else ("" if full else _DIGITS[n])
+    t, u = divmod(n, 10)
+    head = "mười" if t == 1 else f"{_DIGITS[t]} mươi"
+    if u == 0:
+        return head
+    if u == 1 and t > 1:
+        return f"{head} mốt"
+    if u == 5:
+        return f"{head} lăm"
+    return f"{head} {_DIGITS[u]}"
+
+
+def _below_1000(n: int, full: bool) -> str:
+    """1..999. full=True: có nhóm cao hơn đứng trước (đọc đủ 'không trăm')."""
+    h, r = divmod(n, 100)
+    if h == 0:
+        return _below_100(r, full)
+    parts = [f"{_DIGITS[h]} trăm"]
+    tail = _below_100(r, True)
+    if tail:
+        parts.append(tail)
+    return " ".join(parts)
+
+
+def number_to_words(n: int) -> str:
+    """Số nguyên 0..999_999_999 thành chữ tiếng Việt."""
+    if not isinstance(n, int) or isinstance(n, bool) or n < 0 or n > 999_999_999:
+        raise ValueError(f"số ngoài phạm vi 0..999999999: {n!r}")
+    if n == 0:
+        return _DIGITS[0]
+    groups = []
+    for unit in ("", "nghìn", "triệu"):
+        n, g = divmod(n, 1000)
+        groups.append((g, unit))
+    words: list[str] = []
+    started = False
+    for g, unit in reversed(groups):
+        if g == 0:
+            continue
+        if started and g < 100:
+            words.append("không trăm" + (" " + _below_100(g, True) if g else ""))
+        else:
+            words.append(_below_1000(g, started))
+        if unit:
+            words.append(unit)
+        started = True
+    return " ".join(words)
+
+
+def _digits_to_words(m: re.Match) -> str:
+    d = m.group(0)
+    if len(d) > 9:
+        return " ".join(_DIGITS[int(c)] for c in d)
+    return number_to_words(int(d))
+
+
+def normalize_text(text: str, lexicon: dict[str, str]) -> str:
+    """Số thành chữ, rồi thay từ theo bảng phát âm (nguyên từ, không phân biệt hoa thường)."""
+    out = re.sub(r"\d+", _digits_to_words, text)
+    if lexicon:
+        keys = sorted(lexicon, key=len, reverse=True)
+        lowered = {k.lower(): v for k, v in lexicon.items()}
+        pattern = r"(?<!\w)(" + "|".join(re.escape(k) for k in keys) + r")(?!\w)"
+        out = re.sub(pattern, lambda m: lowered[m.group(1).lower()], out, flags=re.IGNORECASE)
+    return out
+
+
+def spoken_text(segment: dict, lexicon: dict[str, str]) -> str:
+    """Lời đọc: `spoken` nếu có, ngược lại `text`; rồi chuẩn hóa. `text` không đổi."""
+    src = segment.get("spoken") or segment["text"]
+    return normalize_text(src, lexicon)
+
+
+def load_script(path) -> dict:
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def load_lexicon(path) -> dict[str, str]:
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)

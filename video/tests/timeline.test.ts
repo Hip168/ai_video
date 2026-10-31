@@ -148,7 +148,9 @@ const BROKEN: Array<[string, Mutate, RegExp]> = [
     'text không ở dạng NFC',
     (t) => {
       // dạng NFD: dấu tách rời khỏi chữ cái
-      t.scenes[0].beats[0].text = 'Tin nhắn đi tế';
+      const nfd = 'Tin nhắn đi tới'.normalize('NFD');
+      expect(nfd).not.toBe(nfd.normalize('NFC')); // đúng là NFD thật
+      t.scenes[0].beats[0].text = nfd;
     },
     /scenes\[0\]\.beats\[0\]\.text/,
   ],

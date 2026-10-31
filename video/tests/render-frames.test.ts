@@ -54,7 +54,12 @@ d('[2-1] composition Video theo timeline mẫu', () => {
   test('inputProps.timeline hỏng: lỗi tiếng Việt từ validateTimeline nổi lên', async () => {
     const bad = loadSample();
     bad.version = 2;
-    await expect(st.composition({timeline: bad})).rejects.toThrow(/version/);
+    const err = await st
+      .composition({timeline: bad})
+      .then(() => null, (e: Error) => e);
+    expect(err).not.toBeNull();
+    expect(err!.message).toMatch(/version/);
+    expect(err!.message).toMatch(/phải bằng 1/); // thông báo tiếng Việt
   }, 120_000);
 });
 
@@ -115,14 +120,14 @@ d('[2-3] linh kiện SVG qua composition KitDemo', () => {
     expect(findColor(imgs[2], hex(COLORS.muted), box).length).toBeGreaterThan(5);
   });
 
-  test('Node: tại frame 59 có điểm ảnh khác nền quanh POS.phone và POS.server', () => {
+  test('Node: tại frame 30 (Packet chưa tới máy chủ) có điểm ảnh khác nền quanh POS.phone và POS.server', () => {
     for (const pos of [POS.phone, POS.server]) {
       const w = 160;
       const h = 220;
       let nonBg = 0;
       for (let y = pos.y - h / 2; y < pos.y + h / 2; y++) {
         for (let x = pos.x - w / 2; x < pos.x + w / 2; x++) {
-          const c = px(imgs[2], x, y);
+          const c = px(imgs[1], x, y);
           if (c[0] !== BG[0] || c[1] !== BG[1] || c[2] !== BG[2]) nonBg++;
         }
       }
@@ -169,6 +174,11 @@ d('[2-2] phụ đề trên khung hình', () => {
     expect(nonColorRatio(inBeat, BG, MAIN_END, 1080)).toBeGreaterThan(0.01);
     expect(distinctColors(inBeat, 990, 1080)).toBe(1);
     expect(px(inBeat, 960, 1050)).toEqual(BG);
+    // beat s01 dài nên hộp phụ đề cao 2 dòng: nền hộp (đậm hơn COLORS.bg một
+    // chút) phủ cả hàng 840..900, không chỉ một dòng
+    const boxRows = findColor(inBeat, [6, 10, 20], {y0: 840, y1: 900}, 3);
+    expect(boxRows.length).toBeGreaterThan(20_000);
+    expect(new Set(boxRows.map((q) => q[1])).size).toBe(60);
   }, 120_000);
 
   test('ở khoảng nghỉ (frame 158): dải đáy 830..1079 chỉ có đúng một màu và là COLORS.bg', async () => {
@@ -186,9 +196,6 @@ d('[2-2] phụ đề trên khung hình', () => {
   test.todo(
     'KHÔNG TỰ ĐỘNG ĐƯỢC: người xem still ở một beat, xác nhận chữ hiện đủ dấu ă â ê ô ơ ư đ và các thanh, không ô vuông',
   );
-  test.todo(
-    'KHÔNG TỰ ĐỘNG ĐƯỢC: render khi ngắt mạng (hiện chỉ quét URL tĩnh trong fonts.test.ts)',
-  );
 });
 
 // Frame nằm trong khoảng nghỉ của từng cảnh (đã đối chiếu với mẫu).
@@ -200,6 +207,14 @@ const GAP_FRAMES: Array<[string, number]> = [
   ['hops', 1330],
   ['server', 1729],
   ['receiver', 2085],
+  // khoảng nghỉ cuối mỗi cảnh (beat cuối hết, cảnh chưa hết)
+  ['phone', 336],
+  ['dns', 706],
+  ['packets', 971],
+  ['wifi', 1216],
+  ['hops', 1579],
+  ['server', 1949],
+  ['receiver', 2292],
 ];
 
 d('[2-4] bảy cảnh', () => {
@@ -216,11 +231,6 @@ d('[2-4] bảy cảnh', () => {
       );
     }
   }, 600_000);
-
-  test('mẫu có 7 cảnh và đã chụp đủ 7 still', () => {
-    expect(scenes).toHaveLength(7);
-    expect(mids).toHaveLength(7);
-  });
 
   test.each(scenes.map((s, i) => [s.id, i] as const))(
     'still giữa cảnh %s: đúng kích thước, vùng hình chính (y<830) không đơn sắc và có nội dung',

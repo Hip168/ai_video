@@ -34,6 +34,17 @@ Composition: `Video` (thời lượng, fps, kích thước lấy từ timeline q
 | `remotion.config.ts` | `Config.setCodec/setPixelFormat/setCrf/setConcurrency/setVideoImageFormat/setOverwriteOutput` đều có trong `@remotion/cli/config`. Đã qua `tsc`. |
 | `delayRender`/`continueRender` | Có, dùng cho nạp font. |
 | `npx remotion browser ensure` | Chạy được, tải Headless Shell. |
-| Chạy trình duyệt (`remotion compositions`, `npm run render`) | CHƯA kiểm được: trong môi trường sandbox của agent, Headless Shell bị crash (`icudtl.dat not found in bundle`, GPU process exit 6, `Target closed`). Cần chạy ở terminal thật. |
+| Chạy trình duyệt (`remotion compositions`, `npm run render`) | Trên Mac này Headless Shell tải về crash: `icudtl.dat not found in bundle`, GPU process exit 6, `Target closed`. Nguyên nhân KHÔNG phải sandbox (BA đã chạy ngoài sandbox vẫn lỗi). Dùng Chrome của máy thì chạy được: `Video` 2307 frame, `KitDemo` 90 frame. |
+
+## Chạy trên Mac khi Headless Shell lỗi
+Đặt biến môi trường (`remotion.config.ts` đọc và gọi `Config.setBrowserExecutable`; không đặt thì giữ mặc định, CI Linux không đổi):
+```bash
+export REMOTION_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+npx remotion compositions src/index.ts
+npm run render
+RENDER_TEST=1 npx vitest run     # test dùng @remotion/renderer đọc cùng biến nếu test truyền browserExecutable
+```
+Hoặc truyền cho từng lệnh CLI: `--browser-executable="<đường dẫn>"`. Test trong `tests/` dùng `@remotion/renderer` cũng cần browser; `remotion.config.ts` chỉ áp cho CLI, nên API Node phải tự truyền `browserExecutable: process.env.REMOTION_BROWSER_EXECUTABLE` (việc của TESTER-2, DEV không sửa test).
+
 Phần Python (`korvatts`, `vieneu`) thuộc đề mục 1, không kiểm ở đây.
 Không có chỗ nào tài liệu khác hợp đồng.

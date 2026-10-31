@@ -42,3 +42,6 @@ Có `dev-lead` và một TEST-LEAD (CONVENTIONS §0c). `deploy-lead`, `ops-lead`
 
 ## D12. Giọng đọc (người dùng chốt sau khi nghe, 2026-10-31)
 KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` và `packet` cần sửa cách đọc bằng chính giọng này; `DNS`, `Wi-Fi`, `IP` giữ nguyên. Không ghép giọng tiếng Anh. Người dùng nghe 7 mẫu mỗi từ và chọn: `router` đọc "râu tơ" (mẫu 3), `packet` giữ nguyên. `lexicon.json` chỉ còn `router`. Tốc độ `--speed 1.25` (2631 frame, 87,7 giây): người dùng xem bản có giọng và nhắn "ok" ngày 2026-10-31. `lexicon.json` là dữ liệu sửa được: test chỉ kiểm dạng, không ghim từ nào.
+
+## D13. Đề mục 3 (BA chốt, 2026-10-31)
+`make-video.sh` chỉ chạy trên Mac, không tự cài, chỉ truyền qua `REMOTION_BROWSER_EXECUTABLE`. Hợp đồng đầu ra tối thiểu ghi ở `features/3-ghep-video.md`.

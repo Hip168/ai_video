@@ -35,7 +35,7 @@ content/script.json, lexicon.json, compare.txt
 ```
 Không tạo class, interface, registry.
 
-Luồng `build`: đọc kịch bản → chuẩn hóa → tổng hợp từng nhịp (cache trong `out/cache/` theo hash của engine, giọng, tốc độ, lời đọc) → cắt lặng → đo số mẫu → ghép với khoảng nghỉ → tính frame → loudnorm 2 lượt → ghi SRT, timeline → validate.
+Luồng `build`: đọc kịch bản → chuẩn hóa → tổng hợp từng nhịp (cache trong `out/cache/` theo hash của engine, giọng, tốc độ, lời đọc) → cắt lặng → đo số mẫu → ghép với khoảng nghỉ → tính frame → loudnorm 2 lượt → ghi wav → validate timeline → ghi timeline, rồi SRT (timeline hỏng thì không ghi timeline và SRT, báo lỗi).
 
 FFmpeg, giá trị ban đầu, được chỉnh khi nghe thử:
 ```

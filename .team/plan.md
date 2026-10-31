@@ -14,7 +14,7 @@
 | 2 | Hình ảnh | `2-hinh-anh` | [2-3] Bộ linh kiện SVG | #10 | Đã merge |
 | 2 | Hình ảnh | `2-hinh-anh` | [2-4] Bảy cảnh | #11 | Đã merge |
 | 2 | Hình ảnh | `2-hinh-anh` | [2-5] Âm thanh và lệnh render | #12 | Đã merge |
-| 3 | Ghép video | `3-ghep-video` | [3-1] Lệnh một phát và README | #13 | Chưa làm |
-| 3 | Ghép video | `3-ghep-video` | [3-2] Video mẫu thật | #14 | Chưa làm |
+| 3 | Ghép video | `3-ghep-video` | [3-1] Lệnh một phát và README | #13 | Đã merge |
+| 3 | Ghép video | `3-ghep-video` | [3-2] Video mẫu thật | #14 | Đã merge |
 
 Đề mục 1 và 2 chạy song song. Đề mục 3 bắt đầu sau khi cả hai đã merge.

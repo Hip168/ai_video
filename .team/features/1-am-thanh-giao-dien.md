@@ -45,7 +45,7 @@ def main(argv: list[str] | None = None) -> int        # CLI
 - `build` gọi TTS qua `aivideo.engines.synth` bằng truy cập thuộc tính module (`engines.synth(...)`) nên test `monkeypatch.setattr("aivideo.engines.synth", spy)` đếm được số lần gọi.
 
 ## Cache
-Thư mục `<out_dir>/cache/`; mỗi nhịp một file `<sha256>.npy`... chính xác: `<sha256>.wav` (float32). Khoá = sha256 của `engine|voice|speed|lời đọc đã chuẩn hóa`. Chạy lại không đổi gì -> `synth` gọi 0 lần; sửa lời đọc đúng một nhịp -> gọi 1 lần.
+Thư mục `<out_dir>/cache/`; mỗi nhịp một file `<sha256>.wav` (float32 mono). Khoá = sha256 của `engine|voice|speed|lời đọc đã chuẩn hóa`. Chạy lại không đổi gì -> `synth` gọi 0 lần; sửa lời đọc đúng một nhịp -> gọi 1 lần.
 
 ## Đầu ra của `build`
 | File | Đường dẫn |
@@ -57,7 +57,7 @@ Thư mục `<out_dir>/cache/`; mỗi nhịp một file `<sha256>.npy`... chính 
 
 Mặc định CLI: `public_dir = ../video/public`, `out_dir = ../out`.
 - `audio.src` = `"audio/narration.wav"`. `fps 30, 1920x1080, version 1`.
-- Khoảng nghỉ: sau nhịp i chèn `pause_ms` (của nhịp i) im lặng; nhịp cuối cộng thêm 0,5 s đuôi theo luật 9. `durationInFrames = ceil((độ dài wav giây + 0.5) * 30)`... theo hợp đồng luật 9 với độ dài wav chưa gồm 0,5 s; |độ dài wav*30 - durationInFrames| <= 1 frame khi tính đúng công thức của hợp đồng (test kiểm `abs(wav_frames - (durationInFrames - 15)) <= 1`).
+- Khoảng nghỉ: sau nhịp i chèn `pause_ms` của nhịp i im lặng (nhịp cuối không chèn). Gọi `D` = độ dài `narration.wav` (giây): `durationInFrames == ceil((D + 0.5) * 30)`. Wav là âm thanh sau cắt lặng + ghép + loudnorm, nên `D` đo trực tiếp từ file ghi ra (test: `abs(D*30 - (durationInFrames - 15)) <= 1`).
 - SRT: một cue mỗi nhịp, theo thứ tự, đánh số từ 1; thời điểm bắt đầu = `startFrame/30`, kết thúc = `(startFrame+durationFrames)/30` (khớp timeline trong 1 ms); nội dung = `text` gốc (không phải lời đọc đã chuẩn hóa); cue cách nhau một dòng trống.
 - Lỗi: engine lạ -> `ValueError`; timeline sinh ra không qua `validate_timeline` -> `RuntimeError`.
 

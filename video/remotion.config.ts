@@ -1,9 +1,11 @@
+import os from "node:os";
 import { Config } from "@remotion/cli/config";
 
 Config.setCodec("h264");
 Config.setPixelFormat("yuv420p");
 Config.setCrf(18);
-Config.setConcurrency(4);
+// Tối đa 4 luồng, nhưng không vượt số lõi (CI 2 lõi sẽ lỗi nếu đặt 4).
+Config.setConcurrency(Math.max(1, Math.min(4, os.cpus().length)));
 Config.setVideoImageFormat("png");
 Config.setOverwriteOutput(true);
 

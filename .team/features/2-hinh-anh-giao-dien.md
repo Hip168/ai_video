@@ -7,7 +7,7 @@ Viết bởi DEV-2 trước khi code. Mọi đường dẫn tính từ `video/`.
 |---|---|
 | `npm ci` | cài đúng `package-lock.json` |
 | `npm run studio` | `remotion studio src/index.ts` |
-| `npm run render` | `remotion render src/index.ts Video ../out/video.mp4` (H.264, yuv420p, CRF 18, 30 fps, AAC, concurrency 4 đặt trong `remotion.config.ts`) |
+| `npm run render` | `remotion render src/index.ts Video ../out/video.mp4` (H.264, yuv420p, CRF 18, 30 fps, AAC, concurrency `min(4, số lõi CPU)` đặt trong `remotion.config.ts`) |
 | `npm test` | `vitest run` |
 | `npm run typecheck` | `tsc --noEmit` |
 
@@ -86,7 +86,7 @@ Mỗi cảnh: nền `COLORS.bg`, SVG viewBox 1920×1080, không vẽ gì ở y �
 `remotion.config.ts` đọc biến môi trường `REMOTION_BROWSER_EXECUTABLE`; có thì `Config.setBrowserExecutable(...)`, không có thì dùng Headless Shell mặc định (CI Linux). Trên Mac: `export REMOTION_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"`. Config chỉ áp cho CLI; test dùng API `@remotion/renderer` tự truyền `browserExecutable: process.env.REMOTION_BROWSER_EXECUTABLE`.
 `remotion.config.ts` đặt `setVideoImageFormat("png")` để MP4 ra `yuv420p` với mọi trình duyệt.
 
-`remotion.config.ts` còn đặt `setCodec("h264")`, `setPixelFormat("yuv420p")`, `setCrf(18)`, `setConcurrency(4)`, `setOverwriteOutput(true)` (render ghi đè `../out/video.mp4`).
+`remotion.config.ts` còn đặt `setCodec("h264")`, `setPixelFormat("yuv420p")`, `setCrf(18)`, `setConcurrency(Math.max(1, Math.min(4, os.cpus().length)))`, `setOverwriteOutput(true)` (render ghi đè `../out/video.mp4`).
 
 ## Toạ độ `POS` và bố cục từng cảnh
 `POS` (viewBox 1920×1080): phone (240,440), router (640,440), isp1 (880,270), isp2 (900,610), isp3 (1140,440), dns (1500,440), server (1440,440), receiver (1720,440).

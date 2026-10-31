@@ -39,7 +39,7 @@ Không tạo theme riêng, lớp animation, hay registry động.
 - **Phụ đề:** đặt ngoài các `Sequence`, hiện beat đang active, cách đáy 90 px, rộng tối đa 1500 px, chữ 52 px đậm, tối đa 2 dòng, `text-wrap: balance`, nền tối bán trong suốt, fade 4 frame. Hình chính vẽ trong `y < 830`, chừa 250 px đáy (decisions D10).
 - **SVG:** viewBox 1920×1080. Tọa độ dùng chung trong `POS` để sơ đồ nhất quán giữa các cảnh. Không dùng filter blur nặng.
 - **Font:** `new FontFace` + `staticFile` + `delayRender`/`continueRender`.
-- **Render:** H.264, `yuv420p`, CRF 18, 30 fps, âm thanh AAC, concurrency 4, kiểm lại trên máy 16 GB.
+- **Render:** H.264, `yuv420p`, CRF 18, 30 fps, âm thanh AAC, concurrency `min(4, số lõi CPU)` (CI 2 lõi lỗi nếu đặt cứng 4), kiểm lại trên máy 16 GB.
 
 ## File quan trọng
 `.team/features/0-hop-dong-timeline.md`, `.team/contract/timeline.sample.json`, `.team/features/kich-ban-mau.md` (ý nghĩa từng cue), `.team/decisions.md`.

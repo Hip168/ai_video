@@ -50,6 +50,10 @@ export const POS: Record<"phone"|"router"|"isp1"|"isp2"|"isp3"|"dns"|"server"|"r
 export function packetPosition(from: Point, to: Point, start: number, duration: number, frame: number): Point;
 export function subtitleOpacity(beat: Beat, frame: number): number;
 export function useBeat(scene: Scene, cue: string | number): number;
+export function useBeatStart(scene: Scene, cue: string | number): number;   // frame tương đối cảnh mà beat bắt đầu
+export function useSpring(frame: number, at?: number): number;            // spring 0..1, không phải hook thật (fps=30)
+export const Stage: React.FC<{ children?: React.ReactNode }>;               // <svg viewBox 1920x1080> + nền
+export const Label: React.FC<{ x: number; y: number; children: React.ReactNode; size?: number; color?: string; opacity?: number; bold?: boolean }>;
 export const Node:   React.FC<{ id?: string; x: number; y: number; label: string; kind?: "phone"|"router"|"server"|"book"; progress?: number }>;
 export const Link:   React.FC<{ from: Point; to: Point; progress?: number; dashed?: boolean }>;
 export const Packet: React.FC<{ from: Point; to: Point; start: number; duration: number; label?: string }>;
@@ -63,7 +67,7 @@ export const Subtitle: React.FC<{ text: string; opacity?: number }>;
 
 ## `src/font.ts`
 `export const FONT_FAMILY = "BeVietnamPro"`; `export function loadFonts(): void` (FontFace + `staticFile("fonts/...woff2")` + `delayRender`/`continueRender`), gọi lúc nạp `Video.tsx` và `Root.tsx`. Không dùng mạng.
-Font: `public/fonts/BeVietnamPro-Regular.woff2` và `BeVietnamPro-Bold.woff2`; nguồn và giấy phép ghi ở `public/fonts/README.md` (OFL).
+Font: Be Vietnam Pro 400/700, mỗi weight 3 tập con: `public/fonts/be-vietnam-pro-{latin,latin-ext,vietnamese}-{400,700}-normal.woff2`; giấy phép `public/fonts/OFL.txt`; nguồn ở `public/fonts/README.md`. (Cập nhật bởi DEV-2 sau khi tải thật: gói fontsource chia tập con theo unicode-range.)
 
 ## `src/scenes/index.ts`
 ```ts

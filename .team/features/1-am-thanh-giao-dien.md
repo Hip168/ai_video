@@ -8,7 +8,7 @@ audio/pyproject.toml            gói `aivideo`, src-layout (audio/src/aivideo), 
 audio/src/aivideo/__init__.py
 audio/src/aivideo/engines.py
 audio/src/aivideo/audio.py      cũng là điểm vào CLI: python -m aivideo.audio
-audio/tests/test_audio.py       (TESTER-1)
+audio/tests/                    (TESTER-1) conftest.py, test_build.py, test_compare.py, test_content.py, test_engines.py, test_text.py, test_timeline.py
 content/script.json  content/lexicon.json  content/compare.txt
 ```
 pytest: marker `real` đăng ký trong `pyproject.toml`; `pytest -m "not real"` không cần mô hình. Mặc định test thường không được import `korvatts`/`vieneu`.
@@ -26,8 +26,8 @@ def synth(engine: str, text: str, voice: str, speed: float = 1.0) -> tuple[np.nd
 
 ## aivideo.audio — hàm
 ```python
-def validate_timeline(doc: dict) -> list[str]        # rỗng = hợp lệ; luật 1-10 của hợp đồng
-def number_to_words(n: int) -> str                    # tiếng Việt, 0..999_999_999; vd 1 -> "một", 25 -> "hai mươi lăm"
+def validate_timeline(doc: dict) -> list[str]        # rỗng = hợp lệ; kiểm luật 1-8 và 10 của hợp đồng; luật 9 (độ dài) kiểm ở bước build
+def number_to_words(n: int) -> str                    # tiếng Việt; chỉ cam kết 0..99 (vd 1 -> "một", 25 -> "hai mươi lăm"); code hiện đọc được tới 999_999_999
 def normalize_text(text: str, lexicon: dict[str, str]) -> str
 def spoken_text(segment: dict, lexicon: dict[str, str]) -> str
 def load_script(path) -> dict
@@ -61,6 +61,8 @@ Mặc định CLI: `public_dir = ../video/public`, `out_dir = ../out`.
 - `audio.src` = `"audio/narration.wav"`. `fps 30, 1920x1080, version 1`.
 - Khoảng nghỉ: sau nhịp i chèn `pause_ms` của nhịp i im lặng (nhịp cuối không chèn). Gọi `D` = độ dài `narration.wav` (giây): `durationInFrames == ceil((D + 0.5) * 30)`. Wav là âm thanh sau cắt lặng + ghép + loudnorm, nên `D` đo trực tiếp từ file ghi ra (test: `abs(D*30 - (durationInFrames - 15)) <= 1`).
 - SRT: một cue mỗi nhịp, theo thứ tự, đánh số từ 1; thời điểm bắt đầu = `startFrame/30`, kết thúc = `(startFrame+durationFrames)/30` (khớp timeline trong 1 ms); nội dung = `text` gốc (không phải lời đọc đã chuẩn hóa); cue cách nhau một dòng trống.
+- `main` bắt ValueError/RuntimeError/OSError/KeyError: in `lỗi: ...` ra stderr và trả 1 (không ném ra ngoài).
+- vieneu không có `speed` (speed != 1.0 -> ValueError); chỉnh độ dài video bằng khoảng nghỉ `pause_ms`.
 - Lỗi: engine lạ -> `ValueError`; timeline sinh ra không qua `validate_timeline` -> `RuntimeError`.
 
 ## CLI
@@ -74,6 +76,6 @@ python -m aivideo.audio build --engine {korva|vieneu|fake} --voice ID [--speed 1
 - `compare`: ghi `<out-dir>/<engine>_<giọng>.wav` cho mọi cặp (engine, giọng) (mặc định: các engine thật trong `ENGINES` với giọng trong `VOICES`; `--engines fake` được phép để test). Cùng văn bản (toàn bộ nội dung file, qua lexicon), cùng loudness (loudnorm -16 LUFS mỗi file); chênh loudness giữa các file <= 0,5 LU. Tên giọng trong tên file: bỏ dấu tiếng Việt (đ->d), rồi thay ký tự ngoài `[A-Za-z0-9_-]` bằng `-` (vd `Trúc Ly` -> `Truc-Ly`). CLI thêm `--lexicon` (mặc định `../content/lexicon.json`); hàm `compare` không áp lexicon khi `lexicon_path=None`. `--voices` lặp được: `--voices korva=khanh_vy --voices korva=bao_kim`. `VOICES['vieneu']` = 10 giọng featured của VieNeu. Trả danh sách đường dẫn.
 
 ## Dữ liệu
-- `content/script.json`: `{title, voice, segments:[{id, scene, text, spoken?, pause_ms, cue?}]}`, 19 nhịp s01..s19 nguyên văn `kich-ban-mau.md`; `scene` thuộc tập 7 cảnh; `pause_ms` số nguyên 250..450.
+- `content/script.json`: `{title, voice, segments:[{id, scene, text, spoken?, pause_ms, cue?}]}`, 19 nhịp s01..s19 nguyên văn `kich-ban-mau.md`; `scene` thuộc tập 7 cảnh; `pause_ms` số nguyên >= 0.
 - `content/lexicon.json`: object chuỗi->chuỗi, có tối thiểu `DNS`, `IP`, `Wi-Fi`, `router`, `packet`.
 - `content/compare.txt`: 2-3 câu chứa `router`, `packet`, `DNS`, `Wi-Fi`, `IP`.

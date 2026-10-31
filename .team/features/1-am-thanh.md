@@ -30,7 +30,7 @@ Ngoài: nhạc nền, SFX, thời gian theo từ, nhân bản giọng, `.github/
 audio/pyproject.toml          Python >=3.12, extras korva, vieneu, dev; marker pytest `real`
 audio/src/aivideo/engines.py  synth(): dispatch korva | vieneu | fake, import engine thật khi cần
 audio/src/aivideo/audio.py    chuẩn hóa, cache, cắt lặng, ghép, loudnorm, ghi SRT + timeline, validate, CLI
-audio/tests/test_audio.py
+audio/tests/                  6 file test + conftest.py (test_build, test_compare, test_content, test_engines, test_text, test_timeline)
 content/script.json, lexicon.json, compare.txt
 ```
 Không tạo class, interface, registry.
@@ -46,7 +46,7 @@ aresample=48000,aformat=channel_layouts=mono
 ```
 Lượt 1 `loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json`; lượt 2 thêm giá trị đo và `linear=true`. Xuất PCM 16-bit mono 48 kHz.
 
-API đã đọc từ tài liệu, chưa chạy: `korvatts.TTS().synthesize(text, voice=, lang="vi", total_steps=32, speed=1.05)` trả `(wav, duration)`, 44,1 kHz; `vieneu.Vieneu().infer(text, voice=)`, Turbo 48 kHz. Engine `fake` sinh sóng sin, độ dài tỉ lệ số ký tự, có 0,3 giây lặng ở hai đầu.
+API đã đọc từ tài liệu, chưa chạy: `korvatts.TTS().synthesize(text, voice=, lang="vi", total_steps=32, speed=1.05)` trả `(wav, duration)`, 44,1 kHz; `vieneu.Vieneu().infer(text, voice=)`, Turbo 48 kHz. vieneu không có `speed`; chỉnh độ dài bằng `pause_ms`. `compare(..., engines_list, lexicon_path)`, CLI `--engines`, `--lexicon`; tên file bỏ dấu (`vieneu_Truc-Ly.wav`). `number_to_words` cam kết 0–99. `validate_timeline` kiểm luật 1-8 và 10; luật 9 kiểm ở `build`. `pause_ms` chỉ cần số nguyên ≥ 0. Engine `fake` sinh sóng sin, độ dài tỉ lệ số ký tự, có 0,3 giây lặng ở hai đầu.
 
 ## File quan trọng
 `.team/features/0-hop-dong-timeline.md`, `.team/contract/timeline.sample.json`, `.team/features/kich-ban-mau.md`, `.team/decisions.md`.

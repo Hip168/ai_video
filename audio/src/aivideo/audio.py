@@ -398,6 +398,14 @@ def _parse_voices(items: list[str] | None) -> dict[str, list[str]]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    try:
+        return _main(argv)
+    except (ValueError, RuntimeError, OSError, KeyError) as e:
+        print(f"lỗi: {e}", file=sys.stderr)
+        return 1
+
+
+def _main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="aivideo.audio")
     sub = ap.add_subparsers(dest="cmd", required=True)
     c = sub.add_parser("compare")

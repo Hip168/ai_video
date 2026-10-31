@@ -77,12 +77,12 @@ def test_script_json_truong_bat_buoc_va_kieu_du_lieu(script):
         }
 
 
-def test_lexicon_chi_chua_tu_khoa_doc_sai_voi_loi_doc_khong_rong():
+def test_lexicon_la_object_chuoi_ve_chuoi_khong_rong_khac_khoa():
     lexicon = json.loads((CONTENT / "lexicon.json").read_text("utf-8"))
-    assert isinstance(lexicon, dict)
-    assert set(lexicon) <= set(KEY_WORDS)
+    assert isinstance(lexicon, dict)  # dữ liệu sửa được (D12): không giới hạn khoá
     for word, spoken in lexicon.items():
         assert isinstance(word, str)
+        assert word.strip() != ""
         assert isinstance(spoken, str)
         assert spoken.strip() != ""
         assert spoken != word

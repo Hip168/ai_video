@@ -121,6 +121,39 @@ def test_vieneu_speed_khac_1_nem_value_error_voi_goi_gia(monkeypatch):
     assert called == []  # từ chối trước khi nạp mô hình
 
 
+def _stub_korvatts(monkeypatch, tts_factory):
+    stub = types.ModuleType("korvatts")
+    stub.TTS = tts_factory
+    monkeypatch.setitem(sys.modules, "korvatts", stub)
+    monkeypatch.setattr(engines, "_cache", {})  # tránh dùng mô hình đã nạp
+
+
+def test_korva_giong_ngoai_voices_nem_value_error_voi_goi_gia(monkeypatch):
+    called = []
+
+    def factory():
+        called.append("init")
+        raise AssertionError("không được nạp mô hình")
+
+    _stub_korvatts(monkeypatch, factory)
+    assert "khong_co_giong_nay" not in engines.VOICES["korva"]
+    with pytest.raises(ValueError):
+        engines.synth("korva", "xin chào", "khong_co_giong_nay", 1.0)
+    assert called == []
+
+
+def test_korva_tts_loi_khi_khoi_tao_nem_runtime_error_voi_goi_gia(
+    monkeypatch,
+):
+    def factory():
+        raise OSError("không có mạng")
+
+    _stub_korvatts(monkeypatch, factory)
+    voice = engines.VOICES["korva"][0]
+    with pytest.raises(RuntimeError):
+        engines.synth("korva", "xin chào", voice, 1.0)
+
+
 @pytest.fixture(scope="module")
 def pyproject() -> dict:
     return tomllib.loads((AUDIO_DIR / "pyproject.toml").read_text("utf-8"))

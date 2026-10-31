@@ -106,14 +106,17 @@ def test_spoken_text_khong_doi_segment():
     assert segment == before
 
 
-def test_kich_ban_that_s10_router_duoc_thay_theo_bang_that():
+def test_kich_ban_that_s10_router_duoc_thay_theo_bang_that_neu_co():
     script = load_script(ROOT / "content" / "script.json")
     lexicon = load_lexicon(ROOT / "content" / "lexicon.json")
     s10 = next(s for s in script["segments"] if s["id"] == "s10")
     assert s10["text"].startswith("Router ")
     spoken = spoken_text(s10, lexicon)
-    assert spoken.startswith(lexicon["router"])
-    assert "Router" not in spoken
+    if "router" in lexicon:  # bảng sửa được: bỏ router thì giữ nguyên chữ
+        assert spoken.startswith(lexicon["router"])
+        assert "Router" not in spoken
+    else:
+        assert spoken.startswith("Router ")
     assert s10["text"].startswith("Router ")  # phụ đề không đổi
 
 

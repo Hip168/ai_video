@@ -131,6 +131,9 @@ BROKEN = {
         _set(["scenes", 0, "beats", 0, "durationFrames"], -1),
         _set(["scenes", 1, "durationFrames"], -1),
     ],
+    "luat2_duration_phai_tu_1": [
+        _set(["scenes", 0, "beats", 0, "durationFrames"], 0),
+    ],
     "luat2_frame_khong_nguyen": [
         _set(["scenes", 0, "beats", 0, "durationFrames"], 10.5),
     ],
@@ -164,6 +167,8 @@ BROKEN = {
     ],
     "luat7_text_rong_dai_hoac_khong_nfc": [
         _set(["scenes", 0, "beats", 0, "text"], ""),
+        _set(["scenes", 0, "beats", 0, "text"], "   "),
+        _set(["scenes", 0, "beats", 0, "text"], " \t\n"),
         _set(["scenes", 0, "beats", 0, "text"], "a" * 101),
         _nfd_text,
     ],

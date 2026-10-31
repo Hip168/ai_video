@@ -126,9 +126,7 @@ def test_compare_khong_lexicon_thi_giu_nguyen_van_ban(
     assert spy.texts == ["Router gửi packet qua DNS."]
 
 
-def test_compare_ham_tra_danh_sach_duong_dan_da_ghi(
-    compare_dir, monkeypatch, spy
-):
+def test_compare_ham_tra_danh_sach_duong_dan_da_ghi(compare_dir, spy):
     paths = audio.compare(
         compare_dir / "compare.txt",
         compare_dir / "out",
@@ -158,6 +156,82 @@ def test_compare_mac_dinh_dung_hai_engine_that_khong_dung_fake(
     )
     assert seen == [("korva", "k"), ("vieneu", "Trúc Ly")]
     assert [p.name for p in paths] == ["korva_k.wav", "vieneu_Truc-Ly.wav"]
+
+
+def test_compare_cli_mac_dinh_doc_lexicon_o_content_ke_ben_audio(
+    compare_dir, monkeypatch, spy
+):
+    (compare_dir / "content").mkdir()
+    (compare_dir / "lexicon.json").rename(
+        compare_dir / "content" / "lexicon.json"
+    )
+    assert _run(compare_dir, monkeypatch, lexicon=False) == 0
+    assert spy.texts == ["ru tơ gửi packet qua đi en ét."] * 2
+
+
+def test_compare_cli_voices_tach_dau_phay_nhieu_cap_engine_giong(
+    compare_dir, monkeypatch, spy
+):
+    assert _run(compare_dir, monkeypatch, "--voices", "fake=x,fake=y") == 0
+    assert _names(compare_dir) == ["fake_x.wav", "fake_y.wav"]
+
+
+def test_compare_cli_engines_tach_dau_phay_va_voices_theo_engine(
+    compare_dir, monkeypatch
+):
+    seen = []
+
+    def stub(engine, text, voice, speed=1.0):
+        seen.append((engine, voice))
+        return REAL_SYNTH("fake", text, voice, speed)
+
+    monkeypatch.setattr(engines, "synth", stub)
+    monkeypatch.chdir(compare_dir / "audio")
+    code = audio.main(
+        [
+            "compare",
+            "--text-file", str(compare_dir / "compare.txt"),
+            "--out-dir", str(compare_dir / "out"),
+            "--engines", "korva,vieneu",
+            "--voices", "korva=k1,vieneu=Trúc Ly",
+            "--voices", "korva=k2",
+            "--lexicon", str(compare_dir / "lexicon.json"),
+        ]
+    )  # fmt: skip
+    assert code == 0
+    assert seen == [("korva", "k1"), ("korva", "k2"), ("vieneu", "Trúc Ly")]
+    assert _names(compare_dir) == [
+        "korva_k1.wav",
+        "korva_k2.wav",
+        "vieneu_Truc-Ly.wav",
+    ]
+
+
+def test_compare_nhan_tham_so_ten_engines_list_va_lexicon_path(
+    compare_dir, spy
+):
+    paths = audio.compare(
+        compare_dir / "compare.txt",
+        compare_dir / "out",
+        engines_list=["fake"],
+        voices={"fake": ["a"]},
+        lexicon_path=compare_dir / "lexicon.json",
+    )
+    assert [p.name for p in paths] == ["fake_a.wav"]
+    assert spy.texts == ["ru tơ gửi packet qua đi en ét."]
+
+
+def test_measure_lufs_cong_khai_khop_phep_do_doc_lap(compare_dir, spy):
+    (path,) = audio.compare(
+        compare_dir / "compare.txt",
+        compare_dir / "out",
+        ["fake"],
+        {"fake": ["a"]},
+    )
+    value = audio.measure_lufs(path)
+    assert isinstance(value, float)
+    assert abs(value - ffmpeg_loudness(path)[0]) <= 0.2
+    assert -17.0 <= value <= -15.0
 
 
 # ----------------------------------------------------- cần Mac, mô hình thật

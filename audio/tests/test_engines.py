@@ -5,6 +5,7 @@ from __future__ import annotations
 import subprocess
 import sys
 import tomllib
+import types
 
 import numpy as np
 import pytest
@@ -93,7 +94,7 @@ def test_thieu_goi_engine_that_nem_runtime_error_co_huong_dan(
     assert "install" in message
 
 
-def test_import_luoi_khong_nap_korvatts_vieneu_khi_dung_fake():
+def test_import_luoi_khong_nap_korvatts_vieneu_khi_dung_fake(tmp_path):
     code = (
         "import sys\n"
         "import aivideo.audio\n"
@@ -102,7 +103,22 @@ def test_import_luoi_khong_nap_korvatts_vieneu_khi_dung_fake():
         "assert 'korvatts' not in sys.modules\n"
         "assert 'vieneu' not in sys.modules\n"
     )
-    subprocess.run([sys.executable, "-I", "-c", code], check=True)
+    subprocess.run([sys.executable, "-c", code], check=True, cwd=tmp_path)
+
+
+def test_vieneu_speed_khac_1_nem_value_error_voi_goi_gia(monkeypatch):
+    called = []
+
+    class FakeVieneu:  # thay gói vieneu thật để chạy được trên CI
+        def __init__(self):
+            called.append("init")
+
+    stub = types.ModuleType("vieneu")
+    stub.Vieneu = FakeVieneu
+    monkeypatch.setitem(sys.modules, "vieneu", stub)
+    with pytest.raises(ValueError):
+        engines.synth("vieneu", "xin chào", "Trúc Ly", 1.2)
+    assert called == []  # từ chối trước khi nạp mô hình
 
 
 @pytest.fixture(scope="module")

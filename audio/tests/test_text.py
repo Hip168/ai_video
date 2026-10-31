@@ -7,7 +7,6 @@ sát qua `build` (chuỗi thật gửi vào `synth`, phụ đề ghi ra).
 from __future__ import annotations
 
 import copy
-import json
 
 import pytest
 
@@ -121,30 +120,26 @@ def test_kich_ban_that_s10_router_duoc_thay_theo_bang_that():
 # ------------------------------------------------ qua build (đầu cuối nhỏ)
 
 
-def _build(tmp_path, spy, monkeypatch, segments, lexicon=None):
+def _build(tmp_path, spy, segments, lexicon=None):
     project = make_project(tmp_path, spy, segments, lexicon)
     project.build()
     return project
 
 
-def test_build_gui_vao_synth_loi_doc_da_chuan_hoa(tmp_path, spy, monkeypatch):
+def test_build_gui_vao_synth_loi_doc_da_chuan_hoa(tmp_path, spy):
     project = _build(
         tmp_path,
         spy,
-        monkeypatch,
         [seg("n1", "dns", "Có 3 gói qua DNS và Wi-Fi")],
         LEXICON,
     )
     assert project.calls == ["Có ba gói qua đi en ét và wai phai"]
 
 
-def test_build_spoken_ghi_de_loi_doc_cua_rieng_nhip_do(
-    tmp_path, spy, monkeypatch
-):
+def test_build_spoken_ghi_de_loi_doc_cua_rieng_nhip_do(tmp_path, spy):
     project = _build(
         tmp_path,
         spy,
-        monkeypatch,
         [
             seg("o1", "phone", "Chữ phụ đề hiển thị", spoken="xin chào bạn"),
             seg("o2", "phone", "Nhịp thứ hai đọc nguyên văn"),
@@ -153,25 +148,21 @@ def test_build_spoken_ghi_de_loi_doc_cua_rieng_nhip_do(
     assert project.calls == ["xin chào bạn", "Nhịp thứ hai đọc nguyên văn"]
 
 
-def test_phu_de_trong_timeline_va_srt_giu_chu_goc(tmp_path, spy, monkeypatch):
+def test_phu_de_trong_timeline_va_srt_giu_chu_goc(tmp_path, spy):
     original = "Nó hỏi DNS qua Wi-Fi và có 3 gói"
-    project = _build(
-        tmp_path, spy, monkeypatch, [seg("p1", "dns", original)], LEXICON
-    )
+    project = _build(tmp_path, spy, [seg("p1", "dns", original)], LEXICON)
     beats = project.timeline()["scenes"][0]["beats"]
     assert [b["text"] for b in beats] == [original]
     srt = project.srt_path.read_text(encoding="utf-8")
     assert original in srt
     assert "đi en ét" not in srt
     assert "ba gói" not in srt
-    assert json.loads(project.timeline_path.read_text("utf-8"))["scenes"]
 
 
-def test_phu_de_giu_chu_goc_ca_khi_co_spoken(tmp_path, spy, monkeypatch):
+def test_phu_de_giu_chu_goc_ca_khi_co_spoken(tmp_path, spy):
     project = _build(
         tmp_path,
         spy,
-        monkeypatch,
         [seg("p1", "dns", "Chữ gốc có DNS", spoken="lời đọc khác hẳn")],
         LEXICON,
     )

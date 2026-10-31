@@ -11,6 +11,7 @@ import numpy as np
 import pytest
 import soundfile as sf
 
+from aivideo import engines
 from aivideo.audio import (
     srt_timestamp,
     validate_timeline,
@@ -19,6 +20,7 @@ from aivideo.audio import (
 from conftest import (
     FPS,
     PLAIN_SEGMENTS,
+    REAL_SYNTH,
     ROOT,
     ffmpeg_loudness,
     make_project,
@@ -445,15 +447,65 @@ def test_cli_build_thieu_hoac_sai_engine_voice_thoat_ma_2(
     assert project.calls == []
 
 
-def test_cli_build_loi_thi_tra_ma_khac_0_khong_nem(tmp_path, spy, monkeypatch):
-    segments = [
-        seg("b1", "phone", "Nhịp một"),
-        seg("b2", "dns", "Nhịp hai"),
-        seg("b3", "phone", "Nhịp ba"),
-    ]
-    project = make_project(tmp_path, spy, segments)
+def _bad_phone_dns_phone(project):
+    project.write_script(
+        [
+            seg("b1", "phone", "Nhịp một"),
+            seg("b2", "dns", "Nhịp hai"),
+            seg("b3", "phone", "Nhịp ba"),
+        ]
+    )
+
+
+def _script_thieu_file(project):
+    project.script_path.unlink()  # OSError
+
+
+def _json_hong(project):
+    project.script_path.write_text("{ không phải json", encoding="utf-8")
+
+
+def _nhip_thieu_text(project):
+    project.write_script([{"id": "b1", "scene": "phone", "pause_ms": 100}])
+
+
+@pytest.mark.parametrize(
+    "break_script",
+    [
+        _bad_phone_dns_phone,  # RuntimeError
+        _script_thieu_file,  # OSError
+        _json_hong,  # ValueError
+        _nhip_thieu_text,  # KeyError
+    ],
+)
+def test_cli_build_loi_tra_dung_ma_1_in_loi_ra_stderr_khong_nem(
+    project, monkeypatch, capsys, break_script
+):
+    break_script(project)
     code = project.cli(
         monkeypatch, ["build", "--engine", "fake", "--voice", "x"]
     )
-    assert isinstance(code, int)
-    assert code != 0
+    assert code == 1
+    captured = capsys.readouterr()
+    assert "lỗi:" in captured.err
+    assert not project.timeline_path.exists()
+
+
+def test_cache_khoa_co_engine_doi_engine_phai_tong_hop_lai_toan_bo(
+    project, monkeypatch
+):
+    seen = []
+
+    def stub(engine, text, voice, speed=1.0):  # korva giả bằng sóng fake
+        seen.append(engine)
+        return REAL_SYNTH("fake", text, voice, speed)
+
+    monkeypatch.setattr(engines, "synth", stub)
+    project.build(engine="fake")
+    assert seen == ["fake"] * len(PLAIN_SEGMENTS)
+    seen.clear()
+    project.build(engine="fake")
+    assert seen == []
+    project.build(engine="korva")
+    assert seen == ["korva"] * len(PLAIN_SEGMENTS)
+    assert len(list(project.cache_dir.iterdir())) == 2 * len(PLAIN_SEGMENTS)

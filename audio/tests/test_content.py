@@ -77,12 +77,15 @@ def test_script_json_truong_bat_buoc_va_kieu_du_lieu(script):
         }
 
 
-def test_lexicon_co_5_tu_khoa_voi_loi_doc_khong_rong():
+def test_lexicon_chi_chua_tu_khoa_doc_sai_voi_loi_doc_khong_rong():
     lexicon = json.loads((CONTENT / "lexicon.json").read_text("utf-8"))
-    for word in KEY_WORDS:
-        assert isinstance(lexicon[word], str)
-        assert lexicon[word].strip() != ""
-        assert lexicon[word] != word
+    assert isinstance(lexicon, dict)
+    assert set(lexicon) <= set(KEY_WORDS)
+    for word, spoken in lexicon.items():
+        assert isinstance(word, str)
+        assert isinstance(spoken, str)
+        assert spoken.strip() != ""
+        assert spoken != word
 
 
 def test_compare_txt_co_2_den_3_cau_va_du_5_tu_khoa():

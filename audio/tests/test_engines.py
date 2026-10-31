@@ -2,70 +2,107 @@
 
 from __future__ import annotations
 
+import subprocess
+import sys
 import tomllib
 
 import numpy as np
 import pytest
 
+from aivideo import engines
 from conftest import ROOT
 
 AUDIO_DIR = ROOT / "audio"
+FAKE_RATE = 24000
+PAD = int(0.3 * FAKE_RATE)
 
 
-def fake(text: str, speed: float = 1.0):
-    from aivideo.engines import synth
-
-    return synth("fake", text, "test", speed)
+def fake(text: str, voice: str = "test", speed: float = 1.0):
+    return engines.synth("fake", text, voice, speed)
 
 
-def test_fake_tra_float32_mono_voi_sample_rate_nguyen_duong():
+def test_fake_tra_float32_mono_24khz_trong_khoang_chuan():
     wav, rate = fake("Xin chào các bạn")
     assert isinstance(wav, np.ndarray)
     assert wav.dtype == np.float32
     assert wav.ndim == 1
-    assert isinstance(rate, int)
-    assert rate > 0
-    assert len(wav) > 0
+    assert rate == FAKE_RATE
     assert np.isfinite(wav).all()
     assert float(np.max(np.abs(wav))) <= 1.0
 
 
-def test_fake_do_dai_ty_le_tuyen_tinh_voi_so_ky_tu():
-    n20, rate = fake("a" * 20)
-    n40 = fake("a" * 40)[0]
-    n60 = fake("a" * 60)[0]
-    step_a = len(n40) - len(n20)
-    step_b = len(n60) - len(n40)
-    assert step_a > 0
-    assert abs(step_a - step_b) <= 2  # đúng tuyến tính, sai số làm tròn mẫu
-    assert rate > 0
+@pytest.mark.parametrize(
+    ("chars", "speed"), [(20, 1.0), (50, 1.0), (50, 2.0), (30, 0.5)]
+)
+def test_fake_do_dai_dung_cong_thuc_giao_dien(chars, speed):
+    wav, _ = fake("a" * chars, speed=speed)
+    body = round(chars * 0.06 / speed * FAKE_RATE)
+    assert abs(len(wav) - (body + 2 * PAD)) <= 1
 
 
-def test_fake_co_0_3_giay_lang_o_hai_dau():
-    wav, rate = fake("Xin chào các bạn thân mến")
-    lead = int(0.3 * rate)
-    quiet = 1e-3
-    assert float(np.max(np.abs(wav[: lead - 2]))) < quiet
-    assert float(np.max(np.abs(wav[-(lead - 2) :]))) < quiet
-    body = wav[lead + 2 : len(wav) - lead - 2]
+def test_fake_co_0_3_giay_lang_tuyet_doi_o_hai_dau():
+    wav, _ = fake("Xin chào các bạn thân mến")
+    assert np.array_equal(wav[:PAD], np.zeros(PAD, dtype=np.float32))
+    assert np.array_equal(wav[-PAD:], np.zeros(PAD, dtype=np.float32))
+    body = wav[PAD + 2 : len(wav) - PAD - 2]
     assert len(body) > 0
     assert float(np.max(np.abs(body))) > 0.05
 
 
 def test_fake_la_tat_dinh_cung_dau_vao_cung_dau_ra():
-    first, rate1 = fake("Lặp lại")
-    second, rate2 = fake("Lặp lại")
+    first, rate1 = fake("Lặp lại", "v", 1.0)
+    second, rate2 = fake("Lặp lại", "v", 1.0)
     assert rate1 == rate2
     assert np.array_equal(first, second)
 
 
-def test_fake_khong_dung_den_engine_that(monkeypatch):
-    import sys
+def test_fake_doi_voice_doi_song_nhung_giu_nguyen_do_dai():
+    one, _ = fake("Cùng một câu", voice="a")
+    two, _ = fake("Cùng một câu", voice="b")
+    assert len(one) == len(two)
+    assert not np.array_equal(one, two)
 
-    for name in ("korvatts", "vieneu"):
-        monkeypatch.setitem(sys.modules, name, None)  # import sẽ lỗi
-    wav, _ = fake("Không cần mô hình")
-    assert wav.dtype == np.float32
+
+def test_fake_voices_co_hai_giong_a_b():
+    assert engines.VOICES["fake"] == ["a", "b"]
+    assert set(engines.ENGINES) == {"korva", "vieneu", "fake"}
+
+
+@pytest.mark.parametrize("bad", ["", "   ", "\n\t"])
+def test_text_rong_hoac_khoang_trang_nem_value_error(bad):
+    with pytest.raises(ValueError):
+        fake(bad)
+
+
+def test_engine_la_nem_value_error():
+    with pytest.raises(ValueError):
+        engines.synth("khong-co", "xin chào", "v", 1.0)
+
+
+@pytest.mark.parametrize(
+    ("engine", "package"), [("korva", "korvatts"), ("vieneu", "vieneu")]
+)
+def test_thieu_goi_engine_that_nem_runtime_error_co_huong_dan(
+    monkeypatch, engine, package
+):
+    monkeypatch.setitem(sys.modules, package, None)  # import sẽ lỗi
+    with pytest.raises(RuntimeError) as info:
+        engines.synth(engine, "xin chào", "v", 1.0)
+    message = str(info.value)
+    assert engine in message
+    assert "install" in message
+
+
+def test_import_luoi_khong_nap_korvatts_vieneu_khi_dung_fake():
+    code = (
+        "import sys\n"
+        "import aivideo.audio\n"
+        "from aivideo import engines\n"
+        "engines.synth('fake', 'xin chào', 'v', 1.0)\n"
+        "assert 'korvatts' not in sys.modules\n"
+        "assert 'vieneu' not in sys.modules\n"
+    )
+    subprocess.run([sys.executable, "-I", "-c", code], check=True)
 
 
 @pytest.fixture(scope="module")
@@ -81,8 +118,10 @@ def test_pyproject_yeu_cau_python_3_12(pyproject):
 def test_pyproject_co_ba_extras_va_ghim_phien_ban(pyproject):
     extras = pyproject["project"]["optional-dependencies"]
     assert {"korva", "vieneu", "dev"} <= set(extras)
-    assert any(d.replace(" ", "") == "korvatts==0.1.3" for d in extras["korva"])
-    assert any(d.replace(" ", "") == "vieneu==3.8.3" for d in extras["vieneu"])
+    korva = extras["korva"]
+    vieneu = extras["vieneu"]
+    assert any(d.replace(" ", "") == "korvatts==0.1.3" for d in korva)
+    assert any(d.replace(" ", "") == "vieneu==3.8.3" for d in vieneu)
     for dep in extras["dev"]:
         assert "==" in dep, f"chưa ghim phiên bản: {dep}"
     deps = pyproject["project"]["dependencies"]
@@ -97,18 +136,17 @@ def test_pyproject_dang_ky_marker_real(pyproject):
     assert any(m.split(":")[0].strip() == "real" for m in markers)
 
 
-def test_readme_audio_ghi_ket_qua_hai_engine_that():
+def test_readme_audio_ghi_kieu_du_lieu_sample_rate_va_xung_dot_phu_thuoc():
     text = (AUDIO_DIR / "README.md").read_text("utf-8").lower()
     assert "korva" in text
     assert "vieneu" in text
     assert "float32" in text
-    assert "hz" in text
+    assert "44100" in text
+    assert "48000" in text
+    assert "xung đột" in text  # mục xung đột phụ thuộc (tiêu chí 1-2)
 
 
 # --- Test cần giọng thật, chỉ chạy trên Mac: `pytest -m real` ---
-# Giả định (chưa có nguồn): `voice=None` chọn giọng mặc định của engine;
-# giao diện chưa ghi id giọng. Khi DEV-1 ghi `1-am-thanh-giao-dien.md` thì
-# TESTER đối chiếu lại.
 
 
 @pytest.mark.real
@@ -116,15 +154,13 @@ def test_readme_audio_ghi_ket_qua_hai_engine_that():
     ("engine", "expected_rate"), [("korva", 44100), ("vieneu", 48000)]
 )
 def test_real_engine_tra_float32_mono_va_sample_rate(engine, expected_rate):
-    from aivideo.engines import synth
-
-    wav, rate = synth(engine, "Router gửi packet qua DNS.", None, 1.0)
+    voice = engines.VOICES[engine][0]
+    wav, rate = engines.synth(engine, "Router gửi packet qua DNS.", voice, 1.0)
     assert isinstance(wav, np.ndarray)
     assert wav.dtype == np.float32
     assert wav.ndim == 1
     assert len(wav) > rate // 4  # ít nhất 0,25 giây tiếng
-    assert isinstance(rate, int)
-    # Sample rate theo tài liệu (1-am-thanh.md), chưa chạy thật.
+    # Sample rate theo tài liệu và README audio/.
     assert rate == expected_rate
     assert np.isfinite(wav).all()
     assert float(np.max(np.abs(wav))) > 0.01  # không phải toàn lặng

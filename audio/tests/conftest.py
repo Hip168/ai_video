@@ -1,22 +1,24 @@
 """Hạ tầng dùng chung cho test đề mục 1 (âm thanh).
 
 Bố cục thư mục tạm khớp giao diện công khai trong
-`.team/features/1-am-thanh.md`: lệnh chạy với thư mục làm việc là `audio/`,
-đọc `../content/`, ghi `../video/public/` và `../out/`.
+`.team/features/1-am-thanh-giao-dien.md`: lệnh CLI chạy với thư mục làm
+việc là `audio/`, đọc `../content/`, ghi `../video/public/` và `../out/`.
 """
 
 from __future__ import annotations
 
-import copy
 import json
 import re
-import runpy
 import subprocess
-import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import pytest
+
+from aivideo import audio, engines
+
+# Giữ hàm gốc đúng một lần ở đây; spy luôn bọc hàm này, không bọc spy cũ.
+REAL_SYNTH = engines.synth
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE_PATH = ROOT / ".team" / "contract" / "timeline.sample.json"
@@ -31,39 +33,87 @@ def load_sample() -> dict:
 @pytest.fixture
 def sample() -> dict:
     """Bản sao mới của file mẫu hợp đồng, đọc thẳng từ `.team/contract/`."""
-    return copy.deepcopy(load_sample())
+    return load_sample()
+
+
+@dataclass
+class SynthSpy:
+    """Ghi lại mọi lần gọi `aivideo.engines.synth` (gọi hàm thật)."""
+
+    calls: list[dict] = field(default_factory=list)
+
+    @property
+    def texts(self) -> list[str]:
+        return [c["text"] for c in self.calls]
+
+    def clear(self) -> None:
+        self.calls.clear()
+
+
+@pytest.fixture
+def spy(monkeypatch: pytest.MonkeyPatch) -> SynthSpy:
+    recorder = SynthSpy()
+
+    def wrapper(engine, text, voice, speed=1.0):
+        recorder.calls.append(
+            {"engine": engine, "text": text, "voice": voice, "speed": speed}
+        )
+        return REAL_SYNTH(engine, text, voice, speed)
+
+    monkeypatch.setattr(engines, "synth", wrapper)
+    return recorder
 
 
 @dataclass
 class Project:
-    """Cây thư mục tạm: audio/ (cwd), content/, video/public/, out/."""
+    """Cây thư mục tạm: audio/ (cwd), content/, video/public/, out/.
+
+    `out/` và `video/public/` KHÔNG tạo sẵn: chúng bị gitignore nên
+    `build` phải tự tạo trên bản checkout mới.
+    """
 
     base: Path
-    calls: list[str] = field(default_factory=list)
+    spy: SynthSpy
 
     @property
-    def audio(self) -> Path:
+    def calls(self) -> list[str]:
+        return self.spy.texts
+
+    @property
+    def audio_dir(self) -> Path:
         return self.base / "audio"
-
-    @property
-    def timeline_path(self) -> Path:
-        return self.base / "video" / "public" / "timeline.json"
-
-    @property
-    def wav_path(self) -> Path:
-        return self.base / "video" / "public" / "audio" / "narration.wav"
-
-    @property
-    def srt_path(self) -> Path:
-        return self.base / "out" / "video.srt"
-
-    @property
-    def cache_dir(self) -> Path:
-        return self.base / "out" / "cache"
 
     @property
     def script_path(self) -> Path:
         return self.base / "content" / "script.json"
+
+    @property
+    def lexicon_path(self) -> Path:
+        return self.base / "content" / "lexicon.json"
+
+    @property
+    def public_dir(self) -> Path:
+        return self.base / "video" / "public"
+
+    @property
+    def out_dir(self) -> Path:
+        return self.base / "out"
+
+    @property
+    def timeline_path(self) -> Path:
+        return self.public_dir / "timeline.json"
+
+    @property
+    def wav_path(self) -> Path:
+        return self.public_dir / "audio" / "narration.wav"
+
+    @property
+    def srt_path(self) -> Path:
+        return self.out_dir / "video.srt"
+
+    @property
+    def cache_dir(self) -> Path:
+        return self.out_dir / "cache"
 
     def timeline(self) -> dict:
         return json.loads(self.timeline_path.read_text(encoding="utf-8"))
@@ -74,64 +124,34 @@ class Project:
             json.dumps(doc, ensure_ascii=False), encoding="utf-8"
         )
 
+    def build(self, engine="fake", voice="test", speed=1.0) -> dict:
+        return audio.build(
+            engine,
+            voice,
+            speed,
+            script_path=self.script_path,
+            lexicon_path=self.lexicon_path,
+            public_dir=self.public_dir,
+            out_dir=self.out_dir,
+        )
 
-def make_project(base: Path, segments: list[dict], lexicon=None) -> Project:
-    """Tạo cây thư mục. `out/` và `video/public/audio/` KHÔNG tạo sẵn:
-    chúng bị gitignore nên `build` phải tự tạo trên bản checkout mới.
-    """
-    (base / "audio").mkdir()
+    def cli(self, monkeypatch: pytest.MonkeyPatch, argv: list[str]) -> int:
+        """Gọi `main(argv)` với cwd = audio/ (để đường dẫn mặc định đúng)."""
+        monkeypatch.chdir(self.audio_dir)
+        return audio.main(argv)
+
+
+def make_project(
+    base: Path, spy: SynthSpy, segments: list[dict], lexicon=None
+) -> Project:
+    (base / "audio").mkdir(parents=True)
     (base / "content").mkdir()
-    (base / "video" / "public").mkdir(parents=True)
-    project = Project(base)
+    project = Project(base, spy)
     project.write_script(segments)
-    (base / "content" / "lexicon.json").write_text(
+    project.lexicon_path.write_text(
         json.dumps(lexicon or {}, ensure_ascii=False), encoding="utf-8"
     )
     return project
-
-
-def run_cli(
-    project: Project,
-    monkeypatch: pytest.MonkeyPatch,
-    argv: list[str],
-) -> int:
-    """Chạy `python -m aivideo.audio <argv>` trong tiến trình, cwd = audio/.
-
-    Bọc `aivideo.engines.synth` để ghi lại văn bản được gửi vào engine
-    (mỗi lần gọi một phần tử trong `project.calls`) mà vẫn gọi hàm thật.
-    Trả về mã thoát.
-    """
-    import aivideo.engines as engines
-
-    real_synth = engines.synth
-
-    def spy(*args, **kwargs):
-        text = args[1] if len(args) > 1 else kwargs["text"]
-        project.calls.append(text)
-        return real_synth(*args, **kwargs)
-
-    monkeypatch.setattr(engines, "synth", spy)
-    monkeypatch.chdir(project.audio)
-    monkeypatch.setattr(sys, "argv", ["aivideo.audio", *argv])
-    monkeypatch.delitem(sys.modules, "aivideo.audio", raising=False)
-    try:
-        runpy.run_module("aivideo.audio", run_name="__main__")
-    except SystemExit as exc:
-        return exc.code if isinstance(exc.code, int) else int(bool(exc.code))
-    return 0
-
-
-def run_build(
-    project: Project,
-    monkeypatch: pytest.MonkeyPatch,
-    voice: str = "test",
-) -> None:
-    code = run_cli(
-        project,
-        monkeypatch,
-        ["build", "--engine", "fake", "--voice", voice],
-    )
-    assert code == 0
 
 
 def seg(sid: str, scene: str, text: str, pause_ms: int = 300, **extra) -> dict:
@@ -144,8 +164,8 @@ def seg(sid: str, scene: str, text: str, pause_ms: int = 300, **extra) -> dict:
     }
 
 
-# Kịch bản thử: văn bản khác độ dài, không có số / từ trong bảng phát âm,
-# nên lời đọc trùng chữ phụ đề.
+# Kịch bản thử: văn bản độ dài cách xa nhau, không có số / từ trong bảng
+# phát âm, nên lời đọc trùng chữ phụ đề.
 PLAIN_SEGMENTS = [
     seg("a1", "phone", "Xin chào các bạn thân mến", cue="send"),
     seg("a2", "phone", "Một hai ba bốn năm sáu bảy tám chín mười mười một"),
@@ -157,6 +177,11 @@ PLAIN_SEGMENTS = [
     ),
     seg("a5", "packets", "Cảnh cuối cùng của kịch bản thử", pause_ms=200),
 ]
+
+
+@pytest.fixture
+def project(tmp_path: Path, spy: SynthSpy) -> Project:
+    return make_project(tmp_path, spy, PLAIN_SEGMENTS)
 
 
 def ffmpeg_loudness(path: Path) -> tuple[float, float]:

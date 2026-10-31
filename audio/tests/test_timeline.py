@@ -115,9 +115,11 @@ def _scene_without_beats(doc):
 
 
 def _nfd_text(doc):
-    beat = doc["scenes"][0]["beats"][0]
-    beat["text"] = unicodedata.normalize("NFD", beat["text"])
-    assert beat["text"] != unicodedata.normalize("NFC", beat["text"])
+    # Chuỗi ngắn: chỉ sai NFC, không vướng giới hạn 100 ký tự.
+    text = unicodedata.normalize("NFD", "Việt Nam")
+    assert len(text) < 100
+    assert text != unicodedata.normalize("NFC", text)
+    doc["scenes"][0]["beats"][0]["text"] = text
 
 
 # 7 loại hỏng của tiêu chí [1-1], mỗi loại vài biến thể.
@@ -125,10 +127,12 @@ BROKEN = {
     "luat1_version_sai": [_set(["version"], 2)],
     "luat1_fps_sai": [_set(["fps"], 25)],
     "luat1_kich_thuoc_sai": [_set(["width"], 1280), _set(["height"], 720)],
-    "luat2_frame_am": [_set(["scenes", 0, "beats", 0, "startFrame"], -1)],
+    "luat2_frame_am": [
+        _set(["scenes", 0, "beats", 0, "durationFrames"], -1),
+        _set(["scenes", 1, "durationFrames"], -1),
+    ],
     "luat2_frame_khong_nguyen": [
         _set(["scenes", 0, "beats", 0, "durationFrames"], 10.5),
-        _set(["scenes", 1, "startFrame"], 349.0 + 0.5),
     ],
     "luat3_id_canh_la": [_set(["scenes", 0, "id"], "khong-co-canh-nay")],
     "luat3_canh_trung": [_duplicate_scene],
@@ -148,6 +152,15 @@ BROKEN = {
     "luat6_id_beat_trung_hoac_canh_khong_beat": [
         _duplicate_beat_id,
         _scene_without_beats,
+    ],
+    "luat8_cue_khong_phai_chuoi": [
+        _set(["scenes", 0, "beats", 0, "cue"], 5),
+        _set(["scenes", 0, "beats", 0, "cue"], ["send"]),
+    ],
+    "audio_src_thieu_hoac_sai": [
+        _set(["audio"], {}),
+        _set(["audio", "src"], ""),
+        _set(["audio", "src"], 7),
     ],
     "luat7_text_rong_dai_hoac_khong_nfc": [
         _set(["scenes", 0, "beats", 0, "text"], ""),
@@ -176,3 +189,58 @@ def test_timeline_hong_bi_bao_loi(sample, mutate):
 def test_text_dung_100_ky_tu_van_hop_le(sample):
     sample["scenes"][0]["beats"][0]["text"] = "a" * 100
     assert validate(sample) == []
+
+
+@pytest.mark.parametrize("bad", [None, [], "timeline", 5, [{"version": 1}]])
+def test_doc_khong_phai_dict_tra_loi_khong_nem(bad):
+    errors = validate(bad)
+    assert isinstance(errors, list)
+    assert len(errors) >= 1
+
+
+def _drop_top(key):
+    def mutate(doc):
+        del doc[key]
+
+    return mutate
+
+
+def _drop_scene_key(key):
+    def mutate(doc):
+        del doc["scenes"][0][key]
+
+    return mutate
+
+
+def _drop_beat_key(key):
+    def mutate(doc):
+        del doc["scenes"][0]["beats"][0][key]
+
+    return mutate
+
+
+MISSING = {
+    "version": _drop_top("version"),
+    "fps": _drop_top("fps"),
+    "width": _drop_top("width"),
+    "height": _drop_top("height"),
+    "durationInFrames": _drop_top("durationInFrames"),
+    "audio": _drop_top("audio"),
+    "scenes": _drop_top("scenes"),
+    "scene.id": _drop_scene_key("id"),
+    "scene.startFrame": _drop_scene_key("startFrame"),
+    "scene.durationFrames": _drop_scene_key("durationFrames"),
+    "scene.beats": _drop_scene_key("beats"),
+    "beat.id": _drop_beat_key("id"),
+    "beat.startFrame": _drop_beat_key("startFrame"),
+    "beat.durationFrames": _drop_beat_key("durationFrames"),
+    "beat.text": _drop_beat_key("text"),
+}
+
+
+@pytest.mark.parametrize("mutate", list(MISSING.values()), ids=list(MISSING))
+def test_thieu_khoa_tra_loi_khong_nem_ngoai_le(sample, mutate):
+    mutate(sample)
+    errors = validate(sample)
+    assert isinstance(errors, list)
+    assert len(errors) >= 1

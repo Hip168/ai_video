@@ -39,3 +39,6 @@ Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chư
 
 ## D11. Cơ cấu Lead (người dùng chốt, 2026-10-31)
 Có thêm `dev-lead`, `deploy-lead`, `ops-lead`, và chỉ một TEST-LEAD (CONVENTIONS §0c). Áp dụng từ các việc mới; đề mục 1 và 2 đang chạy dở vẫn đi nốt, `dev-lead` kiểm trước khi sang DEPLOY.
+
+## D12. Giọng đọc (người dùng chốt sau khi nghe, 2026-10-31)
+KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` và `packet` cần sửa cách đọc bằng chính giọng này; `DNS`, `Wi-Fi`, `IP` giữ nguyên. Không ghép giọng tiếng Anh. Thay cho cách đọc "râu tơ" nhắc trước đó.

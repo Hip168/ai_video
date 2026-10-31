@@ -32,4 +32,13 @@ Vibecraft nằm ở `~/Documents/vibecraft`, đã vá bản clone (6 chỗ, chư
 ## D10. Vùng an toàn và khe hở hợp đồng (BA chốt, 2026-10-31, từ duyệt của TEST-LEAD)
 - Hình chính vẽ trong `y < 830`, tức chừa 250 px đáy, vì phụ đề 2 dòng cao tới y=836. Thay cho mốc 200 px cũ.
 - `durationFrames` ≥ 1; `text` chỉ có khoảng trắng bị coi là rỗng (`0-hop-dong-timeline.md`).
-- Bên đề mục 1: `compare` có `lexicon_path`, tên file bỏ dấu, `number_to_words` chỉ cam kết 0–99, `pause_ms` là số nguyên ≥ 0, `validate_timeline` kiểm luật 1-8 và 10, luật 9 kiểm ở bước build.
+- Bên đề mục 1: `compare` có `lexicon_path`, tên file bỏ dấu, `number_to_words` chỉ cam kết 0–99, `pause_ms` là số nguyên ≥ 0, `validate_timeline` kiểm luật 1-8, luật 9 kiểm ở bước build.
+- `build` validate trước khi ghi `timeline.json`; timeline hỏng thì không ghi file.
+- Luật 10 là mô tả, không có kiểm tra riêng trong `validate_timeline`. `startFrame` của cảnh bằng beat đầu (trừ cảnh đầu) được kiểm ở test build.
+- Luật 2 và 7 đổi trước khi hợp đồng được phát hành nên `version` giữ 1.
+
+## D11. Cơ cấu Lead (người dùng chốt, 2026-10-31)
+Có thêm `dev-lead`, `deploy-lead`, `ops-lead`, và chỉ một TEST-LEAD (CONVENTIONS §0c). Áp dụng từ các việc mới; đề mục 1 và 2 đang chạy dở vẫn đi nốt, `dev-lead` kiểm trước khi sang DEPLOY.
+
+## D12. Giọng đọc (người dùng chốt sau khi nghe, 2026-10-31)
+KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` và `packet` cần sửa cách đọc bằng chính giọng này; `DNS`, `Wi-Fi`, `IP` giữ nguyên. Không ghép giọng tiếng Anh. Người dùng nghe 7 mẫu mỗi từ và chọn: `router` đọc "râu tơ" (mẫu 3), `packet` giữ nguyên. `lexicon.json` chỉ còn `router`. Tốc độ `--speed 1.25` (2631 frame, 87,7 giây): người dùng xem bản có giọng và nhắn "ok" ngày 2026-10-31. `lexicon.json` là dữ liệu sửa được: test chỉ kiểm dạng, không ghim từ nào.

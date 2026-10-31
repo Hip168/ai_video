@@ -10,7 +10,7 @@ Trong: script điều phối, README cách chạy, sửa lỗi ghép giữa hai 
 Ngoài: tính năng mới, đổi hợp đồng, `.github/workflows/`.
 
 ## Giao diện công khai
-`./make-video.sh [--engine <id>] [--voice <id>]`, chạy từ gốc repo. Sinh `out/video.mp4` và `out/video.srt`. Dừng ngay khi một bước lỗi, báo rõ bước nào.
+`./make-video.sh [--engine <id>] [--voice <id>] [--speed <số>]`, chạy từ gốc repo. Mặc định `--engine korva --voice hoang_nam --speed 1.25` (decisions D12); tốc độ 1.0 ra 105,7 giây, trượt [3-2]. Sinh `out/video.mp4` và `out/video.srt`. Dừng ngay khi một bước lỗi, báo rõ bước nào.
 
 ## Dữ liệu
 Không có dữ liệu mới. Dùng `content/script.json`, `content/lexicon.json`, `video/public/timeline.json`.

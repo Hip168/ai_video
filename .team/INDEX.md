@@ -19,3 +19,4 @@
 | .team/features/2-hinh-anh.md | Đề mục 2: cảnh, phụ đề, MP4 (Remotion) | DEV-2, TESTER-2 |
 | .team/features/3-ghep-video.md | Đề mục 3: lệnh một phát, video mẫu thật | DEV-3, TESTER-3 |
 | .team/autonomy.md | Chế độ tự động và các điểm dừng của dự án | Điều phối |
+| .team/features/4-khung-doc.md | Đề mục 4: video dọc 1080×1920 | DEV-4, TESTER-4 |

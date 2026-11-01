@@ -45,3 +45,6 @@ KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` v�
 
 ## D13. Đề mục 3 (BA chốt, 2026-10-31)
 `make-video.sh` chỉ chạy trên Mac, không tự cài, chỉ truyền qua `REMOTION_BROWSER_EXECUTABLE`. Hợp đồng đầu ra tối thiểu ghi ở `features/3-ghep-video.md`.
+
+## D14. Chống mất hình khi render (người dùng chốt, 2026-11-01)
+Chrome bỏ vẽ phần tử khi render nhiều luồng, nên render một luồng, đặt trong `remotion.config.ts`. Bản dọc vẫn đôi khi mất hình 1 khung ở một luồng, nguyên nhân chưa rõ (TEST-LEAD đo 3/7 lần). Người dùng chọn: `make-video.sh` đo MP4 sau render, có khung mất hình thì tự render lại tối đa vài lần, vẫn lỗi thì báo lỗi.

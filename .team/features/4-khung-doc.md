@@ -31,7 +31,7 @@ video/tests/doc.test.ts           test mới, không sửa test đã khoá
 - Nhãn sơ đồ tối thiểu 40 px.
 - Mọi chuyển động là hàm thuần của frame, neo theo `useBeat`, `useBeatStart`.
 
-Kiểm MP4 sau render (D14): áp cho cả `doc` và `ngang`. Bước 4/4 của `make-video.sh` đo khung hình; phát hiện mất hình thì render lại, tối đa 3 lần; vẫn lỗi thì thoát khác 0, nêu frame. Kiểm được tắt khi lỗi môi trường là không chấp nhận được: thiếu công cụ thì báo lỗi, không bỏ qua im lặng.
+Kiểm MP4 sau render (D14): áp cho cả `doc` và `ngang`. Bước 4/4 của `make-video.sh` đo khung hình; phát hiện mất hình thì render lại, tối đa 3 lần; vẫn lỗi thì thoát khác 0, nêu frame. Thiếu công cụ để đo thì báo lỗi, không bỏ qua bước kiểm.
 
 ## File quan trọng
 `.team/features/2-hinh-anh-giao-dien.md`, `.team/features/0-hop-dong-timeline.md`, `.team/features/kich-ban-mau.md`, `video/src/kit.tsx`, `video/src/scenes/*`, `make-video.sh`, decisions D12, D13.

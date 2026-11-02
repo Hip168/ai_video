@@ -73,7 +73,7 @@ def true_peak(path) -> float:
     return float(re.search(r"Peak:\s+(-?[\d.]+|-inf)\s+dBFS", tail).group(1))
 
 
-def verify_mix(path, duration_frames: int, fps: int = 30) -> dict:
+def verify_mix(path, duration_frames: int, fps: int = 30, *, label=None) -> dict:
     info = sf.info(str(path))
     frames = info.frames / info.samplerate * fps
     lufs, tp = measure_lufs(path), true_peak(path)
@@ -85,7 +85,7 @@ def verify_mix(path, duration_frames: int, fps: int = 30) -> dict:
     if abs(frames - duration_frames) > 1:
         errs.append(f"độ dài {frames:.2f} frame lệch timeline {duration_frames}")
     if errs:
-        raise RuntimeError(f"mix không đạt ({path}): " + "; ".join(errs))
+        raise RuntimeError(f"mix không đạt ({label or path}): " + "; ".join(errs))
     return {"lufs": lufs, "true_peak": tp, "frames": round(frames)}
 
 
@@ -174,7 +174,7 @@ def mix_episode(timeline_path, narration_path, out_path, *, music_path=None, mus
         gain_db = min(TARGET_I - lufs_pre, TARGET_TP - tp_pre)
         af = f"volume={gain_db:.4f}dB,aresample={OUT_SR},atrim=end_sample={n}"
         _ffmpeg(["-i", pre_p, "-af", af, "-c:a", "pcm_s16le", fin_p])
-        result = verify_mix(fin_p, frames, fps)
+        result = verify_mix(fin_p, frames, fps, label=out_path)
         for tmp, dst in staged:
             dst.parent.mkdir(parents=True, exist_ok=True)
             os.replace(tmp, dst)

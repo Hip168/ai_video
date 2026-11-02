@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -24,6 +25,7 @@ from aivideo import mix, sfx
 SR = 48000
 FRAME = SR // 30
 SRC = ROOT / "audio" / "src"
+SAMPLE_TIMELINE = ROOT / ".team" / "contract" / "timeline2.sample.json"
 
 
 def tone(freq, seconds, amp=0.3):
@@ -44,14 +46,11 @@ def write(path, x):
 
 
 def timeline(path, frames, sfx_events=()):
-    doc = {
-        "version": 2,
-        "fps": 30,
-        "width": 1920,
-        "height": 1080,
-        "durationInFrames": frames,
-        "sfx": list(sfx_events),
-    }
+    """Timeline v2 hợp lệ về hình thức: lấy file mẫu hợp đồng, chỉ đổi
+    độ dài và sfx (cảnh, chương, theme, audio giữ nguyên từ mẫu)."""
+    doc = json.loads(SAMPLE_TIMELINE.read_text(encoding="utf-8"))
+    doc["durationInFrames"] = frames
+    doc["sfx"] = list(sfx_events)
     path.write_text(json.dumps(doc), encoding="utf-8")
     return path
 
@@ -125,10 +124,23 @@ def test_true_peak_khop_do_doc_lap_bang_ffmpeg(tmp_path):
     )
 
 
-def test_true_peak_bat_duoc_dinh_lien_mau_vuot_0_dbfs(tmp_path):
-    x = tone(997, 2, amp=1.0)
-    p = write(tmp_path / "hot.wav", x)
-    assert mix.true_peak(p) == pytest.approx(0.0, abs=0.3)
+def test_true_peak_bat_duoc_dinh_giua_cac_mau(tmp_path):
+    # 12 kHz pha 45 độ ở 48 kHz: mọi mẫu chỉ bằng 0,707 đỉnh thật, nên
+    # đỉnh mẫu là -3,9 dBFS còn đỉnh thật là 20*log10(0,9) = -0,92 dBTP.
+    # ebur128 (nội suy 4x) báo cao hơn đỉnh thật ~0,6 dB ở tần số này,
+    # nên dung sai ±0,7 quanh -0,6.
+    n = np.arange(2 * SR)
+    x = (0.9 * np.sin(2 * np.pi * 12000 * n / SR + np.pi / 4)).astype(
+        np.float32
+    )
+    sample_peak = 20 * np.log10(float(np.max(np.abs(x))))
+    assert sample_peak == pytest.approx(-3.9, abs=0.1)
+    p = write(tmp_path / "isp.wav", x)
+    assert mix.true_peak(p) == pytest.approx(-0.6, abs=0.7)
+    assert mix.true_peak(p) > sample_peak + 2
+
+
+def test_true_peak_tone_nua_bien_do_la_tru_6_db(tmp_path):
     q = write(tmp_path / "half.wav", tone(997, 2, amp=0.5))
     assert mix.true_peak(q) == pytest.approx(-6.0, abs=0.3)
 
@@ -154,6 +166,7 @@ def test_mix_dinh_dang_wav_16bit_mono_48k(tmp_path):
 
 
 def test_mix_nhac_ngan_hon_duoc_lap_nhac_dai_hon_duoc_cat(tmp_path):
+    n = 240 * FRAME
     for i, seconds in enumerate([3, 25]):
         d = tmp_path / str(i)
         d.mkdir()
@@ -164,11 +177,21 @@ def test_mix_nhac_ngan_hon_duoc_lap_nhac_dai_hon_duoc_cat(tmp_path):
             gain=-12,
             stems=True,
         )
-        assert sf.info(str(out)).frames == pytest.approx(240 * FRAME, abs=FRAME)
+        assert sf.info(str(out)).frames == pytest.approx(n, abs=FRAME)
         stem = read(d / "sm.wav")
+        assert len(stem) == n, seconds
         # đoạn 5,2-5,8 s: hết giọng, chưa vào fade ra; nhạc phải còn tiếng
         # (nếu không lặp, nhạc 3 s đã tắt ở đây).
         assert rms_db(stem, 5.2, 5.8) > -45, seconds
+
+
+@pytest.mark.parametrize("nar_seconds", [4, 8, 12])
+def test_stem_giong_va_nhac_dai_dung_duration_frames(tmp_path, nar_seconds):
+    nar = voice_wave(total=nar_seconds, start=1.0, end=nar_seconds - 0.5)
+    run_mix(tmp_path, narration=nar, music=tone(220, 5), stems=True)
+    n = 240 * FRAME
+    assert len(read(tmp_path / "sv.wav")) == n
+    assert len(read(tmp_path / "sm.wav")) == n
 
 
 # ---------- nhạc: fade, lọc, ducking ----------
@@ -185,21 +208,118 @@ def music_stem(tmp_path, music, gain=-12, narration=None):
     return read(tmp_path / "sm.wav"), read(tmp_path / "sv.wav")
 
 
-def test_nhac_fade_vao_va_fade_ra(tmp_path):
-    stem, _ = music_stem(tmp_path, tone(220, 8, amp=0.5), gain=0)
-    assert rms_db(stem, 0.0, 0.1) < rms_db(stem, 1.2, 1.9) - 10
-    assert rms_db(stem, 7.9, 8.0) < rms_db(stem, 5.4, 5.9) - 10
+def quiet_stem(tmp_path, music, gain=0, frames=240):
+    """Giọng im lặng hoàn toàn: ducking không tác động lên nhạc."""
+    nar = np.zeros(frames * FRAME, dtype=np.float32)
+    run_mix(
+        tmp_path,
+        narration=nar,
+        music=music,
+        gain=gain,
+        frames=frames,
+        stems=True,
+    )
+    return read(tmp_path / "sm.wav")
 
 
-def test_nhac_qua_highpass_120hz_va_lowpass_8khz(tmp_path):
-    levels = {}
-    for f in (30, 1000, 12000):
-        d = tmp_path / str(f)
-        d.mkdir()
-        stem, _ = music_stem(d, tone(f, 8, amp=0.5), gain=-12)
-        levels[f] = rms_db(stem, 1.2, 1.9)  # đoạn không giọng, hết fade vào
-    assert levels[30] < levels[1000] - 20
-    assert levels[12000] < levels[1000] - 6
+def test_nhac_fade_vao_dai_1_giay_tuyen_tinh_giua_fade_la_tru_6_db(tmp_path):
+    stem = quiet_stem(tmp_path, tone(1000, 8, amp=0.5))
+    full = rms_db(stem, 2.5, 3.5)
+    assert rms_db(stem, 0.48, 0.52) - full == pytest.approx(-6.0, abs=0.7)
+    assert rms_db(stem, 0.0, 0.02) < full - 20
+    # sau 1 giây fade đã xong: 1,2 s ngang mức đầy
+    assert rms_db(stem, 1.2, 1.3) - full == pytest.approx(0.0, abs=0.3)
+
+
+def test_nhac_fade_ra_dai_2_giay_giua_fade_la_tru_6_db(tmp_path):
+    stem = quiet_stem(tmp_path, tone(1000, 8, amp=0.5))
+    full = rms_db(stem, 2.5, 3.5)
+    # 8 s - 1 s = 7 s: giữa fade ra 2 s (6 s -> 8 s)
+    assert rms_db(stem, 6.98, 7.02) - full == pytest.approx(-6.0, abs=0.7)
+    # trước 6 s vẫn mức đầy; fade ra bắt đầu đúng 2 s trước cuối
+    assert rms_db(stem, 5.8, 5.9) - full == pytest.approx(0.0, abs=0.3)
+    assert rms_db(stem, 7.98, 8.0) < full - 20
+
+
+def test_nhac_fade_ra_neo_theo_cuoi_khi_do_dai_khac(tmp_path):
+    stem = quiet_stem(tmp_path, tone(1000, 12, amp=0.5), frames=360)
+    full = rms_db(stem, 2.5, 3.5)
+    # cuối ở 12 s; giữa fade ra là 11 s
+    assert rms_db(stem, 10.98, 11.02) - full == pytest.approx(-6.0, abs=0.7)
+
+
+# Đáp ứng bộ lọc đo bằng tone trên đoạn không giọng; mức vào chuẩn:
+# biên độ 0,5 -> RMS -9,03 dBFS, cộng gain -12 dB = -21,03 dBFS.
+EXPECT_DB = 20 * np.log10(0.5 / np.sqrt(2)) - 12
+
+
+def filter_response(tmp_path, freq):
+    stem = quiet_stem(tmp_path, tone(freq, 8, amp=0.5), gain=-12)
+    return rms_db(stem, 2.5, 3.5) - EXPECT_DB
+
+
+@pytest.mark.parametrize("freq", [120, 8000])
+def test_nhac_bo_loc_giam_3_db_tai_tan_so_cat_120hz_va_8khz(tmp_path, freq):
+    assert filter_response(tmp_path, freq) == pytest.approx(-3.0, abs=1.0)
+
+
+@pytest.mark.parametrize("freq", [200, 1000, 4000])
+def test_nhac_giu_nguyen_muc_trong_dai_thong_va_ap_dung_gain(tmp_path, freq):
+    # 200 Hz và 4 kHz không giảm quá 1 dB; 1 kHz đúng gain -12 dB.
+    resp = filter_response(tmp_path, freq)
+    assert resp >= -1.0
+    assert resp == pytest.approx(0.0, abs=1.0)
+
+
+@pytest.mark.parametrize("freq", [30, 12000])
+def test_nhac_bo_loc_chan_manh_ngoai_dai_thong(tmp_path, freq):
+    assert filter_response(tmp_path, freq) <= -8.0
+
+
+def test_nhac_gain_mac_dinh_la_tru_24_db(tmp_path):
+    nar = write(tmp_path / "nar.wav", np.zeros(240 * FRAME, np.float32))
+    tl = timeline(tmp_path / "tl.json", 240)
+    mus = write(tmp_path / "m.wav", tone(1000, 8, amp=0.5))
+    mix.mix_episode(
+        tl, nar, tmp_path / "o.wav", music_path=mus,
+        stem_voice_path=tmp_path / "sv.wav",
+        stem_music_path=tmp_path / "sm.wav",
+    )
+    level = rms_db(read(tmp_path / "sm.wav"), 2.5, 3.5)
+    assert level == pytest.approx(EXPECT_DB + 12 - 24, abs=0.5)
+
+
+def test_nhac_stereo_44k1_van_tron_dung_do_dai_va_ducking(tmp_path):
+    t = np.arange(int(8 * 44100)) / 44100
+    mono = (0.5 * np.sin(2 * np.pi * 220 * t)).astype(np.float32)
+    stereo = np.stack([mono, mono], axis=1)
+    mus = tmp_path / "st.wav"
+    sf.write(str(mus), stereo, 44100, subtype="FLOAT")
+    nar = write(tmp_path / "nar.wav", voice_wave())
+    tl = timeline(tmp_path / "tl.json", 240)
+    out = tmp_path / "o.wav"
+    mix.mix_episode(
+        tl, nar, out, music_path=mus, music_gain_db=0,
+        stem_voice_path=tmp_path / "sv.wav",
+        stem_music_path=tmp_path / "sm.wav",
+    )
+    n = 240 * FRAME
+    assert len(read(tmp_path / "sm.wav")) == n
+    lufs, peak = ffmpeg_loudness(out)
+    assert lufs == pytest.approx(-16, abs=1.0)
+    assert peak <= -1.5
+    v = rms_db(read(tmp_path / "sv.wav"), 3.5, 4.5)
+    m = rms_db(read(tmp_path / "sm.wav"), 3.5, 4.5)
+    assert v - m >= 12
+
+
+def test_nhac_khong_co_mau_nao_nem_music_error_nhanh(tmp_path):
+    empty = tmp_path / "rong.wav"
+    sf.write(str(empty), np.zeros(0, np.float32), SR, subtype="FLOAT")
+    nar = write(tmp_path / "nar.wav", voice_wave())
+    tl = timeline(tmp_path / "tl.json", 240)
+    with pytest.raises(mix.MusicError, match="rong.wav"):
+        mix.mix_episode(tl, nar, tmp_path / "o.wav", music_path=empty)
 
 
 @pytest.mark.parametrize("gain", [-24, -12, -6, 0])
@@ -311,9 +431,24 @@ def test_load_manifest_dung_cau_truc_tracks(tmp_path):
     assert mix.load_manifest(manifest) == {"tracks": [entry]}
 
 
-def test_manifest_commit_trong_repo_la_tracks_rong():
+MANIFEST_FIELDS = {
+    "id", "file", "sourceUrl", "license", "downloadedAt", "sha256",
+    "attribution",
+}
+
+
+def test_manifest_trong_repo_dung_cau_truc_tracks_va_du_7_truong():
     path = ROOT / "assets" / "audio" / "manifest.json"
-    assert json.loads(path.read_text(encoding="utf-8")) == {"tracks": []}
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    assert set(doc) == {"tracks"}
+    assert isinstance(doc["tracks"], list)
+    ids = [t["id"] for t in doc["tracks"]]
+    assert len(ids) == len(set(ids)), "id nhạc trùng"
+    for t in doc["tracks"]:
+        assert set(t) == MANIFEST_FIELDS, t.get("id")
+        assert re.fullmatch(r"[0-9a-f]{64}", t["sha256"]), t["id"]
+        assert t["sourceUrl"].startswith("https://"), t["id"]
+        assert t["license"].strip() and t["downloadedAt"].strip(), t["id"]
 
 
 def test_mix_episode_thieu_file_nhac_nem_music_error_neu_duong_dan(tmp_path):
@@ -335,27 +470,71 @@ def test_stem_nhac_ma_khong_co_nhac_la_loi(tmp_path):
 
 def test_verify_mix_nem_loi_khi_loudness_lech(tmp_path):
     quiet = write(tmp_path / "q.wav", tone(440, 8, amp=0.01))
-    with pytest.raises(RuntimeError):
+    with pytest.raises(RuntimeError, match="LUFS"):
         mix.verify_mix(quiet, 240)
+
+
+def test_verify_mix_nem_loi_khi_true_peak_vuot_du_loudness_dat(tmp_path):
+    x = tone(440, 8, amp=0.24)
+    x[SR * 4] = 1.0  # một mẫu đỉnh 0 dBFS, loudness gần như không đổi
+    p = write(tmp_path / "peak.wav", x)
+    assert ffmpeg_loudness(p)[0] == pytest.approx(-16, abs=1.0)
+    with pytest.raises(RuntimeError, match="dBTP"):
+        mix.verify_mix(p, 240)
 
 
 def test_verify_mix_nem_loi_khi_do_dai_lech_qua_1_frame(tmp_path):
     out, _ = run_mix(tmp_path, narration=voice_wave())
-    mix.verify_mix(out, 240)
-    with pytest.raises(RuntimeError):
+    assert mix.verify_mix(out, 240)["frames"] == 240
+    assert mix.verify_mix(out, 241)["frames"] == 240  # lệch đúng 1: được
+    with pytest.raises(RuntimeError, match="frame"):
         mix.verify_mix(out, 243)
+    with pytest.raises(RuntimeError, match="frame"):
+        mix.verify_mix(out, 237)
+
+
+def test_mix_dung_timeline_mau_hop_dong_nguyen_ven(tmp_path):
+    # timeline2.sample.json đọc thẳng, không sửa: 600 frame, sfx ở 0 và 390.
+    nar = write(tmp_path / "nar.wav", voice_wave(total=20, start=15, end=19))
+    out = tmp_path / "mix.wav"
+    result = mix.mix_episode(SAMPLE_TIMELINE, nar, out)
+    assert result["frames"] == 600
+    assert sf.info(str(out)).frames == pytest.approx(600 * FRAME, abs=FRAME)
+    x = read(out)
+    expected = round(390 * SR / 30)
+    seg = np.abs(x[expected - SR // 2 : expected + SR // 2])
+    thr = 0.1 * float(np.max(np.abs(x[: 15 * SR])))
+    idx = expected - SR // 2 + int(np.argmax(seg > thr))
+    assert abs(idx - expected) <= int(0.005 * SR)
+
+
+def test_sfx_gain_db_trong_ban_tron_chenh_khoang_12_db(tmp_path):
+    events = [
+        {"frame": 30, "name": "ding", "gainDb": -6},
+        {"frame": 120, "name": "ding", "gainDb": -18},
+    ]
+    nar = voice_wave(total=8.0, start=6.0, end=7.5)
+    out, _ = run_mix(tmp_path, narration=nar, events=events)
+    x = read(out)
+    n = len(sfx.generate("ding"))
+    loud = rms_db(x, 1.0, 1.0 + n / SR)
+    soft = rms_db(x, 4.0, 4.0 + n / SR)
+    # Chênh đo được ~13,8 dB, không đổi theo mức gain (chưa rõ nguyên
+    # nhân: loudnorm hay chuỗi lọc). Dung sai ±2,5 vẫn bắt được gain bị
+    # bỏ qua (0 dB) hay đổi sai công thức (6 dB hoặc 24 dB).
+    assert loud - soft == pytest.approx(12, abs=2.5)
 
 
 # ---------- CLI theo tập ----------
 
 
-def build_episode(tmp_path, *, music="bai-thu", frames=240, stems_music=True):
+def build_episode(tmp_path, *, music="bai-thu", frames=240, gain=-12):
     manifest, files, entry = make_music(tmp_path)
     slug = "tap-thu"
     (tmp_path / "episodes" / slug).mkdir(parents=True)
     meta = {"title": "Thử", "voice": "x", "speed": 1.0, "theme": "mau-a"}
     if music:
-        meta["music"] = {"track": music, "gainDb": -12}
+        meta["music"] = {"track": music, "gainDb": gain}
     script = {"meta": meta, "chapters": [], "scenes": []}
     (tmp_path / "episodes" / slug / "script.json").write_text(
         json.dumps(script), encoding="utf-8"
@@ -385,7 +564,12 @@ def real_music(path):
 
 
 def arm_music(tmp_path, music_file):
-    sha = real_music(music_file)
+    real_music(music_file)
+    arm_sha(tmp_path, music_file)
+
+
+def arm_sha(tmp_path, music_file):
+    sha = hashlib.sha256(music_file.read_bytes()).hexdigest()
     mpath = tmp_path / "assets" / "audio" / "manifest.json"
     doc = json.loads(mpath.read_text(encoding="utf-8"))
     doc["tracks"][0]["sha256"] = sha
@@ -438,7 +622,8 @@ def test_cli_thieu_file_nhac_thoat_khac_0_neu_file_khong_ghi_mix(tmp_path):
     slug, out, music_file = build_episode(tmp_path)
     music_file.unlink()
     r = run_cli(tmp_path, slug)
-    assert r.returncode != 0
+    assert r.returncode == 1
+    assert r.stderr.startswith("lỗi:")
     assert "bai.ogg" in r.stderr
     assert not (out / "mix.wav").exists()
 
@@ -447,7 +632,8 @@ def test_cli_lech_sha256_thoat_khac_0_neu_file_khong_ghi_mix(tmp_path):
     slug, out, music_file = build_episode(tmp_path)
     real_music(music_file)  # nội dung khác sha256 trong manifest
     r = run_cli(tmp_path, slug)
-    assert r.returncode != 0
+    assert r.returncode == 1
+    assert r.stderr.startswith("lỗi:")
     assert "bai.ogg" in r.stderr
     assert not (out / "mix.wav").exists()
 
@@ -458,14 +644,15 @@ def test_cli_loi_khong_de_lai_mix_wav_cu_bi_ghi_de(tmp_path):
     old = out / "mix.wav"
     old.write_bytes(b"cu")
     r = run_cli(tmp_path, slug)
-    assert r.returncode != 0
+    assert r.returncode == 1
     assert old.read_bytes() == b"cu"
 
 
 def test_cli_id_nhac_la_thoat_khac_0_neu_id(tmp_path):
     slug, out, _ = build_episode(tmp_path, music="bai-la-hoac")
     r = run_cli(tmp_path, slug)
-    assert r.returncode != 0
+    assert r.returncode == 1
+    assert r.stderr.startswith("lỗi:")
     assert "bai-la-hoac" in r.stderr
     assert not (out / "mix.wav").exists()
 
@@ -475,7 +662,8 @@ def test_cli_thieu_narration_thoat_khac_0_neu_duong_dan(tmp_path):
     arm_music(tmp_path, music_file)
     (out / "narration.wav").unlink()
     r = run_cli(tmp_path, slug)
-    assert r.returncode != 0
+    assert r.returncode == 1
+    assert r.stderr.startswith("lỗi:")
     assert "narration.wav" in r.stderr
     assert not (out / "mix.wav").exists()
 
@@ -484,9 +672,52 @@ def test_cli_thieu_script_thoat_khac_0_neu_duong_dan(tmp_path):
     slug, out, _ = build_episode(tmp_path)
     (tmp_path / "episodes" / slug / "script.json").unlink()
     r = run_cli(tmp_path, slug)
-    assert r.returncode != 0
+    assert r.returncode == 1
+    assert r.stderr.startswith("lỗi:")
     assert "script.json" in r.stderr
 
 
+def test_cli_verify_mix_hong_thoat_1_neu_loi_khong_ghi_mix(tmp_path):
+    slug, out, music_file = build_episode(tmp_path, music=None)
+    click = np.zeros(8 * SR, dtype=np.float32)
+    click[1000:1048] = 0.9  # thưa: loudnorm không đưa lên -16 được
+    write(out / "narration.wav", click)
+    old = out / "mix.wav"
+    old.write_bytes(b"cu")
+    r = run_cli(tmp_path, slug, "--stems")
+    assert r.returncode == 1
+    assert r.stderr.startswith("lỗi:")
+    assert "mix không đạt" in r.stderr
+    assert old.read_bytes() == b"cu"
+
+
+def test_cli_doc_gain_db_tu_meta_music(tmp_path):
+    levels = []
+    for i, gain in enumerate([-12, -30]):
+        d = tmp_path / str(i)
+        d.mkdir()
+        slug, out, music_file = build_episode(d, gain=gain)
+        sf.write(str(music_file), tone(1000, 8, amp=0.5), SR, format="WAV")
+        arm_sha(d, music_file)
+        write(out / "narration.wav", np.zeros(240 * FRAME, np.float32))
+        r = run_cli(d, slug, "--stems")
+        assert r.returncode == 0, r.stderr
+        levels.append(rms_db(read(out / "mix.music.wav"), 2.5, 3.5))
+    assert levels[0] == pytest.approx(EXPECT_DB, abs=0.7)
+    assert levels[0] - levels[1] == pytest.approx(18, abs=0.5)
+
+
+@pytest.mark.parametrize("frames", [180, 300])
+def test_cli_do_dai_mix_theo_timeline_va_stem_cung_do_dai(tmp_path, frames):
+    slug, out, music_file = build_episode(tmp_path, frames=frames)
+    arm_music(tmp_path, music_file)
+    r = run_cli(tmp_path, slug, "--stems")
+    assert r.returncode == 0, r.stderr
+    n = frames * FRAME
+    assert abs(sf.info(str(out / "mix.wav")).frames - n) <= FRAME
+    assert len(read(out / "mix.voice.wav")) == n
+    assert len(read(out / "mix.music.wav")) == n
+
+
 def test_sfx_va_mix_dung_chung_sample_rate():
-    assert sfx.SR == SR
+    assert sfx.SR == mix.OUT_SR == SR

@@ -508,7 +508,7 @@ def test_mix_dung_timeline_mau_hop_dong_nguyen_ven(tmp_path):
     assert abs(idx - expected) <= int(0.005 * SR)
 
 
-def test_sfx_gain_db_trong_ban_tron_chenh_khoang_12_db(tmp_path):
+def test_sfx_gain_db_trong_ban_tron_chenh_dung_12_db(tmp_path):
     events = [
         {"frame": 30, "name": "ding", "gainDb": -6},
         {"frame": 120, "name": "ding", "gainDb": -18},
@@ -519,10 +519,9 @@ def test_sfx_gain_db_trong_ban_tron_chenh_khoang_12_db(tmp_path):
     n = len(sfx.generate("ding"))
     loud = rms_db(x, 1.0, 1.0 + n / SR)
     soft = rms_db(x, 4.0, 4.0 + n / SR)
-    # Chênh đo được ~13,8 dB, không đổi theo mức gain (chưa rõ nguyên
-    # nhân: loudnorm hay chuỗi lọc). Dung sai ±2,5 vẫn bắt được gain bị
-    # bỏ qua (0 dB) hay đổi sai công thức (6 dB hoặc 24 dB).
-    assert loud - soft == pytest.approx(12, abs=2.5)
+    # Mức cuối là gain cố định (không loudnorm động) và cả hai SFX thấp
+    # hơn trần alimiter 0,84, nên chênh bằng đúng chênh gainDb.
+    assert loud - soft == pytest.approx(12, abs=0.7)
 
 
 # ---------- CLI theo tập ----------
@@ -717,6 +716,117 @@ def test_cli_do_dai_mix_theo_timeline_va_stem_cung_do_dai(tmp_path, frames):
     assert abs(sf.info(str(out / "mix.wav")).frames - n) <= FRAME
     assert len(read(out / "mix.voice.wav")) == n
     assert len(read(out / "mix.music.wav")) == n
+
+
+def listing(d):
+    return sorted(p.name for p in d.iterdir())
+
+
+def test_cli_loi_verify_khong_de_stem_va_khong_de_ban_cu(tmp_path):
+    slug, out, music_file = build_episode(tmp_path)
+    arm_music(tmp_path, music_file)
+    click = np.zeros(8 * SR, dtype=np.float32)
+    click[1000:1048] = 0.9
+    write(out / "narration.wav", click)
+    old = {n: b"cu-" + n.encode() for n in
+           ("mix.wav", "mix.voice.wav", "mix.music.wav")}
+    for n, data in old.items():
+        (out / n).write_bytes(data)
+    before = listing(out)
+    r = run_cli(tmp_path, slug, "--stems")
+    assert r.returncode == 1
+    assert "mix không đạt" in r.stderr
+    for n, data in old.items():
+        assert (out / n).read_bytes() == data, n
+    assert listing(out) == before  # không thư mục/tệp tạm nào sót lại
+
+
+def test_cli_loi_verify_khong_co_stem_moi_khi_chua_co_ban_cu(tmp_path):
+    slug, out, music_file = build_episode(tmp_path)
+    arm_music(tmp_path, music_file)
+    click = np.zeros(8 * SR, dtype=np.float32)
+    click[1000:1048] = 0.9
+    write(out / "narration.wav", click)
+    before = listing(out)
+    r = run_cli(tmp_path, slug, "--stems")
+    assert r.returncode == 1
+    assert listing(out) == before
+
+
+def test_gain_cuoi_khong_vuot_tran_true_peak_loi_chi_la_loudness(tmp_path):
+    # Nội dung thưa: muốn -16 LUFS phải vượt -1,5 dBTP. Gain cuối phải
+    # dừng ở trần true peak (bản trộn vẫn bị từ chối vì thiếu loudness,
+    # nhưng KHÔNG được báo vượt true peak).
+    click = np.zeros(8 * SR, dtype=np.float32)
+    click[1000:1048] = 0.9
+    nar = write(tmp_path / "nar.wav", click)
+    tl = timeline(tmp_path / "tl.json", 240)
+    with pytest.raises(RuntimeError) as e:
+        mix.mix_episode(tl, nar, tmp_path / "o.wav")
+    assert "LUFS" in str(e.value)
+    assert "dBTP" not in str(e.value)
+
+
+def test_mix_episode_loi_khong_de_file_nao_o_thu_muc_dich(tmp_path):
+    click = np.zeros(8 * SR, dtype=np.float32)
+    click[1000:1048] = 0.9
+    d = tmp_path / "ra"
+    d.mkdir()
+    nar = write(tmp_path / "nar.wav", click)
+    tl = timeline(tmp_path / "tl.json", 240)
+    mus = write(tmp_path / "m.wav", tone(220, 8))
+    with pytest.raises(RuntimeError, match="mix không đạt"):
+        mix.mix_episode(
+            tl, nar, d / "mix.wav", music_path=mus,
+            stem_voice_path=d / "sv.wav", stem_music_path=d / "sm.wav",
+        )
+    assert listing(d) == []
+
+
+@pytest.mark.parametrize("key", ["durationInFrames", "fps", "sfx"])
+def test_timeline_thieu_khoa_nem_value_error_neu_ten_khoa(tmp_path, key):
+    tl = timeline(tmp_path / "tl.json", 240)
+    doc = json.loads(tl.read_text(encoding="utf-8"))
+    del doc[key]
+    tl.write_text(json.dumps(doc), encoding="utf-8")
+    nar = write(tmp_path / "nar.wav", voice_wave())
+    out = tmp_path / "mix.wav"
+    with pytest.raises(ValueError, match=key):
+        mix.mix_episode(tl, nar, out)
+    assert not out.exists()
+
+
+@pytest.mark.parametrize("key", ["durationInFrames", "fps", "sfx"])
+def test_cli_timeline_thieu_khoa_in_loi_neu_ten_khoa_thoat_1(tmp_path, key):
+    slug, out, _ = build_episode(tmp_path, music=None)
+    doc = json.loads((out / "timeline.json").read_text(encoding="utf-8"))
+    del doc[key]
+    (out / "timeline.json").write_text(json.dumps(doc), encoding="utf-8")
+    r = run_cli(tmp_path, slug)
+    assert r.returncode == 1
+    assert r.stderr.startswith("lỗi:")
+    assert key in r.stderr
+    assert not (out / "mix.wav").exists()
+
+
+def test_noi_dung_co_khoang_lang_lra_lon_van_dat_16_lufs(tmp_path):
+    x = np.zeros(10 * SR, dtype=np.float32)
+    x[0 : 2 * SR] = tone(440, 2, amp=0.5)
+    x[3 * SR : 6 * SR] = tone(440, 3, amp=0.01)  # đoạn thì thầm
+    x[7 * SR : 9 * SR] = tone(440, 2, amp=0.4)
+    out, _ = run_mix(
+        tmp_path, narration=x, frames=300,
+        events=[{"frame": 225, "name": "pop", "gainDb": -9}],
+    )
+    lufs, peak = ffmpeg_loudness(out)
+    assert lufs == pytest.approx(-16, abs=1.0)
+    assert peak <= -1.5
+    # gain cố định: đoạn thì thầm vẫn thấp hơn đoạn to ~ đúng như nguồn
+    # (loudnorm động sẽ nâng nó lên).
+    y = read(out)
+    assert rms_db(y, 0.5, 1.5) - rms_db(y, 4.0, 5.0) == pytest.approx(
+        34, abs=1.5
+    )
 
 
 def test_sfx_va_mix_dung_chung_sample_rate():

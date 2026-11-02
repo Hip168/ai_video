@@ -409,6 +409,8 @@ def build_episode(slug: str, engine: str, voice: str | None = None, speed: float
 
     out = Path(out_dir) / slug
     cache_dir = out / "cache"
+    for stale in cache_dir.glob("*.tmp"):
+        stale.unlink(missing_ok=True)
 
     chunks: list[np.ndarray] = []
     pos = 0  # mẫu hiện tại trong wav ghép

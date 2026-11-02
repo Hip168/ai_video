@@ -1,4 +1,4 @@
-"""Trộn âm thanh tập (đề mục 9): giọng + nhạc (ducking) + bus SFX, loudnorm hai lượt."""
+"""Trộn âm thanh tập (đề mục 9): giọng + nhạc (ducking) + bus SFX, chuẩn hoá -16 LUFS hai lượt (đo rồi áp gain)."""
 from __future__ import annotations
 
 import argparse
@@ -21,6 +21,8 @@ DEFAULT_FILES = ROOT / "assets" / "audio" / "files"
 
 LUFS_TOL = 1.0
 FADE_IN_S, FADE_OUT_S = 1.0, 2.0
+SC_PAD = 2  # giây đệm trước sidechaincompress
+MAX_MUSIC_S = 7200  # chặn nhạc đầu vào dài quá (-stream_loop -1 + đọc cả file)
 LIMIT = 0.84  # ≈ -1,5 dBFS
 
 
@@ -103,10 +105,11 @@ def _graph(n: int, has_music: bool, music_gain_db: float, target: str) -> str:
     music = (f"[1:a]{mono},highpass=f=120,lowpass=f=8000,volume={music_gain_db}dB,"
              f"atrim=end_sample={n},asetpts=N/SR/TB,"
              f"afade=t=in:d={FADE_IN_S},afade=t=out:st={max(dur - FADE_OUT_S, 0):.6f}:d={FADE_OUT_S}[m]")
-    duck = "[m][vm]sidechaincompress=threshold=0.02:ratio=10:attack=10:release=300:makeup=1,"
-    # sidechaincompress cắt cụt đuôi khi hết dữ liệu (thiếu tới ~5600 mẫu, chập chờn): đệm lại cho đủ n mẫu
-    fix = f"apad=whole_len={n},atrim=end_sample={n}"
-    duck += fix
+    duck = (f"[m]apad=pad_dur={SC_PAD}[mp];[vm]apad=pad_dur={SC_PAD}[vp];"
+            "[mp][vp]sidechaincompress=threshold=0.02:ratio=10:attack=10:release=300:makeup=1,")
+    # sidechaincompress kết thúc khi MỘT trong hai đầu vào hết, và đuôi chưa xả bị rơi chập chờn (nhạc tắt đột ngột,
+    # mix.wav không tất định). Đệm cả hai đầu vào dài hơn n rồi cắt đúng n sau bộ nén thì đuôi luôn được xử lý đủ.
+    duck += f"atrim=end_sample={n},asetpts=N/SR/TB"
     if target == "music":
         return f"{voice}[vm];{music};{duck},atrim=end_sample={n}[out]"
     bus = f"[{bus_i}:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB[b]"
@@ -127,6 +130,8 @@ def _check_music(path) -> None:
         raise MusicError(f"không đọc được file nhạc {p}: {e}") from None
     if info.frames <= 0:
         raise MusicError(f"file nhạc {p} không có mẫu âm thanh")
+    if info.frames / info.samplerate > MAX_MUSIC_S:
+        raise MusicError(f"file nhạc {p} dài quá {MAX_MUSIC_S} giây")
 
 
 def mix_episode(timeline_path, narration_path, out_path, *, music_path=None, music_gain_db=-24.0,

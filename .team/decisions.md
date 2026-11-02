@@ -56,7 +56,7 @@ Pipeline tập dài là file mới: `timeline2.ts`, `Episode.tsx`, `lib/`, `epis
 18 loại cảnh theo dữ liệu trong `video/src/lib/scenes/`, cộng `custom:<tên>` ở `video/src/episodes/<slug>/`. Lint chặn lặp khuôn, lý do: chính sách "inauthentic content" của YouTube xét theo kênh. Số ngưỡng ở `features/6-khung-v2.md`.
 
 ## D17. Âm thanh tập: trộn bằng FFmpeg (BA chốt, 2026-11-03)
-Ducking `sidechaincompress`, loudnorm hai lượt, giữ chuẩn D5. Render hình `muted`, đổi nhạc không phải render lại.
+Ducking `sidechaincompress`, chuẩn hoá hai lượt giữ chuẩn D5: đo bằng ebur128 rồi áp `volume` cố định, gain = `min(-16 - LUFS, -1,5 - TP)`. Không dùng `loudnorm` ở lượt 2, vì nội dung có khoảng lặng làm nó rơi sang chế độ động và méo chênh mức giữa các SFX (DEV-9 đo, 2026-11-03). Render hình `muted`, đổi nhạc không phải render lại.
 Nguồn: nhạc từ YouTube Audio Library lọc "Attribution not required" (trang Help ghi không bị Content ID claim), chỉ có sau khi tạo kênh; trước đó dùng Tallbeard CC0. SFX sinh bằng code (numpy) cộng Kenney CC0. Không dùng nhạc AI, `@remotion/sfx`, Freesound API, Pixabay tải hàng loạt. Mỗi file nhạc lưu kèm URL nguồn, giấy phép, ngày tải, sha256 trong `assets/audio/manifest.json`; file nằm ngoài git.
 
 ## D18. Render theo đoạn (BA chốt, 2026-11-03)

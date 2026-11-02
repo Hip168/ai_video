@@ -334,14 +334,34 @@ def _chapter_warnings(timeline: dict) -> list[str]:
 
 # ---- cache TTS an toàn khi bị ngắt -----------------------------------------------
 
+def _wav_intact(path: Path) -> bool:
+    """Header RIFF/data khớp đúng kích thước file; có ít nhất một mẫu."""
+    size = path.stat().st_size
+    with open(path, "rb") as f:
+        head = f.read(12)
+        if len(head) < 12 or head[:4] != b"RIFF" or head[8:12] != b"WAVE":
+            return False
+        if int.from_bytes(head[4:8], "little") + 8 != size:
+            return False
+        pos = 12
+        while pos + 8 <= size:
+            f.seek(pos)
+            cid, n = f.read(4), int.from_bytes(f.read(4), "little")
+            if cid == b"data":
+                return n > 0 and pos + 8 + n == size
+            pos += 8 + n + (n & 1)
+    return False
+
+
 def _synth_cached(cache_dir: Path, engine: str, voice: str, speed: float, spoken: str):
     """Như `audio._synth_cached` nhưng ghi file tạm rồi `os.replace`; cache đọc lỗi thì xoá và tổng hợp lại."""
     path = cache_dir / f"{audio._cache_key(engine, voice, speed, spoken)}.wav"
     if path.exists():
         try:
-            wav, sr = sf.read(path, dtype="float32")
-            if len(wav) > 0:
-                return wav.reshape(-1), sr
+            if _wav_intact(path):
+                wav, sr = sf.read(path, dtype="float32")
+                if len(wav) > 0:
+                    return wav.reshape(-1), sr
         except Exception:
             pass
         path.unlink(missing_ok=True)

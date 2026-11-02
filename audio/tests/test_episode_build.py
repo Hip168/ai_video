@@ -523,3 +523,22 @@ def test_nhieu_cache_hong_cung_luc_chi_goi_lai_cac_nhip_hong(
     spy.clear()
     assert run(small, monkeypatch) == 0
     assert sorted(spy.texts) == sorted(b["text"] for b in beats)
+
+
+def test_build_don_file_tmp_mo_coi_trong_cache_cua_tien_trinh_chet(
+        small, spy, monkeypatch):
+    cache = small.out_dir / "cache"
+    victim = small_script()["scenes"][0]["beats"][0]["text"]
+    key_file = _cache_file(small, victim)
+    orphan = cache / f"{key_file.name}.99999.tmp"
+    orphan.write_bytes(b"ghi dở dang")
+    other = cache / "khac.wav.12345.tmp"
+    other.write_bytes(b"")
+    assert run(small, monkeypatch) == 0
+    assert list(cache.glob("*.tmp")) == []
+    assert key_file.is_file()
+    assert len(list(cache.glob("*.wav"))) == 6
+
+
+def test_build_khong_de_lai_file_tmp_sau_lan_dung_sach(small):
+    assert list((small.out_dir / "cache").glob("*.tmp")) == []

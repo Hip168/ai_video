@@ -64,8 +64,24 @@ Mảng `[{"slug","title","theme","sceneTypes":[...]}]`, được rỗng, không 
 ### Đọc số
 `spoken` dùng nguyên văn, không qua `normalize_vi` và lexicon. Phần lẻ 1–2 chữ số đọc như một số: 3,14 là "ba phẩy mười bốn", 2,4 là "hai phẩy bốn", 0,05 là "không phẩy không năm". Từ 3 chữ số trở lên đọc từng chữ số.
 
-### Độ dài chương
-Bước dựng chỉ cảnh báo khi chương dưới 10 giây. Lint đề mục 6 coi đó là lỗi.
+Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 0-9. Bảng bổ sung:
+- Số dính chữ: tối đa 2 chữ số đọc như số (`4K` "bốn K", `5G` "năm G", `v2` "v hai"); từ 3 chữ số đọc từng chữ số (`1080p` "một không tám không p").
+- `-5°C` "âm năm độ xê". `12:30` "mười hai giờ ba mươi". `1/2` "một phần hai".
+- `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.
+- `100.000đ` đọc số trước rồi đơn vị "đồng".
+Cách đọc nào nghe chưa hay thì sửa bằng `spoken` hoặc lexicon của tập, không đổi bảng này.
+
+### Tên SFX
+`pop`, `tick`, `whoosh`, `ding`, `buzz`. `script.json` chỉ dùng các tên này.
+
+### Khoảng nghỉ
+`pause_ms` của nhịp chèn ngay sau nhịp đó, kể cả khi nhịp sau ở cảnh khác hay trước cảnh câm, trừ nhịp cuối tập. Tập phải có ít nhất một nhịp; toàn cảnh câm là lỗi.
+
+### Chuỗi
+Mọi chuỗi bắt buộc không rỗng cũng không được chỉ gồm khoảng trắng. `audio.src` không chứa `..`, không bắt đầu bằng `/`, không chứa `://`. Python và TypeScript kiểm giống nhau.
+
+### Độ dài chương và mốc thời gian
+Bước dựng chỉ cảnh báo khi chương dưới 10 giây. Lint đề mục 6 coi đó là lỗi. `chapters.txt` dùng `h:mm:ss` từ đúng 1 giờ trở lên.
 
 Timeline không có giới hạn tổng frame. Giới hạn 9 phút và 20 giây mỗi cảnh thuộc lint (đề mục 6), không thuộc validator, để test dùng được tập ngắn.
 

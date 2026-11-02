@@ -80,14 +80,14 @@ Dải y 830..1079 luôn là màu nền phẳng (chỗ cho phụ đề).
 ## 7. Font: `video/src/lib/fonts.ts`
 `loadMonoFonts(): void` nạp JetBrains Mono 400/700 (subset `latin`, `vietnamese`, `latin-ext`) từ `video/public/fonts/jetbrains-mono-<subset>-<weight>-normal.woff2`; `MONO_FAMILY = "JetBrainsMono"`. Giấy phép: `video/public/fonts/OFL-JetBrainsMono.txt`, nguồn ghi ở `video/public/fonts/README.md`. `Root.tsx` gọi `loadMonoFonts()`; cảnh dùng `fontFamily: \`${MONO_FAMILY}, monospace\``.
 
-## 8. Lint: `npm run lint:episode -- <slug> [--timeline <file>] [--script <file>] [--index <file>] [--json]`
-Chạy trong `video/`. Mặc định đọc `out/episodes/<slug>/timeline.json` (đường dẫn tính từ gốc repo) và `episodes/index.json`. Có `--script`: đọc `script.json` (không có thời lượng) và bỏ luật 9 phút và 20 giây, in dòng "bỏ qua".
+## 8. Lint: `npm run lint:episode -- <slug> [--script <file>] [--timeline <file>] [--index <file>] [--json]`
+Chạy trong `video/` (BA chốt 2026-11-03). Cấu trúc (loại cảnh, props, theme, cue) đọc từ `episodes/<slug>/script.json` (`meta.theme`, `scenes[].type/props/beats[].cue`). Thời lượng cảnh đọc từ `out/episodes/<slug>/timeline.json` NẾU file có (ghép theo `scenes[].id`); không có thì bỏ luật `min-duration` và `max-scene-duration` và in dòng "bỏ qua: chưa có timeline". Đường dẫn tính từ gốc repo; `--script`, `--timeline`, `--index` (hoặc biến môi trường `LINT_SCRIPT`, `LINT_TIMELINE`, `LINT_INDEX`) ghi đè. `--index` mặc định `episodes/index.json`. Việc khớp với validator Python thuộc đề mục 10.
 - Mã thoát 0 nếu không có `error`, 1 nếu có, 2 nếu lỗi dùng (thiếu file, JSON hỏng). Mỗi phát hiện in `[LỖI|CẢNH BÁO] <rule>: <thông điệp>`; `--json` in mảng `Finding`.
 - Hàm thuần để test: `video/scripts/lint-core.ts`
   ```ts
   export interface Finding { rule: string; level: "error" | "warn"; message: string }
   export interface IndexEntry { slug: string; title?: string; theme?: string; sceneTypes?: string[] }
-  export interface LintInput { slug: string; scenes: {id; type; props; durationFrames?: number; beats?: {cue?: string}[]}[]; theme?: string; index: IndexEntry[]; hasDurations: boolean }
+  export interface LintInput { slug: string; scenes: {id; type; props; durationFrames?: number; beats?: {cue?: string}[]}[]; theme?: string; index: IndexEntry[]; hasDurations: boolean  // hasDurations=false: bỏ hai luật thời lượng; test dùng timeline giả bằng cách truyền durationFrames }
   export function lintEpisode(input: LintInput): Finding[]
   export function levenshtein(a: string[], b: string[]): number
   export function similarity(a: string[], b: string[]): number   // 1 - levenshtein / max(độ dài), hai chuỗi rỗng = 1

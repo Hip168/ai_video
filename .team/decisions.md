@@ -77,3 +77,7 @@ Quyền đã có: sau khi người dùng duyệt video đầu, publisher đượ
 
 ## D22. Sổ fact (BA chốt, 2026-11-03)
 `episodes/<slug>/claims.json` là sổ fact. Dùng JSON, không thêm phụ thuộc YAML. Mỗi con số, tên, năm trong lời đọc phải trỏ về một claim có nguồn.
+
+## D23. Trình duyệt render và kiểm mất hình (BA chốt theo yêu cầu người dùng và số đo OPS, 2026-11-03)
+Người dùng hỏi dùng `chrome-headless-shell` thay Google Chrome. Chốt: dùng, đặt ở `~/.cache/aivideo/chrome-headless-shell/`, không sửa `remotion.config.ts`. Chi tiết ở `stack.md`.
+D14 cần sửa: `videocheck.py` so hai lần render không đủ, vì a1 và a2 giống hệt từng byte mà cùng mất frame 1315, và `out/video.mp4` cũng mất frame này. Hai lần render cùng dải có thể cùng lỗi; hai phiên khác nhau lại lệch chữ, gây báo giả. Kiểm tập dài không dựa vào so hai lần cùng dải: quét đột biến trên từng video (`framecheck.py`), đối chiếu thêm một lần render với ranh giới đoạn khác. Headless mới có 5 lần sạch, chưa đủ kết luận hết mất hình. Nhánh 4 và `make-video.sh` tạm giữ nguyên (D19).

@@ -1,6 +1,6 @@
 # Stack
 
-Môi trường: macOS arm64, RAM 16 GB, 10 nhân, ổ trống ~53 GB (đo 2026-10-31).
+Môi trường: macOS arm64, RAM 16 GB, 10 nhân, ổ trống ~73 GB (đo 2026-11-03, sau khi dọn).
 
 ## Phần âm thanh — thư mục `audio/`
 - Python **3.12** (bắt buộc). `/opt/homebrew/bin/python3.12`. Python 3.10, 3.11, 3.14 trên máy này hỏng `pyexpat`; không dùng.
@@ -34,11 +34,26 @@ RENDER_TEST=1 npx vitest run  # có render khung hình
 npm run render                # ra ../out/video.mp4
 ```
 
-Ở phiên chính trên Mac này, `chrome-headless-shell` do Remotion tải về crash (`icudtl.dat not found in bundle`), trong và ngoài sandbox; TEST-LEAD-2 chạy được nó. Nguyên nhân chưa xác định. Cách chạy ổn định là dùng Chrome của máy:
+Trình duyệt render: dùng `chrome-headless-shell` đặt ngoài `~/Documents`, không dùng Google Chrome (D23):
 ```bash
-export REMOTION_BROWSER_EXECUTABLE="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+export REMOTION_BROWSER_EXECUTABLE="$HOME/.cache/aivideo/chrome-headless-shell/chrome-headless-shell"
 ```
+Bản trong `video/node_modules/.remotion` crash với `icudtl.dat not found in bundle`: log hệ thống ghi macOS từ chối tiến trình con của nó đọc file trong `~/Documents` (`Sandbox deny file-read-data`), không phải thiếu file. Chép ra `~/.cache` thì chạy được. Google Chrome còn sinh một bản `code_sign_clone` cho mỗi lần mở.
 Người dùng cho phép chạy ngoài sandbox riêng các lệnh Remotion trong worktree (2026-10-31).
+
+## Đo tập dài (OPS, 2026-11-03)
+Đo trên timeline thật 2643 frame, máy bận, tức cận trên. Quy đổi tuyến tính ra 18.000 frame.
+
+| | Google Chrome 156 | Headless shell 157 |
+|---|---|---|
+| Ba tiến trình, giây/frame | 0,067 | 0,0607 |
+| 18.000 frame, ba tiến trình | 6,7 phút | 6,1 phút |
+| RAM cả cây đỉnh mỗi tiến trình | 1,92 GB | 1,41 GB |
+| Đĩa tạm đỉnh mỗi tiến trình | 64 MB | 12 MB |
+| Mất hình ở frame 1314/1315 | 5/7 lần | 0/5 lần |
+
+TTS: 0,14–0,17 giây/ký tự, 9.500 ký tự mất 22–27 phút, RAM khoảng 2,6 GB. MP4 10 phút ước khoảng 40 MB. Render ghi thẳng vào ffmpeg, không có PNG tạm.
+Chốt cho đề mục 10: 3 tiến trình, chặn đĩa 6 GB giữ nguyên. Trộn âm, ghép đoạn, 6000 frame liền chưa đo.
 
 ## Giấy phép
 Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTTS, VieNeu: Apache-2.0.

@@ -1310,7 +1310,7 @@
       "type": "recap-outro",
       "props": {},
       "holdMs": 0,
-      "sfx": "chime",
+      "sfx": "ding",
       "beats": [
         {
           "id": "b123",

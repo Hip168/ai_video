@@ -14,10 +14,11 @@ UNITS: dict[str, str] = {
     "Kbps": "ki-lô-bít trên giây", "Mbps": "mê-ga-bít trên giây", "Gbps": "gi-ga-bít trên giây",
     "ns": "na-nô giây", "µs": "micro giây", "ms": "mili giây", "s": "giây",
     "km/h": "ki-lô-mét trên giờ", "km": "ki-lô-mét", "cm": "xen-ti-mét", "mm": "mi-li-mét",
-    "kg": "ki-lô-gam", "°C": "độ xê",
+    "kg": "ki-lô-gam", "°C": "độ xê", "đ": "đồng", "₫": "đồng",
 }
 
-_NUM = r"\d+(?:\.\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?"
+_THOUSANDS = r"[1-9]\d{0,2}(?:\.\d{3})+(?:,\d+)?"
+_NUM = _THOUSANDS + r"|\d+(?:[.,]\d+)?"
 _UNIT_KEYS = "|".join(re.escape(u) for u in sorted(UNITS, key=len, reverse=True))
 
 
@@ -29,15 +30,26 @@ def int_to_words(n: int) -> str:
         if rest == 0:
             return head
         tail = audio.number_to_words(rest)
-        if rest < 1000:
-            tail = "không trăm " + (tail if rest >= 10 else "linh " + tail)
+        if rest < 10:
+            tail = "không trăm linh " + tail
+        elif rest < 100:
+            tail = "không trăm " + tail
         return f"{head} {tail}"
     return audio.number_to_words(n)
 
 
+def _digit_by_digit(d: str) -> str:
+    return " ".join(_DIGITS[int(c)] for c in d)
+
+
+def _small(d: str) -> str:
+    """Chuỗi chữ số dính chữ: tối đa 2 chữ số đọc như số, từ 3 trở lên đọc từng chữ số."""
+    return audio.number_to_words(int(d)) if len(d) <= 2 else _digit_by_digit(d)
+
+
 def _number_words(tok: str) -> str:
-    """Một số theo kiểu Việt: '.' nhóm nghìn, ',' thập phân (hoặc '.' + 1-2 hay 4+ chữ số)."""
-    if re.fullmatch(r"\d+(?:\.\d{3})+(?:,\d+)?", tok):
+    """Một số theo kiểu Việt: '.' nhóm nghìn (phần nguyên khác 0), ',' hoặc '.' thập phân."""
+    if re.fullmatch(_THOUSANDS, tok):
         whole, _, frac = tok.replace(".", "").partition(",")
     else:
         whole, _, frac = tok.replace(",", ".").partition(".")
@@ -47,26 +59,52 @@ def _number_words(tok: str) -> str:
             tail = ("không " + _DIGITS[int(frac[1])] if frac[0] == "0" and len(frac) == 2
                     else audio.number_to_words(int(frac)))
         else:
-            tail = " ".join(_DIGITS[int(c)] for c in frac)
+            tail = _digit_by_digit(frac)
         out += " phẩy " + tail
     return out
 
 
+def _minutes(m: str) -> str:
+    n = int(m)
+    if n == 0:
+        return ""
+    return " " + ("không " + _DIGITS[n] if n < 10 else audio.number_to_words(n))
+
+
+def _leftover(m: re.Match) -> str:
+    s = m.string
+    w = _small(m.group(0))
+    if m.start() > 0 and s[m.start() - 1].isalnum():
+        w = " " + w
+    if m.end() < len(s) and s[m.end()].isalnum():
+        w += " "
+    return w
+
+
 def normalize_vi(text: str) -> str:
+    """Đổi mọi chữ số thành chữ; kết quả không còn ký tự 0-9."""
+    # giờ 12:30
+    text = re.sub(r"(?<![\d:])(\d{1,2}):(\d{2})(?![\d:])",
+                  lambda m: f"{audio.number_to_words(int(m.group(1)))} giờ{_minutes(m.group(2))}", text)
+    # phân số 1/2
+    text = re.sub(r"(?<![\w/])(\d+)/(\d+)(?![\w/])",
+                  lambda m: f"{_number_words(m.group(1))} phần {_number_words(m.group(2))}", text)
     # khoảng: số - số, số – số
     text = re.sub(r"(?<=\d)\s*[–—]\s*(?=\d)", " đến ", text)
     text = re.sub(r"(?<=[\d%])-(?=\d)", " đến ", text)
+    # số âm
+    text = re.sub(r"(?:(?<=^)|(?<=[\s(]))-(?=\d)", "âm ", text)
     # kích thước 1920x1080
     text = re.sub(r"(?<=\d)\s?[x×]\s?(?=\d)", " nhân ", text)
     # phần trăm
-    text = re.sub(rf"({_NUM})\s?%", lambda m: _number_words(m.group(1)) + " phần trăm", text)
+    text = re.sub(rf"(?<![\w.,])({_NUM})\s?%", lambda m: _number_words(m.group(1)) + " phần trăm", text)
     # đơn vị
     text = re.sub(rf"(?<![\w.,])({_NUM})\s?({_UNIT_KEYS})(?!\w)",
                   lambda m: f"{_number_words(m.group(1))} {UNITS[m.group(2)]}", text)
     # số còn lại (nghìn, thập phân, số trần)
     text = re.sub(rf"(?<![\w.,])({_NUM})(?![\w])", lambda m: _number_words(m.group(1)), text)
-    # chữ số dính chữ (vd 'v2') còn lại: normalize_text xử lý tiếp
-    return text
+    # chữ số dính chữ hoặc sót (v2, 4K, 1080p...)
+    return re.sub(r"\d+", _leftover, text)
 
 
 def speak(text: str, lexicon: dict[str, str]) -> str:

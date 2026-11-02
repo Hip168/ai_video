@@ -34,3 +34,9 @@ Hợp đồng dữ liệu: `0b-hop-dong-timeline-v2.md`. Tất cả chạy với
 - `episodes/_template/` : `script.json` (130 beat, `meta.voice`/`speed`/`theme`), `lexicon.json`, `claims.json` (`[]`), `sources.md`, `outline.md`.
 - `episodes/index.json` : mảng rỗng `[]` ban đầu, không chứa `_template`; dạng mảng `[{"slug","title","theme","sceneTypes":[...]}]`.
 - `episodes/README.md` : cách tạo tập, `script.json`, lệnh dựng.
+
+## Cập nhật theo hợp đồng mới (đọc số, SFX, nghỉ, chuỗi)
+- `normalize_vi`: kết quả không bao giờ còn chữ số 0-9. Thêm: `0.001`/`0,001` là thập phân ("không phẩy không không một", phân cách nghìn chỉ khi phần nguyên 1–999); `2.000.000.100` -> "hai tỷ một trăm"; `100.000đ` -> "một trăm nghìn đồng" (đơn vị `đ`, `₫` = "đồng"); chữ số dính chữ: <= 2 chữ số đọc như số (`v2` "v hai", `4K` "bốn K", `5G` "năm G"), từ 3 chữ số đọc từng chữ số (`1080p` "một không tám không p"); `-5°C` "âm năm độ xê" (dấu `-` đầu chuỗi hoặc sau khoảng trắng/`(`, liền chữ số); `12:30` "mười hai giờ ba mươi", `12:00` "mười hai giờ", `12:05` "mười hai giờ không năm"; `1/2` "một phần hai".
+- `validate_script`: `sfx` (cảnh, beat) chỉ nhận `pop`, `tick`, `whoosh`, `ding`, `buzz` (`episode.SFX_NAMES`); tập toàn cảnh câm là lỗi; id sai kiểu (mảng...) trả lỗi chứ không ném. `validate_timeline2` không ném với đầu vào sai kiểu. `audio.src` không chứa `..` (chuỗi con), `://`, không bắt đầu `/` hoặc `\`.
+- `build_episode`/`main`: `holdMs` nhỏ vẫn cho cảnh câm tối thiểu 1 frame (im lặng tối thiểu 1/30 s). `pause_ms` của nhịp cuối tập không được chèn (kể cả khi sau nó là cảnh câm). `main` bắt `TypeError`/`AttributeError`: in `lỗi:` mã 1.
+- `_template` dùng SFX `ding` thay `chime`.

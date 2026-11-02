@@ -25,6 +25,7 @@ CATALOG = frozenset((
     "cold-open", "chapter-title", "recap-outro", "big-number", "compare", "myth-fact",
     "history-timeline", "term-card", "chart", "flow", "layers", "code-walk", "terminal",
     "bits", "memory-array", "algo-bars", "tree-graph", "scale-ladder"))
+SFX_NAMES = frozenset(("pop", "tick", "whoosh", "ding", "buzz"))
 SFX_GAIN_DB = -18
 MIN_CHAPTER_S = 10
 
@@ -40,6 +41,13 @@ def _nonempty(v) -> bool:
 # ---- script.json ---------------------------------------------------------------
 
 def validate_script(doc) -> list[str]:
+    try:
+        return _validate_script(doc)
+    except (TypeError, AttributeError, KeyError, ValueError) as e:
+        return [f"script sai kiểu dữ liệu: {e}"]
+
+
+def _validate_script(doc) -> list[str]:
     errs: list[str] = []
     if not isinstance(doc, dict):
         return ["script phải là object"]
@@ -75,6 +83,9 @@ def validate_script(doc) -> list[str]:
     seen_s: set = set()
     seen_b: set = set()
     last_chap = -1
+    if not any(isinstance(sc, dict) and isinstance(sc.get("beats"), list) and sc["beats"]
+               for sc in scenes):
+        errs.append("tập phải có ít nhất một nhịp (không được toàn cảnh câm)")
     for si, sc in enumerate(scenes):
         if not isinstance(sc, dict):
             errs.append(f"scenes[{si}] phải là object")
@@ -84,12 +95,13 @@ def validate_script(doc) -> list[str]:
             errs.append(f"scenes[{si}].id phải là chuỗi không rỗng")
         elif sid in seen_s:
             errs.append(f"cảnh {sid!r} bị trùng")
-        seen_s.add(sid)
+        if isinstance(sid, str):
+            seen_s.add(sid)
         t = sc.get("type")
         if not (isinstance(t, str) and (SCENE_TYPE_RE.match(t) or CUSTOM_RE.match(t))):
             errs.append(f"cảnh {sid!r}: type {t!r} không hợp lệ")
         ch = sc.get("chapter")
-        if ch not in chap_ids:
+        if not (isinstance(ch, str) and ch in chap_ids):
             errs.append(f"cảnh {sid!r}: chapter {ch!r} không có trong chapters")
         else:
             k = chap_ids.index(ch)
@@ -98,8 +110,8 @@ def validate_script(doc) -> list[str]:
             last_chap = max(last_chap, k)
         if "props" in sc and not isinstance(sc["props"], dict):
             errs.append(f"cảnh {sid!r}: props phải là object")
-        if "sfx" in sc and sc["sfx"] is not None and not _nonempty(sc["sfx"]):
-            errs.append(f"cảnh {sid!r}: sfx phải là chuỗi hoặc null")
+        if sc.get("sfx") is not None and sc["sfx"] not in SFX_NAMES:
+            errs.append(f"cảnh {sid!r}: sfx {sc['sfx']!r} không thuộc {sorted(SFX_NAMES)}")
         beats = sc.get("beats")
         if not isinstance(beats, list):
             errs.append(f"cảnh {sid!r}: beats phải là danh sách")
@@ -118,7 +130,8 @@ def validate_script(doc) -> list[str]:
                 errs.append(f"cảnh {sid!r}: beats[{bi}].id phải là chuỗi không rỗng")
             elif bid in seen_b:
                 errs.append(f"beat id {bid!r} bị trùng")
-            seen_b.add(bid)
+            if isinstance(bid, str):
+                seen_b.add(bid)
             text = b.get("text")
             if not _nonempty(text):
                 errs.append(f"beat {bid!r}: text rỗng")
@@ -133,8 +146,8 @@ def validate_script(doc) -> list[str]:
                 errs.append(f"beat {bid!r}: pause_ms phải là số nguyên >= 0")
             if b.get("cue") is not None and not _nonempty(b["cue"]):
                 errs.append(f"beat {bid!r}: cue phải là chuỗi không rỗng hoặc null")
-            if b.get("sfx") is not None and not _nonempty(b["sfx"]):
-                errs.append(f"beat {bid!r}: sfx phải là chuỗi hoặc null")
+            if b.get("sfx") is not None and b["sfx"] not in SFX_NAMES:
+                errs.append(f"beat {bid!r}: sfx {b['sfx']!r} không thuộc {sorted(SFX_NAMES)}")
             cl = b.get("claims", [])
             if not isinstance(cl, list) or not all(_nonempty(x) for x in cl):
                 errs.append(f"beat {bid!r}: claims phải là danh sách chuỗi")
@@ -144,6 +157,13 @@ def validate_script(doc) -> list[str]:
 # ---- timeline v2 ---------------------------------------------------------------
 
 def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
+    try:
+        return _validate_timeline2(doc, catalog, narration_seconds)
+    except (TypeError, AttributeError, KeyError, ValueError) as e:
+        return [f"luật 1: timeline sai kiểu dữ liệu: {e}"]
+
+
+def _validate_timeline2(doc, catalog, narration_seconds) -> list[str]:
     """Lỗi theo hợp đồng timeline v2 (mỗi lỗi bắt đầu `luật N:`); rỗng là hợp lệ."""
     errs: list[str] = []
     if not isinstance(doc, dict):
@@ -162,7 +182,7 @@ def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
     src = au.get("src") if isinstance(au, dict) else None
     if not _nonempty(src):
         errs.append("luật 12: audio.src phải là chuỗi không rỗng")
-    elif src.startswith(("/", "\\")) or "://" in src or ".." in Path(src).parts:
+    elif src.startswith(("/", "\\")) or "://" in src or ".." in src:
         errs.append(f"luật 12: audio.src phải tương đối, có {src!r}")
 
     scenes = doc.get("scenes")
@@ -185,7 +205,8 @@ def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
             errs.append(f"luật 3: scenes[{si}].id phải là chuỗi không rỗng")
         elif sid in seen_s:
             errs.append(f"luật 3: cảnh {sid!r} bị trùng")
-        seen_s.add(sid)
+        if isinstance(sid, str):
+            seen_s.add(sid)
         t = sc.get("type")
         if not isinstance(t, str) or not t:
             errs.append(f"luật 3: cảnh {sid!r} thiếu type")
@@ -221,7 +242,8 @@ def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
                 errs.append(f"luật 6: cảnh {sid!r} beats[{bi}].id phải là chuỗi không rỗng")
             elif bid in seen_b:
                 errs.append(f"luật 6: beat id {bid!r} bị trùng")
-            seen_b.add(bid)
+            if isinstance(bid, str):
+                seen_b.add(bid)
             b0, bd = b.get("startFrame"), b.get("durationFrames")
             if not (_int(b0) and _int(bd, 1)):
                 errs.append(f"luật 2: beat {bid!r} startFrame phải là số nguyên >= 0, durationFrames >= 1")
@@ -259,7 +281,8 @@ def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
                 errs.append(f"luật 9: chapters[{i}].id phải là chuỗi không rỗng")
             elif cid in chap_ids:
                 errs.append(f"luật 9: chương {cid!r} bị trùng")
-            chap_ids.add(cid)
+            if isinstance(cid, str):
+                chap_ids.add(cid)
             if not _nonempty(c.get("title")):
                 errs.append(f"luật 9: chương {cid!r} title rỗng")
             st = c.get("startFrame")
@@ -277,7 +300,7 @@ def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
                 elif first_of_chapter[cid] != st:
                     errs.append(f"luật 9: chương {cid!r} startFrame {st} khác cảnh đầu của chương ({first_of_chapter[cid]})")
         for si, sc in enumerate(scenes):
-            if isinstance(sc, dict) and sc.get("chapter") not in chap_ids:
+            if isinstance(sc, dict) and not (isinstance(sc.get("chapter"), str) and sc["chapter"] in chap_ids):
                 errs.append(f"luật 9: cảnh {sc.get('id')!r} có chapter {sc.get('chapter')!r} không nằm trong chapters")
 
     sfx = doc.get("sfx")
@@ -417,6 +440,7 @@ def build_episode(slug: str, engine: str, voice: str | None = None, speed: float
     # từng cảnh: [mẫu đầu, mẫu cuối) và danh sách beat (id, text, cue, mẫu đầu, mẫu cuối)
     scene_spans: list[dict] = []
     pending_pause = 0
+    last_beat = [b for sc in script["scenes"] for b in sc["beats"]][-1]
 
     def add_silence(n: int) -> None:
         nonlocal pos
@@ -437,13 +461,14 @@ def build_episode(slug: str, engine: str, voice: str | None = None, speed: float
                 chunks.append(wav)
                 pos += len(wav)
                 info["beats"].append((b, b_start_after_pause, pos))
-                pending_pause = int(round(b.get("pause_ms", 0) * OUT_SR / 1000))
+                pending_pause = (0 if b is last_beat
+                                 else int(round(b.get("pause_ms", 0) * OUT_SR / 1000)))
             info["start"] = info["beats"][0][1]
         else:
             add_silence(pending_pause)
             pending_pause = 0
             info["start"] = pos
-            add_silence(int(round(sc.get("holdMs", 0) * OUT_SR / 1000)))
+            add_silence(max(int(round(sc.get("holdMs", 0) * OUT_SR / 1000)), OUT_SR // FPS))
             info["end"] = pos
         scene_spans.append(info)
 
@@ -511,7 +536,7 @@ def build_episode(slug: str, engine: str, voice: str | None = None, speed: float
 def main(argv: list[str] | None = None) -> int:
     try:
         return _main(argv)
-    except (ValueError, RuntimeError, OSError, KeyError) as e:
+    except (ValueError, RuntimeError, OSError, KeyError, TypeError, AttributeError) as e:
         print(f"lỗi: {e}", file=sys.stderr)
         return 1
 

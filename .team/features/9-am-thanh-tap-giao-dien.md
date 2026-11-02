@@ -12,13 +12,14 @@ Mọi hàm chạy với `PYTHONPATH=audio/src`. Mọi âm thanh nội bộ: floa
 - Lỗi nhạc: `class MusicError(RuntimeError)`; thông điệp nêu đường dẫn file thiếu hoặc id/file lệch sha256.
 - `load_manifest(path) -> dict`: đọc `assets/audio/manifest.json`. Cấu trúc: `{"tracks": [{"id","file","sourceUrl","license","downloadedAt","sha256","attribution"}]}`. `file` tương đối so với `assets/audio/files/`.
 - `resolve_track(track_id, manifest_path=DEFAULT_MANIFEST, files_dir=DEFAULT_FILES) -> Path`: trả đường dẫn nhạc đã kiểm sha256. Id không có → `MusicError`; file thiếu → `MusicError`; sha256 lệch → `MusicError`.
-- `mix_episode(timeline_path, narration_path, out_path, *, music_path=None, music_gain_db=-24.0) -> dict`: đọc `timeline.json` v2 (lấy `durationInFrames`, `fps`, `sfx`), trộn giọng + nhạc (nếu có) + bus SFX, ghi `out_path` (WAV 16-bit mono 48 kHz), rồi gọi `verify_mix`. Trả `{"lufs","true_peak","frames"}`.
+- `mix_episode(timeline_path, narration_path, out_path, *, music_path=None, music_gain_db=-24.0) -> dict`: đọc `timeline.json` v2 (lấy `durationInFrames`, `fps`, `sfx`), trộn giọng + nhạc (nếu có) + bus SFX, ghi `out_path` (WAV 16-bit mono 48 kHz), rồi gọi `verify_mix`. Trả `{"lufs","true_peak","frames"}`. Tham số thêm `stem_voice_path=None, stem_music_path=None`: nếu có, ghi stem giọng (đã đệm/cắt đúng độ dài) và stem nhạc đã qua lọc, gain và ducking (trước limiter/loudnorm), cùng thang với nhau, để đo chênh giọng - nhạc trong lúc có giọng (cần nhạc để có stem nhạc).
   - Độ dài đầu ra đúng `durationInFrames` frame (giọng ngắn hơn thì đệm im lặng, dài hơn thì cắt).
   - Nhạc: lặp hoặc cắt cho đủ độ dài, fade vào 1 s, fade ra 2 s, highpass 120 Hz, lowpass 8 kHz, `music_gain_db` đặt trước ducking, `sidechaincompress` khoá bằng giọng. Mục tiêu: lúc có giọng, nhạc thấp hơn giọng ít nhất 12 dB.
   - `alimiter` rồi `loudnorm` hai lượt `linear=true`, mục tiêu -16 LUFS, TP -1,5.
 - `true_peak(path) -> float`: dBTP của file (ebur128 `peak=true`). `measure_lufs` lấy từ `aivideo.audio` bằng import.
 - `verify_mix(path, duration_frames, fps=30) -> dict`: ném `RuntimeError` nếu LUFS lệch quá ±1 khỏi -16, true peak > -1,5 dBTP, hoặc độ dài lệch quá 1 frame.
-- CLI: `python -m aivideo.mix --timeline T --narration N --out O [--track ID] [--music-gain-db -24] [--manifest M] [--files-dir D]`. Không `--track` thì không có nhạc. Có `--track` mà thiếu file / lệch sha256 / id lạ: in `lỗi: ...` ra stderr, thoát 1, không ghi `O`. Thành công thoát 0, in LUFS, true peak, số frame.
+- CLI theo tập: `python -m aivideo.mix <slug> [--root R] [--stems]`. `R` mặc định là gốc repo. Đọc `meta.music` (`track`, `gainDb`) trong `R/episodes/<slug>/script.json` (không có `music` thì không nhạc); đọc `R/out/episodes/<slug>/narration.wav` và `timeline.json`; ghi `R/out/episodes/<slug>/mix.wav`. `--stems` thêm `mix.voice.wav` và `mix.music.wav` (stem như trên) cùng thư mục. Nhạc lấy qua `resolve_track` với manifest `R/assets/audio/manifest.json`, `R/assets/audio/files/`.
+- Lỗi (thiếu script/narration/timeline, id lạ, thiếu file nhạc, lệch sha256, `verify_mix` fail): in `lỗi: ...` (có đường dẫn file) ra stderr, thoát 1, không để lại `mix.wav` mới. Thành công thoát 0, in LUFS, true peak, số frame.
 
 ## `assets/audio/`
-- `manifest.json` (mẫu rỗng `{"tracks": []}`), `README.md` (cách nạp nhạc, giấy phép), `files/` gitignore.
+- `assets/` ở gốc repo. `manifest.json` commit dạng `{"tracks": []}`, `README.md` (cách nạp nhạc, giấy phép), `files/` có luật gitignore riêng (`assets/audio/files/*` trừ `.gitkeep`), không dựa vào `*.mp3`.

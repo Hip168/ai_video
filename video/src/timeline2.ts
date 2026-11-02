@@ -79,7 +79,9 @@ const isObj = (v: unknown): v is Record<string, unknown> =>
 const isFrame = (v: unknown): v is number =>
   typeof v === "number" && Number.isInteger(v) && v >= 0;
 
-const isNonEmptyString = (v: unknown): v is string => typeof v === "string" && v !== "";
+const isNonEmptyString = (v: unknown): v is string => typeof v === "string" && v.trim() !== "";
+
+export const SFX_NAMES = ["pop", "tick", "whoosh", "ding", "buzz"] as const;
 
 export function validateTimeline2(json: unknown): Timeline2 {
   if (!isObj(json)) return fail("(gốc)", "phải là một đối tượng JSON");
@@ -101,7 +103,7 @@ export function validateTimeline2(json: unknown): Timeline2 {
   const audio = t.audio as Record<string, unknown>;
   if (!isNonEmptyString(audio.src)) fail("audio.src", "phải là chuỗi đường dẫn không rỗng");
   const src = audio.src as string;
-  if (src.startsWith("/") || src.includes("://"))
+  if (src.startsWith("/") || src.includes("://") || src.includes(".."))
     fail("audio.src", `phải là đường dẫn tương đối, nhận ${JSON.stringify(src)}`);
 
   // Luật 3, 4, 5, 6, 7, 8
@@ -219,6 +221,8 @@ export function validateTimeline2(json: unknown): Timeline2 {
     if ((e.frame as number) < prevSfx) fail(`${ep}.frame`, `không được giảm (trước đó ${prevSfx})`);
     prevSfx = e.frame as number;
     if (!isNonEmptyString(e.name)) fail(`${ep}.name`, "phải là chuỗi không rỗng");
+    if (!(SFX_NAMES as readonly string[]).includes(e.name as string))
+      fail(`${ep}.name`, `không thuộc ${SFX_NAMES.join(", ")} (nhận ${JSON.stringify(e.name)})`);
     if (typeof e.gainDb !== "number" || !Number.isFinite(e.gainDb) || e.gainDb > 0)
       fail(`${ep}.gainDb`, `phải là số ≤ 0, nhận ${JSON.stringify(e.gainDb)}`);
   });

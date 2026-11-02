@@ -97,3 +97,10 @@ Chạy trong `video/` (BA chốt 2026-11-03). Cấu trúc (loại cảnh, props,
 
 ## 9. Quy tắc cho mọi cảnh
 Hình chính trong `y < 830`; chuyển động là hàm thuần của frame; cấm `filter: blur`, `feGaussianBlur`, `backdrop-filter`; không chuỗi URL (kể cả `xmlns`).
+
+## 10. Bổ sung khi code xong
+- `SceneSpec.anyProps?: boolean`: true ở spec giữ chỗ (lint không kiểm khoá props, không cảnh báo cue). Đề mục 7, 8 bỏ cờ khi thay dòng.
+- `video/src/lib/text.ts`: `wrapLines(text, maxChars): string[]`. `video/src/lib/theme-data.ts` giữ dữ liệu theme (không phụ thuộc React); `lib/theme.tsx` xuất lại.
+- `recap-outro`: điểm vượt số beat hiện sau beat cuối, mỗi điểm cách 10 frame.
+- Lint: `max-same-type` và `min-types` gộp mọi `custom:*` thành `custom`.
+- Ảnh still đã soi: cold-open, chapter-title (có số), recap-outro (5 điểm). Cần `REMOTION_BROWSER_EXECUTABLE` trên máy này.

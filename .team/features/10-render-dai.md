@@ -11,6 +11,8 @@ Nhánh `10-render-dai`. Phụ thuộc đề mục 6, gặp đề mục 9 ở tí
 - Cờ `--from <bước>`, `--frames a-b`.
 - Dọn sau khi kiểm đạt: xoá `segments/`, `mix.wav`; giữ MP4, SRT, `chapters.txt`, cache TTS. Lệnh `clean`.
 - Chặn chạy nếu đĩa trống dưới 6 GB.
+- Trình duyệt theo D23: `make-episode.sh` báo lỗi rõ nếu `~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell` không có, trừ khi đã đặt `REMOTION_BROWSER_EXECUTABLE`. `renderMedia` truyền `browserExecutable` tường minh.
+- `framecheck.py`: (1) quét từng khung trong vùng `y < 830`, báo khung mà số điểm khác nền tụt rồi hồi lại trong tối đa 2 khung, bỏ qua vùng quanh đầu cảnh và cue; (2) render thêm một lượt với ranh giới đoạn lệch nửa đoạn, so từng khung, chỉ tính lệch khi một vùng liền đủ lớn, không tính lệch nửa điểm ảnh ở chữ. Lệch thì render lại đoạn đó, tối đa 3 lần, vẫn lệch thì báo lỗi nêu frame. Lấy ý từ `ai_video_spike/scripts/detect_blip.py`, `cmp_frames.py`.
 - `make-episode.sh <slug>`: dựng tập, lint, trộn, render đoạn, ghép, kiểm. Mỗi bước in tên, lỗi dừng và nêu bước, không tin mã thoát mà kiểm file thật như `make-video.sh`.
 
 ## Task
@@ -20,8 +22,10 @@ Nhánh `10-render-dai`. Phụ thuộc đề mục 6, gặp đề mục 9 ở tí
 - [10-4] Đo thật 2 phút bằng các cảnh nặng nhất, ghi vào `.team/tests/10.md`.
 
 ## Xong khi
+- Timeline của `_template` do Python sinh ra qua được validator TypeScript.
 - `_template` với TTS fake: ngắt giữa chừng rồi chạy lại chỉ render đoạn thiếu.
-- Một đoạn bị phá cố ý thì bước kiểm báo đúng khung.
+- Một đoạn bị phá cố ý thì bước kiểm báo đúng khung. Có ca hai bản giống hệt nhau cùng mất phần tử (lỗi D14 cũ không bắt được), lấy mẫu từ frame 1315.
+- Lệch nửa điểm ảnh ở chữ không gây báo sai.
 - Trống dưới 6 GB thì không chạy, giả lập bằng biến môi trường dành cho test.
 - Dung lượng tăng sau `clean` đúng bằng các file giữ lại ±1%.
 - Test khoá xanh.

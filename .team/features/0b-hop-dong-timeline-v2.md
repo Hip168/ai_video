@@ -13,7 +13,7 @@ video/src/episodes/<slug>/   cảnh riêng của tập
 out/episodes/<slug>/         sản phẩm, gitignore
 ```
 
-`slug`: `^[a-z0-9]+(-[a-z0-9]+)*$`.
+`slug`: `^[a-z0-9]+(-[a-z0-9]+)*$`. Riêng `_template` là slug dành riêng, CLI chấp nhận để test đầu cuối ở đề mục 10, không xuất hiện trong `episodes/index.json`.
 
 ## `script.json`
 
@@ -48,11 +48,40 @@ Mẫu ở `.team/contract/timeline2.sample.json`.
 5. Beat trong cảnh tăng dần, không chồng, nằm trọn trong cảnh. Được có khoảng hở.
 6. `beats[].id` duy nhất toàn file. Cảnh có `beats` rỗng được phép (khác v1).
 7. `text` không rỗng, không chỉ khoảng trắng, tối đa 100 ký tự, NFC.
-8. `cue` tuỳ chọn. Không có `cue` thì animation neo theo thứ tự beat.
+8. `cue` tuỳ chọn; nếu có thì là chuỗi không rỗng. Không có `cue` thì animation neo theo thứ tự beat.
 9. `chapters[]`: `id` duy nhất, `title` không rỗng, `startFrame` tăng dần, chương đầu `startFrame` = 0. `scenes[].chapter` phải có trong `chapters`. `startFrame` của chương bằng `startFrame` của cảnh đầu thuộc chương.
 10. `sfx[]`: `frame` trong `[0, durationInFrames)`, `name` không rỗng, `gainDb` là số ≤ 0, `frame` không giảm.
-11. `durationInFrames` = làm tròn lên của (độ dài `narration.wav` tính bằng giây + 0,5) × 30, cộng tổng frame cảnh câm.
+11. `durationInFrames` = làm tròn lên của (độ dài `narration.wav` tính bằng giây + 0,5) × 30. Im lặng của cảnh câm đã nằm trong `narration.wav`, không cộng thêm.
 12. `theme` là chuỗi không rỗng. `audio.src` tương đối so với `out/episodes/<slug>/`.
+13. `chapters` không rỗng. Khoá `sfx` bắt buộc, được rỗng.
+
+### Catalog 18 loại cảnh
+`cold-open`, `chapter-title`, `recap-outro`, `big-number`, `compare`, `myth-fact`, `history-timeline`, `term-card`, `chart`, `flow`, `layers`, `code-walk`, `terminal`, `bits`, `memory-array`, `algo-bars`, `tree-graph`, `scale-ladder`.
+
+### `episodes/index.json`
+Mảng `[{"slug","title","theme","sceneTypes":[...]}]`, được rỗng, không chứa `_template`.
+
+### Đọc số
+`spoken` dùng nguyên văn, không qua `normalize_vi` và lexicon. Phần lẻ 1–2 chữ số đọc như một số: 3,14 là "ba phẩy mười bốn", 2,4 là "hai phẩy bốn", 0,05 là "không phẩy không năm". Từ 3 chữ số trở lên đọc từng chữ số.
+
+Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 0-9. Bảng bổ sung:
+- Số dính chữ: tối đa 2 chữ số đọc như số (`4K` "bốn K", `5G` "năm G", `v2` "v hai"); từ 3 chữ số đọc từng chữ số (`1080p` "một không tám không p").
+- `-5°C` "âm năm độ xê". `12:30` "mười hai giờ ba mươi". `1/2` "một phần hai".
+- `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.
+- `100.000đ` đọc số trước rồi đơn vị "đồng".
+Cách đọc nào nghe chưa hay thì sửa bằng `spoken` hoặc lexicon của tập, không đổi bảng này.
+
+### Tên SFX
+`pop`, `tick`, `whoosh`, `ding`, `buzz`. `script.json` chỉ dùng các tên này.
+
+### Khoảng nghỉ
+`pause_ms` của nhịp chèn ngay sau nhịp đó, kể cả khi nhịp sau ở cảnh khác hay trước cảnh câm, trừ nhịp cuối tập. Tập phải có ít nhất một nhịp; toàn cảnh câm là lỗi.
+
+### Chuỗi
+Mọi chuỗi bắt buộc không rỗng cũng không được chỉ gồm khoảng trắng. `audio.src` không chứa `..`, không bắt đầu bằng `/`, không chứa `://`. Python và TypeScript kiểm giống nhau.
+
+### Độ dài chương và mốc thời gian
+Bước dựng chỉ cảnh báo khi chương dưới 10 giây. Lint đề mục 6 coi đó là lỗi. `chapters.txt` dùng `h:mm:ss` từ đúng 1 giờ trở lên.
 
 Timeline không có giới hạn tổng frame. Giới hạn 9 phút và 20 giây mỗi cảnh thuộc lint (đề mục 6), không thuộc validator, để test dùng được tập ngắn.
 

@@ -4,6 +4,9 @@ import { Video, type VideoProps } from "./Video";
 import { KitDemo } from "./KitDemo";
 import { loadFonts } from "./font";
 import { validateTimeline } from "./timeline";
+import { Episode, type EpisodeProps } from "./Episode";
+import { loadMonoFonts } from "./lib/fonts";
+import { validateTimeline2 } from "./timeline2";
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props }) => {
   let raw: unknown = props.timeline;
@@ -22,7 +25,20 @@ const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props 
   };
 };
 
+const episodeMetadata: CalculateMetadataFunction<EpisodeProps> = async ({ props }) => {
+  if (props.timeline === null || props.timeline === undefined) return { props };
+  const timeline = validateTimeline2(props.timeline);
+  return {
+    durationInFrames: timeline.durationInFrames,
+    fps: timeline.fps,
+    width: timeline.width,
+    height: timeline.height,
+    props: { ...props, timeline },
+  };
+};
+
 loadFonts();
+loadMonoFonts();
 
 export const Root: React.FC = () => (
   <>
@@ -35,6 +51,16 @@ export const Root: React.FC = () => (
       height={1080}
       defaultProps={{ timeline: null } as VideoProps}
       calculateMetadata={calculateMetadata}
+    />
+    <Composition
+      id="Episode"
+      component={Episode}
+      durationInFrames={30}
+      fps={30}
+      width={1920}
+      height={1080}
+      defaultProps={{ timeline: null, muted: true } as EpisodeProps}
+      calculateMetadata={episodeMetadata}
     />
     <Composition
       id="KitDemo"

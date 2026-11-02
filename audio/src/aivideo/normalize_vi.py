@@ -49,6 +49,8 @@ def _small(d: str) -> str:
 
 def _number_words(tok: str) -> str:
     """Một số theo kiểu Việt: '.' nhóm nghìn (phần nguyên khác 0), ',' hoặc '.' thập phân."""
+    if re.fullmatch(r"0\d+", tok):
+        return _digit_by_digit(tok)
     if re.fullmatch(_THOUSANDS, tok):
         whole, _, frac = tok.replace(".", "").partition(",")
     else:

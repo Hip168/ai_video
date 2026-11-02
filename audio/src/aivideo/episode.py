@@ -340,8 +340,7 @@ def _clock(seconds: int, hours: bool) -> str:
 
 
 def chapters_txt(timeline: dict) -> str:
-    hours = timeline["durationInFrames"] >= 3600 * FPS
-    return "".join(f"{_clock(c['startFrame'] // FPS, hours)} {c['title']}\n"
+    return "".join(f"{_clock(c['startFrame'] // FPS, c['startFrame'] // FPS >= 3600)} {c['title']}\n"
                    for c in timeline["chapters"])
 
 

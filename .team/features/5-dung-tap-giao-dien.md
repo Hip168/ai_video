@@ -18,7 +18,7 @@ Hợp đồng dữ liệu: `0b-hop-dong-timeline-v2.md`. Tất cả chạy với
 ## `aivideo.episode` ([5-1], [5-3])
 - `validate_script(doc) -> list[str]` : lỗi `script.json` (rỗng = hợp lệ).
 - `validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]` : mỗi lỗi bắt đầu `luật N:` (N = 1..12 theo hợp đồng). `catalog` = tập id loại cảnh hợp lệ; `episode.CATALOG` là 18 id của hợp đồng, `build_episode` truyền nó vào (nếu None: chấp nhận mọi id dạng `^[a-z0-9]+(-[a-z0-9]+)*$` và `custom:<tên>`). `narration_seconds` có thì kiểm luật 11 (`durationInFrames == ceil((giây + 0.5) * 30)`; im lặng của cảnh câm đã nằm trong wav).
-- `chapters_txt(timeline: dict) -> str` : mỗi dòng `mm:ss Tiêu đề` (`h:mm:ss` nếu tập >= 1 giờ), dòng đầu `00:00`, kết thúc bằng `\n`. Giây = `startFrame // 30` (cắt xuống).
+- `chapters_txt(timeline: dict) -> str` : mỗi dòng `mm:ss Tiêu đề` (dòng nào có mốc >= 3600 giây thì dòng đó dùng `h:mm:ss`, tính theo từng dòng), dòng đầu `00:00`, kết thúc bằng `\n`. Giây = `startFrame // 30` (cắt xuống).
 - `build_episode(slug, engine, voice=None, speed=None, *, episodes_dir, out_dir, content_lexicon_path=None) -> dict` : trả timeline v2. `voice`/`speed` None -> lấy `meta.voice`/`meta.speed` (speed mặc định 1.0). Lexicon: `content_lexicon_path` (nếu có file) rồi chồng `episodes/<slug>/lexicon.json` (nếu có). Ghi vào `<out_dir>/<slug>/`: `narration.wav` (PCM16 48 kHz mono, -16 LUFS), `timeline.json`, `video.srt`, `chapters.txt`, `cache/<sha256>.wav`. Không ghi gì vào `video/public/`.
   - Giữa hai beat liền nhau chèn `pause_ms` của beat trước (kể cả qua ranh giới cảnh). Không chèn sau beat cuối của tập.
   - Cảnh câm (`beats` rỗng, `holdMs` > 0): chèn `holdMs` ms im lặng vào wav tại vị trí đó; cảnh dài `round` theo mẫu, tối thiểu 1 frame.
@@ -40,3 +40,4 @@ Hợp đồng dữ liệu: `0b-hop-dong-timeline-v2.md`. Tất cả chạy với
 - `validate_script`: `sfx` (cảnh, beat) chỉ nhận `pop`, `tick`, `whoosh`, `ding`, `buzz` (`episode.SFX_NAMES`); tập toàn cảnh câm là lỗi; id sai kiểu (mảng...) trả lỗi chứ không ném. `validate_timeline2` không ném với đầu vào sai kiểu. `audio.src` không chứa `..` (chuỗi con), `://`, không bắt đầu `/` hoặc `\`.
 - `build_episode`/`main`: `holdMs` nhỏ vẫn cho cảnh câm tối thiểu 1 frame (im lặng tối thiểu 1/30 s). `pause_ms` của nhịp cuối tập không được chèn (kể cả khi sau nó là cảnh câm). `main` bắt `TypeError`/`AttributeError`: in `lỗi:` mã 1.
 - `_template` dùng SFX `ding` thay `chime`.
+- `normalize_vi`: số trần có chữ số 0 đứng đầu (từ 2 chữ số) đọc từng chữ số: `007` -> "không không bảy".

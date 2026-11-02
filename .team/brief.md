@@ -1,5 +1,19 @@
 # Brief
 
+## Giai đoạn 2: kênh YouTube fact tin học (2026-11-03)
+Người dùng muốn một kênh YouTube giải thích fact tin học dễ hiểu, mỗi video từ khoảng 10 phút, do một đội đầy đủ người làm, người check, người kịch bản đảm nhận. Ra lệnh là có video lên kênh, "từ lần sau là chỉ làm thôi". Dùng công cụ gì phải báo. Được tự tìm repo GitHub, clone về học, chỉ cần báo.
+
+Nguyên văn yêu cầu về đội: "thứ tôi cần là 1 team chuẩn chỉ nhá, chứ đừng tự làm sau tự thấy kh hay tự sửa".
+
+| Câu hỏi | Người dùng chốt |
+|---|---|
+| Dạng video | Một chủ đề, đào sâu |
+| Đăng | Video đầu để Không công khai cho người dùng duyệt; người dùng ok thì từ video 2 đăng Công khai ngay sau khi QC duyệt |
+| Kênh | Chưa có. Đội đề xuất tên và nhận diện, hướng dẫn tạo. Người dùng tự đăng nhập và xác minh số điện thoại. Tài khoản cá nhân, không dính G3/Ript |
+| Chi phí | 0 đồng. Thêm nhạc nền nhẹ và SFX miễn bản quyền (thay "không nhạc" của bản 90 giây) |
+
+Phần dưới là giai đoạn 1, giữ để tra cứu. Mục "Ngoài phạm vi" ở dưới không còn áp dụng cho nhạc nền, SFX và nhiều video.
+
 ## Yêu cầu gốc
 Người dùng nhận từ một người bạn bảng công nghệ (Remotion 4.0.539, React 19.1, TypeScript 5.7.2, Revideo 0.11.0, Python, KorvaTTS, VieNeu-TTS, edge-tts, FFmpeg, NumPy, SoundFile, librosa, JSON/TXT/SRT, Node.js, Python .venv, PowerShell) kèm lời giới thiệu là "sẽ tạo ra được video", và nhờ xem giúp.
 

@@ -48,3 +48,32 @@ KorvaTTS, giọng `hoang_nam`, giữ nguyên từ tiếng Anh. Chỉ `router` v�
 
 ## D14. Chống mất hình khi render (người dùng chốt, 2026-11-01)
 Chrome bỏ vẽ phần tử khi render nhiều luồng, nên render một luồng, đặt trong `remotion.config.ts`. Bản dọc vẫn đôi khi mất hình 1 khung ở một luồng, nguyên nhân chưa rõ (TEST-LEAD đo 3/7 lần). Người dùng chọn: `make-video.sh` đo MP4 sau render, có khung mất hình thì tự render lại tối đa vài lần, vẫn lỗi thì báo lỗi.
+
+## D15. Không mở khoá, chạy song song với v1 (BA chốt, 2026-11-03)
+Pipeline tập dài là file mới: `timeline2.ts`, `Episode.tsx`, `lib/`, `episode.py`, `make-episode.sh`. Không sửa `timeline.ts`, `scenes/index.ts`, `Video.tsx`, `audio.py`, `make-video.sh`, `content/*`, `remotion.config.ts`, `kit.tsx`. Được sửa nhỏ, chỉ thêm: `Root.tsx`, `package.json`, `tsconfig.json`, `.gitignore`. Tập không ghi vào `video/public/timeline.json` và `video/public/audio/narration.wav`, vì `test_compare.py` ghim hai file đó; mọi thứ của tập nằm ở `out/episodes/<slug>/`. Mã trong `video/src` không chứa `http(s)://` (`fonts.test.ts` quét). Không commit wav, mp3, mp4 (CI cấm).
+
+## D16. Cảnh: catalog dữ liệu cộng cảnh riêng từng tập (BA chốt, 2026-11-03)
+18 loại cảnh theo dữ liệu trong `video/src/lib/scenes/`, cộng `custom:<tên>` ở `video/src/episodes/<slug>/`. Lint chặn lặp khuôn, lý do: chính sách "inauthentic content" của YouTube xét theo kênh. Số ngưỡng ở `features/6-khung-v2.md`.
+
+## D17. Âm thanh tập: trộn bằng FFmpeg (BA chốt, 2026-11-03)
+Ducking `sidechaincompress`, loudnorm hai lượt, giữ chuẩn D5. Render hình `muted`, đổi nhạc không phải render lại.
+Nguồn: nhạc từ YouTube Audio Library lọc "Attribution not required" (trang Help ghi không bị Content ID claim), chỉ có sau khi tạo kênh; trước đó dùng Tallbeard CC0. SFX sinh bằng code (numpy) cộng Kenney CC0. Không dùng nhạc AI, `@remotion/sfx`, Freesound API, Pixabay tải hàng loạt. Mỗi file nhạc lưu kèm URL nguồn, giấy phép, ngày tải, sha256 trong `assets/audio/manifest.json`; file nằm ngoài git.
+
+## D18. Render theo đoạn (BA chốt, 2026-11-03)
+`video/scripts/render-episode.ts`: chia đoạn khoảng 1800 frame ở biên cảnh, `concurrency: 1` tường minh trong mỗi tiến trình (D14), `muted`, resume bằng hash đoạn, ghép `-c copy`, trộn tiếng sau. Số tiến trình và cách kiểm mất hình chốt theo số đo OPS, ghi ở `stack.md`. Chặn chạy nếu đĩa trống dưới 6 GB.
+
+## D19. Nhánh `4-khung-doc` tạm dừng (BA chốt, 2026-11-03)
+Không merge, không lấy file. Giữ nhánh và worktree. Lý do: kênh dài là ngang, nhánh chưa qua duyệt và khoá, render tập dài dùng cờ riêng. `framecheck.py` viết mới theo ý `diff_frames` trong `videocheck.py`.
+
+## D20. Đội sản xuất (người dùng yêu cầu, BA thiết kế, 2026-11-03)
+Chi tiết ở `.team/doi-san-xuat.md`. Người làm không tự duyệt, người tìm lỗi không tự sửa. Ba cổng cứng: kiểm chứng fact, chốt kịch bản, đăng bài. QC là vai thường, không phải Lead, nên luật "chỉ 2 Lead, một TEST-LEAD" (D11) giữ nguyên; code pipeline vẫn đi DEV-LEAD → TEST-LEAD.
+Tập không dùng `team lock`: file khoá chỉ người dùng mở được, nên kịch bản khoá sẽ chặn đường sửa tự động. Thay bằng chuỗi hash trong sổ tập.
+Học ý từ `claude-code-my-workflow`, `superpowers`, `content-foundry`, `cc-sdd` (MIT). Viết lại, không chép. `OpenMontage` (AGPL) chỉ học ý tưởng. Bản clone ở `~/Documents/ai_video_refs/`, không cài, không chạy.
+
+## D21. Đăng qua YouTube Studio (BA chốt, 2026-11-03)
+Dùng Claude in Chrome trên Chrome thật của người dùng, không dùng tool đăng trên GitHub. Lý do: tài liệu `videos.insert` (cập nhật 2026-10-15) ghi không còn khoá private, bài Help vẫn ghi có khoá, hai nguồn chính thức mâu thuẫn; OAuth ở Testing hết hạn sau 7 ngày. Studio không vướng cả hai. Có thể thử API sau, bằng clip ngắn, nếu đăng tay qua trình duyệt quá chậm.
+Công bố nội dung tổng hợp: chọn "Không", vì sơ đồ hoạt hình không trông thực và không rơi vào bốn trường hợp bắt buộc. Đây là suy luận, Google không nêu đích danh TTS. Mô tả video ghi một dòng rằng giọng đọc do AI tạo.
+Quyền đã có: sau khi người dùng duyệt video đầu, publisher được đăng Công khai không hỏi, ở đúng kênh đã ghi trong `.team/kenh.md`.
+
+## D22. Sổ fact (BA chốt, 2026-11-03)
+`episodes/<slug>/claims.json` là sổ fact. Dùng JSON, không thêm phụ thuộc YAML. Mỗi con số, tên, năm trong lời đọc phải trỏ về một claim có nguồn.

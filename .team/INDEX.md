@@ -19,4 +19,14 @@
 | .team/features/2-hinh-anh.md | Đề mục 2: cảnh, phụ đề, MP4 (Remotion) | DEV-2, TESTER-2 |
 | .team/features/3-ghep-video.md | Đề mục 3: lệnh một phát, video mẫu thật | DEV-3, TESTER-3 |
 | .team/autonomy.md | Chế độ tự động và các điểm dừng của dự án | Điều phối |
-| .team/features/4-khung-doc.md | Đề mục 4: video dọc 1080×1920 | DEV-4, TESTER-4 |
+| .team/features/4-khung-doc.md | Đề mục 4: video dọc 1080×1920 (tạm dừng, D19) | DEV-4, TESTER-4 |
+| .team/features/0b-hop-dong-timeline-v2.md | Hợp đồng `timeline.json` v2 và `script.json` của tập | DEV, TESTER, TEST-LEAD của 5–12 |
+| .team/contract/timeline2.sample.json | File mẫu hợp lệ của hợp đồng v2, test hai bên đọc trực tiếp | DEV, TESTER của 5, 6, 9, 10 |
+| .team/features/5-dung-tap.md | Đề mục 5: dựng tập, timeline v2, chuẩn hoá lời đọc | DEV-5, TESTER-5 |
+| .team/features/6-khung-v2.md | Đề mục 6: composition Episode, cảnh cấu trúc, lint chống lặp | DEV-6, TESTER-6 |
+| .team/features/7-8-canh.md | Đề mục 7, 8: 15 loại cảnh còn lại | DEV-7, DEV-8, TESTER |
+| .team/features/9-am-thanh-tap.md | Đề mục 9: SFX, nhạc, trộn | DEV-9, TESTER-9 |
+| .team/features/10-render-dai.md | Đề mục 10: render đoạn, ghép, kiểm, `make-episode.sh` | DEV-10, TESTER-10 |
+| .team/features/11-doi-san-xuat.md | Đề mục 11: agent, playbook, script cổng, đo người kiểm | DEV-11, TESTER-11 |
+| .team/features/12-tap-thi-diem.md | Đề mục 12: tạo kênh, tập đầu, duyệt | Điều phối, OPS |
+| .team/doi-san-xuat.md | Vai, luồng, cổng duyệt, mẫu trao tay của đội sản xuất | Mọi agent sản xuất, điều phối |

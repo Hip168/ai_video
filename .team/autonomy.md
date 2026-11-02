@@ -20,3 +20,5 @@ Người dùng chọn Duyệt ở Pha 4d ngày 2026-10-31. Luật đầy đủ: 
 - [1-7]: người dùng nghe và duyệt thuật ngữ.
 - [2-5]: người dùng xem bản dựng với giọng giả lập.
 - [3-2]: người dùng xem và duyệt video mẫu.
+- [12-2]: người dùng tự đăng nhập, tạo kênh, xác minh số điện thoại.
+- [12-3]: người dùng xem video đầu ở chế độ Không công khai. Sau khi người dùng ok, video từ thứ 2 đăng Công khai không hỏi (D21).

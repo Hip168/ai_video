@@ -48,12 +48,13 @@ if (hasTimeline) {
 let index: IndexEntry[] = [];
 if (existsSync(indexFile)) {
   const raw = readJson(indexFile, "index.json");
-  index = Array.isArray(raw) ? raw : Array.isArray(raw?.episodes) ? raw.episodes : usage("index.json phải là mảng hoặc { episodes: [...] }");
+  index = Array.isArray(raw) ? raw : usage("index.json phải là mảng");
 }
 
 const scenes: LintScene[] = script.scenes.map((s: any) => ({
   id: s.id,
   type: s.type,
+  chapter: s.chapter,
   props: s.props ?? {},
   durationFrames: dur.get(s.id),
   beats: Array.isArray(s.beats) ? s.beats.map((b: any) => ({ cue: b?.cue ?? undefined })) : [],

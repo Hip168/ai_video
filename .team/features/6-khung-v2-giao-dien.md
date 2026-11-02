@@ -92,8 +92,8 @@ Chạy trong `video/` (BA chốt 2026-11-03). Cấu trúc (loại cảnh, props,
   export function levenshtein(a: string[], b: string[]): number
   export function similarity(a: string[], b: string[]): number   // 1 - levenshtein / max(độ dài), hai chuỗi rỗng = 1
   ```
-- Rule (đều là `error` trừ ghi chú): `min-types` (< 10 loại khác nhau) · `max-same-type` (một loại vượt `max(1, floor(số cảnh × 9/48))`) · `no-three-in-row` · `min-custom` (< 3 cảnh `custom:`) · `first-cold-open` · `last-recap-outro` · `theme-differs` (trùng theme tập liền trước trong `index`; tập liền trước là mục đứng trước `slug` trong `index`, hoặc mục cuối nếu `slug` chưa có) · `sequence-similarity` (≥ 0,6 với bất kỳ tập khác trong `index`, so chuỗi loại, mọi `custom:*` gộp thành `custom`) · `min-duration` (tổng < 9×60×30 = 16200 frame) · `max-scene-duration` (cảnh > 600 frame) · `props` (sai propsSpec, loại lạ, `custom:` chưa đăng ký) · `theme-known` (theme không có trong `THEMES`) · `min-beats` (**warn**) · `unknown-cue` (**warn**, cue không có trong `spec.cues`, bỏ qua `custom:`).
-- `index.json` chấp nhận mảng hoặc `{ "episodes": [...] }`. Không có file thì coi như chưa có tập nào.
+- Rule (đều là `error` trừ ghi chú): `min-types` (< 10 loại khác nhau) · `max-same-type` (một loại vượt `max(1, floor(số cảnh × 9/48))`) · `no-three-in-row` · `min-custom` (< 3 cảnh `custom:`) · `first-cold-open` · `last-recap-outro` · `theme-differs` (trùng theme tập liền trước trong `index`; tập liền trước là mục đứng trước `slug` trong `index`, hoặc mục cuối nếu `slug` chưa có) · `sequence-similarity` (≥ 0,6 với bất kỳ tập khác trong `index`, so chuỗi loại, mọi `custom:*` gộp thành `custom`) · `min-duration` (tổng < 9×60×30 = 16200 frame) · `max-scene-duration` (cảnh > 600 frame) · `props` (sai propsSpec, loại lạ, `custom:` chưa đăng ký) · `min-chapter-duration` (tổng cảnh của một chương < 300 frame; cần `LintScene.chapter`, chỉ kiểm khi có thời lượng) · `theme-known` (theme không có trong `THEMES`) · `min-beats` (**warn**) · `unknown-cue` (**warn**, cue không có trong `spec.cues`, bỏ qua `custom:`).
+- `index.json` chỉ là mảng (BA chốt). Không có file thì coi như chưa có tập nào.
 
 ## 9. Quy tắc cho mọi cảnh
 Hình chính trong `y < 830`; chuyển động là hàm thuần của frame; cấm `filter: blur`, `feGaussianBlur`, `backdrop-filter`; không chuỗi URL (kể cả `xmlns`).
@@ -104,3 +104,5 @@ Hình chính trong `y < 830`; chuyển động là hàm thuần của frame; c�
 - `recap-outro`: điểm vượt số beat hiện sau beat cuối, mỗi điểm cách 10 frame.
 - Lint: `max-same-type` và `min-types` gộp mọi `custom:*` thành `custom`.
 - Ảnh still đã soi: cold-open, chapter-title (có số), recap-outro (5 điểm). Cần `REMOTION_BROWSER_EXECUTABLE` trên máy này.
+
+- BA chốt giữ nguyên: `audio.src` tương đối, `sfx` bắt buộc, `chapters` không rỗng, `Episode` mặc định `muted`, `min-beats` và `unknown-cue` chỉ cảnh báo, biến `LINT_*`, gộp `custom:*`.

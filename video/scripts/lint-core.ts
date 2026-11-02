@@ -21,6 +21,7 @@ export interface IndexEntry {
 export interface LintScene {
   id: string;
   type: string;
+  chapter?: string;
   props?: unknown;
   durationFrames?: number;
   beats?: { cue?: string }[];
@@ -38,6 +39,7 @@ export interface LintInput {
 export const FPS = 30;
 export const MIN_TOTAL_FRAMES = 9 * 60 * FPS;
 export const MAX_SCENE_FRAMES = 20 * FPS;
+export const MIN_CHAPTER_FRAMES = 10 * FPS;
 export const MIN_TYPES = 10;
 export const MIN_CUSTOM = 3;
 export const SIMILARITY_LIMIT = 0.6;
@@ -120,6 +122,14 @@ export function lintEpisode(input: LintInput): Finding[] {
       if ((s.durationFrames ?? 0) > MAX_SCENE_FRAMES)
         err("max-scene-duration", `cảnh ${s.id} dài ${s.durationFrames} frame, tối đa ${MAX_SCENE_FRAMES} (20 giây)`);
     }
+  }
+
+  // Chương dưới 10 giây (YouTube yêu cầu)
+  if (input.hasDurations) {
+    const byChapter = new Map<string, number>();
+    for (const s of scenes) if (s.chapter !== undefined) byChapter.set(s.chapter, (byChapter.get(s.chapter) ?? 0) + (s.durationFrames ?? 0));
+    for (const [c, n] of byChapter)
+      if (n < MIN_CHAPTER_FRAMES) err("min-chapter-duration", `chương "${c}" dài ${n} frame, cần ít nhất ${MIN_CHAPTER_FRAMES} (10 giây)`);
   }
 
   // Props, loại, cue

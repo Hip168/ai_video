@@ -468,10 +468,25 @@ def test_stem_nhac_ma_khong_co_nhac_la_loi(tmp_path):
         )
 
 
-def test_verify_mix_nem_loi_khi_loudness_lech(tmp_path):
-    quiet = write(tmp_path / "q.wav", tone(440, 8, amp=0.01))
+def tone_at_lufs(tmp_path, name, lufs):
+    """Tone 440 Hz có loudness tích hợp đúng `lufs` (đo bằng ffmpeg)."""
+    base = write(tmp_path / "base.wav", tone(440, 8, amp=0.1))
+    measured = ffmpeg_loudness(base)[0]
+    amp = 0.1 * 10 ** ((lufs - measured) / 20)
+    return write(tmp_path / name, tone(440, 8, amp=amp))
+
+
+@pytest.mark.parametrize("lufs", [-15.1, -16.0, -16.9])
+def test_verify_mix_chap_nhan_loudness_trong_16_cong_tru_1(tmp_path, lufs):
+    p = tone_at_lufs(tmp_path, "ok.wav", lufs)
+    assert mix.verify_mix(p, 240)["lufs"] == pytest.approx(lufs, abs=0.15)
+
+
+@pytest.mark.parametrize("lufs", [-14.9, -17.1, -18.0, -25.0])
+def test_verify_mix_tu_choi_loudness_ngoai_16_cong_tru_1(tmp_path, lufs):
+    p = tone_at_lufs(tmp_path, "sai.wav", lufs)
     with pytest.raises(RuntimeError, match="LUFS"):
-        mix.verify_mix(quiet, 240)
+        mix.verify_mix(p, 240)
 
 
 def test_verify_mix_nem_loi_khi_true_peak_vuot_du_loudness_dat(tmp_path):
@@ -487,10 +502,10 @@ def test_verify_mix_nem_loi_khi_do_dai_lech_qua_1_frame(tmp_path):
     out, _ = run_mix(tmp_path, narration=voice_wave())
     assert mix.verify_mix(out, 240)["frames"] == 240
     assert mix.verify_mix(out, 241)["frames"] == 240  # lệch đúng 1: được
-    with pytest.raises(RuntimeError, match="frame"):
-        mix.verify_mix(out, 243)
-    with pytest.raises(RuntimeError, match="frame"):
-        mix.verify_mix(out, 237)
+    assert mix.verify_mix(out, 239)["frames"] == 240  # lệch 1 phía kia
+    for wrong in (242, 243, 238, 237):
+        with pytest.raises(RuntimeError, match="frame"):
+            mix.verify_mix(out, wrong)
 
 
 def test_mix_dung_timeline_mau_hop_dong_nguyen_ven(tmp_path):
@@ -534,7 +549,19 @@ def build_episode(tmp_path, *, music="bai-thu", frames=240, gain=-12):
     meta = {"title": "Thử", "voice": "x", "speed": 1.0, "theme": "mau-a"}
     if music:
         meta["music"] = {"track": music, "gainDb": gain}
-    script = {"meta": meta, "chapters": [], "scenes": []}
+    beat = {
+        "id": "b001", "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "spoken": None, "cue": "hook", "pause_ms": 300, "sfx": None,
+        "claims": [],
+    }
+    script = {
+        "meta": meta,
+        "chapters": [{"id": "mo-dau", "title": "Mở đầu"}],
+        "scenes": [{
+            "id": "sc01", "chapter": "mo-dau", "type": "cold-open",
+            "props": {}, "holdMs": 0, "sfx": "whoosh", "beats": [beat],
+        }],
+    }
     (tmp_path / "episodes" / slug / "script.json").write_text(
         json.dumps(script), encoding="utf-8"
     )
@@ -716,6 +743,86 @@ def test_cli_do_dai_mix_theo_timeline_va_stem_cung_do_dai(tmp_path, frames):
     assert abs(sf.info(str(out / "mix.wav")).frames - n) <= FRAME
     assert len(read(out / "mix.voice.wav")) == n
     assert len(read(out / "mix.music.wav")) == n
+
+
+def test_tron_hai_lan_cung_dau_vao_ra_mix_wav_giong_het_byte(tmp_path):
+    events = [{"frame": 10, "name": "pop", "gainDb": -9}]
+    blobs = []
+    for i in range(2):
+        d = tmp_path / str(i)
+        d.mkdir()
+        out, _ = run_mix(
+            d, narration=voice_wave(), music=tone(220, 8, amp=0.5),
+            gain=-12, events=events,
+        )
+        blobs.append(out.read_bytes())
+    assert blobs[0] == blobs[1]
+
+
+def test_duoi_nhac_con_tieng_trong_vung_fade_ra_7_5_den_7_9_giay(tmp_path):
+    # Giọng im: fade ra tuyến tính 6 -> 8 s, biên độ 0,25 -> 0,05 trong
+    # 7,5-7,9 s, tức RMS khoảng 17 dB dưới mức đầy. Đuôi bị cụt = im lặng.
+    stem = quiet_stem(tmp_path, tone(1000, 8, amp=0.5))
+    full = rms_db(stem, 2.5, 3.5)
+    tail = rms_db(stem, 7.5, 7.9)
+    assert full - 22 < tail < full - 12
+    assert rms_db(stem, 7.9, 7.99) > full - 40  # chưa tắt hẳn
+
+
+def test_duoi_nhac_con_tieng_khi_co_giong_ngay_truoc_do(tmp_path):
+    music = tone(1000, 8, amp=0.5)
+    stem, _ = music_stem(tmp_path, music, gain=-12)
+    ref = rms_db(stem, 1.2, 1.9)  # mức đầy, chưa có giọng, hết fade vào
+    assert ref - 22 < rms_db(stem, 7.5, 7.9) < ref - 12
+
+
+def test_limiter_chan_dinh_giong_de_gain_cuoi_khong_bi_tran_true_peak_keo(
+    tmp_path,
+):
+    # Nền ~-16,3 LUFS và một đỉnh 1,0 dBFS. Có alimiter (trần 0,84)
+    # đỉnh bị chặn nên bản trộn vẫn đạt; thiếu alimiter, trần true peak
+    # kéo gain xuống ~1,5 dB và loudness rơi khỏi -16 ±1.
+    x = tone(440, 8, amp=0.234)
+    x[4 * SR : 4 * SR + 3] = 1.0
+    out, _ = run_mix(tmp_path, narration=x)
+    lufs, peak = ffmpeg_loudness(out)
+    assert lufs == pytest.approx(-16, abs=1.0)
+    assert peak <= -1.5
+
+
+def test_mix_episode_loi_verify_neu_duong_dan_that_khong_phai_file_tam(
+    tmp_path,
+):
+    click = np.zeros(8 * SR, dtype=np.float32)
+    click[1000:1048] = 0.9
+    nar = write(tmp_path / "nar.wav", click)
+    tl = timeline(tmp_path / "tl.json", 240)
+    out = tmp_path / "ket-qua" / "mix-cuoi.wav"
+    with pytest.raises(RuntimeError) as e:
+        mix.mix_episode(tl, nar, out)
+    assert str(out) in str(e.value)
+    assert "fin.wav" not in str(e.value)
+
+
+def test_cli_loi_verify_nen_duong_dan_mix_wav_that_trong_stderr(tmp_path):
+    slug, out, _ = build_episode(tmp_path, music=None)
+    click = np.zeros(8 * SR, dtype=np.float32)
+    click[1000:1048] = 0.9
+    write(out / "narration.wav", click)
+    r = run_cli(tmp_path, slug)
+    assert r.returncode == 1
+    assert str(out / "mix.wav") in r.stderr
+    assert "fin.wav" not in r.stderr
+
+
+def test_nhac_khong_doc_duoc_nem_music_error_nhanh_neu_ten_file(tmp_path):
+    bad = tmp_path / "hong.ogg"
+    bad.write_bytes(b"day-khong-phai-file-am-thanh")
+    nar = write(tmp_path / "nar.wav", voice_wave())
+    tl = timeline(tmp_path / "tl.json", 240)
+    with pytest.raises(mix.MusicError, match="hong.ogg"):
+        mix.mix_episode(tl, nar, tmp_path / "o.wav", music_path=bad)
+    assert not (tmp_path / "o.wav").exists()
 
 
 def listing(d):

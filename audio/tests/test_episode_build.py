@@ -531,7 +531,7 @@ def test_build_don_file_tmp_mo_coi_trong_cache_cua_tien_trinh_chet(
     victim = small_script()["scenes"][0]["beats"][0]["text"]
     key_file = _cache_file(small, victim)
     orphan = cache / f"{key_file.name}.99999.tmp"
-    orphan.write_bytes(b"ghi dở dang")
+    orphan.write_bytes("ghi dở dang".encode())
     other = cache / "khac.wav.12345.tmp"
     other.write_bytes(b"")
     assert run(small, monkeypatch) == 0

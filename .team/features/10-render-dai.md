@@ -20,6 +20,7 @@ Nhánh `10-render-dai`. Phụ thuộc đề mục 6, gặp đề mục 9 ở tí
 - [10-4] Đo thật 2 phút bằng các cảnh nặng nhất, ghi vào `.team/tests/10.md`.
 
 ## Xong khi
+- Timeline của `_template` do Python sinh ra qua được validator TypeScript.
 - `_template` với TTS fake: ngắt giữa chừng rồi chạy lại chỉ render đoạn thiếu.
 - Một đoạn bị phá cố ý thì bước kiểm báo đúng khung.
 - Trống dưới 6 GB thì không chạy, giả lập bằng biến môi trường dành cho test.

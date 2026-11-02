@@ -204,6 +204,18 @@ const BROKEN: Array<[string, Mutate, RegExp]> = [
   ['luật 12: audio.src rỗng', (t) => (t.audio.src = ''), /audio\.src/],
   ['luật 12: audio.src tuyệt đối', (t) => (t.audio.src = '/tmp/x.wav'), /audio\.src/],
   ['luật 12: audio.src là URL', (t) => (t.audio.src = 'https://x.vn/a.wav'), /audio\.src/],
+  // Chuỗi (hợp đồng): chuỗi bắt buộc không được chỉ gồm khoảng trắng; audio.src không chứa ..
+  ['chuỗi: id cảnh chỉ khoảng trắng', (t) => (t.scenes[1].id = '  '), /scenes\[1\]\.id/],
+  ['chuỗi: type chỉ khoảng trắng', (t) => (t.scenes[1].type = ' '), /scenes\[1\]\.type/],
+  ['chuỗi: chapter của cảnh chỉ khoảng trắng', (t) => (t.scenes[2].chapter = ' '), /scenes\[2\]\.chapter/],
+  ['chuỗi: id beat chỉ khoảng trắng', (t) => (t.scenes[0].beats[0].id = ' \t'), /beats\[0\]\.id/],
+  ['chuỗi: id chương chỉ khoảng trắng', (t) => (t.chapters[0].id = ' '), /chapters\[0\]\.id/],
+  ['chuỗi: cue chỉ khoảng trắng', (t) => (t.scenes[0].beats[0].cue = '  '), /beats\[0\]\.cue/],
+  ['chuỗi: sfx.name chỉ khoảng trắng', (t) => (t.sfx[0].name = ' '), /sfx\[0\]\.name/],
+  ['chuỗi: theme chỉ khoảng trắng', (t) => (t.theme = '   '), /theme/],
+  ['chuỗi: audio.src chỉ khoảng trắng', (t) => (t.audio.src = '  '), /audio\.src/],
+  ['chuỗi: audio.src chứa ..', (t) => (t.audio.src = '../narration.wav'), /audio\.src/],
+  ['chuỗi: audio.src chứa .. ở giữa', (t) => (t.audio.src = 'a/../b.wav'), /audio\.src/],
   // Luật 13
   ['luật 13: chapters rỗng', (t) => (t.chapters = []), /chapters/],
   ['luật 13: thiếu chapters', (t) => delete t.chapters, /chapters/],

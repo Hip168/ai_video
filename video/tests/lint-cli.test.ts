@@ -3,6 +3,7 @@ import {mkdtempSync, rmSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {afterAll, beforeAll, describe, expect, test} from 'vitest';
+import {beatsOf, propsOf} from './helpers/lint-sample';
 import {VIDEO_DIR} from './helpers/sample';
 
 // [6-3] npm run lint:episode -- <slug> [--script] [--timeline] [--index] [--json]
@@ -13,13 +14,6 @@ const MIDDLE = [
 ];
 const TYPES = ['cold-open', ...MIDDLE, ...MIDDLE, 'recap-outro'];
 
-function propsFor(type: string): Record<string, unknown> {
-  if (type === 'cold-open') return {hook: 'Máy tính chỉ hiểu 0 và 1'};
-  if (type === 'chapter-title') return {title: 'Chương'};
-  if (type === 'recap-outro') return {points: ['Một điểm']};
-  return {};
-}
-
 function script(types = TYPES, theme = 'mau-b'): any {
   return {
     meta: {title: 'Tập thử', theme},
@@ -28,14 +22,13 @@ function script(types = TYPES, theme = 'mau-b'): any {
       id: `sc${i}`,
       chapter: `c${Math.floor(i / 7)}`,
       type,
-      props: propsFor(type),
+      props: propsOf(type),
       holdMs: 0,
-      beats:
-        type === 'cold-open'
-          ? [{id: 'b0', text: 'x', cue: 'hook'}]
-          : type === 'recap-outro'
-            ? [{id: 'b1', text: 'y'}]
-            : [],
+      beats: beatsOf(type).map((b, k) => ({
+        id: `b${i}-${k}`,
+        text: 'x',
+        ...b,
+      })),
     })),
   };
 }

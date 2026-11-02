@@ -17,8 +17,9 @@ import {
 import {VIDEO_DIR} from './helpers/sample';
 import {loadSample2} from './helpers/sample2';
 
-// Chỉ chạy khi RENDER_TEST=1. Máy này cần REMOTION_BROWSER_EXECUTABLE trỏ
-// Chrome của máy (chrome-headless-shell crash, xem .team/stack.md).
+// Chỉ chạy khi RENDER_TEST=1. Trên máy này đặt REMOTION_BROWSER_EXECUTABLE=
+// $HOME/.cache/aivideo/chrome-headless-shell/chrome-headless-shell (D23,
+// .team/stack.md); không dùng Google Chrome.
 const d = describe.skipIf(!RENDER_TEST);
 const browserExecutable = process.env.REMOTION_BROWSER_EXECUTABLE ?? null;
 const MAIN_END = 830;

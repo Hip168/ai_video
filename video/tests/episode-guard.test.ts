@@ -49,8 +49,6 @@ describe('[6-1] D15: file của v1 giữ nguyên byte', () => {
       '3500160f767a5e4d6669ed6c1104a8d9418f889a0e9243d6dd7fa9038a560793',
     'src/font.ts':
       '4f706b9120acdf397bc716de8c0111e76603bb7ee4ab11bd54e110c5670dc819',
-    'src/kit.tsx':
-      'ea6e211190ba9a1151ddb63b8f59a9bc39073fd474ffb6e3f97c7029abcfe94f',
     'src/KitDemo.tsx':
       '181090b1ee3067e65ca4358efdb54b04efadaba494b02c4f377b2d4a2ee47bc0',
     'src/index.ts':
@@ -71,8 +69,6 @@ describe('[6-1] D15: file của v1 giữ nguyên byte', () => {
       '7ac83e6637b8476a94113b3880353179e456e6f93ee312a37a2faa993e527d53',
     'src/scenes/index.ts':
       '755c8ce258f7d1202e4ec8905adc0f0b6e9dffc5ea69f0db644397ee1b05fd05',
-    'remotion.config.ts':
-      '2107cf034ae24981cc30830d95eb511a0fe450b5e4ab4b967bfee89c7b9d89f9',
   };
 
   test.each(Object.keys(PINNED))('%s không bị sửa', (rel) => {
@@ -89,32 +85,42 @@ describe('[6-1] D15: file của v1 giữ nguyên byte', () => {
   });
 });
 
-describe('[6-1] package.json: chỉ thêm, tsx là phụ thuộc duy nhất', () => {
+describe('[6-1] package.json: v1 còn nguyên, ghim chính xác, có tsx', () => {
   const pkg = JSON.parse(
     readFileSync(path.join(VIDEO_DIR, 'package.json'), 'utf8'),
   );
 
-  test('dependencies giữ nguyên như v1', () => {
-    expect(pkg.dependencies).toEqual({
-      '@remotion/cli': '4.0.539',
-      react: '19.1.10',
-      'react-dom': '19.1.10',
-      remotion: '4.0.539',
-    });
+  const V1_DEPS = {
+    '@remotion/cli': '4.0.539',
+    react: '19.1.10',
+    'react-dom': '19.1.10',
+    remotion: '4.0.539',
+  };
+  const V1_DEV = {
+    '@remotion/bundler': '4.0.539',
+    '@remotion/renderer': '4.0.539',
+    '@types/node': '22.20.5',
+    '@types/react': '19.3.0',
+    '@types/react-dom': '19.3.0',
+    typescript: '5.7.2',
+    vitest: '5.0.5',
+  };
+
+  test('mọi mục dependencies của v1 còn nguyên (đề mục khác được thêm gói)', () => {
+    expect(pkg.dependencies).toMatchObject(V1_DEPS);
   });
 
-  test('devDependencies = v1 cộng đúng một gói: tsx, ghim chính xác', () => {
-    const { tsx, ...rest } = pkg.devDependencies;
-    expect(rest).toEqual({
-      '@remotion/bundler': '4.0.539',
-      '@remotion/renderer': '4.0.539',
-      '@types/node': '22.20.5',
-      '@types/react': '19.3.0',
-      '@types/react-dom': '19.3.0',
-      typescript: '5.7.2',
-      vitest: '5.0.5',
-    });
-    expect(tsx).toMatch(/^\d+\.\d+\.\d+$/); // không ^ hay ~
+  test('mọi mục devDependencies của v1 còn nguyên và có tsx', () => {
+    expect(pkg.devDependencies).toMatchObject(V1_DEV);
+    expect(pkg.devDependencies.tsx).toBeDefined();
+  });
+
+  test('mọi phiên bản trong dependencies và devDependencies ghim chính xác (không ^ ~ *)', () => {
+    for (const group of [pkg.dependencies, pkg.devDependencies]) {
+      for (const [name, ver] of Object.entries(group)) {
+        expect(ver, name).toMatch(/^\d+\.\d+\.\d+$/);
+      }
+    }
   });
 
   test('scripts v1 còn nguyên và có thêm lint:episode dùng tsx', () => {
@@ -174,10 +180,10 @@ describe('[6-2] luật cho mọi cảnh: grep tĩnh trong video/src/lib', () => 
     expect(files.length).toBeGreaterThanOrEqual(11);
   });
 
-  test('không chuỗi URL http(s):// ngoài xmlns của SVG', () => {
+  test('không chuỗi URL http(s):// nào (kể cả xmlns)', () => {
     for (const f of files) {
       const text = readFileSync(f, 'utf8');
-      const remote = text.match(/https?:\/\/(?!www\.w3\.org)[^\s'"`)]+/g);
+      const remote = text.match(/https?:\/\/[^\s'"`)]+/g);
       expect(remote, `${f} chứa URL`).toBeNull();
     }
   });

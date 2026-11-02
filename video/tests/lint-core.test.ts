@@ -6,6 +6,7 @@ import {
   type Finding,
   type LintInput,
 } from '../scripts/lint-core';
+import {beatsOf, propsOf} from './helpers/lint-sample';
 
 // Tập hợp lệ: 28 cảnh, 14 loại, 4 cảnh custom:mo-phong (đã đăng ký), 4 chương,
 // mỗi cảnh 600 frame (= 20 giây, đúng biên) nên tổng 16800 >= 16200.
@@ -25,13 +26,6 @@ const MIDDLE = [
   'code-walk',
 ];
 
-function propsFor(type: string): Record<string, unknown> {
-  if (type === 'cold-open') return {hook: 'Máy tính chỉ hiểu 0 và 1'};
-  if (type === 'chapter-title') return {title: 'Chương'};
-  if (type === 'recap-outro') return {points: ['Một điểm']};
-  return {};
-}
-
 function good(): LintInput {
   const types = ['cold-open', ...MIDDLE, ...MIDDLE, 'recap-outro'];
   return {
@@ -43,14 +37,9 @@ function good(): LintInput {
       id: `sc${i}`,
       type,
       chapter: `c${Math.floor(i / 7)}`,
-      props: propsFor(type),
+      props: propsOf(type),
       durationFrames: 600,
-      beats:
-        type === 'cold-open'
-          ? [{cue: 'hook'}]
-          : type === 'recap-outro'
-            ? [{}]
-            : [],
+      beats: beatsOf(type),
     })),
   };
 }
@@ -116,9 +105,9 @@ describe('[6-3] lintEpisode: mỗi luật có mẫu sai', () => {
       id: 'z',
       type: 'recap-outro',
       chapter: 'c0',
-      props: {points: ['x']},
+      props: propsOf('recap-outro'),
       durationFrames: 600,
-      beats: [{}],
+      beats: beatsOf('recap-outro'),
     });
     // 10 cảnh: floor(10*9/48)=1, mà 'custom' xuất hiện 2 lần trong 8 cảnh giữa
     const f = lintEpisode(a);
@@ -169,6 +158,14 @@ describe('[6-3] lintEpisode: mỗi luật có mẫu sai', () => {
     a.scenes[8].type = 'custom:mo-phong';
     a.scenes[9].type = 'custom:mo-phong';
     a.scenes[10].type = 'custom:mo-phong';
+    only(a, 'no-three-in-row');
+  });
+
+  test('no-three-in-row: custom:a, custom:b, custom:c liền nhau cũng là cùng loại custom (BA chốt)', () => {
+    const a = good();
+    a.scenes[8].type = 'custom:a';
+    a.scenes[9].type = 'custom:b';
+    a.scenes[10].type = 'custom:c';
     only(a, 'no-three-in-row');
   });
 
@@ -411,10 +408,10 @@ describe('[6-3] lintEpisode: mỗi luật có mẫu sai', () => {
       a.scenes[0].beats = [{cue: 'hook'}];
       expect(lintEpisode(a)).toEqual([]);
     });
-    test('unknown-cue: bỏ qua cảnh custom: và loại giữ chỗ', () => {
+    test('unknown-cue: bỏ qua cảnh custom:', () => {
       const a = good();
-      a.scenes[2].beats = [{cue: 'tuy-y'}];
       a.scenes[3].beats = [{cue: 'tuy-y'}];
+      a.scenes[7].beats = [{cue: 'tuy-y'}];
       expect(lintEpisode(a)).toEqual([]);
     });
   });

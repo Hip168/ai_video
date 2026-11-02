@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import re
 import sys
 import unicodedata
@@ -331,6 +332,30 @@ def _chapter_warnings(timeline: dict) -> list[str]:
     return out
 
 
+# ---- cache TTS an toàn khi bị ngắt -----------------------------------------------
+
+def _synth_cached(cache_dir: Path, engine: str, voice: str, speed: float, spoken: str):
+    """Như `audio._synth_cached` nhưng ghi file tạm rồi `os.replace`; cache đọc lỗi thì xoá và tổng hợp lại."""
+    path = cache_dir / f"{audio._cache_key(engine, voice, speed, spoken)}.wav"
+    if path.exists():
+        try:
+            wav, sr = sf.read(path, dtype="float32")
+            if len(wav) > 0:
+                return wav.reshape(-1), sr
+        except Exception:
+            pass
+        path.unlink(missing_ok=True)
+    wav, sr = engines.synth(engine, spoken, voice, speed)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + f".{os.getpid()}.tmp")
+    try:
+        sf.write(tmp, wav, sr, subtype="FLOAT", format="WAV")
+        os.replace(tmp, path)
+    finally:
+        tmp.unlink(missing_ok=True)
+    return wav, sr
+
+
 # ---- dựng -----------------------------------------------------------------------
 
 def _load_json(path) -> object:
@@ -385,7 +410,7 @@ def build_episode(slug: str, engine: str, voice: str | None = None, speed: float
                 b_start_after_pause = pos
                 spoken = b.get("spoken")
                 line = spoken if spoken else speak(b["text"], lexicon)
-                raw, sr = audio._synth_cached(cache_dir, engine, voice, speed, line)
+                raw, sr = _synth_cached(cache_dir, engine, voice, speed, line)
                 wav = audio._filter_wav(raw, sr, audio.TRIM_FULL)
                 chunks.append(wav)
                 pos += len(wav)

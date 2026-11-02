@@ -25,7 +25,7 @@ Hợp đồng dữ liệu: `0b-hop-dong-timeline-v2.md`. Tất cả chạy với
   - `sfx[]` của timeline: sfx cảnh tại `startFrame` cảnh, sfx beat tại `startFrame` beat, `gainDb` = -18, sắp theo frame (ổn định).
   - `timeline.chapters[].startFrame` = `startFrame` cảnh đầu của chương; `theme` = `meta.theme`; `audio.src` = `"narration.wav"`.
   - Timeline luôn qua `validate_timeline2` trước khi ghi; sai -> `RuntimeError`.
-  - Cache TTS: khoá theo (engine, voice, speed, chuỗi đọc). Mỗi beat ghi cache ngay sau khi tổng hợp, nên ngắt giữa chừng rồi chạy lại chỉ gọi `engines.synth` cho beat chưa có. Đổi 1 beat -> đúng 1 lần gọi.
+  - Cache TTS: khoá theo (engine, voice, speed, chuỗi đọc). Mỗi beat ghi cache ngay sau khi tổng hợp, nên ngắt giữa chừng rồi chạy lại chỉ gọi `engines.synth` cho beat chưa có. Đổi 1 beat -> đúng 1 lần gọi. Ghi cache qua file tạm `<khoá>.wav.<pid>.tmp` rồi `os.replace` (không để lại `.wav` dở, tmp bị xoá). Nếu file `<khoá>.wav` có sẵn mà đọc lỗi (hỏng/rỗng) thì xoá nó và tổng hợp lại đúng beat đó (1 lần gọi engine); các beat còn lại không bị gọi. Hàm: `episode._synth_cached(cache_dir, engine, voice, speed, spoken)`.
   - Chương ngắn hơn 10 giây: in cảnh báo ra stderr (`cảnh báo: chương ... < 10 giây`), không lỗi.
 - `_template` là slug dành riêng: CLI `build` chấp nhận; slug khác phải khớp `^[a-z0-9]+(-[a-z0-9]+)*$`. `cue` nếu có phải là chuỗi không rỗng (luật 8).
 - `main(argv) -> int` ; CLI: `python -m aivideo.episode build <slug> --engine {korva,vieneu,fake} [--voice V] [--speed S] [--episodes-dir ../episodes] [--out-dir ../out/episodes] [--lexicon ../content/lexicon.json]`. Mã thoát 0 khi xong, 1 khi lỗi (in `lỗi: ...` ra stderr), 2 khi sai tham số. In `timeline: <n> frame (<s> s)`.

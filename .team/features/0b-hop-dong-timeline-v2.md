@@ -66,7 +66,8 @@ Mảng `[{"slug","title","theme","sceneTypes":[...]}]`, được rỗng, không 
 
 Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 0-9. Bảng bổ sung:
 - Số dính chữ: tối đa 2 chữ số đọc như số (`4K` "bốn K", `5G` "năm G", `v2` "v hai"); từ 3 chữ số đọc từng chữ số (`1080p` "một không tám không p").
-- `-5°C` "âm năm độ xê". `12:30` "mười hai giờ ba mươi". `1/2` "một phần hai".
+- `-5°C` "âm năm độ xê". `12:30` "mười hai giờ ba mươi". `12:05` "mười hai giờ không năm". `1/2` "một phần hai".
+- Số trần có chữ số 0 đứng đầu đọc từng chữ số: `007` "không không bảy".
 - `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.
 - `100.000đ` đọc số trước rồi đơn vị "đồng".
 Cách đọc nào nghe chưa hay thì sửa bằng `spoken` hoặc lexicon của tập, không đổi bảng này.

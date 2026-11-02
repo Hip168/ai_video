@@ -6,7 +6,7 @@ Nhánh `9-am-thanh-tap`. Hợp đồng: `0b-hop-dong-timeline-v2.md`. Quyết đ
 - Mới: `audio/src/aivideo/{sfx,mix}.py`, `assets/audio/manifest.json`, `assets/audio/README.md`.
 - `sfx.py` sinh bằng numpy, tối thiểu `pop`, `tick`, `whoosh`, `ding`, `buzz`. Không tải gì, không commit media.
 - Bus SFX đặt tại đúng mẫu theo `timeline.sfx[].frame`.
-- `mix.py` một lệnh FFmpeg: nhạc lặp hoặc cắt theo độ dài, fade vào và ra, highpass 120 Hz, lowpass 8 kHz; `sidechaincompress` khoá bằng narration; cộng giọng, nhạc, SFX; `alimiter`; loudnorm hai lượt `linear=true`.
+- `mix.py` một lệnh FFmpeg: nhạc lặp hoặc cắt theo độ dài, fade vào và ra, highpass 120 Hz, lowpass 8 kHz; `sidechaincompress` khoá bằng narration; cộng giọng, nhạc, SFX; `alimiter`; chuẩn hoá hai lượt theo D17.
 - Thêm hàm đo true peak. Tái dùng `loudnorm`, `measure_lufs` bằng import.
 - `manifest.json` gồm `id`, `file`, `sourceUrl`, `license`, `downloadedAt`, `sha256`, `attribution`. File nhạc ở `assets/audio/files/`, gitignore. Thiếu file hoặc lệch sha256 thì báo lỗi rõ.
 - `manifest.json` cấp cao là `{"tracks": [...]}`, commit dạng rỗng `{"tracks": []}`. Test tạo manifest tạm có tone sinh tại chỗ.

@@ -490,6 +490,12 @@ def _tree_hash(root):
     return h.hexdigest()
 
 
+_REAL_PUBLIC = ROOT / "video" / "public"
+_PUBLIC_HASH_AT_IMPORT = (
+    _tree_hash(_REAL_PUBLIC) if _REAL_PUBLIC.exists() else None
+)
+
+
 # ---- 1. không ghi vào video/public (băm thật, không cần git) -------------
 def test_build_khong_doi_mot_byte_nao_trong_video_public(
         tmp_path, spy, monkeypatch):
@@ -930,15 +936,6 @@ def test_canh_cam_holdms_duoi_nua_frame_dai_dung_1_frame_va_qua_validator(
     assert episode.validate_timeline2(tl, episode.CATALOG, d) == []
 
 
-def test_build_khong_doi_video_public_that_cua_repo(tmp_path, spy, monkeypatch):
-    real = ROOT / "video" / "public"
-    before = _tree_hash(real) if real.exists() else None
-    tree = make_small(tmp_path)
-    assert run(tree, monkeypatch) == 0
-    after = _tree_hash(real) if real.exists() else None
-    assert before == after
-
-
 def test_nhip_bat_dau_dung_frame_tinh_tu_do_dai_wav_tung_nhip(
         tmp_path, spy, monkeypatch):
     # Biên chính xác: vị trí mẫu = tổng độ dài wav (đã cắt lặng) + các
@@ -1036,3 +1033,13 @@ def test_mac_dinh_cli_la_episodes_out_episodes_va_content_lexicon(
     assert (tree.base / "out" / "episodes" / tree.slug / "timeline.json"
             ).is_file()
     assert any("MAC-DINH-LEXICON" in t for t in spy.texts)
+
+
+def test_video_public_that_khong_doi_sau_toan_bo_test_cua_module(
+        tmp_path, spy, monkeypatch):
+    # Băm đã chụp lúc nạp module, trước mọi test; test này nằm cuối file nên
+    # thấy mọi lần ghi của các test trước (kể cả `_template` dựng một lần).
+    tree = make_small(tmp_path)
+    assert run(tree, monkeypatch) == 0
+    now = _tree_hash(_REAL_PUBLIC) if _REAL_PUBLIC.exists() else None
+    assert now == _PUBLIC_HASH_AT_IMPORT

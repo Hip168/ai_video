@@ -1,0 +1,1392 @@
+{
+  "meta": {
+    "title": "Tập mẫu cho test",
+    "voice": "hoang_nam",
+    "speed": 1.25,
+    "theme": "mau-a",
+    "music": {
+      "track": "ten-bai",
+      "gainDb": -24
+    }
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu"
+    },
+    {
+      "id": "chuong-1",
+      "title": "Chương một"
+    },
+    {
+      "id": "chuong-2",
+      "title": "Chương hai"
+    },
+    {
+      "id": "chuong-3",
+      "title": "Chương ba"
+    },
+    {
+      "id": "ket",
+      "title": "Kết"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {},
+      "holdMs": 0,
+      "sfx": "whoosh",
+      "beats": [
+        {
+          "id": "b001",
+          "text": "Ý 1: Mỗi giây có hơn 1.007 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b002",
+          "text": "Ý 2: Độ trễ chỉ khoảng 7 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b003",
+          "text": "Bộ vi xử lý chạy ở 2,5 GHz và làm việc rất đều tay.",
+          "spoken": "Bộ vi xử lý chạy ở hai phẩy năm gi-ga-héc và làm việc rất đều tay.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b004",
+          "text": "Ý 4: Khoảng 14% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b005",
+          "text": "Ý 5: Từ năm 1995 đến năm 2005, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b006",
+          "text": "Ý 6: Giai đoạn 1996–2006 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {},
+      "holdMs": 2000,
+      "sfx": "pop",
+      "beats": []
+    },
+    {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b007",
+          "text": "Ý 7: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b008",
+          "text": "Ý 8: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b009",
+          "text": "Ý 9: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b010",
+          "text": "Ý 10: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b011",
+          "text": "Ý 11: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b012",
+          "text": "Ý 12: Bộ vi xử lý chạy ở 2,2 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b013",
+          "text": "Ý 13: Mỗi giây có hơn 13.091 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b014",
+          "text": "Ý 14: Độ trễ chỉ khoảng 19 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b015",
+          "text": "Ý 15: Tập tin nặng 25 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b016",
+          "text": "Ý 16: Khoảng 26% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "chapter": "chuong-1",
+      "type": "custom:so-sanh",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b017",
+          "text": "Ý 17: Từ năm 1997 đến năm 2017, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b018",
+          "text": "Ý 18: Giai đoạn 1998–2018 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b019",
+          "text": "Ý 19: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b020",
+          "text": "Ý 20: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b021",
+          "text": "Ý 21: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b022",
+          "text": "Ý 22: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b023",
+          "text": "Ý 23: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b024",
+          "text": "Ý 24: Bộ vi xử lý chạy ở 2,4 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b025",
+          "text": "Ý 25: Mỗi giây có hơn 25.175 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        },
+        {
+          "id": "b026",
+          "text": "Ý 26: Độ trễ chỉ khoảng 31 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "chapter": "chuong-1",
+      "type": "custom:bang-so",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b027",
+          "text": "Ý 27: Tập tin nặng 37 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b028",
+          "text": "Ý 28: Khoảng 38% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b029",
+          "text": "Ý 29: Từ năm 1999 đến năm 2009, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b030",
+          "text": "Ý 30: Giai đoạn 1990–2010 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b031",
+          "text": "Ý 31: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b032",
+          "text": "Ý 32: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b033",
+          "text": "Ý 33: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b034",
+          "text": "Ý 34: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b035",
+          "text": "Ý 35: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc06",
+      "chapter": "chuong-2",
+      "type": "chapter-title",
+      "props": {},
+      "holdMs": 2000,
+      "sfx": "pop",
+      "beats": []
+    },
+    {
+      "id": "sc07",
+      "chapter": "chuong-2",
+      "type": "custom:dong-chay",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b036",
+          "text": "Ý 36: Bộ vi xử lý chạy ở 2,6 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b037",
+          "text": "Ý 37: Mỗi giây có hơn 37.259 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b038",
+          "text": "Ý 38: Độ trễ chỉ khoảng 43 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b039",
+          "text": "Ý 39: Tập tin nặng 49 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b040",
+          "text": "Ý 40: Khoảng 50% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": "pop",
+          "claims": []
+        },
+        {
+          "id": "b041",
+          "text": "Ý 41: Từ năm 1991 đến năm 2001, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b042",
+          "text": "Ý 42: Giai đoạn 1992–2002 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b043",
+          "text": "Ý 43: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b044",
+          "text": "Ý 44: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b045",
+          "text": "Ý 45: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc08",
+      "chapter": "chuong-2",
+      "type": "custom:so-do",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046",
+          "text": "Ý 46: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b047",
+          "text": "Ý 47: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b048",
+          "text": "Ý 48: Bộ vi xử lý chạy ở 2,8 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b049",
+          "text": "Ý 49: Mỗi giây có hơn 49.343 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b050",
+          "text": "Ý 50: Độ trễ chỉ khoảng 55 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c050"
+          ]
+        },
+        {
+          "id": "b051",
+          "text": "Ý 51: Tập tin nặng 61 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b052",
+          "text": "Ý 52: Khoảng 62% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b053",
+          "text": "Ý 53: Từ năm 1993 đến năm 2013, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b054",
+          "text": "Ý 54: Giai đoạn 1994–2014 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b055",
+          "text": "Ý 55: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc09",
+      "chapter": "chuong-2",
+      "type": "custom:vi-du",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b056",
+          "text": "Ý 56: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b057",
+          "text": "Ý 57: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b058",
+          "text": "Ý 58: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b059",
+          "text": "Ý 59: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b060",
+          "text": "Ý 60: Bộ vi xử lý chạy ở 2,0 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b061",
+          "text": "Ý 61: Mỗi giây có hơn 61.427 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b062",
+          "text": "Ý 62: Độ trễ chỉ khoảng 67 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b063",
+          "text": "Ý 63: Tập tin nặng 73 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b064",
+          "text": "Ý 64: Khoảng 74% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b065",
+          "text": "Ý 65: Từ năm 1995 đến năm 2005, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc10",
+      "chapter": "chuong-2",
+      "type": "custom:tong-ket-nho",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b066",
+          "text": "Ý 66: Giai đoạn 1996–2006 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b067",
+          "text": "Ý 67: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b068",
+          "text": "Ý 68: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b069",
+          "text": "Ý 69: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b070",
+          "text": "Ý 70: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b071",
+          "text": "Ý 71: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b072",
+          "text": "Ý 72: Bộ vi xử lý chạy ở 2,2 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b073",
+          "text": "Ý 73: Mỗi giây có hơn 73.511 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b074",
+          "text": "Ý 74: Độ trễ chỉ khoảng 79 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc11",
+      "chapter": "chuong-3",
+      "type": "chapter-title",
+      "props": {},
+      "holdMs": 2000,
+      "sfx": "pop",
+      "beats": []
+    },
+    {
+      "id": "sc12",
+      "chapter": "chuong-3",
+      "type": "custom:buoc-xu-ly",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b075",
+          "text": "Ý 75: Tập tin nặng 85 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c075"
+          ]
+        },
+        {
+          "id": "b076",
+          "text": "Ý 76: Khoảng 86% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b077",
+          "text": "Ý 77: Từ năm 1997 đến năm 2017, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b078",
+          "text": "Ý 78: Giai đoạn 1998–2018 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b079",
+          "text": "Ý 79: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b080",
+          "text": "Ý 80: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": "pop",
+          "claims": []
+        },
+        {
+          "id": "b081",
+          "text": "Ý 81: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b082",
+          "text": "Ý 82: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b083",
+          "text": "Ý 83: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b084",
+          "text": "Ý 84: Bộ vi xử lý chạy ở 2,4 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc13",
+      "chapter": "chuong-3",
+      "type": "custom:loi-thuong-gap",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b085",
+          "text": "Ý 85: Mỗi giây có hơn 85.595 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b086",
+          "text": "Ý 86: Độ trễ chỉ khoảng 91 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b087",
+          "text": "Ý 87: Tập tin nặng 97 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b088",
+          "text": "Ý 88: Khoảng 18% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b089",
+          "text": "Ý 89: Từ năm 1999 đến năm 2009, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b090",
+          "text": "Ý 90: Giai đoạn 1990–2010 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b091",
+          "text": "Ý 91: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b092",
+          "text": "Ý 92: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b093",
+          "text": "Ý 93: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b094",
+          "text": "Ý 94: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc14",
+      "chapter": "chuong-3",
+      "type": "custom:do-toc-do",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b095",
+          "text": "Ý 95: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b096",
+          "text": "Ý 96: Bộ vi xử lý chạy ở 2,6 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b097",
+          "text": "Ý 97: Mỗi giây có hơn 97.679 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b098",
+          "text": "Ý 98: Độ trễ chỉ khoảng 13 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b099",
+          "text": "Ý 99: Tập tin nặng 109 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b100",
+          "text": "Ý 100: Khoảng 30% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": [
+            "c100"
+          ]
+        },
+        {
+          "id": "b101",
+          "text": "Ý 101: Từ năm 1991 đến năm 2001, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b102",
+          "text": "Ý 102: Giai đoạn 1992–2002 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b103",
+          "text": "Ý 103: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b104",
+          "text": "Ý 104: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc15",
+      "chapter": "chuong-3",
+      "type": "custom:so-lieu",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b105",
+          "text": "Ý 105: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b106",
+          "text": "Ý 106: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b107",
+          "text": "Ý 107: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b108",
+          "text": "Ý 108: Bộ vi xử lý chạy ở 2,8 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b109",
+          "text": "Ý 109: Mỗi giây có hơn 109.763 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b110",
+          "text": "Ý 110: Độ trễ chỉ khoảng 25 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b111",
+          "text": "Ý 111: Tập tin nặng 121 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b112",
+          "text": "Ý 112: Khoảng 42% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b113",
+          "text": "Ý 113: Từ năm 1993 đến năm 2013, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b114",
+          "text": "Ý 114: Giai đoạn 1994–2014 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc16",
+      "chapter": "ket",
+      "type": "chapter-title",
+      "props": {},
+      "holdMs": 2000,
+      "sfx": "pop",
+      "beats": []
+    },
+    {
+      "id": "sc17",
+      "chapter": "ket",
+      "type": "custom:nhin-lai",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b115",
+          "text": "Ý 115: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b116",
+          "text": "Ý 116: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b117",
+          "text": "Ý 117: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b118",
+          "text": "Ý 118: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b119",
+          "text": "Ý 119: Phép tính cứ thế diễn ra từng bước một, rất nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b120",
+          "text": "Ý 120: Bộ vi xử lý chạy ở 2,0 GHz và làm việc rất đều tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": "pop",
+          "claims": []
+        },
+        {
+          "id": "b121",
+          "text": "Ý 121: Mỗi giây có hơn 121.847 lệnh được thực thi trong lõi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b122",
+          "text": "Ý 122: Độ trễ chỉ khoảng 37 ms nên bạn khó mà nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc18",
+      "chapter": "ket",
+      "type": "recap-outro",
+      "props": {},
+      "holdMs": 0,
+      "sfx": "chime",
+      "beats": [
+        {
+          "id": "b123",
+          "text": "Ý 123: Tập tin nặng 133 MB sẽ mất vài giây để tải xong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b124",
+          "text": "Ý 124: Khoảng 54% dữ liệu được đọc lại từ bộ nhớ đệm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b125",
+          "text": "Ý 125: Từ năm 1995 đến năm 2005, tốc độ tăng liên tục.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c125"
+          ]
+        },
+        {
+          "id": "b126",
+          "text": "Ý 126: Giai đoạn 1996–2006 là thời kỳ bùng nổ của công nghệ này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b127",
+          "text": "Ý 127: Chuyện này không hề phức tạp như bạn vẫn nghĩ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b128",
+          "text": "Ý 128: Hãy thử hình dung một dãy công tắc bật rồi tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b129",
+          "text": "Ý 129: Mỗi công tắc chỉ nhớ một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b130",
+          "text": "Ý 130: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    }
+  ]
+}

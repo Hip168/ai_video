@@ -1,0 +1,24 @@
+[
+  {
+    "slug": "_template",
+    "title": "Tập mẫu cho test",
+    "theme": "mau-a",
+    "sceneTypes": [
+      "chapter-title",
+      "cold-open",
+      "custom:bang-so",
+      "custom:buoc-xu-ly",
+      "custom:do-toc-do",
+      "custom:dong-chay",
+      "custom:loi-thuong-gap",
+      "custom:mo-phong",
+      "custom:nhin-lai",
+      "custom:so-do",
+      "custom:so-lieu",
+      "custom:so-sanh",
+      "custom:tong-ket-nho",
+      "custom:vi-du",
+      "recap-outro"
+    ]
+  }
+]

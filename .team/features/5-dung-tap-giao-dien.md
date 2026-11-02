@@ -27,9 +27,10 @@ Hợp đồng dữ liệu: `0b-hop-dong-timeline-v2.md`. Tất cả chạy với
   - Timeline luôn qua `validate_timeline2` trước khi ghi; sai -> `RuntimeError`.
   - Cache TTS: khoá theo (engine, voice, speed, chuỗi đọc). Mỗi beat ghi cache ngay sau khi tổng hợp, nên ngắt giữa chừng rồi chạy lại chỉ gọi `engines.synth` cho beat chưa có. Đổi 1 beat -> đúng 1 lần gọi.
   - Chương ngắn hơn 10 giây: in cảnh báo ra stderr (`cảnh báo: chương ... < 10 giây`), không lỗi.
+- Slug hợp lệ: `^[a-z0-9]+(-[a-z0-9]+)*$` hoặc đúng `_template`.
 - `main(argv) -> int` ; CLI: `python -m aivideo.episode build <slug> --engine {korva,vieneu,fake} [--voice V] [--speed S] [--episodes-dir ../episodes] [--out-dir ../out/episodes] [--lexicon ../content/lexicon.json]`. Mã thoát 0 khi xong, 1 khi lỗi (in `lỗi: ...` ra stderr), 2 khi sai tham số. In `timeline: <n> frame (<s> s)`.
 
 ## Dữ liệu
 - `episodes/_template/` : `script.json` (130 beat, `meta.voice`/`speed`/`theme`), `lexicon.json`, `claims.json` (`[]`), `sources.md`, `outline.md`.
-- `episodes/index.json` : mảng `[{"slug","title","theme","sceneTypes":[...]}]`.
+- `episodes/index.json` : có một mục `_template`; dạng mảng `[{"slug","title","theme","sceneTypes":[...]}]`.
 - `episodes/README.md` : cách tạo tập, `script.json`, lệnh dựng.

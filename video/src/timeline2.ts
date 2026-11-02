@@ -169,8 +169,8 @@ export function validateTimeline2(json: unknown): Timeline2 {
       const text = b.text as string;
       if ([...text].length > 100) fail(`${bp}.text`, `dài ${[...text].length} ký tự, tối đa 100`);
       if (text !== text.normalize("NFC")) fail(`${bp}.text`, "phải ở dạng Unicode NFC");
-      if (b.cue !== undefined && typeof b.cue !== "string")
-        fail(`${bp}.cue`, "nếu có thì phải là chuỗi");
+      if (b.cue !== undefined && !isNonEmptyString(b.cue))
+        fail(`${bp}.cue`, "nếu có thì phải là chuỗi không rỗng");
     });
   });
 

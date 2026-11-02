@@ -21,3 +21,7 @@ out/
 video/public/timeline.json
 video/public/audio/
 *.egg-info/
+
+# Nhạc tập (D17): file nằm ngoài git, chỉ manifest được commit
+assets/audio/files/*
+!assets/audio/files/.gitkeep

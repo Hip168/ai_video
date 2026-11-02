@@ -1,0 +1,195 @@
+"""Trộn âm thanh tập (đề mục 9): giọng + nhạc (ducking) + bus SFX, loudnorm hai lượt."""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import sys
+import tempfile
+from pathlib import Path
+
+import numpy as np
+import soundfile as sf
+
+from aivideo import sfx
+from aivideo.audio import OUT_SR, TARGET_I, TARGET_LRA, TARGET_TP, _ffmpeg, _measure, measure_lufs
+
+ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_MANIFEST = ROOT / "assets" / "audio" / "manifest.json"
+DEFAULT_FILES = ROOT / "assets" / "audio" / "files"
+
+LUFS_TOL = 1.0
+FADE_IN_S, FADE_OUT_S = 1.0, 2.0
+LIMIT = 0.84  # ≈ -1,5 dBFS
+
+
+class MusicError(RuntimeError):
+    pass
+
+
+# ---- manifest -----------------------------------------------------------------
+
+def load_manifest(path=DEFAULT_MANIFEST) -> dict:
+    p = Path(path)
+    try:
+        doc = json.loads(p.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        raise MusicError(f"thiếu manifest nhạc: {p}") from None
+    except json.JSONDecodeError as e:
+        raise MusicError(f"manifest nhạc hỏng ({p}): {e}") from None
+    if not isinstance(doc, dict) or not isinstance(doc.get("tracks"), list):
+        raise MusicError(f"manifest nhạc sai cấu trúc, cần {{\"tracks\": [...]}}: {p}")
+    return doc
+
+
+def _sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def resolve_track(track_id: str, manifest_path=DEFAULT_MANIFEST, files_dir=DEFAULT_FILES) -> Path:
+    doc = load_manifest(manifest_path)
+    entry = next((t for t in doc["tracks"] if isinstance(t, dict) and t.get("id") == track_id), None)
+    if entry is None:
+        raise MusicError(f"nhạc {track_id!r} không có trong manifest {manifest_path}")
+    path = Path(files_dir) / entry.get("file", "")
+    if not entry.get("file") or not path.is_file():
+        raise MusicError(f"thiếu file nhạc {path} (bài {track_id!r})")
+    actual = _sha256(path)
+    if actual != entry.get("sha256"):
+        raise MusicError(f"file nhạc {path} lệch sha256: manifest {entry.get('sha256')}, thực tế {actual}")
+    return path
+
+
+# ---- đo -----------------------------------------------------------------------
+
+def true_peak(path) -> float:
+    err = _ffmpeg(["-i", str(path), "-af", "ebur128=peak=true:framelog=quiet", "-f", "null", "-"])
+    tail = err[err.rindex("True peak"):]
+    return float(re.search(r"Peak:\s+(-?[\d.]+|-inf)\s+dBFS", tail).group(1))
+
+
+def verify_mix(path, duration_frames: int, fps: int = 30) -> dict:
+    info = sf.info(str(path))
+    frames = info.frames / info.samplerate * fps
+    lufs, tp = measure_lufs(path), true_peak(path)
+    errs = []
+    if abs(lufs - TARGET_I) > LUFS_TOL:
+        errs.append(f"loudness {lufs} LUFS lệch quá ±{LUFS_TOL} khỏi {TARGET_I}")
+    if tp > TARGET_TP:
+        errs.append(f"true peak {tp} dBTP vượt {TARGET_TP}")
+    if abs(frames - duration_frames) > 1:
+        errs.append(f"độ dài {frames:.2f} frame lệch timeline {duration_frames}")
+    if errs:
+        raise RuntimeError(f"mix không đạt ({path}): " + "; ".join(errs))
+    return {"lufs": lufs, "true_peak": tp, "frames": round(frames)}
+
+
+# ---- trộn ---------------------------------------------------------------------
+
+def _graph(n: int, has_music: bool, music_gain_db: float, stem_voice: bool, stem_music: bool) -> str:
+    dur = n / OUT_SR
+    mono = f"aresample={OUT_SR},aformat=sample_fmts=fltp:channel_layouts=mono"
+    bus_i = 2 if has_music else 1
+    voice_out = ["[v]"] + (["[vm]"] if has_music else []) + (["[vs]"] if stem_voice else [])
+    parts = [f"[0:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB"
+             + (f",asplit={len(voice_out)}" if len(voice_out) > 1 else "") + "".join(voice_out) if len(voice_out) > 1
+             else f"[0:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB[v]"]
+    parts.append(f"[{bus_i}:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB[b]")
+    mix_in, count = "[v][b]", 2
+    if has_music:
+        parts.append(
+            f"[1:a]{mono},highpass=f=120,lowpass=f=8000,volume={music_gain_db}dB,"
+            f"atrim=end_sample={n},asetpts=N/SR/TB,"
+            f"afade=t=in:d={FADE_IN_S},afade=t=out:st={max(dur - FADE_OUT_S, 0):.6f}:d={FADE_OUT_S}[m]")
+        parts.append("[m][vm]sidechaincompress=threshold=0.02:ratio=10:attack=10:release=300:makeup=1"
+                     + ("[duck];[duck]asplit=2[d1][d2]" if stem_music else "[d1]"))
+        mix_in, count = "[v][d1][b]", 3
+    parts.append(f"{mix_in}amix=inputs={count}:normalize=0:duration=longest,"
+                 f"alimiter=limit={LIMIT}:level=disabled,atrim=end_sample={n}[pre]")
+    return ";".join(parts)
+
+
+def mix_episode(timeline_path, narration_path, out_path, *, music_path=None, music_gain_db=-24.0,
+                stem_voice_path=None, stem_music_path=None) -> dict:
+    tl = json.loads(Path(timeline_path).read_text(encoding="utf-8"))
+    frames, fps = tl["durationInFrames"], tl.get("fps", 30)
+    n = round(frames * OUT_SR / fps)
+    if music_path is not None and not Path(music_path).is_file():
+        raise MusicError(f"thiếu file nhạc {music_path}")
+    if stem_music_path is not None and music_path is None:
+        raise ValueError("stem nhạc cần có nhạc")
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=out_path.parent) as d:
+        bus_p, pre_p, fin_p = (str(Path(d) / x) for x in ("bus.wav", "pre.wav", "fin.wav"))
+        sf.write(bus_p, sfx.render_bus(tl.get("sfx", []), frames, fps, OUT_SR), OUT_SR, subtype="FLOAT")
+        has_music = music_path is not None
+        graph = _graph(n, has_music, music_gain_db, bool(stem_voice_path), bool(stem_music_path))
+        args = ["-i", str(narration_path)]
+        if has_music:
+            args += ["-stream_loop", "-1", "-i", str(music_path)]
+        args += ["-i", bus_p, "-filter_complex", graph, "-map", "[pre]", "-c:a", "pcm_f32le", pre_p]
+        for label, p in (("[vs]", stem_voice_path), ("[d2]", stem_music_path)):
+            if p:
+                Path(p).parent.mkdir(parents=True, exist_ok=True)
+                args += ["-map", label, "-c:a", "pcm_f32le", str(p)]
+        _ffmpeg(args)
+
+        m = _measure(pre_p, "")
+        af = (f"loudnorm=I={TARGET_I}:TP={TARGET_TP}:LRA={TARGET_LRA}"
+              f":measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+              f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}"
+              f":offset={m['target_offset']}:linear=true,aresample={OUT_SR},"
+              f"atrim=end_sample={n}")
+        _ffmpeg(["-i", pre_p, "-af", af, "-c:a", "pcm_s16le", fin_p])
+        result = verify_mix(fin_p, frames, fps)
+        os.replace(fin_p, out_path)
+    return result
+
+
+# ---- CLI ----------------------------------------------------------------------
+
+def run_episode(slug: str, root=ROOT, stems: bool = False) -> dict:
+    root = Path(root)
+    script_p = root / "episodes" / slug / "script.json"
+    out_dir = root / "out" / "episodes" / slug
+    for p in (script_p, out_dir / "narration.wav", out_dir / "timeline.json"):
+        if not p.is_file():
+            raise RuntimeError(f"thiếu file: {p}")
+    meta = json.loads(script_p.read_text(encoding="utf-8")).get("meta", {})
+    music = meta.get("music")
+    music_path, gain = None, -24.0
+    if music:
+        music_path = resolve_track(music["track"], root / "assets" / "audio" / "manifest.json",
+                                   root / "assets" / "audio" / "files")
+        gain = float(music.get("gainDb", gain))
+    return mix_episode(
+        out_dir / "timeline.json", out_dir / "narration.wav", out_dir / "mix.wav",
+        music_path=music_path, music_gain_db=gain,
+        stem_voice_path=out_dir / "mix.voice.wav" if stems else None,
+        stem_music_path=out_dir / "mix.music.wav" if stems and music_path else None)
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="aivideo.mix")
+    ap.add_argument("slug")
+    ap.add_argument("--root", default=str(ROOT))
+    ap.add_argument("--stems", action="store_true")
+    a = ap.parse_args(argv)
+    try:
+        r = run_episode(a.slug, a.root, a.stems)
+    except (ValueError, RuntimeError, OSError, KeyError) as e:
+        print(f"lỗi: {e}", file=sys.stderr)
+        return 1
+    print(f"mix: {r['lufs']} LUFS, true peak {r['true_peak']} dBTP, {r['frames']} frame")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

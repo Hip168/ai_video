@@ -64,10 +64,10 @@ def small(tmp_path, spy, monkeypatch):
 # -------------------------------------------------------- tập mẫu 130 nhịp
 @pytest.fixture(scope="module")
 def template_build(tmp_path_factory):
-    """Dựng `_template` một lần cho cả module (nặng nhất của bộ test)."""
+    """Dựng slug dành riêng `_template` một lần cho cả module (nặng nhất của bộ test)."""
     mp = pytest.MonkeyPatch()
     base = tmp_path_factory.mktemp("tpl")
-    tree = Tree(base, "mau")
+    tree = Tree(base, "_template")
     shutil.copytree(TEMPLATE_DIR, tree.ep_dir, dirs_exist_ok=True)
     code = run(tree, mp)
     mp.undo()
@@ -81,8 +81,11 @@ def test_template_co_dung_130_nhip_trong_script(template_build):
     assert len(beats) == 130
 
 
-def test_template_build_fake_thoat_0(template_build):
-    assert template_build[1] == 0
+def test_build_slug_template_chay_duoc_bang_engine_fake(template_build):
+    tree, code, _ = template_build
+    assert tree.slug == "_template"
+    assert code == 0
+    assert (tree.out_dir / "timeline.json").is_file()
 
 
 def test_template_timeline_khong_vi_pham_luat_1_den_10_va_12(template_build):
@@ -388,6 +391,17 @@ def test_tap_khong_ton_tai_thoat_khac_0_khong_goi_engine(
     tree.slug = "khong-co"
     assert run(tree, monkeypatch) != 0
     assert spy.calls == []
+
+
+def test_build_chan_loai_canh_ngoai_catalog_nhung_nhan_custom(
+        tmp_path, spy, monkeypatch):
+    doc = small_script()
+    doc["scenes"][0]["type"] = "khong-co-trong-catalog"
+    tree = make_small(tmp_path / "bad", doc)
+    assert run(tree, monkeypatch) != 0
+    assert not (tree.out_dir / "timeline.json").exists()
+    ok = make_small(tmp_path / "ok")  # có custom:mo-phong
+    assert run(ok, monkeypatch) == 0
 
 
 def test_thieu_engine_thoat_ma_2(tmp_path, spy, monkeypatch):

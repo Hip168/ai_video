@@ -23,9 +23,15 @@ def test_mau_sai_vi_pham_dung_luat_no_nham_toi(case):
     assert case[0] in broken_rules(make_mutant(case))
 
 
-def test_danh_muc_mau_sai_phu_cac_luat_1_den_12_tru_8_va_11():
-    # Luật 8 (cue tuỳ chọn) chỉ có ca đúng; luật 11 cần độ dài wav.
-    assert {c[0] for c in MUTANTS} == {1, 2, 3, 4, 5, 6, 7, 9, 10, 12}
+def test_danh_muc_mau_sai_phu_cac_luat_1_den_13_tru_11_them_luat_13():
+    # Luật 11 cần độ dài wav, kiểm ở test_episode_validator.
+    assert {c[0] for c in MUTANTS} == {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13}
+
+
+def test_luat_13_sfx_rong_van_hop_le():
+    doc = load_sample2()
+    doc["sfx"] = []
+    assert broken_rules(doc) == set()
 
 
 def test_luat_8_khong_co_cue_van_hop_le():

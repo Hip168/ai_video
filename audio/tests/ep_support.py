@@ -86,6 +86,8 @@ def broken_rules(doc: dict) -> set[int]:
             ):
                 bad.add(5)
             prev_end = e
+            if "cue" in b and (not isinstance(b["cue"], str) or not b["cue"]):
+                bad.add(8)
             if b.get("id") in seen_beat or not isinstance(b.get("id"), str):
                 bad.add(6)
             seen_beat.add(b.get("id"))
@@ -131,6 +133,9 @@ def broken_rules(doc: dict) -> set[int]:
     for c in chapters:
         if c.get("id") in first_of and first_of[c["id"]] != c.get("startFrame"):
             bad.add(9)
+    # Luật 13: chapters không rỗng, khoá sfx bắt buộc (được rỗng).
+    if not chapters or not isinstance(doc.get("sfx"), list):
+        bad.add(13)
     # Luật 10: sfx.
     prev = -1
     for fx in doc.get("sfx") or []:
@@ -208,6 +213,8 @@ MUTANTS: list[tuple[int, str, object]] = [
     (7, "text_toan_khoang_trang", _set(lambda d: (d["scenes"][0]["beats"][0], "text"), "   ")),
     (7, "text_101_ky_tu", _set(lambda d: (d["scenes"][0]["beats"][0], "text"), "a" * 101)),
     (7, "text_nfd_khong_nfc", _set(lambda d: (d["scenes"][0]["beats"][0], "text"), unicodedata.normalize("NFD", "Mọi thứ"))),
+    (8, "cue_la_so", _set(lambda d: (d["scenes"][0]["beats"][0], "cue"), 5)),
+    (8, "cue_chuoi_rong", _set(lambda d: (d["scenes"][0]["beats"][0], "cue"), "")),
     (9, "chuong_id_trung", _set(lambda d: (d["chapters"][1], "id"), "mo-dau")),
     (9, "chuong_title_rong", _set(lambda d: (d["chapters"][1], "title"), " ")),
     (9, "chuong_start_khong_tang", _set(lambda d: (d["chapters"][1], "startFrame"), 0)),
@@ -220,6 +227,9 @@ MUTANTS: list[tuple[int, str, object]] = [
     (10, "sfx_gain_duong", _set(lambda d: (d["sfx"][0], "gainDb"), 3)),
     (10, "sfx_gain_la_chuoi", _set(lambda d: (d["sfx"][0], "gainDb"), "-18")),
     (10, "sfx_frame_giam", _mut(lambda d: d["sfx"].reverse())),
+    (13, "chapters_rong", _set(lambda d: (d, "chapters"), [])),
+    (13, "thieu_khoa_sfx", _mut(lambda d: d.pop("sfx"))),
+    (13, "sfx_la_null", _set(lambda d: (d, "sfx"), None)),
     (12, "theme_rong", _set(lambda d: (d, "theme"), "")),
     (12, "audio_src_tuyet_doi", _set(lambda d: (d["audio"], "src"), "/tmp/narration.wav")),
     (12, "audio_src_rong", _set(lambda d: (d["audio"], "src"), "")),

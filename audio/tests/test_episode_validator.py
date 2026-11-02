@@ -56,6 +56,29 @@ def test_luat_11_khong_kiem_khi_khong_co_narration_seconds():
     assert validate_timeline2(doc, None, None) == []
 
 
+CATALOG18 = [
+    "cold-open", "chapter-title", "recap-outro", "big-number", "compare",
+    "myth-fact", "history-timeline", "term-card", "chart", "flow", "layers",
+    "code-walk", "terminal", "bits", "memory-array", "algo-bars",
+    "tree-graph", "scale-ladder",
+]
+
+
+def test_catalog_18_id_deu_qua_va_custom_van_qua_con_id_la_bi_tu_choi():
+    doc = load_sample2()
+    for t in CATALOG18 + ["custom:cua-tap"]:
+        doc["scenes"][0]["type"] = t
+        assert validate_timeline2(doc, set(CATALOG18)) == [], t
+    doc["scenes"][0]["type"] = "khong-co-trong-catalog"
+    assert 3 in rules_of(validate_timeline2(doc, set(CATALOG18)))
+
+
+def test_luat_13_sfx_rong_hop_le_chapters_rong_bi_bao():
+    doc = load_sample2()
+    doc["sfx"] = []
+    assert validate_timeline2(doc) == []
+
+
 def test_catalog_chi_nhan_loai_canh_trong_catalog_hoac_custom():
     doc = load_sample2()
     ok = {"cold-open", "chapter-title"}

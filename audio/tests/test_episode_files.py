@@ -77,8 +77,7 @@ def test_template_claims_json_la_mang_rong():
 def test_index_json_la_danh_muc_voi_slug_title_theme_scenetypes():
     doc = json.loads((EP / "index.json").read_text(encoding="utf-8"))
     assert isinstance(doc, list)
-    entries = doc
-    assert entries
+    entries = doc  # được rỗng
     for e in entries:
         assert isinstance(e["title"], str) and e["title"]
         assert isinstance(e["theme"], str) and e["theme"]
@@ -87,4 +86,5 @@ def test_index_json_la_danh_muc_voi_slug_title_theme_scenetypes():
         assert isinstance(e["slug"], str) and e["slug"]
     slugs = [e["slug"] for e in entries]
     assert len(set(slugs)) == len(slugs)
-    assert all(s == "_template" or SLUG_RE.fullmatch(s) for s in slugs)
+    assert all(SLUG_RE.fullmatch(s) for s in slugs)
+    assert "_template" not in slugs

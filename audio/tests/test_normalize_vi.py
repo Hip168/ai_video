@@ -10,10 +10,14 @@ from aivideo.normalize_vi import normalize_vi, speak
 
 CASES = [
     # thập phân
-    ("3,14", "ba phẩy một bốn"),
-    ("3.14", "ba phẩy một bốn"),
+    ("3,14", "ba phẩy mười bốn"),
+    ("3.14", "ba phẩy mười bốn"),
+    ("2,4", "hai phẩy bốn"),
+    ("0,05", "không phẩy không năm"),
+    ("3,141", "ba phẩy một bốn một"),
+    ("0,125", "không phẩy một hai năm"),
     ("0,5", "không phẩy năm"),
-    ("2,75", "hai phẩy bảy năm"),
+    ("2,75", "hai phẩy bảy mươi lăm"),
     # phân cách nghìn
     ("1.000", "một nghìn"),
     ("2.500", "hai nghìn năm trăm"),

@@ -9,7 +9,14 @@ import json
 import pytest
 
 from aivideo.episode import validate_script, validate_timeline2
-from ep_support import MUTANTS, ROOT, load_sample2, make_mutant
+from ep_support import (
+    MUTANTS,
+    ROOT,
+    VALID_BOUNDARIES,
+    load_sample2,
+    make_boundary,
+    make_mutant,
+)
 
 
 def rules_of(errors: list[str]) -> set[int]:
@@ -30,6 +37,13 @@ def test_file_mau_v2_qua_validator_tra_list_rong():
 def test_mau_sai_bi_validator_bao_dung_luat(case):
     errors = validate_timeline2(make_mutant(case))
     assert case[0] in rules_of(errors), errors
+
+
+@pytest.mark.parametrize(
+    "case", VALID_BOUNDARIES, ids=[c[0] for c in VALID_BOUNDARIES]
+)
+def test_ca_bien_hop_le_validator_tra_list_rong(case):
+    assert validate_timeline2(make_boundary(case)) == []
 
 
 def test_luat_8_bo_het_cue_van_hop_le():
@@ -145,3 +159,43 @@ SCRIPT_BAD = {
 @pytest.mark.parametrize("name", list(SCRIPT_BAD))
 def test_script_sai_bi_validate_script_bao_loi(name):
     assert validate_script(_break(SCRIPT_BAD[name])) != []
+
+
+def test_script_toan_canh_cam_la_loi():
+    doc = _script()
+    doc["chapters"] = doc["chapters"][:1]
+    cid = doc["chapters"][0]["id"]
+    doc["scenes"] = [{"id": "sc01", "chapter": cid, "type": "chapter-title",
+                      "props": {}, "holdMs": 2000, "sfx": None, "beats": []}]
+    assert validate_script(doc) != []
+
+
+def test_script_chuoi_bat_buoc_chi_khoang_trang_la_loi():
+    for fn in (
+        lambda d: d["meta"].__setitem__("title", "  "),
+        lambda d: d["meta"].__setitem__("theme", " "),
+        lambda d: d["chapters"][0].__setitem__("title", "  "),
+        lambda d: d["scenes"][0].__setitem__("id", " "),
+    ):
+        assert validate_script(_break(fn)) != []
+
+
+def test_script_id_sai_kieu_la_loi():
+    for fn in (
+        lambda d: d["scenes"][0]["beats"][0].__setitem__("id", 7),
+        lambda d: d["scenes"][0].__setitem__("id", 5),
+    ):
+        assert validate_script(_break(fn)) != []
+
+
+def test_script_ten_sfx_ngoai_danh_sach_hop_dong_la_loi():
+    doc = _script()
+    doc["scenes"][0]["beats"][0]["sfx"] = "chime"
+    assert validate_script(doc) != []
+
+
+@pytest.mark.parametrize("name", ["pop", "tick", "whoosh", "ding", "buzz"])
+def test_script_ten_sfx_trong_danh_sach_hop_dong_hop_le(name):
+    doc = _script()
+    doc["scenes"][0]["beats"][0]["sfx"] = name
+    assert validate_script(doc) == []

@@ -58,7 +58,7 @@ def broken_rules(doc: dict) -> set[int]:
         typ = sc.get("type")
         if (
             not isinstance(sid, str)
-            or not sid
+            or not sid.strip()
             or sid in seen_scene
             or not isinstance(typ, str)
             or not typ
@@ -100,6 +100,8 @@ def broken_rules(doc: dict) -> set[int]:
             ):
                 bad.add(7)
     # Luật 4: liền nhau, cảnh cuối kết thúc đúng durationInFrames.
+    if "durationInFrames" in doc and not _is_int(total):
+        bad.add(2)
     cursor = 0
     for sc in scenes:
         if not (_is_int(sc.get("startFrame")) and _is_int(sc.get("durationFrames"))):
@@ -111,7 +113,11 @@ def broken_rules(doc: dict) -> set[int]:
         bad.add(4)
     # Luật 9: chương.
     ids = [c.get("id") for c in chapters]
-    if not chapters or len(set(ids)) != len(ids):
+    if (
+        not chapters
+        or len(set(ids)) != len(ids)
+        or any(not isinstance(i, str) or not i.strip() for i in ids)
+    ):
         bad.add(9)
     last = -1
     for c in chapters:
@@ -148,7 +154,7 @@ def broken_rules(doc: dict) -> set[int]:
             or f >= total
             or f < prev
             or not isinstance(fx.get("name"), str)
-            or not fx["name"]
+            or not fx["name"].strip()
             or not _is_num(g)
             or g > 0
         ):
@@ -162,8 +168,9 @@ def broken_rules(doc: dict) -> set[int]:
         not isinstance(doc.get("theme"), str)
         or not doc["theme"].strip()
         or not isinstance(src, str)
-        or not src
+        or not src.strip()
         or src.startswith("/")
+        or "://" in src
         or ".." in Path(src).parts
     ):
         bad.add(12)
@@ -227,6 +234,17 @@ MUTANTS: list[tuple[int, str, object]] = [
     (10, "sfx_gain_duong", _set(lambda d: (d["sfx"][0], "gainDb"), 3)),
     (10, "sfx_gain_la_chuoi", _set(lambda d: (d["sfx"][0], "gainDb"), "-18")),
     (10, "sfx_frame_giam", _mut(lambda d: d["sfx"].reverse())),
+    (2, "duration_in_frames_so_thuc", _set(lambda d: (d, "durationInFrames"), 600.0)),
+    (3, "scene_id_chi_khoang_trang", _set(lambda d: (d["scenes"][1], "id"), "  ")),
+    (3, "scene_id_sai_kieu", _set(lambda d: (d["scenes"][1], "id"), 5)),
+    (3, "type_rong", _set(lambda d: (d["scenes"][0], "type"), "")),
+    (6, "beat_id_sai_kieu", _set(lambda d: (d["scenes"][0]["beats"][0], "id"), 7)),
+    (9, "chuong_id_khoang_trang", _set(lambda d: (d["chapters"][1], "id"), " ")),
+    (10, "sfx_name_khoang_trang", _set(lambda d: (d["sfx"][0], "name"), "  ")),
+    (12, "theme_khoang_trang", _set(lambda d: (d, "theme"), "   ")),
+    (12, "audio_src_khoang_trang", _set(lambda d: (d["audio"], "src"), "  ")),
+    (12, "audio_src_url", _set(lambda d: (d["audio"], "src"), "https://x.vn/narration.wav")),
+    (12, "audio_src_giua_co_cham_cham", _set(lambda d: (d["audio"], "src"), "a/../b.wav")),
     (13, "chapters_rong", _set(lambda d: (d, "chapters"), [])),
     (13, "thieu_khoa_sfx", _mut(lambda d: d.pop("sfx"))),
     (13, "sfx_la_null", _set(lambda d: (d, "sfx"), None)),
@@ -331,3 +349,61 @@ def parse_srt(path: Path) -> list[tuple[int, int, str]]:
             "\n".join(lines[2:]),
         ))
     return cues
+
+
+def _b_text_100(d):
+    d["scenes"][0]["beats"][0]["text"] = "a" * 100
+
+
+def _b_sfx_frame_cuoi(d):
+    d["sfx"][1]["frame"] = d["durationInFrames"] - 1
+
+
+def _b_gain_0(d):
+    d["sfx"][0]["gainDb"] = 0
+
+
+def _b_gain_float(d):
+    d["sfx"][0]["gainDb"] = -0.5
+
+
+def _b_beat_sat_mep(d):
+    # beat chiếm trọn cảnh, không có khoảng hở
+    d["scenes"][0]["beats"][1]["startFrame"] = 120
+    d["scenes"][0]["beats"][1]["durationFrames"] = 180
+
+
+def _b_sfx_cung_frame(d):
+    d["sfx"][1]["frame"] = 0
+
+
+def _b_audio_src_thu_muc_con(d):
+    d["audio"]["src"] = "audio/narration.wav"
+
+
+def _b_custom_ten_gach_noi(d):
+    d["scenes"][2]["type"] = "custom:mo-phong-2"
+
+
+def _b_sfx_rong(d):
+    d["sfx"] = []
+
+
+# (tên ca, hàm biến mẫu thành ca BIÊN HỢP LỆ): validator phải trả []
+VALID_BOUNDARIES = [
+    ("text_dung_100_ky_tu", _b_text_100),
+    ("sfx_o_frame_cuoi_cung", _b_sfx_frame_cuoi),
+    ("gain_bang_0", _b_gain_0),
+    ("gain_so_thuc_am", _b_gain_float),
+    ("beat_sat_mep_canh", _b_beat_sat_mep),
+    ("hai_sfx_cung_frame", _b_sfx_cung_frame),
+    ("audio_src_thu_muc_con", _b_audio_src_thu_muc_con),
+    ("custom_co_gach_noi", _b_custom_ten_gach_noi),
+    ("sfx_rong", _b_sfx_rong),
+]
+
+
+def make_boundary(case: tuple) -> dict:
+    d = copy.deepcopy(load_sample2())
+    case[1](d)
+    return d

@@ -69,10 +69,39 @@ CASES = [
     ("42", "bốn mươi hai"),
     ("7", "bảy"),
     ("0", "không"),
+    # bảng bổ sung của hợp đồng (số dính chữ, dấu, thập phân bắt đầu bằng 0)
+    ("0.001", "không phẩy không không một"),
+    ("0,001", "không phẩy không không một"),
+    ("2.000.000.100", "hai tỷ một trăm"),
+    ("100.000đ", "một trăm nghìn đồng"),
+    ("v2", "v hai"),
+    ("4K", "bốn K"),
+    ("5G", "năm G"),
+    ("1080p", "một không tám không p"),
+    ("-5°C", "âm năm độ xê"),
+    ("12:30", "mười hai giờ ba mươi"),
+    ("1/2", "một phần hai"),
     # nằm trong câu, dấu câu giữ nguyên
     ("Có 3 cái, rồi 5 cái.", "Có ba cái, rồi năm cái."),
     ("CPU chạy 3,5 GHz!", "CPU chạy ba phẩy năm gi-ga-héc!"),
 ]
+
+
+def _chuoi_so_khac():
+    out = [str(n) for n in range(0, 3000, 7)]
+    out += [f"{n}%" for n in (0, 1, 9, 10, 99, 100, 1000)]
+    out += [f"{n},5" for n in (0, 1, 10, 100, 1000)]
+    out += ["0,001", "9,99", "1.234.567", "999.999.999.999", "12:05", "3/4",
+            "-1", "-0,5°C", "v10", "H264", "8K", "720p", "99.999đ", "1e3",
+            "2024-05-06", "10-20-30", "A4", "3D", "0", "00", "007"]
+    return out
+
+
+@pytest.mark.parametrize("raw", _chuoi_so_khac())
+def test_moi_dau_vao_ra_chuoi_khong_con_chu_so(raw):
+    got = normalize_vi(raw)
+    assert not re.search(r"[0-9]", got), got
+    assert got.strip()
 
 
 def test_bang_test_co_it_nhat_30_dong():

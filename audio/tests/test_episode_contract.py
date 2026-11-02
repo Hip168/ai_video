@@ -1,15 +1,23 @@
-"""[5-1] Hợp đồng v2: file mẫu và danh mục mẫu sai (luật 1-12).
+"""Kiểm chứng DỮ LIỆU TEST, không kiểm code của DEV.
 
-Các test ở đây dùng bộ kiểm độc lập trong `ep_support.py` để chứng minh
-mỗi mẫu sai đúng là vi phạm luật nó nhắm tới. Cùng danh mục mẫu sai này
-được đưa vào validator của DEV-5 khi có chữ ký hàm (xem báo cáo).
+Các test ở đây chỉ chứng minh danh mục mẫu sai trong `ep_support.py` đúng
+là vi phạm luật nó nhắm tới (bằng bộ kiểm độc lập của tester), để cùng danh
+mục đó đem thử vào `validate_timeline2` ở `test_episode_validator.py`.
+Phủ code thật là việc của `test_episode_validator.py`, không phải file này.
 """
 
 from __future__ import annotations
 
 import pytest
 
-from ep_support import MUTANTS, broken_rules, load_sample2, make_mutant
+from ep_support import (
+    MUTANTS,
+    VALID_BOUNDARIES,
+    broken_rules,
+    load_sample2,
+    make_boundary,
+    make_mutant,
+)
 
 
 def test_file_mau_v2_doc_thang_tu_contract_khong_vi_pham_luat_nao():
@@ -40,3 +48,10 @@ def test_luat_8_khong_co_cue_van_hop_le():
         for b in sc["beats"]:
             b.pop("cue", None)
     assert broken_rules(doc) == set()
+
+
+@pytest.mark.parametrize(
+    "case", VALID_BOUNDARIES, ids=[c[0] for c in VALID_BOUNDARIES]
+)
+def test_ca_bien_hop_le_khong_vi_pham_luat_nao(case):
+    assert broken_rules(make_boundary(case)) == set()

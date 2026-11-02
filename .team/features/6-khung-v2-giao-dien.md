@@ -106,3 +106,4 @@ Hình chính trong `y < 830`; chuyển động là hàm thuần của frame; c�
 - Ảnh still đã soi: cold-open, chapter-title (có số), recap-outro (5 điểm). Cần `REMOTION_BROWSER_EXECUTABLE` trên máy này.
 
 - BA chốt giữ nguyên: `audio.src` tương đối, `sfx` bắt buộc, `chapters` không rỗng, `Episode` mặc định `muted`, `min-beats` và `unknown-cue` chỉ cảnh báo, biến `LINT_*`, gộp `custom:*`.
+- `chapter-title` chạy theo frame, không neo beat: cảnh này câm (`beats` rỗng). Nếu sau này có beat thì vẫn hiển thị đúng (không phụ thuộc beat).

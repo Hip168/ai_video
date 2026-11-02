@@ -171,7 +171,7 @@ def broken_rules(doc: dict) -> set[int]:
         or not src.strip()
         or src.startswith("/")
         or "://" in src
-        or ".." in Path(src).parts
+        or ".." in src
     ):
         bad.add(12)
     return bad
@@ -244,6 +244,7 @@ MUTANTS: list[tuple[int, str, object]] = [
     (12, "theme_khoang_trang", _set(lambda d: (d, "theme"), "   ")),
     (12, "audio_src_khoang_trang", _set(lambda d: (d["audio"], "src"), "  ")),
     (12, "audio_src_url", _set(lambda d: (d["audio"], "src"), "https://x.vn/narration.wav")),
+    (12, "audio_src_hai_cham_trong_ten_file", _set(lambda d: (d["audio"], "src"), "a..b.wav")),
     (12, "audio_src_giua_co_cham_cham", _set(lambda d: (d["audio"], "src"), "a/../b.wav")),
     (13, "chapters_rong", _set(lambda d: (d, "chapters"), [])),
     (13, "thieu_khoa_sfx", _mut(lambda d: d.pop("sfx"))),

@@ -8,7 +8,9 @@ narration.wav,video.srt,chapters.txt,cache/}`.
 
 from __future__ import annotations
 
+import contextlib
 import hashlib
+import io
 import json
 import math
 import re
@@ -69,8 +71,11 @@ def template_build(tmp_path_factory):
     base = tmp_path_factory.mktemp("tpl")
     tree = Tree(base, "_template")
     shutil.copytree(TEMPLATE_DIR, tree.ep_dir, dirs_exist_ok=True)
-    code = run(tree, mp)
+    err = io.StringIO()
+    with contextlib.redirect_stderr(err):
+        code = run(tree, mp)
     mp.undo()
+    tree.err = err.getvalue()
     script = json.loads((tree.ep_dir / "script.json").read_text("utf-8"))
     return tree, code, script
 
@@ -369,7 +374,6 @@ def test_thieu_engine_thoat_ma_2(tmp_path, spy, monkeypatch):
     assert e.value.code == 2
 
 
-# ------------------------------------------------------ file khoá, bất biến
 # ------------------------------------------------- cache hỏng hoặc dở dang
 def _cache_file(tree, text):
     from aivideo.audio import _cache_key
@@ -658,9 +662,9 @@ def test_sfx_cung_frame_scene_truoc_beat_sau_thu_tu_on_dinh(
     assert run(tree, monkeypatch) == 0
     tl = tree.timeline()
     sc03 = tl["scenes"][2]
-    if sc03["beats"][0]["startFrame"] == sc03["startFrame"]:
-        names = [f["name"] for f in tl["sfx"] if f["frame"] == sc03["startFrame"]]
-        assert names == ["tick", "buzz"]
+    assert sc03["beats"][0]["startFrame"] == sc03["startFrame"]
+    names = [f["name"] for f in tl["sfx"] if f["frame"] == sc03["startFrame"]]
+    assert names == ["tick", "buzz"]
 
 
 def test_template_chi_dung_ten_sfx_trong_danh_sach_hop_dong():
@@ -689,14 +693,17 @@ def test_chapters_txt_duoi_1_gio_dung_mm_ss():
     assert txt == "00:00 Chương 0\n01:05 Chương 1\n09:59 Chương 2\n59:59 Chương 3\n"
 
 
-def test_chapters_txt_tu_dung_1_gio_dung_h_mm_ss():
+def test_chapters_txt_h_mm_ss_tinh_theo_tung_dong_dong_dau_van_00_00():
     txt = episode.chapters_txt(
-        _tl_with_chapters([0, 3000, 3600, 7325, 36000], 40000))
+        _tl_with_chapters([0, 3000, 3599, 3600, 7325, 36000], 40000))
     lines = txt.split("\n")
-    assert "1:00:00 Chương 2" in lines
-    assert "2:02:05 Chương 3" in lines
-    assert "10:00:00 Chương 4" in lines
-    assert lines[-1] == "" and txt.endswith("\n")
+    assert lines[0] == "00:00 Chương 0"
+    assert lines[1] == "50:00 Chương 1"
+    assert lines[2] == "59:59 Chương 2"
+    assert lines[3] == "1:00:00 Chương 3"
+    assert lines[4] == "2:02:05 Chương 4"
+    assert lines[5] == "10:00:00 Chương 5"
+    assert lines[6] == "" and txt.endswith("\n")
 
 
 def test_chapters_txt_cat_xuong_giay_khong_lam_tron():
@@ -714,12 +721,10 @@ def test_chuong_duoi_10_giay_in_canh_bao_stderr_nhung_van_xong(
     assert (tree.out_dir / "timeline.json").is_file()
 
 
-def test_tap_mau_khong_co_canh_bao_chuong_ngan(tmp_path, spy, monkeypatch, capsys):
-    tree = Tree(tmp_path, "_template")
-    shutil.copytree(TEMPLATE_DIR, tree.ep_dir, dirs_exist_ok=True)
-    code, err = _run_err(tree, monkeypatch, capsys)
+def test_tap_mau_khong_co_canh_bao_chuong_ngan(template_build):
+    tree, code, _ = template_build
     assert code == 0
-    assert "cảnh báo: chương" not in err
+    assert "cảnh báo: chương" not in tree.err
 
 
 # ---- 9. ghi cache nguyên tử ------------------------------------------------
@@ -730,16 +735,41 @@ def _atomic_dir(tmp_path):
 
 
 def _state(d):
-    return sorted(p.name for p in d.iterdir())
+    """Mọi thứ dưới thư mục gốc của test (không chỉ cache)."""
+    return sorted(
+        str(p.relative_to(d.parent)) for p in d.parent.rglob("*") if p.is_file()
+    ) if d.parent.exists() else []
+
+
+def _spy_tmp_writes(monkeypatch, d):
+    seen = []
+    real = sf.write
+
+    def wrapper(file, data, sr, **kw):
+        seen.append(Path(file))
+        return real(file, data, sr, **kw)
+
+    monkeypatch.setattr(episode.sf, "write", wrapper)
+    return seen
 
 
 def test_ghi_cache_thanh_cong_chi_con_dung_mot_file_wav_nguyen_ven(tmp_path):
     d = _atomic_dir(tmp_path)
-    wav, sr = episode._synth_cached(d, "fake", "v", 1.0, "xin chào bạn")
+    seen = []
+    mp = pytest.MonkeyPatch()
+    try:
+        seen = _spy_tmp_writes(mp, d)
+        wav, sr = episode._synth_cached(d, "fake", "v", 1.0, "xin chào bạn")
+    finally:
+        mp.undo()
     files = _state(d)
     assert len(files) == 1 and files[0].endswith(".wav")
-    assert sf.info(str(d / files[0])).frames == len(wav)
-    assert sf.info(str(d / files[0])).samplerate == sr
+    assert sf.info(str(d.parent / files[0])).frames == len(wav)
+    assert sf.info(str(d.parent / files[0])).samplerate == sr
+    # ghi qua file tạm nằm TRONG cache rồi mới đổi tên (nguyên tử)
+    assert len(seen) == 1
+    assert seen[0].parent == d and seen[0].name.endswith(".tmp")
+    assert seen[0].name.startswith(files[0].split("/")[-1])
 
 
 def test_sf_write_hong_giua_chung_khong_de_lai_wav_hay_tmp(
@@ -882,3 +912,127 @@ def test_engine_la_va_thieu_slug_thoat_ma_2(tmp_path, monkeypatch):
         with pytest.raises(SystemExit) as e:
             episode.main(argv)
         assert e.value.code == 2, argv
+
+
+# ============================================================ vòng sửa 2
+@pytest.mark.parametrize("hold_ms", [1, 5, 10, 15, 20])
+def test_canh_cam_holdms_duoi_nua_frame_dai_dung_1_frame_va_qua_validator(
+        tmp_path, spy, monkeypatch, hold_ms):
+    doc = small_script()
+    # dưới 0,6 frame: làm tròn theo vị trí có thể ra 0, phải nâng lên 1
+    doc["scenes"][1]["holdMs"] = hold_ms
+    tree = make_small(tmp_path, doc)
+    assert run(tree, monkeypatch) == 0
+    tl = tree.timeline()
+    assert tl["scenes"][1]["durationFrames"] == 1
+    assert broken_rules(tl) == set()
+    d = sf.info(str(tree.out_dir / "narration.wav")).duration
+    assert episode.validate_timeline2(tl, episode.CATALOG, d) == []
+
+
+def test_build_khong_doi_video_public_that_cua_repo(tmp_path, spy, monkeypatch):
+    real = ROOT / "video" / "public"
+    before = _tree_hash(real) if real.exists() else None
+    tree = make_small(tmp_path)
+    assert run(tree, monkeypatch) == 0
+    after = _tree_hash(real) if real.exists() else None
+    assert before == after
+
+
+def test_nhip_bat_dau_dung_frame_tinh_tu_do_dai_wav_tung_nhip(
+        tmp_path, spy, monkeypatch):
+    # Biên chính xác: vị trí mẫu = tổng độ dài wav (đã cắt lặng) + các
+    # khoảng nghỉ + cảnh câm, đổi sang frame bằng round(mẫu / 48000 * 30).
+    pauses = [300, 900, 1500, 0, 600, 2000]
+    doc = _pause_script(pauses)
+    tree = make_small(tmp_path, doc)
+    assert run(tree, monkeypatch) == 0
+    sr_out = audio.OUT_SR
+    pos, pending, want = 0, 0, []
+    scene_starts = []
+    all_beats = [b for s in doc["scenes"] for b in s["beats"]]
+    last = all_beats[-1]
+    for sc in doc["scenes"]:
+        if sc["beats"]:
+            for b in sc["beats"]:
+                pos += pending
+                raw, sr = engines.synth("fake", b["text"], "giong-thu", 1.25)
+                n = len(audio._filter_wav(raw, sr, audio.TRIM_FULL))
+                want.append((round(pos / sr_out * FPS),
+                             max(1, round((pos + n) / sr_out * FPS)
+                                 - round(pos / sr_out * FPS))))
+                pos += n
+                pending = 0 if b is last else round(b["pause_ms"] * sr_out / 1000)
+            scene_starts.append(want[-len(sc["beats"])][0])
+        else:
+            pos += pending
+            pending = 0
+            scene_starts.append(round(pos / sr_out * FPS))
+            pos += round(sc["holdMs"] * sr_out / 1000)
+    got = [(b["startFrame"], b["durationFrames"])
+           for b in _beats(tree.timeline())]
+    assert got == want
+    assert [s["startFrame"] for s in tree.timeline()["scenes"]] == (
+        [0] + scene_starts[1:])
+
+
+def _write_alt_layout(tmp_path):
+    """Cây KHÔNG theo vị trí mặc định, để cờ CLI phải được dùng thật."""
+    base = tmp_path / "alt"
+    (base / "audio").mkdir(parents=True)
+    ep = base / "nguon" / "tap-thu"
+    ep.mkdir(parents=True)
+    doc = small_script()
+    doc["meta"].pop("speed")
+    doc["scenes"][0]["beats"][0]["text"] = "router chạy ổn"
+    (ep / "script.json").write_text(json.dumps(doc), "utf-8")
+    (ep / "lexicon.json").write_text("{}", "utf-8")
+    lex = base / "tu-dien-rieng.json"
+    lex.write_text(json.dumps({"router": "rao tơ"}), "utf-8")
+    # nơi MẶC ĐỊNH có dữ liệu khác: nếu cờ bị bỏ qua sẽ lộ ra
+    (base / "content").mkdir()
+    (base / "content" / "lexicon.json").write_text(
+        json.dumps({"router": "SAI-MAC-DINH"}), "utf-8")
+    (base / "episodes" / "tap-thu").mkdir(parents=True)
+    (base / "episodes" / "tap-thu" / "script.json").write_text(
+        "{khong hop le", "utf-8")
+    return base, lex
+
+
+def test_co_cli_episodes_dir_out_dir_lexicon_duoc_dung_thay_mac_dinh(
+        tmp_path, spy, monkeypatch):
+    base, lex = _write_alt_layout(tmp_path)
+    monkeypatch.chdir(base / "audio")
+    code = episode.main([
+        "build", "tap-thu", "--engine", "fake", "--voice", "giong-thu",
+        "--episodes-dir", str(base / "nguon"),
+        "--out-dir", str(base / "san-pham"),
+        "--lexicon", str(lex),
+    ])
+    assert code == 0
+    assert (base / "san-pham" / "tap-thu" / "timeline.json").is_file()
+    assert not (base / "out").exists()
+    assert "rao tơ chạy ổn" in spy.texts
+
+
+def test_khong_co_speed_trong_meta_va_khong_co_cli_thi_toc_do_1_0(
+        tmp_path, spy, monkeypatch):
+    base, lex = _write_alt_layout(tmp_path)
+    monkeypatch.chdir(base / "audio")
+    assert episode.main([
+        "build", "tap-thu", "--engine", "fake", "--voice", "giong-thu",
+        "--episodes-dir", str(base / "nguon"),
+        "--out-dir", str(base / "san-pham"), "--lexicon", str(lex),
+    ]) == 0
+    assert {c["speed"] for c in spy.calls} == {1.0}
+
+
+def test_mac_dinh_cli_la_episodes_out_episodes_va_content_lexicon(
+        tmp_path, spy, monkeypatch):
+    tree = make_small(tmp_path)
+    (tree.base / "content" / "lexicon.json").write_text(
+        json.dumps({"mọi": "MAC-DINH-LEXICON"}), "utf-8")
+    assert run(tree, monkeypatch) == 0
+    assert (tree.base / "out" / "episodes" / tree.slug / "timeline.json"
+            ).is_file()
+    assert any("MAC-DINH-LEXICON" in t for t in spy.texts)

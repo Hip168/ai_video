@@ -81,6 +81,13 @@ CASES = [
     ("-5°C", "âm năm độ xê"),
     ("12:30", "mười hai giờ ba mươi"),
     ("1/2", "một phần hai"),
+    ("1.000.000.005", "một tỷ không trăm linh năm"),
+    ("1.000.000.050", "một tỷ không trăm năm mươi"),
+    ("720p", "bảy hai không p"),
+    ("H264", "H hai sáu bốn"),
+    ("x86", "x tám mươi sáu"),
+    ("007", "không không bảy"),
+    ("12:05", "mười hai giờ không năm"),
     # nằm trong câu, dấu câu giữ nguyên
     ("Có 3 cái, rồi 5 cái.", "Có ba cái, rồi năm cái."),
     ("CPU chạy 3,5 GHz!", "CPU chạy ba phẩy năm gi-ga-héc!"),

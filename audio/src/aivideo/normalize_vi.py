@@ -43,7 +43,12 @@ def _number_words(tok: str) -> str:
         whole, _, frac = tok.replace(",", ".").partition(".")
     out = int_to_words(int(whole))
     if frac:
-        out += " phẩy " + " ".join(_DIGITS[int(c)] for c in frac)
+        if len(frac) <= 2:
+            tail = ("không " + _DIGITS[int(frac[1])] if frac[0] == "0" and len(frac) == 2
+                    else audio.number_to_words(int(frac)))
+        else:
+            tail = " ".join(_DIGITS[int(c)] for c in frac)
+        out += " phẩy " + tail
     return out
 
 

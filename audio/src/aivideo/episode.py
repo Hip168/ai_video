@@ -20,6 +20,10 @@ TEMPLATE_SLUG = "_template"
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 SCENE_TYPE_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 CUSTOM_RE = re.compile(r"^custom:[a-z0-9]+(-[a-z0-9]+)*$")
+CATALOG = frozenset((
+    "cold-open", "chapter-title", "recap-outro", "big-number", "compare", "myth-fact",
+    "history-timeline", "term-card", "chart", "flow", "layers", "code-walk", "terminal",
+    "bits", "memory-array", "algo-bars", "tree-graph", "scale-ladder"))
 SFX_GAIN_DB = -18
 MIN_CHAPTER_S = 10
 
@@ -126,8 +130,8 @@ def validate_script(doc) -> list[str]:
                 errs.append(f"beat {bid!r}: spoken phải là chuỗi hoặc null")
             if not _int(b.get("pause_ms", 0)):
                 errs.append(f"beat {bid!r}: pause_ms phải là số nguyên >= 0")
-            if b.get("cue") is not None and not isinstance(b["cue"], str):
-                errs.append(f"beat {bid!r}: cue phải là chuỗi hoặc null")
+            if b.get("cue") is not None and not _nonempty(b["cue"]):
+                errs.append(f"beat {bid!r}: cue phải là chuỗi không rỗng hoặc null")
             if b.get("sfx") is not None and not _nonempty(b["sfx"]):
                 errs.append(f"beat {bid!r}: sfx phải là chuỗi hoặc null")
             cl = b.get("claims", [])
@@ -234,15 +238,15 @@ def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
                     errs.append(f"luật 7: beat {bid!r} text dài {len(text)} > 100 ký tự")
                 if unicodedata.normalize("NFC", text) != text:
                     errs.append(f"luật 7: beat {bid!r} text không phải NFC")
-            if "cue" in b and not isinstance(b["cue"], str):
-                errs.append(f"luật 8: beat {bid!r} cue phải là chuỗi")
+            if "cue" in b and not _nonempty(b["cue"]):
+                errs.append(f"luật 8: beat {bid!r} cue phải là chuỗi không rỗng")
     if scene_ok and total is not None and expect != total:
         errs.append(f"luật 4: cảnh cuối kết thúc tại {expect}, durationInFrames là {total}")
 
     chapters = doc.get("chapters")
     chap_ids: set = set()
     if not isinstance(chapters, list) or not chapters:
-        errs.append("luật 9: chapters phải là danh sách không rỗng")
+        errs.append("luật 13: chapters phải là danh sách không rỗng")
     else:
         prev = -1
         for i, c in enumerate(chapters):
@@ -277,7 +281,7 @@ def validate_timeline2(doc, catalog=None, narration_seconds=None) -> list[str]:
 
     sfx = doc.get("sfx")
     if not isinstance(sfx, list):
-        errs.append("luật 10: sfx phải là danh sách")
+        errs.append("luật 13: sfx phải có và là danh sách (được rỗng)")
     else:
         prev = -1
         for i, s in enumerate(sfx):
@@ -443,7 +447,7 @@ def build_episode(slug: str, engine: str, voice: str | None = None, speed: float
                 "durationInFrames": total, "theme": meta["theme"],
                 "audio": {"src": "narration.wav"}, "chapters": chapters, "sfx": sfx,
                 "scenes": scenes}
-    errs = validate_timeline2(timeline, narration_seconds=len(final) / OUT_SR)
+    errs = validate_timeline2(timeline, catalog=CATALOG, narration_seconds=len(final) / OUT_SR)
     if errs:
         raise RuntimeError("timeline không hợp lệ: " + "; ".join(errs))
     (out / "timeline.json").write_text(

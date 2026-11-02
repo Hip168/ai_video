@@ -447,3 +447,79 @@ def test_khong_doi_file_nao_trong_video_public_so_voi_main():
         capture_output=True, text=True, check=True,
     ).stdout.strip()
     assert out == ""
+
+
+# ------------------------------------------------- cache hỏng hoặc dở dang
+def _cache_file(tree, text):
+    from aivideo.audio import _cache_key
+
+    key = _cache_key("fake", "giong-thu", 1.25, text)
+    return tree.out_dir / "cache" / f"{key}.wav"
+
+
+def _corrupt_truncate(path):
+    data = path.read_bytes()
+    path.write_bytes(data[: len(data) // 2])
+
+
+def _corrupt_garbage(path):
+    path.write_bytes(b"\x00\xffkhong-phai-wav" * 50)
+
+
+def _corrupt_empty(path):
+    path.write_bytes(b"")
+
+
+def _corrupt_header_only(path):
+    path.write_bytes(path.read_bytes()[:44])
+
+
+CORRUPTIONS = {
+    "cat_ngan_mot_nua": _corrupt_truncate,
+    "ghi_rac": _corrupt_garbage,
+    "file_rong": _corrupt_empty,
+    "chi_con_header": _corrupt_header_only,
+}
+
+
+@pytest.mark.parametrize("how", list(CORRUPTIONS))
+def test_cache_hong_thi_chay_lai_tong_hop_lai_dung_nhip_do(
+        small, spy, monkeypatch, how):
+    ref_tl = small.timeline()
+    ref_wav, _ = sf.read(str(small.out_dir / "narration.wav"))
+    ref_srt = (small.out_dir / "video.srt").read_text("utf-8")
+    victim = small_script()["scenes"][0]["beats"][1]["text"]
+    path = _cache_file(small, victim)
+    assert path.is_file()
+    CORRUPTIONS[how](path)
+    spy.clear()
+    assert run(small, monkeypatch) == 0
+    assert spy.texts == [victim]
+    # Không ra tiếng cụt: kết quả giống hệt lần dựng sạch.
+    assert small.timeline() == ref_tl
+    assert (small.out_dir / "video.srt").read_text("utf-8") == ref_srt
+    new_wav, _ = sf.read(str(small.out_dir / "narration.wav"))
+    assert new_wav.shape == ref_wav.shape
+    assert np.max(np.abs(new_wav - ref_wav)) < 1e-4
+
+
+def test_cache_hong_duoc_ghi_de_bang_file_nguyen_ven(small, spy, monkeypatch):
+    victim = small_script()["scenes"][2]["beats"][0]["text"]
+    path = _cache_file(small, victim)
+    good = sf.info(str(path)).frames
+    _corrupt_truncate(path)
+    assert run(small, monkeypatch) == 0
+    assert sf.info(str(path)).frames == good
+    spy.clear()
+    assert run(small, monkeypatch) == 0
+    assert spy.calls == []
+
+
+def test_nhieu_cache_hong_cung_luc_chi_goi_lai_cac_nhip_hong(
+        small, spy, monkeypatch):
+    beats = small_script()["scenes"][0]["beats"]
+    for beat, how in zip(beats, CORRUPTIONS.values()):
+        how(_cache_file(small, beat["text"]))
+    spy.clear()
+    assert run(small, monkeypatch) == 0
+    assert sorted(spy.texts) == sorted(b["text"] for b in beats)

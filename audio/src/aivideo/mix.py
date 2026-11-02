@@ -10,11 +10,10 @@ import sys
 import tempfile
 from pathlib import Path
 
-import numpy as np
 import soundfile as sf
 
 from aivideo import sfx
-from aivideo.audio import OUT_SR, TARGET_I, TARGET_LRA, TARGET_TP, _ffmpeg, _measure, measure_lufs
+from aivideo.audio import OUT_SR, TARGET_I, TARGET_TP, _ffmpeg, measure_lufs
 
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_MANIFEST = ROOT / "assets" / "audio" / "manifest.json"
@@ -92,63 +91,93 @@ def verify_mix(path, duration_frames: int, fps: int = 30) -> dict:
 
 # ---- trộn ---------------------------------------------------------------------
 
-def _graph(n: int, has_music: bool, music_gain_db: float, stem_voice: bool, stem_music: bool) -> str:
+def _graph(n: int, has_music: bool, music_gain_db: float, target: str) -> str:
+    """target: "pre" (bản trộn), "voice" (stem giọng), "music" (stem nhạc đã duck).
+    Mỗi lần chạy FFmpeg chỉ có MỘT đầu ra, để không có chuyện đồ thị đóng khi đầu ra kia chưa xả hết."""
     dur = n / OUT_SR
     mono = f"aresample={OUT_SR},aformat=sample_fmts=fltp:channel_layouts=mono"
     bus_i = 2 if has_music else 1
-    voice_out = ["[v]"] + (["[vm]"] if has_music else []) + (["[vs]"] if stem_voice else [])
-    parts = [f"[0:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB"
-             + (f",asplit={len(voice_out)}" if len(voice_out) > 1 else "") + "".join(voice_out) if len(voice_out) > 1
-             else f"[0:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB[v]"]
-    parts.append(f"[{bus_i}:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB[b]")
-    mix_in, count = "[v][b]", 2
-    if has_music:
-        parts.append(
-            f"[1:a]{mono},highpass=f=120,lowpass=f=8000,volume={music_gain_db}dB,"
-            f"atrim=end_sample={n},asetpts=N/SR/TB,"
-            f"afade=t=in:d={FADE_IN_S},afade=t=out:st={max(dur - FADE_OUT_S, 0):.6f}:d={FADE_OUT_S}[m]")
-        parts.append("[m][vm]sidechaincompress=threshold=0.02:ratio=10:attack=10:release=300:makeup=1"
-                     + ("[duck];[duck]asplit=2[d1][d2]" if stem_music else "[d1]"))
-        mix_in, count = "[v][d1][b]", 3
-    parts.append(f"{mix_in}amix=inputs={count}:normalize=0:duration=longest,"
-                 f"alimiter=limit={LIMIT}:level=disabled,atrim=end_sample={n}[pre]")
-    return ";".join(parts)
+    voice = f"[0:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB"
+    if target == "voice":
+        return voice + "[out]"
+    music = (f"[1:a]{mono},highpass=f=120,lowpass=f=8000,volume={music_gain_db}dB,"
+             f"atrim=end_sample={n},asetpts=N/SR/TB,"
+             f"afade=t=in:d={FADE_IN_S},afade=t=out:st={max(dur - FADE_OUT_S, 0):.6f}:d={FADE_OUT_S}[m]")
+    duck = "[m][vm]sidechaincompress=threshold=0.02:ratio=10:attack=10:release=300:makeup=1,"
+    # sidechaincompress cắt cụt đuôi khi hết dữ liệu (thiếu tới ~5600 mẫu, chập chờn): đệm lại cho đủ n mẫu
+    fix = f"apad=whole_len={n},atrim=end_sample={n}"
+    duck += fix
+    if target == "music":
+        return f"{voice}[vm];{music};{duck},atrim=end_sample={n}[out]"
+    bus = f"[{bus_i}:a]{mono},apad=whole_len={n},atrim=end_sample={n},asetpts=N/SR/TB[b]"
+    tail = (f"amix=inputs={{c}}:normalize=0:duration=longest,"
+            f"alimiter=limit={LIMIT}:level=disabled,atrim=end_sample={n}[out]")
+    if not has_music:
+        return f"{voice}[v];{bus};[v][b]" + tail.format(c=2)
+    return f"{voice},asplit=2[v][vm];{music};{duck}[d];{bus};[v][d][b]" + tail.format(c=3)
+
+
+def _check_music(path) -> None:
+    p = Path(path)
+    if not p.is_file():
+        raise MusicError(f"thiếu file nhạc {p}")
+    try:
+        info = sf.info(str(p))
+    except Exception as e:  # noqa: BLE001
+        raise MusicError(f"không đọc được file nhạc {p}: {e}") from None
+    if info.frames <= 0:
+        raise MusicError(f"file nhạc {p} không có mẫu âm thanh")
 
 
 def mix_episode(timeline_path, narration_path, out_path, *, music_path=None, music_gain_db=-24.0,
                 stem_voice_path=None, stem_music_path=None) -> dict:
     tl = json.loads(Path(timeline_path).read_text(encoding="utf-8"))
-    frames, fps = tl["durationInFrames"], tl.get("fps", 30)
+    for key in ("durationInFrames", "fps", "sfx"):
+        if key not in tl:
+            raise ValueError(f"timeline thiếu khoá {key!r}: {timeline_path}")
+    frames, fps = tl["durationInFrames"], tl["fps"]
     n = round(frames * OUT_SR / fps)
-    if music_path is not None and not Path(music_path).is_file():
-        raise MusicError(f"thiếu file nhạc {music_path}")
+    if music_path is not None:
+        _check_music(music_path)
     if stem_music_path is not None and music_path is None:
         raise ValueError("stem nhạc cần có nhạc")
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    has_music = music_path is not None
     with tempfile.TemporaryDirectory(dir=out_path.parent) as d:
         bus_p, pre_p, fin_p = (str(Path(d) / x) for x in ("bus.wav", "pre.wav", "fin.wav"))
-        sf.write(bus_p, sfx.render_bus(tl.get("sfx", []), frames, fps, OUT_SR), OUT_SR, subtype="FLOAT")
-        has_music = music_path is not None
-        graph = _graph(n, has_music, music_gain_db, bool(stem_voice_path), bool(stem_music_path))
-        args = ["-i", str(narration_path)]
-        if has_music:
-            args += ["-stream_loop", "-1", "-i", str(music_path)]
-        args += ["-i", bus_p, "-filter_complex", graph, "-map", "[pre]", "-c:a", "pcm_f32le", pre_p]
-        for label, p in (("[vs]", stem_voice_path), ("[d2]", stem_music_path)):
-            if p:
-                Path(p).parent.mkdir(parents=True, exist_ok=True)
-                args += ["-map", label, "-c:a", "pcm_f32le", str(p)]
-        _ffmpeg(args)
+        sf.write(bus_p, sfx.render_bus(tl["sfx"], frames, fps, OUT_SR), OUT_SR, subtype="FLOAT")
 
-        m = _measure(pre_p, "")
-        af = (f"loudnorm=I={TARGET_I}:TP={TARGET_TP}:LRA={TARGET_LRA}"
-              f":measured_I={m['input_i']}:measured_TP={m['input_tp']}"
-              f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}"
-              f":offset={m['target_offset']}:linear=true,aresample={OUT_SR},"
-              f"atrim=end_sample={n}")
+        def run(target: str, dst: str) -> None:
+            args = ["-i", str(narration_path)]
+            if has_music:
+                args += ["-stream_loop", "-1", "-i", str(music_path)]
+            args += ["-i", bus_p, "-filter_complex", _graph(n, has_music, music_gain_db, target),
+                     "-map", "[out]", "-c:a", "pcm_f32le", dst]
+            _ffmpeg(args)
+
+        run("pre", pre_p)
+        staged = []
+        for target, p in (("voice", stem_voice_path), ("music", stem_music_path)):
+            if p:
+                tmp = str(Path(d) / f"stem_{target}.wav")
+                run(target, tmp)
+                got = sf.info(tmp).frames
+                if got != n:
+                    raise RuntimeError(f"stem {target} có {got} mẫu, cần {n}")
+                staged.append((tmp, Path(p)))
+
+        # Lượt 1: đo bằng đúng thước của verify_mix (ebur128), loudnorm in_i lệch với nó ở nội dung thưa
+        lufs_pre, tp_pre = measure_lufs(pre_p), true_peak(pre_p)
+        # Lượt 2 tuyến tính: loudnorm tự chuyển sang chế độ động (làm lệch mức giữa các SFX) hoặc sai gain
+        # khi LRA đo được vượt LRA đích, nên áp thẳng một gain cố định từ số đo lượt 1, không vượt TP.
+        gain_db = min(TARGET_I - lufs_pre, TARGET_TP - tp_pre)
+        af = f"volume={gain_db:.4f}dB,aresample={OUT_SR},atrim=end_sample={n}"
         _ffmpeg(["-i", pre_p, "-af", af, "-c:a", "pcm_s16le", fin_p])
         result = verify_mix(fin_p, frames, fps)
+        for tmp, dst in staged:
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            os.replace(tmp, dst)
         os.replace(fin_p, out_path)
     return result
 

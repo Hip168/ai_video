@@ -9,6 +9,9 @@ Nhánh `9-am-thanh-tap`. Hợp đồng: `0b-hop-dong-timeline-v2.md`. Quyết đ
 - `mix.py` một lệnh FFmpeg: nhạc lặp hoặc cắt theo độ dài, fade vào và ra, highpass 120 Hz, lowpass 8 kHz; `sidechaincompress` khoá bằng narration; cộng giọng, nhạc, SFX; `alimiter`; loudnorm hai lượt `linear=true`.
 - Thêm hàm đo true peak. Tái dùng `loudnorm`, `measure_lufs` bằng import.
 - `manifest.json` gồm `id`, `file`, `sourceUrl`, `license`, `downloadedAt`, `sha256`, `attribution`. File nhạc ở `assets/audio/files/`, gitignore. Thiếu file hoặc lệch sha256 thì báo lỗi rõ.
+- `manifest.json` cấp cao là `{"tracks": [...]}`, commit dạng rỗng `{"tracks": []}`. Test tạo manifest tạm có tone sinh tại chỗ.
+- `assets/` nằm ở gốc repo. `assets/audio/files/` có luật gitignore riêng, không dựa vào `*.mp3`.
+- CLI `python -m aivideo.mix <slug>`: đọc tên bài và mức nhạc từ `meta.music` trong `episodes/<slug>/script.json`, đọc `narration.wav` và `timeline.json` ở `out/episodes/<slug>/`, ghi `mix.wav` cùng chỗ. Bên dưới là một hàm nhận đường dẫn tường minh để test gọi trực tiếp.
 - OPS nạp nhạc thật sau, không thuộc đề mục này.
 
 ## Task

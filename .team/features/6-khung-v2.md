@@ -29,7 +29,7 @@ Nhánh `6-khung-v2`. Hợp đồng: `0b-hop-dong-timeline-v2.md`. Luật chung: 
 
 ## Xong khi
 - `npx remotion compositions` liệt kê `Episode`, `Video`, `KitDemo`. `tsc` sạch.
-- Mẫu v2 qua validator; mỗi luật có test mẫu sai; kết quả validator khớp đề mục 5 trên cùng các mẫu.
+- Mẫu v2 qua validator; mỗi luật có test mẫu sai do TESTER-6 tự viết. Việc khớp với validator Python kiểm ở đề mục 10, bằng timeline do Python sinh ra đi qua validator TypeScript.
 - Mỗi cảnh cấu trúc có still không đơn sắc, hình chính trong `y < 830`.
 - Lint bắt đúng từng lỗi mẫu. Grep URL và filter trong `video/src/lib` trả 0.
 - Test khoá xanh. Test mới chạy được trên CI 2 lõi.

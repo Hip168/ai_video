@@ -83,6 +83,9 @@ Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 
 - Khoá lexicon được so trên chữ gốc, trước `normalize_vi`, nên khoá có chữ số như `x86` dùng được.
 - `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.
 - `100.000đ` đọc số trước rồi đơn vị "đồng".
+- Dấu `.` hoặc `,` ngay sau một mẫu (khoảng, ngày, IP, giờ) mà không có chữ số theo sau là dấu câu, không làm hỏng mẫu: `5-10.` "năm đến mười.".
+- Hex `0x…` đọc "không x" rồi từng ký tự: `0x10` "không x một không", `0xFF` "không x F F".
+- Biết là đọc chưa hay, xử lý bằng lexicon của tập hoặc `spoken`, không thêm luật: `Python 3.12` (ra "phẩy"), `24/7` (ra phân số), số điện thoại, ngày `15.01.2024`.
 Cách đọc nào nghe chưa hay thì sửa bằng `spoken` hoặc lexicon của tập, không đổi bảng này.
 
 ### Tên SFX

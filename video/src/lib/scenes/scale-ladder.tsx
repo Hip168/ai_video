@@ -44,11 +44,14 @@ export const ScaleLadder: React.FC<SceneProps> = ({ scene }) => {
         const wFinal = (0.3 + 0.7 * ((pw[i] - lo) / (hi - lo))) * MAXW;
         const w = wFinal * a;
         const isCur = i === cur;
+        const vw = r.value.length * fs * 0.85 * 0.6; // độ rộng chữ giá trị ước lượng
         return (
           <g key={i} opacity={Math.min(1, a * 1.5)}>
             <TextBlock text={r.label} x={X0 - 64} y={y + h / 2 + fs * 0.35} width={440} fontSize={fs} maxLines={2} fill={isCur ? theme.accent2 : theme.fg} anchor="end" lineHeight={1.05} />
             <rect x={X0} y={y} width={w} height={h} rx={16} fill={isCur ? theme.accent : theme.panel} stroke={theme.accent} strokeWidth={4} />
-            {a > 0.6 && w >= r.value.length * fs * 0.85 * 0.6 + 48 && <TextBlock text={r.value} x={X0 + w - 24} y={y + h / 2 + fs * 0.35} width={wFinal - 48} fontSize={fs * 0.85} fill={isCur ? theme.bg : theme.fg} anchor="end" />}
+            {a > 0.6 && (w >= vw + 48
+              ? <TextBlock text={r.value} x={X0 + w - 24} y={y + h / 2 + fs * 0.35} width={w - 48} fontSize={fs * 0.85} fill={isCur ? theme.bg : theme.fg} anchor="end" />
+              : <TextBlock text={r.value} x={X0 + w + 24} y={y + h / 2 + fs * 0.35} width={Math.min(vw + 8, 1880 - (X0 + w + 24))} fontSize={fs * 0.85} fill={theme.fg} anchor="start" />)}
           </g>
         );
       })}

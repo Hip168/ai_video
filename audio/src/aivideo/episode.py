@@ -321,6 +321,8 @@ def _validate_timeline2(doc, catalog, narration_seconds) -> list[str]:
                 prev = fr
             if not _nonempty(s.get("name")):
                 errs.append(f"luật 10: sfx[{i}].name rỗng")
+            elif s["name"] not in SFX_NAMES:
+                errs.append(f"luật 10: sfx[{i}].name {s['name']!r} không thuộc {sorted(SFX_NAMES)}")
             if isinstance(g, bool) or not isinstance(g, (int, float)) or g > 0:
                 errs.append(f"luật 10: sfx[{i}].gainDb phải là số <= 0")
 

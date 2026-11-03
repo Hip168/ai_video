@@ -3,8 +3,8 @@
 Nhánh `12-tap-thi-diem`. Phụ thuộc 5–11. Thiết kế: `.team/doi-san-xuat.md`, D20, D21. Đây là lần chạy thật đầu tiên của đội, đi đúng quy trình, không làm tắt.
 
 ## Task
-- [12-1] `packager` đề xuất tên kênh, mô tả, banner, avatar; không dính G3/Ript. Sếp tổng ghi vào `.team/kenh.md` sau khi người dùng chọn tên.
-- [12-2] Người dùng đăng nhập Google cá nhân, tạo kênh, xác minh số điện thoại. OPS hướng dẫn từng bước và ghi `.team/kenh.md`: tên kênh, URL, đã xác minh chưa. Không lưu mật khẩu, mã xác minh.
+- [12-1] `packager` đề xuất tên kênh, mô tả, banner, avatar; không dính G3/Ript. Sếp tổng ghi vào `.team/kenh.json` sau khi người dùng chọn tên.
+- [12-2] Người dùng đăng nhập Google cá nhân, tạo kênh, xác minh số điện thoại. OPS hướng dẫn từng bước và ghi `.team/kenh.json`: `channelId`, `handle`, `verifiedPhone`. Không lưu mật khẩu, mã xác minh.
 - [12-3] Tập đầu: `/video` đi hết luồng. Đăng ở chế độ Không công khai. Người dùng xem và duyệt.
 - [12-4] Nạp nhạc Audio Library sau khi có kênh, OPS ghi manifest.
 

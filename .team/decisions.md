@@ -73,7 +73,7 @@ Học ý từ `claude-code-my-workflow`, `superpowers`, `content-foundry`, `cc-s
 ## D21. Đăng qua YouTube Studio (BA chốt, 2026-11-03)
 Dùng Claude in Chrome trên Chrome thật của người dùng, không dùng tool đăng trên GitHub. Lý do: tài liệu `videos.insert` (cập nhật 2026-10-15) ghi không còn khoá private, bài Help vẫn ghi có khoá, hai nguồn chính thức mâu thuẫn; OAuth ở Testing hết hạn sau 7 ngày. Studio không vướng cả hai. Có thể thử API sau, bằng clip ngắn, nếu đăng tay qua trình duyệt quá chậm.
 Công bố nội dung tổng hợp: chọn "Không", vì sơ đồ hoạt hình không trông thực và không rơi vào bốn trường hợp bắt buộc. Đây là suy luận, Google không nêu đích danh TTS. Mô tả video ghi một dòng rằng giọng đọc do AI tạo.
-Quyền đã có: sau khi người dùng duyệt video đầu, publisher được đăng Công khai không hỏi, ở đúng kênh đã ghi trong `.team/kenh.md`.
+Quyền đã có: sau khi người dùng duyệt video đầu, publisher được đăng Công khai không hỏi, ở đúng kênh đã ghi trong `.team/kenh.json`.
 
 ## D22. Sổ fact (BA chốt, 2026-11-03)
 `episodes/<slug>/claims.json` là sổ fact. Dùng JSON, không thêm phụ thuộc YAML. Mỗi con số, tên, năm trong lời đọc phải trỏ về một claim có nguồn.

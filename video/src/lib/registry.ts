@@ -16,6 +16,19 @@ import { spec as chapterTitleSpec } from "./specs/chapter-title";
 import { RecapOutro } from "./scenes/recap-outro";
 import { spec as recapOutroSpec } from "./specs/recap-outro";
 
+import { BigNumber } from "./scenes/big-number";
+import { spec as bigNumberSpec } from "./specs/big-number";
+import { Compare } from "./scenes/compare";
+import { spec as compareSpec } from "./specs/compare";
+import { MythFact } from "./scenes/myth-fact";
+import { spec as mythFactSpec } from "./specs/myth-fact";
+import { HistoryTimeline } from "./scenes/history-timeline";
+import { spec as historyTimelineSpec } from "./specs/history-timeline";
+import { TermCard } from "./scenes/term-card";
+import { spec as termCardSpec } from "./specs/term-card";
+import { Chart } from "./scenes/chart";
+import { spec as chartSpec } from "./specs/chart";
+
 export interface CatalogEntry {
   Component: React.FC<SceneProps>;
   spec: SceneSpec;
@@ -31,12 +44,12 @@ export const CATALOG: Record<CatalogType, CatalogEntry> = {
   "cold-open": { Component: ColdOpen, spec: coldOpenSpec },
   "chapter-title": { Component: ChapterTitle, spec: chapterTitleSpec },
   "recap-outro": { Component: RecapOutro, spec: recapOutroSpec },
-  "big-number": placeholder("big-number"),
-  "compare": placeholder("compare"),
-  "myth-fact": placeholder("myth-fact"),
-  "history-timeline": placeholder("history-timeline"),
-  "term-card": placeholder("term-card"),
-  "chart": placeholder("chart"),
+  "big-number": { Component: BigNumber, spec: bigNumberSpec },
+  "compare": { Component: Compare, spec: compareSpec },
+  "myth-fact": { Component: MythFact, spec: mythFactSpec },
+  "history-timeline": { Component: HistoryTimeline, spec: historyTimelineSpec },
+  "term-card": { Component: TermCard, spec: termCardSpec },
+  "chart": { Component: Chart, spec: chartSpec },
   "flow": placeholder("flow"),
   "layers": placeholder("layers"),
   "scale-ladder": placeholder("scale-ladder"),

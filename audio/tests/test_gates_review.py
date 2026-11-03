@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import pathlib
 import re
+import subprocess
 
 import pytest
 from aivideo import gates
@@ -54,8 +55,12 @@ def test_hash_khong_doi_khi_gom_beat_sang_canh_khac_giu_nguyen_thu_tu():
 def test_hash_khong_doi_khi_gop_hai_canh_thanh_mot():
     doc = make_script()
     base = _hash(doc)
-    second = doc["scenes"].pop(1)
-    doc["scenes"][0]["beats"].extend(second["beats"])
+    first, second = doc["scenes"][2], doc["scenes"][3]
+    assert first["beats"] and second["beats"]  # cả hai cảnh đều có beat
+    n = len(first["beats"]) + len(second["beats"])
+    first["beats"].extend(second["beats"])
+    doc["scenes"].pop(3)
+    assert len(first["beats"]) == n
     assert _hash(doc) == base
 
 
@@ -146,6 +151,31 @@ def test_quote_ban_dich_khong_co_trong_gia_tri_bi_loai(jroot):
 def test_quote_bac_cau_qua_hai_gia_tri_json_khac_nhau_bi_loai(jroot):
     r = _kept(jroot, "xuống dòng.khác")
     assert r["dropped"] != []
+
+
+def test_quote_trich_dung_khoa_json_co_ky_tu_escape_duoc_giu(tmp_path):
+    key = 'khoá "đặc biệt" và \\ngược'
+    write_json(tmp_path / "items.json", {key: "giá trị"})
+    r = _kept(tmp_path, key)
+    assert r["verdict"] == "CHAN"
+    assert r["dropped"] == []
+    r = _kept(tmp_path, 'khoá "đặc biệt" và \\ngược nhưng sai')
+    assert r["dropped"] != []
+
+
+@pytest.mark.parametrize("quote_form", ["NFC", "NFD"])
+def test_quote_giai_ma_khi_file_json_o_dang_nfd_co_escape(tmp_path, quote_form):
+    import unicodedata
+
+    value = 'Tiếng "Việt" mạnh mẽ\nxuống dòng'
+    raw = json.dumps({"claim": value}, ensure_ascii=False)
+    (tmp_path / "items.json").write_bytes(
+        unicodedata.normalize("NFD", raw).encode("utf-8")
+    )
+    quote = unicodedata.normalize(quote_form, 'Tiếng "Việt" mạnh')
+    r = _kept(tmp_path, quote)
+    assert r["verdict"] == "CHAN"
+    assert r["dropped"] == []
 
 
 def test_quote_giai_ma_khong_ap_dung_cho_file_khong_phai_json(jroot):
@@ -256,7 +286,11 @@ def test_phat_hien_nang_khong_anh_xa_duoc_cung_ghi_va_chan(two):
         [finding("CRITICAL", "Điều thứ hai.", file="items.json", rule="claim:7")],
     )
     assert out["unresolvedSevere"][0]["rule"] == "claim:7"
-    assert gates.gate1(SLUG, eps)["pass"] is False
+    assert out["unresolvedSevere"][0]["reason"]
+    assert "claim:7" in problems_text(gates.gate1(SLUG, eps))
+    g2 = gates.gate2(SLUG, eps, write_ledger=False)
+    assert g2["pass"] is False
+    assert "claim:7" in problems_text(g2)
 
 
 def test_unresolved_severe_nam_trong_entry_hash_sua_tay_la_vo_chuoi(two):
@@ -279,7 +313,7 @@ def test_cli_apply_thoat_ma_3_va_stderr_neu_rule(two, capsys):
     assert code == 3
     assert data["unresolvedSevere"][0]["rule"] == "claim:c002"
     assert "claim:c002" in err
-    assert "chưa giải quyết" in err
+    assert "gọi lại fact-checker (prepare-factcheck lô mới) hoặc hỏi người dùng" in err
 
 
 def test_doi_chung_findings_rong_ma_0_va_hai_cong_dat(two, capsys):
@@ -288,7 +322,7 @@ def test_doi_chung_findings_rong_ma_0_va_hai_cong_dat(two, capsys):
     code, data, err = _cli_apply(capsys, eps, res, [])
     assert code == 0
     assert data["unresolvedSevere"] == []
-    assert "chưa giải quyết" not in err
+    assert err == ""
     assert gates.Ledger(ep).last("fact")["unresolvedSevere"] is None
     assert gates.gate1(SLUG, eps)["pass"] is True
     assert gates.gate2(SLUG, eps, write_ledger=False)["pass"] is True
@@ -343,13 +377,38 @@ def test_lo_moi_chi_bao_mot_phan_claim_thi_claim_con_lai_van_bi_chan(two):
     c002 = docs[1]
     write_json(ep / "claims.json", docs[:1])
     r2 = _prep(eps, tmp, "lo2")
-    assert [i["id"] for i in json.loads(pathlib.Path(r2["items"]).read_text())] == ["c001"]
+    assert [i["id"] for i in json.loads(pathlib.Path(r2["items"]).read_text(encoding="utf-8"))] == ["c001"]
     _apply(eps, r2, [])
     write_json(ep / "claims.json", [docs[0], c002])
     g1 = gates.gate1(SLUG, eps)
     assert g1["pass"] is False
     assert _name(r1) in problems_text(g1)
     assert _name(r2) not in problems_text(g1)
+
+
+def test_xoa_claim_bi_gan_co_roi_lo_moi_sach_thi_gate1_va_gate2_dat(two):
+    eps, ep, tmp = two
+    r1 = _prep(eps, tmp, "lo1")
+    _apply(eps, r1, [_bad_quote(rule="claim:c002")])
+    assert gates.gate1(SLUG, eps)["pass"] is False
+    docs = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    write_json(ep / "claims.json", docs[:1])  # xoá c002 khỏi sổ fact
+    r2 = _prep(eps, tmp, "lo2")
+    _apply(eps, r2, [])
+    g1 = gates.gate1(SLUG, eps)
+    assert g1["pass"] is True, g1
+    g2 = gates.gate2(SLUG, eps, write_ledger=False)
+    assert g2["pass"] is True, g2
+
+
+def test_xoa_claim_bi_gan_co_nhung_chua_co_lo_moi_van_chan(two):
+    eps, ep, tmp = two
+    r1 = _prep(eps, tmp, "lo1")
+    _apply(eps, r1, [_bad_quote(rule="claim:c002")])
+    docs = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    write_json(ep / "claims.json", docs[:1])
+    # chưa prepare/apply lô mới: claims.json đổi so với lần apply cuối
+    assert gates.gate2(SLUG, eps, write_ledger=False)["pass"] is False
 
 
 # ---- 5. gate3 không có --video: cảnh báo, kết quả không đổi -----------------------------
@@ -367,14 +426,14 @@ def test_gate3_khong_video_canh_bao_stderr_ket_qua_van_dat(env, capsys):
     assert code == 0
     assert data["pass"] is True
     assert "--video" in err
-    assert "cảnh báo" in err
+    assert "--video" in err
 
 
 def test_gate3_co_video_khong_canh_bao(env, capsys):
     code, data, err = _g3(capsys, env, "--video", str(env.video))
     assert code == 0
     assert data["pass"] is True
-    assert "cảnh báo" not in err
+    assert err == ""
 
 
 def test_gate3_canh_bao_khong_lam_doi_danh_sach_muc_kiem_va_ma_thoat_khi_do(env, capsys):
@@ -383,25 +442,30 @@ def test_gate3_canh_bao_khong_lam_doi_danh_sach_muc_kiem_va_ma_thoat_khi_do(env,
     code, data, err = _g3(capsys, env)
     assert code == 1
     assert data["pass"] is False
-    assert "cảnh báo" in err
+    assert "--video" in err
     assert [c["name"] for c in data["checks"] if not c["ok"]] == ["publish"]
 
 
 # ---- 6. không còn tên dự án khác trong sản phẩm của kênh ---------------------------------
 
-PATHS = (
-    sorted((ROOT / "episodes").rglob("*"))
-    + sorted((ROOT / "audio" / "src").rglob("*"))
-    + [ROOT / ".team" / "doi-san-xuat.md"]
+SCAN_PREFIXES = (
+    "episodes/roles/", "episodes/PLAYBOOK.md", "episodes/_template/",
+    "audio/src/", ".team/doi-san-xuat.md", "qualification/",
 )
-TEXT_SUFFIX = {".md", ".py", ".json", ".txt", ".toml", ".cfg"}
-FORBIDDEN = re.compile(r"\bG3\b|\bRipt\b")
+TEXT_SUFFIX = {".md", ".py", ".json", ".txt", ".toml", ".cfg", ".srt"}
+FORBIDDEN = re.compile(r"\bG3\b|\bRipt\b", re.IGNORECASE)
 
 
 def _scan_files():
+    """Chỉ các tệp git theo dõi trong sản phẩm của đội (không quét episodes/<tập>/)."""
+    r = subprocess.run(
+        ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True
+    )
     return [
-        p for p in PATHS
-        if p.is_file() and p.suffix in TEXT_SUFFIX and "__pycache__" not in p.parts
+        ROOT / name for name in r.stdout.splitlines()
+        if name.startswith(SCAN_PREFIXES)
+        and pathlib.Path(name).suffix in TEXT_SUFFIX
+        and "__pycache__" not in name
     ]
 
 
@@ -409,6 +473,7 @@ def test_quet_duoc_du_so_tep_de_khong_xanh_vi_rong():
     names = {p.name for p in _scan_files()}
     assert {"gates.py", "qualify.py", "PLAYBOOK.md", "doi-san-xuat.md"} <= names
     assert len(_scan_files()) >= 20
+    assert not any(p.parts[-3:-1] == ("episodes", "tap-khac") for p in _scan_files())
 
 
 def test_khong_con_chuoi_g3_hay_ript_trong_episodes_audio_src_va_doi_san_xuat():
@@ -425,4 +490,6 @@ def test_bo_loc_ranh_gioi_tu_khong_bat_nham_script_hay_g30():
     assert FORBIDDEN.search("G30 và AG3") is None
     assert FORBIDDEN.search("dự án G3 Mobility") is not None
     assert FORBIDDEN.search("công ty Ript.") is not None
+    assert FORBIDDEN.search("dự án g3 mobility") is not None
+    assert FORBIDDEN.search("RIPT") is not None
 

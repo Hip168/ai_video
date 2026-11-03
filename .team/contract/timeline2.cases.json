@@ -1,0 +1,151 @@
+[
+ {
+  "name": "mau_goc",
+  "valid": true,
+  "patch": []
+ },
+ {
+  "name": "sfx_ten_hop_le_ding",
+  "valid": true,
+  "patch": [
+   {
+    "path": "sfx.0.name",
+    "value": "ding"
+   }
+  ]
+ },
+ {
+  "name": "sfx_ten_hop_le_buzz_tick",
+  "valid": true,
+  "patch": [
+   {
+    "path": "sfx.0.name",
+    "value": "buzz"
+   },
+   {
+    "path": "sfx.1.name",
+    "value": "tick"
+   }
+  ]
+ },
+ {
+  "name": "sfx_ten_la",
+  "valid": false,
+  "patch": [
+   {
+    "path": "sfx.0.name",
+    "value": "boom"
+   }
+  ]
+ },
+ {
+  "name": "sfx_ten_sai_hoa_thuong",
+  "valid": false,
+  "patch": [
+   {
+    "path": "sfx.1.name",
+    "value": "Pop"
+   }
+  ]
+ },
+ {
+  "name": "sfx_ten_rong",
+  "valid": false,
+  "patch": [
+   {
+    "path": "sfx.0.name",
+    "value": ""
+   }
+  ]
+ },
+ {
+  "name": "sfx_ten_co_duoi_wav",
+  "valid": false,
+  "patch": [
+   {
+    "path": "sfx.0.name",
+    "value": "pop.wav"
+   }
+  ]
+ },
+ {
+  "name": "sfx_gain_duong",
+  "valid": false,
+  "patch": [
+   {
+    "path": "sfx.0.gainDb",
+    "value": 3
+   }
+  ]
+ },
+ {
+  "name": "sfx_frame_ngoai_tap",
+  "valid": false,
+  "patch": [
+   {
+    "path": "sfx.1.frame",
+    "value": 600
+   }
+  ]
+ },
+ {
+  "name": "sfx_rong_hop_le",
+  "valid": true,
+  "patch": [
+   {
+    "path": "sfx",
+    "value": []
+   }
+  ]
+ },
+ {
+  "name": "thieu_khoa_sfx",
+  "valid": false,
+  "patch": [
+   {
+    "path": "sfx",
+    "delete": true
+   }
+  ]
+ },
+ {
+  "name": "fps_25",
+  "valid": false,
+  "patch": [
+   {
+    "path": "fps",
+    "value": 25
+   }
+  ]
+ },
+ {
+  "name": "phien_ban_1",
+  "valid": false,
+  "patch": [
+   {
+    "path": "version",
+    "value": 1
+   }
+  ]
+ },
+ {
+  "name": "audio_src_tuyet_doi",
+  "valid": false,
+  "patch": [
+   {
+    "path": "audio.src",
+    "value": "/tmp/a.wav"
+   }
+  ]
+ },
+ {
+  "name": "canh_ho_giua",
+  "valid": false,
+  "patch": [
+   {
+    "path": "scenes.1.startFrame",
+    "value": 310
+   }
+  ]
+ }
+]

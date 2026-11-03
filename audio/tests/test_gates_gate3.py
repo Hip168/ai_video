@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import subprocess
 import sys
 
 import pytest
@@ -40,11 +42,32 @@ PUBLISH = {
 }
 
 
+TIMELINE = {
+    "version": 2, "fps": 30, "durationInFrames": 1500,
+    "chapters": [
+        {"id": f"c{i}", "title": f"Chương {i}", "startFrame": 300 * i}
+        for i in range(5)
+    ],
+}
+FRAMES = list(range(0, 50, 2))  # 25 mốc, mỗi chương 10 giây có >= 1 mốc
+LOUDNESS = {"lufs": -16.0, "truePeak": -1.5}
+
+
+def git(cwd, *args):
+    return subprocess.run(
+        ["git", "-c", "user.name=t", "-c", "user.email=t@t",
+         "-c", "commit.gpgsign=false", *args],
+        cwd=cwd, check=True, capture_output=True, text=True,
+    ).stdout
+
+
 class Env:
     def __init__(
-        self, tmp_path, monkeypatch, *, cong2=True, stages=("lint", "ky-thuat", "qc")
+        self, tmp_path, monkeypatch, *, cong2=True, stages=("lint", "ky-thuat", "qc"),
+        use_git=True,
     ):
         self.mp = monkeypatch
+        self.repo = tmp_path / "repo"
         # lint chạy trong <repo>/video; lệnh thật được thay bằng lệnh giả
         # bằng cách monkeypatch hằng trong cùng tiến trình.
         (tmp_path / "repo" / "video").mkdir(parents=True)
@@ -67,19 +90,55 @@ class Env:
             if stage in stages:
                 r = gates.ledger_run(self.ep, stage)
                 assert r["verdict"] == "DAT"
+        write_json(
+            self.repo / "out" / "episodes" / SLUG / "timeline.json", TIMELINE
+        )
         self.qc_findings = write_findings(self.ep / "qc.json", [])
         if "qc" in stages:
-            r = gates.ledger_add_findings(
-                self.ep, stage="qc", role="qc", pair="editor/qc",
-                findings=self.qc_findings, root=self.ep, artifact=self.video,
-            )
-            assert r["verdict"] == "DAT"
+            self.add_qc()
+        self.git = use_git
+        if use_git:
+            git(self.repo, "init", "-q")
+            self.commit()
+
+    def evidence(self, **changes):
+        ev = {
+            "videoSha256": hashlib.sha256(self.video.read_bytes()).hexdigest(),
+            "frames": list(FRAMES),
+            "loudness": dict(LOUDNESS),
+        }
+        ev.update(changes)
+        for k, v in list(ev.items()):
+            if v is None:
+                del ev[k]
+        return ev
+
+    def add_qc(self, evidence="default", findings=()):
+        doc = {"findings": list(findings)}
+        if evidence == "default":
+            evidence = self.evidence()
+        if evidence is not None:
+            doc["evidence"] = evidence
+        write_json(self.ep / "qc.json", doc)
+        r = gates.ledger_add_findings(
+            self.ep, stage="qc", role="qc", pair="editor/qc",
+            findings=self.ep / "qc.json", root=self.ep, artifact=self.video,
+        )
+        assert r["verdict"] == "DAT"
+        return r
+
+    def commit(self):
+        rel = f"episodes/{SLUG}/ledger.json"
+        git(self.repo, "add", rel)
+        git(self.repo, "commit", "-q", "--allow-empty", "-m", "so tap")
 
     def set_cmds(self, lint, ky_thuat):
         self.mp.setattr(gates, "LINT_CMD", list(lint))
         self.mp.setattr(gates, "KY_THUAT_CMD", list(ky_thuat))
 
-    def gate3(self, **kw):
+    def gate3(self, *, commit=True, **kw):
+        if commit and self.git:
+            self.commit()
         kw.setdefault("kenh_path", self.kenh)
         return gates.gate3(SLUG, self.eps, **kw)
 
@@ -352,6 +411,7 @@ def test_gate3_video_dau_chua_duyet_chi_cho_unlisted(env):
 
 
 def test_gate3_kenh_mac_dinh_la_team_kenh_json_canh_episodes(env):
+    env.commit()
     r = gates.gate3(SLUG, env.eps)
     assert r["pass"] is True
 
@@ -364,6 +424,7 @@ def test_gate3_cli_ma_thoat(env, capsys):
     assert code == 0
     assert data["pass"] is True
     env.publish(privacy="lung-tung")
+    env.commit()
     code, data, _ = run_cli(
         capsys,
         ["gate3", SLUG, "--episodes-dir", str(env.eps), "--kenh", str(env.kenh)],
@@ -451,3 +512,186 @@ def test_gate3_chan_khi_claim_chua_kiem_du_cong2_gia(env):
     )
     _forge_cong2(env)
     assert env.gate3()["pass"] is False
+
+
+def test_gate3_cong2_lai_la_mot_muc_kiem_rieng(env):
+    r = env.gate3()
+    assert env.checks(r)["cong2-lai"]["ok"] is True
+
+
+def test_gate3_cong2_lai_do_khi_claims_json_thieu(env):
+    (env.ep / "claims.json").unlink()
+    _forge_cong2(env)
+    r = env.gate3()
+    assert "cong2-lai" in _only_failing(env, r)
+
+
+# ---- neo sổ bằng git: mục ledger-git -------------------------------------------
+
+def test_gate3_ledger_git_dat_khi_so_da_commit_va_chi_them(env):
+    gates.Ledger(env.ep).add(stage="viet", role="scriptwriter")
+    env.commit()
+    gates.Ledger(env.ep).add(stage="viet2", role="scriptwriter")
+    r = env.gate3()
+    assert env.checks(r)["ledger-git"]["ok"] is True
+    assert r["pass"] is True
+
+
+def test_gate3_ledger_git_chan_khi_khong_phai_kho_git(tmp_path, monkeypatch):
+    e = Env(tmp_path, monkeypatch, use_git=False)
+    r = e.gate3()
+    assert r["pass"] is False
+    assert _only_failing(e, r) == ["ledger-git"]
+
+
+def test_gate3_ledger_git_chan_khi_so_co_thay_doi_chua_commit(env):
+    gates.Ledger(env.ep).add(stage="viet", role="scriptwriter")
+    r = env.gate3(commit=False)
+    assert r["pass"] is False
+    assert _only_failing(env, r) == ["ledger-git"]
+
+
+def test_gate3_ledger_git_chan_khi_so_chua_duoc_theo_doi(tmp_path, monkeypatch):
+    e = Env(tmp_path, monkeypatch, use_git=False)
+    git(e.repo, "init", "-q")
+    e.git = True
+    r = e.gate3(commit=False)
+    assert r["pass"] is False
+    assert _only_failing(e, r) == ["ledger-git"]
+
+
+def _rewrite_consistently(ep, fn):
+    doc = json.loads((ep / "ledger.json").read_text(encoding="utf-8"))
+    fn(doc["entries"])
+    prev = ""
+    for i, e in enumerate(doc["entries"], start=1):
+        e["seq"] = i
+        e["prevHash"] = prev
+        e["entryHash"] = gates.entry_hash(e)
+        prev = e["entryHash"]
+    (ep / "ledger.json").write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
+
+
+def test_gate3_ledger_git_chan_khi_lich_su_sua_mot_muc_cu_du_chuoi_hash_van_dung(env):
+    # kẻ sửa sổ tính lại cả chuỗi nên chuoi-so vẫn ok; chỉ git bắt được
+    _rewrite_consistently(
+        env.ep, lambda ents: ents[0].__setitem__("note", "đã bị sửa")
+    )
+    r = env.gate3()
+    assert env.checks(r)["chuoi-so"]["ok"] is True
+    assert r["pass"] is False
+    assert "ledger-git" in _only_failing(env, r)
+
+
+def test_gate3_ledger_git_chan_khi_lich_su_xoa_mot_muc_cu(env):
+    _rewrite_consistently(env.ep, lambda ents: ents.pop(1))
+    r = env.gate3()
+    assert env.checks(r)["chuoi-so"]["ok"] is True
+    assert "ledger-git" in _only_failing(env, r)
+
+
+def test_gate3_ledger_git_chan_khi_co_commit_xoa_file_roi_khoi_phuc(env):
+    rel = f"episodes/{SLUG}/ledger.json"
+    keep = (env.ep / "ledger.json").read_bytes()
+    git(env.repo, "rm", "-q", rel)
+    git(env.repo, "commit", "-q", "-m", "xoá sổ")
+    (env.ep / "ledger.json").write_bytes(keep)
+    r = env.gate3()
+    assert r["pass"] is False
+    assert "ledger-git" in _only_failing(env, r)
+
+
+# ---- bằng chứng qc: mục qc-bang-chung ------------------------------------------
+
+def test_gate3_qc_bang_chung_dat_voi_du_khung_hash_va_loudness(env):
+    r = env.gate3(video=env.video)
+    assert env.checks(r)["qc-bang-chung"]["ok"] is True
+
+
+def test_gate3_qc_bang_chung_dat_khi_khong_truyen_video_dung_hash_trong_so(env):
+    r = env.gate3()
+    assert env.checks(r)["qc-bang-chung"]["ok"] is True
+
+
+def test_gate3_qc_bang_chung_chan_khi_qc_khong_nop_evidence(env):
+    env.add_qc(evidence=None)
+    r = env.gate3(video=env.video)
+    assert r["pass"] is False
+    assert "qc-bang-chung" in _only_failing(env, r)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"videoSha256": "0" * 64},
+        {"videoSha256": "abc"},
+        {"videoSha256": None},
+        {"frames": FRAMES[:19]},
+        {"frames": [0, 2] * 15},
+        {"frames": None},
+        {"frames": [-1, *FRAMES[1:]]},
+        {"frames": "nhiều"},
+        {"loudness": None},
+        {"loudness": ""},
+        {"loudness": {}},
+        {"loudness": -16.0},
+        {"loudness": "-16 LUFS"},
+        {"loudness": {"lufs": -16.0}},
+        {"loudness": {"truePeak": -1.5}},
+        {"loudness": {"lufs": "to", "truePeak": -1.5}},
+    ],
+)
+def test_gate3_qc_bang_chung_chan_khi_evidence_thieu_hoac_sai(env, changes):
+    env.add_qc(evidence=env.evidence(**changes))
+    r = env.gate3(video=env.video)
+    assert r["pass"] is False
+    assert "qc-bang-chung" in _only_failing(env, r)
+
+
+def test_gate3_qc_bang_chung_dung_hai_muoi_khung_khac_nhau_van_dat(env):
+    env.add_qc(evidence=env.evidence(frames=[x * 2.5 for x in range(20)]))
+    r = env.gate3(video=env.video)
+    assert env.checks(r)["qc-bang-chung"]["ok"] is True
+
+
+def test_gate3_qc_bang_chung_chan_khi_mot_chuong_khong_co_khung(env):
+    # đủ 20 khung khác nhau nhưng toàn bộ nằm trong 4 chương đầu (0-40 giây)
+    frames = [x * 1.9 for x in range(21)]
+    assert max(frames) < 40
+    env.add_qc(evidence=env.evidence(frames=frames))
+    r = env.gate3(video=env.video)
+    assert r["pass"] is False
+    assert "qc-bang-chung" in _only_failing(env, r)
+
+
+def test_gate3_qc_bang_chung_khung_o_chuong_cuoi_dem_vao_chuong_cuoi(env):
+    # 20 khung, chương cuối (40-50 giây) chỉ có một khung ở đúng 49
+    frames = [x * 2.0 for x in range(19)] + [49]
+    env.add_qc(evidence=env.evidence(frames=frames))
+    r = env.gate3(video=env.video)
+    assert env.checks(r)["qc-bang-chung"]["ok"] is True
+
+
+def test_gate3_qc_bang_chung_chan_khi_thieu_timeline(env):
+    (env.repo / "out" / "episodes" / SLUG / "timeline.json").unlink()
+    r = env.gate3(video=env.video)
+    assert r["pass"] is False
+    assert "qc-bang-chung" in _only_failing(env, r)
+
+
+def test_gate3_qc_bang_chung_hash_trong_evidence_khac_video_truyen_vao(env, tmp_path):
+    other = tmp_path / "khac.mp4"
+    other.write_bytes(b"bytes-khac")
+    r = env.gate3(video=other)
+    assert r["pass"] is False
+    failing = _only_failing(env, r)
+    assert "qc-bang-chung" in failing
+    assert "qc-video" in failing
+
+
+def test_gate3_qc_bang_chung_out_dir_tuy_chinh(env, tmp_path):
+    moved = tmp_path / "ra-khac"
+    write_json(moved / SLUG / "timeline.json", TIMELINE)
+    (env.repo / "out" / "episodes" / SLUG / "timeline.json").unlink()
+    r = env.gate3(video=env.video, out_dir=moved)
+    assert env.checks(r)["qc-bang-chung"]["ok"] is True

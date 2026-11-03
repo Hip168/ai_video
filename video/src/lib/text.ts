@@ -96,7 +96,7 @@ export function fitText(o: FitOptions): FitResult {
     if (size <= minSize) {
       const kept = lines.slice(0, o.maxLines - 1);
       kept.push(lines.slice(o.maxLines - 1).join(" "));
-      const out = kept.map((l) => ellipsize(l, size, o.width, measure));
+      const out = kept.filter((l) => l !== "").map((l) => ellipsize(l, size, o.width, measure));
       console.warn(`text-fit: cắt chữ vì không vừa ${o.maxLines} dòng ở cỡ ${size}px: "${o.text}"`);
       return { lines: out, fontSize: size, truncated: true };
     }

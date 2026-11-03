@@ -78,7 +78,7 @@ Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 
 - `12:30:45` "mười hai giờ ba mươi phút bốn mươi lăm giây". Cổng sau `:` có bao nhiêu chữ số cũng đọc như số.
 - Chuỗi số nối bằng nhiều dấu `-` không phải ngày (`1-2-3`) đọc từng số cách nhau khoảng trắng. Ngày `YYYY-M-D` với tháng, ngày 1–2 chữ số đọc như ngày ISO.
 - `IP:cổng` đọc "... cổng tám mươi". Mẫu giờ chỉ khớp khi giờ 0–23, phút 00–59 và không đứng sau chữ, số hay dấu `.`.
-- Dấu `-` chỉ đọc "đến" khi hai bên đều là số trần đứng riêng. Còn lại đọc như khoảng trắng: `x86-64` "x tám mươi sáu sáu mươi bốn". Ngày `2024-01-15` đọc "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi bốn".
+- Dấu `-` chỉ đọc "đến" khi hai bên đều là số trần đứng riêng; số có phân cách nghìn hay thập phân cũng tính là số trần (`1.000.000-2.000.000đ` "một triệu đến hai triệu đồng"). Còn lại đọc như khoảng trắng: `x86-64` "x tám mươi sáu sáu mươi bốn". Ngày `2024-01-15` đọc "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi bốn".
 - Số tận cùng 4 sau "mươi" đọc "bốn", theo `number_to_words` đã khoá của đề mục 1.
 - Khoá lexicon được so trên chữ gốc, trước `normalize_vi`, nên khoá có chữ số như `x86` dùng được.
 - `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.

@@ -67,6 +67,8 @@ Người kiểm trả JSON:
 
 Trao tay ghi ở `episodes/<slug>/handoff/<khâu>.md`, năm mục: Đã chốt, Đã bỏ, Rủi ro, File, Còn lại.
 
+Bản trộn bị từ chối vì thiếu LUFS (D5) thì không nới ngưỡng. `editor` dừng và trả `voice-producer` tìm nhịp lệch mức để đọc lại. Vẫn lỗi sau 2 lần thì `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
+
 ## 7. Đo người kiểm
 
 Trước tập đầu và mỗi khi sửa prompt người kiểm: lấy một bản kịch bản sạch, cài lỗi đã biết vào bản sao (số sai, năm sai, nhân vật sai, câu khó hiểu, khung hình mất), kèm một bản sạch làm đối chứng. Ghi độ bắt lỗi và số báo sai vào `.team/qualification.md`. Chưa đạt ngưỡng ở `features/11-doi-san-xuat.md` thì chưa làm tập.

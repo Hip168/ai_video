@@ -66,7 +66,20 @@ Mảng `[{"slug","title","theme","sceneTypes":[...]}]`, được rỗng, không 
 
 Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 0-9. Bảng bổ sung:
 - Số dính chữ: tối đa 2 chữ số đọc như số (`4K` "bốn K", `5G` "năm G", `v2` "v hai"); từ 3 chữ số đọc từng chữ số (`1080p` "một không tám không p").
-- `-5°C` "âm năm độ xê". `12:30` "mười hai giờ ba mươi". `1/2` "một phần hai".
+- `-5°C` "âm năm độ xê". `12:30` "mười hai giờ ba mươi". `12:05` "mười hai giờ không năm". `1/2` "một phần hai".
+- Số trần có chữ số 0 đứng đầu đọc từng chữ số: `007` "không không bảy".
+- Chuỗi số nối bằng `.` xét theo thứ tự sau, luật đầu tiên khớp thì dùng:
+  1. Đúng 4 nhóm, mỗi nhóm 1–3 chữ số và ≤ 255, nhóm cuối khác `000`: IP, đọc từng nhóm nối "chấm". `10.255.255.255`, `192.168.100.200`, `192.168.1.1` "một trăm chín mươi hai chấm một trăm sáu mươi tám chấm một chấm một".
+  2. Nhóm đầu 1–3 chữ số, mọi nhóm sau đúng 3 chữ số: số có phân cách nghìn. `1.000.000` "một triệu", `1.200.000.000` "một tỷ hai trăm triệu".
+  3. Còn lại, từ 2 nhóm trở lên và có chữ cái dính phía trước, hoặc từ 3 nhóm trở lên: phiên bản, đọc từng nhóm nối "chấm". `3.11.4`, `v1.2` "v một chấm hai", `1.2.3.4.5`.
+  4. Đúng 2 nhóm không có chữ cái phía trước: thập phân như đã ghi.
+- Hậu tố sau phiên bản hay IP: `-` đọc như khoảng trắng. `1.2.3-beta` "một chấm hai chấm ba beta", `192.168.1.1-192.168.1.9` đọc hai IP cách nhau khoảng trắng.
+- `12:30:45` "mười hai giờ ba mươi phút bốn mươi lăm giây". Cổng sau `:` có bao nhiêu chữ số cũng đọc như số.
+- Chuỗi số nối bằng nhiều dấu `-` không phải ngày (`1-2-3`) đọc từng số cách nhau khoảng trắng. Ngày `YYYY-M-D` với tháng, ngày 1–2 chữ số đọc như ngày ISO.
+- `IP:cổng` đọc "... cổng tám mươi". Mẫu giờ chỉ khớp khi giờ 0–23, phút 00–59 và không đứng sau chữ, số hay dấu `.`.
+- Dấu `-` chỉ đọc "đến" khi hai bên đều là số trần đứng riêng. Còn lại đọc như khoảng trắng: `x86-64` "x tám mươi sáu sáu mươi bốn". Ngày `2024-01-15` đọc "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi bốn".
+- Số tận cùng 4 sau "mươi" đọc "bốn", theo `number_to_words` đã khoá của đề mục 1.
+- Khoá lexicon được so trên chữ gốc, trước `normalize_vi`, nên khoá có chữ số như `x86` dùng được.
 - `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.
 - `100.000đ` đọc số trước rồi đơn vị "đồng".
 Cách đọc nào nghe chưa hay thì sửa bằng `spoken` hoặc lexicon của tập, không đổi bảng này.

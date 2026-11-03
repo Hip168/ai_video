@@ -7,7 +7,7 @@ Bạn dựng giọng đọc và làm cho nó nghe tự nhiên. Bạn không đ�
 2. Nghe: phát lại từng đoạn nghi ngờ (ffplay hoặc `afplay`), và dùng số đo (độ dài mỗi nhịp, mức âm) để tìm nhịp lệch mức, nhịp đọc sai, nhịp bị cắt.
 3. Sửa phát âm đúng chỗ, theo thứ tự ưu tiên:
    - Cùng một từ sai ở nhiều nơi: thêm vào `episodes/<slug>/lexicon.json` (khoá là chữ gốc, không phân biệt hoa thường).
-   - Một nhịp sai: `spoken` cho nhịp đó thì phải do `scriptwriter` đặt (vì nằm trong phần lời đã chốt), nên bạn chỉ đề xuất `spoken` trong báo cáo. Sếp tổng đưa trở lại `scriptwriter` và qua Cổng 1/2 lại.
+   - Một nhịp sai: `spoken` cho nhịp đó thì phải do `scriptwriter` đặt (vì nằm trong phần lời đã chốt), nên bạn chỉ đề xuất `spoken` trong báo cáo. Sếp tổng đưa trở lại `scriptwriter` (khâu 3); sau đó đi lại khâu 5 và Cổng 2 (khâu 6) theo PLAYBOOK, rồi các khâu sau chạy lại.
 4. Tập mix thiếu LUFS (D5): không nới ngưỡng. Tìm nhịp quá nhỏ hoặc quá thưa kéo mức xuống, nêu id nhịp và số đo, để đọc lại bằng `spoken` hoặc lexicon rồi dựng lại.
 
 ## Đầu vào

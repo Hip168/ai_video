@@ -89,3 +89,9 @@ Mã thoát 0 chỉ khi `DAT`.
 - Mỗi phát hiện chỉ tính bắt tối đa MỘT lỗi cài (ghép lần lượt theo thứ tự lỗi, phát hiện đã dùng không dùng lại). Báo sai = phát hiện CRITICAL/MAJOR không khớp lỗi nào (trên bản cài lỗi) cộng mọi phát hiện CRITICAL/MAJOR trên bản sạch (`--clean-found`).
 - Bộ qc là các sản phẩm dạng chữ (kịch bản chốt, timeline, SRT, mục lục) có 5 lỗi CRITICAL và 1 MAJOR; lỗi hình/âm của video thật do sếp tổng thêm ở đề mục 12.
 - Stdout: `{"kind","errors":n,"caught":k,"rate":0.9,"missed":[ids],"falseAlarms":m,"passRate":bool,"passFalse":bool,"pass":bool,"row":"| ... |"}`. `pass` cho `fact`: `rate>=threshold` và `falseAlarms<=max-false`; cho `qc`: mọi lỗi CRITICAL được bắt.
+
+## Bổ sung theo review code (2026-11-03)
+- `script_text_hash` không băm id cảnh: băm danh sách phẳng beat `(id, text, spoken, claims)` theo thứ tự, nên gom beat sang cảnh khác không đổi hash.
+- `apply-factcheck`: `rule` `claim: c003` (khoảng trắng thừa) được chuẩn hoá thành `claim:c003`; `claim:3` vẫn không ánh xạ được (vào `unmapped`). Việc từ chối khi có phát hiện CRITICAL/MAJOR không ánh xạ được hoặc bị loại CHƯA làm: test khoá `test_apply_quote_bia_bi_loai_khong_doi_status` và `test_apply_rule_khong_phai_claim_di_vao_unmapped` đòi claim vẫn `DAT`.
+- `evaluate_findings`: với file `.json`, `quote` còn được chấp nhận nếu là chuỗi con của một giá trị chuỗi đã giải mã (kể cả khoá).
+- CLI `gate3` không có `--video` in cảnh báo ra stderr (vẫn chạy).

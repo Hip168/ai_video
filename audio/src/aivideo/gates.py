@@ -218,7 +218,7 @@ def extract_items(doc) -> list[dict]:
 def script_text_hash(doc) -> str:
     beats = []
     for sc, b in _iter_beats(doc):
-        beats.append({"scene": sc.get("id"), "id": b.get("id"),
+        beats.append({"id": b.get("id"),
                       "text": nfc(b.get("text") or ""),
                       "spoken": nfc(b["spoken"]) if isinstance(b.get("spoken"), str) else None,
                       "claims": list(b.get("claims") or [])})
@@ -468,13 +468,37 @@ def evaluate_findings(raw, root=".") -> dict:
                 reason = "không đọc được file"
             elif len(f["quote"]) > MAX_QUOTE:
                 reason = f"quote dài quá {MAX_QUOTE} ký tự"
-            elif nfc(f["quote"]) not in body:
+            elif nfc(f["quote"]) not in body and not _in_json_strings(target, body, f["quote"]):
                 reason = "quote không có trong file"
         (dropped if reason else kept).append({"finding": f, "reason": reason} if reason else f)
     counts = {s: sum(1 for f in kept if f["severity"] == s) for s in SEVERITIES}
     verdict = "CHAN" if counts["CRITICAL"] else "SUA" if counts["MAJOR"] else "DAT"
     return {"verdict": verdict, "kept": kept, "dropped": dropped, "counts": counts,
             "complete": not dropped, "findingsHash": sha256_bytes(data)}
+
+
+def _json_strings(node):
+    if isinstance(node, str):
+        yield node
+    elif isinstance(node, list):
+        for x in node:
+            yield from _json_strings(x)
+    elif isinstance(node, dict):
+        for k, v in node.items():
+            yield from _json_strings(k)
+            yield from _json_strings(v)
+
+
+def _in_json_strings(target: Path, body: str, quote: str) -> bool:
+    """File .json lưu chuỗi đã escape: quote nguyên văn có thể chỉ khớp giá trị đã giải mã."""
+    if target.suffix.lower() != ".json":
+        return False
+    try:
+        doc = json.loads(body)
+    except ValueError:
+        return False
+    q = nfc(quote)
+    return any(q in nfc(v) for v in _json_strings(doc))
 
 
 # ---- sổ tập ------------------------------------------------------------------
@@ -1032,7 +1056,7 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
     status = {it["id"]: "DAT" for it in items}
     unmapped = []
     for f in res["kept"]:
-        m = re.fullmatch(r"claim:(.+)", f["rule"])
+        m = re.fullmatch(r"claim:\s*(.+?)\s*", f["rule"])
         if not m or m.group(1) not in status:
             unmapped.append(f)
             continue
@@ -1141,6 +1165,9 @@ def _main(argv: list[str] | None = None) -> int:
         _emit(r)
         return 0 if r["pass"] else 1
     if a.cmd == "gate3":
+        if not a.video:
+            print("cảnh báo: không có --video, gate3 không so MP4 thật với bằng chứng qc",
+                  file=sys.stderr)
         r = gate3(a.slug, a.episodes_dir, a.kenh, a.video, a.out_dir)
         _emit(r)
         return 0 if r["pass"] else 1

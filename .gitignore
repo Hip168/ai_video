@@ -26,3 +26,4 @@ video/public/audio/
 # Nhạc tập (D17): file nằm ngoài git, chỉ manifest được commit
 assets/audio/files/*
 !assets/audio/files/.gitkeep
+audio/uv.lock

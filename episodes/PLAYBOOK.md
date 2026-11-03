@@ -11,17 +11,19 @@ Sếp tổng chạy mỗi vai bằng một lần gọi agent MỚI (không dùng
 | Vai | Loại agent (`subagent_type`) | Công cụ có | Ghi file |
 |---|---|---|---|
 | `researcher` | `general-purpose` | đủ | `outline.md`, `sources.md`, `claims.json` |
-| `scriptwriter` | `general-purpose` | đủ | `script.json` phần lời, `lexicon.json` |
+| `scriptwriter` | `general-purpose` | đủ | `script.json` phần lời, `lexicon.json` (chỉ tạo bản đầu) |
 | `fact-checker` | `feature-dev:code-reviewer` | Read, Grep, Glob, WebFetch, WebSearch (không Bash, không ghi) | không |
 | `script-editor` | `feature-dev:code-reviewer` | như trên | không |
 | `scene-director` | `general-purpose` | đủ | `script.json` phần cảnh, `video/src/episodes/<slug>/` |
-| `voice-producer` | `general-purpose` | đủ | `lexicon.json` của tập, `out/episodes/<slug>/` |
+| `voice-producer` | `general-purpose` | đủ | `lexicon.json` của tập (chủ sửa từ khâu 8), `out/episodes/<slug>/` |
 | `editor` | `general-purpose` | đủ | `out/episodes/<slug>/` |
 | `qc` | `Explore` | đọc và lệnh đo; không ghi file | không |
 | `packager` | `general-purpose` | đủ | `publish.json`, ảnh bìa |
 | `publisher` | `ops` | Claude in Chrome | không (báo URL) |
 
 Người làm và người kiểm là hai agent khác nhau, gọi mới. Agent con không gọi được agent con: mọi lần gọi do sếp tổng.
+
+`lexicon.json`: `scriptwriter` chỉ tạo bản đầu ở khâu 3; từ khâu 8 chỉ `voice-producer` sửa. Các khâu chạy tuần tự nên không có hai vai cùng ghi một lúc. Lexicon không nằm trong hash lời, nên sửa nó sau Cổng 2 vẫn đổi giọng đọc mà `gate3` không thấy: chỉ `voice-producer` sửa và ghi vào trao tay.
 
 Quy tắc khi gọi:
 - Sếp tổng không dặn người kiểm bỏ qua lỗi, nhẹ tay, hay "chỗ này đã ổn rồi". Không tóm tắt ý của người làm cho người kiểm.

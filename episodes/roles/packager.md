@@ -28,7 +28,7 @@ Bạn làm phần chữ và ảnh bìa để video được nhìn thấy, và kh
 - Không hứa điều video không có ("sẽ nói về X" khi không có X).
 - Không thêm fact, con số, so sánh mới ngoài kịch bản chốt.
 - Không đặt `public` khi chưa được phép; không đổi `channelId` sang kênh khác; `containsSyntheticMedia` luôn `false` (D21).
-- Không đưa nhắc tới G3, Ript hay tài sản của họ.
+- Không nhắc tổ chức, dự án hay thương hiệu nào ngoài kênh.
 - Không sửa kịch bản hay cảnh.
 
 ## Mẫu báo cáo

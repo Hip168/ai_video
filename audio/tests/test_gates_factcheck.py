@@ -190,11 +190,13 @@ def test_apply_critical_thanh_sai_major_thanh_chua_kiem_con_lai_dat(ep_env):
     res = gates.apply_factcheck(SLUG, eps, f, batch)
     assert res["updated"] == {"c001": "SAI", "c002": "DAT"}
     assert _statuses(ep) == {"c001": "SAI", "c002": "DAT"}
+    # lần hai: lô MỚI (một lô chỉ được áp một lần)
+    res2 = _prepare(eps, pathlib.Path(batch).parent)
     f2 = write_findings(
-        pathlib.Path(batch) / "f2.json",
+        pathlib.Path(res2["batchDir"]) / "f2.json",
         [finding("MAJOR", "Linus công bố", file="items.json", rule="claim:c002")],
     )
-    res = gates.apply_factcheck(SLUG, eps, f2, batch)
+    res = gates.apply_factcheck(SLUG, eps, f2, res2["batchDir"])
     assert res["updated"] == {"c001": "DAT", "c002": "CHUA_KIEM"}
     assert _statuses(ep) == {"c001": "DAT", "c002": "CHUA_KIEM"}
 
@@ -342,14 +344,19 @@ def test_apply_ghi_muc_fact_voi_hash_claims_sau_khi_ap_va_ten_lo(ep_env):
     assert last["verdict"] == res["verdict"] == "CHAN"
 
 
-def test_apply_hai_lan_tren_cung_lo_ghi_hai_muc_fact_va_hash_moi_nhat_khop(ep_env):
-    eps, ep, batch, f = _apply(ep_env, [])
-    gates.apply_factcheck(SLUG, eps, f, batch)
+def test_apply_hai_lo_khac_nhau_ghi_hai_muc_fact_va_hash_moi_nhat_khop(ep_env):
+    eps, ep, out = ep_env
+    a = _prepare(eps, out)
+    gates.apply_factcheck(
+        SLUG, eps, write_findings(pathlib.Path(a["batchDir"]) / "f.json", []),
+        a["batchDir"],
+    )
+    b = _prepare(eps, out)
     f2 = write_findings(
-        pathlib.Path(batch) / "f2.json",
+        pathlib.Path(b["batchDir"]) / "f2.json",
         [finding("MAJOR", "Linus công bố", file="items.json", rule="claim:c002")],
     )
-    gates.apply_factcheck(SLUG, eps, f2, batch)
+    gates.apply_factcheck(SLUG, eps, f2, b["batchDir"])
     facts = [e for e in gates.Ledger(ep).entries() if e["stage"] == "fact"]
     assert len(facts) == 2
     assert facts[-1]["claimsHash"] == _sha(ep / "claims.json")
@@ -411,3 +418,102 @@ def test_apply_chi_so_voi_muc_fact_prepare_cua_dung_lo(ep_env):
     assert notes == [
         pathlib.Path(a["batchDir"]).name, pathlib.Path(b["batchDir"]).name
     ]
+
+
+# ---- P9: một lô chỉ được áp một lần ----------------------------------------------
+
+def _crit(rule_id, quote):
+    return finding(
+        "CRITICAL", quote, file="items.json", rule=f"claim:{rule_id}",
+        owner="researcher",
+    )
+
+
+def test_apply_lan_hai_cung_lo_bi_tu_choi_va_khong_lat_sai_thanh_dat(ep_env):
+    eps, ep, batch, f = _apply(ep_env, [_crit("c001", "Pi xấp xỉ 3,14.")])
+    first = gates.apply_factcheck(SLUG, eps, f, batch)
+    assert first["updated"]["c001"] == "SAI"
+    before = (ep / "claims.json").read_bytes()
+    empty = write_findings(pathlib.Path(batch) / "empty.json", [])
+    with pytest.raises(gates.GateError):
+        gates.apply_factcheck(SLUG, eps, empty, batch)
+    assert (ep / "claims.json").read_bytes() == before
+    assert _statuses(ep)["c001"] == "SAI"
+    facts = [e for e in gates.Ledger(ep).entries() if e["stage"] == "fact"]
+    assert len(facts) == 1
+
+
+def test_apply_lan_hai_cung_lo_bi_tu_choi_ke_ca_findings_giong_het(ep_env):
+    eps, ep, batch, f = _apply(ep_env, [_crit("c001", "Pi xấp xỉ 3,14.")])
+    gates.apply_factcheck(SLUG, eps, f, batch)
+    with pytest.raises(gates.GateError):
+        gates.apply_factcheck(SLUG, eps, f, batch)
+
+
+def test_apply_lo_moi_sau_khi_lo_cu_da_ap_van_chay_duoc(ep_env):
+    eps, ep, out = ep_env
+    a = _prepare(eps, out)
+    fa = write_findings(
+        pathlib.Path(a["batchDir"]) / "f.json", [_crit("c001", "Pi xấp xỉ 3,14.")]
+    )
+    gates.apply_factcheck(SLUG, eps, fa, a["batchDir"])
+    b = _prepare(eps, out)
+    fb = write_findings(pathlib.Path(b["batchDir"]) / "f.json", [])
+    res = gates.apply_factcheck(SLUG, eps, fb, b["batchDir"])
+    assert res["updated"]["c001"] == "DAT"  # kiểm lại có chủ ý bằng lô mới
+
+
+def test_apply_cli_lan_hai_cung_lo_ma_thoat_1(ep_env, capsys):
+    eps, ep, batch, f = _apply(ep_env, [])
+    argv = ["apply-factcheck", SLUG, "--episodes-dir", str(eps),
+            "--findings", str(f), "--batch", batch]
+    assert run_cli(capsys, argv)[0] == 0
+    code, data, err = run_cli(capsys, argv)
+    assert code == 1
+    assert "lỗi" in err
+
+
+# ---- P8: không được bớt claim khỏi items.json của lô -------------------------------
+
+def _strip_item(batch, cid):
+    p = pathlib.Path(batch) / "items.json"
+    items = json.loads(p.read_text(encoding="utf-8"))
+    p.write_text(
+        json.dumps([i for i in items if i["id"] != cid], ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
+def test_apply_khong_cho_claim_sua_tay_giu_dat_bang_cach_bot_khoi_items(tmp_path):
+    from gates_support import write_json
+
+    eps, ep = make_episode(
+        tmp_path,
+        fact=False,
+        claims=[
+            claim("c001", "Pi xấp xỉ 3,14.", status="CHUA_KIEM"),
+            claim("c002", "Linus công bố Linux năm 1991.", status="CHUA_KIEM"),
+        ],
+    )
+    # kẻ gian đặt tay c002 = DAT (chưa ai kiểm), rồi bớt c002 khỏi lô
+    docs = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    docs[1]["status"] = "DAT"
+    write_json(ep / "claims.json", docs)
+    res = gates.prepare_factcheck(
+        SLUG, eps, ROLES_DIR / "fact-checker.md", tmp_parent=tmp_path / "lo"
+    )
+    _strip_item(res["batchDir"], "c002")
+    f = write_findings(pathlib.Path(res["batchDir"]) / "f.json", [])
+    try:
+        gates.apply_factcheck(SLUG, eps, f, res["batchDir"])
+    except gates.GateError:
+        return  # bị chặn ngay: đạt
+    # nếu cho áp thì claim ngoài lô không được còn DAT, và Cổng 2 phải chặn
+    assert _statuses(ep)["c002"] != "DAT"
+    assert gates.gate2(SLUG, eps, write_ledger=False)["pass"] is False
+
+
+def test_apply_lo_day_du_van_ap_binh_thuong_sau_khi_chan_p8(ep_env):
+    eps, ep, batch, f = _apply(ep_env, [])
+    res = gates.apply_factcheck(SLUG, eps, f, batch)
+    assert set(res["updated"]) == {"c001", "c002"}

@@ -26,9 +26,9 @@
 
 | X | Tên | Nhánh | Phụ thuộc | Đợt | Trạng thái |
 |---|---|---|---|---|---|
-| 5 | Dựng tập (Python) | `5-dung-tap` | hợp đồng v2 | 1 | Chưa làm |
-| 6 | Khung Remotion v2 | `6-khung-v2` | hợp đồng v2 | 1 | Chưa làm |
-| 9 | Âm thanh tập | `9-am-thanh-tap` | hợp đồng v2 | 1 | Chưa làm |
+| 5 | Dựng tập (Python) | `5-dung-tap` | hợp đồng v2 | 1 | Đang làm (issue #22–#24) |
+| 6 | Khung Remotion v2 | `6-khung-v2` | hợp đồng v2 | 1 | Đang làm (issue #25–#28) |
+| 9 | Âm thanh tập | `9-am-thanh-tap` | hợp đồng v2 | 1 | Đã merge (PR #32, issue #29–#31) |
 | 7 | Cảnh nhóm A | `7-canh-a` | 6 | 2 | Chưa làm |
 | 8 | Cảnh nhóm B | `8-canh-b` | 6 | 2 | Chưa làm |
 | 10 | Render dài | `10-render-dai` | 6, gặp 9 ở tích hợp | 2 | Chưa làm |

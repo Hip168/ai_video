@@ -14,9 +14,12 @@ import subprocess
 import sys
 import tempfile
 import unicodedata
+from decimal import Decimal
 from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import urlparse
+
+from aivideo.normalize_vi import _NUM, _THOUSANDS
 
 SLUG_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 TEMPLATE_SLUG = "_template"
@@ -117,8 +120,16 @@ def _is_http(url) -> bool:
 
 # ---- bắt số và tên trên text gốc ---------------------------------------------
 
-def number_key(token: str) -> str:
-    return re.sub(r"\D", "", token)
+def number_value(token: str) -> Decimal | None:
+    """Giá trị số theo đúng quy tắc nghìn/thập phân của normalize_vi, hoặc None nếu không
+    phải một số đơn (IP, ngày, giờ, khoảng, số 0 đứng đầu đọc từng chữ số)."""
+    if re.fullmatch(r"0\d+", token) or not re.fullmatch(_NUM, token):
+        return None
+    if re.fullmatch(_THOUSANDS, token):
+        whole, _, frac = token.replace(".", "").partition(",")
+    else:
+        whole, _, frac = token.replace(",", ".").partition(".")
+    return Decimal(f"{whole}.{frac}" if frac else whole)
 
 
 def _runs(token: str) -> list[str]:
@@ -267,18 +278,26 @@ def gate1(slug: str, episodes_dir="../episodes") -> dict:
 # ---- gate2 -------------------------------------------------------------------
 
 def _claim_keys(claim_texts: list[str]):
-    keys, runs = set(), set()
+    values, exact, runs = set(), set(), set()
     for t in claim_texts:
         for m in NUMBER_RE.finditer(nfc(t)):
-            keys.add(number_key(m.group(0)))
-            runs.update(_runs(m.group(0)))
-    return keys, runs
+            tok = m.group(0)
+            v = number_value(tok)
+            if v is not None:
+                values.add(v)
+            exact.add(tok)
+            runs.update(_runs(tok))
+    return values, exact, runs
 
 
-def _number_covered(token: str, keys: set, runs: set) -> bool:
-    if number_key(token) in keys:
+def _number_covered(token: str, keys) -> bool:
+    values, exact, runs = keys
+    v = number_value(token)
+    if v is not None:
+        return v in values
+    if token in exact:
         return True
-    if re.search(r"[:/\-–—]", token):
+    if re.search(r"[:/\-\u2013\u2014]", token):
         return all(r in runs for r in _runs(token))
     return False
 
@@ -332,8 +351,7 @@ def gate2(slug: str, episodes_dir="../episodes", write_ledger: bool = True) -> d
         for cid in missing:
             problems.append({**where, "claim": cid, "problem": f"claim {cid} không có trong claims.json"})
         if it["kind"] == "number":
-            keys, runs = _claim_keys(texts)
-            covered = _number_covered(it["match"], keys, runs)
+            covered = _number_covered(it["match"], _claim_keys(texts))
         else:
             low = nfc(it["match"]).casefold()
             covered = any(low in nfc(t).casefold() for t in texts)

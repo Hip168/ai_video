@@ -20,7 +20,7 @@ Bắt trên `text` GỐC (và `spoken` nếu có chữ số) của từng beat, 
 ```json
 [{"scene":"sc01","beat":"b001","field":"text","kind":"number|name","match":"3,14"}]
 ```
-- `number`: mọi dãy chữ số nối bằng `. , : / - –` (`3,14`, `1.000`, `15.01.2024`, `2024-01-15`, `x86`, `1080p`, `v2`). Số viết bằng chữ không bị bắt.
+- `number`: mọi dãy chữ số, kể cả nối bằng `. , : / - –` (`3,14`, `1.000`, `15.01.2024`, `2024-01-15`). Số dính chữ chỉ bắt phần chữ số: `x86` ra `86`, `1080p` ra `1080`, `v2` ra `2`. Số viết bằng chữ không bị bắt.
 - `name`: từ viết hoa đứng giữa câu (không đứng đầu câu, đầu dòng, sau `. ! ? … : ;`), từ có chữ hoa giữa từ (`iPhone`, `JavaScript`), từ viết hoa toàn bộ từ 2 chữ cái (`IBM`, `CERN`) trừ tập thuật ngữ chung `GENERIC_ACRONYMS` (CPU, GPU, RAM, ROM, SSD, HDD, USB, OS, API, URL, IP, TCP, UDP, DNS, HTTP, HTTPS, HTML, CSS, SQL, AI, ID, PC, LED, LCD, GB, MB, KB, TB, GHz, MHz, UTF, ASCII, BIOS, LAN, WAN, VPN, GUI, CLI, IDE).
 - Luôn mã thoát 0.
 
@@ -31,7 +31,7 @@ Chỉ đọc `claims.json`. Chặn (`pass:false`) khi: sai dạng; trùng id; c�
 ```
 
 ## `gate2 <slug> [--no-ledger]`
-Gồm mọi kiểm của gate1, cộng `validate_script` của `aivideo.episode`, cộng phủ claim: mỗi `number`/`name` của một beat phải khớp ít nhất một claim trong `beat.claims` (id tồn tại, status `DAT`). Khớp số: so dãy chữ số đã bỏ dấu phân cách (`1.000` = `1000`, `3,14` = `3.14`); khớp tên: chuỗi chữ thường nằm trong `claim` (NFC, không phân biệt hoa thường). Số/tên không có claim, hoặc claim `CHUA_KIEM`/`SAI` được trỏ tới → chặn.
+Gồm mọi kiểm của gate1, cộng `validate_script` của `aivideo.episode`, cộng phủ claim: mỗi `number`/`name` của một beat phải khớp ít nhất một claim trong `beat.claims` (id tồn tại, status `DAT`). Khớp số: số đơn (số nguyên, thập phân, phân cách nghìn) so theo GIÁ TRỊ, dùng đúng quy tắc nghìn/thập phân của `normalize_vi` (`_THOUSANDS`, `_NUM`): `1.000` = `1000` (nghìn), `3,14` = `3.14` (thập phân), nhưng `3,14` khác `31,4` và khác `314`, `1,000` (= 1) khác `1.000`. Token ghép (IP, ngày `15.01.2024`, số 0 đứng đầu) phải trùng nguyên văn một token trong claim; khoảng/giờ/ngày nối bằng `: / -` còn được chấp nhận khi mọi thành phần số có trong claim. khớp tên: chuỗi chữ thường nằm trong `claim` (NFC, không phân biệt hoa thường). Số/tên không có claim, hoặc claim `CHUA_KIEM`/`SAI` được trỏ tới → chặn.
 Đạt (và không có `--no-ledger`) thì ghi vào `ledger.json` một mục `stage:"cong2"`, `verdict:"DAT"`, `outputHash` = `script_text_hash`, `claimsHash` = sha256 của `claims.json`.
 ```json
 {"gate":"gate2","pass":true,"problems":[{"beat":"b001","kind":"number","match":"3,14","problem":"..."}],"scriptHash":"<64 hex>","claimsHash":"<64 hex>"}

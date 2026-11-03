@@ -535,6 +535,9 @@ def test_gate2_chan_so_khac_gia_tri_du_cung_day_chu_so(
         ("1.000", "1000"),
         ("1000", "1.000"),
         ("1.000.000", "1000000"),
+        ("1.000,5", "1000,5"),
+        ("1000,5", "1.000,5"),
+        ("1.000,5", "1000.5"),
     ],
 )
 def test_gate2_dat_so_cung_gia_tri_khac_cach_viet(
@@ -547,3 +550,35 @@ def test_gate2_dat_so_cung_gia_tri_khac_cach_viet(
         claims=[claim("c001", f"Giá trị là {claim_num}.")],
     )
     assert _g2(eps)["pass"] is True
+
+
+def test_gate2_chan_1_000_5_khi_claim_noi_1_000_55(tmp_path):
+    eps, _ = make_episode(
+        tmp_path,
+        texts={"b001": "Giá trị là 1.000,5 nhé."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", "Giá trị là 1.000,55.")],
+    )
+    assert _g2(eps)["pass"] is False
+
+
+@pytest.mark.parametrize(
+    ("spoken_num", "claim_num", "ok"),
+    [
+        ("2024-01-15", "2024-01-15", True),
+        ("2024-01-15", "2024-01-16", False),
+        ("10:30", "10:30", True),
+        ("10:30", "10:35", False),
+        ("007", "7", False),
+    ],
+)
+def test_gate2_so_dang_ngay_gio_va_so_khong_dau_phai_khop_tung_phan(
+    tmp_path, spoken_num, claim_num, ok
+):
+    eps, _ = make_episode(
+        tmp_path,
+        texts={"b001": f"Mốc là {spoken_num} nhé."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", f"Mốc là {claim_num}.")],
+    )
+    assert _g2(eps)["pass"] is ok

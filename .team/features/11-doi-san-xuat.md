@@ -3,14 +3,14 @@
 Nhánh `11-doi-san-xuat`. Phụ thuộc đề mục 5. Thiết kế: `.team/doi-san-xuat.md`, D20, D22.
 
 ## Kiến trúc đã chọn
-- Agent theo dự án ở `.claude/agents/`: `researcher`, `scriptwriter`, `fact-checker`, `script-editor`, `scene-director`, `voice-producer`, `editor`, `qc`, `packager`, `publisher`. Không ghi vào `~/.claude`, để kênh cá nhân tách khỏi đội dùng chung.
-- Công cụ theo mục 1 của `doi-san-xuat.md`. Vai không được ghi file thì không có Write, Edit; `fact-checker`, `script-editor` không có Bash. `qc` có Bash để gọi script đo kỹ thuật và ffmpeg trích khung, luật trong prompt cấm ghi file; `gate3` kiểm hash nên `qc` sửa lén sản phẩm sẽ bị chặn.
-- Skill dự án `.claude/skills/video/SKILL.md`: lệnh `/video [đề tài]`, sếp tổng đi theo `episodes/PLAYBOOK.md`.
+- Không ghi vào `.claude/` (bộ phân quyền chặn tự sửa cấu hình, 2026-11-03) và không ghi `~/.claude`. Mỗi vai là một file `episodes/roles/<vai>.md`: nhiệm vụ, đầu vào, đầu ra, được ghi gì, không được làm gì, mẫu báo cáo, mẫu JSON phát hiện.
+- Sếp tổng chạy vai bằng loại agent có sẵn, theo bảng trong `episodes/PLAYBOOK.md`: vai chỉ đọc (`fact-checker`, `script-editor`) dùng `feature-dev:code-reviewer` (Read, Grep, Glob, WebFetch, WebSearch; không Bash, không ghi); `qc` dùng `Explore` (đọc và chạy lệnh đo, không ghi file); vai làm (`researcher`, `scriptwriter`, `scene-director`, `voice-producer`, `editor`, `packager`) dùng `general-purpose`; `publisher` dùng `ops`. Prompt = nội dung file vai + đầu vào của khâu.
+- Lệnh: người dùng nói "làm video về <đề tài>" (hoặc "làm video" để `researcher` tự chọn); sếp tổng đọc `episodes/PLAYBOOK.md` và đi đúng luồng. PLAYBOOK là nguồn duy nhất của luồng, không lặp lại trong file khác.
 - Script ở `audio/src/aivideo/gates.py`: `extract-claims`, `verdict`, `gate1`, `gate2`, `gate3`, `ledger`.
 - `claims.json`: `[{"id","claim","question","sourceUrl","credibility","status"}]`, `credibility` thuộc `primary`, `secondary`, `anecdotal`; `status` thuộc `DAT`, `SAI`, `CHUA_KIEM`.
 
 ## Task
-- [11-1] Mười agent, skill `/video`, `PLAYBOOK.md`.
+- [11-1] Mười file vai ở `episodes/roles/`, `episodes/PLAYBOOK.md` (luồng, bảng vai → loại agent, mẫu prompt mỗi khâu).
 - [11-2] Sổ fact, regex bắt số và tên trên `text` gốc, `gate1`, `gate2`. Nguồn `primary` hoặc `secondary` mới được `DAT`; claim về số cần ít nhất một nguồn `primary` hoặc hai nguồn độc lập.
 - [11-3] Phán quyết tính bằng script, kiểm `quote` có trong file gốc, `gate3`.
 - [11-4] `ledger.json`, chuỗi hash, trần vòng lặp, mẫu handoff.

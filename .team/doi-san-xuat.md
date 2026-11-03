@@ -18,7 +18,7 @@ Yêu cầu gốc: một đội chuẩn chỉ, không "tự làm sau tự thấy 
 | `packager` | Tiêu đề, mô tả, chương, thumbnail | `episodes/<slug>/publish.json`, ảnh bìa | Hứa điều video không nói |
 | `publisher` | Đăng lên Studio bằng Claude in Chrome | Ghi nhận link video | Đăng khi chuỗi hash lệch, đăng sang tài khoản khác |
 
-Người làm và người kiểm luôn là hai agent khác nhau, gọi mới, không chung ngữ cảnh.
+Người làm và người kiểm luôn là hai agent khác nhau, gọi mới, không chung ngữ cảnh. Vai nằm ở `episodes/roles/`, cách gọi ở `episodes/PLAYBOOK.md` (không đặt trong `.claude/`).
 
 ## 2. Luồng
 

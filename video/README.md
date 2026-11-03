@@ -121,3 +121,12 @@ npx vitest run tests/episode-guard.test.ts tests/episode-fonts.test.ts tests/epi
 RENDER_TEST=1 npx vitest run tests/episode-render.test.ts tests/episode-text-fit.test.ts   # cần REMOTION_BROWSER_EXECUTABLE
 ```
 Các test đang bảo vệ: hợp đồng timeline v2 (luật 1-10, 12, 13; luật 11 cần độ dài `narration.wav` nên validator không kiểm); khung hình thật của `cold-open`, `chapter-title`, `recap-outro` và `custom:mo-phong`, phụ đề, cảnh neo theo beat; chữ không tràn khung ở độ dài tối đa của spec trên cả 4 theme (lề 40px), `fitText`/`fitBlock` và `recapLayout` với `measure` giả; lint chống lặp; ràng buộc phiên bản, font, không blur, không URL.
+
+#### Kiểm thử cảnh nhóm A (đề mục 7)
+Sổ test: `.team/tests/7.md`; file `tests/scenes-a.test.ts` đã khoá, không sửa. Props lấy từ chính `spec` của từng loại (`example` và `propsSpec`).
+```bash
+cd video
+npx vitest run tests/scenes-a.test.ts   # phần thuần: spec, ví dụ, ghim số bảng giao diện, grep blur/URL
+RENDER_TEST=1 lockf -t 3600 /tmp/aivideo-render.lock npx vitest run tests/scenes-a.test.ts   # thêm render, cần REMOTION_BROWSER_EXECUTABLE
+```
+Các test đang bảo vệ: ví dụ và props rộng nhất qua `validateProps`; số liệu của bảng giao diện (maxLen, số phần tử, minBeats); still giữa cảnh không đơn sắc; phần tử k chỉ hiện đúng ở beat k (dịch beat thì hình đổi); không vẽ ngoài `y < 830`; chữ dài nhất của spec không chạm lề 40px trên cả 4 theme; một still dưới 5 giây; không blur, `filter`, URL trong file của loại.

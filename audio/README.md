@@ -54,3 +54,14 @@ Mọi lỗi in `lỗi: ...` ra stderr và thoát mã 1.
 - Thiếu file nhạc, id không có trong manifest, hoặc lệch sha256: thông báo nêu đường dẫn file; nạp lại file hoặc cập nhật sha256 đúng.
 - Thiếu `narration.wav`, `timeline.json` hay `script.json`: chạy bước dựng tập trước.
 - `mix không đạt`: loudness ngoài -16 ±1 LUFS, true peak vượt -1,5 dBTP hoặc độ dài lệch quá 1 frame. Thường gặp khi giọng quá thưa hay quá nhỏ nên không đưa lên đủ -16 mà vẫn dưới trần true peak; kiểm lại `narration.wav` và `gainDb` của nhạc. Theo `.team/doi-san-xuat.md`: không nới ngưỡng; `editor` dừng và trả `voice-producer` tìm nhịp lệch mức để đọc lại; vẫn lỗi sau 2 lần thì `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
+
+### Kiểm thử
+```bash
+cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest tests/test_sfx.py tests/test_mix.py tests/test_am_thanh_tap_repo.py
+```
+Chạy từng file hoặc cả ba đều được; cần `ffmpeg` trên máy. Test dùng tone sinh tại chỗ, đo bằng FFmpeg thật, không dùng và không commit media. Các test bảo vệ:
+- `test_sfx.py`: năm SFX (hình dạng, độ dài, tất định), bus SFX đặt đúng mẫu ±5 ms, gain, cộng chồng, lỗi tên và frame.
+- `test_mix.py`: -16 ±1 LUFS và true peak ≤ -1,5 dBTP, độ dài ±1 frame, nhạc thấp hơn giọng ít nhất 12 dB lúc có giọng (qua stem), fade, bộ lọc, mix tất định byte-giống-byte, thiếu nhạc hoặc lệch sha256 thì CLI thoát 1 và nêu file, lỗi không để lại hay đè file.
+- `test_am_thanh_tap_repo.py`: không có wav, mp3, mp4 trong git; `assets/audio/files/` bị gitignore.
+
+Danh sách từng test: `.team/tests/9.md`.

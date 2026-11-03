@@ -12,14 +12,16 @@ Chỉ Mac, zsh. `--engine` mặc định `korva`. Các bước (in `== Bước i
 6. `assemble` ghép `video.silent.mp4`, gắn tiếng ra `<slug>.mp4`, `assemble verify`
 7. `check` `framecheck verify` (quét đột biến, lượt hai lệch ranh giới), rồi `assemble clean` khi đạt
 
-`--from <bước>` bỏ qua các bước trước (bước `tools` luôn chạy). Mỗi bước xong, script kiểm file thật (không tin mã thoát): `narration.wav`, `timeline.json`, `mix.wav`, `manifest.json` đủ đoạn `done`, `video.silent.mp4`, `<slug>.mp4` mới hơn lúc bắt đầu. Lỗi: `LỖI ở <bước>: <lý do>` ra stderr, mã 1; tham số sai mã 2. Nhật ký: `<out>/render.log` (mỗi dòng có giờ). Đầu ra giữ lại: `<out>/<slug>.mp4`, `video.srt`, `chapters.txt`, `cache/`, `manifest.json`, `render.log`.
+`--from <bước>` bỏ qua các bước trước (bước `tools` luôn chạy). Mỗi bước xong, script kiểm file thật (không tin mã thoát): `narration.wav`, `timeline.json`, `mix.wav`, `manifest.json` đủ đoạn `done`, `video.silent.mp4`, `<slug>.mp4` mới hơn lúc bắt đầu. Lỗi: `LỖI ở <bước>: <lý do>` ra stderr, mã 1; tham số sai mã 2. Nhật ký: `<out>/render.log`, mọi dòng (kể cả dòng của lệnh con) bắt đầu bằng `YYYY-MM-DD HH:MM:SS`. Đầu ra giữ lại: `<out>/<slug>.mp4`, `video.srt`, `chapters.txt`, `cache/`, `manifest.json`, `render.log`.
 
 ## 2. `video/scripts/render-episode.ts`
 ```
 cd video && npx tsx scripts/render-episode.ts <slug> [--root <gốc>] [--layout main|shift] [--procs N] [--frames a-b] [--redo id,id] [--force] [--plan]
 ```
 - Đọc `<out>/timeline.json`, qua `validateTimeline2`. Bundle một lần. Mỗi đoạn một `renderMedia`: `frameRange`, `concurrency: 1`, `muted: true`, `crf: 18`, `codec h264`, `yuv420p`, `imageFormat png`, `browserExecutable` truyền tường minh. `N` trình duyệt chạy song song (mặc định 3, hoặc `AIVIDEO_PROCS`), mỗi cái xử lý đoạn lần lượt. Mọi trình duyệt đóng trong `finally`, cả khi lỗi, SIGINT, SIGTERM.
-- Chọn trình duyệt: `REMOTION_BROWSER_EXECUTABLE` nếu đặt, không thì `~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell`; không có cái nào: lỗi mã 1 nêu cách cài.
+- Chọn trình duyệt: `REMOTION_BROWSER_EXECUTABLE` nếu đặt (phải tồn tại, không thì lỗi mã 1). Không đặt: macOS dùng `~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell`, thiếu thì lỗi mã 1 nêu cách cài; Linux (CI) để Remotion tự chọn.
+- `--root` là gốc DỮ LIỆU (`episodes/`, `out/`). Thư mục `video/` luôn tìm theo vị trí mã (kể cả khi `framecheck verify` gọi lại `render-episode.ts`).
+- Điểm móc cho test: `AIVIDEO_FAIL_SEGMENT=<id đoạn>` làm đoạn đó ném lỗi sau khi trình duyệt đã mở; chương trình thoát mã 1 và mọi trình duyệt vẫn phải được đóng (`finally`).
 - Chia đoạn: `target` 1800 frame, cắt ở biên cảnh (thêm cảnh vào đoạn khi tổng chưa vượt 1800; đoạn không rỗng). Cảnh dài hơn 2700 frame được cắt đều thành các khúc ≤ 1800. `--layout shift`: đoạn đầu chỉ 900 frame, rồi như trên; ranh giới lệch so với `main`, ra `segments-shift/`.
 - `--plan`: chỉ in kế hoạch JSON (`[{id,startFrame,endFrame,frames}]`, `endFrame` tính cả) ra stdout, không mở trình duyệt, mã 0.
 - `--frames a-b`: chỉ render các đoạn giao với [a,b] (cả đoạn). `--redo id,id`: xoá và render lại đúng các đoạn đó. `--force`: bỏ resume.
@@ -55,7 +57,7 @@ Segment = { "id": "seg-000", "startFrame": 0, "endFrame": 1799, "frames": 1800, 
 - Mã thoát chung: 0 sạch, 1 phát hiện hoặc lỗi dữ liệu, 2 sai tham số. Với `scan`/`compare`, 1 kèm danh sách khung.
 
 ## 5. Validator chung Python và TypeScript
-- Bộ mẫu chung do TESTER-10 giữ: `audio/tests/data/timeline2-cases.json`, mỗi ca có `valid`; cả `validateTimeline2` (TS) và `validate_timeline2` (Python, `aivideo.episode`) phải khớp `valid`. Python hiện chưa kiểm tên SFX nên ca `sfx_ten_ngoai_danh_sach` đỏ cho tới khi BA cho sửa `episode.py` (đề mục 5).
+- Bộ mẫu chung do TESTER-10 giữ: `audio/tests/data/timeline2-cases.json` (mỗi ca có `valid`) và `audio/tests/data/template-timeline.json`. `validateTimeline2` (TS) và `validate_timeline2` (Python, `aivideo.episode`, kiểm cả tên SFX) phải khớp `valid`.
 - Timeline do `episode build` sinh cho `_template` (engine fake) qua được `validateTimeline2` của TS.
 
 ## 6. Biến môi trường
@@ -65,3 +67,4 @@ Segment = { "id": "seg-000", "startFrame": 0, "endFrame": 1799, "frames": 1800, 
 | `AIVIDEO_PROCS` | số trình duyệt song song, mặc định 3 |
 | `AIVIDEO_MIN_FREE_GB` | ngưỡng đĩa, mặc định 6 |
 | `AIVIDEO_FREE_GB` | giả lập dung lượng trống (test) |
+| `AIVIDEO_FAIL_SEGMENT` | gây lỗi ở một đoạn (test đóng trình duyệt) |

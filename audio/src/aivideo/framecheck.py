@@ -161,7 +161,7 @@ def _render(slug: str, root: Path, layout: str, redo: list[str]) -> None:
     cmd = ["npx", "tsx", "scripts/render-episode.ts", slug, "--root", str(root), "--layout", layout]
     if redo:
         cmd += ["--redo", ",".join(redo)]
-    r = subprocess.run(cmd, cwd=root / "video")
+    r = subprocess.run(cmd, cwd=ROOT / "video")  # ứng dụng video/ theo vị trí mã, --root chỉ là gốc dữ liệu
     if r.returncode != 0:
         raise RuntimeError(f"render lại lỗi (mã {r.returncode}): {' '.join(cmd)}")
 

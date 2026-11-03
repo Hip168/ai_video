@@ -226,8 +226,13 @@ export function parseRange(s: string): [number, number] {
   return [Number(m[1]), Number(m[2])];
 }
 
-export function resolveBrowser(): string | null {
+/**
+ * Trình duyệt render. Có REMOTION_BROWSER_EXECUTABLE thì dùng (phải tồn tại). Không có:
+ * macOS dùng đường D23; Linux (CI) để Remotion tự chọn (exe = null). ok = false là thiếu trình duyệt.
+ */
+export function resolveBrowser(): { ok: boolean; exe: string | null } {
   const env = process.env.REMOTION_BROWSER_EXECUTABLE;
-  if (env) return existsSync(env) ? env : null;
-  return existsSync(DEFAULT_BROWSER) ? DEFAULT_BROWSER : null;
+  if (env) return existsSync(env) ? { ok: true, exe: env } : { ok: false, exe: null };
+  if (process.platform !== "darwin") return { ok: true, exe: null };
+  return existsSync(DEFAULT_BROWSER) ? { ok: true, exe: DEFAULT_BROWSER } : { ok: false, exe: null };
 }

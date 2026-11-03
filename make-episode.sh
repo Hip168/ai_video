@@ -3,6 +3,7 @@
 # Dùng: ./make-episode.sh <slug> [--engine <id>] [--voice <id>] [--speed <số>] [--from <bước>] [--procs <N>]
 # Bước: tools build lint mix render assemble check. Giao diện: .team/features/10-render-dai-giao-dien.md
 set -eu
+zmodload zsh/datetime
 
 steps=(tools build lint mix render assemble check)
 engine=korva
@@ -51,7 +52,10 @@ begin() { # $1 = số thứ tự, $2 = tên bước (đồng thời là khoá)
 }
 # Chạy lệnh, ghi cả vào nhật ký, trả mã thoát của lệnh (không phải của tee).
 run() {
-  "$@" 2>&1 | tee -a "$logf"
+  "$@" 2>&1 | while IFS= read -r line; do
+    print -r -- "$line"
+    print -r -- "$(strftime '%F %T' $EPOCHSECONDS) $line" >> "$logf"
+  done
   return ${pipestatus[1]}
 }
 want() { (( ${steps[(Ie)$1]} >= ${steps[(Ie)$from]} )); }

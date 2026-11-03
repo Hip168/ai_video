@@ -110,8 +110,9 @@ async function main(): Promise<number> {
 
   const prob = diskProblem(outDir);
   if (prob) throw new Fail(prob, 3);
-  const browserExe = resolveBrowser();
-  if (!browserExe) {
+  const browser = resolveBrowser();
+  const browserExe = browser.exe;
+  if (!browser.ok) {
     throw new Fail(
       process.env.REMOTION_BROWSER_EXECUTABLE
         ? `REMOTION_BROWSER_EXECUTABLE không trỏ tới file có thật: ${process.env.REMOTION_BROWSER_EXECUTABLE}`
@@ -217,6 +218,8 @@ async function main(): Promise<number> {
         const t0 = Date.now();
         seg.attempts += 1;
         try {
+          // Điểm móc cho test: gây lỗi trong tiến trình sau khi trình duyệt đã mở.
+          if (process.env.AIVIDEO_FAIL_SEGMENT === seg.id) throw new Error(`lỗi giả lập ở ${seg.id} (AIVIDEO_FAIL_SEGMENT)`);
           await renderMedia({
             composition,
             serveUrl,

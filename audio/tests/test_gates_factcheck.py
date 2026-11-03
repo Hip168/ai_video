@@ -252,3 +252,47 @@ def test_apply_cli_in_verdict_va_updated(ep_env, capsys):
     )
     assert data["verdict"] == "CHAN"
     assert data["updated"]["c001"] == "SAI"
+
+
+# ---- claim đổi sau prepare ------------------------------------------------------
+
+def test_apply_chan_khi_claim_doi_sau_prepare_va_findings_rong(ep_env):
+    eps, ep, batch, f = _apply(ep_env, [])
+    claims = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    claims[0]["claim"] = "Pi xấp xỉ 3,15 (đã bị sửa sau khi gửi đi kiểm)."
+    (ep / "claims.json").write_text(
+        json.dumps(claims, ensure_ascii=False), encoding="utf-8"
+    )
+    before = (ep / "claims.json").read_bytes()
+    with pytest.raises(gates.GateError):
+        gates.apply_factcheck(SLUG, eps, f, batch)
+    assert (ep / "claims.json").read_bytes() == before
+    assert _statuses(ep)["c001"] == "CHUA_KIEM"
+
+
+def test_apply_chan_khi_them_hoac_xoa_claim_sau_prepare(ep_env):
+    eps, ep, batch, f = _apply(ep_env, [])
+    claims = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    (ep / "claims.json").write_text(
+        json.dumps(claims[:1], ensure_ascii=False), encoding="utf-8"
+    )
+    with pytest.raises(gates.GateError):
+        gates.apply_factcheck(SLUG, eps, f, batch)
+
+
+def test_apply_cli_claim_doi_sau_prepare_ma_thoat_1(ep_env, capsys):
+    eps, ep, batch, f = _apply(ep_env, [])
+    claims = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    claims[1]["claim"] = "Linus công bố Linux năm 1992."
+    (ep / "claims.json").write_text(
+        json.dumps(claims, ensure_ascii=False), encoding="utf-8"
+    )
+    code, data, err = run_cli(
+        capsys,
+        ["apply-factcheck", SLUG, "--episodes-dir", str(eps), "--findings",
+         str(f), "--batch", batch],
+    )
+    assert code == 1
+    assert data is None
+    assert "lỗi" in err
+    assert _statuses(ep)["c002"] == "DAT"

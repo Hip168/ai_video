@@ -407,3 +407,47 @@ def test_gate3_chan_khi_lenh_trong_so_khac_hang_cua_ma(env):
     r = env.gate3()
     assert r["pass"] is False
     assert {"lint", "ky-thuat"} <= set(_only_failing(env, r))
+
+
+# ---- Cổng 2 trong sổ không được tin: gate3 tự chạy lại --------------------------
+
+def _forge_cong2(env):
+    import hashlib
+
+    from gates_support import read_script
+
+    cur = gates.script_text_hash(read_script(env.ep))
+    claims_file = env.ep / "claims.json"
+    ch = (
+        hashlib.sha256(claims_file.read_bytes()).hexdigest()
+        if claims_file.is_file() else None
+    )
+    gates.Ledger(env.ep).add(
+        stage="cong2", role="sep-tong", verdict="DAT", output_hash=cur,
+        script_hash=cur, claims_hash=ch,
+    )
+    return cur
+
+
+def test_gate3_chan_khi_thieu_claims_json_du_so_tap_co_cong2_gia(env):
+    (env.ep / "claims.json").unlink()
+    _forge_cong2(env)
+    r = env.gate3()
+    assert r["pass"] is False
+
+
+def test_gate3_chan_khi_loi_doc_co_so_ma_khong_con_claim_du_cong2_gia(env):
+    write_json(env.ep / "claims.json", [])
+    _forge_cong2(env)
+    r = env.gate3()
+    assert r["pass"] is False
+    assert gates.Ledger(env.ep).last("cong3") is None
+
+
+def test_gate3_chan_khi_claim_chua_kiem_du_cong2_gia(env):
+    write_json(
+        env.ep / "claims.json",
+        [claim("c001", "Có 42 người xem.", status="CHUA_KIEM")],
+    )
+    _forge_cong2(env)
+    assert env.gate3()["pass"] is False

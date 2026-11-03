@@ -631,3 +631,27 @@ def test_gate1_hai_nguon_cung_mien_goc_hoac_la_ip_khong_du_hai_nguon_khac_mien(
 def test_gate1_hai_nguon_khac_mien_goc_thi_dat(tmp_path, urls):
     eps, _ = make_episode(tmp_path, claims=[_num_claim_with(urls)])
     assert gates.gate1(SLUG, eps)["pass"] is True
+
+
+# ---- dấu âm: -5 khác 5 -----------------------------------------------------------
+
+def test_gate2_chan_so_am_5_khi_claim_chi_noi_5(tmp_path):
+    eps, _ = make_episode(
+        tmp_path,
+        texts={"b001": "Nhiệt độ xuống -5 độ."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", "Nhiệt độ xuống 5 độ.")],
+    )
+    r = _g2(eps)
+    assert r["pass"] is False
+    assert any("5" in str(p.get("match")) for p in r["problems"])
+
+
+def test_gate2_dat_so_am_5_khi_claim_cung_noi_am_5(tmp_path):
+    eps, _ = make_episode(
+        tmp_path,
+        texts={"b001": "Nhiệt độ xuống -5 độ."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", "Nhiệt độ xuống -5 độ.")],
+    )
+    assert _g2(eps)["pass"] is True

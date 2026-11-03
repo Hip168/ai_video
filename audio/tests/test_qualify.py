@@ -363,3 +363,27 @@ def test_prepare_fact_can_file_vai_va_which_hop_le(tmp_path):
         qualify.prepare("fact", "clean", None, tmp_path)
     with pytest.raises(gates.GateError):
         qualify.prepare("fact", "la", ROLES_DIR / "fact-checker.md", tmp_path)
+
+
+# ---- mỗi phát hiện chỉ bắt tối đa một lỗi ---------------------------------------
+
+def test_mot_phat_hien_quote_chua_nhieu_marker_chi_bat_mot_loi(root):
+    quote = "dòng chứa MARK01 và FAKE01\ndòng chứa MARK02 và FAKE02"
+    f = finding("CRITICAL", quote, file="items.json", rule="claim:x")
+    r = _score(root, "fact", _errors(10), [f])
+    assert r["caught"] == 1
+    assert r["rate"] == 0.1
+    assert r["pass"] is False
+
+
+def test_mot_phat_hien_quote_ca_tep_khong_bat_het_loi(root):
+    whole = (root / "items.json").read_text(encoding="utf-8")
+    f = finding("CRITICAL", whole, file="items.json", rule="claim:x")
+    r = _score(root, "fact", _errors(10), [f])
+    assert r["caught"] <= 1
+    assert r["pass"] is False
+
+
+def test_hai_phat_hien_rieng_bat_hai_loi_khac_nhau(root):
+    r = _score(root, "fact", _errors(10), [_hit(1), _hit(2)])
+    assert r["caught"] == 2

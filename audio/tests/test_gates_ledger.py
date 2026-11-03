@@ -468,3 +468,42 @@ def test_ledger_qc_ghi_dong_phan_quyet(tmp_path, capsys):
         f"PHAN_QUYET: DAT findings_sha256={ent['findingsHash']} script_sha256={sh}\n"
     )
 
+
+
+# ---- khâu dành riêng cho script cổng ------------------------------------------
+
+@pytest.mark.parametrize("stage", ["cong2", "cong3", "lint", "ky-thuat"])
+def test_ledger_add_tu_choi_khau_danh_rieng_khong_findings(
+    tmp_path, capsys, stage
+):
+    eps, ep = _setup(tmp_path)
+    code, out, err = run_cli(
+        capsys,
+        ["ledger", "add", SLUG, "--episodes-dir", str(eps), "--stage", stage,
+         "--role", "sep-tong"],
+    )
+    assert code != 0
+    assert not (ep / "ledger.json").exists()
+
+
+@pytest.mark.parametrize("stage", ["cong2", "cong3", "lint", "ky-thuat"])
+def test_ledger_add_tu_choi_khau_danh_rieng_co_findings_rong(
+    tmp_path, capsys, stage
+):
+    eps, ep = _setup(tmp_path)
+    f = write_findings(ep / "f.json", [])
+    code, out, err = run_cli(
+        capsys,
+        ["ledger", "add", SLUG, "--episodes-dir", str(eps), "--stage", stage,
+         "--role", "sep-tong", "--pair", "a/b", "--findings", str(f),
+         "--root", str(ep)],
+    )
+    assert code != 0
+    assert not (ep / "ledger.json").exists()
+
+
+def test_ledger_add_khau_thuong_van_ghi_duoc(tmp_path, capsys):
+    eps, ep = _setup(tmp_path)
+    code, out, _ = _make_add(capsys, eps, stage="viet", role="scriptwriter")
+    assert code == 0
+    assert gates.Ledger(ep).last("viet") is not None

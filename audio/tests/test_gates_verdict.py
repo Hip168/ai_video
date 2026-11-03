@@ -189,3 +189,32 @@ def test_verdict_cli_thieu_file_ra_chua_duyet_ma_thoat_1(root, capsys):
     )
     assert code == 1
     assert data["verdict"] == "CHUA_DUYET"
+
+
+def test_verdict_quote_dai_dung_300_ky_tu_van_giu(tmp_path):
+    (tmp_path / "a.txt").write_text("x" * 400, encoding="utf-8")
+    p = write_findings(tmp_path / "f.json", [finding("CRITICAL", "x" * 300)])
+    r = gates.evaluate_findings(p, tmp_path)
+    assert r["verdict"] == "CHAN"
+    assert r["dropped"] == []
+
+
+def test_verdict_quote_dai_301_ky_tu_bi_loai_du_co_trong_file(tmp_path):
+    (tmp_path / "a.txt").write_text("x" * 400, encoding="utf-8")
+    p = write_findings(tmp_path / "f.json", [finding("CRITICAL", "x" * 301)])
+    r = gates.evaluate_findings(p, tmp_path)
+    assert r["verdict"] == "DAT"
+    assert r["kept"] == []
+    assert len(r["dropped"]) == 1
+    assert r["complete"] is False
+
+
+def test_verdict_quote_ca_tep_items_json_bi_loai(tmp_path):
+    body = "\n".join(f"dòng số {i} có chữ MARK{i:02d}" * 3 for i in range(40))
+    (tmp_path / "items.json").write_text(body, encoding="utf-8")
+    p = write_findings(
+        tmp_path / "f.json", [finding("CRITICAL", body, file="items.json")]
+    )
+    r = gates.evaluate_findings(p, tmp_path)
+    assert r["kept"] == []
+    assert r["verdict"] == "DAT"

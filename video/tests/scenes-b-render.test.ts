@@ -229,6 +229,8 @@ d('[8-5] code-walk: dấu tiếng Việt và tô màu tất định', () => {
 });
 
 // ---- Mục k neo đúng beat k (chống "mọi mục theo beat 0 + 20k") ----
+// Nhiễu chữ Chrome giữa hai lần render khác timeline đo được tới 0,047% (layers);
+// tín hiệu thật của mục k thấp nhất đo được vài % -> ngưỡng 0,5%.
 const startOf = (k: number) => 30 + k * BEAT_GAP;
 for (const {id, task} of GROUP_B) {
   d(`[${task}] cảnh ${id}: mục k chỉ hiện từ beat k`, () => {
@@ -250,7 +252,7 @@ for (const {id, task} of GROUP_B) {
       const f = startOf(k) + 40;
       const p1 = await still(`${id}:k:${k}:a`, b.timeline, f);
       const p2 = await still(`${id}:k:${k}:sh`, sh.timeline, f);
-      expect(diffRatio(p1, p2, 0, MAIN_END)).toBeGreaterThan(0.0003);
+      expect(diffRatio(p1, p2, 0, MAIN_END)).toBeGreaterThan(0.005);
     }, 240_000);
   });
 }

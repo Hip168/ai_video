@@ -47,19 +47,32 @@ def _cmd(src: Path | list[Path], start: int, count: int | None, tmp: Path | None
 
 def read_frames(src: Path | list[Path], start: int = 0, count: int | None = None) -> Iterator[np.ndarray]:
     """Từng khung xám 415x960 của vùng hình chính. `src` là một file hoặc danh sách file ghép liền."""
+    for f in (src if isinstance(src, list) else [src]):
+        if not Path(f).is_file():
+            raise RuntimeError(f"không có file video: {f}")
     with tempfile.TemporaryDirectory() as td:
-        p = subprocess.Popen(_cmd(src, start, count, Path(td)), stdout=subprocess.PIPE, stdin=subprocess.DEVNULL)
+        p = subprocess.Popen(_cmd(src, start, count, Path(td)), stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                             stdin=subprocess.DEVNULL)
         size = W * FH
+        n = 0
+        eof = False
         try:
             while True:
                 raw = p.stdout.read(size)
                 if len(raw) < size:
+                    eof = True
                     break
+                n += 1
                 yield np.frombuffer(raw, dtype=np.uint8).reshape(FH, W)
         finally:
             p.stdout.close()
-            p.kill()
-            p.wait()
+            if not eof:
+                p.kill()
+            err = p.stderr.read().decode(errors="replace").strip()
+            p.stderr.close()
+            rc = p.wait()
+        if n == 0 or (rc != 0 and not err == ""):
+            raise RuntimeError(f"không đọc được khung hình từ {src}: {err[-200:] or 'không có khung nào'}")
 
 
 def ignore_frames(timeline: dict | None) -> set[int]:

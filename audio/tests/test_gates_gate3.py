@@ -627,6 +627,10 @@ def test_gate3_qc_bang_chung_chan_khi_qc_khong_nop_evidence(env):
         {"videoSha256": "abc"},
         {"videoSha256": None},
         {"frames": FRAMES[:19]},
+        # 19 mốc khác nhau, vẫn phủ cả 5 chương: chỉ thiếu số lượng
+        {"frames": [x * 2.5 for x in range(19)]},
+        # 25 phần tử nhưng chỉ 19 mốc khác nhau (trùng lặp không được tính)
+        {"frames": [x * 2.5 for x in range(19)] + [0, 0, 2.5, 2.5, 5, 5]},
         {"frames": [0, 2] * 15},
         {"frames": None},
         {"frames": [-1, *FRAMES[1:]]},

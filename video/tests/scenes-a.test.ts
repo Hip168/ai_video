@@ -40,6 +40,7 @@ type ThemeId = (typeof THEME_IDS)[number];
 
 const MAIN_END = 830;
 const MARGIN = 40;
+const TITLE_END = 140; // dưới dòng tiêu đề / chữ lớn đầu cảnh
 const SCENE = 600;
 const BEAT_AT = 10; // beat j bắt đầu ở 10 + 30 j trong cảnh, dài 30 frame
 const SHIFT = 300; // dịch startFrame của mọi beat
@@ -451,10 +452,15 @@ d('[7-A] cảnh thật: không đơn sắc, neo beat, tốc độ (theme mau-a)'
       for (let k = 0; k < anchored(t); k++) {
         const a = await stillOf(`from${k}`, 'mau-a', sceneFrame(t, BEFORE));
         const b = await stillOf(`from${k + 1}`, 'mau-a', sceneFrame(t, BEFORE));
+        // Chỉ đo dưới dòng tiêu đề (y >= 140): chữ lớn ở đầu cảnh lệch ngẫu
+        // nhiên tới 0,3% (stack.md). Tín hiệu thật nhỏ nhất đo được: cột 0 của
+        // chart 0,225% (nhiễu vùng này 0 trong 8 lần), big-number note 0,67%,
+        // term-card beat 2 1,17%, các cảnh khác >= 1,1%.
+        const min = t === 'chart' ? 0.001 : 0.004;
         expect(
-          diffRatio(a.p, b.p, 0, MAIN_END),
+          diffRatio(a.p, b.p, TITLE_END, MAIN_END),
           `beat ${k} không làm đổi hình`,
-        ).toBeGreaterThan(0.001);
+        ).toBeGreaterThan(min);
       }
     },
     600_000,

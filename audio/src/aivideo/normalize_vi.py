@@ -103,8 +103,8 @@ def _dotted(m: re.Match) -> str:
     tok, port = m.group(1), m.group(2)
     groups = tok.split(".")
     before = m.string[m.start() - 1] if m.start() > 0 else ""
-    if _is_ip(groups):
-        out = " chấm ".join(_number_words(g) for g in groups)
+    if _is_ip(groups):  # mỗi nhóm đọc theo giá trị: 000 -> không, 010 -> mười
+        out = " chấm ".join(audio.number_to_words(int(g)) for g in groups)
     elif re.fullmatch(_THOUSANDS, tok):
         out = _number_words(tok)
     elif len(groups) >= 3 or before.isalpha():

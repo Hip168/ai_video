@@ -825,6 +825,35 @@ def test_nhac_khong_doc_duoc_nem_music_error_nhanh_neu_ten_file(tmp_path):
     assert not (tmp_path / "o.wav").exists()
 
 
+def sparse_wav(path, seconds, sr=8000):
+    """WAV 8-bit mono khai `seconds` giây; thân file là vùng rỗng (sparse)."""
+    import struct
+
+    data = int(seconds * sr)
+    header = (
+        b"RIFF" + struct.pack("<I", 36 + data) + b"WAVEfmt "
+        + struct.pack("<IHHIIHH", 16, 1, 1, sr, sr, 1, 8)
+        + b"data" + struct.pack("<I", data)
+    )
+    with open(path, "wb") as f:
+        f.write(header)
+        f.truncate(len(header) + data)
+    return path
+
+
+def test_nhac_dai_hon_7200_giay_nem_music_error_truoc_khi_chay_ffmpeg(
+    tmp_path,
+):
+    long = sparse_wav(tmp_path / "dai.wav", 7201)
+    assert sf.info(str(long)).frames / 8000 == pytest.approx(7201)
+    nar = write(tmp_path / "nar.wav", voice_wave())
+    tl = timeline(tmp_path / "tl.json", 240)
+    out = tmp_path / "o.wav"
+    with pytest.raises(mix.MusicError, match="dai.wav"):
+        mix.mix_episode(tl, nar, out, music_path=long)
+    assert not out.exists()
+
+
 def listing(d):
     return sorted(p.name for p in d.iterdir())
 

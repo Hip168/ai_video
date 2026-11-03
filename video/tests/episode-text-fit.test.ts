@@ -70,6 +70,7 @@ const CASES: Case[] = [
   {name: 'chapter-title có số, phụ đề 80 ký tự', index: 3},
   {name: 'chapter-title không số, phụ đề 80 ký tự', index: 4},
   {name: 'recap-outro 5 điểm 70 ký tự, next 80 ký tự', index: 5},
+  {name: 'recap-outro trộn điểm ngắn với một điểm W x 70', index: 6},
 ];
 
 function scene(i: number, type: string, props: any, beats: any[]): any {
@@ -86,7 +87,7 @@ const beat = (i: number, cue?: string): any => ({
 function timeline(theme: ThemeId = 'mau-a'): any {
   return {
     version: 2, fps: 30, width: 1920, height: 1080,
-    durationInFrames: SCENE * 6, theme,
+    durationInFrames: SCENE * 7, theme,
     audio: {src: 'narration.wav'},
     chapters: [{id: 'c1', title: 'Chương một', startFrame: 0}],
     sfx: [],
@@ -100,6 +101,9 @@ function timeline(theme: ThemeId = 'mau-a'): any {
       scene(5, 'recap-outro',
         {points: [0, 1, 2, 3, 4].map(() => wide(70)), next: wide(80)},
         [beat(5)]),
+      scene(6, 'recap-outro',
+        {points: ['Ngắn', 'W'.repeat(70), 'Điểm ngắn khác'], next: 'Tập sau'},
+        [beat(6)]),
     ],
   };
 }
@@ -496,5 +500,69 @@ describe('[6-2] recapLayout: cỡ chữ, hàng không chồng nhau, trong y < 83
     expect(r.rows).toHaveLength(1);
     expect(r.next.lines).toEqual([]);
     expect(r.pointSize).toBe(48);
+  });
+});
+
+// ---- recapLayout: một cỡ chung là cỡ nhỏ nhất mọi điểm vừa ----
+// W rộng 0,6 em, ký tự khác 0,5 em. W x 70 = 42 em: vừa 1520px khi cỡ <= 36.
+const W70 = 'W'.repeat(70);
+const wm: MeasureWidth = (t, size) =>
+  [...t].reduce((a, c) => a + size * (c === 'W' ? 0.6 : 0.5), 0);
+
+describe('[6-2] recapLayout: trộn điểm ngắn với điểm phải giảm cỡ', () => {
+  test.each([
+    ['Ngắn + W x 70', ['Ngắn', W70]],
+    ['W x 70 ở giữa', ['Ngắn', W70, 'Điểm ngắn khác']],
+    ['ngắn, dài 2 dòng, W x 70, ngắn', [SHORT[0], LONG, W70, SHORT[1]]],
+    ['W x 70 đứng đầu', [W70, 'Ngắn']],
+  ])('%s: mọi dòng đo ở pointSize không vượt bề rộng, không cắt', (_n, pts) => {
+    const r = recapLayout(pts, 'Tập sau', {measure: wm});
+    expect(r.rows).toHaveLength(pts.length);
+    r.rows.forEach((row, i) => {
+      expect(row.lines.length).toBeGreaterThanOrEqual(1);
+      expect(row.lines.length).toBeLessThanOrEqual(2);
+      expect(row.lines.join(' '), `điểm ${i} không bị cắt`).toBe(pts[i]);
+      for (const l of row.lines) {
+        expect(wm(l, r.pointSize), `điểm ${i}: "${l}"`).toBeLessThanOrEqual(
+          RECAP_POINT_WIDTH,
+        );
+      }
+    });
+  });
+
+  test.each([
+    ['Ngắn + W x 70', ['Ngắn', W70]],
+    ['W x 70 ở giữa', ['Ngắn', W70, 'Điểm ngắn khác']],
+    ['ngắn, dài 2 dòng, W x 70, ngắn', [SHORT[0], LONG, W70, SHORT[1]]],
+    ['W x 70 đứng đầu', [W70, 'Ngắn']],
+  ])('%s: pointSize là cỡ nhỏ nhất mà mọi điểm vừa, nhỏ hơn 40', (_n, pts) => {
+    const r = recapLayout(pts, 'Tập sau', {measure: wm});
+    // đối chứng độc lập: cỡ nhỏ nhất trong các điểm khi mỗi điểm tự vừa ở cỡ 40
+    const expected = Math.min(
+      ...pts.map(
+        (p) =>
+          fitBlock(p, {
+            baseSize: 40, width: RECAP_POINT_WIDTH, maxLines: 2, measure: wm,
+          }).fontSize,
+      ),
+    );
+    expect(expected).toBeLessThan(40);
+    expect(expected).toBeGreaterThanOrEqual(Math.floor(40 * 0.7));
+    expect(r.pointSize).toBe(expected);
+  });
+
+  test('mọi điểm cùng một cỡ: khoảng cách hai dòng của điểm 2 dòng = pointSize x 1,25', () => {
+    const r = recapLayout([SHORT[0], LONG, W70], 'Tập sau', {measure: wm});
+    const two = r.rows.filter((x) => x.lines.length === 2);
+    expect(two.length).toBeGreaterThanOrEqual(1);
+    for (const row of two) {
+      expect(row.lineYs[1] - row.lineYs[0]).toBeCloseTo(r.pointSize * 1.25, 5);
+    }
+  });
+
+  test('điểm ngắn trong bộ có điểm bị giảm cỡ vẫn 1 dòng, nguyên chữ', () => {
+    const r = recapLayout(['Ngắn', W70], 'Tập sau', {measure: wm});
+    expect(r.rows[0].lines).toEqual(['Ngắn']);
+    expect(r.rows[0].lineYs).toEqual([r.rows[0].y]);
   });
 });

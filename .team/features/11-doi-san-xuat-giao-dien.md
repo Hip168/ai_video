@@ -92,6 +92,7 @@ Mã thoát 0 chỉ khi `DAT`.
 
 ## Bổ sung theo review code (2026-11-03)
 - `script_text_hash` không băm id cảnh: băm danh sách phẳng beat `(id, text, spoken, claims)` theo thứ tự, nên gom beat sang cảnh khác không đổi hash.
-- `apply-factcheck`: `rule` `claim: c003` (khoảng trắng thừa) được chuẩn hoá thành `claim:c003`; `claim:3` vẫn không ánh xạ được (vào `unmapped`). Việc từ chối khi có phát hiện CRITICAL/MAJOR không ánh xạ được hoặc bị loại CHƯA làm: test khoá `test_apply_quote_bia_bi_loai_khong_doi_status` và `test_apply_rule_khong_phai_claim_di_vao_unmapped` đòi claim vẫn `DAT`.
+- `apply-factcheck`: `rule` `claim: c003` (khoảng trắng thừa) được chuẩn hoá thành `claim:c003`; `claim:3` vẫn không ánh xạ được (vào `unmapped`). Hành vi `status` giữ như cũ (test khoá): claim không bị phát hiện ánh xạ được thì vẫn `DAT`. Bù bằng sổ: mục `fact` có thêm `unresolvedSevere: [{severity, rule, reason}]` (phát hiện CRITICAL/MAJOR bị loại hoặc không ánh xạ được; nằm trong `entryHash`; `null` nếu không có). Hàm trả thêm khoá `unresolvedSevere`. CLI: nếu `unresolvedSevere` không rỗng thì vẫn ghi như thường, in từng phát hiện và "gọi lại fact-checker (prepare-factcheck lô mới) hoặc hỏi người dùng" ra stderr, thoát mã 3.
+- `gate1` và `gate2` (hàm `unresolved_problems`): với mỗi claim, lấy mục `fact` mới nhất của lô chứa claim (claim của lô = khoá `claimHashes` của mục `fact-prepare` cùng `note`); nếu mục đó có `unresolvedSevere` không rỗng thì chặn, nêu tên lô và `rule`. Hết chặn khi có lô `prepare` mới hơn được `apply` và bao claim đó.
 - `evaluate_findings`: với file `.json`, `quote` còn được chấp nhận nếu là chuỗi con của một giá trị chuỗi đã giải mã (kể cả khoá).
 - CLI `gate3` không có `--video` in cảnh báo ra stderr (vẫn chạy).

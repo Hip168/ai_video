@@ -32,6 +32,7 @@ FINDING_FIELDS = ("severity", "rule", "file", "quote", "failing_case", "owner")
 MAX_ROUNDS = 3
 MAX_QUOTE = 300
 MIN_FRAMES = 20
+COUNTED = ("CRITICAL", "MAJOR")
 RESERVED_STAGES = ("cong2", "cong3", "lint", "ky-thuat", "fact", "fact-prepare")
 MAX_CROSS_RETURNS = 2
 RUN_STAGES = ("lint", "ky-thuat")
@@ -287,11 +288,35 @@ def _load_claims(ep: Path):
         return None, [{"claim": None, "problem": f"claims.json không đọc được: {e}"}]
 
 
+def unresolved_problems(ep: Path) -> list[dict]:
+    """Lô `fact` mới nhất của một claim mà còn phát hiện nặng chưa giải quyết thì chặn,
+    cho tới khi có lô fact mới hơn (sau prepare mới) bao claim đó."""
+    try:
+        ents = Ledger(ep).entries()
+    except GateError as e:
+        return [{"claim": None, "problem": str(e)}]
+    prep = {e.get("note"): set(e.get("claimHashes") or {}) for e in ents if e["stage"] == "fact-prepare"}
+    latest: dict = {}
+    for e in ents:
+        if e["stage"] == "fact":
+            for cid in prep.get(e.get("note"), ()):
+                latest[cid] = e
+    seen, out = set(), []
+    for cid, e in latest.items():
+        if e.get("unresolvedSevere") and e["seq"] not in seen:
+            seen.add(e["seq"])
+            rules = ", ".join(f"{u['rule']} ({u['reason']})" for u in e["unresolvedSevere"])
+            out.append({"claim": None, "problem":
+                        f"lô {e.get('note')} còn phát hiện nặng chưa giải quyết: {rules}; "
+                        "gọi lại fact-checker với lô prepare mới hoặc hỏi người dùng"})
+    return out
+
+
 def gate1(slug: str, episodes_dir="../episodes") -> dict:
     ep = _ep_dir(slug, episodes_dir)
     claims, probs = _load_claims(ep)
     if claims is not None:
-        probs = check_claims(claims)
+        probs = check_claims(claims) + unresolved_problems(ep)
     return {"gate": "gate1", "pass": not probs, "problems": probs}
 
 
@@ -374,6 +399,8 @@ def gate2(slug: str, episodes_dir="../episodes", write_ledger: bool = True) -> d
         return {"gate": "gate2", "pass": False, "problems": problems,
                 "scriptHash": None, "claimsHash": None}
 
+    for up in unresolved_problems(ep):
+        problems.append({"problem": up["problem"]})
     fact_problem = _fact_problem(ep)
     if fact_problem:
         problems.append({"problem": fact_problem})
@@ -509,7 +536,7 @@ def finding_key(f: dict) -> str:
 
 _ENTRY_FIELDS = ("seq", "ts", "stage", "role", "pair", "round", "inputHash", "outputHash",
                  "verdict", "scriptHash", "claimsHash", "artifactHash", "findingsHash",
-                 "findingKeys", "returnTo", "escalate", "note", "cmd", "claimHashes", "fileHashes", "prevHash")
+                 "findingKeys", "returnTo", "escalate", "note", "cmd", "claimHashes", "fileHashes", "unresolvedSevere", "prevHash")
 
 
 def entry_hash(entry: dict) -> str:
@@ -582,7 +609,8 @@ class Ledger:
     def add(self, *, stage: str, role: str, pair: str | None = None, verdict: str | None = None,
             input_hash=None, output_hash=None, script_hash=None, claims_hash=None,
             artifact_hash=None, findings_hash=None, finding_keys=None, return_to=None,
-            note=None, cmd=None, claim_hashes=None, file_hashes=None) -> dict:
+            note=None, cmd=None, claim_hashes=None, file_hashes=None,
+            unresolved_severe=None) -> dict:
         """Ghi một mục. Trả {"state":"OK"|"CAN_NGUOI_DUNG", ...}; CAN_NGUOI_DUNG kèm
         `recorded` cho biết mục có được ghi không."""
         doc = self.load()
@@ -613,6 +641,7 @@ class Ledger:
                  "findingsHash": findings_hash, "findingKeys": keys or None,
                  "returnTo": return_to, "escalate": bool(repeated), "note": note, "cmd": cmd,
                  "claimHashes": claim_hashes, "fileHashes": file_hashes,
+                 "unresolvedSevere": unresolved_severe,
                  "prevHash": ents[-1]["entryHash"] if ents else ""}
         entry["entryHash"] = entry_hash(entry)
         ents.append(entry)
@@ -1071,10 +1100,17 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
         else:  # claim thêm sau prepare, chưa qua lô nào
             c["status"] = "CHUA_KIEM"
     _write_json_atomic(ep / "claims.json", claims)
+    severe = [{"severity": d["finding"]["severity"], "rule": d["finding"]["rule"],
+               "reason": d["reason"]} for d in res["dropped"]
+              if d["finding"]["severity"] in COUNTED]
+    severe += [{"severity": f["severity"], "rule": f["rule"],
+                "reason": "rule không ánh xạ được tới claim trong lô"}
+               for f in unmapped if f["severity"] in COUNTED]
     led.add(stage="fact", role="sep-tong", verdict=res["verdict"], note=Path(batch).name,
-            claims_hash=sha256_file(ep / "claims.json"), output_hash=res["findingsHash"])
+            claims_hash=sha256_file(ep / "claims.json"), output_hash=res["findingsHash"],
+            unresolved_severe=severe or None)
     return {"verdict": res["verdict"], "updated": status, "unmapped": unmapped,
-            "complete": res["complete"]}
+            "complete": res["complete"], "unresolvedSevere": severe}
 
 
 # ---- CLI ---------------------------------------------------------------------
@@ -1179,7 +1215,14 @@ def _main(argv: list[str] | None = None) -> int:
         _emit(prepare_factcheck(a.slug, a.episodes_dir, a.role, a.tmp_parent, a.with_lines))
         return 0
     if a.cmd == "apply-factcheck":
-        _emit(apply_factcheck(a.slug, a.episodes_dir, a.findings, a.batch))
+        r = apply_factcheck(a.slug, a.episodes_dir, a.findings, a.batch)
+        _emit(r)
+        if r["unresolvedSevere"]:
+            for u in r["unresolvedSevere"]:
+                print(f"chưa giải quyết: {u['severity']} {u['rule']}: {u['reason']}", file=sys.stderr)
+            print("gọi lại fact-checker (prepare-factcheck lô mới) hoặc hỏi người dùng",
+                  file=sys.stderr)
+            return 3
         return 0
     # ledger
     ep = _ep_dir(a.slug, a.episodes_dir)

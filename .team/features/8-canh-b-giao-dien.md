@@ -36,7 +36,7 @@ export interface AlgoBarsFrame { index: number; values: number[]; heights: numbe
 export const ALGO_MAX_H = 480; export const ALGO_SWAP_FRAMES = 14;
 export function algoBarsAt(props: Record<string, unknown>, frame: number, beats: BeatStart[]): AlgoBarsFrame
 ```
-`states[k]` hiện từ đầu beat `step` thứ k (chỉ khi có ít nhất 2 beat cue `step`; ít hơn thì beat thứ k theo thứ tự; k vượt số beat thì beat cuối); trước beat đầu là `states[0]`. `frame` và `startFrame` cùng hệ quy chiếu (cùng tương đối cảnh hoặc cùng tuyệt đối). `heights` (px, cột cao nhất của mọi trạng thái = `ALGO_MAX_H`) nội suy giữa trạng thái trước và hiện tại trong `ALGO_SWAP_FRAMES` frame đầu của trạng thái mới; sau đó đúng `values[i]/max*ALGO_MAX_H`. Cảnh vẽ đúng theo hàm này, không chạy thuật toán.
+`states[k]` hiện từ đầu beat `step` thứ k (nếu có ít nhất một beat mang cue `step` thì chỉ các beat đó được đếm; không beat nào có `step` thì beat thứ k theo thứ tự; k vượt số beat đếm được thì không tới được, giữ trạng thái cuối đã tới); trước beat đầu là `states[0]`. `frame` và `startFrame` cùng hệ quy chiếu (cùng tương đối cảnh hoặc cùng tuyệt đối). `heights` (px, cột cao nhất của mọi trạng thái = `ALGO_MAX_H`) nội suy giữa trạng thái trước và hiện tại trong `ALGO_SWAP_FRAMES` frame đầu của trạng thái mới; sau đó đúng `values[i]/max*ALGO_MAX_H`. Cảnh vẽ đúng theo hàm này, không chạy thuật toán.
 
 ```ts
 // video/src/lib/layout-flow.ts

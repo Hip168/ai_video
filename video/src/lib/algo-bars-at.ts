@@ -29,8 +29,8 @@ const ease = (v: number) => {
 };
 
 /**
- * Hàm thuần. `states[k]` hiện từ đầu beat `step` thứ k (chỉ khi có ít nhất 2 beat cue `step`; ít hơn thì beat thứ k theo thứ tự, vì một beat đánh dấu không đủ để chạy nhiều bước;
- * k vượt số beat thì dùng beat cuối). `frame` và `startFrame` của beat cùng một hệ quy chiếu.
+ * Hàm thuần. `states[k]` hiện từ đầu beat `step` thứ k; không beat nào có cue `step` thì beat thứ k theo thứ tự;
+ * k vượt số beat thì không tới được, giữ trạng thái cuối đã tới. `frame` và `startFrame` cùng một hệ quy chiếu.
  * Trước beat đầu là `states[0]`.
  */
 export function algoBarsAt(props: Record<string, unknown>, frame: number, beats: BeatStart[]): AlgoBarsFrame {
@@ -39,8 +39,8 @@ export function algoBarsAt(props: Record<string, unknown>, frame: number, beats:
   );
   if (states.length === 0) return { index: 0, values: [], heights: [], active: [], done: [], note: "" };
   const tagged = beats.filter((b) => b.cue === "step");
-  const steps = tagged.length >= 2 ? tagged : beats;
-  const start = (k: number) => (steps.length === 0 ? Infinity : steps[Math.min(k, steps.length - 1)].startFrame);
+  const steps = tagged.length >= 1 ? tagged : beats;
+  const start = (k: number) => (k < steps.length ? steps[k].startFrame : Infinity);
   let index = 0;
   for (let k = 0; k < states.length; k++) if (frame >= start(k)) index = k;
   const cur = states[index];

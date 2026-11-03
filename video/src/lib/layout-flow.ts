@@ -20,6 +20,9 @@ export interface Box {
 
 /** Vùng cho phép của hình chính: lề 40 px, y < 830. */
 export const FLOW_AREA = { x: 40, y: 40, w: 1840, h: 750 };
+/** Chừa nửa nét viền và vòng sáng (16 px) để cả nét vẽ nằm trong FLOW_AREA. */
+const INSET = 16;
+const r2 = (v: number) => Math.round(v * 100) / 100;
 const NW = 240;
 const NH = 88;
 
@@ -49,15 +52,15 @@ export function layoutFlow(props: Record<string, unknown>): FlowLayout {
   const gl = g.graph();
   const gw = Math.max(1, gl.width ?? NW);
   const gh = Math.max(1, gl.height ?? NH);
-  const s = Math.min(1.15, FLOW_AREA.w / gw, FLOW_AREA.h / gh);
+  const s = Math.min(1.15, (FLOW_AREA.w - 2 * INSET) / gw, (FLOW_AREA.h - 2 * INSET) / gh);
   const ox = FLOW_AREA.x + (FLOW_AREA.w - gw * s) / 2;
   const oy = FLOW_AREA.y + (FLOW_AREA.h - gh * s) / 2;
-  const T = (p: Pt): Pt => ({ x: ox + p.x * s, y: oy + p.y * s });
+  const T = (p: Pt): Pt => ({ x: r2(ox + p.x * s), y: r2(oy + p.y * s) });
   const centre: Record<string, Pt> = {};
   const boxes: Box[] = nodes.map((n) => {
     const v = g.node(n.id);
     centre[n.id] = T({ x: v.x, y: v.y });
-    return { id: n.id, x: centre[n.id].x - (NW * s) / 2, y: centre[n.id].y - (NH * s) / 2, w: NW * s, h: NH * s };
+    return { id: n.id, x: r2(centre[n.id].x - (NW * s) / 2), y: r2(centre[n.id].y - (NH * s) / 2), w: r2(NW * s), h: r2(NH * s) };
   });
   const paths: Record<string, Pt[]> = {};
   for (const e of edges) {

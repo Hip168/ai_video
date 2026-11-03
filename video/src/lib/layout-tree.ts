@@ -24,6 +24,8 @@ export interface TreeLayout {
 }
 
 export const TREE_AREA = { x: 40, y: 40, w: 1840, h: 750 };
+const INSET = 16;
+const r2 = (v: number) => Math.round(v * 100) / 100;
 const NW = 200;
 const NH = 70;
 const VGAP = 90;
@@ -57,17 +59,17 @@ export function layoutTree(props: Record<string, unknown>): TreeLayout {
   const depth = h.height + 1;
   const gw = Math.max(...xs) - Math.min(...xs) + NW;
   const gh = (depth - 1) * (NH + VGAP) + NH;
-  const s = Math.min(1.1, TREE_AREA.w / gw, TREE_AREA.h / gh);
+  const s = Math.min(1.1, (TREE_AREA.w - 2 * INSET) / gw, (TREE_AREA.h - 2 * INSET) / gh);
   const ox = TREE_AREA.x + TREE_AREA.w / 2 - ((Math.max(...xs) + Math.min(...xs)) / 2) * s;
   const oy = TREE_AREA.y + (TREE_AREA.h - gh * s) / 2;
   const boxes: TreeBox[] = all.map((d) => ({
     id: d.data.id,
     label: d.data.label,
     depth: d.depth,
-    w: NW * s,
-    h: NH * s,
-    x: ox + d.x * s - (NW * s) / 2,
-    y: oy + d.y * s,
+    w: r2(NW * s),
+    h: r2(NH * s),
+    x: r2(ox + d.x * s - (NW * s) / 2),
+    y: r2(oy + d.y * s),
   }));
   const links = all.filter((d) => d.parent).map((d) => ({ from: d.parent!.data.id, to: d.data.id }));
   return { boxes, links, depth, scale: s };

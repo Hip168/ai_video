@@ -83,19 +83,50 @@ def _leftover(m: re.Match) -> str:
     return w
 
 
+_DOTTED = r"\d+(?:\.\d+){2,}"
+
+
+def _dotted(m: re.Match) -> str:
+    tok = m.group(1)
+    if re.fullmatch(_THOUSANDS, tok):  # 1.000.000 là số nghìn
+        out = _number_words(tok)
+    else:
+        out = " chấm ".join(_number_words(g) for g in tok.split("."))
+    if m.group(2):
+        out += " cổng " + _number_words(m.group(2))
+    if m.start() > 0 and m.string[m.start() - 1].isalnum():
+        out = " " + out
+    return out
+
+
+def _iso_date(m: re.Match) -> str:
+    y, mo, d = (int(g) for g in m.groups())
+    return f"ngày {audio.number_to_words(d)} tháng {audio.number_to_words(mo)} năm {audio.number_to_words(y)}"
+
+
+_RNUM = r"\d+(?:[.,]\d+)?"
+
+
 def normalize_vi(text: str) -> str:
     """Đổi mọi chữ số thành chữ; kết quả không còn ký tự 0-9."""
+    # ngày ISO 2024-01-15
+    text = re.sub(r"(?<![\w.,/-])(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(?![\w.,/-])",
+                  lambda m: _iso_date(re.match(r"(\d+)-(\d+)-(\d+)", m.group(0))), text)
+    # IP, phiên bản: từ 3 nhóm nối bằng '.', tuỳ chọn ':cổng'
+    text = re.sub(rf"(?<![\d.,])({_DOTTED})(?::(\d{{1,5}}))?(?![\w]|[.,]\d)", _dotted, text)
     # giờ 12:30
-    text = re.sub(r"(?<![\d:])(\d{1,2}):(\d{2})(?![\d:])",
+    text = re.sub(r"(?<![\w.:])([01]?\d|2[0-3]):([0-5]\d)(?![\d:])",
                   lambda m: f"{audio.number_to_words(int(m.group(1)))} giờ{_minutes(m.group(2))}", text)
     # phân số 1/2
     text = re.sub(r"(?<![\w/])(\d+)/(\d+)(?![\w/])",
                   lambda m: f"{_number_words(m.group(1))} phần {_number_words(m.group(2))}", text)
-    # khoảng: số - số, số – số
-    text = re.sub(r"(?<=\d)\s*[–—]\s*(?=\d)", " đến ", text)
-    text = re.sub(r"(?<=[\d%])-(?=\d)", " đến ", text)
+    # khoảng: hai bên là số trần đứng riêng
+    text = re.sub(rf"(?<![\w.,/:-])({_RNUM}%?)\s*[–—-]\s*({_RNUM})(?![\w.,/:-])",
+                  lambda m: f"{m.group(1)} đến {m.group(2)}", text)
     # số âm
     text = re.sub(r"(?:(?<=^)|(?<=[\s(]))-(?=\d)", "âm ", text)
+    # '-' còn lại sát chữ số đọc như khoảng trắng (x86-64)
+    text = re.sub(r"(?<=\d)-|-(?=\d)", " ", text)
     # kích thước 1920x1080
     text = re.sub(r"(?<=\d)\s?[x×]\s?(?=\d)", " nhân ", text)
     # phần trăm
@@ -109,5 +140,16 @@ def normalize_vi(text: str) -> str:
     return re.sub(r"\d+", _leftover, text)
 
 
+def apply_lexicon(text: str, lexicon: dict[str, str]) -> str:
+    """Thay từ theo bảng phát âm (nguyên từ, không phân biệt hoa thường), một lượt."""
+    if not lexicon:
+        return text
+    keys = sorted(lexicon, key=len, reverse=True)
+    lowered = {k.lower(): v for k, v in lexicon.items()}
+    pattern = r"(?<!\w)(" + "|".join(re.escape(k) for k in keys) + r")(?!\w)"
+    return re.sub(pattern, lambda m: lowered[m.group(1).lower()], text, flags=re.IGNORECASE)
+
+
 def speak(text: str, lexicon: dict[str, str]) -> str:
-    return audio.normalize_text(normalize_vi(text), lexicon)
+    """Bảng phát âm trên chữ gốc, rồi `normalize_vi`."""
+    return audio.normalize_text(normalize_vi(apply_lexicon(text, lexicon)), {})

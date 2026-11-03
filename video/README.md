@@ -59,7 +59,7 @@ Dùng cho video tập dài, chạy song song với `Video` (v1), không sửa v1
 # props.json: { "timeline": { ...timeline v2... } }   ("muted" mặc định true: render hình, tiếng trộn sau bằng FFmpeg)
 npx remotion still src/index.ts Episode out.png --frame=100 --props=props.json
 ```
-`validateTimeline2` (`src/timeline2.ts`) kiểm luật 1-13 của hợp đồng, lỗi có đường dẫn trường (vd `scenes[1].startFrame: ...`). Tên SFX chỉ `pop, tick, whoosh, ding, buzz`.
+`validateTimeline2` (`src/timeline2.ts`) kiểm luật 1-10, 12, 13 của hợp đồng (luật 11 cần độ dài `narration.wav`, kiểm ở bước dựng timeline Python), lỗi có đường dẫn trường (vd `scenes[1].startFrame: ...`). Tên SFX chỉ `pop, tick, whoosh, ding, buzz`.
 
 ### Catalog 18 loại cảnh
 `cold-open`, `chapter-title`, `recap-outro` (có sẵn) và 15 loại giữ chỗ cho đề mục 7, 8: `big-number`, `compare`, `myth-fact`, `history-timeline`, `term-card`, `chart`, `flow`, `layers`, `scale-ladder`, `tree-graph`, `code-walk`, `terminal`, `bits`, `memory-array`, `algo-bars`.

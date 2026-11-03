@@ -45,3 +45,4 @@ Hợp đồng dữ liệu: `0b-hop-dong-timeline-v2.md`. Tất cả chạy với
 - `normalize_vi` (chuỗi số nối `.`): thứ tự IP (4 nhóm <= 255, trừ khi mọi nhóm sau nhóm đầu đúng 3 chữ số và có nhóm `000` thì là số) > số nghìn > phiên bản (có chữ phía trước hoặc >= 3 nhóm) > thập phân. Hậu tố `-` sau IP/phiên bản thành khoảng trắng; `12:30:45` "... giờ ... phút ... giây"; `1-2-3` đọc từng số; `YYYY-M-D` như ngày ISO; cổng sau `:` đọc như số.
 - `normalize_vi`: mỗi nhóm IP đọc theo giá trị số (`000`, `00` "không"; `010` "mười"): `192.168.1.000` -> "... chấm một chấm không".
 - `normalize_vi`: khoảng tính cả số có phân cách nghìn/thập phân và số đứng trước đơn vị: `1.000.000-2.000.000đ` -> "một triệu đến hai triệu đồng".
+- `normalize_vi`: dấu `.` `,` cuối câu không chặn khoảng và ngày ISO (`Mất khoảng 5-10.`, `Ngày 2024-01-15.`); hex `0x10` -> "không x một không", `0xFF` -> "không x F F".

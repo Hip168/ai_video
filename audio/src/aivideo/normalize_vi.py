@@ -129,8 +129,12 @@ def _iso_date(m: re.Match) -> str:
 
 def normalize_vi(text: str) -> str:
     """Đổi mọi chữ số thành chữ; kết quả không còn ký tự 0-9."""
+    # hex 0x10 -> "không x một không"
+    text = re.sub(r"(?<![\w.,])0[xX]([0-9A-Fa-f]+)(?![\w])",
+                  lambda m: "không x " + " ".join(_DIGITS[int(c)] if c.isdigit() else c
+                                                  for c in m.group(1)), text)
     # ngày ISO 2024-01-15
-    text = re.sub(r"(?<![\w.,/-])(\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])(?![\w.,/-])",
+    text = re.sub(r"(?<![\w/-])(?<!\d[.,])(\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])(?![\w/-]|[.,]\d)",
                   lambda m: _iso_date(re.match(r"(\d+)-(\d+)-(\d+)", m.group(0))), text)
     # IP, phiên bản: từ 3 nhóm nối bằng '.', tuỳ chọn ':cổng'
     text = re.sub(rf"(?<![\d.,])({_DOTTED})(?::(\d+))?(?![\w]|[.,]\d)(-?)", _dotted, text)
@@ -145,7 +149,7 @@ def normalize_vi(text: str) -> str:
     text = re.sub(r"(?<![\w/])(\d+)/(\d+)(?![\w/])",
                   lambda m: f"{_number_words(m.group(1))} phần {_number_words(m.group(2))}", text)
     # khoảng: hai bên là số trần đứng riêng
-    text = re.sub(rf"(?<![\w.,/:-])({_NUM}%?)\s*[–—-]\s*({_NUM})(?:(?![\w.,/:-])|(?=(?:{_UNIT_KEYS})(?!\w)))",
+    text = re.sub(rf"(?<![\w/:-])(?<!\d[.,])({_NUM}%?)\s*[–—-]\s*({_NUM})(?:(?![\w/:-]|[.,]\d)|(?=(?:{_UNIT_KEYS})(?!\w)))",
                   lambda m: f"{m.group(1)} đến {m.group(2)}", text)
     # số âm
     text = re.sub(r"(?:(?<=^)|(?<=[\s(]))-(?=\d)", "âm ", text)

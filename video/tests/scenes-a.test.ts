@@ -92,13 +92,29 @@ const wideProps = (t: T, full = false) =>
   fillObject(specAt(t).propsSpec, specAt(t).example, full);
 
 // ---- Dựng timeline: một cảnh cho mỗi loại, tất cả cảnh dài 600 frame ----
+/** Số beat có phần tử neo vào (theo bảng 7-canh-a-giao-dien.md), từ ví dụ. */
+function anchored(t: T): number {
+  const ex = specAt(t).example as any;
+  switch (t) {
+    case 'big-number': return ex.note ? 2 : 1;
+    case 'compare': return ex.rows.length;
+    case 'myth-fact': return ex.pairs.length * 2;
+    case 'history-timeline': return ex.events.length;
+    case 'term-card': return 1 + (ex.definition ? 1 : 0) + (ex.example ? 1 : 0);
+    case 'chart': return ex.data.length;
+  }
+}
 const beatCount = (t: T) =>
-  Math.min(8, Math.max(specAt(t).minBeats, specAt(t).cues.length, 3));
+  Math.min(
+    8,
+    Math.max(specAt(t).minBeats, specAt(t).cues.length, 3, anchored(t)),
+  );
 
 function timeline(
   theme: ThemeId,
   propsOf: (t: T) => Record<string, unknown>,
   shift = 0,
+  shiftFrom = 0, // chỉ dịch các beat có chỉ số >= shiftFrom
 ): any {
   return {
     version: 2, fps: 30, width: 1920, height: 1080,
@@ -113,7 +129,7 @@ function timeline(
         const cue = specAt(t).cues[j];
         return {
           id: `b${String(i * 10 + j + 1).padStart(3, '0')}`,
-          startFrame: i * SCENE + BEAT_AT + 30 * j + shift,
+          startFrame: i * SCENE + BEAT_AT + 30 * j + (j >= shiftFrom ? shift : 0),
           durationFrames: 30,
           text: 'Câu ngắn.',
           ...(cue ? {cue} : {}),
@@ -196,6 +212,78 @@ describe('[7-A] spec của 6 loại cảnh nhóm A', () => {
   });
 });
 
+describe('[7-A] ghim số của bảng giao diện 7-canh-a-giao-dien.md', () => {
+  const get = (t: T, ...path: string[]): any => {
+    let n: any = {kind: 'object', shape: specAt(t).propsSpec};
+    for (const k of path) n = n.kind === 'array' ? n.of.shape[k] : n.shape[k];
+    return n;
+  };
+  const len = (t: T, max: number, ...path: string[]) =>
+    expect(get(t, ...path).maxLen, `${t}.${path.join('.')}`).toBe(max);
+  const items = (t: T, min: number, max: number, key: string) => {
+    expect([get(t, key).minItems, get(t, key).maxItems], `${t}.${key}`).toEqual(
+      [min, max],
+    );
+  };
+
+  test('không loại nào có cue riêng', () => {
+    for (const t of TYPES) expect(specAt(t).cues, t).toEqual([]);
+  });
+
+  test('minBeats: 1, 2, 2, 3, 1, 2', () => {
+    expect(TYPES.map((t) => specAt(t).minBeats)).toEqual([1, 2, 2, 3, 1, 2]);
+  });
+
+  test('big-number: label 80 (bắt buộc), note 100, prefix 12, suffix 16, decimals 0..3', () => {
+    len('big-number', 80, 'label');
+    len('big-number', 100, 'note');
+    len('big-number', 12, 'prefix');
+    len('big-number', 16, 'suffix');
+    expect(get('big-number', 'label').required).toBe(true);
+    expect(get('big-number', 'value').required).toBe(true);
+    expect(get('big-number', 'decimals').max).toBe(3);
+    expect(get('big-number', 'decimals').min).toBe(0);
+  });
+
+  test('compare: titleA/B 30, rows 2..5, label hàng 60', () => {
+    len('compare', 30, 'titleA');
+    len('compare', 30, 'titleB');
+    items('compare', 2, 5, 'rows');
+    len('compare', 60, 'rows', 'label');
+  });
+
+  test('myth-fact: pairs 1..3, myth 90, fact 120', () => {
+    items('myth-fact', 1, 3, 'pairs');
+    len('myth-fact', 90, 'pairs', 'myth');
+    len('myth-fact', 120, 'pairs', 'fact');
+  });
+
+  test('history-timeline: events 3..6, year 10, title 50, detail 100', () => {
+    items('history-timeline', 3, 6, 'events');
+    len('history-timeline', 10, 'events', 'year');
+    len('history-timeline', 50, 'events', 'title');
+    len('history-timeline', 100, 'events', 'detail');
+  });
+
+  test('term-card: term 40, tag 24, pronunciation 40, definition 160, example 110', () => {
+    len('term-card', 40, 'term');
+    len('term-card', 24, 'tag');
+    len('term-card', 40, 'pronunciation');
+    len('term-card', 160, 'definition');
+    len('term-card', 110, 'example');
+  });
+
+  test('chart: kind bar/line, data 2..8, label 16, title 60, unit 12, highlight 0..7', () => {
+    expect(get('chart', 'kind').oneOf).toEqual(['bar', 'line']);
+    items('chart', 2, 8, 'data');
+    len('chart', 16, 'data', 'label');
+    len('chart', 60, 'title');
+    len('chart', 12, 'unit');
+    expect(get('chart', 'highlight').min).toBe(0);
+    expect(get('chart', 'highlight').max).toBe(7);
+  });
+});
+
 describe('[7-A] luật nguồn: không blur, không URL, file đủ', () => {
   test.each(TYPES)('%s có scenes/<id>.tsx và specs/<id>.ts', (t) => {
     expect(existsSync(path.join(VIDEO_DIR, 'src/lib/scenes', `${t}.tsx`))).toBe(
@@ -244,13 +332,15 @@ beforeAll(async () => {
   });
 }, 300_000);
 
-type Variant = 'example' | 'shifted' | 'wide' | 'full';
+type Variant = 'example' | 'shifted' | 'wide' | 'full' | `from${number}`;
 const tlOf = (v: Variant, theme: ThemeId): any =>
   v === 'example'
     ? timeline(theme, exampleProps)
     : v === 'shifted'
       ? timeline(theme, exampleProps, SHIFT)
-      : timeline(theme, (t) => wideProps(t, v === 'full'));
+      : v.startsWith('from')
+        ? timeline(theme, exampleProps, SHIFT, Number(v.slice(4)))
+        : timeline(theme, (t) => wideProps(t, v === 'full'));
 
 const compositions = new Map<string, Promise<any>>();
 const cache = new Map<string, Promise<{p: Pixels; ms: number}>>();
@@ -319,7 +409,7 @@ d('[7-A] cảnh thật: không đơn sắc, neo beat, tốc độ (theme mau-a)'
       const {p} = await stillOf('example', 'mau-a', sceneFrame(t, MID));
       expect(nonColorRatio(p, BG, 0, MAIN_END)).toBeGreaterThan(0.005);
       // Hoạ tiết nền không mang màu chữ: chỉ nội dung cảnh mới có.
-      expect(inkIn(p, 'mau-a', 240, 1680, 100, 760)).toBeGreaterThan(1500);
+      expect(inkIn(p, 'mau-a', 240, 1680, 100, 760)).toBeGreaterThan(10_000);
     },
     180_000,
   );
@@ -347,7 +437,43 @@ d('[7-A] cảnh thật: không đơn sắc, neo beat, tốc độ (theme mau-a)'
       const a = await stillOf('example', 'mau-a', sceneFrame(t, BEFORE));
       const b = await stillOf('shifted', 'mau-a', sceneFrame(t, BEFORE));
       // Khác trong vùng chính y<830 (không nhờ dải phụ đề).
-      expect(diffRatio(a.p, b.p, 0, MAIN_END)).toBeGreaterThan(0.0005);
+      expect(diffRatio(a.p, b.p, 0, MAIN_END)).toBeGreaterThan(0.001);
+    },
+    180_000,
+  );
+
+  test.each(TYPES)(
+    '%s: phần tử k hiện đúng ở beat k (chỉ dịch beat k.. thì hình đổi)',
+    async (t) => {
+      // from{k}: beat có chỉ số >= k dịch +300. Hai bản liền nhau chỉ khác
+      // đúng beat k, nên hình ở frame 280 phải khác: phần tử k neo vào beat k
+      // (không phải beat khác, không phải mốc cố định).
+      for (let k = 0; k < anchored(t); k++) {
+        const a = await stillOf(`from${k}`, 'mau-a', sceneFrame(t, BEFORE));
+        const b = await stillOf(`from${k + 1}`, 'mau-a', sceneFrame(t, BEFORE));
+        expect(
+          diffRatio(a.p, b.p, 0, MAIN_END),
+          `beat ${k} không làm đổi hình`,
+        ).toBeGreaterThan(0.001);
+      }
+    },
+    600_000,
+  );
+
+  test.each(TYPES)(
+    '%s: chụp hai lần cùng frame cho hình gần như y hệt (hàm thuần của frame)',
+    async (t) => {
+      const a = await stillOf('example', 'mau-a', sceneFrame(t, MID));
+      const rerun = path.join(scratch, `again-${t}.png`);
+      const composition = await compositions.get('example:mau-a')!;
+      await renderStill({
+        composition, serveUrl, frame: sceneFrame(t, MID), output: rerun,
+        imageFormat: 'png', browserExecutable,
+      });
+      // Dung sai 0,5%: đo thật lệch 0,046% (máy tải cao), chart tới 0,227%.
+      expect(diffRatio(a.p, decodePng(rerun), 0, 1080)).toBeLessThanOrEqual(
+        0.005,
+      );
     },
     180_000,
   );
@@ -376,7 +502,7 @@ for (const id of THEME_IDS) {
       async ({v, t}) => {
         const {p} = await stillOf(v, id, sceneFrame(t, MID));
         expect(nonColorRatio(p, BG, 0, MAIN_END)).toBeGreaterThan(0.005);
-        expect(inkIn(p, id, 240, 1680, 100, 760)).toBeGreaterThan(1500);
+        expect(inkIn(p, id, 240, 1680, 100, 760)).toBeGreaterThan(10_000);
         expect(nonColorRatio(p, BG, MAIN_END, 1080)).toBe(0);
       },
       180_000,

@@ -382,7 +382,7 @@ describe('[6-3] lintEpisode: mỗi luật có mẫu sai', () => {
     });
     test('hợp lệ: props của custom: không bị kiểm khoá (tuỳ ý)', () => {
       const a = good();
-      a.scenes[2].props = {bat_ky: 1};
+      a.scenes[3].props = {bat_ky: 1};
       expect(errRules(lintEpisode(a))).toEqual([]);
     });
   });

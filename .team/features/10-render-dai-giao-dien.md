@@ -55,7 +55,7 @@ Segment = { "id": "seg-000", "startFrame": 0, "endFrame": 1799, "frames": 1800, 
 - Mã thoát chung: 0 sạch, 1 phát hiện hoặc lỗi dữ liệu, 2 sai tham số. Với `scan`/`compare`, 1 kèm danh sách khung.
 
 ## 5. Validator chung Python và TypeScript
-- Bộ mẫu chung: `.team/contract/timeline2.cases.json`: mảng `{ "name", "valid": bool, "patch": [{"path": "sfx.0.name", "value": ...}] }`; `patch` áp lên `timeline2.sample.json` (đường dẫn dạng `a.0.b`; `{"path": "...", "delete": true}` để xoá khoá). Cả `validateTimeline2` (TS) và `validate_timeline2` (Python, `aivideo.episode`) phải trả hợp lệ cho ca `valid: true` và có lỗi cho ca `valid: false`.
+- Bộ mẫu chung do TESTER-10 giữ: `audio/tests/data/timeline2-cases.json`, mỗi ca có `valid`; cả `validateTimeline2` (TS) và `validate_timeline2` (Python, `aivideo.episode`) phải khớp `valid`. Python hiện chưa kiểm tên SFX nên ca `sfx_ten_ngoai_danh_sach` đỏ cho tới khi BA cho sửa `episode.py` (đề mục 5).
 - Timeline do `episode build` sinh cho `_template` (engine fake) qua được `validateTimeline2` của TS.
 
 ## 6. Biến môi trường

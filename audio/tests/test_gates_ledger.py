@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
+
+import pytest
 
 from aivideo import gates
 
@@ -307,44 +310,116 @@ def test_ledger_show_dem_vong_theo_cap(tmp_path, capsys):
 
 # ---- ledger run / handoff -----------------------------------------------------
 
-def test_ledger_run_ma_thoat_0_ghi_dat(tmp_path, capsys):
-    eps, ep = _setup(tmp_path)
-    code, out, _ = run_cli(
+OK_CMD = [sys.executable, "-c", "print('ok')"]
+
+
+def _patch_cmds(monkeypatch, tmp_path, lint=OK_CMD, ky_thuat=OK_CMD):
+    (tmp_path / "repo" / "video").mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(gates, "LINT_CMD", list(lint))
+    monkeypatch.setattr(gates, "KY_THUAT_CMD", list(ky_thuat))
+
+
+def _run(capsys, eps, stage, *extra):
+    return run_cli(
         capsys,
-        ["ledger", "run", SLUG, "--episodes-dir", str(eps), "--stage", "lint",
-         "--", sys.executable, "-c", "print('ok')"],
+        ["ledger", "run", SLUG, "--episodes-dir", str(eps), "--stage", stage,
+         *extra],
     )
+
+
+@pytest.mark.parametrize("stage", ["lint", "ky-thuat"])
+def test_ledger_run_ma_thoat_0_ghi_dat_va_ghi_lenh_da_chay(
+    tmp_path, monkeypatch, capsys, stage
+):
+    eps, ep = _setup(tmp_path)
+    _patch_cmds(monkeypatch, tmp_path)
+    code, out, _ = _run(capsys, eps, stage)
     assert code == 0
     assert out["verdict"] == "DAT"
-    last = gates.Ledger(ep).last("lint")
+    last = gates.Ledger(ep).last(stage)
     assert last["verdict"] == "DAT"
+    assert last["cmd"] == OK_CMD
     assert last["scriptHash"] == gates.script_text_hash(
         json.loads((ep / "script.json").read_text(encoding="utf-8"))
     )
-    assert len(last["outputHash"]) == 64
+    assert last["outputHash"] == hashlib.sha256(b"ok\n").hexdigest()
 
 
-def test_ledger_run_ma_thoat_khac_0_ghi_chan(tmp_path, capsys):
+@pytest.mark.parametrize("stage", ["lint", "ky-thuat"])
+def test_ledger_run_ma_thoat_khac_0_ghi_chan(
+    tmp_path, monkeypatch, capsys, stage
+):
     eps, ep = _setup(tmp_path)
-    code, out, _ = run_cli(
-        capsys,
-        ["ledger", "run", SLUG, "--episodes-dir", str(eps), "--stage", "ky-thuat",
-         "--", sys.executable, "-c", "import sys; sys.exit(7)"],
-    )
+    bad = [sys.executable, "-c", "import sys; sys.exit(7)"]
+    _patch_cmds(monkeypatch, tmp_path, lint=bad, ky_thuat=bad)
+    code, out, _ = _run(capsys, eps, stage)
     assert code == 1
     assert out["verdict"] == "CHAN"
-    assert gates.Ledger(ep).last("ky-thuat")["verdict"] == "CHAN"
+    assert gates.Ledger(ep).last(stage)["verdict"] == "CHAN"
 
 
-def test_ledger_run_stage_la_bi_tu_choi(tmp_path, capsys):
+def test_ledger_run_thay_slug_trong_lenh_co_dinh(
+    tmp_path, monkeypatch, capsys
+):
     eps, ep = _setup(tmp_path)
-    code, _, err = run_cli(
-        capsys,
-        ["ledger", "run", SLUG, "--episodes-dir", str(eps), "--stage", "tuy-y",
-         "--", sys.executable, "-c", "pass"],
-    )
+    echo = [sys.executable, "-c", "import sys; print(sys.argv[1])", "{slug}"]
+    _patch_cmds(monkeypatch, tmp_path, ky_thuat=echo)
+    code, _, _ = _run(capsys, eps, "ky-thuat")
+    assert code == 0
+    last = gates.Ledger(ep).last("ky-thuat")
+    assert last["cmd"][-1] == SLUG
+    assert last["outputHash"] == hashlib.sha256(f"{SLUG}\n".encode()).hexdigest()
+
+
+def test_ledger_run_lint_chay_trong_thu_muc_video_cua_repo(
+    tmp_path, monkeypatch, capsys
+):
+    eps, ep = _setup(tmp_path)
+    pwd = [sys.executable, "-c", "import os; print(os.getcwd())"]
+    _patch_cmds(monkeypatch, tmp_path, lint=pwd)
+    code, _, _ = _run(capsys, eps, "lint")
+    assert code == 0
+    want = str((tmp_path / "repo" / "video").resolve()) + "\n"
+    assert gates.Ledger(ep).last("lint")["outputHash"] == hashlib.sha256(
+        want.encode()
+    ).hexdigest()
+
+
+def test_ledger_run_stage_la_bi_tu_choi(tmp_path, monkeypatch, capsys):
+    eps, ep = _setup(tmp_path)
+    _patch_cmds(monkeypatch, tmp_path)
+    code, _, err = _run(capsys, eps, "tuy-y")
     assert code == 1
+    assert "lỗi" in err
     assert not (ep / "ledger.json").exists()
+
+
+@pytest.mark.parametrize("cmd", [["true"], ["echo", "x"], ["python3", "-c", "pass"]])
+@pytest.mark.parametrize("stage", ["lint", "ky-thuat"])
+def test_ledger_run_khong_nhan_lenh_tuy_y_sau_dau_gach_gach(
+    tmp_path, capsys, stage, cmd
+):
+    eps, ep = _setup(tmp_path)
+    with pytest.raises(SystemExit) as e:
+        _run(capsys, eps, stage, "--", *cmd)
+    assert e.value.code == 2
+    capsys.readouterr()
+    assert not (ep / "ledger.json").exists()
+
+
+def test_ledger_run_bo_qua_bien_moi_truong_thay_lenh(
+    tmp_path, monkeypatch, capsys
+):
+    # lỗ hổng cũ: đặt biến môi trường thành `true` để ghi DAT giả
+    eps, ep = _setup(tmp_path)
+    bad = [sys.executable, "-c", "import sys; sys.exit(3)"]
+    _patch_cmds(monkeypatch, tmp_path, lint=bad, ky_thuat=bad)
+    for var in ("AIVIDEO_TEST_CMD_LINT", "AIVIDEO_TEST_CMD_KY_THUAT"):
+        monkeypatch.setenv(var, "true")
+    for stage in ("lint", "ky-thuat"):
+        code, out, _ = _run(capsys, eps, stage)
+        assert (code, out["verdict"]) == (1, "CHAN")
+        assert gates.Ledger(ep).last(stage)["cmd"] == bad
 
 
 def test_ledger_handoff_tao_nam_muc_va_khong_ghi_de(tmp_path, capsys):

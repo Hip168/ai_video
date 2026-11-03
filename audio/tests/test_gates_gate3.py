@@ -20,6 +20,8 @@ from gates_support import (
     write_json,
 )
 
+OK_CMD = [sys.executable, "-c", "print(1)"]
+FAIL_CMD = [sys.executable, "-c", "import sys; sys.exit(1)"]
 KENH = {
     "channelId": "UC_kenh_thu_123",
     "handle": "@kenhthu",
@@ -39,7 +41,14 @@ PUBLISH = {
 
 
 class Env:
-    def __init__(self, tmp_path, *, cong2=True, stages=("lint", "ky-thuat", "qc")):
+    def __init__(
+        self, tmp_path, monkeypatch, *, cong2=True, stages=("lint", "ky-thuat", "qc")
+    ):
+        self.mp = monkeypatch
+        # lint chạy trong <repo>/video; lệnh thật được thay bằng lệnh giả
+        # bằng cách monkeypatch hằng trong cùng tiến trình.
+        (tmp_path / "repo" / "video").mkdir(parents=True)
+        self.set_cmds(OK_CMD, OK_CMD)
         self.eps, self.ep = make_episode(
             tmp_path,
             texts={"b001": "Có 42 người xem."},
@@ -56,9 +65,7 @@ class Env:
             assert gates.gate2(SLUG, self.eps)["pass"]
         for stage in ("lint", "ky-thuat"):
             if stage in stages:
-                r = gates.ledger_run(
-                    self.ep, stage, [sys.executable, "-c", "print(1)"]
-                )
+                r = gates.ledger_run(self.ep, stage)
                 assert r["verdict"] == "DAT"
         self.qc_findings = write_findings(self.ep / "qc.json", [])
         if "qc" in stages:
@@ -67,6 +74,10 @@ class Env:
                 findings=self.qc_findings, root=self.ep, artifact=self.video,
             )
             assert r["verdict"] == "DAT"
+
+    def set_cmds(self, lint, ky_thuat):
+        self.mp.setattr(gates, "LINT_CMD", list(lint))
+        self.mp.setattr(gates, "KY_THUAT_CMD", list(ky_thuat))
 
     def gate3(self, **kw):
         kw.setdefault("kenh_path", self.kenh)
@@ -85,8 +96,8 @@ class Env:
 
 
 @pytest.fixture
-def env(tmp_path):
-    return Env(tmp_path)
+def env(tmp_path, monkeypatch):
+    return Env(tmp_path, monkeypatch)
 
 
 def _only_failing(env, res):
@@ -147,8 +158,8 @@ def test_gate3_chan_khi_claims_doi_sau_cong2(env):
     assert "hash-kich-ban" in _only_failing(env, r)
 
 
-def test_gate3_chan_khi_chua_qua_cong2(tmp_path):
-    e = Env(tmp_path, cong2=False)
+def test_gate3_chan_khi_chua_qua_cong2(tmp_path, monkeypatch):
+    e = Env(tmp_path, monkeypatch, cong2=False)
     r = e.gate3()
     assert r["pass"] is False
     assert "hash-kich-ban" in _only_failing(e, r)
@@ -187,17 +198,18 @@ def test_gate3_chan_dong_phan_quyet_sai_dinh_dang_hoac_sai_hash(env, line):
 
 
 @pytest.mark.parametrize("stage", ["lint", "ky-thuat", "qc"])
-def test_gate3_chan_khi_thieu_muc_so_tap_cua_khau(tmp_path, stage):
+def test_gate3_chan_khi_thieu_muc_so_tap_cua_khau(tmp_path, monkeypatch, stage):
     keep = tuple(x for x in ("lint", "ky-thuat", "qc") if x != stage)
-    e = Env(tmp_path, stages=keep)
+    e = Env(tmp_path, monkeypatch, stages=keep)
     r = e.gate3()
     assert r["pass"] is False
     assert stage in _only_failing(e, r)
 
 
-def test_gate3_chan_khi_lint_do(tmp_path):
-    e = Env(tmp_path)
-    gates.ledger_run(e.ep, "lint", [sys.executable, "-c", "import sys; sys.exit(1)"])
+def test_gate3_chan_khi_lint_do(tmp_path, monkeypatch):
+    e = Env(tmp_path, monkeypatch)
+    e.set_cmds(FAIL_CMD, OK_CMD)
+    gates.ledger_run(e.ep, "lint")
     r = e.gate3()
     assert r["pass"] is False
     assert "lint" in _only_failing(e, r)
@@ -215,8 +227,8 @@ def test_gate3_lint_chay_tren_kich_ban_cu_thi_chan(env):
     assert {"lint", "ky-thuat", "qc"} <= set(failing)
 
 
-def test_gate3_chan_khi_qc_chan(tmp_path):
-    e = Env(tmp_path)
+def test_gate3_chan_khi_qc_chan(tmp_path, monkeypatch):
+    e = Env(tmp_path, monkeypatch)
     f = write_findings(
         e.ep / "qc2.json",
         [finding("CRITICAL", "Có 42", file="script.json", rule="so-sai")],
@@ -358,3 +370,40 @@ def test_gate3_cli_ma_thoat(env, capsys):
     )
     assert code == 1
     assert data["pass"] is False
+
+
+# ---- lệnh trong sổ phải là lệnh cố định ----------------------------------------
+
+@pytest.mark.parametrize("stage", ["lint", "ky-thuat"])
+def test_gate3_chan_khi_muc_so_tap_co_lenh_true_gia_mao(env, stage):
+    # ghi tay một mục DAT với cmd ["true"] thay vì lệnh cố định
+    cur = gates.Ledger(env.ep).last(stage)["scriptHash"]
+    gates.Ledger(env.ep).add(
+        stage=stage, role="sep-tong", verdict="DAT", script_hash=cur,
+        output_hash="0" * 64, cmd=["true"],
+    )
+    r = env.gate3()
+    assert r["pass"] is False
+    assert stage in _only_failing(env, r)
+
+
+@pytest.mark.parametrize("stage", ["lint", "ky-thuat"])
+def test_gate3_chan_khi_muc_so_tap_khong_ghi_lenh(env, stage):
+    cur = gates.Ledger(env.ep).last(stage)["scriptHash"]
+    gates.Ledger(env.ep).add(
+        stage=stage, role="sep-tong", verdict="DAT", script_hash=cur,
+        output_hash="0" * 64,
+    )
+    r = env.gate3()
+    assert r["pass"] is False
+    assert stage in _only_failing(env, r)
+
+
+def test_gate3_chan_khi_lenh_trong_so_khac_hang_cua_ma(env):
+    # sổ ghi bằng lệnh giả của test; bỏ monkeypatch thì lệnh thật khác lệnh
+    # đã ghi nên cả lint và ky-thuat đều bị chặn.
+    assert env.gate3()["pass"] is True
+    env.mp.undo()
+    r = env.gate3()
+    assert r["pass"] is False
+    assert {"lint", "ky-thuat"} <= set(_only_failing(env, r))

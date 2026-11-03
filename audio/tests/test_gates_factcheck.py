@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import shutil
 
 import pytest
 from aivideo import gates
@@ -12,6 +13,7 @@ from gates_support import (
     ROLES_DIR,
     SLUG,
     claim,
+    write_json,
     finding,
     make_episode,
     run_cli,
@@ -30,6 +32,7 @@ CLAIMS = [
 def ep_env(tmp_path):
     eps, ep = make_episode(
         tmp_path,
+        fact=False,
         texts={"b001": f"{SECRET} về pi 3,14.", "b002": f"{SECRET} khác."},
         beat_claims={"b001": ["c001"], "b002": ["c002"]},
         claims=CLAIMS,
@@ -296,3 +299,115 @@ def test_apply_cli_claim_doi_sau_prepare_ma_thoat_1(ep_env, capsys):
     assert data is None
     assert "lỗi" in err
     assert _statuses(ep)["c002"] == "DAT"
+
+
+# ---- sổ tập ghi fact-prepare và fact (P6, P7) -----------------------------------
+
+import hashlib  # noqa: E402
+
+
+def _sha(path):
+    return hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
+
+
+def test_prepare_ghi_muc_fact_prepare_voi_ten_lo_va_hash_claim(ep_env):
+    eps, ep, out = ep_env
+    res = _prepare(eps, out)
+    ents = [e for e in gates.Ledger(ep).entries() if e["stage"] == "fact-prepare"]
+    assert len(ents) == 1
+    e = ents[0]
+    assert e["note"] == pathlib.Path(res["batchDir"]).name
+    assert set(e["claimHashes"]) == {"c001", "c002"}
+    assert e["claimsHash"] == _sha(ep / "claims.json")
+    assert all(len(h) == 64 for h in e["claimHashes"].values())
+
+
+def test_prepare_khong_ghi_file_meta_canh_thu_muc_lo(ep_env):
+    eps, ep, out = ep_env
+    res = _prepare(eps, out)
+    assert sorted(p.name for p in out.iterdir()) == [
+        pathlib.Path(res["batchDir"]).name
+    ]
+
+
+def test_apply_ghi_muc_fact_voi_hash_claims_sau_khi_ap_va_ten_lo(ep_env):
+    eps, ep, batch, f = _apply(
+        ep_env,
+        [finding("CRITICAL", "Pi xấp xỉ 3,14.", file="items.json", rule="claim:c001")],
+    )
+    res = gates.apply_factcheck(SLUG, eps, f, batch)
+    last = gates.Ledger(ep).last("fact")
+    assert last["note"] == pathlib.Path(batch).name
+    assert last["claimsHash"] == _sha(ep / "claims.json")
+    assert last["verdict"] == res["verdict"] == "CHAN"
+
+
+def test_apply_hai_lan_tren_cung_lo_ghi_hai_muc_fact_va_hash_moi_nhat_khop(ep_env):
+    eps, ep, batch, f = _apply(ep_env, [])
+    gates.apply_factcheck(SLUG, eps, f, batch)
+    f2 = write_findings(
+        pathlib.Path(batch) / "f2.json",
+        [finding("MAJOR", "Linus công bố", file="items.json", rule="claim:c002")],
+    )
+    gates.apply_factcheck(SLUG, eps, f2, batch)
+    facts = [e for e in gates.Ledger(ep).entries() if e["stage"] == "fact"]
+    assert len(facts) == 2
+    assert facts[-1]["claimsHash"] == _sha(ep / "claims.json")
+    assert facts[0]["claimsHash"] != facts[-1]["claimsHash"]
+
+
+def test_apply_chan_khi_lo_khong_co_muc_fact_prepare_trong_so(ep_env, tmp_path):
+    # P7: lô do kẻ sửa tay dựng, tên không có trong sổ tập
+    eps, ep, batch, f = _apply(ep_env, [])
+    fake = tmp_path / "ngoai-repo" / "lo-gia-mao"
+    shutil.copytree(batch, fake)
+    before = (ep / "claims.json").read_bytes()
+    with pytest.raises(gates.GateError):
+        gates.apply_factcheck(SLUG, eps, fake / "findings.json", fake)
+    assert (ep / "claims.json").read_bytes() == before
+    assert gates.Ledger(ep).last("fact") is None
+
+
+def test_apply_chan_khi_sua_claim_roi_chinh_lai_hash_trong_file_phu_khong_co_tac_dung(
+    ep_env,
+):
+    # không còn file meta để sửa: đổi claim thì vẫn lệch hash trong sổ
+    eps, ep, batch, f = _apply(ep_env, [])
+    claims = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    claims[0]["claim"] = "Pi xấp xỉ 3,15."
+    write_json(ep / "claims.json", claims)
+    pathlib.Path(batch + ".meta.json").write_text("{}", encoding="utf-8")
+    with pytest.raises(gates.GateError):
+        gates.apply_factcheck(SLUG, eps, f, batch)
+
+
+def test_apply_chan_khi_sua_tay_muc_fact_prepare_lam_vo_chuoi_hash_so(ep_env):
+    eps, ep, batch, f = _apply(ep_env, [])
+    claims = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    claims[0]["claim"] = "Pi xấp xỉ 3,15."
+    write_json(ep / "claims.json", claims)
+    led = json.loads((ep / "ledger.json").read_text(encoding="utf-8"))
+    prep = [e for e in led["entries"] if e["stage"] == "fact-prepare"][-1]
+    prep["claimHashes"]["c001"] = gates.claim_hash(claims[0])
+    (ep / "ledger.json").write_text(json.dumps(led, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(gates.GateError, match="chuỗi hash"):
+        gates.apply_factcheck(SLUG, eps, f, batch)
+    stages = [
+        e["stage"]
+        for e in json.loads((ep / "ledger.json").read_text(encoding="utf-8"))["entries"]
+    ]
+    assert "fact" not in stages
+
+
+def test_apply_chi_so_voi_muc_fact_prepare_cua_dung_lo(ep_env):
+    eps, ep, out = ep_env
+    a = _prepare(eps, out)
+    b = _prepare(eps, out)
+    fa = write_findings(pathlib.Path(a["batchDir"]) / "f.json", [])
+    gates.apply_factcheck(SLUG, eps, fa, a["batchDir"])
+    fb = write_findings(pathlib.Path(b["batchDir"]) / "f.json", [])
+    gates.apply_factcheck(SLUG, eps, fb, b["batchDir"])
+    notes = [e["note"] for e in gates.Ledger(ep).entries() if e["stage"] == "fact"]
+    assert notes == [
+        pathlib.Path(a["batchDir"]).name, pathlib.Path(b["batchDir"]).name
+    ]

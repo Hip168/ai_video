@@ -57,13 +57,58 @@ def write_json(path: Path, obj) -> None:
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+ROLE_FACT = ROLES_DIR / "fact-checker.md"
+
+
+def run_fact_flow(eps, ep, tmp_path, claims, slug=SLUG):
+    """Đưa `claims` vào sổ tập đúng luồng: prepare-factcheck rồi apply-factcheck.
+
+    `claims.json` được ghi với mọi status DAT, người kiểm (giả) báo CRITICAL
+    cho claim muốn SAI và MAJOR cho claim muốn CHUA_KIEM; sau `apply` file có
+    đúng status mong muốn và sổ có mục `fact` khớp hash.
+    """
+    first = [dict(c, status="DAT") for c in claims]
+    write_json(ep / "claims.json", first)
+    res = gates.prepare_factcheck(
+        slug, eps, ROLE_FACT, tmp_parent=tmp_path / "lo-tam"
+    )
+    found = []
+    for c in claims:
+        sev = {"SAI": "CRITICAL", "CHUA_KIEM": "MAJOR"}.get(c["status"])
+        if sev:
+            found.append(finding(sev, c["claim"], file="items.json",
+                                 rule=f"claim:{c['id']}", owner="researcher"))
+    fpath = write_findings(Path(res["batchDir"]) / "findings.json", found)
+    out = gates.apply_factcheck(slug, eps, fpath, res["batchDir"])
+    assert {c["id"]: c["status"] for c in claims} == out["updated"], out
+    return res["batchDir"]
+
+
+def _flow_ok(claims) -> bool:
+    return isinstance(claims, list) and all(
+        isinstance(c, dict)
+        and isinstance(c.get("id"), str) and c["id"]
+        and isinstance(c.get("claim"), str) and c["claim"]
+        and isinstance(c.get("question"), str) and c["question"]
+        and c.get("status") in ("DAT", "SAI", "CHUA_KIEM")
+        for c in claims
+    ) and len({c["id"] for c in claims}) == len(claims)
+
+
 def make_episode(tmp_path, *, texts=None, beat_claims=None, spoken=None,
-                 claims=None, slug=SLUG):
-    """Trả (episodes_dir, đường dẫn thư mục tập)."""
+                 claims=None, slug=SLUG, fact=True):
+    """Trả (episodes_dir, đường dẫn thư mục tập).
+
+    `fact=True`: nếu `claims` hợp lệ để chạy prepare/apply thì sổ tập có sẵn
+    mục `fact` khớp `claims.json` (như sau một lượt fact-checker thật).
+    """
     eps = tmp_path / "repo" / "episodes"
     ep = eps / slug
     write_json(ep / "script.json", make_script(texts, beat_claims, spoken))
-    write_json(ep / "claims.json", claims if claims is not None else [])
+    claims = claims if claims is not None else []
+    write_json(ep / "claims.json", claims)
+    if fact and _flow_ok(claims):
+        run_fact_flow(eps, ep, tmp_path, claims, slug)
     return eps, ep
 
 

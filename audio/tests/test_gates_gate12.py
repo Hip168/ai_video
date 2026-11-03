@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 import pytest
 from aivideo import gates
 
@@ -13,6 +15,7 @@ from gates_support import (
     make_script,
     problems_text,
     run_cli,
+    run_fact_flow,
     SLUG,
 )
 
@@ -427,7 +430,7 @@ def test_gate2_chan_thieu_script(tmp_path):
 def test_gate2_dat_ghi_so_tap_cong2_con_no_ledger_thi_khong(tmp_path):
     eps, ep = make_episode(tmp_path)
     gates.gate2(SLUG, eps, write_ledger=False)
-    assert not (ep / "ledger.json").exists()
+    assert gates.Ledger(ep).last("cong2") is None
     r = gates.gate2(SLUG, eps)
     led = gates.Ledger(ep)
     last = led.last("cong2")
@@ -439,7 +442,7 @@ def test_gate2_dat_ghi_so_tap_cong2_con_no_ledger_thi_khong(tmp_path):
 def test_gate2_chan_khong_ghi_so_tap(tmp_path):
     eps, ep = make_episode(tmp_path, texts={"b001": "Có 42 người."})
     assert gates.gate2(SLUG, eps)["pass"] is False
-    assert not (ep / "ledger.json").exists()
+    assert gates.Ledger(ep).last("cong2") is None
 
 
 def test_gate2_cli_ma_thoat(tmp_path, capsys):
@@ -653,5 +656,79 @@ def test_gate2_dat_so_am_5_khi_claim_cung_noi_am_5(tmp_path):
         texts={"b001": "Nhiệt độ xuống -5 độ."},
         beat_claims={"b001": ["c001"]},
         claims=[claim("c001", "Nhiệt độ xuống -5 độ.")],
+    )
+    assert _g2(eps)["pass"] is True
+
+
+# ---- P6: status phải qua apply-factcheck, không sửa tay -----------------------------
+
+def test_gate2_chan_khi_chua_co_muc_fact_trong_so(tmp_path):
+    eps, _ = make_episode(tmp_path, fact=False)
+    r = _g2(eps)
+    assert r["pass"] is False
+    assert "mục fact" in problems_text(r)
+
+
+def test_gate2_chan_khi_chua_co_muc_fact_du_claims_khong_dung_den(tmp_path):
+    eps, _ = make_episode(
+        tmp_path, claims=[claim("c001", "Một điều.")], fact=False
+    )
+    assert _g2(eps)["pass"] is False
+
+
+def test_gate2_dat_khi_sau_apply_factcheck_claims_khong_doi(tmp_path):
+    eps, _ = make_episode(tmp_path, claims=[claim("c001", "Một điều.")])
+    assert _g2(eps)["pass"] is True
+
+
+def test_gate2_chan_khi_sua_tay_status_chua_kiem_thanh_dat(tmp_path):
+    # claim CHUA_KIEM đi qua fact-checker; kẻ sửa tay đổi thành DAT
+    eps, ep = make_episode(
+        tmp_path,
+        texts={"b001": "Có 42 người xem."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", "Có 42 người xem.", status="CHUA_KIEM")],
+    )
+    assert _g2(eps)["pass"] is False  # trước khi sửa: chặn vì CHUA_KIEM
+    docs = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    docs[0]["status"] = "DAT"
+    (ep / "claims.json").write_text(json.dumps(docs, ensure_ascii=False), encoding="utf-8")
+    r = _g2(eps)
+    assert r["pass"] is False
+    assert "đã đổi sau lần apply-factcheck" in problems_text(r)
+
+
+def test_gate2_chan_khi_sua_tay_noi_dung_claim_du_giu_status_dat(tmp_path):
+    eps, ep = make_episode(
+        tmp_path,
+        texts={"b001": "Có 42 người xem."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", "Có 43 người xem.")],
+    )
+    docs = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    docs[0]["claim"] = "Có 42 người xem."  # sửa cho khớp lời đọc
+    (ep / "claims.json").write_text(json.dumps(docs, ensure_ascii=False), encoding="utf-8")
+    r = _g2(eps)
+    assert r["pass"] is False
+    assert "đã đổi sau lần apply-factcheck" in problems_text(r)
+
+
+def test_gate2_chan_khi_them_nguon_hay_claim_sau_apply(tmp_path):
+    eps, ep = make_episode(tmp_path, claims=[claim("c001", "Một điều.")])
+    docs = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    docs.append(claim("c002", "Thêm sau."))
+    (ep / "claims.json").write_text(json.dumps(docs, ensure_ascii=False), encoding="utf-8")
+    assert _g2(eps)["pass"] is False
+
+
+def test_gate2_dat_lai_sau_khi_chay_lai_luong_fact(tmp_path):
+    eps, ep = make_episode(
+        tmp_path,
+        texts={"b001": "Có 42 người xem."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", "Có 43 người xem.")],
+    )
+    run_fact_flow(
+        eps, ep, tmp_path, [claim("c001", "Có 42 người xem.")]
     )
     assert _g2(eps)["pass"] is True

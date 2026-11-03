@@ -17,6 +17,8 @@ from gates_support import (
     finding,
     first_beat,
     make_episode,
+    problems_text,
+    run_fact_flow,
     run_cli,
     write_findings,
     write_json,
@@ -67,6 +69,7 @@ class Env:
         use_git=True,
     ):
         self.mp = monkeypatch
+        self.tmp = tmp_path
         self.repo = tmp_path / "repo"
         # lint chạy trong <repo>/video; lệnh thật được thay bằng lệnh giả
         # bằng cách monkeypatch hằng trong cùng tiến trình.
@@ -498,20 +501,29 @@ def test_gate3_chan_khi_thieu_claims_json_du_so_tap_co_cong2_gia(env):
 
 
 def test_gate3_chan_khi_loi_doc_co_so_ma_khong_con_claim_du_cong2_gia(env):
-    write_json(env.ep / "claims.json", [])
+    # sổ `fact` hợp lệ cho claims rỗng: chỉ còn lỗi "số không có claim"
+    run_fact_flow(env.eps, env.ep, env.tmp, [])
     _forge_cong2(env)
+    g2 = gates.gate2(SLUG, env.eps, write_ledger=False)
+    assert g2["pass"] is False
+    assert "apply-factcheck" not in problems_text(g2)
     r = env.gate3()
     assert r["pass"] is False
+    assert "cong2-lai" in _only_failing(env, r)
     assert gates.Ledger(env.ep).last("cong3") is None
 
 
 def test_gate3_chan_khi_claim_chua_kiem_du_cong2_gia(env):
-    write_json(
-        env.ep / "claims.json",
+    run_fact_flow(
+        env.eps, env.ep, env.tmp,
         [claim("c001", "Có 42 người xem.", status="CHUA_KIEM")],
     )
     _forge_cong2(env)
-    assert env.gate3()["pass"] is False
+    g2 = gates.gate2(SLUG, env.eps, write_ledger=False)
+    assert g2["pass"] is False
+    assert "apply-factcheck" not in problems_text(g2)
+    assert "c001" in problems_text(g2)
+    assert "cong2-lai" in _only_failing(env, env.gate3())
 
 
 def test_gate3_cong2_lai_la_mot_muc_kiem_rieng(env):
@@ -723,3 +735,13 @@ def test_gate3_nop_thang_handoff_qc_json_van_dat(env):
     assert r["verdict"] == "DAT"
     res = env.gate3(video=env.video)
     assert env.checks(res)["qc-bang-chung"]["ok"] is True
+
+
+def test_gate3_chan_khi_sua_tay_status_claims_sau_apply(env):
+    docs = json.loads((env.ep / "claims.json").read_text(encoding="utf-8"))
+    docs[0]["status"] = "DAT"
+    docs[0]["claim"] = "Có 42 người xem (sửa tay)."
+    write_json(env.ep / "claims.json", docs)
+    r = env.gate3()
+    assert r["pass"] is False
+    assert "cong2-lai" in _only_failing(env, r)

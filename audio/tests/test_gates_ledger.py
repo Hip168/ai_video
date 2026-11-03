@@ -22,7 +22,7 @@ PAIR = "scriptwriter/script-editor"
 
 
 def _setup(tmp_path):
-    eps, ep = make_episode(tmp_path)
+    eps, ep = make_episode(tmp_path, fact=False)
     (ep / "a.txt").write_text("Dòng một có lỗi A.\nDòng hai có lỗi B.\n", encoding="utf-8")
     return eps, ep
 
@@ -101,7 +101,7 @@ def test_ledger_cap_khac_nhau_dem_vong_rieng(tmp_path, capsys):
         _check(capsys, eps, ep, "MAJOR", q, rule=f"r{n}")
     code, out, _ = _check(
         capsys, eps, ep, "MAJOR", "Dòng hai",
-        stage="fact", pair="researcher/fact-checker",
+        stage="doi-chieu", pair="researcher/fact-checker",
     )
     assert code == 0
     assert out["round"] == 1
@@ -472,7 +472,9 @@ def test_ledger_qc_ghi_dong_phan_quyet(tmp_path, capsys):
 
 # ---- khâu dành riêng cho script cổng ------------------------------------------
 
-@pytest.mark.parametrize("stage", ["cong2", "cong3", "lint", "ky-thuat"])
+@pytest.mark.parametrize(
+    "stage", ["cong2", "cong3", "lint", "ky-thuat", "fact", "fact-prepare"]
+)
 def test_ledger_add_tu_choi_khau_danh_rieng_khong_findings(
     tmp_path, capsys, stage
 ):
@@ -486,7 +488,9 @@ def test_ledger_add_tu_choi_khau_danh_rieng_khong_findings(
     assert not (ep / "ledger.json").exists()
 
 
-@pytest.mark.parametrize("stage", ["cong2", "cong3", "lint", "ky-thuat"])
+@pytest.mark.parametrize(
+    "stage", ["cong2", "cong3", "lint", "ky-thuat", "fact", "fact-prepare"]
+)
 def test_ledger_add_tu_choi_khau_danh_rieng_co_findings_rong(
     tmp_path, capsys, stage
 ):

@@ -73,6 +73,11 @@ def _minutes(m: str) -> str:
     return " " + ("không " + _DIGITS[n] if n < 10 else audio.number_to_words(n))
 
 
+def _mm(m: str) -> str:
+    n = int(m)
+    return ("không " + _DIGITS[n]) if m[0] == "0" and n else audio.number_to_words(n)
+
+
 def _leftover(m: re.Match) -> str:
     s = m.string
     w = _small(m.group(0))
@@ -83,18 +88,34 @@ def _leftover(m: re.Match) -> str:
     return w
 
 
-_DOTTED = r"\d+(?:\.\d+){2,}"
+_DOTTED = r"\d+(?:\.\d+)+"
+
+
+def _is_ip(groups: list[str]) -> bool:
+    if not (len(groups) == 4 and all(1 <= len(g) <= 3 and int(g) <= 255 for g in groups)):
+        return False
+    rest = groups[1:]
+    return not (all(len(g) == 3 for g in rest) and "000" in rest)
 
 
 def _dotted(m: re.Match) -> str:
-    tok = m.group(1)
-    if re.fullmatch(_THOUSANDS, tok):  # 1.000.000 là số nghìn
+    """Chuỗi số nối '.' theo thứ tự: IP, số nghìn, phiên bản, (thập phân: để nguyên)."""
+    tok, port = m.group(1), m.group(2)
+    groups = tok.split(".")
+    before = m.string[m.start() - 1] if m.start() > 0 else ""
+    if _is_ip(groups):
+        out = " chấm ".join(_number_words(g) for g in groups)
+    elif re.fullmatch(_THOUSANDS, tok):
         out = _number_words(tok)
+    elif len(groups) >= 3 or before.isalpha():
+        out = " chấm ".join(_number_words(g) for g in groups)
     else:
-        out = " chấm ".join(_number_words(g) for g in tok.split("."))
-    if m.group(2):
-        out += " cổng " + _number_words(m.group(2))
-    if m.start() > 0 and m.string[m.start() - 1].isalnum():
+        return m.group(0)  # hai nhóm, không chữ phía trước: thập phân, xử lý ở bước sau
+    if port:
+        out += " cổng " + _number_words(port)
+    if m.group(3):
+        out += " "
+    if before.isalnum():
         out = " " + out
     return out
 
@@ -110,10 +131,14 @@ _RNUM = r"\d+(?:[.,]\d+)?"
 def normalize_vi(text: str) -> str:
     """Đổi mọi chữ số thành chữ; kết quả không còn ký tự 0-9."""
     # ngày ISO 2024-01-15
-    text = re.sub(r"(?<![\w.,/-])(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])(?![\w.,/-])",
+    text = re.sub(r"(?<![\w.,/-])(\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|[12]\d|3[01])(?![\w.,/-])",
                   lambda m: _iso_date(re.match(r"(\d+)-(\d+)-(\d+)", m.group(0))), text)
     # IP, phiên bản: từ 3 nhóm nối bằng '.', tuỳ chọn ':cổng'
-    text = re.sub(rf"(?<![\d.,])({_DOTTED})(?::(\d{{1,5}}))?(?![\w]|[.,]\d)", _dotted, text)
+    text = re.sub(rf"(?<![\d.,])({_DOTTED})(?::(\d+))?(?![\w]|[.,]\d)(-?)", _dotted, text)
+    # giờ:phút:giây 12:30:45
+    text = re.sub(r"(?<![\w.:])([01]?\d|2[0-3]):([0-5]\d):([0-5]\d)(?![\d:])",
+                  lambda m: (f"{audio.number_to_words(int(m.group(1)))} giờ {_mm(m.group(2))} phút "
+                             f"{_mm(m.group(3))} giây"), text)
     # giờ 12:30
     text = re.sub(r"(?<![\w.:])([01]?\d|2[0-3]):([0-5]\d)(?![\d:])",
                   lambda m: f"{audio.number_to_words(int(m.group(1)))} giờ{_minutes(m.group(2))}", text)

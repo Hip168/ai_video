@@ -7,13 +7,16 @@ Người dùng chọn Duyệt ở Pha 4d ngày 2026-10-31. Luật đầy đủ: 
 
 ## Luôn dừng và hỏi người dùng
 - Test đỏ do code sai tiêu chí, CI đỏ, main đỏ, `BỊ CHẶN`.
-- Review có phát hiện.
+- Review có phát hiện: KHÔNG hỏi nữa (người dùng chốt 2026-11-03). Lỗi rõ ràng thì giao DEV sửa, DEV-LEAD và TEST-LEAD kiểm lại. Chỉ hỏi khi sửa làm đổi hành vi đã chốt hoặc rất tốn.
 - `CẦN BA` mà `.team/` không trả lời được.
 - Cài hoặc chạy trên server, tài khoản thật.
 - Mở khoá file khoá, force push, xoá nhánh, sửa `.github/workflows`.
 - Đổi hành vi đã chốt, thêm tính năng ngoài issue đã duyệt.
 - Xung đột merge không chắc.
 - Hệ thống phân quyền từ chối lệnh.
+
+## Quyền đã cấp
+- Merge PR (người dùng chốt 2026-11-03): DEPLOY được tự `gh pr merge <số> --merge` khi PR đã qua TEST-LEAD `DUYỆT`, review đã xử lý, CI xanh. Vẫn không xoá nhánh, không force push. Nếu hệ thống phân quyền vẫn chặn thì báo người dùng thêm quy tắc cho phép, không lách.
 
 ## Điểm dừng riêng của dự án này
 - [1-4]: người dùng nghe và chọn engine + giọng.

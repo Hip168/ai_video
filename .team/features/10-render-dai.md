@@ -26,6 +26,7 @@ Nhánh `10-render-dai`. Phụ thuộc đề mục 6, gặp đề mục 9 ở tí
 - Validator Python (`validate_timeline2`) kiểm tên SFX trong `timeline.json` như validator TypeScript; có bộ mẫu sai chung chạy qua cả hai và cho cùng kết quả hợp lệ hoặc không.
 - Mọi trình duyệt mở trong `render-episode.ts` được đóng trong `finally`, kể cả khi lỗi hoặc Ctrl-C; sau khi chạy không còn tiến trình `chrome-headless-shell` mồ côi.
 - `_template` với TTS fake: ngắt giữa chừng rồi chạy lại chỉ render đoạn thiếu.
+- `_template` là dữ liệu test, không qua lint và không có nhạc thật: lượt đầu cuối của đề mục 10 chạy từ bước render (5) tới kiểm MP4 (7). `make-episode.sh` KHÔNG có cờ bỏ qua lint hay trộn âm. Lượt đủ 7 bước làm ở đề mục 12 với tập thật (BA chốt 2026-11-03).
 - Một đoạn bị phá cố ý thì bước kiểm báo đúng khung. Có ca hai bản giống hệt nhau cùng mất phần tử (lỗi D14 cũ không bắt được), lấy mẫu từ frame 1315.
 - Lệch nửa điểm ảnh ở chữ không gây báo sai.
 - Trống dưới 6 GB thì không chạy, giả lập bằng biến môi trường dành cho test.

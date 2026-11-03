@@ -55,6 +55,16 @@ Người dùng cho phép chạy ngoài sandbox riêng các lệnh Remotion trong
 TTS: 0,14–0,17 giây/ký tự, 9.500 ký tự mất 22–27 phút, RAM khoảng 2,6 GB. MP4 10 phút ước khoảng 40 MB. Render ghi thẳng vào ffmpeg, không có PNG tạm.
 Chốt cho đề mục 10: 3 tiến trình, chặn đĩa 6 GB giữ nguyên. Trộn âm, ghép đoạn, 6000 frame liền chưa đo.
 
+## Chạy render nặng lần lượt (BA chốt, 2026-11-03)
+Nhiều agent cùng chạy `RENDER_TEST=1` hay render dài làm máy tải 80–95 và test chập chờn. Mọi lượt chạy cả bộ `RENDER_TEST=1`, `render-episode.ts`, `make-episode.sh` phải giữ khoá chung, chạy lần lượt:
+```bash
+lockf -t 3600 /tmp/aivideo-render.lock <lệnh>
+```
+Chạy một file test nhỏ có render (dưới khoảng 1 phút) không cần khoá. Ghi rõ trong báo cáo nếu đỏ xảy ra khi không giữ khoá.
+
+## Chrome vẽ chữ không tất định (DEV-7 đo, 2026-11-03)
+Render cùng một frame 40 lần: các cảnh có chữ SVG cỡ lớn (chart, term-card, big-number, chapter-title) lệch khoảng 3–8/39 lần, tới khoảng 0,23% điểm ảnh, chỉ ở dòng chữ lớn, mắt thường không thấy; hình khác không lệch. `measureText` cũng lệch ở phần lẻ. Không phải lỗi code. Hệ quả: so ảnh giữa hai lần render dùng dung sai ≥ 0,5% hoặc so theo vùng liền đủ lớn, không đòi giống từng điểm (áp cho test cảnh và `framecheck compare`).
+
 ## Giấy phép
 Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTTS, VieNeu: Apache-2.0.
 

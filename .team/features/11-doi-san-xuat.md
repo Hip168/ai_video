@@ -7,7 +7,8 @@ Nhánh `11-doi-san-xuat`. Phụ thuộc đề mục 5. Thiết kế: `.team/doi-
 - Sếp tổng chạy vai bằng loại agent có sẵn, theo bảng trong `episodes/PLAYBOOK.md`: vai chỉ đọc (`fact-checker`, `script-editor`) dùng `feature-dev:code-reviewer` (Read, Grep, Glob, WebFetch, WebSearch; không Bash, không ghi); `qc` dùng `Explore` (đọc và chạy lệnh đo, không ghi file); vai làm (`researcher`, `scriptwriter`, `scene-director`, `voice-producer`, `editor`, `packager`) dùng `general-purpose`; `publisher` dùng `ops`. Prompt = nội dung file vai + đầu vào của khâu.
 - Lệnh: người dùng nói "làm video về <đề tài>" (hoặc "làm video" để `researcher` tự chọn); sếp tổng đọc `episodes/PLAYBOOK.md` và đi đúng luồng. PLAYBOOK là nguồn duy nhất của luồng, không lặp lại trong file khác.
 - Script ở `audio/src/aivideo/gates.py`: `extract-claims`, `verdict`, `gate1`, `gate2`, `gate3`, `ledger`.
-- `claims.json`: `[{"id","claim","question","sourceUrl","credibility","status"}]`, `credibility` thuộc `primary`, `secondary`, `anecdotal`; `status` thuộc `DAT`, `SAI`, `CHUA_KIEM`.
+- `claims.json`: `[{"id","claim","question","sources":[{"url","credibility"}],"status"}]`, `credibility` thuộc `primary`, `secondary`, `anecdotal`; `status` thuộc `DAT`, `SAI`, `CHUA_KIEM`. Hai nguồn độc lập = khác tên miền gốc. Phán quyết trong mã không dấu: `DAT`, `SUA`, `CHAN`, `CHUA_DUYET`.
+- Kênh đọc từ `.team/kenh.json` `{"channelId","handle","verifiedPhone"}`.
 
 ## Task
 - [11-1] Mười file vai ở `episodes/roles/`, `episodes/PLAYBOOK.md` (luồng, bảng vai → loại agent, mẫu prompt mỗi khâu).

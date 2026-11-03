@@ -13,6 +13,14 @@ import {
   type MeasureWidth,
 } from '../src/lib/text';
 import {
+  NEXT_Y,
+  POINT_SIZE,
+  POINT_SIZE_SMALL,
+  RECAP_NEXT_WIDTH,
+  RECAP_POINT_WIDTH,
+  recapLayout,
+} from '../src/lib/recap-layout';
+import {
   RENDER_TEST,
   decodePng,
   hex,
@@ -381,5 +389,112 @@ describe('[6-2] fitText / fitBlock (hàm thuần, measure giả)', () => {
       expect(r.fontSize).toBe(48);
       expect(r.lines.join('')).toBe('');
     }
+  });
+});
+
+// ---- recapLayout (hàm thuần, measure giả 0,5 em mỗi ký tự) ----
+const M = fixed(0.5);
+const SHORT = ['Bit là 0 hoặc 1', 'Tám bit là một byte', 'Mã hoá biến số thành chữ'];
+// 100 ký tự, 20 từ: 2 dòng ở cỡ 48 (63 ký tự/dòng) và ở cỡ 40 (76 ký tự/dòng)
+const LONG = [...Array(20)].map(() => 'abcd').join(' ');
+const LONG_NEXT = [...Array(24)].map(() => 'abcd').join(' ') + ' xy'; // 119
+// Hộp chữ xấp xỉ quanh đường cơ sở: cao 0,8 em lên, 0,25 em xuống.
+const UP = 0.8;
+const DOWN = 0.25;
+
+describe('[6-2] recapLayout: cỡ chữ, hàng không chồng nhau, trong y < 830', () => {
+  test('mẫu giả đúng như giả định: điểm ngắn 1 dòng, điểm dài 2 dòng ở cả 48 và 40', () => {
+    expect(M(SHORT[2], POINT_SIZE)).toBeLessThanOrEqual(RECAP_POINT_WIDTH);
+    expect(M(LONG, POINT_SIZE)).toBeGreaterThan(RECAP_POINT_WIDTH);
+    expect(M(LONG, POINT_SIZE_SMALL)).toBeGreaterThan(RECAP_POINT_WIDTH);
+    expect(M(LONG, POINT_SIZE_SMALL)).toBeLessThanOrEqual(2 * RECAP_POINT_WIDTH);
+    expect(M(LONG_NEXT, 36)).toBeGreaterThan(RECAP_NEXT_WIDTH);
+  });
+
+  test('toàn điểm ngắn: cỡ 48, mỗi điểm 1 dòng, đường cơ sở dòng đúng y của hàng', () => {
+    const r = recapLayout(SHORT, 'Tập sau', {measure: M});
+    expect(POINT_SIZE).toBe(48);
+    expect(r.pointSize).toBe(48);
+    expect(r.rows).toHaveLength(3);
+    r.rows.forEach((row, i) => {
+      expect(row.lines).toEqual([SHORT[i]]);
+      expect(row.lineYs).toEqual([row.y]);
+    });
+  });
+
+  test('một điểm dài và các điểm ngắn: mọi điểm cùng cỡ 40', () => {
+    const r = recapLayout([SHORT[0], LONG, SHORT[1]], 'Tập sau', {measure: M});
+    expect(POINT_SIZE_SMALL).toBe(40);
+    expect(r.pointSize).toBe(40);
+    expect(r.rows).toHaveLength(3);
+    expect(r.rows[1].lines).toHaveLength(2);
+    expect(r.rows[1].lines.join(' ')).toBe(LONG);
+    // điểm ngắn vẫn 1 dòng và vừa bề rộng ở cỡ 40
+    expect(r.rows[0].lines).toEqual([SHORT[0]]);
+    expect(r.rows[2].lines).toEqual([SHORT[1]]);
+    for (const row of r.rows) {
+      for (const l of row.lines) {
+        expect(M(l, r.pointSize)).toBeLessThanOrEqual(RECAP_POINT_WIDTH);
+      }
+    }
+  });
+
+  test('điểm dài ở cuối danh sách cũng làm cả bộ về cỡ 40', () => {
+    const r = recapLayout([...SHORT, SHORT[0], LONG], '', {measure: M});
+    expect(r.pointSize).toBe(40);
+  });
+
+  test('hàng i ở y = 240 + 105 i; điểm 2 dòng căn giữa quanh y', () => {
+    const r = recapLayout([LONG, SHORT[0]], 'Tập sau', {measure: M});
+    expect(r.rows.map((x) => x.y)).toEqual([240, 345]);
+    const [a, b] = r.rows[0].lineYs;
+    expect((a + b) / 2).toBeCloseTo(240, 5);
+    expect(b - a).toBeCloseTo(40 * 1.25, 5);
+  });
+
+  test.each([
+    ['5 điểm ngắn', SHORT.concat(SHORT.slice(0, 2))],
+    ['5 điểm dài (2 dòng, cỡ 40)', [LONG, LONG, LONG, LONG, LONG]],
+    ['xen kẽ dài ngắn', [LONG, SHORT[0], LONG, SHORT[1], LONG]],
+  ])('%s: các hàng không chồng nhau, có khe >= 8px', (_n, pts) => {
+    const r = recapLayout(pts, 'Tập sau', {measure: M});
+    const size = r.pointSize;
+    for (const row of r.rows) {
+      for (let k = 1; k < row.lineYs.length; k++) {
+        expect(row.lineYs[k] - row.lineYs[k - 1]).toBeGreaterThanOrEqual(
+          size * 1.2,
+        );
+      }
+    }
+    for (let i = 0; i + 1 < r.rows.length; i++) {
+      const bottom = r.rows[i].lineYs.at(-1)! + size * DOWN;
+      const top = r.rows[i + 1].lineYs[0] - size * UP;
+      expect(top - bottom, `hàng ${i} và ${i + 1}`).toBeGreaterThanOrEqual(8);
+    }
+  });
+
+  test('hàng cuối nằm trong y < 830, next ở dưới hàng cuối và trong y < 830', () => {
+    const pts = [LONG, LONG, LONG, LONG, LONG];
+    const r = recapLayout(pts, LONG_NEXT, {measure: M});
+    const last = r.rows.at(-1)!;
+    const lastBottom = last.lineYs.at(-1)! + r.pointSize * DOWN;
+    expect(lastBottom).toBeLessThan(830);
+    expect(r.next.lines.length).toBeGreaterThanOrEqual(1);
+    expect(r.next.lines.length).toBeLessThanOrEqual(2);
+    expect(r.next.lineYs[0]).toBe(NEXT_Y);
+    const nextTop = r.next.lineYs[0] - r.next.fontSize * UP;
+    expect(nextTop).toBeGreaterThan(lastBottom);
+    const nextBottom = r.next.lineYs.at(-1)! + r.next.fontSize * DOWN;
+    expect(nextBottom).toBeLessThan(830);
+    for (const l of r.next.lines) {
+      expect(M(l, r.next.fontSize)).toBeLessThanOrEqual(RECAP_NEXT_WIDTH);
+    }
+  });
+
+  test('next rỗng và danh sách điểm 1 phần tử: không ném lỗi, next không có dòng', () => {
+    const r = recapLayout(['Một điểm'], '', {measure: M});
+    expect(r.rows).toHaveLength(1);
+    expect(r.next.lines).toEqual([]);
+    expect(r.pointSize).toBe(48);
   });
 });

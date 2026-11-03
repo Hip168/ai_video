@@ -32,6 +32,62 @@ cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.audio build --engine
 
 Ghi chú macOS: nếu `import aivideo` báo không thấy gói, file `.pth` trong venv bị gắn cờ hidden; chạy `chflags nohidden .venv/lib/python3.12/site-packages/*.pth`.
 
+## Dựng tập
+
+Dựng giọng đọc, `timeline.json` (v2), phụ đề và mục lục chương cho một tập từ `episodes/<slug>/script.json`. Hợp đồng dữ liệu: `.team/features/0b-hop-dong-timeline-v2.md`.
+
+```bash
+cd audio
+export PYTHONPATH=$PWD/src
+.venv/bin/python -m aivideo.episode build <slug> --engine fake|korva|vieneu [--voice V] [--speed S]
+```
+- `--engine` bắt buộc. `--voice` và `--speed` mặc định lấy từ `meta` của `script.json` (speed mặc định 1.0). `vieneu` chỉ chạy `--speed 1.0`.
+- Đường dẫn mặc định tính từ `audio/`: `--episodes-dir ../episodes`, `--out-dir ../out/episodes`, `--lexicon ../content/lexicon.json`.
+- `_template` là tập mẫu 130 nhịp dùng cho test với `--engine fake` (không cần mô hình TTS). Lỗi in `lỗi: ...` ra stderr, mã 1; sai tham số mã 2.
+
+### Thư mục tập
+```
+episodes/<slug>/script.json, lexicon.json, sources.md, claims.json, outline.md, ...
+episodes/index.json            danh mục tập (mảng, không chứa _template)
+out/episodes/<slug>/           đầu ra, gitignore
+```
+Đầu ra: `narration.wav` (48 kHz mono, -16 LUFS), `timeline.json`, `video.srt`, `chapters.txt`, `cache/`. Không ghi gì vào `video/public/`. Cảnh không có nhịp (`holdMs`) chèn im lặng vào `narration.wav`; `pause_ms` chèn sau nhịp, trừ nhịp cuối tập. Chương ngắn hơn 10 giây chỉ in cảnh báo.
+
+### Cache và chạy lại
+Mỗi nhịp lưu vào `cache/` theo khoá (engine, giọng, tốc độ, chuỗi đọc). Chạy lại chỉ tổng hợp nhịp có chuỗi đọc mới hoặc chưa có; đổi một nhịp thì engine được gọi đúng một lần. Ngắt giữa chừng rồi chạy lại chỉ làm nhịp còn thiếu. File cache ghi qua file tạm; file hỏng hay cụt bị phát hiện, xoá và tổng hợp lại; `.tmp` mồ côi được dọn đầu mỗi lần dựng.
+
+### Đọc số (`normalize_vi`)
+`text` là chữ hiện phụ đề; lời đọc là `spoken` nếu có, không thì `text` qua `normalize_vi`. Kết quả luôn không còn chữ số. Ví dụ:
+
+| Viết | Đọc |
+|---|---|
+| `3,14` | ba phẩy mười bốn |
+| `1.000.000` | một triệu |
+| `50%` | năm mươi phần trăm |
+| `2,5 GHz` | hai phẩy năm gi-ga-héc |
+| `1995–2005` | một nghìn chín trăm chín mươi lăm đến hai nghìn không trăm linh năm |
+| `12:30` | mười hai giờ ba mươi |
+| `192.168.1.1` | một trăm chín mươi hai chấm một trăm sáu mươi tám chấm một chấm một |
+| `100.000đ` | một trăm nghìn đồng |
+
+Bảng đầy đủ (IP, phiên bản, ngày, số âm, số dính chữ, thứ tự xét chuỗi nối `.`) nằm trong mục "Đọc số" của `0b-hop-dong-timeline-v2.md`.
+
+### Khi nào dùng `spoken` hay lexicon
+- Một nhịp đọc chưa hay: đặt `spoken` cho nhịp đó. `spoken` dùng nguyên văn, không qua `normalize_vi` và không qua lexicon; phụ đề vẫn là `text`.
+- Một từ đọc sai ở nhiều nơi (tên riêng, từ viết tắt): thêm vào `episodes/<slug>/lexicon.json` (chồng lên `content/lexicon.json`). Khoá được so trên chữ gốc, không phân biệt hoa thường, trước `normalize_vi`, nên khoá có chữ số như `x86` dùng được.
+
+### Kiểm thử (dựng tập)
+```bash
+cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m "not real" tests/test_episode_build.py tests/test_episode_validator.py tests/test_episode_contract.py tests/test_episode_files.py tests/test_normalize_vi.py tests/test_normalize_vi_tinhoc.py tests/test_normalize_vi_dau_cau.py
+```
+Dùng engine `fake`, không cần mô hình TTS; dựng `_template` 130 nhịp một lần nên cả bộ chạy khoảng một phút. Các test bảo vệ:
+- `test_episode_validator.py` và `test_episode_contract.py`: `timeline2.sample.json` hợp lệ, mỗi luật 1–13 của hợp đồng có mẫu sai, ca biên hợp lệ.
+- `test_episode_build.py`: tập mẫu 130 nhịp (timeline, SRT, `chapters.txt`, wav -16 LUFS), khoảng nghỉ và cảnh câm tính đúng frame, `spoken` ghi đè hoàn toàn, sfx, cache (đổi 1 nhịp gọi engine 1 lần, chạy lại sau khi ngắt, file hỏng, ghi nguyên tử, dọn `.tmp`), mã thoát và `lỗi:`, cờ CLI, không đổi `video/public`.
+- `test_episode_files.py`: `_template`, `index.json`, `episodes/README.md`.
+- `test_normalize_vi.py`, `test_normalize_vi_tinhoc.py`, `test_normalize_vi_dau_cau.py`: bảng đọc số, IP, phiên bản, giờ, gạch nối, ngày, lexicon có chữ số; mẫu số đứng sát dấu câu (`5-10.`, `192.168.1.1.`, `1.000.000.`) và số hệ mười sáu (`0xFF`).
+
+Danh sách từng test và kết quả bẻ code thử: `.team/tests/5.md`.
+
 ## Âm thanh tập
 
 Trộn giọng đọc, nhạc nền và SFX của một tập thành `mix.wav` (WAV 16-bit mono 48 kHz, -16 LUFS ±1, true peak ≤ -1,5 dBTP, dài đúng `durationInFrames`).

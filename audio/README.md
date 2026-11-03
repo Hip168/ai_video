@@ -53,4 +53,4 @@ cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.mix <slug> [--stems]
 Mọi lỗi in `lỗi: ...` ra stderr và thoát mã 1.
 - Thiếu file nhạc, id không có trong manifest, hoặc lệch sha256: thông báo nêu đường dẫn file; nạp lại file hoặc cập nhật sha256 đúng.
 - Thiếu `narration.wav`, `timeline.json` hay `script.json`: chạy bước dựng tập trước.
-- `mix không đạt`: loudness ngoài -16 ±1 LUFS, true peak vượt -1,5 dBTP hoặc độ dài lệch quá 1 frame. Thường gặp khi giọng quá thưa hay quá nhỏ nên không đưa lên đủ -16 mà vẫn dưới trần true peak; kiểm lại `narration.wav` và `gainDb` của nhạc. `doi-san-xuat.md` chưa có quy tắc xử lý cho trường hợp này.
+- `mix không đạt`: loudness ngoài -16 ±1 LUFS, true peak vượt -1,5 dBTP hoặc độ dài lệch quá 1 frame. Thường gặp khi giọng quá thưa hay quá nhỏ nên không đưa lên đủ -16 mà vẫn dưới trần true peak; kiểm lại `narration.wav` và `gainDb` của nhạc. Theo `.team/doi-san-xuat.md`: không nới ngưỡng; `editor` dừng và trả `voice-producer` tìm nhịp lệch mức để đọc lại; vẫn lỗi sau 2 lần thì `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.

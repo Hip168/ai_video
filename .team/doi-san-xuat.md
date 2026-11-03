@@ -39,7 +39,7 @@ Cổng cứng do script tính, không do ai tuyên bố. Các khâu còn lại l
 
 **Cổng 2, chốt kịch bản.** Mọi số, năm, tên riêng trong lời đọc phải có `claim` hợp lệ. Regex bắt số chạy trên `text` gốc, trước khi đổi số thành chữ cho TTS. Đạt thì ghi sha256 của `script.json` phần lời vào sổ tập.
 
-**Cổng 3, đăng.** Script kiểm: sha256 khớp sổ, lint đạt, kỹ thuật đạt, `qc` có dòng phán quyết đúng định dạng, `publish.json` đủ trường, đúng kênh trong `.team/kenh.md`.
+**Cổng 3, đăng.** Script kiểm: sha256 khớp sổ, lint đạt, kỹ thuật đạt, `qc` có dòng phán quyết đúng định dạng, `publish.json` đủ trường, đúng kênh trong `.team/kenh.json`.
 
 ## 4. Phát hiện và phán quyết
 
@@ -68,6 +68,19 @@ Người kiểm trả JSON:
 Trao tay ghi ở `episodes/<slug>/handoff/<khâu>.md`, năm mục: Đã chốt, Đã bỏ, Rủi ro, File, Còn lại.
 
 Bản trộn bị từ chối vì thiếu LUFS (D5) thì không nới ngưỡng. `editor` dừng và trả `voice-producer` tìm nhịp lệch mức để đọc lại. Vẫn lỗi sau 2 lần thì `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
+
+## 6b. Giới hạn đã biết và cách bù (BA chốt 2026-11-03, theo TEST-LEAD)
+- Sổ tập chỉ do script cổng ghi các khâu dành riêng (`cong2`, `cong3`, `lint`, `ky-thuat`); `ledger add` từ chối các khâu này. `gate3` tự chạy lại phần kiểm của Cổng 2, không tin mục `cong2` trong sổ.
+- Neo sổ bằng git: sau mỗi cổng, sếp tổng commit `episodes/<slug>/ledger.json`. `gate3` chặn nếu sổ có thay đổi chưa commit, hoặc lịch sử git của sổ không phải chỉ thêm (bản sau phải giữ nguyên mọi mục của bản trước). Chuỗi hash không có khoá bí mật, nên đây là cách chặn sửa sổ có chủ ý.
+- `qc` phải nộp bằng chứng, không chỉ danh sách phát hiện: sha256 của MP4 đã xem, danh sách mốc thời gian đã trích khung (ít nhất 1 khung mỗi chương và 20 khung cả tập), kết quả đo loudness. `gate3` chặn nếu thiếu hoặc hash MP4 không khớp.
+- Fact-checker "mù" là quy ước: loại agent chỉ đọc vẫn đọc được repo. Bù bằng prompt cấm đọc ngoài thư mục lô, và bộ cài lỗi đo độ bắt lỗi trước khi dùng.
+- Giới hạn đã biết (theo review code 2026-11-03):
+  - Tên riêng ở đầu câu hoặc đầu nhịp không bị regex bắt (test khoá giữ hành vi này). Bù bằng fact-checker lượt 2 trên lời đọc.
+  - Chữ La Mã một ký tự không bị bắt.
+  - So tên bằng chuỗi con không phân biệt hoa thường (`Go` khớp "google").
+  - "thập niên 80" đòi claim chứa đúng "80".
+  - Sửa `lexicon.json` sau Cổng 2 đổi giọng đọc nhưng không đổi hash lời.
+  - `gate3` không có `--video` thì không so MP4 thật (in cảnh báo ra stderr).
 
 ## 7. Đo người kiểm
 

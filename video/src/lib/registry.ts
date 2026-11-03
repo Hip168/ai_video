@@ -2,10 +2,8 @@ import type React from "react";
 import { CUSTOM_SCENES } from "../episodes/registry";
 import { CATALOG_TYPES, isCustomType, type CatalogType } from "../timeline2";
 import type { SceneProps, SceneSpec } from "./types";
-import { Placeholder } from "./scenes/placeholder";
-import { placeholderSpec } from "./specs/placeholder";
 
-// Mỗi loại một khối import, cách nhau một dòng trống. Đề mục 7, 8 thêm import vào khối của mình.
+// Mỗi loại một khối import, cách nhau một dòng trống. Loại mới thêm import vào khối của mình.
 
 import { ColdOpen } from "./scenes/cold-open";
 import { spec as coldOpenSpec } from "./specs/cold-open";
@@ -15,6 +13,24 @@ import { spec as chapterTitleSpec } from "./specs/chapter-title";
 
 import { RecapOutro } from "./scenes/recap-outro";
 import { spec as recapOutroSpec } from "./specs/recap-outro";
+
+import { BigNumber } from "./scenes/big-number";
+import { spec as bigNumberSpec } from "./specs/big-number";
+
+import { Compare } from "./scenes/compare";
+import { spec as compareSpec } from "./specs/compare";
+
+import { MythFact } from "./scenes/myth-fact";
+import { spec as mythFactSpec } from "./specs/myth-fact";
+
+import { HistoryTimeline } from "./scenes/history-timeline";
+import { spec as historyTimelineSpec } from "./specs/history-timeline";
+
+import { TermCard } from "./scenes/term-card";
+import { spec as termCardSpec } from "./specs/term-card";
+
+import { Chart } from "./scenes/chart";
+import { spec as chartSpec } from "./specs/chart";
 
 import { Flow } from "./scenes/flow";
 import { spec as flowSpec } from "./specs/flow";
@@ -48,22 +64,17 @@ export interface CatalogEntry {
   spec: SceneSpec;
 }
 
-const placeholder = (type: CatalogType): CatalogEntry => ({
-  Component: (p) => Placeholder({ ...p, type }),
-  spec: placeholderSpec(type),
-});
-
-/** 18 loại, mỗi loại một dòng. 6 loại còn placeholder(...) là của đề mục 7; 9 loại nhóm B đã làm ở đề mục 8. */
+/** 18 loại, mỗi loại một dòng; cả 18 loại đã làm (nhóm A: đề mục 7, nhóm B: đề mục 8). */
 export const CATALOG: Record<CatalogType, CatalogEntry> = {
   "cold-open": { Component: ColdOpen, spec: coldOpenSpec },
   "chapter-title": { Component: ChapterTitle, spec: chapterTitleSpec },
   "recap-outro": { Component: RecapOutro, spec: recapOutroSpec },
-  "big-number": placeholder("big-number"),
-  "compare": placeholder("compare"),
-  "myth-fact": placeholder("myth-fact"),
-  "history-timeline": placeholder("history-timeline"),
-  "term-card": placeholder("term-card"),
-  "chart": placeholder("chart"),
+  "big-number": { Component: BigNumber, spec: bigNumberSpec },
+  "compare": { Component: Compare, spec: compareSpec },
+  "myth-fact": { Component: MythFact, spec: mythFactSpec },
+  "history-timeline": { Component: HistoryTimeline, spec: historyTimelineSpec },
+  "term-card": { Component: TermCard, spec: termCardSpec },
+  "chart": { Component: Chart, spec: chartSpec },
   "flow": { Component: Flow, spec: flowSpec },
   "layers": { Component: Layers, spec: layersSpec },
   "scale-ladder": { Component: ScaleLadder, spec: scaleLadderSpec },

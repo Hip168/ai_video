@@ -1,0 +1,50 @@
+[
+  {
+    "id": "e01",
+    "severity": "CRITICAL",
+    "file": "video.srt",
+    "marker": "1919",
+    "kind": "number",
+    "note": "phụ đề sai số so với kịch bản chốt (đúng 1991)"
+  },
+  {
+    "id": "e02",
+    "severity": "CRITICAL",
+    "file": "video.srt",
+    "marker": "Rosum",
+    "kind": "name",
+    "note": "phụ đề sai tên người so với kịch bản chốt"
+  },
+  {
+    "id": "e03",
+    "severity": "CRITICAL",
+    "file": "timeline.json",
+    "marker": "\"startFrame\": 345",
+    "kind": "timeline",
+    "note": "hở giữa cảnh sc03 và sc04 (luật 4 của hợp đồng timeline)"
+  },
+  {
+    "id": "e04",
+    "severity": "CRITICAL",
+    "file": "timeline.json",
+    "marker": "\"durationInFrames\": 660",
+    "kind": "timeline",
+    "note": "tổng frame lệch cảnh cuối (luật 4)"
+  },
+  {
+    "id": "e05",
+    "severity": "CRITICAL",
+    "file": "chapters.txt",
+    "marker": "00:03 Mở đầu",
+    "kind": "chapters",
+    "note": "dòng đầu mục lục không phải 00:00 nên YouTube bỏ chương"
+  },
+  {
+    "id": "e06",
+    "severity": "MAJOR",
+    "file": "chapters.txt",
+    "marker": "00:15 Chương một",
+    "kind": "chapters",
+    "note": "chương một chỉ còn 5 giây, dưới mức 10 giây của YouTube"
+  }
+]

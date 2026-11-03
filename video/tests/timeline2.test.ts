@@ -60,6 +60,15 @@ describe('[6-1] validateTimeline2: file mẫu hợp đồng v2', () => {
     expect(() => validateTimeline2(b)).not.toThrow();
   });
 
+  test.each(['pop', 'tick', 'whoosh', 'ding', 'buzz'])(
+    'tên SFX %s hợp lệ (hợp đồng: Tên SFX)',
+    (name) => {
+      const s = loadSample2();
+      s.sfx[0].name = name;
+      expect(() => validateTimeline2(s)).not.toThrow();
+    },
+  );
+
   test('custom:<tên> hợp lệ (luật 3)', () => {
     const s = loadSample2();
     s.scenes[2].type = 'custom:ten-khac_1';
@@ -216,6 +225,8 @@ const BROKEN: Array<[string, Mutate, RegExp]> = [
   ['chuỗi: audio.src chỉ khoảng trắng', (t) => (t.audio.src = '  '), /audio\.src/],
   ['chuỗi: audio.src chứa ..', (t) => (t.audio.src = '../narration.wav'), /audio\.src/],
   ['chuỗi: audio.src chứa .. ở giữa', (t) => (t.audio.src = 'a/../b.wav'), /audio\.src/],
+  ['SFX: tên lạ "boom"', (t) => (t.sfx[0].name = 'boom'), /sfx\[0\]\.name/],
+  ['SFX: sai hoa thường "Pop"', (t) => (t.sfx[1].name = 'Pop'), /sfx\[1\]\.name/],
   // Luật 13
   ['luật 13: chapters rỗng', (t) => (t.chapters = []), /chapters/],
   ['luật 13: thiếu chapters', (t) => delete t.chapters, /chapters/],

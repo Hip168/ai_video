@@ -106,6 +106,8 @@ def _dotted(m: re.Match) -> str:
     if _is_ip(groups):  # mỗi nhóm đọc theo giá trị: 000 -> không, 010 -> mười
         out = " chấm ".join(audio.number_to_words(int(g)) for g in groups)
     elif re.fullmatch(_THOUSANDS, tok):
+        if not port:
+            return m.group(0)  # số nghìn: để các bước sau (khoảng, đơn vị, số trần) xử lý
         out = _number_words(tok)
     elif len(groups) >= 3 or before.isalpha():
         out = " chấm ".join(_number_words(g) for g in groups)
@@ -125,7 +127,6 @@ def _iso_date(m: re.Match) -> str:
     return f"ngày {audio.number_to_words(d)} tháng {audio.number_to_words(mo)} năm {audio.number_to_words(y)}"
 
 
-_RNUM = r"\d+(?:[.,]\d+)?"
 
 
 def normalize_vi(text: str) -> str:
@@ -146,7 +147,7 @@ def normalize_vi(text: str) -> str:
     text = re.sub(r"(?<![\w/])(\d+)/(\d+)(?![\w/])",
                   lambda m: f"{_number_words(m.group(1))} phần {_number_words(m.group(2))}", text)
     # khoảng: hai bên là số trần đứng riêng
-    text = re.sub(rf"(?<![\w.,/:-])({_RNUM}%?)\s*[–—-]\s*({_RNUM})(?![\w.,/:-])",
+    text = re.sub(rf"(?<![\w.,/:-])({_NUM}%?)\s*[–—-]\s*({_NUM})(?:(?![\w.,/:-])|(?=(?:{_UNIT_KEYS})(?!\w)))",
                   lambda m: f"{m.group(1)} đến {m.group(2)}", text)
     # số âm
     text = re.sub(r"(?:(?<=^)|(?<=[\s(]))-(?=\d)", "âm ", text)

@@ -21,6 +21,7 @@ import {tokenizeCode} from '../src/lib/code-highlight';
 import {
   GROUP_B,
   THEME_IDS,
+  BEAT_GAP,
   buildTimeline,
   hasVi,
   allStrings,
@@ -224,5 +225,88 @@ d('[8-5] code-walk: dấu tiếng Việt và tô màu tất định', () => {
       (c) => findColor(p, hex(c.slice(0, 7)), {y1: MAIN_END}, 4).length >= 20,
     );
     expect(found.length).toBeGreaterThanOrEqual(2);
+  }, 240_000);
+});
+
+// ---- Mục k neo đúng beat k (chống "mọi mục theo beat 0 + 20k") ----
+const startOf = (k: number) => 30 + k * BEAT_GAP;
+for (const {id, task} of GROUP_B) {
+  d(`[${task}] cảnh ${id}: mục k chỉ hiện từ beat k`, () => {
+    const s = () => specB(id);
+    const n = Math.max(s().minBeats, 2);
+    const ks = [...Array(n - 1)].map((_, i) => i + 1);
+    const base = () => buildTimeline(id, s(), s().example, 'mau-a', 0, {n});
+
+    test.each(ks)('mục %d chưa hiện trước beat của nó và đã hiện sau beat đó', async (k) => {
+      const b = base();
+      const before = await still(`${id}:k:${k}:b`, b.timeline, startOf(k) - 5);
+      const after = await still(`${id}:k:${k}:a`, b.timeline, startOf(k) + 40);
+      expect(diffRatio(before, after, 0, MAIN_END)).toBeGreaterThan(0.0003);
+    }, 240_000);
+
+    test.each(ks)('chỉ dịch beat %d và các beat sau +150 frame: hình đổi (mục chưa tới)', async (k) => {
+      const b = base();
+      const sh = buildTimeline(id, s(), s().example, 'mau-a', 150, {n, from: k});
+      const f = startOf(k) + 40;
+      const p1 = await still(`${id}:k:${k}:a`, b.timeline, f);
+      const p2 = await still(`${id}:k:${k}:sh`, sh.timeline, f);
+      expect(diffRatio(p1, p2, 0, MAIN_END)).toBeGreaterThan(0.0003);
+    }, 240_000);
+  });
+}
+
+d('[8-9] algo-bars: hình theo algoBarsAt với đúng beat step', () => {
+  const id = 'algo-bars' as const;
+  const s = () => specB(id);
+  const STEPS = 5;
+  const S = (k: number) => startOf(k);
+  const full = () =>
+    buildTimeline(id, s(), s().example, 'mau-a', 0, {n: STEPS});
+
+  test('ví dụ có đúng 5 bước và mọi beat là step', () => {
+    expect((s().example as any).states).toHaveLength(STEPS);
+    const b = full();
+    expect(b.timeline.scenes[0].beats.map((x: any) => x.cue)).toEqual(
+      Array(STEPS).fill('step'),
+    );
+  });
+
+  test.each([1, 2, 3, 4])(
+    'sau beat step %d: hình giống hệt cảnh mà các states trước đó đều bằng states[k] (cột đúng trạng thái k)',
+    async (k) => {
+      const ex = s().example as any;
+      const states = ex.states.map((x: any, i: number) =>
+        i < k ? ex.states[k] : x,
+      );
+      const same = buildTimeline(
+        id, s(), {...ex, states}, 'mau-a', 0, {n: STEPS},
+      );
+      const f = S(k) + 40;
+      const a = await still(`ab:full`, full().timeline, f);
+      const b = await still(`ab:same:${k}`, same.timeline, f);
+      expect(diffRatio(a, b, 0, MAIN_END, 0)).toBeLessThan(0.0005);
+      // và khác ảnh khi vẫn ở trạng thái 0 (cảnh thật sự đã sang trạng thái k)
+      const z = await still(`ab:z:${k}`, full().timeline, S(1) - 5);
+      expect(diffRatio(b, z, 0, MAIN_END)).toBeGreaterThan(0.0003);
+    },
+    240_000,
+  );
+
+  test.each([1, 2, 3, 4])(
+    'trước và sau beat step %d hình khác nhau (trạng thái đổi theo beat)',
+    async (k) => {
+      const a = await still(`ab:pre:${k}`, full().timeline, S(k) - 5);
+      const b = await still(`ab:post:${k}`, full().timeline, S(k) + 40);
+      expect(diffRatio(a, b, 0, MAIN_END)).toBeGreaterThan(0.0003);
+    },
+    240_000,
+  );
+
+  test('dịch mọi beat step +40 làm đổi hình ở frame sau beat 1 gốc', async () => {
+    const sh = buildTimeline(id, s(), s().example, 'mau-a', 40, {n: STEPS});
+    const f = S(1) + 20;
+    const a = await still('ab:ref', full().timeline, f);
+    const b = await still('ab:shift', sh.timeline, f);
+    expect(diffRatio(a, b, 0, MAIN_END)).toBeGreaterThan(0.0003);
   }, 240_000);
 });

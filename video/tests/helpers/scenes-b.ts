@@ -152,14 +152,17 @@ export function buildTimeline(
   props: Record<string, unknown>,
   theme: ThemeId = 'mau-a',
   shift = 0,
+  opts: {n?: number; from?: number} = {},
 ): Built {
-  const n = beatCount(s);
+  const n = opts.n ?? beatCount(s);
+  const from = opts.from ?? 0;
   const starts = [...Array(n)].map((_, i) => 30 + i * BEAT_GAP);
   const lastEnd = starts[n - 1] + BEAT_LEN;
   const D = lastEnd + 100 + shift;
+  const sh = (i: number) => (i >= from ? shift : 0);
   const beats = starts.map((st, i) => ({
     id: `b00${i + 1}`,
-    startFrame: st + shift,
+    startFrame: st + sh(i),
     durationFrames: BEAT_LEN,
     text: 'Câu ngắn.',
     ...(s.cues.length ? {cue: s.cues[i % s.cues.length]} : {}),

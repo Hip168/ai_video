@@ -158,7 +158,8 @@ export function buildTimeline(
   const from = opts.from ?? 0;
   const starts = [...Array(n)].map((_, i) => 30 + i * BEAT_GAP);
   const lastEnd = starts[n - 1] + BEAT_LEN;
-  const D = lastEnd + 100 + shift;
+  // độ dài cảnh KHÔNG đổi theo `shift` (chỗ dịch beat tối đa 150 frame)
+  const D = lastEnd + 100 + 150;
   const sh = (i: number) => (i >= from ? shift : 0);
   const beats = starts.map((st, i) => ({
     id: `b00${i + 1}`,

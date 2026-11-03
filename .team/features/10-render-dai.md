@@ -23,6 +23,8 @@ Nhánh `10-render-dai`. Phụ thuộc đề mục 6, gặp đề mục 9 ở tí
 
 ## Xong khi
 - Timeline của `_template` do Python sinh ra qua được validator TypeScript.
+- Validator Python (`validate_timeline2`) kiểm tên SFX trong `timeline.json` như validator TypeScript; có bộ mẫu sai chung chạy qua cả hai và cho cùng kết quả hợp lệ hoặc không.
+- Mọi trình duyệt mở trong `render-episode.ts` được đóng trong `finally`, kể cả khi lỗi hoặc Ctrl-C; sau khi chạy không còn tiến trình `chrome-headless-shell` mồ côi.
 - `_template` với TTS fake: ngắt giữa chừng rồi chạy lại chỉ render đoạn thiếu.
 - Một đoạn bị phá cố ý thì bước kiểm báo đúng khung. Có ca hai bản giống hệt nhau cùng mất phần tử (lỗi D14 cũ không bắt được), lấy mẫu từ frame 1315.
 - Lệch nửa điểm ảnh ở chữ không gây báo sai.

@@ -110,3 +110,21 @@ Hình chính trong `y < 830`; chuyển động là hàm thuần của frame; c�
 - Luật 8: `cue` nếu có phải là chuỗi không rỗng (chuỗi rỗng, số bị từ chối).
 - Chuỗi bắt buộc không được chỉ gồm khoảng trắng; `audio.src` cũng không chứa `..`; `sfx[].name` chỉ nhận `pop, tick, whoosh, ding, buzz` (`SFX_NAMES` xuất từ `timeline2.ts`).
 - Ngắt dòng: `lib/text.ts` xuất `CHAR_EM = 0.62` và `maxCharsPerLine(widthPx, fontSize)` (= max(1, floor(widthPx / (fontSize × CHAR_EM)))). Cold-open dùng bề rộng 1520 (`COLD_OPEN_TEXT_WIDTH`), chapter-title 1050 (có số, `CHAPTER_WIDTH_WITH_NUMBER`) hoặc 1600 (`CHAPTER_WIDTH_CENTERED`) cho cả title và subtitle, recap-outro điểm 1470 (`RECAP_POINT_WIDTH`) và `next` 1700 (`RECAP_NEXT_WIDTH`, cỡ 36). Điểm recap dài ngắt tối đa 2 dòng, mọi dòng trong y < 830.
+
+## 11. Ngắt dòng theo bề rộng đo thật (thay mục ngắt dòng ở 10)
+Phụ thuộc mới: `@remotion/layout-utils` 4.0.539 (MIT), ghim đúng. `lib/text.ts` đo bằng `measureText` (DOM, sau khi font đã nạp); ngoài trình duyệt ước theo `CHAR_EM`.
+```ts
+fitText({ text, fontSize, width, maxLines, minScale?, measure? }): FitResult   // FitResult = { lines: string[]; fontSize: number; truncated: boolean }
+fitBlock(text, { baseSize, width, maxLines, minScale?, measure? }): FitResult  // cùng hàm, dạng gọi khác; hàm thuần nếu truyền `measure(text, fontSize) => px`
+MIN_MARGIN = 40; MIN_FONT_SCALE = 0.7; measureWidth; CHAR_EM; maxCharsPerLine (còn, chỉ là ước lượng)
+```
+Quy tắc: ngắt theo bề rộng đo, tối đa `maxLines`; không vừa thì giảm cỡ mỗi bước 5% cỡ gốc tới `minScale` (70%); vẫn không vừa thì cắt có "…" và `console.warn("text-fit: ...")`, `truncated = true`. Lề ít nhất 40px trong bảng nền và khung 1920.
+
+| Khối | Cỡ gốc (px) | Bề rộng (px) | Số dòng tối đa |
+|---|---|---|---|
+| cold-open `hook` | 120 nếu ≤ 24 ký tự, 92 nếu ≤ 48, còn lại 72 | 1560 (`COLD_OPEN_TEXT_WIDTH` = bảng 1640 − 2×40) | 3 |
+| cold-open `kicker` | 40 | 1560 | 1 |
+| chapter-title `title` | 100 nếu ≤ 24 ký tự, còn lại 76 | 1100 có `number` (`CHAPTER_WIDTH_WITH_NUMBER`), 1600 không số (`CHAPTER_WIDTH_CENTERED`) | 2 |
+| chapter-title `subtitle` | 42 | như `title` | 2 |
+| recap-outro điểm | 48 | 1520 (`RECAP_POINT_WIDTH`, từ x=360) | 2 |
+| recap-outro `next` | 36 | 1700 (`RECAP_NEXT_WIDTH`) | 2 |

@@ -2,11 +2,11 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { ease, useTheme } from "../hooks";
 import { Stage } from "../theme";
-import { maxCharsPerLine, wrapLines } from "../text";
+import { fitText, MIN_MARGIN } from "../text";
 import type { SceneProps } from "../types";
 
-/** Bề rộng khả dụng của chữ: bên phải số (x từ 780, lề phải 90) hoặc căn giữa. */
-export const CHAPTER_WIDTH_WITH_NUMBER = 1050;
+/** Bề rộng khả dụng của chữ: bên phải số (x từ 780, lề phải MIN_MARGIN) hoặc căn giữa. */
+export const CHAPTER_WIDTH_WITH_NUMBER = 1920 - 780 - MIN_MARGIN;
 export const CHAPTER_WIDTH_CENTERED = 1600;
 
 export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
@@ -16,10 +16,10 @@ export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
   const number = typeof scene.props.number === "number" ? scene.props.number : null;
   const subtitle = typeof scene.props.subtitle === "string" ? scene.props.subtitle : "";
   const hasNum = number !== null;
-  const size = title.length <= 24 ? 100 : 76;
   const width = hasNum ? CHAPTER_WIDTH_WITH_NUMBER : CHAPTER_WIDTH_CENTERED;
-  const subLines = wrapLines(subtitle, maxCharsPerLine(width, 42));
-  const lines = wrapLines(title, maxCharsPerLine(width, size));
+  const { lines, fontSize: size } = fitText({ text: title, fontSize: title.length <= 24 ? 100 : 76, width, maxLines: 2 });
+  const sub = fitText({ text: subtitle, fontSize: 42, width, maxLines: 2 });
+  const subLines = sub.lines;
   const x0 = hasNum ? 780 : 960;
   const anchor = hasNum ? "start" : "middle";
   const a = ease(frame / 18);
@@ -61,7 +61,7 @@ export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
         strokeLinecap="round"
       />
       {subLines.map((l, i) => (
-        <text key={i} x={x0} y={underY + 70 + i * 52} fontSize={42} fill={theme.muted} textAnchor={anchor} opacity={ease((frame - 20 - i * 4) / 16)}>
+        <text key={i} x={x0} y={underY + 70 + i * sub.fontSize * 1.25} fontSize={sub.fontSize} fill={theme.muted} textAnchor={anchor} opacity={ease((frame - 20 - i * 4) / 16)}>
           {l}
         </text>
       ))}

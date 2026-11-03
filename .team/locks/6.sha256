@@ -10,3 +10,4 @@ e34da5ebe15833df39be2f8c8d6df62662c75168383ebdeefd3281dfedf04fde  video/tests/li
 7d02a9d82a9fe13bf74f68ac8b37deb915b591ba0d7af3d603a77dda97e7a61e  video/tests/lint-core.test.ts
 f6223e4d9708bf784c7699854eaf68236a32dd12aa46f3350bc64f5694280d26  video/tests/props-registry.test.ts
 db83ee17613939668960146316dfb325c6ec7c40c928a4366ad5b4b7e6b65aee  video/tests/timeline2.test.ts
+16ce7658baea8816b32460715ad43593b34c7226cefcbbb45bbd25f1e47fde16  video/tests/episode-text-fit.test.ts

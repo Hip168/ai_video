@@ -752,7 +752,10 @@ def _inside(child: Path, parent: Path) -> bool:
     return c == p or p in c.parents
 
 
-def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None) -> dict:
+def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
+                      with_lines: bool = False) -> dict:
+    """Lô cho fact-checker. `with_lines` (lượt 2): thêm vào mỗi claim các câu lời đọc trỏ tới
+    claim đó (chỉ chữ của beat, không kèm file kịch bản), để hỏi "câu này nói đúng claim không"."""
     ep = _ep_dir(slug, episodes_dir)
     claims, probs = _load_claims(ep)
     if claims is None:
@@ -765,6 +768,16 @@ def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None) -> di
             raise GateError("claims.json có phần tử thiếu id, claim hoặc question")
         items.append({"id": c["id"], "claim": c["claim"], "question": c["question"],
                       "sourceUrl": c.get("sourceUrl") or ""})
+    if with_lines:
+        sp = ep / "script.json"
+        if not sp.is_file():
+            raise GateError(f"thiếu {sp}")
+        lines: dict[str, list[str]] = {}
+        for _, b in _iter_beats(_read_json(sp)):
+            for cid in b.get("claims") or []:
+                lines.setdefault(cid, []).append(b.get("text") or "")
+        for it in items:
+            it["lines"] = lines.get(it["id"], [])
     role_text = Path(role_file).read_text(encoding="utf-8")
     parent = Path(tmp_parent) if tmp_parent else Path(tempfile.gettempdir())
     repo = Path(episodes_dir).resolve().parent
@@ -853,6 +866,7 @@ def _main(argv: list[str] | None = None) -> int:
     p.add_argument("slug")
     p.add_argument("--role", required=True)
     p.add_argument("--tmp-parent")
+    p.add_argument("--with-lines", action="store_true")
     p = with_eps(sub.add_parser("apply-factcheck"))
     p.add_argument("slug")
     p.add_argument("--findings", required=True)
@@ -911,7 +925,7 @@ def _main(argv: list[str] | None = None) -> int:
         _emit(r)
         return 0 if r["verdict"] == "DAT" else 1
     if a.cmd == "prepare-factcheck":
-        _emit(prepare_factcheck(a.slug, a.episodes_dir, a.role, a.tmp_parent))
+        _emit(prepare_factcheck(a.slug, a.episodes_dir, a.role, a.tmp_parent, a.with_lines))
         return 0
     if a.cmd == "apply-factcheck":
         _emit(apply_factcheck(a.slug, a.episodes_dir, a.findings, a.batch))

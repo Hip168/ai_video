@@ -76,6 +76,18 @@ Bảng đầy đủ (IP, phiên bản, ngày, số âm, số dính chữ, thứ 
 - Một nhịp đọc chưa hay: đặt `spoken` cho nhịp đó. `spoken` dùng nguyên văn, không qua `normalize_vi` và không qua lexicon; phụ đề vẫn là `text`.
 - Một từ đọc sai ở nhiều nơi (tên riêng, từ viết tắt): thêm vào `episodes/<slug>/lexicon.json` (chồng lên `content/lexicon.json`). Khoá được so trên chữ gốc, không phân biệt hoa thường, trước `normalize_vi`, nên khoá có chữ số như `x86` dùng được.
 
+### Kiểm thử (dựng tập)
+```bash
+cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m "not real" tests/test_episode_build.py tests/test_episode_validator.py tests/test_episode_contract.py tests/test_episode_files.py tests/test_normalize_vi.py tests/test_normalize_vi_tinhoc.py
+```
+Dùng engine `fake`, không cần mô hình TTS; dựng `_template` 130 nhịp một lần nên cả bộ chạy khoảng một phút. Các test bảo vệ:
+- `test_episode_validator.py` và `test_episode_contract.py`: `timeline2.sample.json` hợp lệ, mỗi luật 1–13 của hợp đồng có mẫu sai, ca biên hợp lệ.
+- `test_episode_build.py`: tập mẫu 130 nhịp (timeline, SRT, `chapters.txt`, wav -16 LUFS), khoảng nghỉ và cảnh câm tính đúng frame, `spoken` ghi đè hoàn toàn, sfx, cache (đổi 1 nhịp gọi engine 1 lần, chạy lại sau khi ngắt, file hỏng, ghi nguyên tử, dọn `.tmp`), mã thoát và `lỗi:`, cờ CLI, không đổi `video/public`.
+- `test_episode_files.py`: `_template`, `index.json`, `episodes/README.md`.
+- `test_normalize_vi.py`, `test_normalize_vi_tinhoc.py`: bảng đọc số, IP, phiên bản, giờ, gạch nối, ngày, lexicon có chữ số.
+
+Danh sách từng test và kết quả bẻ code thử: `.team/tests/5.md`.
+
 ## Âm thanh tập
 
 Trộn giọng đọc, nhạc nền và SFX của một tập thành `mix.wav` (WAV 16-bit mono 48 kHz, -16 LUFS ±1, true peak ≤ -1,5 dBTP, dài đúng `durationInFrames`).

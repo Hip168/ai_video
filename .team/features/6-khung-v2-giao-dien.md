@@ -130,3 +130,10 @@ Quy tắc: ngắt theo bề rộng đo, tối đa `maxLines`; không vừa thì 
 | recap-outro `next` | 36 | 1700 (`RECAP_NEXT_WIDTH`) | 2 |
 
 `fitText` cảnh báo cắt chữ một lần cho mỗi bộ (text, cỡ, bề rộng, số dòng); các cảnh gọi `fitText` trong `useMemo` theo props. recap-outro: `LINE_HEIGHT` 1.25, `ROW_PITCH` 105, `NEXT_Y` 770.
+
+## 12. Bố cục recap-outro: hàm thuần `video/src/lib/recap-layout.ts`
+```ts
+recapLayout(points: string[], next: string, o?: { measure?: MeasureWidth }): RecapLayout
+// RecapLayout = { pointSize: number; rows: { y; lineYs: number[]; lines: string[] }[]; next: { fontSize; lineYs: number[]; lines: string[] } }
+```
+Quy tắc: thử cỡ 48 (`POINT_SIZE`) cho mọi điểm, tối đa 2 dòng, bề rộng `RECAP_POINT_WIDTH` 1520; nếu có điểm xuống 2 dòng thì mọi điểm dùng 40 (`POINT_SIZE_SMALL`). Hàng i có `y = ROW_START_Y (240) + i × ROW_PITCH (105)`; điểm 2 dòng căn giữa quanh `y`, cách dòng `size × LINE_HEIGHT (1.25)`. `next`: cỡ 36 (`NEXT_SIZE`), bề rộng 1700, dòng đầu ở `NEXT_Y` 770, cách dòng `size × 1.2` (`NEXT_LINE_HEIGHT`). `scenes/recap-outro.tsx` chỉ vẽ theo kết quả này; truyền `measure` thì chạy thuần.

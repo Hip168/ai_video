@@ -80,6 +80,9 @@ function ellipsize(line: string, size: number, width: number, measure: MeasureWi
   return `${chars.join("").trimEnd()}…`;
 }
 
+/** Chuỗi đã cảnh báo cắt (mỗi chuỗi + cỡ + bề rộng + số dòng chỉ cảnh báo một lần). */
+const warned = new Set<string>();
+
 /**
  * Ngắt dòng theo bề rộng đo được: tối đa `maxLines` dòng; không vừa thì giảm cỡ
  * từng bước 5% tới `minScale` × cỡ gốc; vẫn không vừa thì cắt có "…" và console.warn.
@@ -97,7 +100,11 @@ export function fitText(o: FitOptions): FitResult {
       const kept = lines.slice(0, o.maxLines - 1);
       kept.push(lines.slice(o.maxLines - 1).join(" "));
       const out = kept.filter((l) => l !== "").map((l) => ellipsize(l, size, o.width, measure));
-      console.warn(`text-fit: cắt chữ vì không vừa ${o.maxLines} dòng ở cỡ ${size}px: "${o.text}"`);
+      const key = `${o.text}|${size}|${o.width}|${o.maxLines}`;
+      if (!warned.has(key)) {
+        warned.add(key);
+        console.warn(`text-fit: cắt chữ vì không vừa ${o.maxLines} dòng ở cỡ ${size}px: "${o.text}"`);
+      }
       return { lines: out, fontSize: size, truncated: true };
     }
     size = Math.max(minSize, Math.floor(size - o.fontSize * 0.05));

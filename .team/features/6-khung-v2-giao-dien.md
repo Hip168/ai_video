@@ -126,5 +126,7 @@ Quy tắc: ngắt theo bề rộng đo, tối đa `maxLines`; không vừa thì 
 | cold-open `kicker` | 40 | 1560 | 1 |
 | chapter-title `title` | 100 nếu ≤ 24 ký tự, còn lại 76 | 1100 có `number` (`CHAPTER_WIDTH_WITH_NUMBER`), 1600 không số (`CHAPTER_WIDTH_CENTERED`) | 2 |
 | chapter-title `subtitle` | 42 | như `title` | 2 |
-| recap-outro điểm | 48 | 1520 (`RECAP_POINT_WIDTH`, từ x=360) | 2 |
+| recap-outro điểm | 48; nếu có điểm xuống 2 dòng ở cỡ 48 thì mọi điểm dùng 40 | 1520 (`RECAP_POINT_WIDTH`, từ x=360) | 2 |
 | recap-outro `next` | 36 | 1700 (`RECAP_NEXT_WIDTH`) | 2 |
+
+`fitText` cảnh báo cắt chữ một lần cho mỗi bộ (text, cỡ, bề rộng, số dòng); các cảnh gọi `fitText` trong `useMemo` theo props. recap-outro: `LINE_HEIGHT` 1.25, `ROW_PITCH` 105, `NEXT_Y` 770.

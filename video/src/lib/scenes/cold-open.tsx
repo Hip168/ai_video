@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { clamp01, ease, useBeat, useSpring, useTheme } from "../hooks";
 import { Stage } from "../theme";
 import { fitText, MIN_MARGIN } from "../text";
@@ -16,8 +16,11 @@ export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
   const hook = String(scene.props.hook ?? "");
   const kicker = typeof scene.props.kicker === "string" ? scene.props.kicker : "";
   const baseSize = hook.length <= 24 ? 120 : hook.length <= 48 ? 92 : 72;
-  const { lines, fontSize: size } = fitText({ text: hook, fontSize: baseSize, width: COLD_OPEN_TEXT_WIDTH, maxLines: 3 });
-  const kick = fitText({ text: kicker, fontSize: 40, width: COLD_OPEN_TEXT_WIDTH, maxLines: 1 });
+  const { lines, fontSize: size } = useMemo(
+    () => fitText({ text: hook, fontSize: baseSize, width: COLD_OPEN_TEXT_WIDTH, maxLines: 3 }),
+    [hook, baseSize],
+  );
+  const kick = useMemo(() => fitText({ text: kicker, fontSize: 40, width: COLD_OPEN_TEXT_WIDTH, maxLines: 1 }), [kicker]);
   const lineH = size * 1.25;
   const top = 420 - ((lines.length - 1) * lineH) / 2;
   const pulse = (frame % 90) / 90;

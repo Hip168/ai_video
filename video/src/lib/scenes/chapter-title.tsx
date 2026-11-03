@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useCurrentFrame } from "remotion";
 import { ease, useTheme } from "../hooks";
 import { Stage } from "../theme";
@@ -17,8 +17,12 @@ export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
   const subtitle = typeof scene.props.subtitle === "string" ? scene.props.subtitle : "";
   const hasNum = number !== null;
   const width = hasNum ? CHAPTER_WIDTH_WITH_NUMBER : CHAPTER_WIDTH_CENTERED;
-  const { lines, fontSize: size } = fitText({ text: title, fontSize: title.length <= 24 ? 100 : 76, width, maxLines: 2 });
-  const sub = fitText({ text: subtitle, fontSize: 42, width, maxLines: 2 });
+  const baseSize = title.length <= 24 ? 100 : 76;
+  const { lines, fontSize: size } = useMemo(
+    () => fitText({ text: title, fontSize: baseSize, width, maxLines: 2 }),
+    [title, baseSize, width],
+  );
+  const sub = useMemo(() => fitText({ text: subtitle, fontSize: 42, width, maxLines: 2 }), [subtitle, width]);
   const subLines = sub.lines;
   const x0 = hasNum ? 780 : 960;
   const anchor = hasNum ? "start" : "middle";

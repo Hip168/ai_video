@@ -16,6 +16,33 @@ import { spec as chapterTitleSpec } from "./specs/chapter-title";
 import { RecapOutro } from "./scenes/recap-outro";
 import { spec as recapOutroSpec } from "./specs/recap-outro";
 
+import { Flow } from "./scenes/flow";
+import { spec as flowSpec } from "./specs/flow";
+
+import { Layers } from "./scenes/layers";
+import { spec as layersSpec } from "./specs/layers";
+
+import { ScaleLadder } from "./scenes/scale-ladder";
+import { spec as scaleLadderSpec } from "./specs/scale-ladder";
+
+import { TreeGraph } from "./scenes/tree-graph";
+import { spec as treeGraphSpec } from "./specs/tree-graph";
+
+import { CodeWalk } from "./scenes/code-walk";
+import { spec as codeWalkSpec } from "./specs/code-walk";
+
+import { Terminal } from "./scenes/terminal";
+import { spec as terminalSpec } from "./specs/terminal";
+
+import { Bits } from "./scenes/bits";
+import { spec as bitsSpec } from "./specs/bits";
+
+import { MemoryArray } from "./scenes/memory-array";
+import { spec as memoryArraySpec } from "./specs/memory-array";
+
+import { AlgoBars } from "./scenes/algo-bars";
+import { spec as algoBarsSpec } from "./specs/algo-bars";
+
 export interface CatalogEntry {
   Component: React.FC<SceneProps>;
   spec: SceneSpec;
@@ -37,15 +64,15 @@ export const CATALOG: Record<CatalogType, CatalogEntry> = {
   "history-timeline": placeholder("history-timeline"),
   "term-card": placeholder("term-card"),
   "chart": placeholder("chart"),
-  "flow": placeholder("flow"),
-  "layers": placeholder("layers"),
-  "scale-ladder": placeholder("scale-ladder"),
-  "tree-graph": placeholder("tree-graph"),
-  "code-walk": placeholder("code-walk"),
-  "terminal": placeholder("terminal"),
-  "bits": placeholder("bits"),
-  "memory-array": placeholder("memory-array"),
-  "algo-bars": placeholder("algo-bars"),
+  "flow": { Component: Flow, spec: flowSpec },
+  "layers": { Component: Layers, spec: layersSpec },
+  "scale-ladder": { Component: ScaleLadder, spec: scaleLadderSpec },
+  "tree-graph": { Component: TreeGraph, spec: treeGraphSpec },
+  "code-walk": { Component: CodeWalk, spec: codeWalkSpec },
+  "terminal": { Component: Terminal, spec: terminalSpec },
+  "bits": { Component: Bits, spec: bitsSpec },
+  "memory-array": { Component: MemoryArray, spec: memoryArraySpec },
+  "algo-bars": { Component: AlgoBars, spec: algoBarsSpec },
 };
 
 export function resolveScene(type: string): React.FC<SceneProps> {

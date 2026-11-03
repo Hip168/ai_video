@@ -54,7 +54,7 @@ export function layoutTree(props: Record<string, unknown>): TreeLayout    // d3-
 Mọi hộp nằm trong vùng `x ∈ [40, 1880]`, `y ∈ [40, 790]`, không chồng nhau. Bố cục chừa 16 px quanh vùng nên cả viền hộp (và vòng sáng của `flow`) cũng nằm trong lề 40 px. Toạ độ hộp làm tròn 2 chữ số thập phân. `depth` của gốc `tree-graph` là 0.
 
 ## Code và tô màu
-`video/src/lib/code-highlight.ts`: `tokenizeCode(code, lang)` trả `{text,color}[][]` (một mảng mỗi dòng), `normalizeCode` (NFC, tab thành 2 dấu cách). Dùng `shiki` 4.6.0 `createHighlighterCoreSync` + engine JavaScript (không WASM), ngữ pháp và chủ đề `github-dark` nằm trong gói, không tải gì lúc render, tất định. Font đơn cách `MONO_FAMILY` (`lib/fonts.ts`); chữ code ở cỡ gốc 30 px tối đa (dòng 56 ký tự vừa khung), dài hơn thì giảm cỡ tới 18 px rồi cắt "…". Chú thích tiếng Việt qua `fitText` (≤6 dòng).
+`video/src/lib/code-highlight.ts`: `tokenizeCode(code, lang)` trả `{text,color}[][]` (một mảng mỗi dòng), `normalizeCode` (NFC, tab thành 2 dấu cách). Dùng `shiki` 4.6.0 `createHighlighterCoreSync` + engine JavaScript (không WASM), ngữ pháp và chủ đề `github-dark` nằm trong gói, không tải gì lúc render, tất định. Gọi `codeToTokensBase` với `tokenizeTimeLimit: 0` (không giới hạn thời gian; mặc định 500 ms mỗi dòng của shiki làm code ra một màu khi máy tải cao). Font đơn cách `MONO_FAMILY` (`lib/fonts.ts`); chữ code ở cỡ gốc 30 px tối đa (dòng 56 ký tự vừa khung), dài hơn thì giảm cỡ tới 18 px rồi cắt "…". Chú thích tiếng Việt qua `fitText` (≤6 dòng).
 
 ## Gói thêm (ghim đúng, `video/package.json`)
 `shiki` 4.6.0 (MIT), `@dagrejs/dagre` 3.1.3 (MIT), `d3-hierarchy` 3.1.3 (ISC), devDependency `@types/d3-hierarchy` 3.1.7 (MIT). Không dùng `@remotion/paths`, `@remotion/shapes`, `d3-shape`.

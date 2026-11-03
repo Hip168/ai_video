@@ -41,7 +41,7 @@ export function normalizeCode(code: string): string {
 /** Mỗi dòng là danh sách token {text, color}. Số dòng bằng `normalizeCode(code).split("\n").length`. */
 export function tokenizeCode(code: string, lang: CodeLang): CodeToken[][] {
   const src = normalizeCode(code);
-  const rows = highlighter().codeToTokensBase(src, { lang, theme: "github-dark" });
+  const rows = highlighter().codeToTokensBase(src, { lang, theme: "github-dark", tokenizeTimeLimit: 0 });
   const want = src.split("\n").length;
   const out = rows.map((r) => r.map((t) => ({ text: t.content, color: t.color ?? CODE_FG })));
   while (out.length < want) out.push([]);

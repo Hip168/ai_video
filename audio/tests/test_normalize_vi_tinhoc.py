@@ -224,3 +224,48 @@ def test_khoa_lexicon_co_chu_so_khong_thay_trong_chuoi_so_dai_hon():
     got = speak("x860 và x86", {"x86": "ích tám sáu"})
     assert got.count("ích tám sáu") == 1
     assert got.endswith("ích tám sáu")
+
+
+# ---- ca biên luật IP / số (luật 1 sau điều chỉnh) --------------------------
+BIEN_IP_SO = [
+    # mọi nhóm sau nhóm đầu đúng 3 chữ số và có nhóm 000 -> SỐ
+    ("192.168.000.001",
+     "một trăm chín mươi hai tỷ một trăm sáu mươi tám triệu không trăm linh một"),
+    ("2.000.000.100", "hai tỷ một trăm"),
+    ("1.000.000.001", "một tỷ không trăm linh một"),
+    ("1.000.000.005", "một tỷ không trăm linh năm"),
+    ("255.255.255.256",
+     "hai trăm năm mươi lăm tỷ hai trăm năm mươi lăm triệu"
+     " hai trăm năm mươi lăm nghìn hai trăm năm mươi sáu"),
+    # có nhóm khác 3 chữ số, hoặc không có nhóm 000 -> IP
+    ("10.100.100.100", "mười chấm một trăm chấm một trăm chấm một trăm"),
+    ("100.100.100.100",
+     "một trăm chấm một trăm chấm một trăm chấm một trăm"),
+    ("255.255.255.255",
+     "hai trăm năm mươi lăm chấm hai trăm năm mươi lăm"
+     " chấm hai trăm năm mươi lăm chấm hai trăm năm mươi lăm"),
+    ("10.0.0.1", "mười chấm không chấm không chấm một"),
+]
+
+
+@pytest.mark.parametrize("raw, want", BIEN_IP_SO, ids=[c[0] for c in BIEN_IP_SO])
+def test_ca_bien_giua_ip_va_so_co_phan_cach_nghin(raw, want):
+    assert normalize_vi(raw) == want
+
+
+@pytest.mark.parametrize("raw, want", BIEN_IP_SO, ids=[c[0] for c in BIEN_IP_SO])
+def test_ca_bien_ip_so_chi_co_chu_cham_khi_la_ip(raw, want):
+    got = normalize_vi(raw)
+    assert ("chấm" in got) == ("chấm" in want)
+    assert not re.search(r"[0-9]", got)
+
+
+def test_ip_nhom_cuoi_000_van_la_ip_nhom_000_doc_la_khong():
+    # Cách đọc nhóm "000" (một "không" hay "không không không") hợp đồng
+    # chưa nêu: CẦN BA. Test chỉ khoá phần đã rõ: vẫn là IP, có "chấm".
+    got = normalize_vi("192.168.1.000")
+    prefix = ("một trăm chín mươi hai chấm một trăm sáu mươi tám"
+              " chấm một chấm ")
+    assert got.startswith(prefix), got
+    assert "tỷ" not in got and "triệu" not in got
+    assert not re.search(r"[0-9]", got)

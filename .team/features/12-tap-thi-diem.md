@@ -5,7 +5,7 @@ Nhánh `12-tap-thi-diem`. Phụ thuộc 5–11. Thiết kế: `.team/doi-san-xua
 ## Task
 - [12-1] `packager` đề xuất tên kênh, mô tả, banner, avatar; không dính G3/Ript. Sếp tổng ghi vào `.team/kenh.json` sau khi người dùng chọn tên.
 - [12-2] Người dùng đăng nhập Google cá nhân, tạo kênh, xác minh số điện thoại. OPS hướng dẫn từng bước và ghi `.team/kenh.json`: `channelId`, `handle`, `verifiedPhone`. Không lưu mật khẩu, mã xác minh.
-- [12-3] Tập đầu: `/video` đi hết luồng. Đăng ở chế độ Không công khai. Người dùng xem và duyệt.
+- [12-3] Tập đầu: người dùng nói "làm video về <đề tài>", sếp tổng đi theo `episodes/PLAYBOOK.md`, chạy `make-episode.sh` đủ 7 bước lần đầu. Đăng ở chế độ Không công khai. Người dùng xem và duyệt.
 - [12-4] Nạp nhạc Audio Library sau khi có kênh, OPS ghi manifest.
 
 ## Xong khi

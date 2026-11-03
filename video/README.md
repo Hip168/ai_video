@@ -87,3 +87,16 @@ Trỏ `REMOTION_BROWSER_EXECUTABLE` tới Headless Shell đã cài, không đặ
 export REMOTION_BROWSER_EXECUTABLE="$HOME/.cache/aivideo/chrome-headless-shell/chrome-headless-shell"
 RENDER_TEST=1 npx vitest run
 ```
+
+### Kiểm thử
+Test của đề mục này nằm trong `video/tests/`, sổ chi tiết từng test ở `.team/tests/6.md`. Các file test đã khoá, không sửa.
+```bash
+cd video
+npx vitest run tests/timeline2.test.ts            # validator timeline v2, mẫu sai từng luật, activeBeat2
+npx vitest run tests/props-registry.test.ts       # catalog 18 loại, propsSpec, registry cảnh riêng
+npx vitest run tests/lib-theme-subtitle.test.ts   # 4 theme, hoạ tiết, biểu tượng, phụ đề
+npx vitest run tests/lint-core.test.ts tests/lint-cli.test.ts   # luật lint chống lặp và dòng lệnh
+npx vitest run tests/episode-guard.test.ts tests/episode-fonts.test.ts tests/episode-cli.test.ts
+RENDER_TEST=1 npx vitest run tests/episode-render.test.ts tests/episode-text-fit.test.ts   # cần REMOTION_BROWSER_EXECUTABLE
+```
+Các test đang bảo vệ: hợp đồng timeline v2 (luật 1-10, 12, 13; luật 11 cần độ dài `narration.wav` nên validator không kiểm); khung hình thật của `cold-open`, `chapter-title`, `recap-outro` và `custom:mo-phong`, phụ đề, cảnh neo theo beat; chữ không tràn khung ở độ dài tối đa của spec trên cả 4 theme (lề 40px), `fitText`/`fitBlock` và `recapLayout` với `measure` giả; lint chống lặp; ràng buộc phiên bản, font, không blur, không URL.

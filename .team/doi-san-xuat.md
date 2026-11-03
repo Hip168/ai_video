@@ -39,7 +39,7 @@ Cổng cứng do script tính, không do ai tuyên bố. Các khâu còn lại l
 
 **Cổng 2, chốt kịch bản.** Mọi số, năm, tên riêng trong lời đọc phải có `claim` hợp lệ. Regex bắt số chạy trên `text` gốc, trước khi đổi số thành chữ cho TTS. Đạt thì ghi sha256 của `script.json` phần lời vào sổ tập.
 
-**Cổng 3, đăng.** Script kiểm: sha256 khớp sổ, lint đạt, kỹ thuật đạt, `qc` có dòng phán quyết đúng định dạng, `publish.json` đủ trường, đúng kênh trong `.team/kenh.md`.
+**Cổng 3, đăng.** Script kiểm: sha256 khớp sổ, lint đạt, kỹ thuật đạt, `qc` có dòng phán quyết đúng định dạng, `publish.json` đủ trường, đúng kênh trong `.team/kenh.json`.
 
 ## 4. Phát hiện và phán quyết
 

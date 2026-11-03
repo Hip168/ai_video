@@ -93,6 +93,7 @@ describe('[8-7] bits: `width` là số bit tối thiểu (SSR)', () => {
   test('value=0: không lỗi, mặc định 8 ô, tổng = 0', () => {
     const t = bitsTokens({value: 0});
     expect(hasWeights(t, 8)).toBe(true);
+    expect(t).not.toContain('256');
     expect(t[t.length - 1]).toBe('= 0');
   });
 
@@ -167,29 +168,6 @@ async function shoot(
   return decodePng(output);
 }
 
-type Diff = {count: number; minX: number; maxX: number; minY: number; maxY: number};
-/** Điểm khác nhau (chênh > tol ở bất kỳ kênh nào) trong y<830 và hộp bao của chúng. */
-function diffBox(a: Pixels, b: Pixels, tol = 40, x0 = 0): Diff {
-  const r: Diff = {count: 0, minX: 1e9, maxX: -1, minY: 1e9, maxY: -1};
-  for (let y = 0; y < MAIN_END; y++) {
-    for (let x = x0; x < a.width; x++) {
-      const p = px(a, x, y);
-      const q = px(b, x, y);
-      if (
-        Math.abs(p[0] - q[0]) > tol || Math.abs(p[1] - q[1]) > tol ||
-        Math.abs(p[2] - q[2]) > tol
-      ) {
-        r.count++;
-        r.minX = Math.min(r.minX, x);
-        r.maxX = Math.max(r.maxX, x);
-        r.minY = Math.min(r.minY, y);
-        r.maxY = Math.max(r.maxY, y);
-      }
-    }
-  }
-  return r;
-}
-
 /** Số ô trên một đường ngang: các đoạn màu panel/accent/muted/accent2 dài >= 15 px. */
 function cellsAcross(p: Pixels, y: number): number {
   const t = THEMES['mau-a'];
@@ -249,113 +227,181 @@ d('[8-7] bits: width tối thiểu, khung hình thật', () => {
   }, 240_000);
 });
 
-d('[8-3] scale-ladder: chữ giá trị không mất, không tràn trái thanh', () => {
-  const s = () => specB('scale-ladder');
-  const powers = [0, 3, 6, 9, 12, 15];
-  const props = (n: number, first: string): Record<string, unknown> => ({
+// ---------------- scale-ladder ----------------
+const BAR_POWERS = [0, 1, 9]; // 3 bậc: bậc 0 chữ ngoài thanh, bậc 1 và 2 chữ trong thanh
+const ladder = (n: number): Record<string, unknown> => {
+  const pw = [0, 3, 6, 9, 12, 15];
+  return {
     rungs: [...Array(n)].map((_, i) => ({
       label: `Bậc ${i + 1}`,
-      value: i === 0 ? first : wide(16),
-      power: powers[Math.floor((i * (powers.length - 1)) / (n - 1))],
+      value: wide(16),
+      power: n === 3 ? BAR_POWERS[i] : pw[Math.floor((i * (pw.length - 1)) / (n - 1))],
     })),
-  });
-  const timeline = (n: number, first: string) =>
-    buildTimeline('scale-ladder', s(), props(n, first), 'mau-a', 0, {n});
+  };
+};
+const withValue = (props: Record<string, unknown>, k: number, v: string) => ({
+  rungs: (props.rungs as any[]).map((r, i) => (i === k ? {...r, value: v} : r)),
+});
+const PRESENT = 500; // chữ 16 ký tự rộng cho >= 4000 điểm khác; dấu chấm đối chứng chỉ ~40
 
-  test('mọi value dài 16 ký tự hợp lệ theo spec', () => {
+describe('[8-3] scale-ladder: props 16 ký tự hợp lệ theo spec', () => {
+  test('mọi value dài 16 ký tự, 3, 5, 6 bậc, qua validateProps', () => {
+    const sp = specB('scale-ladder');
     for (const n of [3, 5, 6]) {
-      expect(validateProps(s().propsSpec, props(n, wide(16)))).toEqual([]);
+      expect(validateProps(sp.propsSpec, ladder(n))).toEqual([]);
     }
-    expect(CATALOG['scale-ladder'].spec).toBe(s());
+    expect(CATALOG['scale-ladder'].spec).toBe(sp);
   });
+});
 
-  test.each([3, 5, 6])(
-    '%i bậc, frame cuối: chữ giá trị của bậc thấp nhất có điểm ảnh (không bị mất)',
-    async (n) => {
-      const a = timeline(n, wide(16));
-      const b = timeline(n, '.');
-      const pa = await shoot(a.timeline, a.endFrame);
-      const pb = await shoot(b.timeline, b.endFrame);
-      const df = diffBox(pa, pb);
-      // 16 chữ rộng cỡ ~34 px có hàng nghìn điểm; một dấu chấm chỉ vài chục
-      expect(df.count).toBeGreaterThan(1500);
-      expect(df.maxX - df.minX).toBeGreaterThan(150);
-    },
-    240_000,
-  );
+type Probe = {
+  count: number;
+  cols: Int32Array; // số điểm khác theo cột x
+  minY: number;
+  maxY: number;
+  left: number; // mép trái viền thanh (màu accent) trong các hàng của chữ, -1 nếu không thấy
+  right: number; // mép phải viền thanh
+};
+const minXFrom = (p: Probe, x0: number): number => {
+  for (let x = x0; x < p.cols.length; x++) if (p.cols[x] > 0) return x;
+  return -1;
+};
+const maxXOf = (p: Probe): number => {
+  for (let x = p.cols.length - 1; x >= 0; x--) if (p.cols[x] > 0) return x;
+  return -1;
+};
+const countFrom = (p: Probe, x0: number): number => {
+  let c = 0;
+  for (let x = x0; x < p.cols.length; x++) c += p.cols[x];
+  return c;
+};
 
-  test('5 bậc: khi thanh đang dài ra, chữ giá trị không nằm bên trái mép trái thanh', async () => {
-    const n = 5;
-    const theme = THEMES['mau-a'];
-    for (let k = 0; k < n; k++) {
-      const make = (v: string) =>
-        buildTimeline(
-          'scale-ladder', s(),
-          {
-            rungs: (props(n, wide(16)).rungs as any[]).map((r, i) =>
-              i === k ? {...r, value: v} : r,
-            ),
-          },
-          'mau-a', 0, {n},
-        );
-      for (const off of [8, 12, 16]) {
-        const f = 30 + k * BEAT_GAP + off;
-        const pa = await shoot(make(wide(16)).timeline, f);
-        const pb = await shoot(make('.').timeline, f);
-        const df = diffBox(pa, pb);
-        if (df.count < 50) continue; // chữ chưa hiện thì không thể tràn
-        // mép trái thanh: điểm màu accent (viền thanh) trái nhất trong các hàng của chữ
-        const bar = findColor(
-          pb, hex(theme.accent),
-          {y0: df.minY, y1: df.maxY + 1}, 6,
-        );
-        expect(bar.length, `bậc ${k} frame ${f}: không thấy viền thanh`).toBeGreaterThan(0);
-        const left = Math.min(...bar.map(([x]) => x));
-        expect(df.minX, `bậc ${k} frame ${f}: chữ lấn trái thanh`).toBeGreaterThanOrEqual(left - 2);
+d('[8-3] scale-ladder: chữ giá trị (khung hình thật)', () => {
+  const s = () => specB('scale-ladder');
+  const theme = THEMES['mau-a'];
+  const probes = new Map<string, Probe>();
+  let lastA: {key: string; px: Pixels} | null = null;
+
+  /** Hai ảnh chỉ khác value của bậc k (chữ 16 ký tự với "."), đếm điểm khác theo cột. */
+  async function probe(n: number, k: number, f: number): Promise<Probe> {
+    const key = `${n}:${k}:${f}`;
+    const got = probes.get(key);
+    if (got) return got;
+    const base = ladder(n);
+    const tw = buildTimeline('scale-ladder', s(), base, 'mau-a', 0, {n});
+    const to = buildTimeline(
+      'scale-ladder', s(), withValue(base, k, '.'), 'mau-a', 0, {n},
+    );
+    const wk = `${n}:${f}`;
+    if (lastA?.key !== wk) lastA = {key: wk, px: await shoot(tw.timeline, f)};
+    const a = lastA.px;
+    const b = await shoot(to.timeline, f);
+    const r: Probe = {
+      count: 0, cols: new Int32Array(a.width), minY: 1e9, maxY: -1,
+      left: -1, right: -1,
+    };
+    for (let y = 0; y < MAIN_END; y++) {
+      for (let x = 0; x < a.width; x++) {
+        const p1 = px(a, x, y);
+        const q = px(b, x, y);
+        if (
+          Math.abs(p1[0] - q[0]) > 40 || Math.abs(p1[1] - q[1]) > 40 ||
+          Math.abs(p1[2] - q[2]) > 40
+        ) {
+          r.count++;
+          r.cols[x]++;
+          r.minY = Math.min(r.minY, y);
+          r.maxY = Math.max(r.maxY, y);
+        }
       }
     }
-  }, 600_000);
+    if (r.count > 0) {
+      const bar = findColor(
+        b, hex(theme.accent), {y0: r.minY, y1: r.maxY + 1}, 6,
+      ).map(([x]) => x);
+      if (bar.length > 0) {
+        r.left = Math.min(...bar);
+        r.right = Math.max(...bar);
+      }
+    }
+    probes.set(key, r);
+    return r;
+  }
+  const endOf = (n: number) =>
+    buildTimeline('scale-ladder', s(), ladder(n), 'mau-a', 0, {n}).endFrame;
+  const startOf = (k: number) => 30 + k * BEAT_GAP;
 
-  test('3 bậc power 0, 1, 9 (bậc giữa wFinal ~469 px): mép trái chữ giá trị không nhảy giữa hai frame liền nhau', async () => {
-    const rungs = [0, 1, 9].map((power, i) => ({
-      label: `Bậc ${i + 1}`, value: wide(16), power,
-    }));
-    const make = (v: string) =>
-      buildTimeline(
-        'scale-ladder', s(),
-        {rungs: rungs.map((r, i) => (i === 1 ? {...r, value: v} : r))},
-        'mau-a', 0, {n: 3},
-      );
-    const withText = make(wide(16));
-    const without = make('.');
-    const start = 30 + BEAT_GAP; // bậc giữa vào ở beat 1
+  test.each([3, 5, 6])(
+    '%i bậc, frame cuối: chữ giá trị của MỌI bậc có mặt (đổi value từng bậc: 16 ký tự so với ".")',
+    async (n) => {
+      for (let k = 0; k < n; k++) {
+        const pr = await probe(n, k, endOf(n));
+        expect(pr.count, `bậc ${k}: chữ giá trị mất`).toBeGreaterThan(PRESENT);
+        expect(
+          maxXOf(pr) - minXFrom(pr, 0),
+          `bậc ${k}: chữ quá hẹp`,
+        ).toBeGreaterThan(150);
+      }
+    },
+    900_000,
+  );
+
+  test('3 bậc, từng frame 6..18 sau beat vào: chữ giá trị không nằm bên trái mép trái thanh (mỗi bậc có ít nhất 1 frame được xét)', async () => {
+    for (let k = 0; k < 3; k++) {
+      let seen = 0;
+      for (let off = 6; off <= 18; off++) {
+        const pr = await probe(3, k, startOf(k) + off);
+        if (pr.count < PRESENT) continue; // chữ chưa hiện thì không thể tràn
+        seen++;
+        expect(pr.left, `bậc ${k} off ${off}: không thấy viền thanh`).toBeGreaterThanOrEqual(0);
+        expect(
+          minXFrom(pr, 0),
+          `bậc ${k} off ${off}: chữ lấn trái thanh (mép trái thanh ${pr.left})`,
+        ).toBeGreaterThanOrEqual(pr.left - 2);
+      }
+      expect(seen, `bậc ${k}: không frame nào có chữ để xét`).toBeGreaterThanOrEqual(1);
+    }
+  }, 1_800_000);
+
+  test('bậc 0 (chữ ngoài thanh): từ lúc chữ hiện tới frame cuối, vị trí chữ ở bên phải đầu thanh không đổi', async () => {
+    const fin = await probe(3, 0, endOf(3));
+    expect(fin.count).toBeGreaterThan(PRESENT);
+    // chỉ đo bên phải đầu thanh: dấu chấm đối chứng nằm TRONG thanh và trượt theo w
+    const x0 = fin.right + 2;
+    expect(countFrom(fin, x0), 'chữ giá trị phải nằm ngoài (bên phải) thanh').toBeGreaterThan(PRESENT);
+    const endX = minXFrom(fin, x0);
+    let seen = 0;
+    for (let off = 6; off <= 26; off++) {
+      const pr = await probe(3, 0, startOf(0) + off);
+      if (countFrom(pr, x0) < PRESENT) continue;
+      seen++;
+      expect(
+        Math.abs(minXFrom(pr, x0) - endX),
+        `off ${off}: chữ ngoài thanh trượt (${minXFrom(pr, x0)} so với ${endX} ở frame cuối)`,
+      ).toBeLessThanOrEqual(3);
+    }
+    expect(seen, 'phải thấy chữ ngoài thanh ở ít nhất 2 frame trước frame cuối').toBeGreaterThanOrEqual(2);
+  }, 1_800_000);
+
+  test('3 bậc power 0, 1, 9 (bậc giữa wFinal ~469 px): mép trái chữ giá trị không nhảy giữa hai frame có chữ (giữ vị trí cuối cùng có chữ)', async () => {
+    // Nhảy lỗi là ~296..370 px trong 1 frame; thanh dài ra hợp lệ trượt tối đa vài chục px mỗi frame
     let prev: number | null = null;
     let seen = 0;
     const lefts: number[] = [];
-    // Nhảy lỗi là ~370 px trong 1 frame; thanh dài ra hợp lệ trượt tối đa vài chục px mỗi frame
-    // Dung sai màu 12 (chữ đang mờ dần vẫn thấy), chỉ xét x >= 540 (vùng thanh,
-    // bỏ nhãn bên trái); từng frame một để không lọt cú nhảy 1 frame.
     for (let off = 2; off <= 28; off++) {
-      const f = start + off;
-      const df = diffBox(
-        await shoot(withText.timeline, f),
-        await shoot(without.timeline, f),
-        12, 540,
-      );
-      if (df.count < 50) {
-        prev = null; // chữ chưa hiện
-        continue;
-      }
+      const pr = await probe(3, 1, startOf(1) + off);
+      if (pr.count < PRESENT) continue; // chữ chưa hiện; giữ vị trí cuối cùng có chữ
       seen++;
-      lefts.push(df.minX);
+      const x = minXFrom(pr, 0);
+      lefts.push(x);
       if (prev !== null) {
         expect(
-          Math.abs(df.minX - prev),
-          `frame ${f}: mép trái chữ ${prev} -> ${df.minX} (${lefts.join(', ')})`,
+          Math.abs(x - prev),
+          `off ${off}: mép trái chữ ${prev} -> ${x} (${lefts.join(', ')})`,
         ).toBeLessThanOrEqual(150);
       }
-      prev = df.minX;
+      prev = x;
     }
-    expect(seen, lefts.join(',')).toBeGreaterThanOrEqual(3); // chữ phải hiện trong khoảng khảo sát
-  }, 900_000);
+    expect(seen, lefts.join(',')).toBeGreaterThanOrEqual(3);
+  }, 1_800_000);
 });

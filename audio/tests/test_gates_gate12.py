@@ -570,6 +570,10 @@ def test_gate2_chan_1_000_5_khi_claim_noi_1_000_55(tmp_path):
         ("10:30", "10:30", True),
         ("10:30", "10:35", False),
         ("007", "7", False),
+        ("10:30", "30:10", False),
+        ("2024-01-15", "15-01-2024", False),
+        ("1-2-3", "1-2-3", True),
+        ("1-2-3", "3-2-1", False),
     ],
 )
 def test_gate2_so_dang_ngay_gio_va_so_khong_dau_phai_khop_tung_phan(

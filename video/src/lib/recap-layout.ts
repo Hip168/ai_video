@@ -27,7 +27,10 @@ export interface RecapLayout {
   next: { fontSize: number; lineYs: number[]; lines: string[] };
 }
 
-/** Hàm thuần tính bố cục recap-outro. Có điểm xuống 2 dòng ở cỡ 48 thì mọi điểm dùng cỡ 40. */
+/**
+ * Hàm thuần tính bố cục recap-outro. Thử cỡ 48; có điểm xuống 2 dòng hoặc phải giảm cỡ thì thử 40.
+ * Mọi điểm dùng một cỡ chung là cỡ nhỏ nhất mà mọi điểm đều vừa, rồi ngắt lại ở đúng cỡ đó.
+ */
 export function recapLayout(points: string[], next: string, o: { measure?: MeasureWidth } = {}): RecapLayout {
   const fit = (size: number, minScale?: number) =>
     points.map((p) => fitText({ text: p, fontSize: size, width: RECAP_POINT_WIDTH, maxLines: 2, measure: o.measure, minScale }));

@@ -49,3 +49,41 @@ Hoặc truyền cho từng lệnh CLI: `--browser-executable="<đường dẫn>"
 
 Phần Python (`korvatts`, `vieneu`) thuộc đề mục 1, không kiểm ở đây.
 Không có chỗ nào tài liệu khác hợp đồng.
+
+## Tập dài (Episode)
+Dùng cho video tập dài, chạy song song với `Video` (v1), không sửa v1. Hợp đồng: `.team/features/0b-hop-dong-timeline-v2.md`. Chữ ký công khai: `.team/features/6-khung-v2-giao-dien.md`.
+
+### Composition `Episode`
+`npx remotion compositions src/index.ts` liệt kê `Video`, `Episode`, `KitDemo`. `Episode` nhận timeline v2 qua `inputProps`, không fetch file. Không có `timeline` thì ra nền trống 1 giây.
+```bash
+# props.json: { "timeline": { ...timeline v2... } }   ("muted" mặc định true: render hình, tiếng trộn sau bằng FFmpeg)
+npx remotion still src/index.ts Episode out.png --frame=100 --props=props.json
+```
+`validateTimeline2` (`src/timeline2.ts`) kiểm luật 1-13 của hợp đồng, lỗi có đường dẫn trường (vd `scenes[1].startFrame: ...`). Tên SFX chỉ `pop, tick, whoosh, ding, buzz`.
+
+### Catalog 18 loại cảnh
+`cold-open`, `chapter-title`, `recap-outro` (có sẵn) và 15 loại giữ chỗ cho đề mục 7, 8: `big-number`, `compare`, `myth-fact`, `history-timeline`, `term-card`, `chart`, `flow`, `layers`, `scale-ladder`, `tree-graph`, `code-walk`, `terminal`, `bits`, `memory-array`, `algo-bars`.
+
+Thêm một loại: viết `src/lib/scenes/<id>.tsx` và `src/lib/specs/<id>.ts` (`propsSpec`, ví dụ, số beat tối thiểu, danh sách cue), rồi chỉ đổi đúng dòng của loại đó trong `CATALOG` ở `src/lib/registry.ts` (và import vào khối của mình). Bỏ `anyProps` khỏi spec. Mọi cảnh: hình chính trong `y < 830`, chuyển động là hàm thuần của frame, cấm `filter: blur`, `feGaussianBlur`, `backdrop-filter`, không chuỗi URL.
+
+### Cảnh riêng `custom:<tên>`
+Viết `src/episodes/<slug>/<tên>.tsx` rồi đăng ký trong `src/episodes/registry.ts` (`CUSTOM_SCENES`, khoá là `<tên>` không có tiền tố). Mẫu: `mo-phong` trong `src/episodes/_demo/`.
+
+### Theme
+4 theme: `mau-a`, `mau-b`, `mau-c`, `mau-d` (`src/lib/theme-data.ts`): bảng màu, hoạ tiết nền (chỉ trong `y < 830`), bộ 8 biểu tượng (`Icon`). Theme lạ thì `getTheme` ném lỗi.
+
+### Chữ không tràn
+`fitText` (`src/lib/text.ts`) đo bề rộng thật bằng `@remotion/layout-utils`, ngắt dòng tối đa số dòng của khối, không vừa thì giảm cỡ từng bước 5% tới 70% cỡ gốc, vẫn không vừa thì cắt bằng "…" và `console.warn` một lần. Lề tối thiểu 40px. `recap-outro` dùng một cỡ chung cho mọi điểm (`src/lib/recap-layout.ts`). Font đơn cách JetBrains Mono (OFL) nạp bằng `loadMonoFonts()` (`src/lib/fonts.ts`).
+
+### Lint chống lặp
+```bash
+npm run lint:episode -- <slug> [--script f] [--timeline f] [--index f] [--json]
+```
+Cấu trúc đọc từ `episodes/<slug>/script.json`, thời lượng từ `out/episodes/<slug>/timeline.json` nếu có (không có thì bỏ hai luật thời lượng). `episodes/index.json` là mảng. Mã thoát 0 đạt, 1 có lỗi, 2 lỗi dùng. Luật: ít nhất 10 loại khác nhau; một loại không quá `floor(số cảnh × 9/48)` (tối thiểu 1); không 3 cảnh liền cùng loại; ít nhất 3 cảnh `custom`; đầu `cold-open`, cuối `recap-outro`; theme khác tập liền trước; chuỗi loại cảnh giống mọi tập cũ dưới 60% (Levenshtein chuẩn hoá, `custom:*` gộp); tổng ít nhất 9 phút, cảnh dài nhất 20 giây, mỗi chương ít nhất 10 giây; `props` qua `propsSpec`; theme có trong danh sách. `min-beats` và `unknown-cue` chỉ cảnh báo.
+
+### Trình duyệt khi render (D23)
+Trỏ `REMOTION_BROWSER_EXECUTABLE` tới Headless Shell đã cài, không đặt cứng trong mã:
+```bash
+export REMOTION_BROWSER_EXECUTABLE="$HOME/.cache/aivideo/chrome-headless-shell/chrome-headless-shell"
+RENDER_TEST=1 npx vitest run
+```

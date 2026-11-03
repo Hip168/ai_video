@@ -231,6 +231,8 @@ d('[8-5] code-walk: dấu tiếng Việt và tô màu tất định', () => {
 // ---- Mục k neo đúng beat k (chống "mọi mục theo beat 0 + 20k") ----
 // Nhiễu chữ Chrome giữa hai lần render khác timeline đo được tới 0,047% (layers);
 // tín hiệu thật của mục k thấp nhất đo được vài % -> ngưỡng 0,5%.
+const BARS_Y0 = 140;
+const BARS_Y1 = 720;
 const startOf = (k: number) => 30 + k * BEAT_GAP;
 for (const {id, task} of GROUP_B) {
   d(`[${task}] cảnh ${id}: mục k chỉ hiện từ beat k`, () => {
@@ -286,10 +288,11 @@ d('[8-9] algo-bars: hình theo algoBarsAt với đúng beat step', () => {
       const f = S(k) + 40;
       const a = await still(`ab:full`, full().timeline, f);
       const b = await still(`ab:same:${k}`, same.timeline, f);
-      expect(diffRatio(a, b, 0, MAIN_END, 0)).toBeLessThan(0.0005);
+      // Chỉ so dải cột (y 140..720); bỏ tiêu đề và chú thích (chữ lớn Chrome vẽ chập chờn)
+      expect(diffRatio(a, b, BARS_Y0, BARS_Y1, 0)).toBeLessThan(0.0005);
       // và khác ảnh khi vẫn ở trạng thái 0 (cảnh thật sự đã sang trạng thái k)
       const z = await still(`ab:z:${k}`, full().timeline, S(1) - 5);
-      expect(diffRatio(b, z, 0, MAIN_END)).toBeGreaterThan(0.0003);
+      expect(diffRatio(b, z, BARS_Y0, BARS_Y1)).toBeGreaterThan(0.0003);
     },
     240_000,
   );

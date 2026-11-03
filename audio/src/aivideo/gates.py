@@ -1008,9 +1008,13 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
     prep = [e for e in led.entries() if e["stage"] == "fact-prepare" and e.get("note") == Path(batch).name]
     if not prep:
         raise GateError("sổ tập không có mục fact-prepare cho lô này: lô không do prepare-factcheck tạo")
+    if any(e["stage"] == "fact" and e.get("note") == Path(batch).name for e in led.entries()):
+        raise GateError("lô này đã được apply; muốn kiểm lại phải prepare-factcheck lô mới")
     saved = prep[-1].get("claimHashes") or {}
+    if not isinstance(items, list) or sorted(str(it.get("id")) for it in items) != sorted(saved):
+        raise GateError("tập id trong items.json khác tập claim lúc prepare-factcheck; tạo lô mới")
     now = {c.get("id"): claim_hash(c) for c in claims if isinstance(c, dict)}
-    changed = [it["id"] for it in items if now.get(it["id"]) != saved.get(it["id"])]
+    changed = [cid for cid in saved if now.get(cid) != saved[cid]]
     if changed:
         raise GateError(f"claim đã đổi sau prepare-factcheck: {', '.join(changed)}; tạo lô mới")
     status = {it["id"]: "DAT" for it in items}
@@ -1028,6 +1032,8 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
     for c in claims:
         if c.get("id") in status:
             c["status"] = status[c["id"]]
+        else:  # claim thêm sau prepare, chưa qua lô nào
+            c["status"] = "CHUA_KIEM"
     _write_json_atomic(ep / "claims.json", claims)
     led.add(stage="fact", role="sep-tong", verdict=res["verdict"], note=Path(batch).name,
             claims_hash=sha256_file(ep / "claims.json"), output_hash=res["findingsHash"])

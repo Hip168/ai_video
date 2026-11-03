@@ -7,7 +7,7 @@ Người dùng chọn Duyệt ở Pha 4d ngày 2026-10-31. Luật đầy đủ: 
 
 ## Luôn dừng và hỏi người dùng
 - Test đỏ do code sai tiêu chí, CI đỏ, main đỏ, `BỊ CHẶN`.
-- Review có phát hiện.
+- Review có phát hiện: KHÔNG hỏi nữa (người dùng chốt 2026-11-03). Lỗi rõ ràng thì giao DEV sửa, DEV-LEAD và TEST-LEAD kiểm lại. Chỉ hỏi khi sửa làm đổi hành vi đã chốt hoặc rất tốn.
 - `CẦN BA` mà `.team/` không trả lời được.
 - Cài hoặc chạy trên server, tài khoản thật.
 - Mở khoá file khoá, force push, xoá nhánh, sửa `.github/workflows`.

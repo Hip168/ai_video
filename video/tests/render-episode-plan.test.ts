@@ -1,6 +1,6 @@
 import {existsSync, readdirSync, writeFileSync} from 'node:fs';
 import path from 'node:path';
-import {afterAll, describe, expect, test} from 'vitest';
+import {afterAll, afterEach, describe, expect, test} from 'vitest';
 import {
   cleanup,
   golden,
@@ -214,7 +214,7 @@ describe('[10-3] chọn trình duyệt theo D23', () => {
     expect(r.stderr).toContain('/khong/co/trinh-duyet');
   });
 
-  test('không đặt biến và không có bản trong ~/.cache: lỗi mã 1 nêu đường dẫn mặc định', () => {
+  test.skipIf(process.platform !== 'darwin')('không đặt biến và không có bản trong ~/.cache (macOS): lỗi mã 1 nêu đường dẫn mặc định', () => {
     const home = tmp('home-');
     const r = runRender(['tap-thu', '--root', root], {
       AIVIDEO_FREE_GB: '50',
@@ -224,5 +224,43 @@ describe('[10-3] chọn trình duyệt theo D23', () => {
     expect(r.status, `${r.stdout}\n${r.stderr}`).toBe(1);
     expect(r.stderr).toContain('chrome-headless-shell');
     expect(existsSync(path.join(outDir(root), 'segments'))).toBe(false);
+  });
+});
+
+describe('[10-3] resolveBrowser theo hệ điều hành (giả lập process.platform)', () => {
+  const realPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
+  const saved = process.env.REMOTION_BROWSER_EXECUTABLE;
+  const setPlatform = (p: string) =>
+    Object.defineProperty(process, 'platform', {value: p, configurable: true});
+  afterEach(() => {
+    Object.defineProperty(process, 'platform', realPlatform);
+    if (saved === undefined) delete process.env.REMOTION_BROWSER_EXECUTABLE;
+    else process.env.REMOTION_BROWSER_EXECUTABLE = saved;
+  });
+
+  test('Linux, không đặt biến: để Remotion tự chọn (ok, exe null)', async () => {
+    const {resolveBrowser} = await import('../scripts/render-lib');
+    delete process.env.REMOTION_BROWSER_EXECUTABLE;
+    setPlatform('linux');
+    expect(resolveBrowser()).toEqual({ok: true, exe: null});
+  });
+
+  test('macOS, không đặt biến: dùng đường D23 nếu có, thiếu thì không ok', async () => {
+    const {resolveBrowser, DEFAULT_BROWSER} = await import('../scripts/render-lib');
+    delete process.env.REMOTION_BROWSER_EXECUTABLE;
+    setPlatform('darwin');
+    expect(DEFAULT_BROWSER).toContain(path.join('chrome-headless-shell', 'chrome-headless-shell'));
+    const r = resolveBrowser();
+    if (existsSync(DEFAULT_BROWSER)) expect(r).toEqual({ok: true, exe: DEFAULT_BROWSER});
+    else expect(r).toEqual({ok: false, exe: null});
+  });
+
+  test.each(['linux', 'darwin'])('%s: biến trỏ file có thật thì dùng, trỏ file thiếu thì không ok', async (p) => {
+    const {resolveBrowser} = await import('../scripts/render-lib');
+    setPlatform(p);
+    process.env.REMOTION_BROWSER_EXECUTABLE = process.execPath;
+    expect(resolveBrowser()).toEqual({ok: true, exe: process.execPath});
+    process.env.REMOTION_BROWSER_EXECUTABLE = '/khong/co/trinh-duyet';
+    expect(resolveBrowser()).toEqual({ok: false, exe: null});
   });
 });

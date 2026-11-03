@@ -70,9 +70,6 @@ def tree(tmp_path_factory):
         (r.out / "video.srt").write_text("1\n00:00:00,000 --> 00:00:01,000\nA\n")
         (r.out / "chapters.txt").write_text("00:00 Mở đầu\n")
         (r.out / "narration.wav").write_bytes(b"n" * 1000)
-        # framecheck verify chạy `npx tsx` trong <gốc>/video; chưa rõ trong
-        # giao diện, nên trỏ video/ của gốc thử về video/ thật.
-        (base / "video").symlink_to(ROOT / "video")
         S["root"] = r
     return S["root"]
 

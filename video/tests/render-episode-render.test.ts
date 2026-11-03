@@ -238,6 +238,21 @@ d('[10-1] không để tiến trình chrome-headless-shell mồ côi', () => {
     expect(await newOrphans(before)).toEqual([]);
   }, 300_000);
 
+  test('lỗi giữa chừng qua điểm móc AIVIDEO_FAIL_SEGMENT: mã 1, không còn trình duyệt mồ côi', async () => {
+    const root = makeRoot(staticTimeline([90]));
+    const before = pidsOf(orphans());
+    const r = runRender(['tap-thu', '--root', root, '--procs', '2'], {
+      ...ENV,
+      AIVIDEO_FAIL_SEGMENT: 'seg-000',
+    }, 240_000);
+    expect(r.status, `${r.stdout}\n${r.stderr}`).toBe(1);
+    expect(r.stderr).toContain('AIVIDEO_FAIL_SEGMENT');
+    expect(main(root)[0].status).toBe('failed');
+    expect(existsSync(segFile(root, 'seg-000'))).toBe(false);
+    expect(partFiles(root)).toEqual([]);
+    expect(await newOrphans(before)).toEqual([]);
+  }, 300_000);
+
   test.each(['SIGINT', 'SIGTERM'] as const)(
     '%s ngay sau khi mở trình duyệt: thoát khác 0, không còn tiến trình mồ côi',
     async (sig) => {

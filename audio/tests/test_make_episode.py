@@ -61,6 +61,11 @@ def clean_out():
     ["_template", "--engine"],
     ["Slug Sai"],
     ["tap-a", "tap-b"],
+    ["_template", "--skip-lint"],
+    ["_template", "--no-lint"],
+    ["_template", "--skip-mix"],
+    ["_template", "--no-mix"],
+    ["_template", "--skip", "lint"],
 ])
 def test_tham_so_sai_thoat_ma_2_va_in_cach_dung_khong_tao_gi(args):
     before = set((ROOT / "out" / "episodes").glob("*")) if (
@@ -152,3 +157,31 @@ def test_slug_khong_co_kich_ban_la_loi_buoc_1(clean_out):
     assert r.returncode == 1, r.stdout + r.stderr
     assert "LỖI ở" in r.stderr and "script.json" in r.stderr
     assert "Bước 2/7" not in r.stdout
+
+
+def test_script_khong_co_co_bo_qua_lint_hay_mix():
+    text = SCRIPT.read_text("utf-8").lower()
+    assert "skip" not in text and "--no-" not in text
+
+
+def test_moi_dong_nhat_ky_ke_ca_dong_lenh_con_deu_co_gio(clean_out):
+    """Bước build lỗi (script.json hỏng): đầu ra lệnh con đi qua tee phải có giờ."""
+    slug = "zz-test-tee"
+    ep = ROOT / "episodes" / slug
+    assert not ep.exists()
+    out = clean_out(slug)
+    ep.mkdir()
+    try:
+        (ep / "script.json").write_text("{khong phai json", "utf-8")
+        r = mk(slug, "--engine", "fake", env={
+            "AIVIDEO_FREE_GB": "50",
+            "REMOTION_BROWSER_EXECUTABLE": sys.executable})
+        assert r.returncode == 1, r.stdout + r.stderr
+        assert "Bước 2/7" in r.stdout
+        lines = (out / "render.log").read_text("utf-8").splitlines()
+    finally:
+        shutil.rmtree(ep, ignore_errors=True)
+    assert len(lines) >= 4, lines
+    assert all(STAMP.match(ln) for ln in lines), lines
+    child = [ln for ln in lines if "Bước" not in ln and "LỖI" not in ln]
+    assert child, lines  # có ít nhất một dòng từ lệnh con

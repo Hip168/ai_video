@@ -455,7 +455,7 @@ def finding_key(f: dict) -> str:
 
 _ENTRY_FIELDS = ("seq", "ts", "stage", "role", "pair", "round", "inputHash", "outputHash",
                  "verdict", "scriptHash", "claimsHash", "artifactHash", "findingsHash",
-                 "findingKeys", "returnTo", "escalate", "note", "prevHash")
+                 "findingKeys", "returnTo", "escalate", "note", "cmd", "prevHash")
 
 
 def entry_hash(entry: dict) -> str:
@@ -528,7 +528,7 @@ class Ledger:
     def add(self, *, stage: str, role: str, pair: str | None = None, verdict: str | None = None,
             input_hash=None, output_hash=None, script_hash=None, claims_hash=None,
             artifact_hash=None, findings_hash=None, finding_keys=None, return_to=None,
-            note=None) -> dict:
+            note=None, cmd=None) -> dict:
         """Ghi một mục. Trả {"state":"OK"|"CAN_NGUOI_DUNG", ...}; CAN_NGUOI_DUNG kèm
         `recorded` cho biết mục có được ghi không."""
         doc = self.load()
@@ -557,7 +557,7 @@ class Ledger:
                  "outputHash": output_hash, "verdict": verdict, "scriptHash": script_hash,
                  "claimsHash": claims_hash, "artifactHash": artifact_hash,
                  "findingsHash": findings_hash, "findingKeys": keys or None,
-                 "returnTo": return_to, "escalate": bool(repeated), "note": note,
+                 "returnTo": return_to, "escalate": bool(repeated), "note": note, "cmd": cmd,
                  "prevHash": ents[-1]["entryHash"] if ents else ""}
         entry["entryHash"] = entry_hash(entry)
         ents.append(entry)
@@ -604,25 +604,19 @@ def ledger_add_findings(ep: Path, *, stage, role, pair, findings, root, input_ha
 
 LINT_CMD = ["npm", "run", "lint:episode", "--", "{slug}", "--json"]  # chạy trong <repo>/video
 KY_THUAT_CMD = [sys.executable, "-m", "aivideo.assemble", "verify", "{slug}"]  # đề mục 10
-TEST_CMD_ENV = {"lint": "AIVIDEO_TEST_CMD_LINT", "ky-thuat": "AIVIDEO_TEST_CMD_KY_THUAT"}
 
 
-def _fixed_command(stage: str, slug: str, repo: Path) -> tuple[list[str], Path | None]:
-    """Lệnh cố định theo stage. Biến môi trường TEST_CMD_ENV[stage] (chỉ dành cho test) thay
-    lệnh; giá trị được tách bằng shlex, `{slug}` được thay."""
-    over = os.environ.get(TEST_CMD_ENV[stage])
-    if over:
-        import shlex
-        return [x.replace("{slug}", slug) for x in shlex.split(over)], None
-    if stage == "lint":
-        return [x.replace("{slug}", slug) for x in LINT_CMD], repo / "video"
-    return [x.replace("{slug}", slug) for x in KY_THUAT_CMD], None
+def expected_command(stage: str, slug: str) -> list[str]:
+    """Lệnh cố định của stage (đọc hằng lúc gọi, để test monkeypatch được)."""
+    base = LINT_CMD if stage == "lint" else KY_THUAT_CMD
+    return [x.replace("{slug}", slug) for x in base]
 
 
 def ledger_run(ep: Path, stage: str) -> dict:
     if stage not in RUN_STAGES:
         raise GateError(f"--stage phải thuộc {RUN_STAGES}")
-    cmd, cwd = _fixed_command(stage, ep.name, ep.resolve().parent.parent)
+    cmd = expected_command(stage, ep.name)
+    cwd = ep.resolve().parent.parent / "video" if stage == "lint" else None
     try:
         r = subprocess.run(cmd, capture_output=True, text=False, check=False, cwd=cwd)
     except OSError as e:
@@ -630,7 +624,7 @@ def ledger_run(ep: Path, stage: str) -> dict:
     verdict = "DAT" if r.returncode == 0 else "CHAN"
     out = Ledger(ep).add(stage=stage, role="sep-tong", verdict=verdict,
                          output_hash=sha256_bytes(r.stdout), script_hash=_script_hash_of(ep),
-                         note=f"mã thoát {r.returncode}: {' '.join(cmd)[:200]}")
+                         cmd=cmd, note=f"mã thoát {r.returncode}")
     out["verdict"] = verdict
     out["exitCode"] = r.returncode
     return out
@@ -759,6 +753,8 @@ def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None) -> 
             add(stage, False, f"phán quyết {e.get('verdict')}")
         elif e.get("scriptHash") != cur:
             add(stage, False, "chạy trên bản kịch bản cũ")
+        elif stage in RUN_STAGES and e.get("cmd") != expected_command(stage, slug):
+            add(stage, False, "lệnh đã chạy khác lệnh cố định của stage")
         else:
             add(stage, True, f"seq {e['seq']}")
     # dòng phán quyết qc

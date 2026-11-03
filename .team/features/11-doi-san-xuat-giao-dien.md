@@ -72,8 +72,9 @@ Mã thoát 0 chỉ khi `DAT`.
 - `apply-factcheck <slug> --findings F --batch DIR`: chạy `verdict` với root = lô; `CHUA_DUYET` thì lỗi, không đổi gì. Với mỗi claim trong `items.json`: có phát hiện giữ lại `rule:"claim:<id>"` mức CRITICAL → `SAI`; mức MAJOR → `CHUA_KIEM`; còn lại → `DAT`. Chỉ ghi lại trường `status` của `claims.json`. Stdout `{"verdict","updated":{"c001":"DAT"},"unmapped":[...]}`.
 
 ## `qualify.py` (đo người kiểm, đề mục 11-5)
-`python -m aivideo.qualify build [--out DIR]` sinh lại bộ cài lỗi (xác định, cùng đầu ra); `python -m aivideo.qualify score --kind fact|qc --errors F --found F [--clean-found F] [--root DIR] [--threshold 0.9] [--max-false 1]`.
+`python -m aivideo.qualify build [--out DIR]` sinh lại bộ cài lỗi (xác định, cùng đầu ra); `python -m aivideo.qualify prepare --kind fact|qc --which clean|seeded [--role FILE] [--tmp-parent DIR]` chép đầu vào mù ra thư mục tạm ngoài repo (fact: qua `prepare_factcheck`, stdout `{batchDir,items,prompt}`; qc: `{packageDir,files}` chứa `script.json`, `timeline.json`, `video.srt`, `chapters.txt`); `python -m aivideo.qualify score --kind fact|qc --errors F --found F [--clean-found F] [--root DIR] [--threshold 0.9] [--max-false 1]`.
 - Bộ cài lỗi nằm ở `qualification/`: `fact/clean.json`, `fact/seeded.json`, `fact/seeded-errors.json`, `qc/clean/`, `qc/seeded/`, `qc/seeded-errors.json`.
 - `seeded-errors.json`: `[{"id","severity","file","marker","kind","note"}]`. Một lỗi được tính là bắt khi có phát hiện CRITICAL/MAJOR đã giữ (qua `verdict` với `--root`), `file` cùng tên tệp, và `marker` có trong `quote` hoặc `rule` chứa `:<id>`.
 - Báo sai = phát hiện CRITICAL/MAJOR không khớp lỗi nào (trên bản cài lỗi) cộng mọi phát hiện CRITICAL/MAJOR trên bản sạch (`--clean-found`).
+- Bộ qc là các sản phẩm dạng chữ (kịch bản chốt, timeline, SRT, mục lục) có 5 lỗi CRITICAL và 1 MAJOR; lỗi hình/âm của video thật do sếp tổng thêm ở đề mục 12.
 - Stdout: `{"kind","errors":n,"caught":k,"rate":0.9,"missed":[ids],"falseAlarms":m,"passRate":bool,"passFalse":bool,"pass":bool,"row":"| ... |"}`. `pass` cho `fact`: `rate>=threshold` và `falseAlarms<=max-false`; cho `qc`: mọi lỗi CRITICAL được bắt.

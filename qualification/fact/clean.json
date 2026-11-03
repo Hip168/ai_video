@@ -1,0 +1,98 @@
+[
+  {
+    "id": "q01",
+    "claim": "Tim Berners-Lee đề xuất World Wide Web năm 1989 khi làm việc tại CERN.",
+    "question": "Ai đề xuất World Wide Web, năm nào, ở đâu?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/World_Wide_Web",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q02",
+    "claim": "Python được Guido van Rossum phát hành lần đầu năm 1991.",
+    "question": "Ai tạo ra Python và phát hành lần đầu năm nào?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q03",
+    "claim": "Linus Torvalds công bố nhân Linux lần đầu năm 1991.",
+    "question": "Ai công bố nhân Linux và năm nào?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Linux",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q04",
+    "claim": "iPhone đời đầu của Apple được bán ra năm 2007.",
+    "question": "iPhone đời đầu được bán ra năm nào?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/IPhone_(1st_generation)",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q05",
+    "claim": "Địa chỉ IPv4 dài 32 bit, tức khoảng 4,3 tỷ địa chỉ.",
+    "question": "Địa chỉ IPv4 dài bao nhiêu bit?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/IPv4",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q06",
+    "claim": "Bảng mã ASCII dùng 7 bit nên biểu diễn được 128 ký tự.",
+    "question": "ASCII dùng bao nhiêu bit, biểu diễn bao nhiêu ký tự?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/ASCII",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q07",
+    "claim": "UTF-8 mã hoá mỗi ký tự bằng từ 1 đến 4 byte.",
+    "question": "UTF-8 dùng tối đa bao nhiêu byte cho một ký tự?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/UTF-8",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q08",
+    "claim": "Bộ vi xử lý Intel 4004 ra mắt năm 1971.",
+    "question": "Intel 4004 ra mắt năm nào?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Intel_4004",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q09",
+    "claim": "Máy tính ENIAC được công bố cho công chúng năm 1946.",
+    "question": "ENIAC được công bố năm nào?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/ENIAC",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q10",
+    "claim": "Git do Linus Torvalds tạo ra năm 2005.",
+    "question": "Ai tạo ra Git và năm nào?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Git",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q11",
+    "claim": "Mã trạng thái HTTP 404 nghĩa là không tìm thấy trang.",
+    "question": "Mã HTTP 404 nghĩa là gì?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/List_of_HTTP_status_codes",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "q12",
+    "claim": "Một byte gồm 8 bit.",
+    "question": "Một byte gồm bao nhiêu bit?",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Byte",
+    "credibility": "secondary",
+    "status": "CHUA_KIEM"
+  }
+]

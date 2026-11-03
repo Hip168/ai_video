@@ -70,6 +70,7 @@ Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 
 - Số trần có chữ số 0 đứng đầu đọc từng chữ số: `007` "không không bảy".
 - Chuỗi số nối bằng `.` xét theo thứ tự sau, luật đầu tiên khớp thì dùng:
   1. Đúng 4 nhóm, mỗi nhóm 1–3 chữ số và ≤ 255, trừ khi mọi nhóm sau nhóm đầu đúng 3 chữ số và có ít nhất một nhóm là `000` (khi đó là số: `2.000.000.100`, `1.000.000.005`, `1.200.000.000`): IP, đọc từng nhóm nối "chấm". `10.255.255.255`, `192.168.100.200`, `192.168.1.1` "một trăm chín mươi hai chấm một trăm sáu mươi tám chấm một chấm một".
+     Mỗi nhóm IP đọc theo giá trị số: `000` và `00` đọc "không", `010` đọc "mười".
   2. Nhóm đầu 1–3 chữ số, mọi nhóm sau đúng 3 chữ số: số có phân cách nghìn. `1.000.000` "một triệu", `1.200.000.000` "một tỷ hai trăm triệu".
   3. Còn lại, từ 2 nhóm trở lên và có chữ cái dính phía trước, hoặc từ 3 nhóm trở lên: phiên bản, đọc từng nhóm nối "chấm". `3.11.4`, `v1.2` "v một chấm hai", `1.2.3.4.5`.
   4. Đúng 2 nhóm không có chữ cái phía trước: thập phân như đã ghi.

@@ -18,6 +18,7 @@ out/
 *.mp3
 *.mp4
 *.srt
+!qualification/**/*.srt
 video/public/timeline.json
 video/public/audio/
 *.egg-info/

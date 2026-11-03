@@ -1,0 +1,11 @@
+1
+00:00:00,000 --> 00:00:04,000
+Python ra đời năm 1991 do Guido van Rossum tạo ra.
+
+2
+00:00:05,000 --> 00:00:09,000
+Nó nổi tiếng nhờ cú pháp ngắn gọn dễ đọc.
+
+3
+00:00:11,000 --> 00:00:17,000
+Địa chỉ IPv4 dài 32 bit, tức khoảng 4,3 tỷ địa chỉ.

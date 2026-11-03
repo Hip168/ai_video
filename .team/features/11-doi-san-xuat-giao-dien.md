@@ -41,6 +41,7 @@ Gồm mọi kiểm của gate1, cộng `validate_script` của `aivideo.episode`
 ## `verdict <findings.json> [--root DIR]`
 `findings.json` = `{"findings":[{"severity":"CRITICAL|MAJOR|MINOR","rule","file","quote","failing_case","owner"}]}`; mọi trường chuỗi không rỗng. `file` tính từ `--root` (mặc định thư mục hiện tại), phải nằm trong root.
 - Thiếu file / không phải JSON / sai dạng / bất kỳ phát hiện nào sai dạng → `CHUA_DUYET`.
+- Phát hiện có `quote` dài hơn `MAX_QUOTE` = 300 ký tự cũng bị loại.
 - Phát hiện mà file không tồn tại, nằm ngoài root, hoặc `quote` (NFC) không là chuỗi con của file → bị loại, vào `dropped`; `complete:false`.
 - Còn lại: có CRITICAL → `CHAN`; có MAJOR → `SUA`; còn lại (kể cả rỗng) → `DAT`. Chỉ tính phát hiện đã giữ.
 ```json
@@ -57,6 +58,7 @@ Mã thoát 0 chỉ khi `DAT`.
 `episodes/<slug>/ledger.json`: `{"slug","entries":[...]}`. Mỗi mục:
 `{"seq","ts","stage","role","pair","round","inputHash","outputHash","verdict","scriptHash","claimsHash","artifactHash","findingsHash","findingKeys","returnTo","escalate","note","cmd","prevHash","entryHash"}` (trường không dùng là `null`). `entryHash` = sha256 của mục (bỏ `entryHash`, JSON chuẩn như trên) gồm `prevHash` của mục trước (`""` cho mục đầu). Sửa/xoá/chèn một mục thì chuỗi vỡ, mọi lệnh ledger từ chối và `gate3` chặn.
 
+- `ledger add` TỪ CHỐI (lỗi, mã 1) khâu dành riêng `cong2`, `cong3`, `lint`, `ky-thuat`: chỉ `gate2`, `gate3`, `ledger run` ghi các khâu đó (`RESERVED_STAGES`, `reject_reserved`).
 - `ledger add <slug> --stage S --role R [--pair maker/checker] [--findings F --root DIR] [--input-hash H] [--output-hash H] [--artifact FILE] [--return-to ROLE] [--note T]`
   - Có `--findings`: mục của người kiểm, bắt buộc `--pair`; `verdict` do `verdict` tính (không có cờ nhập tay). Ghi thêm `findings_sha256`. Stage `qc` còn ghi `handoff/qc.verdict`.
   - Không có `--findings`: mục của người làm, `verdict:null`.
@@ -67,14 +69,22 @@ Mã thoát 0 chỉ khi `DAT`.
 - `ledger show <slug>`: `{"ok":bool,"entries":n,"last":{...},"scriptHash":...,"rounds":{"<pair>":<số mục người kiểm kể từ DAT>}}`.
 - `ledger handoff <slug> <khau>`: tạo `episodes/<slug>/handoff/<khau>.md` với năm mục `## Đã chốt`, `## Đã bỏ`, `## Rủi ro`, `## File`, `## Còn lại`; có sẵn thì mã 1.
 
+## Neo git, bằng chứng qc, số âm (BA 6b)
+- `gate3` thêm mục `cong2-lai`: tự chạy lại `gate2(write_ledger=False)` trên dữ liệu hiện tại (không tin mục `cong2`); thiếu `claims.json` thì không ok. Mục `hash-kich-ban` vẫn so với mục `cong2` trong sổ.
+- Mục `so-git` (repo = `git -C <thư mục tập> rev-parse --show-toplevel`; không phải repo git thì CHẶN): `ledger.json` phải nằm trong kho git, không có thay đổi chưa commit (kể cả chưa được theo dõi), và lịch sử `git log -- ledger.json` chỉ thêm (mỗi bản giữ nguyên mọi mục của bản trước, commit xoá file là chặn). Sếp tổng commit sổ sau mỗi cổng.
+- `ledger add --stage qc --findings F`: nếu `F` khác `episodes/<slug>/handoff/qc.json` thì sao chép nguyên văn vào đó. `qc.json` là JSON của qc: `findings` (như cũ) và `evidence`, nên có thể nộp thẳng `--findings handoff/qc.json`.
+- Mục `qc-bang-chung`: `handoff/qc.json` có `findings` và `evidence:{"videoSha256":<64 hex>,"frames":[giây...],"loudness":{"lufs":<số>,"truePeak":<số>}}`; `videoSha256` = sha256 của `--video` (không có `--video` thì so `artifactHash` của mục qc); `frames` là mảng số >= 0 có ít nhất `MIN_FRAMES` = 20 mốc khác nhau và ít nhất 1 mốc trong mỗi chương (chương lấy từ `<out-dir>/<slug>/timeline.json`, `--out-dir` mặc định `<episodes-dir>/../out/episodes`; thiếu timeline thì không ok).
+- Số âm: `NUMBER_RE` bắt dấu `-` hoặc `−` đứng sát chữ số khi không dính sau chữ/số/`.`/`,` (`-5`, `−3,5`). Giá trị mang dấu: `-5` không khớp claim `5`.
+
 ## Đưa claim cho fact-checker mù
 - `prepare-factcheck <slug> --role <file vai> [--tmp-parent DIR] [--with-lines]`: tạo thư mục tên ngẫu nhiên trung tính `lo-xxxxxxxx` dưới `--tmp-parent` (mặc định thư mục tạm của hệ điều hành; từ chối nếu nằm trong repo) gồm `items.json` (mảng `{id,claim,question,sourceUrls}`, `sourceUrls` là mảng chuỗi URL; không `status`, không `credibility`) và `prompt.txt` (nội dung file vai + đường dẫn thư mục lô + yêu cầu trả JSON phát hiện, `rule` dạng `claim:<id>`). Dựng prompt từ chối (lỗi) nếu file vai hoặc prompt chứa `script.json`, `kịch bản`, `episodes/`. `--with-lines` (lượt 2 của fact-checker) thêm vào mỗi phần tử trường `lines`: mảng `text` của các beat có `claims` chứa id đó (chỉ chữ của beat, không có `script.json`). Không có file nào khác ngoài hai file này. Stdout: `{"batchDir","items","prompt"}`.
-- `apply-factcheck <slug> --findings F --batch DIR`: chạy `verdict` với root = lô; `CHUA_DUYET` thì lỗi, không đổi gì. Với mỗi claim trong `items.json`: có phát hiện giữ lại `rule:"claim:<id>"` mức CRITICAL → `SAI`; mức MAJOR → `CHUA_KIEM`; còn lại → `DAT`. Chỉ ghi lại trường `status` của `claims.json`. Stdout `{"verdict","updated":{"c001":"DAT"},"unmapped":[...]}`.
+- `prepare-factcheck` còn ghi `<batchDir>.meta.json` (cạnh thư mục lô, không nằm trong lô): `{id: claim_hash}`, `claim_hash` = sha256 của claim bỏ `status`.
+- `apply-factcheck <slug> --findings F --batch DIR`: lỗi (không đổi gì) nếu thiếu meta hoặc claim hiện tại khác lúc prepare; chạy `verdict` với root = lô; `CHUA_DUYET` thì lỗi, không đổi gì. Với mỗi claim trong `items.json`: có phát hiện giữ lại `rule:"claim:<id>"` mức CRITICAL → `SAI`; mức MAJOR → `CHUA_KIEM`; còn lại → `DAT`. Chỉ ghi lại trường `status` của `claims.json`. Stdout `{"verdict","updated":{"c001":"DAT"},"unmapped":[...]}`.
 
 ## `qualify.py` (đo người kiểm, đề mục 11-5)
 `python -m aivideo.qualify build [--out DIR]` sinh lại bộ cài lỗi (xác định, cùng đầu ra); `python -m aivideo.qualify prepare --kind fact|qc --which clean|seeded [--role FILE] [--tmp-parent DIR]` chép đầu vào mù ra thư mục tạm ngoài repo (fact: qua `prepare_factcheck`, stdout `{batchDir,items,prompt}`; qc: `{packageDir,files}` chứa `script.json`, `timeline.json`, `video.srt`, `chapters.txt`); `python -m aivideo.qualify score --kind fact|qc --errors F --found F [--clean-found F] [--root DIR] [--threshold 0.9] [--max-false 1]`.
 - Bộ cài lỗi nằm ở `qualification/`: `fact/clean.json`, `fact/seeded.json`, `fact/seeded-errors.json`, `qc/clean/`, `qc/seeded/`, `qc/seeded-errors.json`.
 - `seeded-errors.json`: `[{"id","severity","file","marker","kind","note"}]`. Một lỗi được tính là bắt khi có phát hiện CRITICAL/MAJOR đã giữ (qua `verdict` với `--root`), `file` cùng tên tệp, và `marker` có trong `quote` hoặc `rule` chứa `:<id>`.
-- Báo sai = phát hiện CRITICAL/MAJOR không khớp lỗi nào (trên bản cài lỗi) cộng mọi phát hiện CRITICAL/MAJOR trên bản sạch (`--clean-found`).
+- Mỗi phát hiện chỉ tính bắt tối đa MỘT lỗi cài (ghép lần lượt theo thứ tự lỗi, phát hiện đã dùng không dùng lại). Báo sai = phát hiện CRITICAL/MAJOR không khớp lỗi nào (trên bản cài lỗi) cộng mọi phát hiện CRITICAL/MAJOR trên bản sạch (`--clean-found`).
 - Bộ qc là các sản phẩm dạng chữ (kịch bản chốt, timeline, SRT, mục lục) có 5 lỗi CRITICAL và 1 MAJOR; lỗi hình/âm của video thật do sếp tổng thêm ở đề mục 12.
 - Stdout: `{"kind","errors":n,"caught":k,"rate":0.9,"missed":[ids],"falseAlarms":m,"passRate":bool,"passFalse":bool,"pass":bool,"row":"| ... |"}`. `pass` cho `fact`: `rate>=threshold` và `falseAlarms<=max-false`; cho `qc`: mọi lỗi CRITICAL được bắt.

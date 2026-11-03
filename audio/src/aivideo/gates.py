@@ -11,6 +11,7 @@ import ipaddress
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -29,6 +30,9 @@ STATUS = ("DAT", "SAI", "CHUA_KIEM")
 SEVERITIES = ("CRITICAL", "MAJOR", "MINOR")
 FINDING_FIELDS = ("severity", "rule", "file", "quote", "failing_case", "owner")
 MAX_ROUNDS = 3
+MAX_QUOTE = 300
+MIN_FRAMES = 20
+RESERVED_STAGES = ("cong2", "cong3", "lint", "ky-thuat")
 MAX_CROSS_RETURNS = 2
 RUN_STAGES = ("lint", "ky-thuat")
 HANDOFF_SECTIONS = ("Đã chốt", "Đã bỏ", "Rủi ro", "File", "Còn lại")
@@ -41,7 +45,7 @@ GENERIC_ACRONYMS = frozenset((
     "KB", "TB", "GHz", "MHz", "kHz", "UTF", "ASCII", "BIOS", "LAN", "WAN", "VPN", "GUI", "CLI",
     "IDE", "GiB", "MiB", "KiB", "TiB", "Wi-Fi", "WiFi"))
 
-NUMBER_RE = re.compile(r"\d+(?:[.,:/\-–—]\d+)*")
+NUMBER_RE = re.compile(r"(?:(?<![\w.,])[-\u2212](?=\d))?\d+(?:[.,:/\-–—]\d+)*")
 WORD_RE = re.compile(r"[^\W\d_]+(?:['’\-][^\W\d_]+)*")
 _SENT_END = ".!?…:;"
 _SKIP_BACK = " \t\r\n\"'“”‘’«»(–—-"
@@ -135,13 +139,17 @@ def _is_http(url) -> bool:
 def number_value(token: str) -> Decimal | None:
     """Giá trị số theo đúng quy tắc nghìn/thập phân của normalize_vi, hoặc None nếu không
     phải một số đơn (IP, ngày, giờ, khoảng, số 0 đứng đầu đọc từng chữ số)."""
+    neg = token[:1] in "-\u2212"
+    if neg:
+        token = token[1:]
     if re.fullmatch(r"0\d+", token) or not re.fullmatch(_NUM, token):
         return None
+    sign = -1 if neg else 1
     if re.fullmatch(_THOUSANDS, token):
         whole, _, frac = token.replace(".", "").partition(",")
     else:
         whole, _, frac = token.replace(",", ".").partition(".")
-    return Decimal(f"{whole}.{frac}" if frac else whole)
+    return sign * Decimal(f"{whole}.{frac}" if frac else whole)
 
 
 def _runs(token: str) -> list[str]:
@@ -438,6 +446,8 @@ def evaluate_findings(raw, root=".") -> dict:
             body = cache[target]
             if body is None:
                 reason = "không đọc được file"
+            elif len(f["quote"]) > MAX_QUOTE:
+                reason = f"quote dài quá {MAX_QUOTE} ký tự"
             elif nfc(f["quote"]) not in body:
                 reason = "quote không có trong file"
         (dropped if reason else kept).append({"finding": f, "reason": reason} if reason else f)
@@ -577,8 +587,15 @@ def _script_hash_of(ep: Path) -> str | None:
         return None
 
 
+def reject_reserved(stage: str) -> None:
+    if stage in RESERVED_STAGES:
+        raise GateError(f"khâu {stage!r} dành riêng cho gate2, gate3, ledger run; "
+                        "ledger add không được ghi")
+
+
 def ledger_add_findings(ep: Path, *, stage, role, pair, findings, root, input_hash=None,
                         output_hash=None, artifact=None, return_to=None, note=None) -> dict:
+    reject_reserved(stage)
     res = evaluate_findings(Path(findings), root)
     if res["verdict"] == "CHUA_DUYET" and res.get("findingsHash") is None:
         findings_hash = sha256_bytes(f"khong-co-json:{findings}".encode())
@@ -599,6 +616,9 @@ def ledger_add_findings(ep: Path, *, stage, role, pair, findings, root, input_ha
         hd = ep / "handoff"
         hd.mkdir(parents=True, exist_ok=True)
         (hd / "qc.verdict").write_text(line, encoding="utf-8")
+        target = hd / "qc.json"
+        if target.resolve() != Path(findings).resolve():
+            shutil.copyfile(findings, target)
     return out
 
 
@@ -712,7 +732,81 @@ def _check_publish(ep: Path, kenh: Path) -> tuple[bool, str]:
     return (not errs), ("; ".join(errs) if errs else "đủ trường, đúng kênh")
 
 
-def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None) -> dict:
+def _git(ep: Path, *args: str):
+    return subprocess.run(["git", "-C", str(ep), *args], capture_output=True, text=True, check=False)
+
+
+def _check_ledger_git(ep: Path) -> tuple[str, bool, str]:
+    name = "so-git"
+    if not (ep / "ledger.json").is_file():
+        return name, False, "chưa có ledger.json"
+    r = _git(ep, "rev-parse", "--show-toplevel")
+    if r.returncode != 0:
+        return name, False, "không nằm trong kho git, không có neo cho sổ"
+    st = _git(ep, "status", "--porcelain", "--", "ledger.json")
+    if st.returncode != 0 or st.stdout.strip():
+        return name, False, "ledger.json có thay đổi chưa commit (hoặc chưa được theo dõi)"
+    lg = _git(ep, "log", "--follow", "--format=%H", "--", "ledger.json")
+    commits = [c for c in lg.stdout.split() if c][::-1]
+    if not commits:
+        return name, False, "ledger.json chưa có commit nào"
+    prev = None
+    for c in commits:
+        sh = _git(ep, "show", f"{c}:./ledger.json")
+        if sh.returncode != 0:
+            return name, False, f"commit {c[:8]} xoá ledger.json"
+        try:
+            ents = json.loads(sh.stdout)["entries"]
+        except (ValueError, KeyError, TypeError):
+            return name, False, f"commit {c[:8]}: ledger.json sai dạng"
+        if prev is not None and ents[:len(prev)] != prev:
+            return name, False, f"commit {c[:8]} sửa hoặc xoá mục cũ của sổ"
+        prev = ents
+    return name, True, f"{len(commits)} commit, chỉ thêm"
+
+
+def _check_qc_evidence(ep: Path, slug: str, video, out_dir: Path, qe) -> tuple[str, bool, str]:
+    name = "qc-bang-chung"
+    p = ep / "handoff" / "qc.json"
+    if not p.is_file():
+        return name, False, "thiếu handoff/qc.json"
+    try:
+        ev = json.loads(p.read_text(encoding="utf-8")).get("evidence")
+    except (OSError, ValueError, AttributeError):
+        return name, False, "handoff/qc.json hỏng"
+    if not isinstance(ev, dict):
+        return name, False, "thiếu evidence"
+    vh = ev.get("videoSha256")
+    if not (isinstance(vh, str) and re.fullmatch(r"[0-9a-f]{64}", vh)):
+        return name, False, "evidence.videoSha256 sai dạng"
+    ref = sha256_file(Path(video)) if video and Path(video).is_file() else (qe or {}).get("artifactHash")
+    if vh != ref:
+        return name, False, "videoSha256 khác MP4"
+    frames = ev.get("frames")
+    if not (isinstance(frames, list) and all(isinstance(t, (int, float)) and not isinstance(t, bool)
+                                              and t >= 0 for t in frames)):
+        return name, False, "evidence.frames phải là mảng mốc giây >= 0"
+    if len(set(frames)) < MIN_FRAMES:
+        return name, False, f"cần ít nhất {MIN_FRAMES} khung khác nhau, có {len(set(frames))}"
+    loud = ev.get("loudness")
+    num = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)  # noqa: E731
+    if not (isinstance(loud, dict) and num(loud.get("lufs")) and num(loud.get("truePeak"))):
+        return name, False, "evidence.loudness phải là {lufs, truePeak} (số)"
+    tp = out_dir / slug / "timeline.json"
+    try:
+        tl = json.loads(tp.read_text(encoding="utf-8"))
+        starts = [c["startFrame"] / tl.get("fps", 30) for c in tl["chapters"]]
+        end = tl["durationInFrames"] / tl.get("fps", 30)
+    except (OSError, ValueError, KeyError, TypeError):
+        return name, False, f"không đọc được chương từ {tp}"
+    bounds = starts + [end]
+    for i in range(len(starts)):
+        if not any(bounds[i] <= t < bounds[i + 1] for t in frames):
+            return name, False, f"chương {i + 1} không có khung nào"
+    return name, True, f"{len(set(frames))} khung, {len(starts)} chương"
+
+
+def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None, out_dir=None) -> dict:
     ep = _ep_dir(slug, episodes_dir)
     kenh = Path(kenh_path) if kenh_path else Path(episodes_dir).resolve().parent / ".team" / "kenh.json"
     checks: list[dict] = []
@@ -745,6 +839,16 @@ def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None) -> 
         add("hash-kich-ban", False, "claims.json đã đổi sau Cổng 2")
     else:
         add("hash-kich-ban", True, cur)
+    # tự chạy lại kiểm của Cổng 2 trên dữ liệu hiện tại, không tin mục cong2
+    if not (ep / "claims.json").is_file():
+        add("cong2-lai", False, "thiếu claims.json")
+    else:
+        try:
+            g2 = gate2(slug, episodes_dir, write_ledger=False)
+            add("cong2-lai", g2["pass"],
+                "đạt" if g2["pass"] else f"{len(g2['problems'])} vấn đề, vd {g2['problems'][0]}")
+        except GateError as e:
+            add("cong2-lai", False, str(e))
     for stage in ("lint", "ky-thuat", "qc"):
         e = last(stage)
         if not e:
@@ -774,6 +878,9 @@ def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None) -> 
             add("qc-dong-phan-quyet", False, "findings_sha256 không khớp sổ tập")
         else:
             add("qc-dong-phan-quyet", True)
+    add(*_check_ledger_git(ep))
+    add(*_check_qc_evidence(ep, slug, video, Path(out_dir) if out_dir else
+                            Path(episodes_dir).resolve().parent / "out" / "episodes", last("qc")))
     if video:
         qe = last("qc")
         vf = Path(video)
@@ -812,6 +919,16 @@ def build_factcheck_prompt(role_text: str, batch_dir) -> str:
 def _inside(child: Path, parent: Path) -> bool:
     c, p = child.resolve(), parent.resolve()
     return c == p or p in c.parents
+
+
+def claim_hash(c: dict) -> str:
+    """Hash của claim, không tính `status` (apply-factcheck đổi status)."""
+    return sha256_bytes(canon({k: v for k, v in c.items() if k != "status"}).encode("utf-8"))
+
+
+def _batch_meta(batch) -> Path:
+    b = Path(batch)
+    return b.with_name(b.name + ".meta.json")
 
 
 def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
@@ -854,6 +971,7 @@ def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
     if _inside(batch, repo):
         raise GateError("thư mục tạm của lô phải nằm ngoài repo")
     _write_json_atomic(batch / "items.json", items)
+    _write_json_atomic(_batch_meta(batch), {c["id"]: claim_hash(c) for c in claims})
     (batch / "prompt.txt").write_text(build_factcheck_prompt(role_text, batch), encoding="utf-8")
     return {"batchDir": str(batch), "items": str(batch / "items.json"),
             "prompt": str(batch / "prompt.txt")}
@@ -868,6 +986,14 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
     claims, probs = _load_claims(ep)
     if claims is None:
         raise GateError(probs[0]["problem"])
+    mp = _batch_meta(batch)
+    if not mp.is_file():
+        raise GateError(f"thiếu {mp}: lô không do prepare-factcheck tạo")
+    saved = _read_json(mp)
+    now = {c.get("id"): claim_hash(c) for c in claims if isinstance(c, dict)}
+    changed = [it["id"] for it in items if now.get(it["id"]) != saved.get(it["id"])]
+    if changed:
+        raise GateError(f"claim đã đổi sau prepare-factcheck: {', '.join(changed)}; tạo lô mới")
     status = {it["id"]: "DAT" for it in items}
     unmapped = []
     for f in res["kept"]:
@@ -922,6 +1048,7 @@ def _main(argv: list[str] | None = None) -> int:
     p.add_argument("slug")
     p.add_argument("--kenh")
     p.add_argument("--video")
+    p.add_argument("--out-dir")
     p = sub.add_parser("verdict")
     p.add_argument("findings")
     p.add_argument("--root", default=".")
@@ -975,7 +1102,7 @@ def _main(argv: list[str] | None = None) -> int:
         _emit(r)
         return 0 if r["pass"] else 1
     if a.cmd == "gate3":
-        r = gate3(a.slug, a.episodes_dir, a.kenh, a.video)
+        r = gate3(a.slug, a.episodes_dir, a.kenh, a.video, a.out_dir)
         _emit(r)
         return 0 if r["pass"] else 1
     if a.cmd == "verdict":
@@ -991,6 +1118,7 @@ def _main(argv: list[str] | None = None) -> int:
     # ledger
     ep = _ep_dir(a.slug, a.episodes_dir)
     if a.lcmd == "add":
+        reject_reserved(a.stage)
         if a.findings:
             r = ledger_add_findings(ep, stage=a.stage, role=a.role, pair=a.pair, findings=a.findings,
                                     root=a.root, input_hash=a.input_hash, output_hash=a.output_hash,

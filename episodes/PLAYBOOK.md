@@ -96,7 +96,7 @@ $G ledger add <slug> --stage fact-1 --role sep-tong --pair researcher/fact-check
 $G apply-factcheck <slug> --findings <batchDir>/findings.json --batch <batchDir>
 $G gate1 <slug>
 ```
-`apply-factcheck` ghi lại `status` của từng claim: phát hiện `claim:<id>` mức CRITICAL thành `SAI`, MAJOR thành `CHUA_KIEM`, không có phát hiện thì `DAT`. Gate1 vẫn chặn nếu claim `DAT` mà nguồn chỉ `anecdotal`, hoặc claim về số mà không có nguồn `primary` và không có hai nguồn khác tên miền gốc. Gate1 chặn thì trả researcher kèm danh sách `problems`; vòng mới dùng một lô mới (chạy lại `prepare-factcheck`).
+`prepare-factcheck` lưu hash từng claim; `apply-factcheck` từ chối nếu claim đã đổi sau đó (tạo lô mới). `apply-factcheck` ghi lại `status` của từng claim: phát hiện `claim:<id>` mức CRITICAL thành `SAI`, MAJOR thành `CHUA_KIEM`, không có phát hiện thì `DAT`. Gate1 vẫn chặn nếu claim `DAT` mà nguồn chỉ `anecdotal`, hoặc claim về số mà không có nguồn `primary` và không có hai nguồn khác tên miền gốc. Gate1 chặn thì trả researcher kèm danh sách `problems`; vòng mới dùng một lô mới (chạy lại `prepare-factcheck`).
 
 **[3] viết.** Gọi `scriptwriter` với `outline.md`, `claims.json` (đã `DAT`). Hướng dẫn đọc số trong file vai: ca nghe chưa hay (`Python 3.12`, `24/7`, số điện thoại, ngày `dd.mm.yyyy`, chữ "Ngày" đứng trước ngày ISO) thì dùng `spoken` hoặc lexicon của tập. Có thể chạy thử `extract-claims` để biết số/tên nào cần claim:
 ```bash
@@ -134,13 +134,13 @@ $G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivide
 ```
 `ledger run` không nhận lệnh tuỳ ý: lệnh nằm trong mã theo `--stage`, phán quyết từ mã thoát, kèm sha256 đầu ra JSON. Lỗi thì gọi `editor` chẩn đoán và chạy lại bước hỏng, rồi chạy lại lệnh trên cho tới khi có mục `DAT`. Thiếu LUFS: không nới ngưỡng; `editor` trả `voice-producer` tìm nhịp lệch mức để đọc lại; vẫn lỗi sau 2 lần: `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
 
-**[10] qc.** Gọi `qc` (`Explore`, mẫu 4.10). Xong:
+**[10] qc.** Gọi `qc` (`Explore`, mẫu 4.10). JSON qc có thêm khoá `evidence` (sha256 MP4, mốc giây các khung đã trích, loudness). Xong:
 ```bash
 $G verdict /tmp/<slug>-qc-<vòng>.json --root ..
 $G ledger add <slug> --stage qc --role sep-tong --pair editor/qc \
    --findings /tmp/<slug>-qc-<vòng>.json --root .. --artifact <đường dẫn MP4>
 ```
-`ledger add` cho stage `qc` còn ghi `episodes/<slug>/handoff/qc.verdict`, một dòng `PHAN_QUYET: <phán quyết> findings_sha256=... script_sha256=...`. Phát hiện trả về vai ở `owner`. Trả xuyên khâu (vd qc trả về scriptwriter) thêm `--return-to scriptwriter`; tối đa 2 lần mỗi tập. Sửa lời sau Cổng 2 thì hash đổi: qua lại khâu 5 và 6, rồi các khâu sau bị ảnh hưởng (cảnh, giọng, render, qc) chạy lại.
+Sếp tổng lưu JSON của qc (có `findings` và `evidence`) thành `episodes/<slug>/handoff/qc.json` rồi nộp `--findings` bằng file đó (`ledger add` còn ghi `handoff/qc.verdict`), một dòng `PHAN_QUYET: <phán quyết> findings_sha256=... script_sha256=...`. Phát hiện trả về vai ở `owner`. Trả xuyên khâu (vd qc trả về scriptwriter) thêm `--return-to scriptwriter`; tối đa 2 lần mỗi tập. Sửa lời sau Cổng 2 thì hash đổi: qua lại khâu 5 và 6, rồi các khâu sau bị ảnh hưởng (cảnh, giọng, render, qc) chạy lại.
 
 **[11] đóng gói.** Gọi `packager`. Nếu `.team/kenh.json` có `firstVideoApproved` khác `true` thì `privacy` phải là `unlisted`.
 
@@ -224,6 +224,8 @@ scriptHash trong sổ: <hash>. Cổng 3 đã đạt lúc <giờ>.
 - Vòng sửa của người làm chỉ sửa đúng phát hiện. Phát hiện người làm cho là sai thì ghi lý do trong báo cáo; sếp tổng không quyết hộ, chuyển `CẦN NGƯỜI DÙNG`.
 
 ## 6. Sổ tập và trao tay
+
+Các khâu `cong2`, `cong3`, `lint`, `ky-thuat` chỉ do `gate2`, `gate3`, `ledger run` ghi; `ledger add` từ chối. **Sau mỗi cổng (và mỗi lần ghi sổ quan trọng) sếp tổng commit `episodes/<slug>/ledger.json`**: `gate3` chặn nếu sổ có thay đổi chưa commit hoặc lịch sử git của sổ không phải chỉ thêm. `gate3` cũng tự chạy lại phần kiểm của Cổng 2 trên dữ liệu hiện tại.
 
 `episodes/<slug>/ledger.json` ghi theo thời gian: khâu, vai, cặp, vòng, hash vào/ra, phán quyết, hash kịch bản. Mỗi mục có `prevHash` và `entryHash`; sửa hay xoá một mục thì chuỗi vỡ và mọi lệnh sổ, kể cả `gate3`, từ chối. Chỉ sếp tổng ghi, qua script.
 ```bash

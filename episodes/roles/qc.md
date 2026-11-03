@@ -22,6 +22,8 @@ Báo cáo ngắn, rồi MỘT object JSON ở cuối:
 - Vì bạn không ghi file, lỗi nhìn thấy trên khung hình hay nghe được vẫn phải có `quote` thật: trích từ file chữ liên quan (dòng cảnh trong `timeline.json`, dòng trong `video.srt`, dòng trong `script.json`) và mô tả điều thấy/nghe trong `failing_case` kèm mốc thời gian (hh:mm:ss.mmm) hoặc số frame.
 - `owner`: `scriptwriter` (sai lời), `scene-director` (sai hình), `voice-producer` (sai giọng), `editor` (sai kỹ thuật), `researcher` (sai fact).
 - Không lỗi: `{"findings":[]}`.
+- `quote` tối đa 300 ký tự (dài hơn bị loại).
+- Bằng chứng bắt buộc, thêm khoá `evidence` cùng cấp với `findings` trong cùng object JSON: `"evidence":{"videoSha256":"<sha256 MP4 bạn đã xem>","frames":[<mốc giây đã trích khung>],"loudness":{"lufs":<số>,"truePeak":<số>}}`. Phải có ít nhất 20 mốc khác nhau cả tập và ít nhất 1 mốc trong mỗi chương. Thiếu bằng chứng thì Cổng 3 chặn.
 
 ## Được ghi
 Không ghi file.

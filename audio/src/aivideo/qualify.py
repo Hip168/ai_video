@@ -229,12 +229,13 @@ def score(kind, errors, found, clean_found=None, root=".", clean_root=None,
     seeded = _counted(found, root)
     clean = _counted(clean_found, clean_root or root)
     caught, matched = [], set()
-    for e in errs:
-        hit = [i for i, f in enumerate(seeded) if _caught(e, f)]
-        if hit:
+    for e in errs:  # mỗi phát hiện chỉ tính bắt tối đa một lỗi cài
+        hit = next((i for i, f in enumerate(seeded) if i not in matched and _caught(e, f)), None)
+        if hit is not None:
             caught.append(e["id"])
-            matched.update(hit)
-    false_keys = {(Path(f["file"]).name, f["quote"]) for i, f in enumerate(seeded) if i not in matched}
+            matched.add(hit)
+    false_keys = {(Path(f["file"]).name, f["quote"]) for f in seeded
+                  if not any(_caught(e, f) for e in errs)}
     false_keys |= {("sach", Path(f["file"]).name, f["quote"]) for f in clean}
     n, k = len(errs), len(caught)
     rate = (k / n) if n else 1.0

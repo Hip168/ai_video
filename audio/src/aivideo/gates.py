@@ -32,7 +32,7 @@ FINDING_FIELDS = ("severity", "rule", "file", "quote", "failing_case", "owner")
 MAX_ROUNDS = 3
 MAX_QUOTE = 300
 MIN_FRAMES = 20
-RESERVED_STAGES = ("cong2", "cong3", "lint", "ky-thuat")
+RESERVED_STAGES = ("cong2", "cong3", "lint", "ky-thuat", "fact", "fact-prepare")
 MAX_CROSS_RETURNS = 2
 RUN_STAGES = ("lint", "ky-thuat")
 HANDOFF_SECTIONS = ("Đã chốt", "Đã bỏ", "Rủi ro", "File", "Còn lại")
@@ -330,6 +330,22 @@ def _number_covered(token: str, keys) -> bool:
     return False
 
 
+def _fact_problem(ep: Path) -> str | None:
+    """claims.json phải đúng bản do apply-factcheck vừa áp (mục sổ `fact` mới nhất)."""
+    cp = ep / "claims.json"
+    if not cp.is_file():
+        return "thiếu claims.json"
+    try:
+        facts = [e for e in Ledger(ep).entries() if e["stage"] == "fact"]
+    except GateError as e:
+        return str(e)
+    if not facts:
+        return "chưa có mục fact trong sổ: claims.json chưa qua apply-factcheck"
+    if facts[-1].get("claimsHash") != sha256_file(cp):
+        return "claims.json đã đổi sau lần apply-factcheck cuối"
+    return None
+
+
 def gate2(slug: str, episodes_dir="../episodes", write_ledger: bool = True) -> dict:
     from aivideo.episode import validate_script  # nạp muộn: kéo numpy, soundfile
 
@@ -357,6 +373,10 @@ def gate2(slug: str, episodes_dir="../episodes", write_ledger: bool = True) -> d
                                                       for p in problems):
         return {"gate": "gate2", "pass": False, "problems": problems,
                 "scriptHash": None, "claimsHash": None}
+
+    fact_problem = _fact_problem(ep)
+    if fact_problem:
+        problems.append({"problem": fact_problem})
 
     beats = {(sc.get("id"), b.get("id")): b for sc, b in _iter_beats(doc)}
     for it in extract_items(doc):
@@ -465,7 +485,7 @@ def finding_key(f: dict) -> str:
 
 _ENTRY_FIELDS = ("seq", "ts", "stage", "role", "pair", "round", "inputHash", "outputHash",
                  "verdict", "scriptHash", "claimsHash", "artifactHash", "findingsHash",
-                 "findingKeys", "returnTo", "escalate", "note", "cmd", "prevHash")
+                 "findingKeys", "returnTo", "escalate", "note", "cmd", "claimHashes", "prevHash")
 
 
 def entry_hash(entry: dict) -> str:
@@ -538,7 +558,7 @@ class Ledger:
     def add(self, *, stage: str, role: str, pair: str | None = None, verdict: str | None = None,
             input_hash=None, output_hash=None, script_hash=None, claims_hash=None,
             artifact_hash=None, findings_hash=None, finding_keys=None, return_to=None,
-            note=None, cmd=None) -> dict:
+            note=None, cmd=None, claim_hashes=None) -> dict:
         """Ghi một mục. Trả {"state":"OK"|"CAN_NGUOI_DUNG", ...}; CAN_NGUOI_DUNG kèm
         `recorded` cho biết mục có được ghi không."""
         doc = self.load()
@@ -568,6 +588,7 @@ class Ledger:
                  "claimsHash": claims_hash, "artifactHash": artifact_hash,
                  "findingsHash": findings_hash, "findingKeys": keys or None,
                  "returnTo": return_to, "escalate": bool(repeated), "note": note, "cmd": cmd,
+                 "claimHashes": claim_hashes,
                  "prevHash": ents[-1]["entryHash"] if ents else ""}
         entry["entryHash"] = entry_hash(entry)
         ents.append(entry)
@@ -926,11 +947,6 @@ def claim_hash(c: dict) -> str:
     return sha256_bytes(canon({k: v for k, v in c.items() if k != "status"}).encode("utf-8"))
 
 
-def _batch_meta(batch) -> Path:
-    b = Path(batch)
-    return b.with_name(b.name + ".meta.json")
-
-
 def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
                       with_lines: bool = False) -> dict:
     """Lô cho fact-checker. `with_lines` (lượt 2): thêm vào mỗi claim các câu lời đọc trỏ tới
@@ -971,7 +987,9 @@ def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
     if _inside(batch, repo):
         raise GateError("thư mục tạm của lô phải nằm ngoài repo")
     _write_json_atomic(batch / "items.json", items)
-    _write_json_atomic(_batch_meta(batch), {c["id"]: claim_hash(c) for c in claims})
+    Ledger(ep).add(stage="fact-prepare", role="sep-tong", note=batch.name,
+                   claim_hashes={c["id"]: claim_hash(c) for c in claims},
+                   claims_hash=sha256_file(ep / "claims.json"))
     (batch / "prompt.txt").write_text(build_factcheck_prompt(role_text, batch), encoding="utf-8")
     return {"batchDir": str(batch), "items": str(batch / "items.json"),
             "prompt": str(batch / "prompt.txt")}
@@ -986,10 +1004,11 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
     claims, probs = _load_claims(ep)
     if claims is None:
         raise GateError(probs[0]["problem"])
-    mp = _batch_meta(batch)
-    if not mp.is_file():
-        raise GateError(f"thiếu {mp}: lô không do prepare-factcheck tạo")
-    saved = _read_json(mp)
+    led = Ledger(ep)
+    prep = [e for e in led.entries() if e["stage"] == "fact-prepare" and e.get("note") == Path(batch).name]
+    if not prep:
+        raise GateError("sổ tập không có mục fact-prepare cho lô này: lô không do prepare-factcheck tạo")
+    saved = prep[-1].get("claimHashes") or {}
     now = {c.get("id"): claim_hash(c) for c in claims if isinstance(c, dict)}
     changed = [it["id"] for it in items if now.get(it["id"]) != saved.get(it["id"])]
     if changed:
@@ -1010,6 +1029,8 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
         if c.get("id") in status:
             c["status"] = status[c["id"]]
     _write_json_atomic(ep / "claims.json", claims)
+    led.add(stage="fact", role="sep-tong", verdict=res["verdict"], note=Path(batch).name,
+            claims_hash=sha256_file(ep / "claims.json"), output_hash=res["findingsHash"])
     return {"verdict": res["verdict"], "updated": status, "unmapped": unmapped,
             "complete": res["complete"]}
 

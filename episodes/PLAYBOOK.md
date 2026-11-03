@@ -96,7 +96,7 @@ $G ledger add <slug> --stage fact-1 --role sep-tong --pair researcher/fact-check
 $G apply-factcheck <slug> --findings <batchDir>/findings.json --batch <batchDir>
 $G gate1 <slug>
 ```
-`prepare-factcheck` lưu hash từng claim; `apply-factcheck` từ chối nếu claim đã đổi sau đó (tạo lô mới). `apply-factcheck` ghi lại `status` của từng claim: phát hiện `claim:<id>` mức CRITICAL thành `SAI`, MAJOR thành `CHUA_KIEM`, không có phát hiện thì `DAT`. Gate1 vẫn chặn nếu claim `DAT` mà nguồn chỉ `anecdotal`, hoặc claim về số mà không có nguồn `primary` và không có hai nguồn khác tên miền gốc. Gate1 chặn thì trả researcher kèm danh sách `problems`; vòng mới dùng một lô mới (chạy lại `prepare-factcheck`).
+`prepare-factcheck` ghi vào sổ mục `fact-prepare` (hash từng claim); `apply-factcheck` từ chối nếu claim đã đổi sau đó (tạo lô mới) và ghi mục `fact` (hash `claims.json` sau khi áp). `gate2`/`gate3` chặn nếu `claims.json` không khớp mục `fact` mới nhất, nên không sửa tay `status`; sau mỗi lần `apply-factcheck` sếp tổng commit sổ. `apply-factcheck` ghi lại `status` của từng claim: phát hiện `claim:<id>` mức CRITICAL thành `SAI`, MAJOR thành `CHUA_KIEM`, không có phát hiện thì `DAT`. Gate1 vẫn chặn nếu claim `DAT` mà nguồn chỉ `anecdotal`, hoặc claim về số mà không có nguồn `primary` và không có hai nguồn khác tên miền gốc. Gate1 chặn thì trả researcher kèm danh sách `problems`; vòng mới dùng một lô mới (chạy lại `prepare-factcheck`).
 
 **[3] viết.** Gọi `scriptwriter` với `outline.md`, `claims.json` (đã `DAT`). Hướng dẫn đọc số trong file vai: ca nghe chưa hay (`Python 3.12`, `24/7`, số điện thoại, ngày `dd.mm.yyyy`, chữ "Ngày" đứng trước ngày ISO) thì dùng `spoken` hoặc lexicon của tập. Có thể chạy thử `extract-claims` để biết số/tên nào cần claim:
 ```bash
@@ -225,7 +225,7 @@ scriptHash trong sổ: <hash>. Cổng 3 đã đạt lúc <giờ>.
 
 ## 6. Sổ tập và trao tay
 
-Các khâu `cong2`, `cong3`, `lint`, `ky-thuat` chỉ do `gate2`, `gate3`, `ledger run` ghi; `ledger add` từ chối. **Sau mỗi cổng (và mỗi lần ghi sổ quan trọng) sếp tổng commit `episodes/<slug>/ledger.json`**: `gate3` chặn nếu sổ có thay đổi chưa commit hoặc lịch sử git của sổ không phải chỉ thêm. `gate3` cũng tự chạy lại phần kiểm của Cổng 2 trên dữ liệu hiện tại.
+Các khâu `cong2`, `cong3`, `lint`, `ky-thuat`, `fact`, `fact-prepare` chỉ do `gate2`, `gate3`, `ledger run`, `prepare-factcheck`, `apply-factcheck` ghi; `ledger add` từ chối. **Sau mỗi cổng (và mỗi lần ghi sổ quan trọng) sếp tổng commit `episodes/<slug>/ledger.json`**: `gate3` chặn nếu sổ có thay đổi chưa commit hoặc lịch sử git của sổ không phải chỉ thêm. `gate3` cũng tự chạy lại phần kiểm của Cổng 2 trên dữ liệu hiện tại.
 
 `episodes/<slug>/ledger.json` ghi theo thời gian: khâu, vai, cặp, vòng, hash vào/ra, phán quyết, hash kịch bản. Mỗi mục có `prevHash` và `entryHash`; sửa hay xoá một mục thì chuỗi vỡ và mọi lệnh sổ, kể cả `gate3`, từ chối. Chỉ sếp tổng ghi, qua script.
 ```bash

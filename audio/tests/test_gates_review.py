@@ -401,6 +401,55 @@ def test_xoa_claim_bi_gan_co_roi_lo_moi_sach_thi_gate1_va_gate2_dat(two):
     assert g2["pass"] is True, g2
 
 
+def _flagged_claim_with_beat(tmp_path):
+    eps, ep = make_episode(
+        tmp_path, fact=False,
+        texts={"b001": "Có 42 người xem."},
+        beat_claims={"b001": ["c002"]},
+        claims=[claim("c001", "Điều thứ nhất."), claim("c002", "Có 42 người xem.")],
+    )
+    r1 = _prep(eps, tmp_path, "lo1")
+    _apply(eps, r1, [_bad_quote(rule="claim:c002")])
+    assert gates.gate1(SLUG, eps)["pass"] is False
+    return eps, ep
+
+
+def _drop_c002_from_claims(eps, ep, tmp_path):
+    docs = json.loads((ep / "claims.json").read_text(encoding="utf-8"))
+    write_json(ep / "claims.json", [c for c in docs if c["id"] != "c002"])
+    r2 = _prep(eps, tmp_path, "lo2")
+    _apply(eps, r2, [])
+
+
+def test_xoa_claim_gan_co_o_ca_claims_va_beat_thi_hai_cong_dat(tmp_path):
+    eps, ep = _flagged_claim_with_beat(tmp_path)
+    edit_script(ep, lambda d: _set_b001(d, "Câu bình thường.", []))
+    _drop_c002_from_claims(eps, ep, tmp_path)
+    assert gates.gate1(SLUG, eps)["pass"] is True
+    g2 = gates.gate2(SLUG, eps, write_ledger=False)
+    assert g2["pass"] is True, g2
+
+
+def test_xoa_claim_gan_co_chi_o_claims_json_gate2_chan_vi_claim_khong_ton_tai(tmp_path):
+    eps, ep = _flagged_claim_with_beat(tmp_path)
+    _drop_c002_from_claims(eps, ep, tmp_path)
+    assert gates.gate1(SLUG, eps)["pass"] is True  # không còn báo phát hiện nặng
+    g2 = gates.gate2(SLUG, eps, write_ledger=False)
+    assert g2["pass"] is False
+    txt = problems_text(g2)
+    assert "c002" in txt
+    assert "không có trong claims.json" in txt
+    assert "phát hiện nặng" not in txt
+
+
+def _set_b001(doc, text, claims_ids):
+    for sc in doc["scenes"]:
+        for b in sc["beats"]:
+            if b["id"] == "b001":
+                b["text"] = text
+                b["claims"] = claims_ids
+
+
 def test_xoa_claim_bi_gan_co_nhung_chua_co_lo_moi_van_chan(two):
     eps, ep, tmp = two
     r1 = _prep(eps, tmp, "lo1")

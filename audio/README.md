@@ -121,3 +121,39 @@ Chạy từng file hoặc cả ba đều được; cần `ffmpeg` trên máy. Te
 - `test_am_thanh_tap_repo.py`: không có wav, mp3, mp4 trong git; `assets/audio/files/` bị gitignore.
 
 Danh sách từng test: `.team/tests/9.md`.
+
+## Đội sản xuất và cổng duyệt
+
+Người dùng ra lệnh "làm video về <đề tài>" (hoặc "làm video" để `researcher` tự chọn đề tài); sếp tổng đi theo luồng ở `episodes/PLAYBOOK.md`. Mỗi vai là một file trong `episodes/roles/`; PLAYBOOK ghi bảng vai → loại agent, mẫu prompt từng khâu và các điểm dừng (video đầu để Không công khai, người dùng tự merge PR, `CẦN NGƯỜI DÙNG`). Thiết kế: `.team/doi-san-xuat.md`. Giao diện chi tiết của các lệnh: `.team/features/11-doi-san-xuat-giao-dien.md`.
+
+Các cổng cứng do script tính, không do agent tuyên bố:
+
+```bash
+cd audio
+export PYTHONPATH=$PWD/src
+.venv/bin/python -m aivideo.gates --help
+.venv/bin/python -m aivideo.gates extract-claims ../episodes/<slug>/script.json   # số và tên cần claim
+.venv/bin/python -m aivideo.gates prepare-factcheck <slug> --role ../episodes/roles/fact-checker.md
+.venv/bin/python -m aivideo.gates verdict <findings.json> --root <thư mục>        # DAT | SUA | CHAN | CHUA_DUYET
+.venv/bin/python -m aivideo.gates apply-factcheck <slug> --findings <f.json> --batch <lô>
+.venv/bin/python -m aivideo.gates gate1 <slug>      # sổ fact
+.venv/bin/python -m aivideo.gates gate2 <slug>      # chốt kịch bản, ghi hash lời vào sổ tập
+.venv/bin/python -m aivideo.gates ledger show <slug>
+.venv/bin/python -m aivideo.gates gate3 <slug> --video <mp4>   # trước khi đăng
+```
+
+Mọi lệnh in một object JSON ra stdout. Mã thoát: `0` đạt, `1` bị chặn hoặc lỗi (`lỗi: ...` ra stderr), `2` sai tham số, `3` `CAN_NGUOI_DUNG` (vòng sửa thứ 4 của một cặp làm/kiểm, lỗi cũ còn sống, hoặc `apply-factcheck` còn phát hiện nặng chưa giải quyết).
+
+- `gate1`: mọi claim `DAT` có nguồn `primary`/`secondary`; claim về số cần một nguồn `primary` hoặc hai nguồn khác tên miền gốc.
+- `gate2`: mọi số, tên riêng trong `text` gốc (trước `normalize_vi`) phải có claim `DAT` khớp trong `beat.claims`; `claims.json` phải khớp lần `apply-factcheck` cuối.
+- `gate3`: hash lời khớp lúc chốt, `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản, bằng chứng của `qc`, sổ tập đã commit và chỉ thêm (`so-git`), `publish.json` đúng `.team/kenh.json`.
+- Sổ tập `episodes/<slug>/ledger.json` có chuỗi hash; sếp tổng commit sau mỗi cổng.
+
+Lưu ý: mục `ky-thuat` của `gate3` do `ledger run <slug> --stage ky-thuat` ghi, chạy `python -m aivideo.assemble verify <slug>` của đề mục 10. Lệnh đó chưa có trong nhánh này, nên `gate3` chưa đạt được cho tới khi đề mục 10 vào main. Lệnh `lint` cần `npm run lint:episode` của đề mục 6.
+
+Đo người kiểm (`fact-checker`, `qc`) bằng bộ cài lỗi ở `qualification/`: `python -m aivideo.qualify build|prepare|score`; kết quả ghi vào `.team/qualification.md`. Chưa chạy người kiểm thật; việc đó thuộc đề mục 12.
+
+### Kiểm thử (đội sản xuất)
+```bash
+cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m "not real" tests/test_gates_*.py tests/test_qualify.py tests/test_roles_files.py
+```

@@ -10,13 +10,6 @@ import pytest
 
 from aivideo.normalize_vi import normalize_vi, speak
 
-def _tu(text: str) -> str:
-    """Hợp đồng viết "mươi tư" (x86-64, 2024) nhưng `number_to_words` của
-    đề mục 1 đọc "mươi bốn"; chưa chốt (CẦN BA), nên so hai cách đọc 4 là
-    một. Mọi chỗ khác so nguyên văn."""
-    return text.replace("mươi bốn", "mươi tư")
-
-
 CASES = [
     # IP và phiên bản: từ 3 nhóm số nối bằng "." trở lên, mỗi nhóm như số
     ("192.168.1.1",
@@ -36,12 +29,12 @@ CASES = [
     ("7:05", "bảy giờ không năm"),
     ("12:30", "mười hai giờ ba mươi"),
     # gạch nối không phải khoảng
-    ("x86-64", "x tám mươi sáu sáu mươi tư"),
+    ("x86-64", "x tám mươi sáu sáu mươi bốn"),
     ("ARMv8-A", "ARMv tám A"),
     ("IPv4-6", "IPv bốn sáu"),
     # ngày
     ("2024-01-15",
-     "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi tư"),
+     "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi bốn"),
     # phải giữ nguyên cách đọc cũ: hai số trần đứng riêng -> "đến"
     ("1995–2005",
      "một nghìn chín trăm chín mươi lăm đến hai nghìn không trăm linh năm"),
@@ -54,7 +47,7 @@ CASES = [
 
 @pytest.mark.parametrize("raw, want", CASES, ids=[c[0] for c in CASES])
 def test_doc_so_tin_hoc_bang_dau_vao_dau_ra(raw, want):
-    assert _tu(normalize_vi(raw)) == want
+    assert normalize_vi(raw) == want
 
 
 @pytest.mark.parametrize("raw, _", CASES, ids=[c[0] for c in CASES])
@@ -112,8 +105,8 @@ def test_khoa_lexicon_co_chu_so_duoc_thay_truoc_khi_doc_so():
 
 
 def test_khoa_lexicon_co_chu_so_trong_chuoi_co_gach_noi():
-    assert _tu(speak("x86-64", {"x86": "ích tám sáu"})) == (
-        "ích tám sáu sáu mươi tư")
+    assert speak("x86-64", {"x86": "ích tám sáu"}) == (
+        "ích tám sáu sáu mươi bốn")
 
 
 def test_khoa_lexicon_ba_d_khong_bi_doc_thanh_ba_d_truoc():

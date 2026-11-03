@@ -31,3 +31,26 @@ cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.audio build --engine
 - `build` chỉ tính `durationInFrames`. Khoảng 1800–2700 frame (60–90 giây) được kiểm bằng test `real` bản giọng thật, `build` không ép.
 
 Ghi chú macOS: nếu `import aivideo` báo không thấy gói, file `.pth` trong venv bị gắn cờ hidden; chạy `chflags nohidden .venv/lib/python3.12/site-packages/*.pth`.
+
+## Âm thanh tập
+
+Trộn giọng đọc, nhạc nền và SFX của một tập thành `mix.wav` (WAV 16-bit mono 48 kHz, -16 LUFS ±1, true peak ≤ -1,5 dBTP, dài đúng `durationInFrames`).
+
+```bash
+cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.mix <slug> [--stems] [--root <gốc-repo>]
+```
+`PYTHONPATH=src` là bắt buộc trên Mac vì file `.pth` trong venv bị gắn cờ hidden (xem ghi chú ở trên).
+
+- Đầu vào: `out/episodes/<slug>/narration.wav` và `timeline.json` (v2, cần đủ `durationInFrames`, `fps`, `sfx`); `episodes/<slug>/script.json` lấy `meta.music.track` và `meta.music.gainDb` (không có `music` thì không nhạc).
+- Đầu ra: `out/episodes/<slug>/mix.wav`. Có `--stems` thì thêm `mix.voice.wav`, `mix.music.wav` (nhạc đã lọc, gain và ducking, để đo nhạc thấp hơn giọng bao nhiêu dB). Các file chỉ xuất hiện khi cả lượt trộn đạt; lỗi thì bản cũ giữ nguyên.
+- Nhạc: lặp hoặc cắt theo độ dài, fade vào 1 s và ra 2 s, lọc 120 Hz–8 kHz, `sidechaincompress` khoá bằng giọng. Nhạc dài quá 7200 giây hoặc rỗng bị từ chối.
+- SFX có sẵn (sinh bằng numpy, `aivideo.sfx`): `pop`, `tick`, `whoosh`, `ding`, `buzz`. Đặt đúng mẫu theo `timeline.sfx[].frame`.
+
+### `assets/audio/manifest.json`
+`{"tracks": [...]}`, mỗi bài có 7 trường: `id`, `file`, `sourceUrl`, `license`, `downloadedAt`, `sha256`, `attribution`. `file` nằm trong `assets/audio/files/`, thư mục này gitignore, không commit nhạc. Nguồn nhạc theo D17: YouTube Audio Library lọc "Attribution not required" (sau khi có kênh), trước đó Tallbeard CC0; không dùng nhạc AI. Thêm bài: tải vào `files/`, `shasum -a 256`, thêm mục vào manifest, đặt `meta.music.track` = `id`.
+
+### Lỗi thường gặp
+Mọi lỗi in `lỗi: ...` ra stderr và thoát mã 1.
+- Thiếu file nhạc, id không có trong manifest, hoặc lệch sha256: thông báo nêu đường dẫn file; nạp lại file hoặc cập nhật sha256 đúng.
+- Thiếu `narration.wav`, `timeline.json` hay `script.json`: chạy bước dựng tập trước.
+- `mix không đạt`: loudness ngoài -16 ±1 LUFS, true peak vượt -1,5 dBTP hoặc độ dài lệch quá 1 frame. Thường gặp khi giọng quá thưa hay quá nhỏ nên không đưa lên đủ -16 mà vẫn dưới trần true peak; kiểm lại `narration.wav` và `gainDb` của nhạc. `doi-san-xuat.md` chưa có quy tắc xử lý cho trường hợp này.

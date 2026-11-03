@@ -66,6 +66,27 @@ npx remotion still src/index.ts Episode out.png --frame=100 --props=props.json
 
 Thêm một loại: viết `src/lib/scenes/<id>.tsx` và `src/lib/specs/<id>.ts` (`propsSpec`, ví dụ, số beat tối thiểu, danh sách cue), rồi chỉ đổi đúng dòng của loại đó trong `CATALOG` ở `src/lib/registry.ts` (và import vào khối của mình). Bỏ `anyProps` khỏi spec. Mọi cảnh: hình chính trong `y < 830`, chuyển động là hàm thuần của frame, cấm `filter: blur`, `feGaussianBlur`, `backdrop-filter`, không chuỗi URL.
 
+### Cảnh nhóm A (đề mục 7)
+Sáu loại dạng dữ liệu, mã ở `src/lib/scenes/<id>.tsx`, spec ở `src/lib/specs/<id>.ts` (nguồn chính xác của props). Không loại nào có cue riêng: hình neo theo thứ tự beat, phần tử i hiện ở beat i. Thiếu beat thì phần tử dư hiện nối tiếp mỗi 10 frame sau beat cuối; cảnh không beat thì ở frame 10 + 20 × i. Số hiển thị kiểu Việt (nghìn ".", thập phân ","). Mọi chữ qua `fitText`; giới hạn ký tự bên dưới là `maxLen` của `propsSpec`.
+
+| Loại | Props chính (giới hạn) | minBeats | Neo beat |
+|---|---|---|---|
+| `big-number` | `value`*, `from`, `decimals` 0-3, `prefix` ≤12, `suffix` ≤16, `label`* ≤80, `note` ≤100 | 1 | beat 0 đếm từ `from` (mặc định 0) lên `value` trong 48 frame; beat 1 hiện `note` |
+| `compare` | `titleA`*, `titleB`* ≤30; `rows`* 2-5 × {`label`* ≤60, `a`*, `b`* (true là tick, false là cross)} | 2 | hàng i ở beat i |
+| `myth-fact` | `pairs`* 1-3 × {`myth`* ≤90, `fact`* ≤120} | 2 | thẻ i hiện ở beat 2i, lật sang sự thật ở beat 2i+1 (nên đủ 2 beat mỗi cặp) |
+| `history-timeline` | `events`* 3-6 × {`year`* ≤10, `title`* ≤50, `detail` ≤100} | 3 | sự kiện i ở beat i, đường thời gian nối tới nó |
+| `term-card` | `term`* ≤40, `tag` ≤24, `pronunciation` ≤40, `definition`* ≤160, `example` ≤110 | 1 | beat 0 thẻ và từ, beat 1 định nghĩa, beat 2 ví dụ |
+| `chart` | `kind`* `bar`/`line`, `title` ≤60, `unit` ≤12, `decimals` 0-3, `highlight` 0-7, `data`* 2-8 × {`label`* ≤16, `value`*} | 2 | cột/điểm i ở beat i |
+
+(* là bắt buộc.) Ví dụ trong `script.json`:
+```json
+{"type": "compare", "props": {"titleA": "RAM", "titleB": "Ổ cứng",
+  "rows": [{"label": "Truy cập rất nhanh", "a": true, "b": false},
+           {"label": "Giữ dữ liệu khi tắt máy", "a": false, "b": true}]}}
+{"type": "big-number", "props": {"value": 8589934592, "suffix": " byte", "label": "Địa chỉ tối đa của 8 GB"}}
+```
+Chuỗi vượt giới hạn hiển thị thì `fitText` giảm cỡ tới 70% rồi cắt "…". Dùng chung `scenes/a-common.tsx` (`T`, `appearAt`, `fmtNum`, `Tick`, `Cross`). Chi tiết giao diện: `.team/features/7-canh-a-giao-dien.md`.
+
 ### Cảnh riêng `custom:<tên>`
 Viết `src/episodes/<slug>/<tên>.tsx` rồi đăng ký trong `src/episodes/registry.ts` (`CUSTOM_SCENES`, khoá là `<tên>` không có tiền tố). Mẫu: `mo-phong` trong `src/episodes/_demo/`.
 
@@ -100,3 +121,12 @@ npx vitest run tests/episode-guard.test.ts tests/episode-fonts.test.ts tests/epi
 RENDER_TEST=1 npx vitest run tests/episode-render.test.ts tests/episode-text-fit.test.ts   # cần REMOTION_BROWSER_EXECUTABLE
 ```
 Các test đang bảo vệ: hợp đồng timeline v2 (luật 1-10, 12, 13; luật 11 cần độ dài `narration.wav` nên validator không kiểm); khung hình thật của `cold-open`, `chapter-title`, `recap-outro` và `custom:mo-phong`, phụ đề, cảnh neo theo beat; chữ không tràn khung ở độ dài tối đa của spec trên cả 4 theme (lề 40px), `fitText`/`fitBlock` và `recapLayout` với `measure` giả; lint chống lặp; ràng buộc phiên bản, font, không blur, không URL.
+
+#### Kiểm thử cảnh nhóm A (đề mục 7)
+Sổ test: `.team/tests/7.md`; file `tests/scenes-a.test.ts` đã khoá, không sửa. Props lấy từ chính `spec` của từng loại (`example` và `propsSpec`).
+```bash
+cd video
+npx vitest run tests/scenes-a.test.ts   # phần thuần: spec, ví dụ, ghim số bảng giao diện, grep blur/URL
+RENDER_TEST=1 lockf -t 3600 /tmp/aivideo-render.lock npx vitest run tests/scenes-a.test.ts   # thêm render, cần REMOTION_BROWSER_EXECUTABLE
+```
+Các test đang bảo vệ: ví dụ và props rộng nhất qua `validateProps`; số liệu của bảng giao diện (maxLen, số phần tử, minBeats); still giữa cảnh không đơn sắc; phần tử k chỉ hiện đúng ở beat k (dịch beat thì hình đổi); không vẽ ngoài `y < 830`; chữ dài nhất của spec không chạm lề 40px trên cả 4 theme; một still dưới 5 giây; không blur, `filter`, URL trong file của loại.

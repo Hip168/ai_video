@@ -296,11 +296,18 @@ def unresolved_problems(ep: Path) -> list[dict]:
     except GateError as e:
         return [{"claim": None, "problem": str(e)}]
     prep = {e.get("note"): set(e.get("claimHashes") or {}) for e in ents if e["stage"] == "fact-prepare"}
+    current = None  # id claim đang có trong claims.json; claim đã xoá thì không xét
+    try:
+        cl = _read_json(ep / "claims.json")
+        current = {c.get("id") for c in cl if isinstance(c, dict)}
+    except (OSError, ValueError, TypeError):
+        pass
     latest: dict = {}
     for e in ents:
         if e["stage"] == "fact":
             for cid in prep.get(e.get("note"), ()):
-                latest[cid] = e
+                if current is None or cid in current:
+                    latest[cid] = e
     seen, out = set(), []
     for cid, e in latest.items():
         if e.get("unresolvedSevere") and e["seq"] not in seen:

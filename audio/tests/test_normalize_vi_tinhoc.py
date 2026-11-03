@@ -260,12 +260,16 @@ def test_ca_bien_ip_so_chi_co_chu_cham_khi_la_ip(raw, want):
     assert not re.search(r"[0-9]", got)
 
 
-def test_ip_nhom_cuoi_000_van_la_ip_nhom_000_doc_la_khong():
-    # Cách đọc nhóm "000" (một "không" hay "không không không") hợp đồng
-    # chưa nêu: CẦN BA. Test chỉ khoá phần đã rõ: vẫn là IP, có "chấm".
-    got = normalize_vi("192.168.1.000")
-    prefix = ("một trăm chín mươi hai chấm một trăm sáu mươi tám"
-              " chấm một chấm ")
-    assert got.startswith(prefix), got
-    assert "tỷ" not in got and "triệu" not in got
-    assert not re.search(r"[0-9]", got)
+def test_ip_nhom_000_doc_la_khong_theo_gia_tri_so():
+    assert normalize_vi("192.168.1.000") == (
+        "một trăm chín mươi hai chấm một trăm sáu mươi tám chấm một"
+        " chấm không")
+
+
+def test_ip_nhom_co_so_0_dau_doc_theo_gia_tri_so_010_la_muoi():
+    assert normalize_vi("10.010.0.1") == (
+        "mười chấm mười chấm không chấm một")
+
+
+def test_ip_nhom_001_doc_la_mot_khong_phai_khong_khong_mot():
+    assert normalize_vi("10.001.0.1") == "mười chấm một chấm không chấm một"

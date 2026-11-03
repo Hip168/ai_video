@@ -68,6 +68,10 @@ Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 
 - Số dính chữ: tối đa 2 chữ số đọc như số (`4K` "bốn K", `5G` "năm G", `v2` "v hai"); từ 3 chữ số đọc từng chữ số (`1080p` "một không tám không p").
 - `-5°C` "âm năm độ xê". `12:30` "mười hai giờ ba mươi". `12:05` "mười hai giờ không năm". `1/2` "một phần hai".
 - Số trần có chữ số 0 đứng đầu đọc từng chữ số: `007` "không không bảy".
+- Từ 3 nhóm số nối bằng `.` trở lên (IP, phiên bản) đọc từng nhóm như số, nối bằng "chấm": `192.168.1.1` "một trăm chín mươi hai chấm một trăm sáu mươi tám chấm một chấm một".
+- `IP:cổng` đọc "... cổng tám mươi". Mẫu giờ chỉ khớp khi giờ 0–23, phút 00–59 và không đứng sau chữ, số hay dấu `.`.
+- Dấu `-` chỉ đọc "đến" khi hai bên đều là số trần đứng riêng. Còn lại đọc như khoảng trắng: `x86-64` "x tám mươi sáu sáu mươi tư". Ngày `2024-01-15` đọc "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi tư".
+- Khoá lexicon được so trên chữ gốc, trước `normalize_vi`, nên khoá có chữ số như `x86` dùng được.
 - `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.
 - `100.000đ` đọc số trước rồi đơn vị "đồng".
 Cách đọc nào nghe chưa hay thì sửa bằng `spoken` hoặc lexicon của tập, không đổi bảng này.

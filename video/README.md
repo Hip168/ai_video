@@ -62,9 +62,9 @@ npx remotion still src/index.ts Episode out.png --frame=100 --props=props.json
 `validateTimeline2` (`src/timeline2.ts`) kiểm luật 1-10, 12, 13 của hợp đồng (luật 11 cần độ dài `narration.wav`, kiểm ở bước dựng timeline Python), lỗi có đường dẫn trường (vd `scenes[1].startFrame: ...`). Tên SFX chỉ `pop, tick, whoosh, ding, buzz`.
 
 ### Catalog 18 loại cảnh
-`cold-open`, `chapter-title`, `recap-outro` (có sẵn) và 15 loại giữ chỗ cho đề mục 7, 8: `big-number`, `compare`, `myth-fact`, `history-timeline`, `term-card`, `chart`, `flow`, `layers`, `scale-ladder`, `tree-graph`, `code-walk`, `terminal`, `bits`, `memory-array`, `algo-bars`.
+Cả 18 loại đã làm, không còn cảnh giữ chỗ. Nhóm chung: `cold-open`, `chapter-title`, `recap-outro`. Nhóm A (đề mục 7): `big-number`, `compare`, `myth-fact`, `history-timeline`, `term-card`, `chart`. Nhóm B (đề mục 8): `flow`, `layers`, `scale-ladder`, `tree-graph`, `code-walk`, `terminal`, `bits`, `memory-array`, `algo-bars`.
 
-Thêm một loại: viết `src/lib/scenes/<id>.tsx` và `src/lib/specs/<id>.ts` (`propsSpec`, ví dụ, số beat tối thiểu, danh sách cue), rồi chỉ đổi đúng dòng của loại đó trong `CATALOG` ở `src/lib/registry.ts` (và import vào khối của mình). Bỏ `anyProps` khỏi spec. Mọi cảnh: hình chính trong `y < 830`, chuyển động là hàm thuần của frame, cấm `filter: blur`, `feGaussianBlur`, `backdrop-filter`, không chuỗi URL.
+Sửa hoặc thay một loại có sẵn: sửa `src/lib/scenes/<id>.tsx` và `src/lib/specs/<id>.ts` (`propsSpec`, ví dụ, số beat tối thiểu, danh sách cue); `CATALOG` ở `src/lib/registry.ts` mỗi loại một dòng, import theo khối riêng. Thêm loại hoàn toàn mới thì phải thêm id vào `CATALOG_TYPES` (`src/timeline2.ts`, theo hợp đồng timeline v2) trước, rồi mới thêm dòng và import vào `CATALOG`. Mọi cảnh: hình chính trong `y < 830`, chuyển động là hàm thuần của frame, cấm `filter: blur`, `feGaussianBlur`, `backdrop-filter`, không chuỗi URL.
 
 ### Cảnh nhóm A (đề mục 7)
 Sáu loại dạng dữ liệu, mã ở `src/lib/scenes/<id>.tsx`, spec ở `src/lib/specs/<id>.ts` (nguồn chính xác của props). Không loại nào có cue riêng: hình neo theo thứ tự beat, phần tử i hiện ở beat i. Thiếu beat thì phần tử dư hiện nối tiếp mỗi 10 frame sau beat cuối; cảnh không beat thì ở frame 10 + 20 × i. Số hiển thị kiểu Việt (nghìn ".", thập phân ","). Mọi chữ qua `fitText`; giới hạn ký tự bên dưới là `maxLen` của `propsSpec`.

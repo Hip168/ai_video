@@ -15,6 +15,9 @@ Người dùng chọn Duyệt ở Pha 4d ngày 2026-10-31. Luật đầy đủ: 
 - Xung đột merge không chắc.
 - Hệ thống phân quyền từ chối lệnh.
 
+## Quyền đã cấp
+- Merge PR (người dùng chốt 2026-11-03): DEPLOY được tự `gh pr merge <số> --merge` khi PR đã qua TEST-LEAD `DUYỆT`, review đã xử lý, CI xanh. Vẫn không xoá nhánh, không force push. Nếu hệ thống phân quyền vẫn chặn thì báo người dùng thêm quy tắc cho phép, không lách.
+
 ## Điểm dừng riêng của dự án này
 - [1-4]: người dùng nghe và chọn engine + giọng.
 - [1-7]: người dùng nghe và duyệt thuật ngữ.

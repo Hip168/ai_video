@@ -2,7 +2,12 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { beatStartIn, ease, useTheme } from "../hooks";
 import { Stage } from "../theme";
+import { maxCharsPerLine, wrapLines } from "../text";
 import type { SceneProps } from "../types";
+
+/** Chữ điểm bắt đầu ở x=360, lề phải 90. */
+export const RECAP_POINT_WIDTH = 1470;
+export const RECAP_NEXT_WIDTH = 1700;
 
 export const RecapOutro: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
@@ -20,22 +25,26 @@ export const RecapOutro: React.FC<SceneProps> = ({ scene }) => {
       {points.map((p, i) => {
         const a = ease((frame - appearAt(i)) / 14);
         const y = 240 + i * 100;
-        const size = [...p].length > 50 ? 40 : 48;
+        const size = [...p].length <= maxCharsPerLine(RECAP_POINT_WIDTH, 48) ? 48 : 40;
+        const pl = wrapLines(p, maxCharsPerLine(RECAP_POINT_WIDTH, size));
+        const dy = pl.length > 1 ? -(pl.length - 1) * 23 : 0;
         return (
           <g key={i} opacity={a} transform={`translate(${(1 - a) * 50} 0)`}>
             <circle cx={300} cy={y - 14} r={30} fill={theme.ok} />
             <polyline points={`286,${y - 14} 296,${y - 4} 316,${y - 28}`} fill="none" stroke={theme.bg} strokeWidth={8} strokeLinecap="round" strokeLinejoin="round" />
-            <text x={360} y={y} fontSize={size} fontWeight={700} fill={theme.fg}>
-              {p}
-            </text>
+            {pl.map((l, k) => (
+              <text key={k} x={360} y={y + dy + k * 46} fontSize={size} fontWeight={700} fill={theme.fg}>
+                {l}
+              </text>
+            ))}
           </g>
         );
       })}
-      {next !== "" && (
-        <text x={960} y={760} fontSize={40} fill={theme.muted} textAnchor="middle" opacity={ease((frame - appearAt(points.length)) / 16)}>
-          {next}
+      {wrapLines(next, maxCharsPerLine(RECAP_NEXT_WIDTH, 36)).map((l, k) => (
+        <text key={k} x={960} y={760 + k * 42} fontSize={36} fill={theme.muted} textAnchor="middle" opacity={ease((frame - appearAt(points.length)) / 16)}>
+          {l}
         </text>
-      )}
+      ))}
     </Stage>
   );
 };

@@ -109,3 +109,4 @@ Hình chính trong `y < 830`; chuyển động là hàm thuần của frame; c�
 - `chapter-title` chạy theo frame, không neo beat: cảnh này câm (`beats` rỗng). Nếu sau này có beat thì vẫn hiển thị đúng (không phụ thuộc beat).
 - Luật 8: `cue` nếu có phải là chuỗi không rỗng (chuỗi rỗng, số bị từ chối).
 - Chuỗi bắt buộc không được chỉ gồm khoảng trắng; `audio.src` cũng không chứa `..`; `sfx[].name` chỉ nhận `pop, tick, whoosh, ding, buzz` (`SFX_NAMES` xuất từ `timeline2.ts`).
+- Ngắt dòng: `lib/text.ts` xuất `CHAR_EM = 0.62` và `maxCharsPerLine(widthPx, fontSize)` (= max(1, floor(widthPx / (fontSize × CHAR_EM)))). Cold-open dùng bề rộng 1520 (`COLD_OPEN_TEXT_WIDTH`), chapter-title 1050 (có số, `CHAPTER_WIDTH_WITH_NUMBER`) hoặc 1600 (`CHAPTER_WIDTH_CENTERED`) cho cả title và subtitle, recap-outro điểm 1470 (`RECAP_POINT_WIDTH`) và `next` 1700 (`RECAP_NEXT_WIDTH`, cỡ 36). Điểm recap dài ngắt tối đa 2 dòng, mọi dòng trong y < 830.

@@ -1,9 +1,12 @@
 import React from "react";
 import { clamp01, ease, useBeat, useSpring, useTheme } from "../hooks";
 import { Stage } from "../theme";
-import { wrapLines } from "../text";
+import { maxCharsPerLine, wrapLines } from "../text";
 import type { SceneProps } from "../types";
 import { useCurrentFrame } from "remotion";
+
+/** Bảng nền rộng 1640, trừ lề 60 mỗi bên. */
+export const COLD_OPEN_TEXT_WIDTH = 1520;
 
 export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
@@ -12,7 +15,7 @@ export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
   const hook = String(scene.props.hook ?? "");
   const kicker = typeof scene.props.kicker === "string" ? scene.props.kicker : "";
   const size = hook.length <= 24 ? 120 : hook.length <= 48 ? 92 : 72;
-  const lines = wrapLines(hook, Math.floor(1700 / (size * 0.56)));
+  const lines = wrapLines(hook, maxCharsPerLine(COLD_OPEN_TEXT_WIDTH, size));
   const lineH = size * 1.25;
   const top = 420 - ((lines.length - 1) * lineH) / 2;
   const pulse = (frame % 90) / 90;

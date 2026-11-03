@@ -2,8 +2,12 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { ease, useTheme } from "../hooks";
 import { Stage } from "../theme";
-import { wrapLines } from "../text";
+import { maxCharsPerLine, wrapLines } from "../text";
 import type { SceneProps } from "../types";
+
+/** Bề rộng khả dụng của chữ: bên phải số (x từ 780, lề phải 90) hoặc căn giữa. */
+export const CHAPTER_WIDTH_WITH_NUMBER = 1050;
+export const CHAPTER_WIDTH_CENTERED = 1600;
 
 export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
@@ -13,7 +17,9 @@ export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
   const subtitle = typeof scene.props.subtitle === "string" ? scene.props.subtitle : "";
   const hasNum = number !== null;
   const size = title.length <= 24 ? 100 : 76;
-  const lines = wrapLines(title, Math.floor((hasNum ? 1050 : 1600) / (size * 0.56)));
+  const width = hasNum ? CHAPTER_WIDTH_WITH_NUMBER : CHAPTER_WIDTH_CENTERED;
+  const subLines = wrapLines(subtitle, maxCharsPerLine(width, 42));
+  const lines = wrapLines(title, maxCharsPerLine(width, size));
   const x0 = hasNum ? 780 : 960;
   const anchor = hasNum ? "start" : "middle";
   const a = ease(frame / 18);
@@ -54,11 +60,11 @@ export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
         strokeWidth={8}
         strokeLinecap="round"
       />
-      {subtitle !== "" && (
-        <text x={x0} y={underY + 70} fontSize={42} fill={theme.muted} textAnchor={anchor} opacity={ease((frame - 20) / 16)}>
-          {subtitle}
+      {subLines.map((l, i) => (
+        <text key={i} x={x0} y={underY + 70 + i * 52} fontSize={42} fill={theme.muted} textAnchor={anchor} opacity={ease((frame - 20 - i * 4) / 16)}>
+          {l}
         </text>
-      )}
+      ))}
     </Stage>
   );
 };

@@ -304,6 +304,8 @@ describe('[6-2] fitText / fitBlock (hàm thuần, measure giả)', () => {
       });
       expect(r.truncated).toBe(true);
       expect(r.lines.some((l) => l.endsWith('…'))).toBe(true);
+      for (const l of r.lines) expect(l.trim()).not.toBe('');
+      expect(r.lines.length).toBeLessThanOrEqual(3);
       for (const l of r.lines) {
         expect(fixed(0.6)(l, r.fontSize)).toBeLessThanOrEqual(1000);
       }
@@ -324,6 +326,7 @@ describe('[6-2] fitText / fitBlock (hàm thuần, measure giả)', () => {
           });
           expect(r.lines.length, `n=${n}`).toBeLessThanOrEqual(maxLines);
           expect(r.lines.length).toBeGreaterThanOrEqual(1);
+          for (const l of r.lines) expect(l.trim(), `n=${n}`).not.toBe('');
           expect(r.fontSize).toBeLessThanOrEqual(60);
           expect(r.fontSize).toBeGreaterThanOrEqual(42);
         }

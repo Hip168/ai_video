@@ -273,3 +273,37 @@ def test_ip_nhom_co_so_0_dau_doc_theo_gia_tri_so_010_la_muoi():
 
 def test_ip_nhom_001_doc_la_mot_khong_phai_khong_khong_mot():
     assert normalize_vi("10.001.0.1") == "mười chấm một chấm không chấm một"
+
+
+# ---- vòng cuối trước khoá ---------------------------------------------------
+def test_lexicon_khoa_dai_nhat_duoc_uu_tien_x86_64():
+    lex = {"x86": "ích tám sáu", "x86-64": "ích tám sáu sáu tư bít"}
+    assert speak("Chip x86-64 mới", lex) == "Chip ích tám sáu sáu tư bít mới"
+    assert speak("Chip x86 cũ", lex) == "Chip ích tám sáu cũ"
+
+
+def test_lexicon_khoa_dai_nhat_uu_tien_bat_ke_thu_tu_khai_bao():
+    lex = {"x86-64": "dài", "x86": "ngắn"}
+    assert speak("x86-64", lex) == "dài"
+    lex2 = {"x86": "ngắn", "x86-64": "dài"}
+    assert speak("x86-64", lex2) == "dài"
+
+
+def test_gio_phut_giay_phut_giay_duoi_10_doc_khong_n():
+    assert normalize_vi("12:30:05") == (
+        "mười hai giờ ba mươi phút không năm giây")
+    assert normalize_vi("12:30:45") == (
+        "mười hai giờ ba mươi phút bốn mươi lăm giây")
+
+
+@pytest.mark.parametrize(
+    "raw, want",
+    [
+        ("1.000.000-2.000.000đ", "một triệu đến hai triệu đồng"),
+        ("1,5-2,5", "một phẩy năm đến hai phẩy năm"),
+        ("1,5 – 2,5", "một phẩy năm đến hai phẩy năm"),
+        ("100.000-200.000đ", "một trăm nghìn đến hai trăm nghìn đồng"),
+    ],
+)
+def test_khoang_giua_hai_so_thap_phan_hoac_nghin(raw, want):
+    assert normalize_vi(raw) == want

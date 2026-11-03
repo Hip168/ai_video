@@ -70,7 +70,8 @@ Mọi đầu vào của `normalize_vi` phải ra chuỗi không còn chữ số 
 - Số trần có chữ số 0 đứng đầu đọc từng chữ số: `007` "không không bảy".
 - Từ 3 nhóm số nối bằng `.` trở lên (IP, phiên bản) đọc từng nhóm như số, nối bằng "chấm": `192.168.1.1` "một trăm chín mươi hai chấm một trăm sáu mươi tám chấm một chấm một".
 - `IP:cổng` đọc "... cổng tám mươi". Mẫu giờ chỉ khớp khi giờ 0–23, phút 00–59 và không đứng sau chữ, số hay dấu `.`.
-- Dấu `-` chỉ đọc "đến" khi hai bên đều là số trần đứng riêng. Còn lại đọc như khoảng trắng: `x86-64` "x tám mươi sáu sáu mươi tư". Ngày `2024-01-15` đọc "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi tư".
+- Dấu `-` chỉ đọc "đến" khi hai bên đều là số trần đứng riêng. Còn lại đọc như khoảng trắng: `x86-64` "x tám mươi sáu sáu mươi bốn". Ngày `2024-01-15` đọc "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi bốn".
+- Số tận cùng 4 sau "mươi" đọc "bốn", theo `number_to_words` đã khoá của đề mục 1.
 - Khoá lexicon được so trên chữ gốc, trước `normalize_vi`, nên khoá có chữ số như `x86` dùng được.
 - `0.001` và `0,001` là thập phân, không phải phân cách nghìn khi phần nguyên là 0.
 - `100.000đ` đọc số trước rồi đơn vị "đồng".

@@ -29,10 +29,13 @@ export interface RecapLayout {
 
 /** Hàm thuần tính bố cục recap-outro. Có điểm xuống 2 dòng ở cỡ 48 thì mọi điểm dùng cỡ 40. */
 export function recapLayout(points: string[], next: string, o: { measure?: MeasureWidth } = {}): RecapLayout {
-  const fit = (size: number) =>
-    points.map((p) => fitText({ text: p, fontSize: size, width: RECAP_POINT_WIDTH, maxLines: 2, measure: o.measure }));
+  const fit = (size: number, minScale?: number) =>
+    points.map((p) => fitText({ text: p, fontSize: size, width: RECAP_POINT_WIDTH, maxLines: 2, measure: o.measure, minScale }));
   let fits = fit(POINT_SIZE);
-  if (!fits.every((f) => f.lines.length === 1)) fits = fit(POINT_SIZE_SMALL);
+  if (!fits.every((f) => f.lines.length === 1 && f.fontSize === POINT_SIZE)) fits = fit(POINT_SIZE_SMALL);
+  // Một cỡ chung: nhỏ nhất mà mọi điểm vừa; ngắt lại mọi điểm đúng ở cỡ đó (không giảm thêm).
+  const common = fits.reduce((m, f) => Math.min(m, f.fontSize), fits.length > 0 ? fits[0].fontSize : POINT_SIZE);
+  fits = fit(common, 1);
   const rows = fits.map((f, i) => {
     const y = ROW_START_Y + i * ROW_PITCH;
     const dy = -((f.lines.length - 1) * f.fontSize * LINE_HEIGHT) / 2;
@@ -40,7 +43,7 @@ export function recapLayout(points: string[], next: string, o: { measure?: Measu
   });
   const nf = fitText({ text: next, fontSize: NEXT_SIZE, width: RECAP_NEXT_WIDTH, maxLines: 2, measure: o.measure });
   return {
-    pointSize: fits.length > 0 ? fits[0].fontSize : POINT_SIZE,
+    pointSize: common,
     rows,
     next: { fontSize: nf.fontSize, lines: nf.lines, lineYs: nf.lines.map((_, k) => NEXT_Y + k * nf.fontSize * NEXT_LINE_HEIGHT) },
   };

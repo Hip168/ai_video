@@ -125,3 +125,102 @@ def test_speak_ip_va_cong_khi_co_lexicon_khac():
     assert speak("Router 192.168.1.1:80", {"router": "rao tơ"}) == (
         "rao tơ một trăm chín mươi hai chấm một trăm sáu mươi tám chấm một"
         " chấm một cổng tám mươi")
+
+
+# ================================================== vòng sửa theo duyệt 1
+IP = {
+    "192.168.1.1": "một trăm chín mươi hai chấm một trăm sáu mươi tám"
+                   " chấm một chấm một",
+    "192.168.1.9": "một trăm chín mươi hai chấm một trăm sáu mươi tám"
+                   " chấm một chấm chín",
+}
+
+ROUND2 = [
+    # hậu tố sau phiên bản / IP: "-" như khoảng trắng
+    ("1.2.3-beta", "một chấm hai chấm ba beta"),
+    ("v2.0.1-rc1", "v hai chấm không chấm một rc một"),
+    ("192.168.1.1-192.168.1.9", IP["192.168.1.1"] + " " + IP["192.168.1.9"]),
+    # luật 1: đúng 4 nhóm 1-3 chữ số, mỗi nhóm <= 255, nhóm cuối khác 000
+    ("10.255.255.255",
+     "mười chấm hai trăm năm mươi lăm chấm hai trăm năm mươi lăm"
+     " chấm hai trăm năm mươi lăm"),
+    ("192.168.100.200",
+     "một trăm chín mươi hai chấm một trăm sáu mươi tám"
+     " chấm một trăm chấm hai trăm"),
+    ("172.217.160.142",
+     "một trăm bảy mươi hai chấm hai trăm mười bảy"
+     " chấm một trăm sáu mươi chấm một trăm bốn mươi hai"),
+    # luật 2: số có phân cách nghìn
+    ("1.000.000", "một triệu"),
+    ("1.200.000.000", "một tỷ hai trăm triệu"),
+    ("1.000.000.000", "một tỷ"),
+    ("2.500.000", "hai triệu năm trăm nghìn"),
+    # luật 3: phiên bản
+    ("v1.2", "v một chấm hai"),
+    ("1.2.3.4.5", "một chấm hai chấm ba chấm bốn chấm năm"),
+    ("256.1.1.1", "hai trăm năm mươi sáu chấm một chấm một chấm một"),
+    # luật 4: hai nhóm không chữ cái phía trước là thập phân
+    ("3.14", "ba phẩy mười bốn"),
+    # giờ có giây
+    ("12:30:45", "mười hai giờ ba mươi phút bốn mươi lăm giây"),
+    # nhiều gạch không phải ngày
+    ("1-2-3", "một hai ba"),
+    ("10-20-30", "mười hai mươi ba mươi"),
+    # ngày YYYY-M-D 1-2 chữ số
+    ("2024-1-5",
+     "ngày năm tháng một năm hai nghìn không trăm hai mươi bốn"),
+    ("2024-12-31",
+     "ngày ba mươi mốt tháng mười hai năm hai nghìn không trăm hai mươi bốn"),
+    # cổng nhiều chữ số đọc như số
+    ("127.0.0.1:123456",
+     "một trăm hai mươi bảy chấm không chấm không chấm một cổng"
+     " một trăm hai mươi ba nghìn bốn trăm năm mươi sáu"),
+    ("10.0.0.1:65535",
+     "mười chấm không chấm không chấm một cổng sáu mươi lăm nghìn"
+     " năm trăm ba mươi lăm"),
+]
+
+
+@pytest.mark.parametrize("raw, want", ROUND2, ids=[c[0] for c in ROUND2])
+def test_doc_so_tin_hoc_vong_2_dung_nguyen_van(raw, want):
+    assert normalize_vi(raw) == want
+
+
+@pytest.mark.parametrize("raw, _", ROUND2, ids=[c[0] for c in ROUND2])
+def test_doc_so_tin_hoc_vong_2_khong_con_chu_so_va_gach(raw, _):
+    got = normalize_vi(raw)
+    assert not re.search(r"[0-9]", got), got
+    assert "-" not in got, got
+
+
+def test_nhom_cuoi_000_khong_phai_ip():
+    got = normalize_vi("1.200.000.000")
+    assert "chấm" not in got
+
+
+def test_nhom_vuot_255_khong_phai_ip_ma_la_phien_ban():
+    assert "chấm" in normalize_vi("256.1.1.1")
+    assert "tỷ" not in normalize_vi("256.1.1.1")
+
+
+# ---- lexicon: ranh giới từ ------------------------------------------------
+@pytest.mark.parametrize(
+    "text, lex, want",
+    [
+        ("MAIL và AI", {"AI": "ây ai"}, "MAIL và ây ai"),
+        ("AIR và AI", {"AI": "ây ai"}, "AIR và ây ai"),
+        ("PAID, AI.", {"AI": "ây ai"}, "PAID, ây ai."),
+        ("tip và ip", {"ip": "ai pi"}, "tip và ai pi"),
+        ("ipad ip", {"ip": "ai pi"}, "ipad ai pi"),
+        ("(AI)", {"AI": "ây ai"}, "(ây ai)"),
+        ("AI-first", {"AI": "ây ai"}, "ây ai-first"),
+    ],
+)
+def test_lexicon_chi_thay_nguyen_tu_khong_thay_trong_tu_khac(text, lex, want):
+    assert speak(text, lex) == want
+
+
+def test_khoa_lexicon_co_chu_so_khong_thay_trong_chuoi_so_dai_hon():
+    got = speak("x860 và x86", {"x86": "ích tám sáu"})
+    assert got.count("ích tám sáu") == 1
+    assert got.endswith("ích tám sáu")

@@ -32,9 +32,14 @@ const MAIN_END = 830;
 const MARGIN = 40; // lề tối thiểu: chữ không được chạm x < 40 hoặc x >= 1880
 const PANEL_X0 = 140; // cold-open: bảng nền x 140..1780 (rộng 1640)
 const PANEL_X1 = 1780;
-const THEME = THEMES['mau-a'];
-const BG = hex(THEME.bg);
-const INK = [THEME.fg, THEME.muted, THEME.accent, THEME.accent2].map(hex);
+// Chạy với mọi theme: mỗi theme có hoạ tiết nền khác (lưới, chấm, chéo, vòng)
+// và màu chữ khác, phép đo màu chữ không được báo giả với theme nào.
+const THEME_IDS = ['mau-a', 'mau-b', 'mau-c', 'mau-d'] as const;
+type ThemeId = (typeof THEME_IDS)[number];
+const inkOf = (id: ThemeId) => {
+  const t = THEMES[id];
+  return [t.fg, t.muted, t.accent, t.accent2].map(hex);
+};
 
 /** Chuỗi đúng n ký tự, toàn chữ hoa rộng có dấu, có khoảng trắng để ngắt dòng. */
 function wide(n: number): string {
@@ -70,10 +75,10 @@ const beat = (i: number, cue?: string): any => ({
   text: 'Câu ngắn.', ...(cue ? {cue} : {}),
 });
 
-function timeline(): any {
+function timeline(theme: ThemeId = 'mau-a'): any {
   return {
     version: 2, fps: 30, width: 1920, height: 1080,
-    durationInFrames: SCENE * 6, theme: 'mau-a',
+    durationInFrames: SCENE * 6, theme,
     audio: {src: 'narration.wav'},
     chapters: [{id: 'c1', title: 'Chương một', startFrame: 0}],
     sfx: [],
@@ -92,8 +97,8 @@ function timeline(): any {
 }
 
 /** Điểm ảnh có màu chữ của theme (sai số mỗi kênh <= 6). */
-function isInk(c: number[]): boolean {
-  return INK.some(
+function isInk(c: number[], ink: number[][]): boolean {
+  return ink.some(
     (k) =>
       Math.abs(c[0] - k[0]) <= 6 && Math.abs(c[1] - k[1]) <= 6 &&
       Math.abs(c[2] - k[2]) <= 6,
@@ -105,25 +110,26 @@ function isInk(c: number[]): boolean {
  * y < 830. Chỉ đếm đúng màu chữ (fg, muted, accent, accent2) nên không tính
  * lưới nền mờ, vòng xung (đã pha mờ) hay các hình khác sát mép.
  */
-function edgeInk(p: Pixels): {left: number; right: number} {
+function edgeInk(p: Pixels, id: ThemeId): {left: number; right: number} {
+  const ink = inkOf(id);
   let left = 0;
   let right = 0;
   for (let y = 0; y < MAIN_END; y++) {
-    for (let x = 0; x < MARGIN; x++) if (isInk(px(p, x, y))) left++;
+    for (let x = 0; x < MARGIN; x++) if (isInk(px(p, x, y), ink)) left++;
     for (let x = p.width - MARGIN; x < p.width; x++) {
-      if (isInk(px(p, x, y))) right++;
+      if (isInk(px(p, x, y), ink)) right++;
     }
   }
   return {left, right};
 }
 
 /** Điểm màu chữ (fg hoặc accent) nằm ngoài bảng nền cold-open, y < 830. */
-function inkOutsidePanel(p: Pixels): number {
+function inkOutsidePanel(p: Pixels, id: ThemeId): number {
   const close = (c: number[], k: number[]) =>
     Math.abs(c[0] - k[0]) <= 6 && Math.abs(c[1] - k[1]) <= 6 &&
     Math.abs(c[2] - k[2]) <= 6;
-  const fg = hex(THEME.fg);
-  const ac = hex(THEME.accent);
+  const fg = hex(THEMES[id].fg);
+  const ac = hex(THEMES[id].accent);
   let n = 0;
   for (let y = 0; y < MAIN_END; y++) {
     for (let x = 0; x < p.width; x++) {
@@ -147,27 +153,30 @@ beforeAll(async () => {
   });
 }, 300_000);
 
-const cache = new Map<number, Pixels>();
-async function still(frame: number): Promise<Pixels> {
-  if (!cache.has(frame)) {
+const cache = new Map<string, Pixels>();
+async function still(id: ThemeId, frame: number): Promise<Pixels> {
+  const key = `${id}:${frame}`;
+  if (!cache.has(key)) {
     const composition = await selectComposition({
-      serveUrl, id: 'Episode', inputProps: {timeline: timeline()},
+      serveUrl, id: 'Episode', inputProps: {timeline: timeline(id)},
       browserExecutable,
     });
-    const output = path.join(scratch, `f${frame}.png`);
+    const output = path.join(scratch, `${id}-f${frame}.png`);
     await renderStill({
       composition, serveUrl, frame, output,
       imageFormat: 'png', browserExecutable,
     });
-    cache.set(frame, decodePng(output));
+    cache.set(key, decodePng(output));
   }
-  return cache.get(frame)!;
+  return cache.get(key)!;
 }
 const frameOf = (c: Case) => c.index * SCENE + OFFSET;
 
-d('[6-1] chữ không tràn khung khi chuỗi dài đúng mức tối đa của spec', () => {
+for (const id of THEME_IDS) {
+d(`[6-1] chữ không tràn khung khi chuỗi dài đúng mức tối đa của spec (${id})`, () => {
+  const BG = hex(THEMES[id].bg);
   test('mẫu dùng đúng độ dài tối đa của spec', () => {
-    const t = timeline();
+    const t = timeline(id);
     expect([...t.scenes[0].props.hook]).toHaveLength(80);
     expect([...t.scenes[3].props.subtitle]).toHaveLength(80);
     expect([...t.scenes[5].props.points[0]]).toHaveLength(70);
@@ -176,7 +185,7 @@ d('[6-1] chữ không tràn khung khi chuỗi dài đúng mức tối đa của 
   test.each(CASES)(
     '$name: có chữ trong khung và dải y>=830 là nền phẳng',
     async (c) => {
-      const p = await still(frameOf(c));
+      const p = await still(id, frameOf(c));
       expect(nonColorRatio(p, BG, 0, MAIN_END)).toBeGreaterThan(0.005);
       expect(nonColorRatio(p, BG, MAIN_END, 1080)).toBe(0);
     },
@@ -186,7 +195,7 @@ d('[6-1] chữ không tràn khung khi chuỗi dài đúng mức tối đa của 
   test.each(CASES)(
     '$name: không có chữ chạm lề 40px (x<40, x>=1880)',
     async (c) => {
-      const e = edgeInk(await still(frameOf(c)));
+      const e = edgeInk(await still(id, frameOf(c)), id);
       expect(e.left, 'mép trái').toBe(0);
       expect(e.right, 'mép phải').toBe(0);
     },
@@ -196,11 +205,12 @@ d('[6-1] chữ không tràn khung khi chuỗi dài đúng mức tối đa của 
   test.each(CASES.filter((c) => c.cold))(
     '$name: không có chữ ngoài bảng nền (x 140..1780)',
     async (c) => {
-      expect(inkOutsidePanel(await still(frameOf(c)))).toBe(0);
+      expect(inkOutsidePanel(await still(id, frameOf(c)), id)).toBe(0);
     },
     180_000,
   );
 });
+}
 
 // ---- Phần thuần (không cần trình duyệt): fitText / fitBlock với `measure` giả ----
 // Độ rộng giả cố định: mỗi ký tự rộng `em` x cỡ chữ.

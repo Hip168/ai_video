@@ -10,12 +10,14 @@ import {
   decodePng,
   diffRatio,
   distinctColors,
+  findColor,
   hex,
   nonColorRatio,
   px,
   type Pixels,
 } from './helpers/render';
 import {VIDEO_DIR} from './helpers/sample';
+import {tokenizeCode} from '../src/lib/code-highlight';
 import {
   GROUP_B,
   THEME_IDS,
@@ -190,5 +192,37 @@ d('[8-5] code-walk: dấu tiếng Việt và tô màu tất định', () => {
     const p1 = await still('cw:vi', a.timeline, a.endFrame);
     const p2 = await still('cw:novi', b.timeline, b.endFrame);
     expect(diffRatio(p1, p2, 0, MAIN_END)).toBeGreaterThan(0);
+  }, 240_000);
+
+  test('bỏ dấu chỉ ở chú thích (notes[].text) làm đổi hình: dấu của chú thích được vẽ', async () => {
+    const ex = s().example as any;
+    expect(ex.notes.some((n: any) => hasVi(n.text))).toBe(true);
+    const stripped = {
+      ...ex,
+      notes: ex.notes.map((n: any) => ({...n, text: stripVi(n.text)})),
+    };
+    const a = buildTimeline(id, s(), ex);
+    const b = buildTimeline(id, s(), stripped);
+    const p1 = await still('cw:notes', a.timeline, a.endFrame);
+    const p2 = await still('cw:nonotes', b.timeline, b.endFrame);
+    expect(diffRatio(p1, p2, 0, MAIN_END)).toBeGreaterThan(0);
+  }, 240_000);
+
+  test('ảnh có ít nhất hai màu token của shiki (tô màu thật, không chỉ một màu chữ)', async () => {
+    const ex = s().example as any;
+    const colors = [
+      ...new Set(
+        tokenizeCode(ex.lines.join('\n'), ex.lang).flatMap((r) =>
+          r.map((t) => t.color),
+        ),
+      ),
+    ];
+    expect(colors.length).toBeGreaterThan(1);
+    const b = buildTimeline(id, s(), ex);
+    const p = await still(`${id}:base`, b.timeline, b.endFrame);
+    const found = colors.filter(
+      (c) => findColor(p, hex(c.slice(0, 7)), {y1: MAIN_END}, 4).length >= 20,
+    );
+    expect(found.length).toBeGreaterThanOrEqual(2);
   }, 240_000);
 });

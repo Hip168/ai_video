@@ -56,7 +56,40 @@ export function fillMaxStrings(spec: PropSpec, ex: unknown): unknown {
   }
 }
 
+/** Flow nhiều nút nhất: 8 nút, 10 cạnh, 6 gói, nhãn dài đúng maxLen. */
+export function flowMax(direction: 'LR' | 'TB' = 'LR'): Record<string, unknown> {
+  const ids = [...Array(8)].map((_, i) => `n${i + 1}`);
+  const pairs: Array<[number, number]> = [
+    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [0, 2], [1, 4], [3, 7],
+  ];
+  return {
+    nodes: ids.map((id) => ({id, label: wide(24)})),
+    edges: pairs.map(([a, b]) => ({from: ids[a], to: ids[b], label: wide(16)})),
+    packets: [...Array(6)].map((_, i) => ({
+      from: ids[i], to: ids[i + 1], label: wide(8),
+    })),
+    direction,
+  };
+}
+
+/** Cây 15 nút: dạng 'binary' (độ sâu 4), 'star' (gốc + 14 con), 'chain' (xích 15). */
+export function treeMax(
+  shape: 'binary' | 'star' | 'chain' = 'binary',
+): Record<string, unknown> {
+  const nodes = [...Array(15)].map((_, i) => {
+    const parent =
+      i === 0 ? undefined
+      : shape === 'binary' ? `t${Math.floor((i - 1) / 2) + 1}`
+      : shape === 'star' ? 't1'
+      : `t${i}`;
+    return {id: `t${i + 1}`, ...(parent ? {parent} : {}), label: wide(16)};
+  });
+  return {nodes, path: ['t1', 't2', 't4', 't8']};
+}
+
 export function longProps(s: SceneSpec): Record<string, unknown> {
+  if (s.type === 'flow') return flowMax();
+  if (s.type === 'tree-graph') return treeMax();
   return Object.fromEntries(
     Object.entries(s.example).map(([k, v]) => [
       k,
@@ -129,7 +162,7 @@ export function buildTimeline(
     startFrame: st + shift,
     durationFrames: BEAT_LEN,
     text: 'Câu ngắn.',
-    ...(s.cues[i] ? {cue: s.cues[i]} : {}),
+    ...(s.cues.length ? {cue: s.cues[i % s.cues.length]} : {}),
   }));
   return {
     timeline: {

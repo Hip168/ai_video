@@ -127,8 +127,6 @@ def _iso_date(m: re.Match) -> str:
     return f"ngày {audio.number_to_words(d)} tháng {audio.number_to_words(mo)} năm {audio.number_to_words(y)}"
 
 
-
-
 def normalize_vi(text: str) -> str:
     """Đổi mọi chữ số thành chữ; kết quả không còn ký tự 0-9."""
     # ngày ISO 2024-01-15

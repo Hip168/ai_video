@@ -586,3 +586,48 @@ def test_gate2_so_dang_ngay_gio_va_so_khong_dau_phai_khop_tung_phan(
         claims=[claim("c001", f"Mốc là {claim_num}.")],
     )
     assert _g2(eps)["pass"] is ok
+
+
+# ---- tên miền gốc của nguồn (gate1) ---------------------------------------------
+
+def _num_claim_with(urls):
+    return claim(
+        "c001",
+        "Pi là 3,14.",
+        sources=[{"url": u, "credibility": "secondary"} for u in urls],
+    )
+
+
+@pytest.mark.parametrize(
+    "urls",
+    [
+        ["https://x.com/a", "https://x.com./b"],
+        ["https://x.com./a", "https://www.x.com/b"],
+        ["https://X.COM/a", "https://x.com/b"],
+        ["https://a.x.com/a", "https://b.x.com./b"],
+        ["https://x.com:8080/a", "https://x.com/b"],
+        ["https://192.168.1.1/a", "https://192.168.1.1/b"],
+        ["https://10.0.0.1/a", "https://10.0.0.2/b"],
+        ["http://[::1]/a", "http://[::1]/b"],
+    ],
+)
+def test_gate1_hai_nguon_cung_mien_goc_hoac_la_ip_khong_du_hai_nguon_khac_mien(
+    tmp_path, urls
+):
+    eps, _ = make_episode(tmp_path, claims=[_num_claim_with(urls)])
+    r = gates.gate1(SLUG, eps)
+    assert r["pass"] is False
+    assert r["problems"][0]["claim"] == "c001"
+
+
+@pytest.mark.parametrize(
+    "urls",
+    [
+        ["https://x.com/a", "https://y.org/b"],
+        ["https://x.com./a", "https://y.org./b"],
+        ["https://a.co.uk/a", "https://b.co.uk/b"],
+    ],
+)
+def test_gate1_hai_nguon_khac_mien_goc_thi_dat(tmp_path, urls):
+    eps, _ = make_episode(tmp_path, claims=[_num_claim_with(urls)])
+    assert gates.gate1(SLUG, eps)["pass"] is True

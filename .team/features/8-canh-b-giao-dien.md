@@ -14,7 +14,7 @@ Cảnh "mục i hiện ở beat thứ i theo thứ tự" (`itemStart` trong `lib
 | `tree-graph` | `nodes` [{`id` 1..12, `parent` ≤12 (bỏ trống là gốc), `label` 1..16}] 2..15 bắt buộc; `path` [id] ≤6 (đường được tô sáng) | 2 | level, path |
 | `code-walk` | `lang` "javascript"\|"typescript"\|"python"\|"bash" bắt buộc; `lines` [chuỗi ≤56 ký tự] 1..18 bắt buộc (một phần tử một dòng code); `notes` [{`line` số nguyên 1..18 (dòng 1-based), `text` 1..90}] ≤6 | 2 | note |
 | `terminal` | `title` ≤24; `prompt` ≤8 (mặc định "$"); `lines` [{`kind` "cmd"\|"out"\|"err", `text` 1..56}] 1..10 bắt buộc | 2 | line |
-| `bits` | `value` số nguyên 0..65535 bắt buộc; `width` số nguyên 4..16 (mặc định 8) là số bit TỐI THIỂU: số bit hiển thị = max(width, độ dài bit của value), để cảnh không bao giờ hiện số khác value; `label` ≤30 | 2 | bit |
+| `bits` | `value` số nguyên 0..65535 bắt buộc; `width` số nguyên 4..16 (mặc định 8) là số bit TỐI THIỂU: số bit hiển thị = max(width, độ dài bit của value), để cảnh không bao giờ hiện số khác value (BA chốt 2026-11-03); `label` ≤30 | 2 | bit |
 | `memory-array` | `name` ≤24; `cells` [chuỗi 1..6] 2..10 bắt buộc; `base` 0..65535 (mặc định 4096); `size` 1..8 (mặc định 4); `access` [số nguyên 0..9] ≤6 | 2 | array, access |
 | `algo-bars` | `title` ≤40; `states` [{`values` [số nguyên 1..99] 2..16 bắt buộc, `active` [chỉ số] ≤16, `done` [chỉ số] ≤16, `note` ≤60}] 1..24 bắt buộc | 2 | step |
 
@@ -22,6 +22,12 @@ Ví dụ hợp lệ của từng loại nằm ở `spec.example`. Quy ước bea
 - `flow`: beat 0 hiện đồ thị; `packets[i]` chạy ở beat i+1 (36 frame).
 - `layers`: tầng i hiện ở beat i; sau tầng cuối có gói dữ liệu quét xuống và `highlight` được tô.
 - `scale-ladder`: bậc i hiện ở beat i.
+  Chữ giá trị (BA chốt 2026-11-03 theo review và TEST-LEAD):
+  1. Ở frame cuối, mọi bậc đều hiện chữ giá trị.
+  2. Chữ nằm trong hay ngoài thanh được chọn theo `wFinal`; mỗi bậc chỉ dùng một chế độ suốt cảnh.
+  3. Chữ trong thanh chỉ hiện khi thanh đã đủ rộng; mép trái của chữ không vượt quá `X0+24`.
+  4. Chữ ngoài thanh neo cố định ở `X0+wFinal+24`, không trượt theo thanh, không tràn qua x=1880.
+  5. Vị trí chữ không nhảy giữa hai frame liền nhau.
 - `tree-graph`: mọi nút cùng độ sâu d hiện ở beat d; `path` được tô dần ở beat kế sau tầng sâu nhất (nút thứ j cách 10 frame).
 - `code-walk`: code hiện từ đầu; `notes[k]` sáng dòng `line` và hiện chú thích ở beat k; dòng khác mờ.
 - `terminal`: dòng i hiện ở beat i; `cmd` được gõ 1,1 ký tự mỗi frame.

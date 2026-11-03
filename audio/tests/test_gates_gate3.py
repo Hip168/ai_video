@@ -526,38 +526,38 @@ def test_gate3_cong2_lai_do_khi_claims_json_thieu(env):
     assert "cong2-lai" in _only_failing(env, r)
 
 
-# ---- neo sổ bằng git: mục ledger-git -------------------------------------------
+# ---- neo sổ bằng git: mục so-git -------------------------------------------
 
-def test_gate3_ledger_git_dat_khi_so_da_commit_va_chi_them(env):
+def test_gate3_so_git_dat_khi_so_da_commit_va_chi_them(env):
     gates.Ledger(env.ep).add(stage="viet", role="scriptwriter")
     env.commit()
     gates.Ledger(env.ep).add(stage="viet2", role="scriptwriter")
     r = env.gate3()
-    assert env.checks(r)["ledger-git"]["ok"] is True
+    assert env.checks(r)["so-git"]["ok"] is True
     assert r["pass"] is True
 
 
-def test_gate3_ledger_git_chan_khi_khong_phai_kho_git(tmp_path, monkeypatch):
+def test_gate3_so_git_chan_khi_khong_phai_kho_git(tmp_path, monkeypatch):
     e = Env(tmp_path, monkeypatch, use_git=False)
     r = e.gate3()
     assert r["pass"] is False
-    assert _only_failing(e, r) == ["ledger-git"]
+    assert _only_failing(e, r) == ["so-git"]
 
 
-def test_gate3_ledger_git_chan_khi_so_co_thay_doi_chua_commit(env):
+def test_gate3_so_git_chan_khi_so_co_thay_doi_chua_commit(env):
     gates.Ledger(env.ep).add(stage="viet", role="scriptwriter")
     r = env.gate3(commit=False)
     assert r["pass"] is False
-    assert _only_failing(env, r) == ["ledger-git"]
+    assert _only_failing(env, r) == ["so-git"]
 
 
-def test_gate3_ledger_git_chan_khi_so_chua_duoc_theo_doi(tmp_path, monkeypatch):
+def test_gate3_so_git_chan_khi_so_chua_duoc_theo_doi(tmp_path, monkeypatch):
     e = Env(tmp_path, monkeypatch, use_git=False)
     git(e.repo, "init", "-q")
     e.git = True
     r = e.gate3(commit=False)
     assert r["pass"] is False
-    assert _only_failing(e, r) == ["ledger-git"]
+    assert _only_failing(e, r) == ["so-git"]
 
 
 def _rewrite_consistently(ep, fn):
@@ -572,7 +572,7 @@ def _rewrite_consistently(ep, fn):
     (ep / "ledger.json").write_text(json.dumps(doc, ensure_ascii=False), encoding="utf-8")
 
 
-def test_gate3_ledger_git_chan_khi_lich_su_sua_mot_muc_cu_du_chuoi_hash_van_dung(env):
+def test_gate3_so_git_chan_khi_lich_su_sua_mot_muc_cu_du_chuoi_hash_van_dung(env):
     # kẻ sửa sổ tính lại cả chuỗi nên chuoi-so vẫn ok; chỉ git bắt được
     _rewrite_consistently(
         env.ep, lambda ents: ents[0].__setitem__("note", "đã bị sửa")
@@ -580,17 +580,17 @@ def test_gate3_ledger_git_chan_khi_lich_su_sua_mot_muc_cu_du_chuoi_hash_van_dung
     r = env.gate3()
     assert env.checks(r)["chuoi-so"]["ok"] is True
     assert r["pass"] is False
-    assert "ledger-git" in _only_failing(env, r)
+    assert "so-git" in _only_failing(env, r)
 
 
-def test_gate3_ledger_git_chan_khi_lich_su_xoa_mot_muc_cu(env):
+def test_gate3_so_git_chan_khi_lich_su_xoa_mot_muc_cu(env):
     _rewrite_consistently(env.ep, lambda ents: ents.pop(1))
     r = env.gate3()
     assert env.checks(r)["chuoi-so"]["ok"] is True
-    assert "ledger-git" in _only_failing(env, r)
+    assert "so-git" in _only_failing(env, r)
 
 
-def test_gate3_ledger_git_chan_khi_co_commit_xoa_file_roi_khoi_phuc(env):
+def test_gate3_so_git_chan_khi_co_commit_xoa_file_roi_khoi_phuc(env):
     rel = f"episodes/{SLUG}/ledger.json"
     keep = (env.ep / "ledger.json").read_bytes()
     git(env.repo, "rm", "-q", rel)
@@ -598,7 +598,7 @@ def test_gate3_ledger_git_chan_khi_co_commit_xoa_file_roi_khoi_phuc(env):
     (env.ep / "ledger.json").write_bytes(keep)
     r = env.gate3()
     assert r["pass"] is False
-    assert "ledger-git" in _only_failing(env, r)
+    assert "so-git" in _only_failing(env, r)
 
 
 # ---- bằng chứng qc: mục qc-bang-chung ------------------------------------------
@@ -695,3 +695,27 @@ def test_gate3_qc_bang_chung_out_dir_tuy_chinh(env, tmp_path):
     (env.repo / "out" / "episodes" / SLUG / "timeline.json").unlink()
     r = env.gate3(video=env.video, out_dir=moved)
     assert env.checks(r)["qc-bang-chung"]["ok"] is True
+
+
+def test_gate3_qc_json_la_ban_sao_nguyen_van_cua_findings_da_nop(env):
+    sent = json.loads((env.ep / "qc.json").read_text(encoding="utf-8"))
+    kept = json.loads(
+        (env.ep / "handoff" / "qc.json").read_text(encoding="utf-8")
+    )
+    assert kept == sent
+    assert kept["evidence"]["videoSha256"] == hashlib.sha256(
+        env.video.read_bytes()
+    ).hexdigest()
+
+
+def test_gate3_nop_thang_handoff_qc_json_van_dat(env):
+    doc = json.loads((env.ep / "qc.json").read_text(encoding="utf-8"))
+    write_json(env.ep / "handoff" / "qc.json", doc)
+    r = gates.ledger_add_findings(
+        env.ep, stage="qc", role="qc", pair="editor/qc",
+        findings=env.ep / "handoff" / "qc.json", root=env.ep,
+        artifact=env.video,
+    )
+    assert r["verdict"] == "DAT"
+    res = env.gate3(video=env.video)
+    assert env.checks(res)["qc-bang-chung"]["ok"] is True

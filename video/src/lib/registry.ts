@@ -53,7 +53,7 @@ const placeholder = (type: CatalogType): CatalogEntry => ({
   spec: placeholderSpec(type),
 });
 
-/** 18 loại, mỗi loại một dòng. Loại chưa làm là placeholder(...). */
+/** 18 loại, mỗi loại một dòng. 6 loại còn placeholder(...) là của đề mục 7; 9 loại nhóm B đã làm ở đề mục 8. */
 export const CATALOG: Record<CatalogType, CatalogEntry> = {
   "cold-open": { Component: ColdOpen, spec: coldOpenSpec },
   "chapter-title": { Component: ChapterTitle, spec: chapterTitleSpec },

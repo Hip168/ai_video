@@ -28,7 +28,13 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
   const centre = (id: string): Pt => ({ x: boxOf.get(id)!.x + boxOf.get(id)!.w / 2, y: boxOf.get(id)!.y + boxOf.get(id)!.h / 2 });
   const n = packets.length + 1;
   const graphStart = itemStart(scene, 0, n);
-  const fs = Math.max(20, 30 * lay.scale);
+  // Cỡ chữ theo chiều cao hộp (88 * scale); hộp thấp thì 1 dòng.
+  const boxH = 88 * lay.scale;
+  const fsMax = Math.max(8, Math.min(30 * lay.scale, boxH * 0.4));
+  const nodeLines = boxH >= 60 ? 2 : 1;
+  const fs = nodeLines === 2 ? Math.min(fsMax, boxH * 0.3) : fsMax;
+  const lblW = 160 * Math.min(1, lay.scale + 0.2);
+  const lblH = 36 * Math.min(1, lay.scale + 0.2);
 
   const arrival: Record<string, number> = {};
   const pk = packets.map((k, i) => {
@@ -57,8 +63,8 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
             />
             {e.label && e.label !== "" && (
               <g>
-                <rect x={mid.x - 80} y={mid.y - 22} width={160} height={36} rx={10} fill={theme.bg} opacity={0.9} />
-                <TextBlock text={e.label} x={mid.x} y={mid.y + 6} width={148} fontSize={24} fill={theme.muted} weight={400} />
+                <rect x={mid.x - lblW / 2} y={mid.y - lblH / 2} width={lblW} height={lblH} rx={10} fill={theme.bg} opacity={0.9} />
+                <TextBlock text={e.label} x={mid.x} y={mid.y + lblH * 0.22} width={lblW - 12} fontSize={Math.min(24, lblH * 0.66)} fill={theme.muted} weight={400} />
               </g>
             )}
           </g>
@@ -75,7 +81,7 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
           <g key={nd.id} opacity={a} transform={`translate(0 ${(1 - a) * 24})`}>
             <rect x={c.x - w / 2} y={c.y - h / 2} width={w} height={h} rx={18 * lay.scale} fill={theme.panel} stroke={hit ? theme.accent2 : theme.accent} strokeWidth={hit ? 7 : 5} />
             {pulse > 0 && <rect x={c.x - w / 2 - 10 * pulse} y={c.y - h / 2 - 10 * pulse} width={w + 20 * pulse} height={h + 20 * pulse} rx={24} fill="none" stroke={theme.accent2} strokeWidth={3} opacity={pulse} />}
-            <TextBlock text={nd.label} x={c.x} y={c.y + fs * 0.35} width={w - 24} fontSize={fs} maxLines={2} fill={theme.fg} lineHeight={1.1} />
+            <TextBlock text={nd.label} x={c.x} y={c.y + (nodeLines === 2 ? -fs * 0.15 : fs * 0.35)} width={w - 24} fontSize={fs} maxLines={nodeLines} fill={theme.fg} lineHeight={1.1} />
           </g>
         );
       })}

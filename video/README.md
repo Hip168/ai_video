@@ -62,7 +62,7 @@ npx remotion still src/index.ts Episode out.png --frame=100 --props=props.json
 `validateTimeline2` (`src/timeline2.ts`) kiểm luật 1-10, 12, 13 của hợp đồng (luật 11 cần độ dài `narration.wav`, kiểm ở bước dựng timeline Python), lỗi có đường dẫn trường (vd `scenes[1].startFrame: ...`). Tên SFX chỉ `pop, tick, whoosh, ding, buzz`.
 
 ### Catalog 18 loại cảnh
-`cold-open`, `chapter-title`, `recap-outro` (có sẵn) và 15 loại giữ chỗ cho đề mục 7, 8: `big-number`, `compare`, `myth-fact`, `history-timeline`, `term-card`, `chart`, `flow`, `layers`, `scale-ladder`, `tree-graph`, `code-walk`, `terminal`, `bits`, `memory-array`, `algo-bars`.
+`cold-open`, `chapter-title`, `recap-outro` (có sẵn) và 15 loại còn lại. Nhánh 8 đã làm 9 loại nhóm B (`flow`, `layers`, `scale-ladder`, `tree-graph`, `code-walk`, `terminal`, `bits`, `memory-array`, `algo-bars`); 6 loại còn giữ chỗ cho đề mục 7: `big-number`, `compare`, `myth-fact`, `history-timeline`, `term-card`, `chart`.
 
 Thêm một loại: viết `src/lib/scenes/<id>.tsx` và `src/lib/specs/<id>.ts` (`propsSpec`, ví dụ, số beat tối thiểu, danh sách cue), rồi chỉ đổi đúng dòng của loại đó trong `CATALOG` ở `src/lib/registry.ts` (và import vào khối của mình). Bỏ `anyProps` khỏi spec. Mọi cảnh: hình chính trong `y < 830`, chuyển động là hàm thuần của frame, cấm `filter: blur`, `feGaussianBlur`, `backdrop-filter`, không chuỗi URL.
 

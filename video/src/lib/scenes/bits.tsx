@@ -9,9 +9,11 @@ import type { SceneProps } from "../types";
 export const Bits: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const frame = useCurrentFrame();
-  const width = typeof scene.props.width === "number" ? Math.min(16, Math.max(4, Math.floor(scene.props.width))) : 8;
-  const maxV = 2 ** width - 1;
-  const value = typeof scene.props.value === "number" ? Math.min(maxV, Math.max(0, Math.floor(scene.props.value))) : 0;
+  const value = typeof scene.props.value === "number" ? Math.max(0, Math.floor(scene.props.value)) : 0;
+  const wantW = typeof scene.props.width === "number" ? Math.min(16, Math.max(4, Math.floor(scene.props.width))) : 8;
+  // Số bit hiển thị = max(width, độ dài bit của value): không bao giờ hiện số khác value.
+  const width = Math.max(wantW, value === 0 ? 1 : Math.floor(Math.log2(value)) + 1);
+  if (width > 16) throw new Error(`bits: value ${value} cần ${width} bit, vượt 16 bit tối đa của cảnh`);
   const label = typeof scene.props.label === "string" ? scene.props.label : "";
   const cell = Math.min(150, Math.floor(1720 / width) - 12);
   const gap = Math.min(12, cell * 0.1);
@@ -51,8 +53,8 @@ export const Bits: React.FC<SceneProps> = ({ scene }) => {
           </g>
         );
       })}
-      <TextBlock text={formula} x={960} y={yCell + cell + 150} width={1700} fontSize={48} fill={theme.fg} weight={400} />
-      <TextBlock text={`= ${sum}`} x={960} y={yCell + cell + 240} width={800} fontSize={88} fill={theme.accent2} opacity={sum > 0 || bitsHigh.length === 0 ? 1 : 0.4} />
+      <TextBlock text={formula} x={960} y={yCell + cell + 150} width={1700} fontSize={48} maxLines={2} fill={theme.fg} weight={400} />
+      <TextBlock text={`= ${sum}`} x={960} y={yCell + cell + (width > 8 ? 310 : 240)} width={800} fontSize={88} fill={theme.accent2} opacity={sum > 0 || bitsHigh.length === 0 ? 1 : 0.4} />
     </Stage>
   );
 };

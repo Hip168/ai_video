@@ -1,0 +1,7101 @@
+{
+ "cases": [
+  {
+   "name": "mau_hop_dong",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat1_version_1",
+   "valid": false,
+   "timeline": {
+    "version": 1,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat1_fps_24",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 24,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat1_width_1280",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1280,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat1_height_1920",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1920,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat2_start_frame_so_thuc",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 10.5,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat2_duration_bang_0",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 0,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat2_start_am",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": -1,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat3_scene_id_trung",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc01",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat3_scene_id_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat3_props_la_mang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": [],
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat3_custom_khong_ten",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat4_co_khoang_ho_giua_canh",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 400,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat4_canh_chong_nhau",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 380,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat4_canh_dau_khong_tu_0",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 5,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat4_canh_cuoi_khong_het_duration",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 610,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat5_beat_nguoc_thu_tu",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 100,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat5_beat_chong_nhau",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 160,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat5_beat_vuot_cuoi_canh",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 200,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat5_beat_truoc_dau_canh",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 380,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat6_beat_id_trung_giua_canh",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat7_text_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat7_text_toan_khoang_trang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "   ",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat7_text_101_ky_tu",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat7_text_nfd_khong_nfc",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat8_cue_la_so",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": 5
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat8_cue_chuoi_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": ""
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat9_chuong_id_trung",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "mo-dau",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat9_chuong_title_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": " ",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat9_chuong_start_khong_tang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 0
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat9_chuong_dau_khong_tu_0",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 30
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat9_canh_tro_toi_chuong_la",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "khong-co",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat9_chuong_start_lech_canh_dau",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 330
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat10_sfx_frame_bang_duration",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 600,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat10_sfx_frame_am",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": -1,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat10_sfx_name_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat10_sfx_gain_duong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": 3
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat10_sfx_gain_la_chuoi",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": "-18"
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat10_sfx_frame_giam",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     },
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat3_scene_id_chi_khoang_trang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "  ",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat3_scene_id_sai_kieu",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": 5,
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat3_type_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat6_beat_id_sai_kieu",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": 7,
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat9_chuong_id_khoang_trang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": " ",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat10_sfx_name_khoang_trang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "  ",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_theme_khoang_trang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "   ",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_audio_src_khoang_trang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "  "
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_audio_src_url",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "https://x.vn/narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_audio_src_hai_cham_trong_ten_file",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "a..b.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_audio_src_giua_co_cham_cham",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "a/../b.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat13_chapters_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat13_thieu_khoa_sfx",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat13_sfx_la_null",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": null,
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_theme_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_audio_src_tuyet_doi",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "/tmp/narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_audio_src_rong",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": ""
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "luat12_audio_src_thoat_thu_muc",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "../narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_text_dung_100_ky_tu",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_sfx_o_frame_cuoi_cung",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 599,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_gain_bang_0",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": 0
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_gain_so_thuc_am",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -0.5
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_beat_sat_mep_canh",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 120,
+        "durationFrames": 180,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_hai_sfx_cung_frame",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 0,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_audio_src_thu_muc_con",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "audio/narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_custom_co_gach_noi",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong-2",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "bien_hop_le_sfx_rong",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_pop",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "pop",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_tick",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "tick",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_whoosh",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_ding",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "ding",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_buzz",
+   "valid": true,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "buzz",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_ngoai_danh_sach",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "chime",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_viet_hoa",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "Pop",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_co_khoang_trang",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": " pop",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_khoang_trang_cuoi",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "pop ",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "pop",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "sfx_ten_sai_o_phan_tu_thu_hai",
+   "valid": false,
+   "timeline": {
+    "version": 2,
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "durationInFrames": 600,
+    "theme": "mau-a",
+    "audio": {
+     "src": "narration.wav"
+    },
+    "chapters": [
+     {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+     },
+     {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 300
+     }
+    ],
+    "sfx": [
+     {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+     },
+     {
+      "frame": 390,
+      "name": "swoosh",
+      "gainDb": -18
+     }
+    ],
+    "scenes": [
+     {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+       "hook": "Máy tính chỉ hiểu 0 và 1"
+      },
+      "startFrame": 0,
+      "durationFrames": 300,
+      "beats": [
+       {
+        "id": "b001",
+        "startFrame": 0,
+        "durationFrames": 120,
+        "text": "Mọi thứ bạn đang xem chỉ là các số 0 và 1.",
+        "cue": "hook"
+       },
+       {
+        "id": "b002",
+        "startFrame": 150,
+        "durationFrames": 120,
+        "text": "Vậy làm sao chúng tạo ra được hình ảnh và âm thanh?"
+       }
+      ]
+     },
+     {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+       "title": "Chương một"
+      },
+      "startFrame": 300,
+      "durationFrames": 90,
+      "beats": []
+     },
+     {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 390,
+      "durationFrames": 210,
+      "beats": [
+       {
+        "id": "b003",
+        "startFrame": 390,
+        "durationFrames": 180,
+        "text": "Hãy bắt đầu từ một công tắc đơn giản.",
+        "cue": "pop"
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

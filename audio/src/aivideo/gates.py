@@ -485,7 +485,7 @@ def finding_key(f: dict) -> str:
 
 _ENTRY_FIELDS = ("seq", "ts", "stage", "role", "pair", "round", "inputHash", "outputHash",
                  "verdict", "scriptHash", "claimsHash", "artifactHash", "findingsHash",
-                 "findingKeys", "returnTo", "escalate", "note", "cmd", "claimHashes", "prevHash")
+                 "findingKeys", "returnTo", "escalate", "note", "cmd", "claimHashes", "fileHashes", "prevHash")
 
 
 def entry_hash(entry: dict) -> str:
@@ -558,7 +558,7 @@ class Ledger:
     def add(self, *, stage: str, role: str, pair: str | None = None, verdict: str | None = None,
             input_hash=None, output_hash=None, script_hash=None, claims_hash=None,
             artifact_hash=None, findings_hash=None, finding_keys=None, return_to=None,
-            note=None, cmd=None, claim_hashes=None) -> dict:
+            note=None, cmd=None, claim_hashes=None, file_hashes=None) -> dict:
         """Ghi một mục. Trả {"state":"OK"|"CAN_NGUOI_DUNG", ...}; CAN_NGUOI_DUNG kèm
         `recorded` cho biết mục có được ghi không."""
         doc = self.load()
@@ -588,7 +588,7 @@ class Ledger:
                  "claimsHash": claims_hash, "artifactHash": artifact_hash,
                  "findingsHash": findings_hash, "findingKeys": keys or None,
                  "returnTo": return_to, "escalate": bool(repeated), "note": note, "cmd": cmd,
-                 "claimHashes": claim_hashes,
+                 "claimHashes": claim_hashes, "fileHashes": file_hashes,
                  "prevHash": ents[-1]["entryHash"] if ents else ""}
         entry["entryHash"] = entry_hash(entry)
         ents.append(entry)
@@ -942,6 +942,10 @@ def _inside(child: Path, parent: Path) -> bool:
     return c == p or p in c.parents
 
 
+def _batch_file_hashes(batch) -> dict:
+    return {p.name: sha256_file(p) for p in sorted(Path(batch).iterdir()) if p.is_file()}
+
+
 def claim_hash(c: dict) -> str:
     """Hash của claim, không tính `status` (apply-factcheck đổi status)."""
     return sha256_bytes(canon({k: v for k, v in c.items() if k != "status"}).encode("utf-8"))
@@ -987,10 +991,11 @@ def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
     if _inside(batch, repo):
         raise GateError("thư mục tạm của lô phải nằm ngoài repo")
     _write_json_atomic(batch / "items.json", items)
+    (batch / "prompt.txt").write_text(build_factcheck_prompt(role_text, batch), encoding="utf-8")
     Ledger(ep).add(stage="fact-prepare", role="sep-tong", note=batch.name,
+                   file_hashes=_batch_file_hashes(batch),
                    claim_hashes={c["id"]: claim_hash(c) for c in claims},
                    claims_hash=sha256_file(ep / "claims.json"))
-    (batch / "prompt.txt").write_text(build_factcheck_prompt(role_text, batch), encoding="utf-8")
     return {"batchDir": str(batch), "items": str(batch / "items.json"),
             "prompt": str(batch / "prompt.txt")}
 
@@ -1008,6 +1013,13 @@ def apply_factcheck(slug: str, episodes_dir, findings, batch) -> dict:
     prep = [e for e in led.entries() if e["stage"] == "fact-prepare" and e.get("note") == Path(batch).name]
     if not prep:
         raise GateError("sổ tập không có mục fact-prepare cho lô này: lô không do prepare-factcheck tạo")
+    recorded = prep[-1].get("fileHashes") or {}
+    if "items.json" not in recorded:
+        raise GateError("mục fact-prepare không ghi hash của items.json")
+    bad = [n for n, h in recorded.items()
+           if not (Path(batch) / n).is_file() or sha256_file(Path(batch) / n) != h]
+    if bad:
+        raise GateError(f"file của lô khác lúc prepare-factcheck: {', '.join(bad)}; tạo lô mới")
     if any(e["stage"] == "fact" and e.get("note") == Path(batch).name for e in led.entries()):
         raise GateError("lô này đã được apply; muốn kiểm lại phải prepare-factcheck lô mới")
     saved = prep[-1].get("claimHashes") or {}

@@ -25,7 +25,7 @@ Bắt trên `text` GỐC (và `spoken` nếu có chữ số) của từng beat, 
 - Luôn mã thoát 0.
 
 ## `gate1 <slug>`
-Chỉ đọc `claims.json`. Chặn (`pass:false`) khi: sai dạng; trùng id; có claim `CHUA_KIEM` hoặc `SAI`; claim `DAT` không có nguồn `primary` hoặc `secondary` (chỉ `anecdotal` hoặc rỗng); `sources` sai dạng; claim về số (có chữ số trong `claim`) `DAT` mà không có nguồn `primary` và không có ít nhất hai nguồn `primary`/`secondary` khác tên miền gốc. Tên miền gốc (eTLD+1 xấp xỉ, hàm `root_domain`): hai nhãn cuối, hoặc ba nhãn khi dạng `co.uk`, `com.vn` (`a.x.com` và `b.x.com` cùng miền gốc `x.com`).
+Chỉ đọc `claims.json`. Chặn (`pass:false`) khi: sai dạng; trùng id; có claim `CHUA_KIEM` hoặc `SAI`; claim `DAT` không có nguồn `primary` hoặc `secondary` (chỉ `anecdotal` hoặc rỗng); `sources` sai dạng; claim về số (có chữ số trong `claim`) `DAT` mà không có nguồn `primary` và không có ít nhất hai nguồn `primary`/`secondary` khác tên miền gốc. Tên miền gốc (eTLD+1 xấp xỉ, hàm `root_domain`): cắt dấu chấm cuối (`x.com.` = `x.com`), `www.` bị bỏ, lấy hai nhãn cuối, hoặc ba nhãn khi dạng `co.uk`, `com.vn` (`a.x.com` và `b.x.com` cùng miền gốc `x.com`). Host là địa chỉ IP (v4, v6) cho `root_domain` rỗng và không được tính vào điều kiện "hai nguồn khác miền".
 ```json
 {"gate":"gate1","pass":false,"problems":[{"claim":"c003","problem":"..."}]}
 ```
@@ -63,7 +63,7 @@ Mã thoát 0 chỉ khi `DAT`.
   - Vòng: một cặp có tối đa 3 mục người kiểm có verdict khác `DAT` kể từ lần `DAT` gần nhất. Mục người kiểm thứ 4 bị từ chối: không ghi, stdout `{"state":"CAN_NGUOI_DUNG","reason":"..."}`, mã 3. Mục có `--return-to`: lần thứ 3 trong một tập bị từ chối như trên.
   - Lỗi lặp: khoá `findingKeys[i]` = sha1(`rule|file|quote`)[:12]; khi một khoá xuất hiện ở lần thứ 2 trong cùng cặp (kể từ `DAT` gần nhất), mục vẫn ghi với `escalate:true`, stdout `state:"CAN_NGUOI_DUNG"`, mã 3.
   - Thành công: `{"state":"OK","seq":n,"round":r,"verdict":"SUA"}`, mã 0.
-- `ledger run <slug> --stage lint|ky-thuat -- <lệnh...>`: chạy lệnh, `verdict` `DAT` nếu mã thoát 0, ngược lại `CHAN`; ghi `outputHash` = sha256 stdout+stderr, `scriptHash` hiện tại. Mã thoát: 0 nếu `DAT`, ngược lại 1.
+- `ledger run <slug> --stage lint|ky-thuat`: KHÔNG nhận lệnh tuỳ ý (có `-- <lệnh>` là lỗi tham số, mã 2). Lệnh cố định trong mã theo stage, hằng `LINT_CMD`, `KY_THUAT_CMD`: `lint` = `npm run lint:episode -- <slug> --json` chạy trong `<repo>/video` (repo = cha của `--episodes-dir`); `ky-thuat` = `python -m aivideo.assemble verify <slug>` (đề mục 10, chưa merge). `verdict` `DAT` nếu mã thoát 0, ngược lại `CHAN`; ghi `outputHash` = sha256 của stdout (JSON), `scriptHash` hiện tại. Mã thoát: 0 nếu `DAT`, ngược lại 1. CHỈ DÀNH CHO TEST: biến môi trường `AIVIDEO_TEST_CMD_LINT` / `AIVIDEO_TEST_CMD_KY_THUAT` thay lệnh (tách bằng shlex, `{slug}` được thay, chạy ở thư mục hiện tại). Hàm: `ledger_run(ep, stage)`.
 - `ledger show <slug>`: `{"ok":bool,"entries":n,"last":{...},"scriptHash":...,"rounds":{"<pair>":<số mục người kiểm kể từ DAT>}}`.
 - `ledger handoff <slug> <khau>`: tạo `episodes/<slug>/handoff/<khau>.md` với năm mục `## Đã chốt`, `## Đã bỏ`, `## Rủi ro`, `## File`, `## Còn lại`; có sẵn thì mã 1.
 

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import ipaddress
 import json
 import os
 import re
@@ -99,8 +100,16 @@ def _now() -> str:
 
 
 def _host(url: str) -> str:
-    h = (urlparse(url).hostname or "").lower()
+    h = (urlparse(url).hostname or "").lower().rstrip(".")
     return h[4:] if h.startswith("www.") else h
+
+
+def _is_ip(host: str) -> bool:
+    try:
+        ipaddress.ip_address(host)
+        return True
+    except ValueError:
+        return False
 
 
 _SLD = frozenset(("co", "com", "org", "net", "gov", "edu", "ac"))
@@ -108,7 +117,10 @@ _SLD = frozenset(("co", "com", "org", "net", "gov", "edu", "ac"))
 
 def root_domain(url: str) -> str:
     """Tên miền gốc xấp xỉ eTLD+1: 2 nhãn cuối, hoặc 3 khi dạng co.uk, com.vn."""
-    labels = _host(url).split(".")
+    host = _host(url)
+    if not host or _is_ip(host):
+        return ""  # địa chỉ IP không phải miền gốc: không tính là nguồn độc lập
+    labels = host.split(".")
     if len(labels) >= 3 and labels[-2] in _SLD and len(labels[-1]) == 2:
         return ".".join(labels[-3:])
     return ".".join(labels[-2:])
@@ -251,7 +263,7 @@ def check_claims(claims) -> list[dict]:
                 probs.append({"claim": label, "problem": "DAT nhưng không có nguồn primary hoặc secondary"})
             elif re.search(r"\d", c.get("claim") or ""):
                 has_primary = any(e["credibility"] == "primary" for e in good)
-                if not has_primary and len({root_domain(e["url"]) for e in good}) < 2:
+                if not has_primary and len({d for d in (root_domain(e["url"]) for e in good) if d}) < 2:
                     probs.append({"claim": label, "problem":
                                   "claim về số cần một nguồn primary hoặc hai nguồn khác tên miền gốc"})
     return probs
@@ -278,27 +290,35 @@ def gate1(slug: str, episodes_dir="../episodes") -> dict:
 # ---- gate2 -------------------------------------------------------------------
 
 def _claim_keys(claim_texts: list[str]):
-    values, exact, runs = set(), set(), set()
+    values, exact, run_lists = set(), set(), []
     for t in claim_texts:
+        runs: list[str] = []
         for m in NUMBER_RE.finditer(nfc(t)):
             tok = m.group(0)
             v = number_value(tok)
             if v is not None:
                 values.add(v)
             exact.add(tok)
-            runs.update(_runs(tok))
-    return values, exact, runs
+            runs.extend(_runs(tok))
+        run_lists.append(runs)
+    return values, exact, run_lists
+
+
+def _in_order(needle: list[str], hay: list[str]) -> bool:
+    it = iter(hay)
+    return all(any(x == y for y in it) for x in needle)
 
 
 def _number_covered(token: str, keys) -> bool:
-    values, exact, runs = keys
+    values, exact, run_lists = keys
     v = number_value(token)
     if v is not None:
         return v in values
     if token in exact:
         return True
     if re.search(r"[:/\-\u2013\u2014]", token):
-        return all(r in runs for r in _runs(token))
+        need = _runs(token)
+        return any(_in_order(need, hay) for hay in run_lists)
     return False
 
 
@@ -582,18 +602,34 @@ def ledger_add_findings(ep: Path, *, stage, role, pair, findings, root, input_ha
     return out
 
 
-def ledger_run(ep: Path, stage: str, cmd: list[str]) -> dict:
+LINT_CMD = ["npm", "run", "lint:episode", "--", "{slug}", "--json"]  # chạy trong <repo>/video
+KY_THUAT_CMD = [sys.executable, "-m", "aivideo.assemble", "verify", "{slug}"]  # đề mục 10
+TEST_CMD_ENV = {"lint": "AIVIDEO_TEST_CMD_LINT", "ky-thuat": "AIVIDEO_TEST_CMD_KY_THUAT"}
+
+
+def _fixed_command(stage: str, slug: str, repo: Path) -> tuple[list[str], Path | None]:
+    """Lệnh cố định theo stage. Biến môi trường TEST_CMD_ENV[stage] (chỉ dành cho test) thay
+    lệnh; giá trị được tách bằng shlex, `{slug}` được thay."""
+    over = os.environ.get(TEST_CMD_ENV[stage])
+    if over:
+        import shlex
+        return [x.replace("{slug}", slug) for x in shlex.split(over)], None
+    if stage == "lint":
+        return [x.replace("{slug}", slug) for x in LINT_CMD], repo / "video"
+    return [x.replace("{slug}", slug) for x in KY_THUAT_CMD], None
+
+
+def ledger_run(ep: Path, stage: str) -> dict:
     if stage not in RUN_STAGES:
         raise GateError(f"--stage phải thuộc {RUN_STAGES}")
-    if not cmd:
-        raise GateError("thiếu lệnh sau --")
+    cmd, cwd = _fixed_command(stage, ep.name, ep.resolve().parent.parent)
     try:
-        r = subprocess.run(cmd, capture_output=True, text=False, check=False)
+        r = subprocess.run(cmd, capture_output=True, text=False, check=False, cwd=cwd)
     except OSError as e:
-        raise GateError(f"không chạy được lệnh: {e}") from e
+        raise GateError(f"không chạy được lệnh {cmd[0]}: {e}") from e
     verdict = "DAT" if r.returncode == 0 else "CHAN"
     out = Ledger(ep).add(stage=stage, role="sep-tong", verdict=verdict,
-                         output_hash=sha256_bytes(r.stdout + r.stderr), script_hash=_script_hash_of(ep),
+                         output_hash=sha256_bytes(r.stdout), script_hash=_script_hash_of(ep),
                          note=f"mã thoát {r.returncode}: {' '.join(cmd)[:200]}")
     out["verdict"] = verdict
     out["exitCode"] = r.returncode
@@ -926,12 +962,7 @@ def _main(argv: list[str] | None = None) -> int:
     p.add_argument("slug")
     p.add_argument("khau")
 
-    raw = list(sys.argv[1:] if argv is None else argv)
-    cmd_args: list[str] = []
-    if "--" in raw:
-        cut = raw.index("--")
-        raw, cmd_args = raw[:cut], raw[cut + 1:]
-    a = ap.parse_args(raw)
+    a = ap.parse_args(argv)
 
     if a.cmd == "extract-claims":
         items = extract_items(_read_json(Path(a.script)))
@@ -976,7 +1007,7 @@ def _main(argv: list[str] | None = None) -> int:
         _emit(r)
         return 3 if r["state"] == "CAN_NGUOI_DUNG" else 0
     if a.lcmd == "run":
-        r = ledger_run(ep, a.stage, cmd_args)
+        r = ledger_run(ep, a.stage)
         _emit(r)
         return 0 if r["verdict"] == "DAT" else 1
     if a.lcmd == "show":

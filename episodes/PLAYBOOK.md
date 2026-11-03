@@ -72,7 +72,7 @@ Lệnh → [1] research → [2] CỔNG 1 (fact-checker) → [3] viết → [4] b
 | 6 | `cong2` | | CỔNG 2 | `gate2` (tự ghi hash vào sổ) | scriptwriter / researcher |
 | 7 | `canh` | scene-director | lint | `episode build --engine fake`, `ledger run --stage lint` | scene-director |
 | 8 | `giong` | voice-producer | | `episode build --engine korva`, lại `ledger run --stage lint` | voice-producer |
-| 9 | `ky-thuat` | editor | script đo | `ledger run --stage ky-thuat -- ../make-episode.sh <slug>` | thiếu LUFS: voice-producer; lỗi mã: BỊ CHẶN báo người dùng |
+| 9 | `ky-thuat` | editor | script đo | `ledger run --stage ky-thuat` (sau `make-episode.sh`) | thiếu LUFS: voice-producer; lỗi mã: BỊ CHẶN báo người dùng |
 | 10 | `qc` | | qc | `verdict`, `ledger add --stage qc --pair editor/qc --artifact <MP4>` | theo `owner` của phát hiện |
 | 11 | `dong-goi` | packager | | `ledger add --stage dong-goi --role packager` | |
 | 12 | `cong3` | | CỔNG 3 | `gate3` | theo mục lỗi trong `checks` |
@@ -121,7 +121,7 @@ Chặn khi: số/tên (bắt cả `3,14`, `1.000`, `15.01.2024`, `x86`) trong l�
 **[7] cảnh + lint.** Gọi `scene-director`. Rồi:
 ```bash
 .venv/bin/python -m aivideo.episode build <slug> --engine fake
-$G ledger run <slug> --stage lint -- sh -c 'cd ../video && npm run lint:episode -- <slug>'
+$G ledger run <slug> --stage lint     # lệnh cố định trong mã: npm run lint:episode -- <slug> --json (trong video/)
 ```
 Lint đỏ thì trả scene-director (kèm kết quả lint). `ledger run` tự đặt phán quyết `DAT` nếu mã thoát 0, ngược lại `CHAN`, không ai viết tay.
 
@@ -129,9 +129,10 @@ Lint đỏ thì trả scene-director (kèm kết quả lint). `ledger run` tự 
 
 **[9] render + kiểm kỹ thuật.** Sếp tổng chạy (nền, lâu):
 ```bash
-$G ledger run <slug> --stage ky-thuat -- ../make-episode.sh <slug>
+../make-episode.sh <slug>                # editor chạy; thuộc đề mục 10
+$G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivideo.assemble verify <slug>
 ```
-(`make-episode.sh` thuộc đề mục 10.) Lỗi thì gọi `editor` chẩn đoán và chạy lại bước hỏng, rồi chạy lại lệnh trên cho tới khi có mục `DAT`. Thiếu LUFS: không nới ngưỡng; `editor` trả `voice-producer` tìm nhịp lệch mức để đọc lại; vẫn lỗi sau 2 lần: `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
+`ledger run` không nhận lệnh tuỳ ý: lệnh nằm trong mã theo `--stage`, phán quyết từ mã thoát, kèm sha256 đầu ra JSON. Lỗi thì gọi `editor` chẩn đoán và chạy lại bước hỏng, rồi chạy lại lệnh trên cho tới khi có mục `DAT`. Thiếu LUFS: không nới ngưỡng; `editor` trả `voice-producer` tìm nhịp lệch mức để đọc lại; vẫn lỗi sau 2 lần: `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
 
 **[10] qc.** Gọi `qc` (`Explore`, mẫu 4.10). Xong:
 ```bash
@@ -192,7 +193,7 @@ Ca cần spoken thì chỉ đề xuất (id nhịp, chữ đọc), không sửa 
 
 **4.9 editor.**
 ```
-Việc lần này: slug <slug>. Lệnh ledger run ... make-episode.sh đã lỗi ở bước <bước>: <đoạn lỗi>.
+Việc lần này: slug <slug>. Lệnh make-episode.sh hoặc `ledger run --stage ky-thuat` đã lỗi ở bước <bước>: <đoạn lỗi>.
 Tìm nguyên nhân, chạy lại bước hỏng, báo. Không sửa mã khung, không nới ngưỡng.
 ```
 

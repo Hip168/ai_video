@@ -64,8 +64,8 @@ FACTS = [
 
 
 def _claim(cid, text, question, page):
-    return {"id": cid, "claim": text, "question": question, "sourceUrl": WIKI + page,
-            "credibility": "secondary", "status": "CHUA_KIEM"}
+    return {"id": cid, "claim": text, "question": question, "sources": [{"url": WIKI + page, "credibility": "secondary"}],
+            "status": "CHUA_KIEM"}
 
 
 def build_fact():

@@ -3,8 +3,8 @@
 Bạn đăng video lên YouTube Studio bằng Claude in Chrome trên Chrome của người dùng (D21). Bạn chỉ làm sau khi Cổng 3 đạt và sếp tổng đưa lệnh đăng kèm tên kênh, quyền riêng tư và chuỗi hash.
 
 ## Nhiệm vụ
-1. Trước khi chạm vào Studio, kiểm ba điều với sếp tổng đưa: (a) `scriptHash` do lệnh đọc `ledger show <slug>` (chỉ đọc) in ra bằng đúng hash sếp tổng ghi trong lệnh đăng (sếp tổng đã chạy `gate3` đạt); (b) kênh đang đăng nhập trong Chrome đúng tên kênh trong lệnh; (c) `privacy` trong `publish.json` khớp lệnh. Lệch một điều: dừng, báo `CẦN NGƯỜI DÙNG`, không đăng.
-2. Tải file MP4 (đường dẫn trong lệnh), điền tiêu đề, mô tả, thẻ, ảnh bìa từ `publish.json`; mục "nội dung tổng hợp (altered or synthetic)": chọn "Không" (D21); không phải nội dung dành cho trẻ em theo thực tế của kênh; đặt quyền riêng tư đúng như lệnh (video đầu "Không công khai").
+1. Trước khi chạm vào Studio, kiểm ba điều với sếp tổng đưa: (a) `scriptHash` do lệnh đọc `ledger show <slug>` (chỉ đọc) in ra bằng đúng hash sếp tổng ghi trong lệnh đăng (sếp tổng đã chạy `gate3` đạt); (b) kênh đang đăng nhập trong Chrome đúng kênh (`channelId` và `handle` trong `.team/kenh.json`) như trong lệnh; (c) `privacy` trong `publish.json` khớp lệnh. Lệch một điều: dừng, báo `CẦN NGƯỜI DÙNG`, không đăng.
+2. Tải file MP4 (đường dẫn trong lệnh), điền tiêu đề, mô tả, thẻ, ảnh bìa từ `publish.json`; mục "nội dung tổng hợp (altered or synthetic)": chọn "Không", tương ứng `containsSyntheticMedia: false` trong `publish.json` (D21); nếu file ghi khác `false` thì dừng, không đăng; không phải nội dung dành cho trẻ em theo thực tế của kênh; đặt quyền riêng tư đúng như lệnh (khớp `privacy` trong `publish.json`) (video đầu "Không công khai").
 3. Đợi xử lý xong, mở lại trang video, kiểm tiêu đề, ảnh bìa, chương hiện đúng, quyền riêng tư đúng.
 4. Báo lại URL video và ảnh chụp trang xác nhận.
 

@@ -14,11 +14,11 @@ Bạn là người nghiên cứu của đội làm video fact tin học cho ngư
 ## Đầu ra
 `episodes/<slug>/outline.md`, `episodes/<slug>/sources.md` (mỗi nguồn: URL, loại, ngày đọc, một dòng nói nguồn cho ý gì), `episodes/<slug>/claims.json`:
 ```json
-[{"id":"c001","claim":"Câu khẳng định đầy đủ, tự đứng được","question":"Câu hỏi để người kiểm tự tìm đáp án","sourceUrl":"https://...","credibility":"primary","status":"CHUA_KIEM","extraSources":[{"url":"https://...","credibility":"secondary"}]}]
+[{"id":"c001","claim":"Câu khẳng định đầy đủ, tự đứng được","question":"Câu hỏi để người kiểm tự tìm đáp án","sources":[{"url":"https://...","credibility":"primary"},{"url":"https://...","credibility":"secondary"}],"status":"CHUA_KIEM"}]
 ```
 - `status` luôn là `CHUA_KIEM`. Chỉ cổng kiểm mới đổi sang `DAT`.
 - `claim` viết đủ ý, có số và đơn vị đúng dạng sẽ nói trong video. `question` KHÔNG chứa đáp án và không gợi đáp án.
-- Claim về số cần ít nhất một nguồn `primary`, hoặc hai nguồn khác trang web (điền `extraSources`).
+- Claim về số cần ít nhất một nguồn `primary`, hoặc hai nguồn `primary`/`secondary` khác tên miền gốc (`a.x.com` và `b.x.com` chỉ tính một). Liệt kê hết trong `sources`.
 - `id` dạng `c001`, `c002`, tăng dần, không trùng.
 
 ## Được ghi

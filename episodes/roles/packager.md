@@ -10,15 +10,15 @@ Bạn làm phần chữ và ảnh bìa để video được nhìn thấy, và kh
 5. Mọi con số, tên, năm trong tiêu đề và mô tả phải có trong kịch bản và `claims.json` ở trạng thái `DAT`.
 
 ## Đầu vào
-`<slug>`, `script.json` đã chốt, `claims.json`, `sources.md`, `chapters.txt`, `.team/kenh.md` (tên kênh).
+`<slug>`, `script.json` đã chốt, `claims.json`, `sources.md`, `chapters.txt`, `.team/kenh.json` (`channelId`, `firstVideoApproved`).
 
 ## Đầu ra
 `episodes/<slug>/publish.json`:
 ```json
-{"title":"...","description":"...\n\nGiọng đọc trong video do AI tạo.","tags":["..."],"chapters":"00:00 Mở đầu\n...","thumbnail":"thumbnail.png","privacy":"unlisted","channel":"<đúng tên trong .team/kenh.md>"}
+{"title":"...","description":"...\n\nGiọng đọc trong video do AI tạo.","tags":["..."],"chapters":"00:00 Mở đầu\n...","thumbnail":"thumbnail.png","privacy":"unlisted","channelId":"<đúng channelId trong .team/kenh.json>","containsSyntheticMedia":false}
 ```
 - `thumbnail`: đường dẫn tương đối so với `episodes/<slug>/`, file phải tồn tại.
-- `privacy`: `unlisted` cho video đầu của kênh. Chỉ đặt `public` khi `.team/kenh.md` có dòng `Video đầu đã duyệt: có`.
+- `privacy`: `unlisted` cho video đầu của kênh. Chỉ đặt `public` khi `.team/kenh.json` có `firstVideoApproved: true`.
 - `chapters`: dòng đầu `00:00`.
 
 ## Được ghi
@@ -27,7 +27,7 @@ Bạn làm phần chữ và ảnh bìa để video được nhìn thấy, và kh
 ## Không được làm
 - Không hứa điều video không có ("sẽ nói về X" khi không có X).
 - Không thêm fact, con số, so sánh mới ngoài kịch bản chốt.
-- Không đặt `public` khi chưa được phép; không đổi `channel` sang tên khác.
+- Không đặt `public` khi chưa được phép; không đổi `channelId` sang kênh khác; `containsSyntheticMedia` luôn `false` (D21).
 - Không đưa nhắc tới G3, Ript hay tài sản của họ.
 - Không sửa kịch bản hay cảnh.
 

@@ -100,6 +100,17 @@ def _host(url: str) -> str:
     return h[4:] if h.startswith("www.") else h
 
 
+_SLD = frozenset(("co", "com", "org", "net", "gov", "edu", "ac"))
+
+
+def root_domain(url: str) -> str:
+    """Tên miền gốc xấp xỉ eTLD+1: 2 nhãn cuối, hoặc 3 khi dạng co.uk, com.vn."""
+    labels = _host(url).split(".")
+    if len(labels) >= 3 and labels[-2] in _SLD and len(labels[-1]) == 2:
+        return ".".join(labels[-3:])
+    return ".".join(labels[-2:])
+
+
 def _is_http(url) -> bool:
     return isinstance(url, str) and urlparse(url).scheme in ("http", "https") and bool(_host(url))
 
@@ -202,42 +213,36 @@ def check_claims(claims) -> list[dict]:
         if not isinstance(c, dict):
             probs.append({"claim": label, "problem": "phần tử phải là object"})
             continue
-        bad = [k for k in ("id", "claim", "question", "sourceUrl") if not _nonempty(c.get(k))]
+        bad = [k for k in ("id", "claim", "question") if not _nonempty(c.get(k))]
         if bad:
             probs.append({"claim": label, "problem": f"thiếu hoặc rỗng: {', '.join(bad)}"})
         if cid in seen:
             probs.append({"claim": label, "problem": "id trùng"})
         seen.add(cid)
-        cred, status = c.get("credibility"), c.get("status")
-        if cred not in CREDIBILITY:
-            probs.append({"claim": label, "problem": f"credibility sai: {cred!r}"})
+        status = c.get("status")
         if status not in STATUS:
             probs.append({"claim": label, "problem": f"status sai: {status!r}"})
             continue
-        extra = c.get("extraSources", [])
-        extra_ok = isinstance(extra, list) and all(
+        srcs = c.get("sources")
+        src_ok = isinstance(srcs, list) and all(
             isinstance(e, dict) and _is_http(e.get("url")) and e.get("credibility") in CREDIBILITY
-            for e in extra)
-        if not extra_ok:
-            probs.append({"claim": label, "problem": "extraSources sai dạng"})
-            extra = []
+            for e in srcs)
+        if not src_ok:
+            probs.append({"claim": label, "problem": "sources phải là mảng {url http(s), credibility}"})
+            srcs = []
         if status == "CHUA_KIEM":
             probs.append({"claim": label, "problem": "CHUA_KIEM: chưa kiểm xong"})
         elif status == "SAI":
             probs.append({"claim": label, "problem": "SAI: người kiểm xác định sai"})
-        elif cred in CREDIBILITY:
-            if cred == "anecdotal":
-                probs.append({"claim": label, "problem": "DAT nhưng nguồn chỉ là anecdotal"})
-            if not _is_http(c.get("sourceUrl")):
-                probs.append({"claim": label, "problem": "DAT nhưng sourceUrl không phải http(s)"})
-            if re.search(r"\d", c.get("claim") or ""):
-                srcs = [(c.get("sourceUrl"), cred)] + [(e["url"], e["credibility"]) for e in extra]
-                good = [(u, k) for u, k in srcs if k in ("primary", "secondary") and _is_http(u)]
-                has_primary = any(k == "primary" for _, k in good)
-                hosts = {_host(u) for u, _ in good}
-                if not has_primary and len(hosts) < 2:
+        else:
+            good = [e for e in srcs if e["credibility"] in ("primary", "secondary")]
+            if not good:
+                probs.append({"claim": label, "problem": "DAT nhưng không có nguồn primary hoặc secondary"})
+            elif re.search(r"\d", c.get("claim") or ""):
+                has_primary = any(e["credibility"] == "primary" for e in good)
+                if not has_primary and len({root_domain(e["url"]) for e in good}) < 2:
                     probs.append({"claim": label, "problem":
-                                  "claim về số cần một nguồn primary hoặc hai nguồn độc lập"})
+                                  "claim về số cần một nguồn primary hoặc hai nguồn khác tên miền gốc"})
     return probs
 
 
@@ -604,12 +609,17 @@ def ledger_handoff(ep: Path, khau: str) -> Path:
 # ---- gate3 -------------------------------------------------------------------
 
 def _kenh_info(kenh: Path):
+    """(channelId | None, firstVideoApproved)."""
     if not kenh.is_file():
         return None, False
-    text = kenh.read_text(encoding="utf-8")
-    m = re.search(r"^Kênh:[ \t]*(.+?)[ \t]*$", text, re.M)
-    first = re.search(r"^Video đầu đã duyệt:[ \t]*có[ \t]*$", text, re.M | re.I) is not None
-    return (m.group(1) if m else None), first
+    try:
+        d = _read_json(kenh)
+    except (OSError, ValueError):
+        return None, False
+    if not isinstance(d, dict):
+        return None, False
+    cid = d.get("channelId")
+    return (cid.strip() if _nonempty(cid) else None), d.get("firstVideoApproved") is True
 
 
 def _check_publish(ep: Path, kenh: Path) -> tuple[bool, str]:
@@ -623,7 +633,7 @@ def _check_publish(ep: Path, kenh: Path) -> tuple[bool, str]:
     if not isinstance(pub, dict):
         return False, "publish.json phải là object"
     errs = []
-    for k in ("title", "description", "chapters", "thumbnail", "privacy", "channel"):
+    for k in ("title", "description", "chapters", "thumbnail", "privacy", "channelId"):
         if not _nonempty(pub.get(k)):
             errs.append(f"thiếu {k}")
     tags = pub.get("tags")
@@ -642,11 +652,13 @@ def _check_publish(ep: Path, kenh: Path) -> tuple[bool, str]:
             errs.append("thumbnail không tồn tại trong thư mục tập")
     if pub.get("privacy") not in PRIVACY:
         errs.append(f"privacy phải thuộc {PRIVACY}")
+    if pub.get("containsSyntheticMedia") is not False:
+        errs.append("containsSyntheticMedia phải là false (D21)")
     name, first_ok = _kenh_info(kenh)
     if name is None:
-        errs.append(f"{kenh} thiếu hoặc không có dòng 'Kênh: <tên>'")
-    elif _nonempty(pub.get("channel")) and pub["channel"].strip().casefold() != name.casefold():
-        errs.append(f"channel {pub['channel']!r} khác kênh trong kenh.md {name!r}")
+        errs.append(f"{kenh} thiếu hoặc không có channelId")
+    elif _nonempty(pub.get("channelId")) and pub["channelId"].strip() != name:
+        errs.append(f"channelId {pub['channelId']!r} khác kênh trong kenh.json {name!r}")
     if name is not None and not first_ok and pub.get("privacy") != "unlisted":
         errs.append("video đầu chưa được duyệt: privacy phải là unlisted")
     return (not errs), ("; ".join(errs) if errs else "đủ trường, đúng kênh")
@@ -654,7 +666,7 @@ def _check_publish(ep: Path, kenh: Path) -> tuple[bool, str]:
 
 def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None) -> dict:
     ep = _ep_dir(slug, episodes_dir)
-    kenh = Path(kenh_path) if kenh_path else Path(episodes_dir).resolve().parent / ".team" / "kenh.md"
+    kenh = Path(kenh_path) if kenh_path else Path(episodes_dir).resolve().parent / ".team" / "kenh.json"
     checks: list[dict] = []
 
     def add(name, ok, detail=""):
@@ -736,7 +748,7 @@ def build_factcheck_prompt(role_text: str, batch_dir) -> str:
     batch = Path(batch_dir)
     prompt = (f"{role_text.rstrip()}\n\n---\n\n"
               f"Thư mục lô của bạn: {batch}\n"
-              f"Đọc {batch / 'items.json'}: mỗi phần tử có id, claim, question, sourceUrl.\n"
+              f"Đọc {batch / 'items.json'}: mỗi phần tử có id, claim, question, sourceUrls.\n"
               "Kiểm từng claim từ nguồn, rồi trả đúng một object JSON "
               '{"findings":[{"severity","rule","file","quote","failing_case","owner"}]}. '
               'rule dạng "claim:<id>", file là "items.json", quote là trích nguyên văn claim.\n')
@@ -767,7 +779,8 @@ def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
         if not isinstance(c, dict) or not all(_nonempty(c.get(k)) for k in ("id", "claim", "question")):
             raise GateError("claims.json có phần tử thiếu id, claim hoặc question")
         items.append({"id": c["id"], "claim": c["claim"], "question": c["question"],
-                      "sourceUrl": c.get("sourceUrl") or ""})
+                      "sourceUrls": [e["url"] for e in c.get("sources") or []
+                                     if isinstance(e, dict) and isinstance(e.get("url"), str)]})
     if with_lines:
         sp = ep / "script.json"
         if not sp.is_file():

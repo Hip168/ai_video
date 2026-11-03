@@ -86,7 +86,7 @@ Từng khâu:
 ```bash
 $G prepare-factcheck <slug> --role ../episodes/roles/fact-checker.md
 ```
-In `{batchDir, items, prompt}`. Lô nằm trong thư mục tạm của hệ điều hành, NGOÀI repo, tên trung tính (`lo-xxxxxxxx/items.json`). Trong lô chỉ có `items.json` (id, claim, question, sourceUrl; không có `status`, `credibility`, không kịch bản) và `prompt.txt`. Lệnh từ chối nếu thư mục nằm trong repo hay prompt có `script.json`, `kịch bản` hoặc `episodes/`. Đây là cách chuẩn bị input mù: fact-checker không thấy kịch bản, dàn ý, lý lẽ của biên kịch.
+In `{batchDir, items, prompt}`. Lô nằm trong thư mục tạm của hệ điều hành, NGOÀI repo, tên trung tính (`lo-xxxxxxxx/items.json`). Trong lô chỉ có `items.json` (id, claim, question, sourceUrls; không có `status`, `credibility`, không kịch bản) và `prompt.txt`. Lệnh từ chối nếu thư mục nằm trong repo hay prompt có `script.json`, `kịch bản` hoặc `episodes/`. Đây là cách chuẩn bị input mù: fact-checker không thấy kịch bản, dàn ý, lý lẽ của biên kịch.
 
 Gọi `fact-checker` (`feature-dev:code-reviewer`) với prompt = nội dung `prompt.txt` NGUYÊN VĂN, không thêm gì (xem mẫu 4.2). Lưu JSON vào `<batchDir>/findings.json`, rồi:
 ```bash
@@ -96,7 +96,7 @@ $G ledger add <slug> --stage fact-1 --role sep-tong --pair researcher/fact-check
 $G apply-factcheck <slug> --findings <batchDir>/findings.json --batch <batchDir>
 $G gate1 <slug>
 ```
-`apply-factcheck` ghi lại `status` của từng claim: phát hiện `claim:<id>` mức CRITICAL thành `SAI`, MAJOR thành `CHUA_KIEM`, không có phát hiện thì `DAT`. Gate1 vẫn chặn nếu claim `DAT` mà nguồn `anecdotal`, hoặc claim về số mà không có nguồn `primary` và không có hai nguồn khác trang. Gate1 chặn thì trả researcher kèm danh sách `problems`; vòng mới dùng một lô mới (chạy lại `prepare-factcheck`).
+`apply-factcheck` ghi lại `status` của từng claim: phát hiện `claim:<id>` mức CRITICAL thành `SAI`, MAJOR thành `CHUA_KIEM`, không có phát hiện thì `DAT`. Gate1 vẫn chặn nếu claim `DAT` mà nguồn chỉ `anecdotal`, hoặc claim về số mà không có nguồn `primary` và không có hai nguồn khác tên miền gốc. Gate1 chặn thì trả researcher kèm danh sách `problems`; vòng mới dùng một lô mới (chạy lại `prepare-factcheck`).
 
 **[3] viết.** Gọi `scriptwriter` với `outline.md`, `claims.json` (đã `DAT`). Hướng dẫn đọc số trong file vai: ca nghe chưa hay (`Python 3.12`, `24/7`, số điện thoại, ngày `dd.mm.yyyy`, chữ "Ngày" đứng trước ngày ISO) thì dùng `spoken` hoặc lexicon của tập. Có thể chạy thử `extract-claims` để biết số/tên nào cần claim:
 ```bash
@@ -141,13 +141,13 @@ $G ledger add <slug> --stage qc --role sep-tong --pair editor/qc \
 ```
 `ledger add` cho stage `qc` còn ghi `episodes/<slug>/handoff/qc.verdict`, một dòng `PHAN_QUYET: <phán quyết> findings_sha256=... script_sha256=...`. Phát hiện trả về vai ở `owner`. Trả xuyên khâu (vd qc trả về scriptwriter) thêm `--return-to scriptwriter`; tối đa 2 lần mỗi tập. Sửa lời sau Cổng 2 thì hash đổi: qua lại khâu 5 và 6, rồi các khâu sau bị ảnh hưởng (cảnh, giọng, render, qc) chạy lại.
 
-**[11] đóng gói.** Gọi `packager`. Nếu `.team/kenh.md` chưa có dòng `Video đầu đã duyệt: có` thì `privacy` phải là `unlisted`.
+**[11] đóng gói.** Gọi `packager`. Nếu `.team/kenh.json` có `firstVideoApproved` khác `true` thì `privacy` phải là `unlisted`.
 
 **[12] Cổng 3.**
 ```bash
 $G gate3 <slug> --video <đường dẫn MP4>
 ```
-Kiểm bằng script: chuỗi hash sổ tập nguyên vẹn; hash lời hiện tại bằng hash đã chốt ở Cổng 2 (sửa một ký tự thì chặn); `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản này; dòng `PHAN_QUYET` của qc đúng định dạng; MP4 đúng bản qc đã duyệt; `publish.json` đủ trường, đúng kênh trong `.team/kenh.md`, đúng quyền riêng tư. Chặn thì sửa theo `checks[].detail`; không có cách tự cho qua.
+Kiểm bằng script: chuỗi hash sổ tập nguyên vẹn; hash lời hiện tại bằng hash đã chốt ở Cổng 2 (sửa một ký tự thì chặn); `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản này; dòng `PHAN_QUYET` của qc đúng định dạng; MP4 đúng bản qc đã duyệt; `publish.json` đủ trường, đúng `channelId` trong `.team/kenh.json`, `containsSyntheticMedia` là `false`, đúng quyền riêng tư. Chặn thì sửa theo `checks[].detail`; không có cách tự cho qua.
 
 **[13] đăng.** Gọi `publisher` (`ops`, mẫu 4.13). Báo URL: `$G ledger add <slug> --stage dang --role publisher --note <URL>`.
 
@@ -205,7 +205,7 @@ Việc lần này: slug <slug>, vòng <n>. Gốc repo: <đường dẫn>. File r
 
 **4.11 packager.**
 ```
-Việc lần này: slug <slug>. Kênh: <tên trong .team/kenh.md>. Video đầu đã duyệt: <có|chưa>.
+Việc lần này: slug <slug>. Kênh: channelId <giá trị trong .team/kenh.json>. firstVideoApproved: <true|false>.
 Viết episodes/<slug>/publish.json và ảnh bìa theo file vai.
 ```
 
@@ -258,7 +258,7 @@ Gói qc dùng sản phẩm chữ, chưa gồm video thật: khung hình mất v�
 
 ## 8. Điểm dừng (sếp tổng báo người dùng)
 
-- **Video đầu của kênh: Không công khai.** Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nói ok. Khi ok, ghi dòng `Video đầu đã duyệt: có` vào `.team/kenh.md`; từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.md` (D21).
+- **Video đầu của kênh: Không công khai.** Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nói ok. Khi ok, đặt `firstVideoApproved: true` trong `.team/kenh.json`; từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.json` (D21).
 - **Người dùng tự merge PR.** Mọi thứ đưa vào repo (mã, nội dung tập) đi qua DEPLOY: đẩy nhánh, mở PR, chờ CI xanh, báo link rồi dừng. Không ai chạy `gh pr merge` (`.team/autonomy.md`).
 - **`CẦN NGƯỜI DÙNG`** khi: vòng 4 của một cặp bị từ chối; trả xuyên khâu lần thứ 3; một lỗi còn sống tới lần thứ 2; thiếu LUFS sau 2 lần đọc lại; người kiểm trả `CHUA_DUYET` hai lần liền; `researcher`/người làm bác phát hiện; fact nguồn chỉ có `anecdotal`; chưa có dòng ĐẠT trong `.team/qualification.md` mà định làm tập; `BỊ CHẶN` ở bước kỹ thuật; hộp thoại lạ ở Studio.
 - Việc người dùng tự làm: đăng nhập, tạo kênh, xác minh số điện thoại (đề mục 12).

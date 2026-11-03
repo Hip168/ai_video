@@ -11,9 +11,9 @@ Mã: `audio/src/aivideo/gates.py` (cổng, sổ tập), `audio/src/aivideo/quali
 ## `claims.json` (sổ fact, D22)
 Mảng. Mỗi phần tử:
 ```json
-{"id":"c001","claim":"...","question":"...","sourceUrl":"https://...","credibility":"primary|secondary|anecdotal","status":"DAT|SAI|CHUA_KIEM","extraSources":[{"url":"https://...","credibility":"primary|secondary"}]}
+{"id":"c001","claim":"...","question":"...","sources":[{"url":"https://...","credibility":"primary|secondary|anecdotal"}],"status":"DAT|SAI|CHUA_KIEM"}
 ```
-`extraSources` tuỳ chọn. `id` duy nhất, các chuỗi không rỗng. Mảng rỗng hợp lệ.
+`sources` là mảng (có thể rỗng khi chưa `DAT`), `url` http(s). `id` duy nhất, các chuỗi không rỗng. Mảng rỗng hợp lệ.
 
 ## `extract-claims <script.json> [-o file]`
 Bắt trên `text` GỐC (và `spoken` nếu có chữ số) của từng beat, trước `normalize_vi`:
@@ -25,7 +25,7 @@ Bắt trên `text` GỐC (và `spoken` nếu có chữ số) của từng beat, 
 - Luôn mã thoát 0.
 
 ## `gate1 <slug>`
-Chỉ đọc `claims.json`. Chặn (`pass:false`) khi: sai dạng; trùng id; có claim `CHUA_KIEM` hoặc `SAI`; claim `DAT` mà nguồn `anecdotal` hoặc `sourceUrl` không phải http(s); claim về số (có chữ số trong `claim`) `DAT` mà không có nguồn `primary` và không có ít nhất hai nguồn (`sourceUrl` + `extraSources`, loại primary/secondary) khác host (bỏ `www.`).
+Chỉ đọc `claims.json`. Chặn (`pass:false`) khi: sai dạng; trùng id; có claim `CHUA_KIEM` hoặc `SAI`; claim `DAT` không có nguồn `primary` hoặc `secondary` (chỉ `anecdotal` hoặc rỗng); `sources` sai dạng; claim về số (có chữ số trong `claim`) `DAT` mà không có nguồn `primary` và không có ít nhất hai nguồn `primary`/`secondary` khác tên miền gốc. Tên miền gốc (eTLD+1 xấp xỉ, hàm `root_domain`): hai nhãn cuối, hoặc ba nhãn khi dạng `co.uk`, `com.vn` (`a.x.com` và `b.x.com` cùng miền gốc `x.com`).
 ```json
 {"gate":"gate1","pass":false,"problems":[{"claim":"c003","problem":"..."}]}
 ```
@@ -49,8 +49,8 @@ Gồm mọi kiểm của gate1, cộng `validate_script` của `aivideo.episode`
 Mã thoát 0 chỉ khi `DAT`.
 
 ## `gate3 <slug> [--kenh PATH] [--video FILE]`
-`--kenh` mặc định `<episodes-dir>/../.team/kenh.md`. Danh sách kiểm, mỗi mục `{"name","ok","detail"}`; `pass` = mọi mục ok. Tên mục: `chuoi-so` (chuỗi hash của ledger nguyên vẹn), `hash-kich-ban` (hash lời hiện tại = mục `cong2` DAT mới nhất; `claimsHash` cũng khớp), `lint`, `ky-thuat`, `qc` (mục ledger mới nhất của stage đó, verdict `DAT`, `scriptHash` = hash hiện tại), `qc-dong-phan-quyet` (file `handoff/qc.verdict` có đúng một dòng `PHAN_QUYET: DAT findings_sha256=<64 hex> script_sha256=<64 hex>` với script_sha256 khớp), `qc-video` (chỉ khi có `--video`: sha256 file = `artifactHash` của mục qc), `publish`.
-`publish.json` cần: `title` (≤100 ký tự), `description` (có chuỗi `AI`, tức dòng báo giọng đọc do AI tạo, D21), `tags` (mảng chuỗi không rỗng), `chapters` (chuỗi bắt đầu `00:00`), `thumbnail` (đường dẫn tương đối `episodes/<slug>/`, file tồn tại), `privacy` (`unlisted`|`public`), `channel` (bằng, không phân biệt hoa thường, giá trị dòng `Kênh: <tên>` trong `kenh.md`). Nếu `kenh.md` không có dòng `Video đầu đã duyệt: có` thì `privacy` phải là `unlisted`. Thiếu `kenh.md` → mục `publish` không ok.
+`--kenh` mặc định `<episodes-dir>/../.team/kenh.json`: `{"channelId","handle","verifiedPhone","firstVideoApproved"}`. Danh sách kiểm, mỗi mục `{"name","ok","detail"}`; `pass` = mọi mục ok. Tên mục: `chuoi-so` (chuỗi hash của ledger nguyên vẹn), `hash-kich-ban` (hash lời hiện tại = mục `cong2` DAT mới nhất; `claimsHash` cũng khớp), `lint`, `ky-thuat`, `qc` (mục ledger mới nhất của stage đó, verdict `DAT`, `scriptHash` = hash hiện tại), `qc-dong-phan-quyet` (file `handoff/qc.verdict` có đúng một dòng `PHAN_QUYET: DAT findings_sha256=<64 hex> script_sha256=<64 hex>` với script_sha256 khớp), `qc-video` (chỉ khi có `--video`: sha256 file = `artifactHash` của mục qc), `publish`.
+`publish.json` cần: `title` (≤100 ký tự), `description` (có chuỗi `AI`, tức dòng báo giọng đọc do AI tạo, D21), `tags` (mảng chuỗi không rỗng), `chapters` (chuỗi bắt đầu `00:00`), `thumbnail` (đường dẫn tương đối `episodes/<slug>/`, file tồn tại), `privacy` (`unlisted`|`public`), `channelId` (bằng đúng `channelId` trong `kenh.json`), `containsSyntheticMedia` (phải đúng `false`, D21). Nếu `kenh.json` có `firstVideoApproved` khác `true` thì `privacy` phải là `unlisted`. Thiếu `kenh.json` hoặc thiếu `channelId` → mục `publish` không ok.
 Đạt thì ghi mục `stage:"cong3"`.
 
 ## `ledger`
@@ -68,7 +68,7 @@ Mã thoát 0 chỉ khi `DAT`.
 - `ledger handoff <slug> <khau>`: tạo `episodes/<slug>/handoff/<khau>.md` với năm mục `## Đã chốt`, `## Đã bỏ`, `## Rủi ro`, `## File`, `## Còn lại`; có sẵn thì mã 1.
 
 ## Đưa claim cho fact-checker mù
-- `prepare-factcheck <slug> --role <file vai> [--tmp-parent DIR] [--with-lines]`: tạo thư mục tên ngẫu nhiên trung tính `lo-xxxxxxxx` dưới `--tmp-parent` (mặc định thư mục tạm của hệ điều hành; từ chối nếu nằm trong repo) gồm `items.json` (mảng `{id,claim,question,sourceUrl}`, không `status`, không `credibility`) và `prompt.txt` (nội dung file vai + đường dẫn thư mục lô + yêu cầu trả JSON phát hiện, `rule` dạng `claim:<id>`). Dựng prompt từ chối (lỗi) nếu file vai hoặc prompt chứa `script.json`, `kịch bản`, `episodes/`. `--with-lines` (lượt 2 của fact-checker) thêm vào mỗi phần tử trường `lines`: mảng `text` của các beat có `claims` chứa id đó (chỉ chữ của beat, không có `script.json`). Không có file nào khác ngoài hai file này. Stdout: `{"batchDir","items","prompt"}`.
+- `prepare-factcheck <slug> --role <file vai> [--tmp-parent DIR] [--with-lines]`: tạo thư mục tên ngẫu nhiên trung tính `lo-xxxxxxxx` dưới `--tmp-parent` (mặc định thư mục tạm của hệ điều hành; từ chối nếu nằm trong repo) gồm `items.json` (mảng `{id,claim,question,sourceUrls}`, `sourceUrls` là mảng chuỗi URL; không `status`, không `credibility`) và `prompt.txt` (nội dung file vai + đường dẫn thư mục lô + yêu cầu trả JSON phát hiện, `rule` dạng `claim:<id>`). Dựng prompt từ chối (lỗi) nếu file vai hoặc prompt chứa `script.json`, `kịch bản`, `episodes/`. `--with-lines` (lượt 2 của fact-checker) thêm vào mỗi phần tử trường `lines`: mảng `text` của các beat có `claims` chứa id đó (chỉ chữ của beat, không có `script.json`). Không có file nào khác ngoài hai file này. Stdout: `{"batchDir","items","prompt"}`.
 - `apply-factcheck <slug> --findings F --batch DIR`: chạy `verdict` với root = lô; `CHUA_DUYET` thì lỗi, không đổi gì. Với mỗi claim trong `items.json`: có phát hiện giữ lại `rule:"claim:<id>"` mức CRITICAL → `SAI`; mức MAJOR → `CHUA_KIEM`; còn lại → `DAT`. Chỉ ghi lại trường `status` của `claims.json`. Stdout `{"verdict","updated":{"c001":"DAT"},"unmapped":[...]}`.
 
 ## `qualify.py` (đo người kiểm, đề mục 11-5)

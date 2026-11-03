@@ -500,3 +500,50 @@ def test_slug_sai_bi_tu_choi(tmp_path, bad):
     with pytest.raises(gates.GateError):
         gates.gate1(bad, eps)
 
+
+
+@pytest.mark.parametrize(
+    ("spoken_num", "claim_num"),
+    [
+        ("3,14", "31,4"),
+        ("3,14", "314"),
+        ("31,4", "3,14"),
+        ("2,5", "25"),
+        ("25", "2,5"),
+        ("1.000", "1,5"),
+    ],
+)
+def test_gate2_chan_so_khac_gia_tri_du_cung_day_chu_so(
+    tmp_path, spoken_num, claim_num
+):
+    eps, _ = make_episode(
+        tmp_path,
+        texts={"b001": f"Giá trị là {spoken_num} nhé."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", f"Giá trị là {claim_num}.")],
+    )
+    r = _g2(eps)
+    assert r["pass"] is False
+    assert any(p.get("match") == spoken_num for p in r["problems"])
+
+
+@pytest.mark.parametrize(
+    ("spoken_num", "claim_num"),
+    [
+        ("3,14", "3.14"),
+        ("2,5", "2.5"),
+        ("1.000", "1000"),
+        ("1000", "1.000"),
+        ("1.000.000", "1000000"),
+    ],
+)
+def test_gate2_dat_so_cung_gia_tri_khac_cach_viet(
+    tmp_path, spoken_num, claim_num
+):
+    eps, _ = make_episode(
+        tmp_path,
+        texts={"b001": f"Giá trị là {spoken_num} nhé."},
+        beat_claims={"b001": ["c001"]},
+        claims=[claim("c001", f"Giá trị là {claim_num}.")],
+    )
+    assert _g2(eps)["pass"] is True

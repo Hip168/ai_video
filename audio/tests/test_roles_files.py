@@ -67,7 +67,7 @@ def test_khong_vai_nao_tro_vao_thu_muc_claude(role):
 @pytest.mark.parametrize("role", CHECKERS)
 def test_vai_kiem_khong_duoc_ghi_file(role):
     body = _section(_text(role), "## Được ghi")
-    assert body.startswith("Không ghi file")
+    assert body == "Không ghi file."
 
 
 @pytest.mark.parametrize("role", [r for r in MAKERS if r != "publisher"])
@@ -108,7 +108,8 @@ def test_fact_checker_khong_co_huong_dan_doc_kich_ban():
 
 def test_fact_checker_khong_nhan_bash_va_khong_ghi():
     text = _text("fact-checker")
-    assert "Bash" not in _section(text, "## Được ghi")
+    assert "Bash" not in text.split("## Được ghi")[1].split("## Không")[0]
+    assert "Bash" not in _section(text, "## Đầu vào")
 
 
 def test_playbook_ton_tai_va_ghi_bang_vai_loai_agent():

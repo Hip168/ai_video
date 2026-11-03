@@ -357,7 +357,7 @@ d('[8-3] scale-ladder: chữ giá trị (khung hình thật)', () => {
         expect(
           minXFrom(pr, 0),
           `bậc ${k} off ${off}: chữ lấn trái thanh (mép trái thanh ${pr.left})`,
-        ).toBeGreaterThanOrEqual(pr.left - 2);
+        ).toBeGreaterThanOrEqual(560 + 24 - 2);
       }
       expect(seen, `bậc ${k}: không frame nào có chữ để xét`).toBeGreaterThanOrEqual(1);
     }

@@ -3,8 +3,15 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {bundle} from '@remotion/bundler';
 import {renderStill, selectComposition} from '@remotion/renderer';
-import {afterAll, beforeAll, describe, expect, test} from 'vitest';
+import {afterAll, beforeAll, describe, expect, test, vi} from 'vitest';
 import {THEMES} from '../src/lib/theme';
+import {
+  MIN_FONT_SCALE,
+  MIN_MARGIN,
+  fitBlock,
+  fitText,
+  type MeasureWidth,
+} from '../src/lib/text';
 import {
   RENDER_TEST,
   decodePng,
@@ -133,6 +140,7 @@ afterAll(() => rmSync(scratch, {recursive: true, force: true}));
 
 let serveUrl = '';
 beforeAll(async () => {
+  if (!RENDER_TEST) return;
   serveUrl = await bundle({
     entryPoint: path.join(VIDEO_DIR, 'src', 'index.ts'),
     publicDir: path.join(VIDEO_DIR, 'public'),
@@ -192,4 +200,173 @@ d('[6-1] chữ không tràn khung khi chuỗi dài đúng mức tối đa của 
     },
     180_000,
   );
+});
+
+// ---- Phần thuần (không cần trình duyệt): fitText / fitBlock với `measure` giả ----
+// Độ rộng giả cố định: mỗi ký tự rộng `em` x cỡ chữ.
+const fixed = (em: number): MeasureWidth => (t, size) =>
+  [...t].length * size * em;
+// Chữ hoa rộng (Ư, M, W, ...) 0,9 em, ký tự khác 0,5 em.
+const WIDE = /[ƯỜMWẮỞỨỀ]/;
+const uneven: MeasureWidth = (t, size) =>
+  [...t].reduce((a, c) => a + size * (WIDE.test(c) ? 0.9 : 0.5), 0);
+
+describe('[6-2] fitText / fitBlock (hàm thuần, measure giả)', () => {
+  test('hằng số: lề 40px, cỡ chữ nhỏ nhất 70%', () => {
+    expect(MIN_MARGIN).toBe(40);
+    expect(MIN_FONT_SCALE).toBe(0.7);
+  });
+
+  test('chuỗi tiếng Việt thường ngắn giữ đúng cỡ gốc, 1 dòng, không cắt', () => {
+    const r = fitBlock('Máy tính chỉ hiểu 0 và 1', {
+      baseSize: 120, width: 1560, maxLines: 3, measure: fixed(0.5),
+    });
+    expect(r).toEqual({
+      lines: ['Máy tính chỉ hiểu 0 và 1'], fontSize: 120, truncated: false,
+    });
+  });
+
+  test('chuỗi dài vừa số dòng tối đa thì ngắt dòng, vẫn giữ cỡ gốc', () => {
+    // 3 từ 10 ký tự; 2 từ ghép 21 ký tự x 50 = 1050 <= 1100: vừa 2 dòng
+    const r = fitBlock('aaaaaaaaaa bbbbbbbbbb cccccccccc', {
+      baseSize: 100, width: 1100, maxLines: 2, measure: fixed(0.5),
+    });
+    expect(r.fontSize).toBe(100);
+    expect(r.truncated).toBe(false);
+    expect(r.lines).toHaveLength(2);
+    expect(r.lines.join(' ')).toBe('aaaaaaaaaa bbbbbbbbbb cccccccccc');
+    expect(r.lines.length).toBeLessThanOrEqual(2);
+    for (const l of r.lines) expect(fixed(0.5)(l, 100)).toBeLessThanOrEqual(1100);
+  });
+
+  test('một dòng quá rộng: giảm cỡ nhưng không dưới 70% cỡ gốc, không cắt', () => {
+    // 20 ký tự x 0,6 em: vừa 1000px khi cỡ <= 83
+    const text = 'abcdefghijklmnopqrst';
+    const r = fitBlock(text, {
+      baseSize: 100, width: 1000, maxLines: 1, measure: fixed(0.6),
+    });
+    expect(r.truncated).toBe(false);
+    expect(r.fontSize).toBeLessThan(100);
+    expect(r.fontSize).toBeGreaterThanOrEqual(70);
+    expect(r.lines).toEqual([text]);
+    expect(fixed(0.6)(text, r.fontSize)).toBeLessThanOrEqual(1000);
+  });
+
+  test('giảm cỡ từng bước 5% cỡ gốc, dừng ở bước đầu tiên vừa (không giảm dồn)', () => {
+    // vừa khi cỡ <= 83,3: các bước 95, 90, 85 vẫn tràn, 80 là bước đầu vừa
+    const r = fitBlock('abcdefghijklmnopqrst', {
+      baseSize: 100, width: 1000, maxLines: 1, measure: fixed(0.6),
+    });
+    expect(r.fontSize).toBe(80);
+  });
+
+  test('chữ hoa rộng dài nhất: giảm cỡ, không dưới 70% cỡ gốc, vừa 3 dòng', () => {
+    const text = [...Array(20)].map(() => 'ƯỜM').join(' ').slice(0, 79) + 'M';
+    expect([...text]).toHaveLength(79 + 1);
+    const r = fitBlock(text, {
+      baseSize: 72, width: 1560, maxLines: 3, measure: uneven,
+    });
+    expect(r.truncated).toBe(false);
+    expect(r.fontSize).toBeLessThan(72);
+    expect(r.fontSize).toBeGreaterThanOrEqual(Math.floor(72 * 0.7));
+    expect(r.lines.length).toBeLessThanOrEqual(3);
+    for (const l of r.lines) {
+      expect(uneven(l, r.fontSize)).toBeLessThanOrEqual(1560);
+    }
+  });
+
+  test('quá dài so với số dòng tối đa: truncated, có "…", ở cỡ nhỏ nhất, cảnh báo text-fit', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      const text = [...Array(12)].map(() => 'abcdefgh').join(' ');
+      const r = fitBlock(text, {
+        baseSize: 100, width: 1000, maxLines: 2, measure: fixed(0.6),
+      });
+      expect(r.truncated).toBe(true);
+      expect(r.fontSize).toBe(70);
+      expect(r.lines).toHaveLength(2);
+      expect(r.lines[r.lines.length - 1].endsWith('…')).toBe(true);
+      for (const l of r.lines) {
+        expect(fixed(0.6)(l, r.fontSize)).toBeLessThanOrEqual(1000);
+      }
+      expect(warn).toHaveBeenCalled();
+      expect(String(warn.mock.calls[0][0])).toContain('text-fit');
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  test('một từ dài hơn cả bề rộng ở cỡ nhỏ nhất: cắt "…", mọi dòng không vượt bề rộng', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      const r = fitBlock('x'.repeat(60), {
+        baseSize: 100, width: 1000, maxLines: 3, measure: fixed(0.6),
+      });
+      expect(r.truncated).toBe(true);
+      expect(r.lines.some((l) => l.endsWith('…'))).toBe(true);
+      for (const l of r.lines) {
+        expect(fixed(0.6)(l, r.fontSize)).toBeLessThanOrEqual(1000);
+      }
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  test.each([1, 2, 3])(
+    'số dòng không vượt maxLines=%i với chuỗi từ ngắn đến rất dài',
+    (maxLines) => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      try {
+        for (const n of [1, 5, 20, 60, 200]) {
+          const text = [...Array(n)].map(() => 'tu').join(' ');
+          const r = fitBlock(text, {
+            baseSize: 60, width: 600, maxLines, measure: fixed(0.55),
+          });
+          expect(r.lines.length, `n=${n}`).toBeLessThanOrEqual(maxLines);
+          expect(r.lines.length).toBeGreaterThanOrEqual(1);
+          expect(r.fontSize).toBeLessThanOrEqual(60);
+          expect(r.fontSize).toBeGreaterThanOrEqual(42);
+        }
+      } finally {
+        warn.mockRestore();
+      }
+    },
+  );
+
+  test('minScale=1 không cho giảm cỡ: chuỗi quá rộng bị cắt ngay ở cỡ gốc', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      const r = fitText({
+        text: 'abcdefghijklmnopqrst', fontSize: 100, width: 1000,
+        maxLines: 1, minScale: 1, measure: fixed(0.6),
+      });
+      expect(r.fontSize).toBe(100);
+      expect(r.truncated).toBe(true);
+      expect(r.lines[0].endsWith('…')).toBe(true);
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  test('fitBlock và fitText cho cùng kết quả', () => {
+    const text = 'Máy tính lưu mọi thứ bằng bit và byte';
+    const a = fitBlock(text, {
+      baseSize: 48, width: 700, maxLines: 2, measure: fixed(0.5),
+    });
+    const b = fitText({
+      text, fontSize: 48, width: 700, maxLines: 2, measure: fixed(0.5),
+    });
+    expect(a).toEqual(b);
+  });
+
+  test('chuỗi rỗng / chỉ khoảng trắng không ném lỗi, không báo cắt', () => {
+    for (const t of ['', '   ']) {
+      const r = fitBlock(t, {
+        baseSize: 48, width: 700, maxLines: 2, measure: fixed(0.5),
+      });
+      expect(r.truncated).toBe(false);
+      expect(r.fontSize).toBe(48);
+      expect(r.lines.join('')).toBe('');
+    }
+  });
 });

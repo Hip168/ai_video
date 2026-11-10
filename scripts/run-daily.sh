@@ -64,8 +64,9 @@ PY
 ) 2>> "$logf" || stop "không đọc được JSON kết quả của claude"
 [[ "${parsed%%$'\n'*}" == 0 ]] || stop "claude báo is_error"
 result="${parsed#*$'\n'}"
-[[ "$result" != *CAN_NGUOI_DUNG* ]] || stop "CAN_NGUOI_DUNG: ${${(M)${(f)result}:#*CAN_NGUOI_DUNG*}[1]}"
-last="${${(f)result}[-1]}"
+lines=("${(@f)result}")
+[[ "$result" != *CAN_NGUOI_DUNG* ]] || stop "${${(M)lines:#*CAN_NGUOI_DUNG*}[1]}"
+last="${lines[-1]}"
 [[ "$last" =~ '^SLUG: ([a-z0-9]+(-[a-z0-9]+)*)$' ]] || stop "dòng cuối không phải SLUG: <slug>"
 slug="${match[1]}"
 log "tập $slug"

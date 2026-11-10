@@ -81,3 +81,21 @@ Quyền đã có: sau khi người dùng duyệt video đầu, publisher đượ
 ## D23. Trình duyệt render và kiểm mất hình (BA chốt theo yêu cầu người dùng và số đo OPS, 2026-11-03)
 Người dùng hỏi dùng `chrome-headless-shell` thay Google Chrome. Chốt: dùng, đặt ở `~/.cache/aivideo/chrome-headless-shell/`, không sửa `remotion.config.ts`. Chi tiết ở `stack.md`.
 D14 cần sửa: `videocheck.py` so hai lần render không đủ, vì a1 và a2 giống hệt từng byte mà cùng mất frame 1315, và `out/video.mp4` cũng mất frame này. Hai lần render cùng dải có thể cùng lỗi; hai phiên khác nhau lại lệch chữ, gây báo giả. Kiểm tập dài không dựa vào so hai lần cùng dải: quét đột biến trên từng video (`framecheck.py`), đối chiếu thêm một lần render với ranh giới đoạn khác. Headless mới có 5 lần sạch, chưa đủ kết luận hết mất hình. Nhánh 4 và `make-video.sh` tạm giữ nguyên (D19).
+
+## D24. Đăng qua YouTube Data API, chạy theo lịch bằng launchd (BA chốt theo yêu cầu người dùng, 2026-11-10)
+Người dùng yêu cầu máy tự tạo video và tự đăng YouTube, không cần người ngồi trước máy. D21 bị thay thế ở phần cách đăng, vì hai lý do:
+- Điều khoản YouTube (bản 2023-12-15) cấm truy cập dịch vụ bằng phương tiện tự động nếu không có cho phép bằng văn bản. Tự động hoá Studio qua trình duyệt rơi vào điều này và có thể làm mất kênh.
+- Revision history của YouTube Data API, mục 2026-11-02 (trang cập nhật 2026-11-03), ghi video tải lên từ project chưa xác minh không còn bị khoá ở chế độ private. Bài Help 7300965 vẫn ghi câu cũ, nên tập đầu tải lên ở private rồi kiểm xem có bị khoá không.
+
+Chốt:
+- Đăng bằng một script Python thuần, dùng `google-api-python-client`. Claude không tự gọi API.
+- Các lệnh gọi: `videos.insert`, rồi đợi `processingStatus`, rồi `thumbnails.set`, rồi `captions.insert`. Chương đưa vào mô tả.
+- Quota: upload 100 lần/ngày; phụ đề cộng thumbnail tốn khoảng 450 trên 10.000 đơn vị chung mỗi ngày.
+- OAuth client kiểu Desktop, consent screen để "In production", vì chế độ Testing làm token hết hạn sau 7 ngày. Ứng dụng dưới 100 người dùng không cần verification.
+- Token và `client_secret` để ngoài repo, ở `~/.config/aivideo/`, quyền file 600.
+- `containsSyntheticMedia` vẫn để `false` như D21, mô tả ghi một dòng rằng giọng đọc do AI tạo.
+- Chạy theo lịch bằng LaunchAgent `StartCalendarInterval`, không dùng cron. Script chạy dưới `caffeinate -i -s`, gọi `claude -p` với `--permission-mode dontAsk --permission-prompts none`. Không dùng `--bare` (vì cần `.claude/agents`), không dùng `bypassPermissions`. Quyền chạy cho bằng một allowlist hẹp do người dùng tự thêm vào cài đặt.
+- Đăng nhập Claude khi chạy không người: `claude setup-token`, đặt `CLAUDE_CODE_OAUTH_TOKEN`. Máy tự thức trước giờ chạy bằng `pmset repeat wakeorpoweron`. Máy phải cắm sạc và mở nắp.
+- Cổng nào không đạt hoặc gặp `CẦN NGƯỜI DÙNG` thì lượt đó dừng, không đăng, ghi log và để lại tin cho người dùng.
+- Từ video thứ hai đăng Công khai sau khi người dùng duyệt video đầu (giữ nguyên D21).
+Nguồn: developers.google.com/youtube/v3 (revision_history, videos/insert, determine_quota_cost; 2026-11-03), developers.google.com/identity/protocols/oauth2 (2026-10-29), code.claude.com/docs/en/headless và /permissions (2026-11-10).

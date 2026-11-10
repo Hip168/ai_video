@@ -34,5 +34,6 @@
 | 10 | Render dài | `10-render-dai` | 6, gặp 9 ở tích hợp | 2 | Đang làm (issue #50–#53) |
 | 11 | Đội sản xuất | `11-doi-san-xuat` | 5 | 2 | Đã merge (PR #60, issue #54–#58) |
 | 12 | Tập thí điểm | `12-tap-thi-diem` | 5–11, kênh đã tạo | 3 | Chưa làm. Phải xử lý issue (f) của `.team/tests/8.md` (chữ trong `flow` quá nhỏ) trước tập đầu |
+| 13 | Tự tạo và tự đăng | `13-tu-dong` | 10, 11 | 3 | Chưa làm (D24) |
 
-Task và tiêu chí xong nằm trong `features/X-*.md`. Số issue ghi ở đó sau khi tạo. Merge tuần tự: 5, 6, 9, 7, 8, 10, 11, 12.
+Task và tiêu chí xong nằm trong `features/X-*.md`. Số issue ghi ở đó sau khi tạo. Merge tuần tự: 5, 6, 9, 7, 8, 10, 11, 13, 12. Đề mục 12 đăng tập đầu bằng `upload.py` của đề mục 13.

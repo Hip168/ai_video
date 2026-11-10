@@ -28,5 +28,6 @@
 | .team/features/9-am-thanh-tap.md | Đề mục 9: SFX, nhạc, trộn | DEV-9, TESTER-9 |
 | .team/features/10-render-dai.md | Đề mục 10: render đoạn, ghép, kiểm, `make-episode.sh` | DEV-10, TESTER-10 |
 | .team/features/11-doi-san-xuat.md | Đề mục 11: agent, playbook, script cổng, đo người kiểm | DEV-11, TESTER-11 |
+| .team/features/13-tu-dong.md | Đề mục 13: tự tạo và tự đăng theo lịch (YouTube API, launchd) | DEV-13, TESTER-13, OPS |
 | .team/features/12-tap-thi-diem.md | Đề mục 12: tạo kênh, tập đầu, duyệt | Điều phối, OPS |
 | .team/doi-san-xuat.md | Vai, luồng, cổng duyệt, mẫu trao tay của đội sản xuất | Mọi agent sản xuất, điều phối |

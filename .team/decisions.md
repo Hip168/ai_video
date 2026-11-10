@@ -127,6 +127,6 @@ Người dùng muốn có thêm Shorts dọc, xem trên điện thoại vẫn ch
 - Không cắt từ MP4 ngang. Render lại từ chính timeline của tập, khung 1080×1920, 30 fps.
 - Bố cục dọc: tiêu đề ngắn ở trên; giữa là vùng vuông 1080×1080 cho cảnh; phụ đề to ở dưới, chừa vùng nút bấm của YouTube Shorts. Mỗi loại cảnh trong 18 loại có thêm biến thể vuông. Không thu nhỏ cảnh ngang để nhét vào.
 - Mỗi tập ra 2 Shorts, mỗi Short dưới 60 giây. Lấy đoạn trọn ý: có móc mở đầu và có câu kết. Lời đọc lấy nguyên từ kịch bản đã qua Cổng 2. Nếu cần câu mở hay câu kết mới thì câu đó phải qua lại Cổng 1 và Cổng 2.
-- Mô tả của Short có link về video dài. Short đăng sau video dài 1 ngày, dùng cùng lịch chạy và cùng `upload.py`.
+- Mô tả của Short có link về video dài. Short đăng ngay trong cùng lượt chạy, sau video dài, bằng cùng `upload.py` (người dùng chốt 2026-11-11: "đẩy cả bản chuẩn cả bản short song song"). Short đầu tiên cũng để Không công khai và chờ người dùng duyệt cùng video dài đầu tiên.
 - Dùng lại phần đã làm ở nhánh `4-khung-doc` (D19 tạm dừng) làm nền bố cục dọc.
-- Bắt đầu sau khi video dài đầu tiên đã lên kênh và người dùng đã duyệt.
+- Làm song song với đề mục 10 và 13, ngay từ bây giờ (người dùng chốt 2026-11-11). Tập đầu ra cả bản dài lẫn 2 Shorts.

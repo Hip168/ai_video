@@ -19,3 +19,6 @@ Dòng do `qualify score` in ra (cột `row`); không sửa tay số liệu.
 ## Lỗi bị bỏ sót và việc đã sửa
 
 (Mỗi lượt chưa đạt: id lỗi bỏ sót, nguyên nhân phỏng đoán, dòng prompt đã đổi.)
+
+## Lượt bỏ qua đo người kiểm
+- 2026-11-11: người dùng cho bỏ qua đo fact-checker và qc cho tập đầu `vi-sao-may-tinh-dung-nhi-phan`, để có video nhanh và đỡ tốn token. Tập đầu đăng Không công khai, người dùng tự duyệt. Chưa có dòng ĐẠT nào.

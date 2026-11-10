@@ -81,3 +81,39 @@ Quyền đã có: sau khi người dùng duyệt video đầu, publisher đượ
 ## D23. Trình duyệt render và kiểm mất hình (BA chốt theo yêu cầu người dùng và số đo OPS, 2026-11-03)
 Người dùng hỏi dùng `chrome-headless-shell` thay Google Chrome. Chốt: dùng, đặt ở `~/.cache/aivideo/chrome-headless-shell/`, không sửa `remotion.config.ts`. Chi tiết ở `stack.md`.
 D14 cần sửa: `videocheck.py` so hai lần render không đủ, vì a1 và a2 giống hệt từng byte mà cùng mất frame 1315, và `out/video.mp4` cũng mất frame này. Hai lần render cùng dải có thể cùng lỗi; hai phiên khác nhau lại lệch chữ, gây báo giả. Kiểm tập dài không dựa vào so hai lần cùng dải: quét đột biến trên từng video (`framecheck.py`), đối chiếu thêm một lần render với ranh giới đoạn khác. Headless mới có 5 lần sạch, chưa đủ kết luận hết mất hình. Nhánh 4 và `make-video.sh` tạm giữ nguyên (D19).
+
+## D24. Đăng qua YouTube Data API, chạy theo lịch bằng launchd (BA chốt theo yêu cầu người dùng, 2026-11-10)
+Người dùng yêu cầu máy tự tạo video và tự đăng YouTube, không cần người ngồi trước máy. D21 bị thay thế ở phần cách đăng, vì hai lý do:
+- Điều khoản YouTube (bản 2023-12-15) cấm truy cập dịch vụ bằng phương tiện tự động nếu không có cho phép bằng văn bản. Tự động hoá Studio qua trình duyệt rơi vào điều này và có thể làm mất kênh.
+- Revision history của YouTube Data API, mục 2026-11-02 (trang cập nhật 2026-11-03), ghi video tải lên từ project chưa xác minh không còn bị khoá ở chế độ private. Bài Help 7300965 vẫn ghi câu cũ, nên tập đầu tải lên ở private rồi kiểm xem có bị khoá không.
+
+Chốt:
+- Đăng bằng một script Python thuần, dùng `google-api-python-client`. Claude không tự gọi API.
+- Các lệnh gọi: `videos.insert`, rồi đợi `processingStatus`, rồi `thumbnails.set`, rồi `captions.insert`. Chương đưa vào mô tả.
+- Quota: upload 100 lần/ngày; phụ đề cộng thumbnail tốn khoảng 450 trên 10.000 đơn vị chung mỗi ngày.
+- OAuth client kiểu Desktop, consent screen để "In production", vì chế độ Testing làm token hết hạn sau 7 ngày. Ứng dụng dưới 100 người dùng không cần verification.
+- Token và `client_secret` để ngoài repo, ở `~/.config/aivideo/`, quyền file 600.
+- `containsSyntheticMedia` vẫn để `false` như D21, mô tả ghi một dòng rằng giọng đọc do AI tạo.
+- Chạy theo lịch bằng LaunchAgent `StartCalendarInterval`, không dùng cron. Script chạy dưới `caffeinate -i -s`, gọi `claude -p` với `--permission-mode dontAsk --permission-prompts none`. Không dùng `--bare` (vì cần `.claude/agents`), không dùng `bypassPermissions`. Quyền chạy cho bằng một allowlist hẹp do người dùng tự thêm vào cài đặt.
+- Đăng nhập Claude khi chạy không người: `claude setup-token`, đặt `CLAUDE_CODE_OAUTH_TOKEN`. Máy tự thức trước giờ chạy bằng `pmset repeat wakeorpoweron`. Máy phải cắm sạc và mở nắp.
+- Cổng nào không đạt hoặc gặp `CẦN NGƯỜI DÙNG` thì lượt đó dừng, không đăng, ghi log và để lại tin cho người dùng.
+- Từ video thứ hai đăng Công khai sau khi người dùng duyệt video đầu (giữ nguyên D21).
+Nguồn: developers.google.com/youtube/v3 (revision_history, videos/insert, determine_quota_cost; 2026-11-03), developers.google.com/identity/protocols/oauth2 (2026-10-29), code.claude.com/docs/en/headless và /permissions (2026-11-10).
+
+## D25. Luồng của lượt chạy theo lịch (BA chốt, 2026-11-10, theo đề xuất DEV-13)
+- Claude (`claude -p`) chạy theo PLAYBOOK tới hết khâu 12 rồi in dòng cuối `SLUG: <slug>`. Sau đó `run-daily.sh` tự chạy `gate3` (không tin lời Claude). Cổng đạt thì mới chạy `upload`. Kết quả JSON có chữ `CAN_NGUOI_DUNG` thì dừng.
+- `upload` ghi mục `dang` vào sổ, `note` là URL `https://www.youtube.com/watch?v=<id>`, ghi ngay sau khi insert. Chạy lại mà gặp mục này thì không insert lần nữa. Thumbnail và phụ đề cũng không đặt lại nếu đã xong: sổ phải ghi đủ từng bước để biết bước nào đã xong.
+- Các chặn thêm trong `upload` đều giữ: đặt `public` khi `firstVideoApproved` chưa là true; có `--publish-at` mà privacy không phải `private`; `containsSyntheticMedia` khác false.
+- Tập đầu tải lên ở `unlisted` (Không công khai), giữ như D21. Lý do: Cổng 3, có test khoá của đề mục 11, chỉ nhận `unlisted` khi `firstVideoApproved` chưa là true. Video bị khoá thì `upload` thấy `privacyStatus` trả về là `private` thay vì `unlisted`, nên báo `CAN_NGUOI_DUNG`. Người dùng xem và nhắn ok thì các video sau mới đặt `public`. (Sửa ngày 2026-11-10, trước đó dòng này ghi `private`.)
+- Sổ tập và file của tập: mục 6b yêu cầu `gate3` chặn khi sổ chưa commit. Vì vậy `run-daily.sh` commit trong máy riêng các đường dẫn `episodes/<slug>/` trước khi chạy `gate3`. Sau khi đăng xong thì push lên `main`, chỉ gồm các đường dẫn đó. Đây là nội dung tập, không phải code, nên không cần PR. Push lỗi thì chỉ ghi log, video vẫn tính là đã đăng.
+- Lỗi `HttpError` của Google được bắt riêng: in thông báo rõ ràng, thoát 1, không in traceback.
+- Mẫu plist đặt `PATH` có thư mục chứa `claude`, `uv` và `node`.
+
+## D26. Đề mục 10: tiêu chí đóng trình duyệt, thứ tự kiểm và ghép (BA chốt, 2026-11-11, theo TEST-LEAD và review)
+- Tiêu chí "đóng trong `finally`" chuyển thành tiêu chí về kết quả: sau khi chạy, dù chạy thành công, lỗi, SIGINT hay `close()` hỏng, không còn tiến trình `chrome-headless-shell` mồ côi, và manifest đã được ghi. Hợp đồng có thêm một điểm móc cho test: biến `AIVIDEO_FAIL_CLOSE=throw|hang` làm `close()` ném lỗi hoặc treo, để kiểm được đường diệt dự phòng (diệt theo nhóm tiến trình). Trước đây sổ test ghi "BA chốt: đột biến tương đương", nhưng không có nguồn; câu đó bỏ.
+- Thứ tự bước 6 và 7: ghép (6), rồi `framecheck verify` (7). Nếu bước 7 render lại đoạn nào thì phải ghép lại và chạy lại `assemble verify`. `clean` chỉ chạy sau khi lượt kiểm cuối cùng đạt. Không bao giờ để MP4 cuối giữ đoạn cũ.
+- `assemble verify` chạy thêm `framecheck scan` trên MP4 cuối, để bắt khung chỉ còn nền. Check khung đen giữ nguyên và chỉ bắt khung đen. Ghi vào file giao diện §3.
+- Tiêu chí "`_template` ngắt giữa chừng rồi chạy lại" giữ nguyên: test phải dùng `_template`, không thay bằng timeline tĩnh.
+
+## D27. [12-5] chấp nhận giới hạn fitText (BA chốt, 2026-11-11)
+Lint `flow` tính cỡ chữ theo `flowSizes`, chưa tính phần `fitText` co thêm khi nhãn nút dài. BA chấp nhận giới hạn này. Lý do: lỗi này lộ ra ở bước `qc` khi xem khung hình. Muốn chặn thì phải đo chữ thật, sẽ làm ở đề mục riêng nếu `qc` gặp.

@@ -7,7 +7,7 @@ Người dùng chọn Duyệt ở Pha 4d ngày 2026-10-31. Luật đầy đủ: 
 
 ## Luôn dừng và hỏi người dùng
 - Test đỏ do code sai tiêu chí, CI đỏ, main đỏ, `BỊ CHẶN`.
-- Review có phát hiện: KHÔNG hỏi nữa (người dùng chốt 2026-11-03). Lỗi rõ ràng thì giao DEV sửa, DEV-LEAD và TEST-LEAD kiểm lại. Chỉ hỏi khi sửa làm đổi hành vi đã chốt hoặc rất tốn.
+- Review có phát hiện: KHÔNG hỏi nữa (người dùng chốt 2026-11-03). Lỗi rõ ràng thì giao DEV sửa, reviewer và TEST-LEAD kiểm lại (không còn DEV-LEAD từ 2026-11-05). Chỉ hỏi khi sửa làm đổi hành vi đã chốt hoặc rất tốn.
 - `CẦN BA` mà `.team/` không trả lời được.
 - Cài hoặc chạy trên server, tài khoản thật.
 - Mở khoá file khoá, force push, xoá nhánh, sửa `.github/workflows`.
@@ -16,7 +16,7 @@ Người dùng chọn Duyệt ở Pha 4d ngày 2026-10-31. Luật đầy đủ: 
 - Hệ thống phân quyền từ chối lệnh.
 
 ## Quyền đã cấp
-- Merge PR (người dùng chốt 2026-11-03): người dùng tự merge. DEPLOY push, mở PR, chờ CI xanh rồi báo link PR và dừng, không gọi `gh pr merge`. Sau khi người dùng báo đã merge, DEPLOY theo dõi CI main.
+- GitHub đi theo công tắc `~/.claude/team/bin/team github` (CONVENTIONS §12), chỉ người dùng đặt. Ngày 2026-11-10 dự án ở mức `khong`: đội chỉ commit trong máy; người dùng tự push, mở PR và merge. Mức `chi-pr`: DEPLOY push, mở PR, chờ CI xanh rồi báo. Mức `toan-quyen`: DEPLOY tự merge khi CI xanh.
 
 ## Điểm dừng riêng của dự án này
 - [1-4]: người dùng nghe và chọn engine + giọng.

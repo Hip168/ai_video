@@ -10,6 +10,7 @@ Chạy từ `audio/`: `PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload ..
 - `python -m aivideo.upload auth`: mở trình duyệt một lần, ghi `~/.config/aivideo/youtube/token.json` quyền 600 (cần `client_secret.json` cùng thư mục). Không test được không có Google; không có biến thay thư mục.
 - Mặc định: `--out-dir` = `<episodes-dir>/../out/episodes`, `--kenh` = `<episodes-dir>/../.team/kenh.json` (như `gates gate3`).
 - Mã thoát: `0` xong (stdout một JSON); `1` lỗi hoặc bị chặn (`lỗi: ...` ra stderr, không JSON); `2` sai tham số (argparse, gồm `--privacy` ngoài 3 giá trị).
+- `googleapiclient.errors.HttpError` ném ra từ client (thật hay giả) được `main` bắt riêng (D25): stderr một dòng `lỗi: Google trả HTTP <status>: <reason>`, mã 1, không traceback.
 - Stdout khi xong: `{"videoId","url","privacy","publishAt","resumed"}`. `url` = `https://www.youtube.com/watch?v=<videoId>`. `resumed` = `true` khi videoId lấy từ sổ (không gọi `insert_video`).
 
 ### Thay client Google bằng client giả
@@ -39,11 +40,20 @@ Chạy từ `audio/`: `PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload ..
 ```
 Chương trong mô tả: nếu `publish.chapters` (đã `strip`) đã nằm nguyên văn trong `description` thì giữ nguyên `description`; không thì `description.rstrip() + "\n\n" + chapters`. Chương giữ đúng định dạng `publish.json` (`00:00 Tên chương`, mỗi chương một dòng).
 
-### Ghi sổ và chạy lại
-- Ngay sau khi `insert_video` trả videoId, ghi một mục sổ tập bằng hàm Python của `gates`, tương đương lệnh
-  `python -m aivideo.gates ledger add <slug> --stage dang --role publisher --note https://www.youtube.com/watch?v=<videoId> --artifact <MP4>`
-  (`Ledger(ep).add(stage="dang", role="publisher", note=<url>, script_hash=<hash lời hiện tại>, artifact_hash=<sha256 MP4>)`). `videoId` đọc lại từ `note`.
-- Trước khi tải: tìm mục `stage:"dang"` mới nhất có `note` đúng dạng URL trên (hàm `recorded_video_id(ep)`). Có thì bỏ `insert_video`, đi tiếp `processing_status`, `set_thumbnail`, `insert_caption` với videoId đó, `resumed: true`. Khi nối tiếp, `--privacy`/`--publish-at` không áp lại lên video đã tải.
+### Ghi sổ và chạy lại (D25: sổ ghi đủ từng bước)
+Mỗi bước xong ghi một mục sổ tập bằng hàm Python của `gates` (`Ledger(ep).add(stage=..., role="publisher", note=<url>, script_hash=<hash lời hiện tại>, artifact_hash=<sha256 file của bước>)`), tương đương `python -m aivideo.gates ledger add <slug> --stage <khâu> --role publisher --note <url> --artifact <file>`. `<url>` = `https://www.youtube.com/watch?v=<videoId>`.
+
+| Bước | `stage` (hằng) | Ghi khi | `artifactHash` |
+|---|---|---|---|
+| insert | `dang` (`STAGE`) | ngay sau khi `insert_video` trả videoId | sha256 MP4 |
+| thumbnail | `dang-thumbnail` (`STAGE_THUMBNAIL`) | sau khi `set_thumbnail` xong | sha256 ảnh bìa |
+| caption | `dang-caption` (`STAGE_CAPTION`) | sau khi `insert_caption` xong | sha256 SRT |
+
+- videoId: từ mục `stage:"dang"` mới nhất có `note` đúng dạng URL (hàm `recorded_video_id(ep)`). Có thì bỏ `insert_video`, `resumed: true`.
+- Một bước tính là đã xong khi sổ có mục cùng `stage` và `note` bằng đúng `<url>` của videoId đó. Bước đã xong không gọi lại.
+- Thứ tự khi chạy lại: `channel_id` (luôn gọi, kênh lệch vẫn chặn); nếu cả thumbnail và caption đã xong thì dừng ở đó, mã 0, không gọi `processing_status`. Ngược lại: `processing_status` (tới `succeeded`), rồi các bước chưa xong theo thứ tự thumbnail, caption.
+- Vd: lỗi ở caption, chạy lại gọi `channel_id`, `processing_status`, `insert_caption`. Chạy lại sau khi đã xong cả ba bước chỉ gọi `channel_id`.
+- Khi nối tiếp, `--privacy`/`--publish-at` không áp lại lên video đã tải.
 - Sổ vỡ chuỗi hash thì lỗi mã 1.
 
 ### Bí mật
@@ -58,6 +68,8 @@ Chạy: `scripts/run-daily.sh` (không tham số), zsh. Mã thoát: `0` đã đ�
 | `AIVIDEO_CLAUDE` | `claude` | lệnh claude (tách theo khoảng trắng); nhận thêm `-p <prompt> --permission-mode dontAsk --permission-prompts none --output-format json`, chạy trong gốc repo |
 | `AIVIDEO_GATES` | `<repo>/audio/.venv/bin/python -m aivideo.gates` | lệnh cổng; được gọi `gate3 <slug> --video <repo>/out/episodes/<slug>/<slug>.mp4`, chạy trong `audio/` |
 | `AIVIDEO_UPLOAD` | `<repo>/audio/.venv/bin/python -m aivideo.upload` | lệnh đăng; được gọi `<slug>`, chạy trong `audio/` |
+| `AIVIDEO_GIT` | `git` | lệnh git dùng cho `status --porcelain`, `add`, `commit` (chạy trong gốc repo) |
+| `AIVIDEO_PUSH` | `git push origin main` | lệnh push sau khi đăng (chạy trong gốc repo, không thêm tham số) |
 | `AIVIDEO_NOTIFY` | `osascript` (display notification) | lệnh thông báo; nhận đúng một tham số là câu báo |
 | `AIVIDEO_LOG_DIR` | `~/Library/Logs/aivideo` | thư mục log; khoá nằm trong đây |
 | `AIVIDEO_CAFFEINATED` | rỗng | khác rỗng thì không tự chạy lại dưới `caffeinate -i -s` (script tự đặt khi `exec caffeinate`) |
@@ -73,15 +85,21 @@ Xét theo thứ tự:
 3. JSON có `is_error: true`.
 4. `result` có chuỗi `CAN_NGUOI_DUNG` ở bất kỳ đâu.
 5. Dòng cuối của `result` không khớp `^SLUG: <slug>$` (slug dạng `^[a-z0-9]+(-[a-z0-9]+)*$`).
-6. Lệnh `AIVIDEO_GATES gate3 ...` thoát mã khác 0 ("cổng không đạt": script tự chạy Cổng 3, không tin lời claude).
-7. Lệnh upload thoát mã khác 0.
-Đạt hết: log `XONG: đã đăng <slug>`, mã 0, không thông báo.
+6. Commit trong máy `episodes/<slug>/` lỗi (xem dưới).
+7. Lệnh `AIVIDEO_GATES gate3 ...` thoát mã khác 0 ("cổng không đạt": script tự chạy Cổng 3, không tin lời claude).
+8. Lệnh upload thoát mã khác 0 (vẫn commit sổ trước khi dừng, để giữ videoId đã ghi).
+Đạt hết: log `XONG: đã đăng <slug>`, rồi push; mã 0, không thông báo.
+
+### Commit và push (D25)
+- Trước `gate3`: `AIVIDEO_GIT status --porcelain -- episodes/<slug>`; có thay đổi thì `AIVIDEO_GIT add -- episodes/<slug>` rồi `AIVIDEO_GIT commit -q -m "[tap] <slug>: nội dung tập trước Cổng 3" -- episodes/<slug>`. Không có thay đổi thì bỏ qua. Chỉ đường dẫn `episodes/<slug>/` vào commit, file khác đang sửa dở không bị đụng.
+- Sau upload (đạt hay lỗi): commit lại như trên với lời `[tap] <slug>: sổ tập sau khi đăng`; commit này lỗi chỉ ghi log.
+- Sau khi đăng xong: chạy `AIVIDEO_PUSH`. Lỗi thì ghi log `push lỗi (video đã đăng): ...`, mã thoát vẫn 0, không thông báo. Upload lỗi thì không push.
 
 ### Prompt gửi claude
 Một câu cố định trong script: làm video theo `episodes/PLAYBOOK.md` từ khâu 1 tới hết khâu 12; đề tài từ `episodes/queue.json`; không làm khâu 13; điểm dừng thì in `CAN_NGUOI_DUNG: <lý do>`; Cổng 3 đạt thì dòng cuối in `SLUG: <slug>`.
 
 ## `scripts/com.aivideo.daily.plist.example`
-Mẫu LaunchAgent, `Label` = `com.aivideo.daily`, `ProgramArguments` gọi `scripts/run-daily.sh` (đường dẫn tuyệt đối để người dùng thay), `StartCalendarInterval` (`Hour`, `Minute`). Không có token thật.
+Mẫu LaunchAgent, `Label` = `com.aivideo.daily`, `ProgramArguments` gọi `scripts/run-daily.sh` (đường dẫn tuyệt đối để người dùng thay), `StartCalendarInterval` (`Hour`, `Minute`), `EnvironmentVariables.PATH` gồm thư mục chứa `claude` (`~/.local/bin`, viết tuyệt đối), `uv` và `node` (`/opt/homebrew/bin`) (D25), `CLAUDE_CODE_OAUTH_TOKEN` là chữ giữ chỗ. Không có token thật.
 
 ## `episodes/queue.json`
 Mảng, mặc định `[]`. Mỗi phần tử:
@@ -95,7 +113,7 @@ Mảng, mặc định `[]`. Mỗi phần tử:
 ## Nội dung bắt buộc của `publisher.md` và PLAYBOOK (D24)
 - `publisher.md` giữ sáu mục bắt buộc của đề mục 11; nêu lệnh `python -m aivideo.upload <slug>`; không còn Claude in Chrome / YouTube Studio làm cách đăng.
 - Phần "Không được làm" giữ ý: kênh lệch thì không đăng (`upload.py` tự chặn khi `channelId` lệch); video đầu không đặt `public`; không đăng khi hash lệch hoặc Cổng 3 chưa đạt.
-- PLAYBOOK: dòng bảng vai của `publisher` vẫn có `ops` (test khoá `test_roles_files.py`); khâu [13] chạy `python -m aivideo.upload`; mẫu 4.13 bỏ trình duyệt; lượt theo lịch thì `run-daily.sh` chạy khâu 13.
+- PLAYBOOK: dòng bảng vai của `publisher` vẫn có `ops` (test khoá `test_roles_files.py`); khâu [13] chạy `python -m aivideo.upload`; mẫu 4.13 bỏ trình duyệt; lượt theo lịch thì `run-daily.sh` chạy khâu 13; mục 8: video đầu tải ở `private` (`--privacy private`), người dùng nhắn ok rồi mới chuyển `public`, không còn chữ "Không công khai" (D25).
 
 ## Test
 TESTER: `audio/tests/test_upload*.py` (client giả) và `audio/tests/test_run_daily.py` (pytest + subprocess, các lệnh thay bằng script giả qua biến môi trường trên). Không gọi Google thật.

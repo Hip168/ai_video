@@ -14,6 +14,8 @@ py="$root/audio/.venv/bin/python"
 claude_cmd=(${(z)${AIVIDEO_CLAUDE:-claude}})
 upload_cmd=(${(z)${AIVIDEO_UPLOAD:-$py -m aivideo.upload}})
 gates_cmd=(${(z)${AIVIDEO_GATES:-$py -m aivideo.gates}})
+git_cmd=(${(z)${AIVIDEO_GIT:-git}})
+push_cmd=(${(z)${AIVIDEO_PUSH:-git push origin main}})
 logdir="${AIVIDEO_LOG_DIR:-$HOME/Library/Logs/aivideo}"
 mkdir -p "$logdir"
 logf="$logdir/$(date +%F).log"
@@ -69,10 +71,24 @@ slug="${match[1]}"
 log "tập $slug"
 
 mp4="$root/out/episodes/$slug/$slug.mp4"
+
+# Commit trong máy chỉ episodes/<slug>/ (D25): gate3 chặn khi sổ chưa commit.
+commit_ep() { # $1 = lời commit
+  local st
+  st=$(cd "$root" && "${git_cmd[@]}" status --porcelain -- "episodes/$slug" 2>> "$logf") || return 1
+  [[ -z "$st" ]] && return 0
+  ( cd "$root" && "${git_cmd[@]}" add -- "episodes/$slug" \
+      && "${git_cmd[@]}" commit -q -m "$1" -- "episodes/$slug" ) >> "$logf" 2>&1
+}
+commit_ep "[tap] $slug: nội dung tập trước Cổng 3" || stop "commit episodes/$slug lỗi"
+
 ( cd "$root/audio" && PYTHONPATH="$PWD/src" "${gates_cmd[@]}" gate3 "$slug" --video "$mp4" ) >> "$logf" 2>&1 \
   || stop "Cổng 3 không đạt cho $slug"
 
 ( cd "$root/audio" && PYTHONPATH="$PWD/src" "${upload_cmd[@]}" "$slug" ) >> "$logf" 2>&1
 code=$?
+commit_ep "[tap] $slug: sổ tập sau khi đăng" || log "commit sổ sau khi đăng lỗi"
 (( code == 0 )) || stop "upload $slug thoát mã $code"
 log "XONG: đã đăng $slug"
+# Push lỗi chỉ ghi log, video vẫn tính là đã đăng (D25).
+( cd "$root" && "${push_cmd[@]}" ) >> "$logf" 2>&1 || log "push lỗi (video đã đăng): ${push_cmd[*]}"

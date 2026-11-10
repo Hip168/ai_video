@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
   Mẫu LaunchAgent chạy scripts/run-daily.sh mỗi ngày (D24).
-  Cài: chép thành ~/Library/LaunchAgents/com.aivideo.daily.plist, thay các chỗ /DUONG/DAN/REPO và
-  TOKEN_CUA_CLAUDE_SETUP_TOKEN, chmod 600 file đó, rồi
+  Cài: chép thành ~/Library/LaunchAgents/com.aivideo.daily.plist, thay các chỗ /DUONG/DAN/REPO, /Users/TEN_MAY
+  (thư mục nhà; `which claude uv node` cho biết thư mục thật) và TOKEN_CUA_CLAUDE_SETUP_TOKEN, chmod 600 file đó, rồi
   launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.aivideo.daily.plist
   Không commit bản đã điền token.
 -->
@@ -26,7 +26,8 @@
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>
-    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <!-- claude: ~/.local/bin; uv, node: /opt/homebrew/bin -->
+    <string>/Users/TEN_MAY/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
     <key>CLAUDE_CODE_OAUTH_TOKEN</key>
     <string>TOKEN_CUA_CLAUDE_SETUP_TOKEN</string>
   </dict>

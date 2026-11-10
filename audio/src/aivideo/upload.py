@@ -14,12 +14,16 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from googleapiclient.errors import HttpError
+
 from aivideo.gates import GateError, Ledger, _ep_dir, _read_json, _script_hash_of, sha256_file
 
 CRED_DIR = Path.home() / ".config" / "aivideo" / "youtube"
 SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 PRIVACY = ("private", "unlisted", "public")
 STAGE = "dang"
+STAGE_THUMBNAIL = "dang-thumbnail"
+STAGE_CAPTION = "dang-caption"
 CAPTION_LANGUAGE = "vi"
 CAPTION_NAME = "Tiếng Việt"
 POLL_SECONDS = 15
@@ -131,6 +135,15 @@ def recorded_video_id(ep: Path) -> str | None:
     return None
 
 
+def _step_done(ep: Path, stage: str, url: str) -> bool:
+    return any(e["stage"] == stage and e.get("note") == url for e in Ledger(ep).entries())
+
+
+def _record(ep: Path, stage: str, url: str, artifact: Path) -> None:
+    Ledger(ep).add(stage=stage, role="publisher", note=url, script_hash=_script_hash_of(ep),
+                   artifact_hash=sha256_file(artifact))
+
+
 def _kenh(path: Path) -> dict:
     if not path.is_file():
         raise UploadError(f"thiếu {path}")
@@ -199,8 +212,11 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
     resumed = video_id is not None
     if not resumed:
         video_id = client.insert_video(mp4, build_body(pub, privacy, publish_at))
-        Ledger(ep).add(stage=STAGE, role="publisher", note=video_url(video_id),
-                       script_hash=_script_hash_of(ep), artifact_hash=sha256_file(mp4))
+        _record(ep, STAGE, video_url(video_id), mp4)
+    url = video_url(video_id)
+    if _step_done(ep, STAGE_THUMBNAIL, url) and _step_done(ep, STAGE_CAPTION, url):
+        return {"videoId": video_id, "url": url, "privacy": privacy, "publishAt": publish_at,
+                "resumed": resumed}
 
     waited = 0
     while True:
@@ -214,9 +230,13 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
         time.sleep(POLL_SECONDS)
         waited += POLL_SECONDS
 
-    client.set_thumbnail(video_id, thumb)
-    client.insert_caption(video_id, srt, CAPTION_LANGUAGE, CAPTION_NAME)
-    return {"videoId": video_id, "url": video_url(video_id), "privacy": privacy,
+    if not _step_done(ep, STAGE_THUMBNAIL, url):
+        client.set_thumbnail(video_id, thumb)
+        _record(ep, STAGE_THUMBNAIL, url, thumb)
+    if not _step_done(ep, STAGE_CAPTION, url):
+        client.insert_caption(video_id, srt, CAPTION_LANGUAGE, CAPTION_NAME)
+        _record(ep, STAGE_CAPTION, url, srt)
+    return {"videoId": video_id, "url": url, "privacy": privacy,
             "publishAt": publish_at, "resumed": resumed}
 
 
@@ -236,6 +256,10 @@ def main(argv: list[str] | None = None) -> int:
         r = upload_episode(a.slug, client=make_client(), episodes_dir=a.episodes_dir,
                            out_dir=a.out_dir, kenh_path=a.kenh, privacy=a.privacy,
                            publish_at=a.publish_at)
+    except HttpError as e:
+        print(f"lỗi: Google trả HTTP {e.resp.status}: {getattr(e, 'reason', '') or e}",
+              file=sys.stderr)
+        return 1
     except (UploadError, GateError, ValueError, OSError, KeyError) as e:
         print(f"lỗi: {e}", file=sys.stderr)
         return 1

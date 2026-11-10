@@ -35,5 +35,6 @@
 | 11 | Đội sản xuất | `11-doi-san-xuat` | 5 | 2 | Đã merge (PR #60, issue #54–#58) |
 | 12 | Tập thí điểm | `12-tap-thi-diem` | 5–11, kênh đã tạo | 3 | Chưa làm. [12-5] đã merge (PR #67, issue #62): lint chặn cảnh `flow` chữ nhỏ, xử lý issue (f) của `.team/tests/8.md`. Các task còn lại của đề mục chưa làm |
 | 13 | Tự tạo và tự đăng | `13-tu-dong` | 10, 11 | 3 | Chưa làm (D24). Issue #63–#66 ([13-1..4]) |
+| 14 | Shorts dọc | `14-shorts` | 10, 13, tập đầu | 4 | Chưa làm (D28), bắt đầu sau tập đầu |
 
 Task và tiêu chí xong nằm trong `features/X-*.md`. Số issue ghi ở đó sau khi tạo. Merge tuần tự: 5, 6, 9, 7, 8, 10, 11, 13, 12. Đề mục 12 đăng tập đầu bằng `upload.py` của đề mục 13.

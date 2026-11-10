@@ -14,6 +14,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from google.auth.exceptions import GoogleAuthError
 from googleapiclient.errors import HttpError
 
 from aivideo.gates import GateError, Ledger, _ep_dir, _read_json, _script_hash_of, sha256_file
@@ -30,6 +31,8 @@ CAPTION_LANGUAGE = "vi"
 CAPTION_NAME = "Tiếng Việt"
 POLL_SECONDS = 15
 MAX_WAIT_SECONDS = 3600
+TAG_PREFIX = "aivideo:"
+SCAN_UPLOADS = 50
 URL_PREFIX = "https://www.youtube.com/watch?v="
 _URL_RE = re.compile(r"^" + re.escape(URL_PREFIX) + r"([A-Za-z0-9_-]+)$")
 
@@ -47,7 +50,7 @@ class NeedUser(Exception):
 
 
 class YouTubeClient:
-    """Lớp mỏng quanh `googleapiclient`. Client giả trong test có đúng năm phương thức này."""
+    """Lớp mỏng quanh `googleapiclient`. Client giả trong test có đúng tám phương thức này."""
 
     def __init__(self, service):
         self.service = service
@@ -57,6 +60,21 @@ class YouTubeClient:
         if len(items) != 1:
             raise UploadError(f"token thấy {len(items)} kênh, cần đúng 1")
         return items[0]["id"]
+
+    def find_uploaded(self, tag: str) -> str | None:
+        """videoId của video gần nhất trong playlist uploads của kênh có thẻ `tag`, hoặc None."""
+        ch = self.service.channels().list(part="contentDetails", mine=True).execute()
+        uploads = ch["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+        pl = self.service.playlistItems().list(part="contentDetails", playlistId=uploads,
+                                               maxResults=SCAN_UPLOADS).execute()
+        ids = [it["contentDetails"]["videoId"] for it in pl.get("items") or []]
+        if not ids:
+            return None
+        vids = self.service.videos().list(part="snippet", id=",".join(ids)).execute()
+        for v in vids.get("items") or []:
+            if tag in (v.get("snippet", {}).get("tags") or []):
+                return v["id"]
+        return None
 
     def insert_video(self, path: Path, body: dict) -> dict:
         from googleapiclient.http import MediaFileUpload
@@ -85,6 +103,8 @@ class YouTubeClient:
                   if k not in ("uploadStatus", "failureReason", "rejectionReason", "madeForKids",
                                "publishAt")}
         status["privacyStatus"] = privacy
+        status.setdefault("selfDeclaredMadeForKids", False)
+        status.setdefault("containsSyntheticMedia", False)
         self.service.videos().update(part="status",
                                      body={"id": video_id, "status": status}).execute()
 
@@ -126,7 +146,8 @@ def auth(cred_dir: Path = CRED_DIR) -> Path:
     if not secret.is_file():
         raise UploadError(f"thiếu {secret} (tải OAuth client kiểu Desktop về đây)")
     os.chmod(secret, 0o600)
-    creds = InstalledAppFlow.from_client_secrets_file(str(secret), SCOPES).run_local_server(port=0)
+    creds = InstalledAppFlow.from_client_secrets_file(str(secret), SCOPES).run_local_server(
+        port=0, prompt="consent")
     token = cred_dir / "token.json"
     _write_private(token, creds.to_json())
     return token
@@ -167,9 +188,9 @@ def _step_done(ep: Path, stage: str, url: str) -> bool:
     return any(e["stage"] == stage and e.get("note") == url for e in Ledger(ep).entries())
 
 
-def _record(ep: Path, stage: str, url: str, artifact: Path) -> None:
-    Ledger(ep).add(stage=stage, role="publisher", note=url, script_hash=_script_hash_of(ep),
-                   artifact_hash=sha256_file(artifact))
+def _record(ep: Path, stage: str, note: str, artifact_hash: str | None, script_hash) -> None:
+    Ledger(ep).add(stage=stage, role="publisher", note=note, script_hash=script_hash,
+                   artifact_hash=artifact_hash)
 
 
 def _kenh(path: Path) -> dict:
@@ -181,16 +202,18 @@ def _kenh(path: Path) -> dict:
     return d
 
 
-def build_body(pub: dict, privacy: str, publish_at: str | None) -> dict:
+def build_body(pub: dict, slug: str, publish_at: str | None) -> dict:
+    """Body của `insert_video`: luôn `private` (D25); quyền mong muốn đặt sau thumbnail, phụ đề."""
     description = pub["description"]
     chapters = pub["chapters"].strip()
     if chapters not in description:
         description = description.rstrip() + "\n\n" + chapters
-    status = {"privacyStatus": privacy, "selfDeclaredMadeForKids": False,
+    status = {"privacyStatus": "private", "selfDeclaredMadeForKids": False,
               "containsSyntheticMedia": False}
     if publish_at:
         status["publishAt"] = publish_at
-    return {"snippet": {"title": pub["title"], "description": description, "tags": pub["tags"]},
+    tags = list(pub["tags"]) + [TAG_PREFIX + slug]
+    return {"snippet": {"title": pub["title"], "description": description, "tags": tags},
             "status": status}
 
 
@@ -231,23 +254,40 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
         if not f.is_file():
             raise UploadError(f"thiếu {f}")
 
+    # Mọi bước có thể lỗi làm trước insert (D25).
+    hashes = {STAGE: sha256_file(mp4), STAGE_THUMBNAIL: sha256_file(thumb),
+              STAGE_CAPTION: sha256_file(srt), STAGE_PRIVACY: None}
+    script_hash = _script_hash_of(ep)
+    body = build_body(pub, slug, publish_at)
+    video_id = recorded_video_id(ep)
+
     token_channel = client.channel_id()
     if token_channel != kenh["channelId"].strip():
         raise UploadError(f"kênh của token {token_channel!r} khác kênh trong kenh.json "
                           f"{kenh['channelId']!r}: không tải")
 
-    video_id = recorded_video_id(ep)
+    def record(stage, note):
+        try:
+            _record(ep, stage, note, hashes[stage], script_hash)
+        except (GateError, OSError, ValueError) as e:
+            raise UploadError(f"video {video_id} ({video_url(video_id)}) đã có trên YouTube nhưng "
+                              f"ghi sổ khâu {stage} lỗi: {e}. Không tải lại; chạy lại lệnh sẽ "
+                              f"tìm lại video theo thẻ {TAG_PREFIX}{slug}") from e
+
     resumed = video_id is not None
     if not resumed:
-        resp = client.insert_video(mp4, build_body(pub, privacy, publish_at))
-        video_id = resp["id"]
-        _record(ep, STAGE, video_url(video_id), mp4)
-        got = (resp.get("status") or {}).get("privacyStatus")
-        if privacy in ("unlisted", "public") and got == "private":
-            raise NeedUser(f"đã yêu cầu {privacy} nhưng YouTube trả private: video có thể bị khoá",
-                           {"videoId": video_id, "url": video_url(video_id)})
+        video_id = client.find_uploaded(TAG_PREFIX + slug)
+        resumed = video_id is not None
+        if not resumed:
+            video_id = client.insert_video(mp4, body)["id"]
+        print(f"videoId: {video_id}", file=sys.stderr, flush=True)
+        record(STAGE, video_url(video_id))
     url = video_url(video_id)
-    if _step_done(ep, STAGE_THUMBNAIL, url) and _step_done(ep, STAGE_CAPTION, url):
+    priv_note = f"{url} privacy={privacy}"
+    want_set = privacy != "private"
+    done = {st: _step_done(ep, st, note) for st, note in
+            ((STAGE_THUMBNAIL, url), (STAGE_CAPTION, url), (STAGE_PRIVACY, priv_note))}
+    if done[STAGE_THUMBNAIL] and done[STAGE_CAPTION] and (done[STAGE_PRIVACY] or not want_set):
         return {"videoId": video_id, "url": url, "privacy": privacy, "publishAt": publish_at,
                 "resumed": resumed}
 
@@ -263,15 +303,19 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
         time.sleep(POLL_SECONDS)
         waited += POLL_SECONDS
 
-    if resumed and privacy in ("unlisted", "public") and client.privacy_status(video_id) == "private":
-        raise NeedUser(f"đã yêu cầu {privacy} nhưng video đang private: có thể bị khoá",
-                       {"videoId": video_id, "url": url})
-    if not _step_done(ep, STAGE_THUMBNAIL, url):
+    if not done[STAGE_THUMBNAIL]:
         client.set_thumbnail(video_id, thumb)
-        _record(ep, STAGE_THUMBNAIL, url, thumb)
-    if not _step_done(ep, STAGE_CAPTION, url):
+        record(STAGE_THUMBNAIL, url)
+    if not done[STAGE_CAPTION]:
         client.insert_caption(video_id, srt, CAPTION_LANGUAGE, CAPTION_NAME)
-        _record(ep, STAGE_CAPTION, url, srt)
+        record(STAGE_CAPTION, url)
+    if want_set:
+        # Đặt quyền mong muốn sau cùng rồi đọc lại; vẫn private là video bị khoá (D25).
+        client.set_privacy(video_id, privacy)
+        if client.privacy_status(video_id) == "private":
+            raise NeedUser(f"đã đặt {privacy} nhưng video vẫn private: có thể bị khoá",
+                           {"videoId": video_id, "url": url})
+        record(STAGE_PRIVACY, priv_note)
     return {"videoId": video_id, "url": url, "privacy": privacy,
             "publishAt": publish_at, "resumed": resumed}
 
@@ -328,6 +372,10 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(e.result, ensure_ascii=False, indent=2))
         print(f"CAN_NGUOI_DUNG: {e}", file=sys.stderr)
         return 3
+    except GoogleAuthError as e:
+        print(f"lỗi: đăng nhập Google hỏng ({e}): chạy lại `python -m aivideo.upload auth`",
+              file=sys.stderr)
+        return 1
     except HttpError as e:
         print(f"lỗi: Google trả HTTP {e.resp.status}: {getattr(e, 'reason', '') or e}",
               file=sys.stderr)

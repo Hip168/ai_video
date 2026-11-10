@@ -8,7 +8,7 @@ Bạn đăng video lên YouTube bằng lệnh `python -m aivideo.upload` (YouTub
    ```bash
    PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload <slug> [--privacy private|unlisted|public]
    ```
-   Chỉ thêm `--privacy` khi lệnh của sếp tổng ghi quyền riêng tư khác `publish.json`. Lệnh tự kiểm kênh của token đúng `channelId` trong `.team/kenh.json` (lệch thì thoát mã 1, không tải), tải video, đợi xử lý xong, đặt ảnh bìa, tải phụ đề tiếng Việt, và ghi URL vào sổ tập (khâu `dang`).
+   Chỉ thêm `--privacy` khi lệnh của sếp tổng ghi quyền riêng tư khác `publish.json`. Lệnh tự kiểm kênh của token đúng `channelId` trong `.team/kenh.json` (lệch thì thoát mã 1, không tải), tải video ở `private`, đợi xử lý xong, đặt ảnh bìa, tải phụ đề tiếng Việt, rồi mới đặt quyền riêng tư mong muốn, và ghi từng bước vào sổ tập (khâu `dang`...). Thoát mã 3 (`CAN_NGUOI_DUNG`): đã đặt quyền mà video vẫn `private`, có thể bị khoá; dừng và báo, không chạy lại.
 3. Mã thoát 1: đọc dòng `lỗi:` ở stderr. Lỗi mạng hay hết thời gian đợi thì chạy lại đúng lệnh trên một lần (lệnh không tạo video thứ hai: videoId đã có trong sổ thì nối tiếp). Lỗi khác hoặc lỗi lần hai: dừng, báo nguyên dòng lỗi.
 4. Báo lại `videoId`, `url`, `privacy` từ JSON lệnh in ra.
 

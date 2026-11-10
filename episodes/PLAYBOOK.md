@@ -156,7 +156,7 @@ Kiểm bằng script: chuỗi hash sổ tập nguyên vẹn; hash lời hiện t
 ```bash
 .venv/bin/python -m aivideo.upload <slug> [--privacy private|unlisted|public]
 ```
-Lệnh kiểm kênh của token đúng `channelId` trong `.team/kenh.json` (lệch thì thoát 1, không tải), tải video, đợi xử lý, đặt ảnh bìa, tải phụ đề, rồi tự ghi mục `dang` (`note` = URL) vào sổ; chạy lại sau lỗi không tạo video thứ hai. Sếp tổng commit `ledger.json`. Lượt chạy theo lịch (`scripts/run-daily.sh`) không gọi publisher: script tự chạy `gate3` rồi lệnh trên. Giao diện: `.team/features/13-tu-dong-giao-dien.md`.
+Lệnh kiểm kênh của token đúng `channelId` trong `.team/kenh.json` (lệch thì thoát 1, không tải), tải video ở `private` (gắn thẻ `aivideo:<slug>`), đợi xử lý, đặt ảnh bìa, tải phụ đề, rồi mới đặt quyền riêng tư mong muốn và đọc lại (vẫn `private` thì thoát mã 3); mỗi bước ghi một mục sổ (`dang`, `dang-thumbnail`, `dang-caption`, `dang-privacy`). Chạy lại sau lỗi không tạo video thứ hai: videoId lấy từ sổ, hoặc tìm lại trên kênh theo thẻ. Sếp tổng commit `ledger.json`. Lượt chạy theo lịch (`scripts/run-daily.sh`) không gọi publisher: script tự chạy `gate3` rồi lệnh trên. Giao diện: `.team/features/13-tu-dong-giao-dien.md`.
 
 ## 4. Mẫu prompt mỗi khâu
 

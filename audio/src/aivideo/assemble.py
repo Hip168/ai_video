@@ -247,7 +247,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="aivideo.assemble")
     ap.add_argument("cmd", choices=["concat", "mux", "verify", "clean"])
     ap.add_argument("slug")
-    ap.add_argument("--root", default=str(ROOT))
+    ap.add_argument("--root", default=os.environ.get("AIVIDEO_ROOT") or str(ROOT))
     a = ap.parse_args(argv)
     try:
         if a.cmd == "concat":

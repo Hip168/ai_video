@@ -11,11 +11,12 @@ fi
 
 root="${0:A:h:h}"
 py="$root/audio/.venv/bin/python"
-claude_cmd=(${(z)${AIVIDEO_CLAUDE:-claude}})
-upload_cmd=(${(z)${AIVIDEO_UPLOAD:-$py -m aivideo.upload}})
-gates_cmd=(${(z)${AIVIDEO_GATES:-$py -m aivideo.gates}})
-git_cmd=(${(z)${AIVIDEO_GIT:-git}})
-push_cmd=(${(z)${AIVIDEO_PUSH:-git push origin main}})
+# Mặc định gán mảng trực tiếp (đường dẫn có khoảng trắng vẫn đúng); chỉ tách (z) khi ghi đè.
+claude_cmd=(claude);                    [[ -n "${AIVIDEO_CLAUDE:-}" ]] && claude_cmd=(${(z)AIVIDEO_CLAUDE})
+upload_cmd=("$py" -m aivideo.upload);   [[ -n "${AIVIDEO_UPLOAD:-}" ]] && upload_cmd=(${(z)AIVIDEO_UPLOAD})
+gates_cmd=("$py" -m aivideo.gates);     [[ -n "${AIVIDEO_GATES:-}" ]] && gates_cmd=(${(z)AIVIDEO_GATES})
+git_cmd=(git);                          [[ -n "${AIVIDEO_GIT:-}" ]] && git_cmd=(${(z)AIVIDEO_GIT})
+push_cmd=(git push origin main);        [[ -n "${AIVIDEO_PUSH:-}" ]] && push_cmd=(${(z)AIVIDEO_PUSH})
 logdir="${AIVIDEO_LOG_DIR:-$HOME/Library/Logs/aivideo}"
 mkdir -p "$logdir"
 logf="$logdir/$(date +%F).log"
@@ -73,15 +74,19 @@ log "tập $slug"
 
 mp4="$root/out/episodes/$slug/$slug.mp4"
 
-# Commit trong máy chỉ episodes/<slug>/ (D25): gate3 chặn khi sổ chưa commit.
+# Commit trong máy chỉ file của tập (D25): gate3 chặn khi sổ chưa commit.
+ep_paths=("episodes/$slug" "video/src/episodes/$slug" "episodes/index.json")
 commit_ep() { # $1 = lời commit
-  local st
-  st=$(cd "$root" && "${git_cmd[@]}" status --porcelain -- "episodes/$slug" 2>> "$logf") || return 1
-  [[ -z "$st" ]] && return 0
-  ( cd "$root" && "${git_cmd[@]}" add -- "episodes/$slug" \
-      && "${git_cmd[@]}" commit -q -m "$1" -- "episodes/$slug" ) >> "$logf" 2>&1
+  local p st changed=()
+  for p in "${ep_paths[@]}"; do
+    st=$(cd "$root" && "${git_cmd[@]}" status --porcelain -- "$p" 2>> "$logf") || return 1
+    [[ -n "$st" ]] && changed+=("$p")
+  done
+  (( ${#changed} )) || return 0
+  ( cd "$root" && "${git_cmd[@]}" add -- "${changed[@]}" \
+      && "${git_cmd[@]}" commit -q -m "$1" -- "${changed[@]}" ) >> "$logf" 2>&1
 }
-commit_ep "[tap] $slug: nội dung tập trước Cổng 3" || stop "commit episodes/$slug lỗi"
+commit_ep "[tap] $slug: nội dung tập trước Cổng 3" || stop "commit file của tập $slug lỗi"
 
 ( cd "$root/audio" && PYTHONPATH="$PWD/src" "${gates_cmd[@]}" gate3 "$slug" --video "$mp4" ) >> "$logf" 2>&1 \
   || stop "Cổng 3 không đạt cho $slug"

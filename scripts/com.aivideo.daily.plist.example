@@ -5,7 +5,10 @@
   Cài: chép thành ~/Library/LaunchAgents/com.aivideo.daily.plist, thay các chỗ /DUONG/DAN/REPO, /Users/TEN_MAY
   (thư mục nhà; `which claude uv node` cho biết thư mục thật) và TOKEN_CUA_CLAUDE_SETUP_TOKEN, chmod 600 file đó, rồi
   launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.aivideo.daily.plist
-  Không commit bản đã điền token.
+  Không commit bản đã điền token. Không dán giá trị token vào log, lệnh hay báo cáo.
+  Cần Claude Code từ v2.1.259 trở lên (run-daily.sh dùng cờ --permission-prompts).
+  Thư mục ~/Library/Logs/aivideo/ phải có sẵn trước khi bootstrap (run-daily.sh tự tạo ở lượt đầu,
+  nhưng launchd mở file log trước khi script chạy): mkdir -p ~/Library/Logs/aivideo
 -->
 <plist version="1.0">
 <dict>
@@ -32,8 +35,8 @@
     <string>TOKEN_CUA_CLAUDE_SETUP_TOKEN</string>
   </dict>
   <key>StandardOutPath</key>
-  <string>/tmp/com.aivideo.daily.out.log</string>
+  <string>/Users/TEN_MAY/Library/Logs/aivideo/launchd.out.log</string>
   <key>StandardErrorPath</key>
-  <string>/tmp/com.aivideo.daily.err.log</string>
+  <string>/Users/TEN_MAY/Library/Logs/aivideo/launchd.err.log</string>
 </dict>
 </plist>

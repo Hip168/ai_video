@@ -117,3 +117,7 @@ Nguồn: developers.google.com/youtube/v3 (revision_history, videos/insert, dete
 
 ## D27. [12-5] chấp nhận giới hạn fitText (BA chốt, 2026-11-11)
 Lint `flow` tính cỡ chữ theo `flowSizes`, chưa tính phần `fitText` co thêm khi nhãn nút dài. BA chấp nhận giới hạn này. Lý do: lỗi này lộ ra ở bước `qc` khi xem khung hình. Muốn chặn thì phải đo chữ thật, sẽ làm ở đề mục riêng nếu `qc` gặp.
+- Bổ sung D25 (BA chốt 2026-11-11, theo review đề mục 13):
+  - Luôn insert ở `private`. Đặt xong thumbnail và phụ đề thì mới `set_privacy` sang giá trị mong muốn. Sau đó đọc lại `privacyStatus`: nếu vẫn `private` thì coi là video bị khoá và trả mã 3. Cách này tránh để video công khai khi còn thiếu ảnh bìa hoặc phụ đề.
+  - Chống đăng trùng: gắn mốc `aivideo:<slug>` vào `tags`. Khi sổ chưa có `videoId`, trước khi insert, tra playlist uploads của kênh tìm mốc này. Nếu thấy thì dùng lại `videoId` đó và ghi sổ. Có `videoId` là in ra stderr ngay, trước khi ghi sổ. Mọi phép tính có thể lỗi (hash MP4…) làm trước khi insert.
+  - `run-daily.sh` commit và push đủ file của tập: `episodes/<slug>/`, `video/src/episodes/<slug>/`, `episodes/index.json` nếu có thay đổi. Không commit file nào khác.

@@ -189,7 +189,7 @@ def verify(slug: str, root=ROOT, log=print) -> None:
             key = f"{layout}:{i}"
             redo_count[key] = redo_count.get(key, 0) + 1
             if redo_count[key] > MAX_REDO:
-                raise RuntimeError(f"đoạn {i} ({layout}) vẫn lỗi sau {MAX_REDO} lần render lại")
+                raise RuntimeError(f"(đoạn {i}, {layout}) vẫn lỗi sau {MAX_REDO} lần render lại")
         log(f"render lại {layout}: {', '.join(sorted(ids))}")
         _render(slug, root, layout, sorted(ids))
 
@@ -211,7 +211,7 @@ def verify(slug: str, root=ROOT, log=print) -> None:
             try:
                 redo(layout, {_segment_of(s, h["frame"]) for h in hits})
             except RuntimeError as e:
-                raise RuntimeError(f"{e}; khung {', '.join(str(h['frame']) for h in hits)}")
+                raise RuntimeError(f"khung {', '.join(str(h['frame']) for h in hits)} {e}")
 
     clean_scan("main")
     _render(slug, root, "shift", [])
@@ -228,7 +228,7 @@ def verify(slug: str, root=ROOT, log=print) -> None:
             redo("main", {_segment_of(m, h["frame"]) for h in diffs})
             redo("shift", {_segment_of(s, h["frame"]) for h in diffs})
         except RuntimeError as e:
-            raise RuntimeError(f"{e}; khung lệch {', '.join(str(h['frame']) for h in diffs[:20])}")
+            raise RuntimeError(f"khung {', '.join(str(h['frame']) for h in diffs[:20])} lệch {e}")
         clean_scan("main")
         clean_scan("shift")
 

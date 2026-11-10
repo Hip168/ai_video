@@ -62,6 +62,15 @@ want() { (( ${steps[(Ie)$1]} >= ${steps[(Ie)$from]} )); }
 need_file() { [[ -s "$1" ]] || fail "$step" "thiếu hoặc rỗng: ${1#$root/}"; }
 
 started="$out/.started"
+# Ghép đoạn main, gắn tiếng, kiểm MP4 cuối (dùng ở bước 6 và lại ở bước 7 khi có đoạn render lại).
+assemble_all() {
+  ( cd "$root/audio" && run "$py" -m aivideo.assemble concat "$slug" ) || fail "$step" "ghép đoạn lỗi"
+  need_file "$out/video.silent.mp4"
+  ( cd "$root/audio" && run "$py" -m aivideo.assemble mux "$slug" ) || fail "$step" "gắn tiếng lỗi"
+  need_file "$out/$slug.mp4"
+  [[ "$out/$slug.mp4" -nt "$started" ]] || fail "$step" "$slug.mp4 không mới hơn lúc bắt đầu"
+  ( cd "$root/audio" && run "$py" -m aivideo.assemble verify "$slug" ) || fail "$step" "kiểm MP4 không đạt"
+}
 
 # --- 1/7: công cụ, trình duyệt, đĩa (luôn chạy) ---
 begin 1 "kiểm công cụ"
@@ -135,12 +144,7 @@ fi
 # --- 6/7: ghép, gắn tiếng, kiểm MP4 ---
 if want assemble; then
   begin 6 "ghép đoạn, gắn tiếng, kiểm MP4"
-  ( cd "$root/audio" && run "$py" -m aivideo.assemble concat "$slug" ) || fail "$step" "ghép đoạn lỗi"
-  need_file "$out/video.silent.mp4"
-  ( cd "$root/audio" && run "$py" -m aivideo.assemble mux "$slug" ) || fail "$step" "gắn tiếng lỗi"
-  need_file "$out/$slug.mp4"
-  [[ "$out/$slug.mp4" -nt "$started" ]] || fail "$step" "$slug.mp4 không mới hơn lúc bắt đầu"
-  ( cd "$root/audio" && run "$py" -m aivideo.assemble verify "$slug" ) || fail "$step" "kiểm MP4 không đạt"
+  assemble_all
 fi
 
 # --- 7/7: kiểm mất hình, dọn ---
@@ -148,7 +152,12 @@ if want check; then
   begin 7 "kiểm mất hình (quét đột biến, render lượt hai lệch ranh giới)"
   ( cd "$root/audio" && run "$py" -m aivideo.framecheck verify "$slug" ) || fail "$step" "kiểm mất hình không đạt"
   mp4="$out/$slug.mp4"
-  [[ -s "$mp4" ]] || fail "$step" "không có $slug.mp4"
+  # framecheck verify có thể render lại đoạn main: MP4 cuối không được giữ đoạn cũ, nên ghép và kiểm lại.
+  newer=( "$out"/segments/*.mp4(N.e:'[[ $REPLY -nt $mp4 ]]':) )
+  if [[ ! -s "$mp4" ]] || (( ${#newer} > 0 )); then
+    print "có đoạn render lại sau lần ghép: ghép và kiểm MP4 lại"
+    assemble_all
+  fi
   ( cd "$root/audio" && run "$py" -m aivideo.assemble clean "$slug" ) || fail "$step" "dọn lỗi"
   [[ ! -d "$out/segments" ]] || fail "$step" "segments/ vẫn còn sau khi dọn"
   [[ -s "$mp4" && -s "$out/video.srt" && -s "$out/chapters.txt" ]] || fail "$step" "thiếu file giữ lại sau khi dọn"

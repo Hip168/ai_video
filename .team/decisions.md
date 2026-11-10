@@ -99,3 +99,21 @@ Chốt:
 - Cổng nào không đạt hoặc gặp `CẦN NGƯỜI DÙNG` thì lượt đó dừng, không đăng, ghi log và để lại tin cho người dùng.
 - Từ video thứ hai đăng Công khai sau khi người dùng duyệt video đầu (giữ nguyên D21).
 Nguồn: developers.google.com/youtube/v3 (revision_history, videos/insert, determine_quota_cost; 2026-11-03), developers.google.com/identity/protocols/oauth2 (2026-10-29), code.claude.com/docs/en/headless và /permissions (2026-11-10).
+
+## D25. Luồng của lượt chạy theo lịch (BA chốt, 2026-11-10, theo đề xuất DEV-13)
+- Claude (`claude -p`) chạy theo PLAYBOOK tới hết khâu 12 rồi in dòng cuối `SLUG: <slug>`. Sau đó `run-daily.sh` tự chạy `gate3` (không tin lời Claude). Cổng đạt thì mới chạy `upload`. Kết quả JSON có chữ `CAN_NGUOI_DUNG` thì dừng.
+- `upload` ghi mục `dang` vào sổ, `note` là URL `https://www.youtube.com/watch?v=<id>`, ghi ngay sau khi insert. Chạy lại mà gặp mục này thì không insert lần nữa. Thumbnail và phụ đề cũng không đặt lại nếu đã xong: sổ phải ghi đủ từng bước để biết bước nào đã xong.
+- Các chặn thêm trong `upload` đều giữ: đặt `public` khi `firstVideoApproved` chưa là true; có `--publish-at` mà privacy không phải `private`; `containsSyntheticMedia` khác false.
+- Tập đầu tải lên ở `unlisted` (Không công khai), giữ như D21. Lý do: Cổng 3, có test khoá của đề mục 11, chỉ nhận `unlisted` khi `firstVideoApproved` chưa là true. Video bị khoá thì `upload` thấy `privacyStatus` trả về là `private` thay vì `unlisted`, nên báo `CAN_NGUOI_DUNG`. Người dùng xem và nhắn ok thì các video sau mới đặt `public`. (Sửa ngày 2026-11-10, trước đó dòng này ghi `private`.)
+- Sổ tập và file của tập: mục 6b yêu cầu `gate3` chặn khi sổ chưa commit. Vì vậy `run-daily.sh` commit trong máy riêng các đường dẫn `episodes/<slug>/` trước khi chạy `gate3`. Sau khi đăng xong thì push lên `main`, chỉ gồm các đường dẫn đó. Đây là nội dung tập, không phải code, nên không cần PR. Push lỗi thì chỉ ghi log, video vẫn tính là đã đăng.
+- Lỗi `HttpError` của Google được bắt riêng: in thông báo rõ ràng, thoát 1, không in traceback.
+- Mẫu plist đặt `PATH` có thư mục chứa `claude`, `uv` và `node`.
+
+## D26. Đề mục 10: tiêu chí đóng trình duyệt, thứ tự kiểm và ghép (BA chốt, 2026-11-11, theo TEST-LEAD và review)
+- Tiêu chí "đóng trong `finally`" chuyển thành tiêu chí về kết quả: sau khi chạy, dù chạy thành công, lỗi, SIGINT hay `close()` hỏng, không còn tiến trình `chrome-headless-shell` mồ côi, và manifest đã được ghi. Hợp đồng có thêm một điểm móc cho test: biến `AIVIDEO_FAIL_CLOSE=throw|hang` làm `close()` ném lỗi hoặc treo, để kiểm được đường diệt dự phòng (diệt theo nhóm tiến trình). Trước đây sổ test ghi "BA chốt: đột biến tương đương", nhưng không có nguồn; câu đó bỏ.
+- Thứ tự bước 6 và 7: ghép (6), rồi `framecheck verify` (7). Nếu bước 7 render lại đoạn nào thì phải ghép lại và chạy lại `assemble verify`. `clean` chỉ chạy sau khi lượt kiểm cuối cùng đạt. Không bao giờ để MP4 cuối giữ đoạn cũ.
+- `assemble verify` chạy thêm `framecheck scan` trên MP4 cuối, để bắt khung chỉ còn nền. Check khung đen giữ nguyên và chỉ bắt khung đen. Ghi vào file giao diện §3.
+- Tiêu chí "`_template` ngắt giữa chừng rồi chạy lại" giữ nguyên: test phải dùng `_template`, không thay bằng timeline tĩnh.
+
+## D27. [12-5] chấp nhận giới hạn fitText (BA chốt, 2026-11-11)
+Lint `flow` tính cỡ chữ theo `flowSizes`, chưa tính phần `fitText` co thêm khi nhãn nút dài. BA chấp nhận giới hạn này. Lý do: lỗi này lộ ra ở bước `qc` khi xem khung hình. Muốn chặn thì phải đo chữ thật, sẽ làm ở đề mục riêng nếu `qc` gặp.

@@ -132,7 +132,7 @@ Xét theo thứ tự (sau kiểm đầu lượt):
 Một câu cố định trong script: làm video theo `episodes/PLAYBOOK.md` từ khâu 1 tới hết khâu 12; đề tài từ `episodes/queue.json`; không làm khâu 13; điểm dừng thì in `CAN_NGUOI_DUNG: <lý do>`; Cổng 3 đạt thì dòng cuối in `SLUG: <slug>`.
 
 ## `scripts/com.aivideo.daily.plist.example`
-Mẫu LaunchAgent, `Label` = `com.aivideo.daily`, `ProgramArguments` gọi `scripts/run-daily.sh` (đường dẫn tuyệt đối để người dùng thay), `StartCalendarInterval` (`Hour`, `Minute`), `EnvironmentVariables.PATH` gồm thư mục chứa `claude` (`~/.local/bin`, viết tuyệt đối), `uv` và `node` (`/opt/homebrew/bin`) (D25), `CLAUDE_CODE_OAUTH_TOKEN` là chữ giữ chỗ. Không có token thật. `StandardOutPath`/`StandardErrorPath` = `/Users/TEN_MAY/Library/Logs/aivideo/launchd.out.log` / `launchd.err.log`. Ghi chú trong file: không dán giá trị token vào log; cần Claude Code từ v2.1.259 trở lên (cờ `--permission-prompts`); tạo sẵn `~/Library/Logs/aivideo`.
+Mẫu LaunchAgent, `Label` = `com.aivideo.daily`, `ProgramArguments` gọi `scripts/run-daily.sh` (đường dẫn tuyệt đối để người dùng thay), `StartCalendarInterval` (`Hour`, `Minute`), `EnvironmentVariables.PATH` gồm thư mục chứa `claude` (`~/.local/bin`, viết tuyệt đối), `uv` và `node` (`/opt/homebrew/bin`) (D25), `CLAUDE_CODE_OAUTH_TOKEN` là chữ giữ chỗ. Không có token thật. `StandardOutPath`/`StandardErrorPath` = `/Users/TEN_MAY/Library/Logs/aivideo/launchd.out.log` / `launchd.err.log`. Ghi chú trong file: không dán giá trị token vào log; cần Claude Code từ v2.1.259 trở lên (cờ permission-prompts); tạo sẵn `~/Library/Logs/aivideo`.
 
 ## `episodes/queue.json`
 Mảng, mặc định `[]`. Mỗi phần tử:

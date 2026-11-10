@@ -6,7 +6,7 @@
   (thư mục nhà; `which claude uv node` cho biết thư mục thật) và TOKEN_CUA_CLAUDE_SETUP_TOKEN, chmod 600 file đó, rồi
   launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.aivideo.daily.plist
   Không commit bản đã điền token. Không dán giá trị token vào log, lệnh hay báo cáo.
-  Cần Claude Code từ v2.1.259 trở lên (run-daily.sh dùng cờ --permission-prompts).
+  Cần Claude Code từ v2.1.259 trở lên (run-daily.sh dùng cờ permission-prompts).
   Thư mục ~/Library/Logs/aivideo/ phải có sẵn trước khi bootstrap (run-daily.sh tự tạo ở lượt đầu,
   nhưng launchd mở file log trước khi script chạy): mkdir -p ~/Library/Logs/aivideo
 -->

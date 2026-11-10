@@ -27,3 +27,7 @@ video/public/audio/
 assets/audio/files/*
 !assets/audio/files/.gitkeep
 audio/uv.lock
+
+# Bí mật đăng YouTube (D24): chỉ nằm ở ~/.config/aivideo/youtube/, không bao giờ vào repo
+client_secret*.json
+token*.json

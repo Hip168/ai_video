@@ -94,8 +94,8 @@ Chạy: `scripts/run-daily.sh` (không tham số), zsh. Mã thoát: `0` đã đ�
 | `AIVIDEO_CLAUDE` | `claude` | lệnh claude (giá trị ghi đè được tách theo khoảng trắng bằng `(z)`; mặc định gán mảng trực tiếp nên đường dẫn repo có khoảng trắng vẫn đúng); nhận thêm `-p <prompt> --permission-mode dontAsk --permission-prompts none --output-format json`, chạy trong gốc repo |
 | `AIVIDEO_GATES` | `<repo>/audio/.venv/bin/python -m aivideo.gates` | lệnh cổng; được gọi `gate3 <slug> --video <repo>/out/episodes/<slug>/<slug>.mp4`, chạy trong `audio/` |
 | `AIVIDEO_UPLOAD` | `<repo>/audio/.venv/bin/python -m aivideo.upload` | lệnh đăng; được gọi `<slug>`, chạy trong `audio/` |
-| `AIVIDEO_GIT` | `git` | lệnh git dùng cho `status --porcelain`, `add`, `commit` (chạy trong gốc repo) |
-| `AIVIDEO_PUSH` | `git push origin main` | lệnh push sau khi đăng (chạy trong gốc repo, không thêm tham số) |
+| `AIVIDEO_GIT` | `git` | lệnh git dùng cho `rev-parse --abbrev-ref HEAD`, `status --porcelain`, `add`, `commit` (chạy trong gốc repo) |
+| `AIVIDEO_PUSH` | `git push origin main` | lệnh push sau khi đăng (chạy trong gốc repo, không thêm tham số). Giữ `main` vì kiểm đầu lượt đã chắc checkout đang ở `main` |
 | `AIVIDEO_NOTIFY` | `osascript` (display notification) | lệnh thông báo; nhận đúng một tham số là câu báo |
 | `AIVIDEO_LOG_DIR` | `~/Library/Logs/aivideo` | thư mục log; khoá nằm trong đây |
 | `AIVIDEO_CAFFEINATED` | rỗng | khác rỗng thì không tự chạy lại dưới `caffeinate -i -s` (script tự đặt khi `exec caffeinate`) |
@@ -104,8 +104,14 @@ Chạy: `scripts/run-daily.sh` (không tham số), zsh. Mã thoát: `0` đã đ�
 - Khoá: `<AIVIDEO_LOG_DIR>/run-daily.lock`, giữ bằng `zsystem flock` (tự nhả khi tiến trình chết). Đang có lượt khác giữ khoá: ghi log `lượt khác đang chạy, thoát`, mã 1, không gọi claude, không thông báo.
 - Script đọc JSON stdout của claude bằng `audio/.venv/bin/python` (cần venv kể cả khi thay các lệnh khác).
 
+### Kiểm đầu lượt (BA chốt theo TEST-LEAD)
+Sau khi giữ khoá, trước khi gọi claude, trong gốc repo:
+1. `AIVIDEO_GIT rev-parse --abbrev-ref HEAD`: lệnh lỗi, hoặc stdout khác `main` thì dừng với lời `CAN_NGUOI_DUNG: checkout đang ở nhánh <nhánh>, không phải main` (lệnh lỗi: `CAN_NGUOI_DUNG: không đọc được nhánh git`).
+2. `AIVIDEO_GIT status --porcelain -- . ':(exclude)episodes' ':(exclude)video/src/episodes'`: lệnh lỗi, hoặc stdout không rỗng (kể cả file chưa theo dõi) thì dừng với lời `CAN_NGUOI_DUNG: cây làm việc có thay đổi chưa commit ngoài episodes/` (log ghi thêm danh sách thay đổi). Thay đổi dưới `episodes/` và `video/src/episodes/` không chặn.
+Dừng ở đây: không gọi claude, ghi log `DỪNG, không đăng: CAN_NGUOI_DUNG: ...`, thông báo có chữ `CAN_NGUOI_DUNG`, mã 1.
+
 ### Dừng, không đăng (ghi log `DỪNG, không đăng: ...`, gọi thông báo, mã 1)
-Xét theo thứ tự:
+Xét theo thứ tự (sau kiểm đầu lượt):
 1. claude thoát mã khác 0 (không gọi gate3, upload).
 2. stdout của claude không phải JSON.
 3. JSON có `is_error: true`.

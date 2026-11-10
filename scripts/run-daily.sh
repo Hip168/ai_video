@@ -40,6 +40,14 @@ if ! zsystem flock -t 0 "$lockfile" 2>/dev/null; then
   exit 1
 fi
 
+# Chỉ chạy trên main, cây sạch ngoài episodes/ và video/src/episodes/ (BA chốt theo TEST-LEAD).
+branch=$(cd "$root" && "${git_cmd[@]}" rev-parse --abbrev-ref HEAD 2>> "$logf") \
+  || stop "CAN_NGUOI_DUNG: không đọc được nhánh git"
+[[ "$branch" == main ]] || stop "CAN_NGUOI_DUNG: checkout đang ở nhánh $branch, không phải main"
+dirty=$(cd "$root" && "${git_cmd[@]}" status --porcelain -- . ':(exclude)episodes' \
+    ':(exclude)video/src/episodes' 2>> "$logf") || stop "CAN_NGUOI_DUNG: không đọc được git status"
+[[ -z "$dirty" ]] || { log "thay đổi chưa commit: ${dirty//$'\n'/; }"; stop "CAN_NGUOI_DUNG: cây làm việc có thay đổi chưa commit ngoài episodes/"; }
+
 prompt="Làm một video theo episodes/PLAYBOOK.md, từ khâu 1 tới hết khâu 12 (Cổng 3). \
 Đề tài: mục đầu tiên trong episodes/queue.json chưa có thư mục episodes/<slug>/, dùng đúng slug ghi ở mục đó; \
 hàng đợi không còn mục nào thì để researcher tự chọn đề tài không trùng episodes/index.json. \

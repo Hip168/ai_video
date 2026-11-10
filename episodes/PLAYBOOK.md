@@ -267,7 +267,7 @@ Gói qc dùng sản phẩm chữ, chưa gồm video thật: khung hình mất v�
 
 ## 8. Điểm dừng (sếp tổng báo người dùng)
 
-- **Video đầu của kênh: Không công khai.** Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nói ok. Khi ok, đặt `firstVideoApproved: true` trong `.team/kenh.json`; từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.json` (D21).
+- **Video đầu của kênh: Không công khai.** Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nói ok. Khi ok, sếp tổng đặt `firstVideoApproved: true` trong `.team/kenh.json`, rồi chạy (từ `audio/`) `.venv/bin/python -m aivideo.upload <slug> --set-privacy public` để chuyển video đầu sang Công khai (lệnh ghi mục `dang-privacy` vào sổ; sếp tổng commit `ledger.json`); từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.json` (D21).
 - **Người dùng tự merge PR.** Mọi thứ đưa vào repo (mã, nội dung tập) đi qua DEPLOY: đẩy nhánh, mở PR, chờ CI xanh, báo link rồi dừng. Không ai chạy `gh pr merge` (`.team/autonomy.md`).
 - **`CẦN NGƯỜI DÙNG`** khi: vòng 4 của một cặp bị từ chối; trả xuyên khâu lần thứ 3; một lỗi còn sống tới lần thứ 2; thiếu LUFS sau 2 lần đọc lại; người kiểm trả `CHUA_DUYET` hai lần liền; `researcher`/người làm bác phát hiện; fact nguồn chỉ có `anecdotal`; chưa có dòng ĐẠT trong `.team/qualification.md` mà định làm tập; `BỊ CHẶN` ở bước kỹ thuật; lệnh `aivideo.upload` lỗi lần hai hoặc thoát mã 3 (đã yêu cầu `unlisted`/`public` mà YouTube trả `private`: video có thể bị khoá, D25).
 - Việc người dùng tự làm: đăng nhập, tạo kênh, xác minh số điện thoại (đề mục 12).

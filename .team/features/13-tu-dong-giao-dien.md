@@ -7,22 +7,25 @@ Chạy từ `audio/`: `PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload ..
 
 ### Lệnh
 - `python -m aivideo.upload <slug> [--privacy private|unlisted|public] [--publish-at ISO] [--episodes-dir ../episodes] [--out-dir DIR] [--kenh PATH]`
+- `python -m aivideo.upload <slug> --set-privacy public|unlisted [--episodes-dir ../episodes] [--kenh PATH]`: đổi quyền riêng tư của video đã đăng (mục "Đổi quyền riêng tư" bên dưới). `--set-privacy` không đi cùng `--privacy` (argparse, mã 2), `--publish-at` hay `--out-dir` (mã 2).
 - `python -m aivideo.upload auth`: mở trình duyệt một lần, ghi `~/.config/aivideo/youtube/token.json` quyền 600 (cần `client_secret.json` cùng thư mục). Không test được không có Google; không có biến thay thư mục.
 - Mặc định: `--out-dir` = `<episodes-dir>/../out/episodes`, `--kenh` = `<episodes-dir>/../.team/kenh.json` (như `gates gate3`).
 - Mã thoát: `0` xong (stdout một JSON); `1` lỗi hoặc bị chặn (`lỗi: ...` ra stderr, không JSON); `2` sai tham số (argparse, gồm `--privacy` ngoài 3 giá trị).
-- Mã `3` `CAN_NGUOI_DUNG` (D25): đã yêu cầu `unlisted` hoặc `public` mà `insert_video` trả `status.privacyStatus` là `private` (video có thể bị khoá). Mục sổ `dang` vẫn ghi trước khi dừng; không gọi `processing_status`, `set_thumbnail`, `insert_caption`. Stdout `{"state":"CAN_NGUOI_DUNG","reason","videoId","url"}`, stderr dòng `CAN_NGUOI_DUNG: ...`. Hàm `upload_episode` ném `NeedUser` (thuộc tính `result` = JSON trên). Chỉ xét lúc insert; chạy lại (nối tiếp) không xét lại. Thiếu `status.privacyStatus` thì không chặn.
+- Mã `3` `CAN_NGUOI_DUNG` (D25): đã yêu cầu `unlisted` hoặc `public` mà `insert_video` trả `status.privacyStatus` là `private` (video có thể bị khoá). Mục sổ `dang` vẫn ghi trước khi dừng; không gọi `processing_status`, `set_thumbnail`, `insert_caption`. Stdout `{"state":"CAN_NGUOI_DUNG","reason","videoId","url"}`, stderr dòng `CAN_NGUOI_DUNG: ...`. Hàm `upload_episode` ném `NeedUser` (thuộc tính `result` = JSON trên). Khi insert: xét `status.privacyStatus` trong kết quả `insert_video`; thiếu trường này thì không chặn. Khi chạy lại (nối tiếp, `resumed`): sau `processing_status` và trước thumbnail/caption, gọi `privacy_status(video_id)`; trả `private` trong khi privacy yêu cầu (`--privacy` hoặc `publish.json`) là `unlisted`/`public` thì cũng mã 3 như trên, không gọi `set_thumbnail`, `insert_caption`.
 - `googleapiclient.errors.HttpError` ném ra từ client (thật hay giả) được `main` bắt riêng (D25): stderr một dòng `lỗi: Google trả HTTP <status>: <reason>`, mã 1, không traceback.
 - Stdout khi xong: `{"videoId","url","privacy","publishAt","resumed"}`. `url` = `https://www.youtube.com/watch?v=<videoId>`. `resumed` = `true` khi videoId lấy từ sổ (không gọi `insert_video`).
 
 ### Thay client Google bằng client giả
 - CLI lấy client bằng hàm module `make_client()`. Test CLI: `monkeypatch.setattr(upload, "make_client", lambda: fake)` rồi gọi `upload.main([...])`.
 - Hàm chính (test gọi trực tiếp): `upload_episode(slug, *, client, episodes_dir="../episodes", out_dir=None, kenh_path=None, privacy=None, publish_at=None) -> dict` (trả đúng JSON stdout). Lỗi: ném `UploadError` (hoặc `GateError` khi slug sai, sổ vỡ).
-- Client giả cần đủ năm phương thức (cùng tên với lớp thật `YouTubeClient`), ghi lại lời gọi để test kiểm thứ tự:
+- Client giả cần đủ bảy phương thức (cùng tên với lớp thật `YouTubeClient`), ghi lại lời gọi để test kiểm thứ tự:
   - `channel_id() -> str` (thật: `channels.list(mine=True)`)
   - `insert_video(path: Path, body: dict) -> dict` trả tài nguyên video YouTube trả về, ít nhất `{"id": <videoId>, "status": {"privacyStatus": ...}}` (thật: `videos.insert`, resumable; sửa 2026-11-10 theo D25, trước đó trả chuỗi videoId)
   - `processing_status(video_id) -> str` (thật: `videos.list(part=processingDetails)`; giá trị `processingStatus`)
   - `set_thumbnail(video_id, path: Path)` (thật: `thumbnails.set`)
   - `insert_caption(video_id, path: Path, language: str, name: str)` (thật: `captions.insert`; `language="vi"`, `name="Tiếng Việt"`)
+  - `privacy_status(video_id) -> str` (thật: `videos.list(part=status)`; giá trị `status.privacyStatus`). Chỉ gọi khi chạy lại.
+  - `set_privacy(video_id, privacy: str)` (thật: `videos.list(part=status)` rồi `videos.update(part=status)`, gửi lại status hiện có, chỉ đổi `privacyStatus`). Chỉ gọi ở `--set-privacy`.
 - Thứ tự gọi khi tải mới: `channel_id`, `insert_video`, `processing_status` (lặp tới khi `succeeded`), `set_thumbnail`, `insert_caption`. Kênh lệch: chỉ có `channel_id`, rồi lỗi mã 1.
 - Đợi xử lý: hằng `POLL_SECONDS = 15` (ngủ giữa hai lần hỏi), `MAX_WAIT_SECONDS = 3600`. Test đặt `monkeypatch.setattr(upload, "POLL_SECONDS", 0)`. `processing_status` trả `failed`, `rejected` hoặc `terminated` thì lỗi mã 1. Quá thời gian thì lỗi mã 1 (chạy lại sẽ nối tiếp).
 
@@ -52,10 +55,17 @@ Mỗi bước xong ghi một mục sổ tập bằng hàm Python của `gates` (
 
 - videoId: từ mục `stage:"dang"` mới nhất có `note` đúng dạng URL (hàm `recorded_video_id(ep)`). Có thì bỏ `insert_video`, `resumed: true`.
 - Một bước tính là đã xong khi sổ có mục cùng `stage` và `note` bằng đúng `<url>` của videoId đó. Bước đã xong không gọi lại.
-- Thứ tự khi chạy lại: `channel_id` (luôn gọi, kênh lệch vẫn chặn); nếu cả thumbnail và caption đã xong thì dừng ở đó, mã 0, không gọi `processing_status`. Ngược lại: `processing_status` (tới `succeeded`), rồi các bước chưa xong theo thứ tự thumbnail, caption.
-- Vd: lỗi ở caption, chạy lại gọi `channel_id`, `processing_status`, `insert_caption`. Chạy lại sau khi đã xong cả ba bước chỉ gọi `channel_id`.
+- Thứ tự khi chạy lại: `channel_id` (luôn gọi, kênh lệch vẫn chặn); nếu cả thumbnail và caption đã xong thì dừng ở đó, mã 0, không gọi `processing_status`. Ngược lại: `processing_status` (tới `succeeded`), rồi `privacy_status` (kiểm video bị khoá), rồi các bước chưa xong theo thứ tự thumbnail, caption.
+- Vd: lỗi ở caption, chạy lại gọi `channel_id`, `processing_status`, `privacy_status`, `insert_caption`. Chạy lại sau khi đã xong cả ba bước chỉ gọi `channel_id`.
 - Khi nối tiếp, `--privacy`/`--publish-at` không áp lại lên video đã tải.
 - Sổ vỡ chuỗi hash thì lỗi mã 1.
+
+### Đổi quyền riêng tư (`--set-privacy`)
+- Hàm: `set_video_privacy(slug, *, client, privacy, episodes_dir="../episodes", kenh_path=None) -> dict`, lỗi ném `UploadError`.
+- Kiểm theo thứ tự (lỗi nào cũng mã 1, `lỗi: ...`): `kenh.json` có `channelId`; `public` khi `firstVideoApproved` khác `true` thì chặn (không gọi client); sổ phải có videoId (mục `dang`, như `recorded_video_id`), không có thì chặn (không gọi client); `channel_id()` khác kênh thì chặn, không gọi `set_privacy`.
+- Thứ tự gọi: `channel_id`, `set_privacy(video_id, privacy)`. Rồi ghi mục sổ `stage:"dang-privacy"` (`STAGE_PRIVACY`), `role:"sep-tong"`, `note` = `<url> privacy=<privacy>`, `artifactHash` null.
+- Stdout `{"videoId","url","privacy"}`, mã 0. `HttpError` như trên (mã 1).
+- Ai, khi nào: sếp tổng chạy `--set-privacy public` sau khi người dùng nhắn ok video đầu, rồi commit `ledger.json` (PLAYBOOK mục 8).
 
 ### Bí mật
 `~/.config/aivideo/youtube/client_secret.json`, `token.json`, quyền 600. `.gitignore` có `client_secret*.json` và `token*.json`.

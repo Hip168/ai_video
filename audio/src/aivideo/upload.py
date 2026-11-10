@@ -24,6 +24,8 @@ PRIVACY = ("private", "unlisted", "public")
 STAGE = "dang"
 STAGE_THUMBNAIL = "dang-thumbnail"
 STAGE_CAPTION = "dang-caption"
+STAGE_PRIVACY = "dang-privacy"
+SET_PRIVACY = ("unlisted", "public")
 CAPTION_LANGUAGE = "vi"
 CAPTION_NAME = "Tiếng Việt"
 POLL_SECONDS = 15
@@ -73,6 +75,24 @@ class YouTubeClient:
         if not items:
             raise UploadError(f"không thấy video {video_id}")
         return items[0].get("processingDetails", {}).get("processingStatus", "")
+
+    def privacy_status(self, video_id: str) -> str:
+        return self._status(video_id).get("privacyStatus", "")
+
+    def set_privacy(self, video_id: str, privacy: str) -> None:
+        # update part=status xoá trường không gửi lại: gửi lại status hiện có, chỉ đổi privacy.
+        status = {k: v for k, v in self._status(video_id).items()
+                  if k not in ("uploadStatus", "failureReason", "rejectionReason", "madeForKids",
+                               "publishAt")}
+        status["privacyStatus"] = privacy
+        self.service.videos().update(part="status",
+                                     body={"id": video_id, "status": status}).execute()
+
+    def _status(self, video_id: str) -> dict:
+        items = self.service.videos().list(part="status", id=video_id).execute().get("items") or []
+        if not items:
+            raise UploadError(f"không thấy video {video_id}")
+        return items[0].get("status", {})
 
     def set_thumbnail(self, video_id: str, path: Path) -> None:
         from googleapiclient.http import MediaFileUpload
@@ -243,6 +263,9 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
         time.sleep(POLL_SECONDS)
         waited += POLL_SECONDS
 
+    if resumed and privacy in ("unlisted", "public") and client.privacy_status(video_id) == "private":
+        raise NeedUser(f"đã yêu cầu {privacy} nhưng video đang private: có thể bị khoá",
+                       {"videoId": video_id, "url": url})
     if not _step_done(ep, STAGE_THUMBNAIL, url):
         client.set_thumbnail(video_id, thumb)
         _record(ep, STAGE_THUMBNAIL, url, thumb)
@@ -253,10 +276,35 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
             "publishAt": publish_at, "resumed": resumed}
 
 
+def set_video_privacy(slug: str, *, client, privacy: str, episodes_dir="../episodes",
+                      kenh_path=None) -> dict:
+    """Đổi quyền riêng tư của video đã đăng (videoId lấy từ sổ), rồi ghi mục `dang-privacy`."""
+    ep = _ep_dir(slug, episodes_dir)
+    kenh = _kenh(Path(kenh_path) if kenh_path else ep.parent.parent / ".team" / "kenh.json")
+    if privacy not in SET_PRIVACY:
+        raise UploadError(f"--set-privacy phải thuộc {SET_PRIVACY}")
+    if privacy == "public" and kenh.get("firstVideoApproved") is not True:
+        raise UploadError("video đầu chưa được duyệt: không đặt public")
+    video_id = recorded_video_id(ep)
+    if video_id is None:
+        raise UploadError(f"sổ của {slug} chưa có videoId (mục dang)")
+    token_channel = client.channel_id()
+    if token_channel != kenh["channelId"].strip():
+        raise UploadError(f"kênh của token {token_channel!r} khác kênh trong kenh.json "
+                          f"{kenh['channelId']!r}: không đổi")
+    client.set_privacy(video_id, privacy)
+    url = video_url(video_id)
+    Ledger(ep).add(stage=STAGE_PRIVACY, role="sep-tong", note=f"{url} privacy={privacy}",
+                   script_hash=_script_hash_of(ep))
+    return {"videoId": video_id, "url": url, "privacy": privacy}
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="aivideo.upload")
     ap.add_argument("slug", help="slug của tập, hoặc `auth` để đăng nhập một lần")
-    ap.add_argument("--privacy", choices=PRIVACY)
+    mode = ap.add_mutually_exclusive_group()
+    mode.add_argument("--privacy", choices=PRIVACY)
+    mode.add_argument("--set-privacy", choices=SET_PRIVACY)
     ap.add_argument("--publish-at")
     ap.add_argument("--episodes-dir", default="../episodes")
     ap.add_argument("--out-dir")
@@ -265,6 +313,13 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if a.slug == "auth":
             print(json.dumps({"token": str(auth())}, ensure_ascii=False, indent=2))
+            return 0
+        if a.set_privacy:
+            if a.publish_at or a.out_dir:
+                ap.error("--set-privacy không đi cùng --publish-at, --out-dir")
+            r = set_video_privacy(a.slug, client=make_client(), privacy=a.set_privacy,
+                                  episodes_dir=a.episodes_dir, kenh_path=a.kenh)
+            print(json.dumps(r, ensure_ascii=False, indent=2))
             return 0
         r = upload_episode(a.slug, client=make_client(), episodes_dir=a.episodes_dir,
                            out_dir=a.out_dir, kenh_path=a.kenh, privacy=a.privacy,

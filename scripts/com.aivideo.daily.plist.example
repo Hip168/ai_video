@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Mẫu LaunchAgent chạy scripts/run-daily.sh mỗi ngày (D24).
+  Cài: chép thành ~/Library/LaunchAgents/com.aivideo.daily.plist, thay các chỗ /DUONG/DAN/REPO và
+  TOKEN_CUA_CLAUDE_SETUP_TOKEN, chmod 600 file đó, rồi
+  launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.aivideo.daily.plist
+  Không commit bản đã điền token.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.aivideo.daily</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/DUONG/DAN/REPO/scripts/run-daily.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>3</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>CLAUDE_CODE_OAUTH_TOKEN</key>
+    <string>TOKEN_CUA_CLAUDE_SETUP_TOKEN</string>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/tmp/com.aivideo.daily.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/com.aivideo.daily.err.log</string>
+</dict>
+</plist>

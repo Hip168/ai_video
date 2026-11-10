@@ -153,8 +153,12 @@ if want check; then
   ( cd "$root/audio" && run "$py" -m aivideo.framecheck verify "$slug" ) || fail "$step" "kiểm mất hình không đạt"
   mp4="$out/$slug.mp4"
   # framecheck verify có thể render lại đoạn main: MP4 cuối không được giữ đoạn cũ, nên ghép và kiểm lại.
-  newer=( "$out"/segments/*.mp4(N.e:'[[ $REPLY -nt $mp4 ]]':) )
-  if [[ ! -s "$mp4" ]] || (( ${#newer} > 0 )); then
+  # Đếm bằng vòng lặp: phép gán glob có qualifier e trả mã 1 khi không đoạn nào khớp, làm set -e thoát.
+  newer=0
+  for seg in "$out"/segments/*.mp4(N.); do
+    if [[ "$seg" -nt "$mp4" ]]; then newer=$((newer + 1)); fi
+  done
+  if [[ ! -s "$mp4" ]] || (( newer > 0 )); then
     print "có đoạn render lại sau lần ghép: ghép và kiểm MP4 lại"
     assemble_all
   fi

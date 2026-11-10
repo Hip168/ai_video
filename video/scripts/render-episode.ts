@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { bundle } from "@remotion/bundler";
+import { Worker } from "node:worker_threads";
 import { openBrowser, renderMedia, selectComposition } from "@remotion/renderer";
 import { validateTimeline2 } from "../src/timeline2";
 import {
@@ -27,6 +27,18 @@ import {
 const VIDEO_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DEFAULT_ROOT = path.resolve(VIDEO_DIR, "..");
 const CLOSE_TIMEOUT_MS = 10_000; // close() quá hạn này thì coi như treo, diệt dự phòng
+
+// bundle() ở worker thread để luồng chính luôn rảnh nhận tín hiệu (xem bundle-worker.ts).
+function bundleInWorker(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const w = new Worker(new URL("./bundle-worker.ts", import.meta.url), {
+      workerData: { entryPoint: path.join(VIDEO_DIR, "src", "index.ts"), publicDir: path.join(VIDEO_DIR, "public") },
+    });
+    w.once("message", resolve);
+    w.once("error", reject);
+    w.once("exit", (code) => reject(new Error(`bundle worker thoát mã ${code}`)));
+  });
+}
 
 class Usage extends Error {}
 class Fail extends Error {
@@ -219,7 +231,7 @@ async function main(): Promise<number> {
       pids.add(pid);
     }
     log(`bundle...`);
-    const serveUrl = await bundle({ entryPoint: path.join(VIDEO_DIR, "src", "index.ts"), publicDir: path.join(VIDEO_DIR, "public") });
+    const serveUrl = await bundleInWorker();
     const inputProps = { timeline, muted: true };
     const composition = await selectComposition({ serveUrl, id: "Episode", inputProps, puppeteerInstance: browsers[0], browserExecutable: browserExe });
 

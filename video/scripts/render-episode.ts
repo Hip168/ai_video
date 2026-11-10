@@ -1,9 +1,10 @@
 // Render tập dài theo đoạn (D18, D23). Cách dùng và mã thoát: .team/features/10-render-dai-giao-dien.md
+import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { bundle } from "@remotion/bundler";
-import { makeCancelSignal, openBrowser, renderMedia, selectComposition } from "@remotion/renderer";
+import { openBrowser, renderMedia, selectComposition } from "@remotion/renderer";
 import { validateTimeline2 } from "../src/timeline2";
 import {
   CRF,
@@ -171,23 +172,37 @@ async function main(): Promise<number> {
   const browsers: Awaited<ReturnType<typeof openBrowser>>[] = [];
   const pids = new Set<number>();
   const browserPids: number[] = [];
+  const parts = new Set<string>();
+  // Remotion 4.0.539 spawn Chrome với `detached: true` (BrowserRunner.js:82-87) nên Chrome là
+  // trưởng nhóm tiến trình; diệt cả nhóm bằng pid âm như killProcess của Remotion (BrowserRunner.js:118-121).
   const killAll = () => {
     for (const pid of pids) {
       try {
-        process.kill(pid, "SIGKILL");
+        process.kill(-pid, "SIGKILL");
       } catch {
         /* đã thoát */
       }
     }
   };
   process.on("exit", killAll);
-  const { cancel, cancelSignal } = makeCancelSignal();
+  // Object Browser không lộ pid (runner không có proc), nên tìm con trực tiếp có --user-data-dir=
+  // (open-browser.js:186 luôn thêm cờ này cho Chrome).
+  const childBrowserPids = (): number[] =>
+    spawnSync("pgrep", ["-P", String(process.pid), "-f", "user-data-dir="], { encoding: "utf8" })
+      .stdout.split("\n")
+      .map(Number)
+      .filter((n) => n > 0);
   let interrupted = false;
+  // Listener SIGINT của Remotion (BrowserRunner.js:191-194) gọi process.exit(130) ngay sau listener này
+  // (đăng ký trước openBrowser nên chạy trước), nên mọi việc dọn phải làm đồng bộ ở đây.
   const onSignal = () => {
     if (interrupted) return;
     interrupted = true;
     console.error("nhận tín hiệu ngắt, đang dừng và đóng trình duyệt...");
-    cancel();
+    killAll();
+    for (const part of parts) rmSync(part, { force: true });
+    writeManifest(manifestFile, manifest);
+    process.exit(130);
   };
   process.on("SIGINT", onSignal);
   process.on("SIGTERM", onSignal);
@@ -197,9 +212,10 @@ async function main(): Promise<number> {
     for (let i = 0; i < nWorkers; i++) {
       const b = await openBrowser("chrome", { browserExecutable: browserExe, chromiumOptions: { headless: true } });
       browsers.push(b);
-      const pid = (b as any).runner?.proc?.pid;
+      const pid = childBrowserPids().find((p) => !pids.has(p));
+      if (pid === undefined) throw new Fail("không tìm được pid trình duyệt vừa mở");
       browserPids.push(pid);
-      if (typeof pid === "number") pids.add(pid);
+      pids.add(pid);
     }
     log(`bundle...`);
     const serveUrl = await bundle({ entryPoint: path.join(VIDEO_DIR, "src", "index.ts"), publicDir: path.join(VIDEO_DIR, "public") });
@@ -209,12 +225,13 @@ async function main(): Promise<number> {
     const queue = [...todo];
     let failure: Error | null = null;
     const worker = async (idx: number) => {
-      while (!failure && !interrupted) {
+      while (!failure) {
         const seg = queue.shift();
         if (!seg) return;
         const abs = path.join(outDir, seg.file);
         const part = abs.replace(/\.mp4$/, ".part.mp4");
         rmSync(part, { force: true });
+        parts.add(part);
         const t0 = Date.now();
         seg.attempts += 1;
         try {
@@ -235,7 +252,6 @@ async function main(): Promise<number> {
             overwrite: true,
             puppeteerInstance: browsers[idx],
             browserExecutable: browserExe,
-            cancelSignal,
             logLevel: "warn",
           });
           const n = probeFrames(part);
@@ -247,14 +263,14 @@ async function main(): Promise<number> {
         } catch (e) {
           seg.status = "failed";
           rmSync(part, { force: true });
-          if (!interrupted) failure ??= e as Error;
+          failure ??= e as Error;
         } finally {
+          parts.delete(part);
           writeManifest(manifestFile, manifest);
         }
       }
     };
     await Promise.all(browsers.map((_, i) => worker(i)));
-    if (interrupted) return 130;
     if (failure) throw new Fail(`render lỗi: ${(failure as Error).message}`);
     return 0;
   } finally {

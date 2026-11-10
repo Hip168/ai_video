@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 from pathlib import Path
 
@@ -121,6 +122,12 @@ def test_3_framecheck_verify_bat_doan_hong_render_lai_va_doi_chieu_lech_ranh_gio
     r = run_module("framecheck", ["verify", *tree.args()], env=env(), timeout=1500)
     assert r.returncode == 0, both(r)
     assert "ĐẠT" in both(r)
+    # Đầu ra phải nêu đúng khung bị phá và việc render lại đoạn chứa nó.
+    assert frames_in(r.stdout, "đột biến (main):") == [BLIP], r.stdout
+    lines = r.stdout.splitlines()
+    assert any(re.search(r"render lại.*seg-000", ln) for ln in lines), r.stdout
+    assert not any(re.search(r"render lại.*seg-001", ln)
+                   for ln in lines if "main" in ln), r.stdout
     f = tree.out / "segments" / "seg-000.mp4"
     assert f.read_bytes() != S["bad_seg0"]
     assert video_frames(f) == 1350

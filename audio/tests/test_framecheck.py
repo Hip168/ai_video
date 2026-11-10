@@ -8,7 +8,9 @@ xám 1920x1080 30 fps: nền, 20 khối "phần tử" trong y < 830 (mỗi khố
 from __future__ import annotations
 
 import json
+import os
 import shutil
+import stat
 
 import pytest
 
@@ -18,6 +20,7 @@ from rd_support import (
     dip_video,
     draw_frame,
     frames_in,
+    Root,
     make_timeline,
     run_module,
     video_frames,
@@ -169,6 +172,56 @@ def test_scan_bo_qua_khung_sat_dau_canh_khi_co_timeline(tmp_path):
     assert frames_in(both(r), SPIKE) == [70]
 
 
+def _timeline_tuyet_doi(d, starts, total):
+    """Timeline không beat, cảnh bắt đầu ở các khung tuyệt đối `starts`."""
+    t = make_timeline(total)
+    base = {**t["scenes"][0], "beats": []}
+    t["scenes"] = [
+        {**base, "id": f"sc{i}", "startFrame": st,
+         "durationFrames": (starts[i + 1] if i + 1 < len(starts) else total) - st}
+        for i, st in enumerate(starts)]
+    p = d / "tl-abs.json"
+    p.write_text(json.dumps(t), "utf-8")
+    return p
+
+
+def test_scan_start_voi_timeline_bo_qua_theo_khung_tuyet_doi_bao_so_tuyet_doi(
+        tmp_path):
+    """`--start 1310` + `--timeline`: đoạn 100 khung là khung tuyệt đối 1310..1409.
+
+    Cảnh mới bắt đầu ở 1340 (cục bộ 30). Nháy ở cục bộ 31 (tuyệt đối 1341)
+    nằm sát đầu cảnh: bị bỏ qua. Nháy ở cục bộ 70 (tuyệt đối 1380) xa đầu và
+    cuối cảnh: báo đúng 1380, không phải 70. Không có timeline thì cả hai đều
+    là lỗi, kèm số tuyệt đối.
+    """
+    near = dip_video(tmp_path / "gan.mp4", 100, {31: dict(missing=(1, 2, 3))})
+    far = dip_video(tmp_path / "xa.mp4", 100, {70: dict(missing=(1, 2, 3))})
+    tl = _timeline_tuyet_doi(tmp_path, [0, 1340], 1410)
+    r = scan(near, "--start", 1310, "--timeline", tl)
+    assert r.returncode == 0, both(r)
+    assert SPIKE not in both(r)
+    r = scan(near, "--start", 1310)
+    assert r.returncode == 1, both(r)
+    assert frames_in(both(r), SPIKE) == [1341]
+    r = scan(far, "--start", 1310, "--timeline", tl)
+    assert r.returncode == 1, both(r)
+    assert frames_in(both(r), SPIKE) == [1380]
+
+
+def test_scan_start_khung_cuc_bo_trung_vung_bo_qua_tuyet_doi_van_bi_bat(tmp_path):
+    """Cục bộ 31 chỉ trùng vùng bỏ qua nếu hiểu nhầm là tuyệt đối (cảnh ở 30).
+
+    Timeline: cảnh bắt đầu ở tuyệt đối 30 (vùng bỏ qua 28..41). Đoạn bắt
+    đầu ở 1310: nháy ở cục bộ 31 là tuyệt đối 1341, KHÔNG nằm trong vùng bỏ
+    qua nào, nên phải báo 1341.
+    """
+    v = dip_video(tmp_path / "v.mp4", 100, {31: dict(missing=(1, 2, 3))})
+    tl = _timeline_tuyet_doi(tmp_path, [0, 30], 1410)
+    r = scan(v, "--start", 1310, "--timeline", tl)
+    assert r.returncode == 1, both(r)
+    assert frames_in(both(r), SPIKE) == [1341]
+
+
 # ----------------------------------------------------------------- compare
 def test_compare_hai_video_giong_nhau_ma_0_khong_bao_lech(vids):
     r = compare(vids["sach"], vids["sach"])
@@ -256,3 +309,43 @@ def test_compare_file_khong_co_la_loi_du_lieu_ma_1(tmp_path, vids):
 def test_framecheck_thieu_tham_so_ma_2():
     assert run_module("framecheck", ["scan"]).returncode == 2
     assert run_module("framecheck", ["compare", "a.mp4"]).returncode == 2
+
+
+# ----------------------------------------------------------------- verify
+def _fake_npx(bin_dir, calls):
+    """`npx` giả: ghi tham số vào `calls`, không render gì, thoát 0."""
+    bin_dir.mkdir()
+    f = bin_dir / "npx"
+    f.write_text(f"#!/bin/sh\necho \"$@\" >> '{calls}'\nexit 0\n")
+    f.chmod(f.stat().st_mode | stat.S_IEXEC)
+
+
+def test_verify_doan_hong_mai_sau_3_lan_render_lai_in_loi_khung_va_ma_1(tmp_path):
+    """Render lại không sửa được: đúng 3 lần `--redo seg-000`, rồi `LỖI: khung 20`, mã 1."""
+    r = Root(tmp_path / "root")
+    clip = dip_video(r.out / "segments" / "seg-000.mp4", N,
+                     {20: dict(missing=(1, 2, 3))})
+    assert video_frames(clip) == N
+    r.frames = N
+    r.segs = [{"id": "seg-000", "startFrame": 0, "endFrame": N - 1,
+               "frames": N, "file": "segments/seg-000.mp4", "hash": "h",
+               "status": "done", "attempts": 1, "bytes": 1}]
+    r.write_meta(mix=False)
+    calls = tmp_path / "calls.txt"
+    calls.write_text("")
+    _fake_npx(tmp_path / "bin", calls)
+    env = {"PATH": f"{tmp_path / 'bin'}{os.pathsep}{os.environ['PATH']}"}
+    p = run_module("framecheck", ["verify", *r.args()], env=env)
+    assert p.returncode == 1, both(p)
+    assert "ĐẠT" not in both(p)
+    assert any(ln.startswith("LỖI: khung 20") for ln in p.stderr.splitlines()), (
+        p.stderr)
+    runs = calls.read_text().splitlines()
+    assert len(runs) == 3, runs
+    for ln in runs:
+        assert "scripts/render-episode.ts" in ln
+        assert "--redo seg-000" in ln
+        assert "--layout main" in ln
+    # 1 lần quét đầu + 1 lần sau mỗi lần render lại
+    assert frames_in(p.stdout, "đột biến (main):") == [20] * 4
+    assert p.stdout.count("render lại") == 3

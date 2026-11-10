@@ -17,6 +17,7 @@ from rd_support import (
     Root,
     atom_order,
     both,
+    dip_video,
     lufs_tp,
     make_clip,
     make_final,
@@ -259,7 +260,16 @@ BAD = {
     "am_thanh_dai_hon_hinh_3_frame": dict(wav=_wav(secs=5.1)),
     "am_thanh_ngan_hon_hinh_3_frame": dict(wav=_wav(secs=4.9)),
     "doan_den_0_67_giay": dict(black=(60, 80)),
+    "khung_chi_con_nen_mot_khung": dict(video=lambda r: _nen_mot_khung(r)),
 }
+
+DIP = 75  # khung chỉ còn nền (mọi khối biến mất), 1 khung
+
+
+def _nen_mot_khung(root, *, dip=True):
+    """Video 150 khung sạch; khung 75 mất mọi khối (chỉ còn nền, KHÔNG đen)."""
+    dips = {DIP: dict(missing=tuple(range(20)))} if dip else {}
+    return dip_video(root.base / "v-nen.mp4", N, dips)
 
 
 def _defect_real(name, f) -> bool:
@@ -292,6 +302,18 @@ def _defect_real(name, f) -> bool:
         return gap >= 0.09
     if name.startswith("doan_den"):
         return True  # đen do drawbox phủ kín khung, dựng ở make_clip
+    if name.startswith("khung_chi_con_nen"):
+        # Đo độc lập: vùng y < 830 của khung 75 là một màu duy nhất, khác đen;
+        # khung 74 thì không.
+        def region(n):
+            return subprocess.run(
+                ["ffmpeg", "-nostdin", "-loglevel", "error", "-i", str(f),
+                 "-vf", f"select='eq(n,{n})',crop=1920:830:0:0,format=gray",
+                 "-frames:v", "1", "-f", "rawvideo", "-"],
+                capture_output=True).stdout
+        flat, prev = region(DIP), region(DIP - 1)
+        return (len(flat) == 1920 * 830 and len(set(flat)) == 1
+                and flat[0] > 8 and len(set(prev)) > 1)
     raise AssertionError(name)
 
 
@@ -301,12 +323,45 @@ def test_verify_bat_dung_mot_loi_moi_lan_va_ma_thoat_1(tmp_path, name):
     r = Root(tmp_path)
     if "wav" in kw:
         kw["wav"] = kw["wav"](r)
+    if "video" in kw:
+        kw["video"] = kw["video"](r)
     build_final(r, **kw)
     assert _defect_real(name, r.out / "tap-thu.mp4")
     p = asm("verify", r)
     assert p.returncode == 1, both(p)
     d = out_json(p)
     assert d["ok"] is False
+
+
+def test_verify_khung_chi_con_nen_bi_bat_boi_dips_khong_phai_boi_black(tmp_path):
+    """Cùng video, có/không khung 75 mất hết khối: chỉ `dips` đổi, báo đúng khung."""
+    ok = Root(tmp_path / "ok")
+    build_final(ok, video=_nen_mot_khung(ok, dip=False))
+    p = asm("verify", ok)
+    assert p.returncode == 0, both(p)
+    assert out_json(p)["checks"]["dips"] == {"value": [], "ok": True}
+
+    r = Root(tmp_path / "bad")
+    build_final(r, video=_nen_mot_khung(r))
+    p = asm("verify", r)
+    assert p.returncode == 1, both(p)
+    d = out_json(p)
+    assert d["ok"] is False
+    assert d["checks"]["dips"] == {"value": [DIP], "ok": False}
+    assert d["checks"]["black"]["ok"] is True  # khung nền không phải khung đen
+    bad = [k for k, v in d["checks"].items() if not v["ok"]]
+    assert bad == ["dips"], bad
+    assert str(DIP) in p.stderr
+
+
+def test_verify_nhay_sat_dau_canh_theo_timeline_khong_bi_dips_bao(tmp_path):
+    """`dips` dùng `timeline.json`: nháy ở khung 3 (sát đầu cảnh 0) bị bỏ qua."""
+    r = Root(tmp_path)
+    v = dip_video(tmp_path / "v-gan.mp4", N, {3: dict(missing=tuple(range(20)))})
+    build_final(r, video=v)
+    p = asm("verify", r)
+    assert p.returncode == 0, both(p)
+    assert out_json(p)["checks"]["dips"]["ok"] is True
 
 
 GOOD_EDGE = {

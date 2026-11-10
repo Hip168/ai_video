@@ -7,13 +7,16 @@ import {
   statSync,
 } from 'node:fs';
 import path from 'node:path';
-import {afterAll, describe, expect, test} from 'vitest';
+import {afterAll, beforeAll, describe, expect, test} from 'vitest';
 import {
   BROWSER,
+  chromeProcs,
   cleanup,
+  golden,
   makeRoot,
   orphans,
   outDir,
+  plan,
   runRender,
   sleep,
   staticTimeline,
@@ -75,6 +78,39 @@ async function newOrphans(before: Set<number>, ms = 10_000): Promise<Proc[]> {
     await sleep(500);
   }
 }
+
+/**
+ * Ghi lại mọi pid chrome-headless-shell xuất hiện (ngoài `before`) trong lúc
+ * chạy, để sau đó kiểm CHÍNH các pid đó đã chết, không chỉ "ppid = 1".
+ */
+function trackPids(before: Set<number>) {
+  const seen = new Set<number>();
+  const tick = setInterval(() => {
+    for (const p of chromeProcs()) if (!before.has(p.pid)) seen.add(p.pid);
+  }, 250);
+  const alive = (pid: number) => {
+    try {
+      process.kill(pid, 0);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  return {
+    seen: () => [...seen],
+    stop: () => clearInterval(tick),
+    /** Đợi tối đa `ms` cho các pid đã thấy chết hết; trả về pid còn sống. */
+    async survivors(ms = 3000) {
+      const t0 = Date.now();
+      for (;;) {
+        const live = [...seen].filter(alive);
+        if (live.length === 0 || Date.now() - t0 > ms) return live;
+        await sleep(250);
+      }
+    },
+  };
+}
+const allPids = () => new Set(chromeProcs().map((p) => p.pid));
 
 d('[10-1] tập 2 đoạn: ngắt giữa chừng rồi chạy lại chỉ render đoạn thiếu', () => {
   const root = makeRoot(staticTimeline([2701]));
@@ -253,23 +289,167 @@ d('[10-1] không để tiến trình chrome-headless-shell mồ côi', () => {
     expect(await newOrphans(before)).toEqual([]);
   }, 300_000);
 
+  test.each(['throw', 'hang'] as const)(
+    'close() của trình duyệt %s (AIVIDEO_FAIL_CLOSE): đoạn vẫn xong, manifest đã ghi, mọi trình duyệt đã mở đều chết, thoát mã 0 trong hạn',
+    async (mode) => {
+      const root = makeRoot(staticTimeline([90]));
+      const trk = trackPids(allPids());
+      try {
+        const run = startRender(['tap-thu', '--root', root, '--procs', '2'], {
+          ...ENV,
+          AIVIDEO_FAIL_CLOSE: mode,
+        });
+        await run.waitFor(/đoạn seg-000 xong/, 240_000);
+        const tXong = Date.now();
+        const res = await Promise.race([run.exit, sleep(60_000).then(() => 'treo' as const)]);
+        if (res === 'treo') run.signal('SIGKILL');
+        expect(res, `close() ${mode} không được làm tiến trình treo\n${run.err()}`).not.toBe(
+          'treo',
+        );
+        // hạn close() là 10 giây; cộng chỗ cho diệt dự phòng và ghi manifest
+        expect(Date.now() - tXong).toBeLessThan(40_000);
+        expect((res as any).code, `${run.out()}\n${run.err()}`).toBe(0);
+        expect(trk.seen().length, 'phải thấy trình duyệt đã mở').toBeGreaterThan(0);
+        expect(await trk.survivors()).toEqual([]);
+        const m = main(root);
+        expect(m.map((s) => s.status)).toEqual(['done']);
+        expect(frames(segFile(root, 'seg-000'))).toBe(90);
+        expect(m[0].bytes).toBe(statSync(segFile(root, 'seg-000')).size);
+        expect(partFiles(root)).toEqual([]);
+      } finally {
+        trk.stop();
+      }
+    },
+    360_000,
+  );
+
+  test('close() treo (hang) cộng đoạn lỗi (AIVIDEO_FAIL_SEGMENT): mã 1, đoạn failed trong manifest, không trình duyệt nào còn sống', async () => {
+    const root = makeRoot(staticTimeline([90]));
+    const trk = trackPids(allPids());
+    try {
+      const run = startRender(['tap-thu', '--root', root, '--procs', '2'], {
+        ...ENV,
+        AIVIDEO_FAIL_SEGMENT: 'seg-000',
+        AIVIDEO_FAIL_CLOSE: 'hang',
+      });
+      const res = await Promise.race([run.exit, sleep(240_000).then(() => 'treo' as const)]);
+      if (res === 'treo') run.signal('SIGKILL');
+      expect(res, `phải thoát\n${run.out()}\n${run.err()}`).not.toBe('treo');
+      expect((res as any).code, `${run.out()}\n${run.err()}`).toBe(1);
+      expect(main(root)[0].status).toBe('failed');
+      expect(existsSync(segFile(root, 'seg-000'))).toBe(false);
+      expect(partFiles(root)).toEqual([]);
+      expect(trk.seen().length).toBeGreaterThan(0);
+      expect(await trk.survivors()).toEqual([]);
+    } finally {
+      trk.stop();
+    }
+  }, 300_000);
+
   test.each(['SIGINT', 'SIGTERM'] as const)(
-    '%s ngay sau khi mở trình duyệt: thoát khác 0, không còn tiến trình mồ côi',
+    '%s ngay sau khi mở trình duyệt: thoát khác 0, manifest đã ghi lại sau tín hiệu, mọi trình duyệt đã mở đều chết, không .part',
     async (sig) => {
       const root = makeRoot(staticTimeline([2701]));
-      const before = pidsOf(orphans());
-      const run = startRender(['tap-thu', '--root', root, '--procs', '2'], ENV);
-      await run.waitFor(/bundle/, 240_000);
-      await sleep(1500);
-      run.signal(sig);
-      const res = await Promise.race([run.exit, sleep(90_000).then(() => 'treo' as const)]);
-      if (res === 'treo') run.signal('SIGKILL');
-      expect(res, 'phải thoát sau tín hiệu').not.toBe('treo');
-      expect((res as any).code, `${run.out()}\n${run.err()}`).not.toBe(0);
-      if (sig === 'SIGINT') expect((res as any).code).toBe(130);
-      expect(partFiles(root)).toEqual([]);
-      expect(await newOrphans(before)).toEqual([]);
+      const trk = trackPids(allPids());
+      try {
+        const run = startRender(['tap-thu', '--root', root, '--procs', '2'], ENV);
+        await run.waitFor(/bundle/, 240_000);
+        await sleep(1500);
+        expect(trk.seen().length, 'phải thấy trình duyệt đã mở').toBeGreaterThan(0);
+        const tSignal = Date.now();
+        run.signal(sig);
+        const res = await Promise.race([run.exit, sleep(90_000).then(() => 'treo' as const)]);
+        if (res === 'treo') run.signal('SIGKILL');
+        expect(res, 'phải thoát sau tín hiệu').not.toBe('treo');
+        expect((res as any).code, `${run.out()}\n${run.err()}`).not.toBe(0);
+        if (sig === 'SIGINT') expect((res as any).code).toBe(130);
+        expect(partFiles(root)).toEqual([]);
+        expect(await trk.survivors()).toEqual([]);
+        // manifest được ghi trong handler tín hiệu (không phải lúc khởi động)
+        const mf = path.join(outDir(root), 'manifest.json');
+        expect(statSync(mf).mtimeMs).toBeGreaterThanOrEqual(tSignal - 1000);
+        const m = main(root);
+        expect(m.map((s) => s.id)).toEqual(['seg-000', 'seg-001']);
+        expect(m.filter((s) => s.status === 'done')).toEqual([]);
+        for (const s of m) expect(existsSync(segFile(root, s.id))).toBe(false);
+      } finally {
+        trk.stop();
+      }
     },
     300_000,
   );
+});
+
+// Tiêu chí 10: `_template` với TTS fake (timeline ghim do `episode build
+// _template --engine fake` sinh, xem test_render_dai_hop_dong.py), cảnh `custom:*`
+// thật, KHÔNG thay bằng timeline tĩnh (D26). 17661 frame, 12 đoạn; --procs 1
+// cho lượt bị ngắt nên đoạn 0 xong trước, đoạn kế chưa xong khi SIGINT tới.
+d('[10-1] _template (TTS fake): ngắt giữa chừng rồi chạy lại chỉ render đoạn thiếu', () => {
+  let tl: any;
+  let root = '';
+  let steps: ReturnType<typeof plan> = [];
+  let ids: string[] = [];
+  beforeAll(() => {
+    tl = golden();
+    root = makeRoot(tl);
+    steps = plan(root, 'main');
+    ids = steps.map((p) => p.id);
+  });
+  const doneIds = () =>
+    main(root)
+      .filter((s) => s.status === 'done')
+      .map((s) => s.id);
+  let mtimes = new Map<string, number>();
+
+  test('kế hoạch của _template: 12 đoạn phủ kín 17661 frame', () => {
+    expect(ids.length).toBe(12);
+    expect(steps.reduce((a, p) => a + p.frames, 0)).toBe(tl.durationInFrames);
+    expect(tl.durationInFrames).toBe(17661);
+  });
+
+  test('SIGINT sau khi đoạn 0 xong: thoát 130, manifest đã ghi, đoạn xong còn nguyên, đoạn dở không "done", không .part, không mồ côi', async () => {
+    const before = pidsOf(orphans());
+    const run = startRender(['tap-thu', '--root', root, '--procs', '1'], ENV);
+    await run.waitFor(/đoạn seg-000 xong/, 600_000);
+    run.signal('SIGINT');
+    const res = await Promise.race([run.exit, sleep(90_000).then(() => 'treo' as const)]);
+    if (res === 'treo') run.signal('SIGKILL');
+    expect(res, 'phải thoát sau SIGINT').not.toBe('treo');
+    expect((res as any).code, `${run.out()}\n${run.err()}`).toBe(130);
+
+    const m = main(root);
+    expect(m.map((s) => s.id)).toEqual(ids);
+    expect(doneIds()).toContain('seg-000');
+    expect(doneIds().length).toBeLessThan(ids.length);
+    for (const s of m) {
+      if (s.status === 'done') {
+        expect(frames(segFile(root, s.id))).toBe(s.frames);
+        mtimes.set(s.id, statSync(segFile(root, s.id)).mtimeMs);
+      } else {
+        expect(existsSync(segFile(root, s.id)), `${s.id} không được có file cụt`).toBe(false);
+      }
+    }
+    expect(partFiles(root)).toEqual([]);
+    expect(await newOrphans(before)).toEqual([]);
+  }, 720_000);
+
+  test('chạy lại: bỏ qua đúng các đoạn đã xong, chỉ render các đoạn còn thiếu, đoạn cũ không bị chạm', async () => {
+    const had = new Set(doneIds());
+    expect(had.size).toBeGreaterThan(0);
+    const missing = ids.filter((i) => !had.has(i));
+    const before = pidsOf(orphans());
+    const r = runRender(['tap-thu', '--root', root, '--procs', '3'], ENV, 1_500_000);
+    expect(r.status, `${r.stdout}\n${r.stderr}`).toBe(0);
+    const skipped = [...r.stdout.matchAll(/bỏ qua (seg-\d+)/g)].map((x) => x[1]).sort();
+    const rendered = [...r.stdout.matchAll(/đoạn (seg-\d+) xong/g)].map((x) => x[1]).sort();
+    expect(skipped).toEqual([...had].sort());
+    expect(rendered).toEqual([...missing].sort());
+    for (const [id, t] of mtimes) expect(statSync(segFile(root, id)).mtimeMs).toBe(t);
+    const m = main(root);
+    expect(m.map((s) => s.status)).toEqual(ids.map(() => 'done'));
+    expect(m.reduce((a, s) => a + s.frames, 0)).toBe(17661);
+    for (const s of m) expect(frames(segFile(root, s.id))).toBe(s.frames);
+    expect(partFiles(root)).toEqual([]);
+    expect(await newOrphans(before)).toEqual([]);
+  }, 1_600_000);
 });

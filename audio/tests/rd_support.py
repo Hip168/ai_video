@@ -144,7 +144,10 @@ def make_wav(path, seconds: float, *, lufs=-16.0, spike=False) -> Path:
 
 def _make_clip(path, frames: int, *, size=f"{W}x{H}", fps=FPS,
               pix_fmt="yuv420p", vcodec="libx264", black=None) -> Path:
-    """Clip testsrc2 có `frames` khung. `black=(a, b)`: khung a..b-1 đen hẳn."""
+    """Clip testsrc có `frames` khung (không dùng testsrc2: scan báo giả).
+
+    `black=(a, b)`: khung a..b-1 đen hẳn.
+    """
     vf = f"format={pix_fmt}"
     if black:
         vf = (f"drawbox=x=0:y=0:w=iw:h=ih:color=black:t=fill:"
@@ -153,7 +156,7 @@ def _make_clip(path, frames: int, *, size=f"{W}x{H}", fps=FPS,
         enc = ["-preset", "ultrafast", "-crf", 28, "-bf", "0"]
     else:
         enc = ["-q:v", 5]
-    ff("-f", "lavfi", "-i", f"testsrc2=size={size}:rate={fps}",
+    ff("-f", "lavfi", "-i", f"testsrc=size={size}:rate={fps}",
        "-frames:v", frames, "-vf", vf, "-c:v", vcodec, *enc,
        "-pix_fmt", pix_fmt, path)
     return Path(path)
@@ -238,6 +241,37 @@ class Root:
 
     def args(self, *extra) -> list:
         return [self.slug, "--root", self.base, *extra]
+
+
+def repo_copy(base: Path, *, video: bool = False) -> Path:
+    """Bản chép của cây mã vào `base` để chạy `make-episode.sh` mà không ghi vào repo thật.
+
+    `ROOT` của mã Python và `DEFAULT_ROOT` của render-episode.ts suy ra từ vị trí
+    file (đã resolve symlink), nên thư mục `audio/` luôn là bản chép thật.
+    `.venv` và `node_modules` là symlink (nặng). `video=False`: `video/` là
+    symlink tới bản thật, đủ cho các ca dừng trước bước render.
+    Có sẵn `episodes/` và `out/episodes/` rỗng.
+    """
+    (base / "audio").mkdir(parents=True)
+    shutil.copytree(ROOT / "audio" / "src", base / "audio" / "src")
+    (base / "audio" / ".venv").symlink_to(ROOT / "audio" / ".venv")
+    shutil.copy2(ROOT / "make-episode.sh", base / "make-episode.sh")
+    if video:
+        (base / "video").mkdir()
+        for name in ("package.json", "package-lock.json", "remotion.config.ts",
+                     "tsconfig.json", "scripts", "src", "public"):
+            src = ROOT / "video" / name
+            if src.is_dir():
+                shutil.copytree(src, base / "video" / name)
+            else:
+                shutil.copy2(src, base / "video" / name)
+        (base / "video" / "node_modules").symlink_to(
+            ROOT / "video" / "node_modules")
+    else:
+        (base / "video").symlink_to(ROOT / "video")
+    (base / "episodes").mkdir()
+    (base / "out" / "episodes").mkdir(parents=True)
+    return base
 
 
 def tree_bytes(d: Path) -> int:

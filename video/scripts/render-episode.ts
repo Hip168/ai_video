@@ -26,6 +26,7 @@ import {
 
 const VIDEO_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DEFAULT_ROOT = path.resolve(VIDEO_DIR, "..");
+const CLOSE_TIMEOUT_MS = 10_000; // close() quá hạn này thì coi như treo, diệt dự phòng
 
 class Usage extends Error {}
 class Fail extends Error {
@@ -276,10 +277,22 @@ async function main(): Promise<number> {
   } finally {
     for (const [i, b] of browsers.entries()) {
       try {
-        await b.close({ silent: true });
+        // Điểm móc cho test: close() ném lỗi hoặc treo, để kiểm đường diệt dự phòng.
+        const fail = process.env.AIVIDEO_FAIL_CLOSE;
+        const close =
+          fail === "throw"
+            ? Promise.reject(new Error("close lỗi giả lập (AIVIDEO_FAIL_CLOSE)"))
+            : fail === "hang"
+              ? new Promise<void>(() => {})
+              : b.close({ silent: true });
+        let timer: NodeJS.Timeout | undefined;
+        const timeout = new Promise<never>((_, reject) => {
+          timer = setTimeout(() => reject(new Error("close quá hạn")), CLOSE_TIMEOUT_MS);
+        });
+        await Promise.race([close, timeout]).finally(() => clearTimeout(timer));
         pids.delete(browserPids[i]);
       } catch {
-        /* còn sót thì killAll xử lý */
+        /* lỗi hoặc treo: killAll diệt cả nhóm tiến trình */
       }
     }
     killAll();

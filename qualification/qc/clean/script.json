@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "Gói đo qc",
+    "theme": "mau-a",
+    "voice": "hoang_nam",
+    "speed": 1.0
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu"
+    },
+    {
+      "id": "chuong-1",
+      "title": "Chương một"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b001",
+          "text": "Python ra đời năm 1991 do Guido van Rossum tạo ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 0,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b002",
+          "text": "Nó nổi tiếng nhờ cú pháp ngắn gọn dễ đọc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 0,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {},
+      "holdMs": 1000,
+      "sfx": null,
+      "beats": []
+    },
+    {
+      "id": "sc04",
+      "chapter": "chuong-1",
+      "type": "big-number",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b003",
+          "text": "Địa chỉ IPv4 dài 32 bit, tức khoảng 4,3 tỷ địa chỉ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 0,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    }
+  ]
+}

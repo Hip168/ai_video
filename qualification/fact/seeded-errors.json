@@ -1,0 +1,82 @@
+[
+  {
+    "id": "q01",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "1999",
+    "kind": "year",
+    "note": "năm sai: đúng là '1989'"
+  },
+  {
+    "id": "q02",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "2001",
+    "kind": "year",
+    "note": "năm sai: đúng là '1991'"
+  },
+  {
+    "id": "q03",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "Richard Stallman",
+    "kind": "person",
+    "note": "người sai: đúng là 'Linus Torvalds'"
+  },
+  {
+    "id": "q04",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "2010",
+    "kind": "year",
+    "note": "năm sai: đúng là '2007'"
+  },
+  {
+    "id": "q05",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "64 bit",
+    "kind": "number",
+    "note": "số bit sai: đúng là '32 bit'"
+  },
+  {
+    "id": "q06",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "256 ký tự",
+    "kind": "number",
+    "note": "số ký tự sai: đúng là '128 ký tự'"
+  },
+  {
+    "id": "q07",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "8 byte",
+    "kind": "number",
+    "note": "số byte sai: đúng là '4 byte'"
+  },
+  {
+    "id": "q08",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "1981",
+    "kind": "year",
+    "note": "năm sai: đúng là '1971'"
+  },
+  {
+    "id": "q09",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "1966",
+    "kind": "year",
+    "note": "năm sai: đúng là '1946'"
+  },
+  {
+    "id": "q10",
+    "severity": "CRITICAL",
+    "file": "items.json",
+    "marker": "2010",
+    "kind": "year",
+    "note": "năm sai: đúng là '2005'"
+  }
+]

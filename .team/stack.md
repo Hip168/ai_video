@@ -62,6 +62,9 @@ lockf -t 3600 /tmp/aivideo-render.lock <lệnh>
 ```
 Chạy một file test nhỏ có render (dưới khoảng 1 phút) không cần khoá. Ghi rõ trong báo cáo nếu đỏ xảy ra khi không giữ khoá.
 
+## Chrome vẽ chữ không tất định (DEV-7 đo, 2026-11-03)
+Render cùng một frame 40 lần: các cảnh có chữ SVG cỡ lớn (chart, term-card, big-number, chapter-title) lệch khoảng 3–8/39 lần, tới khoảng 0,23% điểm ảnh, chỉ ở dòng chữ lớn, mắt thường không thấy; hình khác không lệch. `measureText` cũng lệch ở phần lẻ. Không phải lỗi code. Hệ quả: so ảnh giữa hai lần render dùng dung sai ≥ 0,5% hoặc so theo vùng liền đủ lớn, không đòi giống từng điểm (áp cho test cảnh và `framecheck compare`).
+
 ## Giấy phép
 Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTTS, VieNeu: Apache-2.0.
 

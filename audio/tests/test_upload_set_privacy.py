@@ -215,6 +215,7 @@ def test_cli_set_privacy_public_chua_duyet_ma_1_loi_stderr(
         tmp_path, monkeypatch, capsys):
     env = _da_dang(tmp_path)
     monkeypatch.setattr(upload, "make_client", lambda: FakeClient())
+    capsys.readouterr()  # bỏ dòng `videoId:` của lần đăng dựng sẵn
     code = upload.main(_cli(env, "--set-privacy", "public"))
     cap = capsys.readouterr()
     assert code == 1
@@ -229,6 +230,7 @@ def test_cli_set_privacy_http_error_ma_1_mot_dong_khong_traceback(
                     json.dumps({"error": {"message": "forbidden"}}).encode())
     monkeypatch.setattr(upload, "make_client",
                         lambda: FakeClient(fail_on="set_privacy", error=err))
+    capsys.readouterr()  # bỏ dòng `videoId:` của lần đăng dựng sẵn
     code = upload.main(_cli(env, "--set-privacy", "unlisted"))
     cap = capsys.readouterr()
     assert code == 1
@@ -296,3 +298,34 @@ def test_lop_that_privacy_status_doc_tu_videos_list_part_status():
     got = upload.YouTubeClient(svc).privacy_status("vY")
     assert got == "private"
     assert svc.log == [("list", {"part": "status", "id": "vY"})]
+
+
+def test_lop_that_set_privacy_setdefault_hai_co_khi_status_khong_co():
+    svc = _Service({"privacyStatus": "private"})
+    upload.YouTubeClient(svc).set_privacy("vD", "public")
+    st = svc.log[1][1]["body"]["status"]
+    assert st["selfDeclaredMadeForKids"] is False
+    assert st["containsSyntheticMedia"] is False
+    assert st["privacyStatus"] == "public"
+
+
+def test_lop_that_set_privacy_khong_de_len_co_da_co_trong_status():
+    svc = _Service({"privacyStatus": "private",
+                    "selfDeclaredMadeForKids": True,
+                    "containsSyntheticMedia": True})
+    upload.YouTubeClient(svc).set_privacy("vD", "unlisted")
+    st = svc.log[1][1]["body"]["status"]
+    assert st["selfDeclaredMadeForKids"] is True
+    assert st["containsSyntheticMedia"] is True
+    assert st["privacyStatus"] == "unlisted"
+
+
+def test_lop_that_set_privacy_giu_co_false_da_co_va_chi_doi_privacy():
+    svc = _Service({"privacyStatus": "unlisted",
+                    "selfDeclaredMadeForKids": False,
+                    "containsSyntheticMedia": False})
+    upload.YouTubeClient(svc).set_privacy("vD", "public")
+    st = svc.log[1][1]["body"]["status"]
+    assert st == {"privacyStatus": "public",
+                  "selfDeclaredMadeForKids": False,
+                  "containsSyntheticMedia": False}

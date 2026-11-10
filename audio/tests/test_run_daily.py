@@ -46,8 +46,8 @@ def _fake(path: Path, name: str, body: str = "") -> Path:
 
 
 class Rig:
-    def __init__(self, tmp_path: Path):
-        self.root = tmp_path / "repo"
+    def __init__(self, tmp_path: Path, repo: str = "repo"):
+        self.root = tmp_path / repo
         self.fake = tmp_path / "fake"
         self.logs = tmp_path / "logs"
         (self.root / "scripts").mkdir(parents=True)
@@ -64,9 +64,12 @@ class Rig:
             "GIT_AUTHOR_NAME": "t", "GIT_AUTHOR_EMAIL": "t@example.org",
             "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@example.org",
         }
-        for cmd in (["init", "-q"], ):
+        for cmd in (["init", "-q", "-b", "main"], ):
             subprocess.run(["git", "-C", str(self.root), *cmd], check=True,
                            env=env, capture_output=True)
+        # Khung dựng thử (script, venv giả) không tính là thay đổi của repo.
+        (self.root / ".git" / "info" / "exclude").write_text(
+            "/scripts/\n/audio/\n", encoding="utf-8")
         (self.root / "khac.txt").write_text("v1\n")
         for cmd in (["add", "khac.txt"], ["commit", "-q", "-m", "đầu"]):
             subprocess.run(["git", "-C", str(self.root), *cmd], check=True,
@@ -77,6 +80,7 @@ class Rig:
             'printf "%s\\n" "$*" >> "$FAKE_DIR/git.log"\n'
             'if [ "$1" = commit ] && [ -f "$FAKE_DIR/git.failcommit" ]; then\n'
             "  exit 1\nfi\n"
+            'if [ -f "$FAKE_DIR/git.fail.$1" ]; then exit 1; fi\n'
             'exec git "$@"\n')
         self.git.chmod(0o755)
         self.pushcmd = _fake(self.fake / "pushcmd", "pushcmd",
@@ -448,14 +452,14 @@ def test_tap_chua_commit_duoc_commit_truoc_khi_chay_cong_3(rig):
         rig.fake / "gates.commits").read_text()
 
 
-def test_chi_commit_thu_muc_tap_file_khac_dang_sua_khong_bi_dung(rig):
+def test_chi_commit_thu_muc_tap_tap_khac_dang_sua_khong_bi_dung(rig):
     _viet_tap(rig)
-    (rig.root / "khac.txt").write_text("v2 đang sửa dở\n")
-    (rig.root / "moi.txt").write_text("chưa theo dõi\n")
+    khac = rig.root / "episodes" / "tap-khac"
+    khac.mkdir()
+    (khac / "ghi-chu.txt").write_text("chưa theo dõi\n")
     assert rig.run().returncode == 0
-    assert rig.dirty("episodes") == ""
-    left = rig.dirty("khac.txt", "moi.txt")
-    assert " M khac.txt" in left and "?? moi.txt" in left
+    assert rig.dirty(f"episodes/{SLUG}") == ""
+    assert "?? episodes/tap-khac/" in rig.dirty("episodes")
     shown = subprocess.run(
         ["git", "-C", str(rig.root), "show", "--name-only", "--format=",
          "HEAD"], capture_output=True, text=True, check=True).stdout.split()
@@ -478,6 +482,74 @@ def test_lenh_git_dung_doi_so_theo_giao_dien(rig):
     assert f"add -- episodes/{SLUG}" in lines
     msg = f"[tap] {SLUG}: nội dung tập trước Cổng 3"
     assert f"commit -q -m {msg} -- episodes/{SLUG}" in lines
+
+
+def _viet_du_ba_nhom(rig):
+    _viet_tap(rig)
+    v = rig.root / "video" / "src" / "episodes" / SLUG
+    v.mkdir(parents=True)
+    (v / "data.ts").write_text("export {}\n", encoding="utf-8")
+    (rig.root / "episodes" / "index.json").write_text("[]\n")
+
+
+GROUPS = [f"episodes/{SLUG}", f"video/src/episodes/{SLUG}",
+          "episodes/index.json"]
+
+
+def test_commit_du_ba_nhom_duong_dan_dung_thu_tu(rig):
+    _viet_du_ba_nhom(rig)
+    assert rig.run().returncode == 0
+    lines = rig.git_lines()
+    for g in GROUPS:
+        assert f"status --porcelain -- {g}" in lines
+    st = [lines.index(f"status --porcelain -- {g}") for g in GROUPS]
+    assert st == sorted(st)
+    assert f"add -- {' '.join(GROUPS)}" in lines
+    msg = f"[tap] {SLUG}: nội dung tập trước Cổng 3"
+    assert f"commit -q -m {msg} -- {' '.join(GROUPS)}" in lines
+    assert rig.dirty(*GROUPS) == ""
+    shown = set(subprocess.run(
+        ["git", "-C", str(rig.root), "show", "--name-only", "--format=",
+         "HEAD"], capture_output=True, text=True, check=True).stdout.split())
+    assert shown == {f"episodes/{SLUG}/script.json",
+                     f"video/src/episodes/{SLUG}/data.ts",
+                     "episodes/index.json"}
+    assert rig.commits()[0] == f"[tap] {SLUG}: nội dung tập trước Cổng 3"
+
+
+def test_chi_nhom_co_thay_doi_moi_duoc_add_va_commit(rig):
+    (rig.root / "episodes").mkdir()
+    (rig.root / "episodes" / "index.json").write_text("[]\n")
+    assert rig.run().returncode == 0
+    lines = rig.git_lines()
+    assert "add -- episodes/index.json" in lines
+    msg = f"[tap] {SLUG}: nội dung tập trước Cổng 3"
+    assert f"commit -q -m {msg} -- episodes/index.json" in lines
+    assert not any(f"add -- {GROUPS[0]}" in ln for ln in lines)
+    # cả ba nhóm đều được hỏi trạng thái dù chỉ một nhóm có thay đổi
+    for g in GROUPS:
+        assert f"status --porcelain -- {g}" in lines
+
+
+def test_nhom_video_src_episodes_cung_duoc_commit_khi_chi_no_thay_doi(rig):
+    v = rig.root / "video" / "src" / "episodes" / SLUG
+    v.mkdir(parents=True)
+    (v / "data.ts").write_text("export {}\n", encoding="utf-8")
+    assert rig.run().returncode == 0
+    assert rig.dirty("video/src/episodes") == ""
+    assert f"add -- video/src/episodes/{SLUG}" in rig.git_lines()
+
+
+def test_sau_khi_dang_cung_commit_dung_ba_nhom(rig):
+    _viet_du_ba_nhom(rig)
+    _fake(rig.upload, "upload",
+          'echo ghi > "$FAKE_ROOT/episodes/$FAKE_SLUG/ledger.json"\n'
+          'echo ghi > "$FAKE_ROOT/video/src/episodes/$FAKE_SLUG/x.ts"\n'
+          'echo "[1]" > "$FAKE_ROOT/episodes/index.json"\nexit 0')
+    assert rig.run().returncode == 0
+    msg = f"[tap] {SLUG}: sổ tập sau khi đăng"
+    assert f"commit -q -m {msg} -- {' '.join(GROUPS)}" in rig.git_lines()
+    assert rig.dirty(*GROUPS) == ""
 
 
 def test_so_tap_do_upload_ghi_duoc_commit_lai_sau_khi_dang(rig):
@@ -541,7 +613,9 @@ def test_claude_loi_thi_khong_commit_khong_day(rig):
     rig.run()
     assert rig.commits() == before
     assert "pushcmd" not in rig.calls
-    assert rig.git_lines() == []
+    # chỉ có hai lệnh kiểm đầu lượt; không add, commit
+    assert not any(ln.split()[0] in ("add", "commit")
+                   for ln in rig.git_lines())
 
 
 # --- mẫu LaunchAgent: PATH (D25) -----------------------------------------
@@ -559,3 +633,236 @@ def test_plist_mau_oauth_token_chi_la_chu_giu_cho():
     tok = _plist()["EnvironmentVariables"]["CLAUDE_CODE_OAUTH_TOKEN"]
     assert isinstance(tok, str) and tok.strip()
     assert not tok.startswith("sk-")
+
+
+# --- kiểm đầu lượt: chỉ chạy trên main, cây sạch (D25) -------------------
+
+
+def _git(rig, *args):
+    return subprocess.run(
+        ["git", "-C", str(rig.root), *args], capture_output=True, text=True,
+        check=True, env=rig.env).stdout
+
+
+def _dung_som(rig, res, *needles):
+    """Dừng ở kiểm đầu lượt: mã 1, thông báo, chưa gọi claude hay lệnh nào."""
+    assert res.returncode == 1, rig.log
+    assert "DỪNG, không đăng: CAN_NGUOI_DUNG" in rig.log
+    assert len(rig.notices) == 1
+    assert "CAN_NGUOI_DUNG" in rig.notices[0]
+    assert rig.calls == []
+    assert not any(ln.split()[0] in ("add", "commit")
+                   for ln in rig.git_lines())
+    for n in needles:
+        assert n in rig.log
+
+
+def test_dang_o_main_va_cay_sach_thi_chay_binh_thuong(rig):
+    assert _git(rig, "rev-parse", "--abbrev-ref", "HEAD").strip() == "main"
+    assert rig.run().returncode == 0
+    assert rig.calls[0] == "claude"
+
+
+def test_hoi_nhanh_va_trang_thai_cay_voi_dung_doi_so(rig):
+    rig.run()
+    lines = rig.git_lines()
+    assert lines[0] == "rev-parse --abbrev-ref HEAD"
+    assert lines[1] == (
+        "status --porcelain -- . :(exclude)episodes "
+        ":(exclude)video/src/episodes")
+
+
+def test_khong_o_main_thi_dung_truoc_khi_goi_claude(rig):
+    _git(rig, "checkout", "-q", "-b", "tinh-nang")
+    res = rig.run()
+    _dung_som(rig, res, "tinh-nang")
+    assert "không phải main" in rig.log
+    assert "tinh-nang" in rig.notices[0] or "main" in rig.notices[0]
+
+
+def test_dau_tach_roi_khoi_nhanh_thi_dung(rig):
+    _git(rig, "checkout", "-q", "--detach")
+    res = rig.run()
+    _dung_som(rig, res)
+
+
+def test_nhanh_ten_giong_main_thi_dung(rig):
+    _git(rig, "checkout", "-q", "-b", "main2")
+    res = rig.run()
+    _dung_som(rig, res, "main2")
+
+
+def test_khong_doc_duoc_nhanh_thi_dung_voi_loi_rieng(rig):
+    (rig.fake / "git.fail.rev-parse").write_text("")
+    res = rig.run()
+    _dung_som(rig, res, "không đọc được nhánh git")
+
+
+def test_file_da_theo_doi_bi_sua_ngoai_episodes_thi_dung_va_ghi_danh_sach(
+        rig):
+    (rig.root / "khac.txt").write_text("v2 đang sửa dở\n")
+    res = rig.run()
+    _dung_som(rig, res, "cây làm việc có thay đổi chưa commit ngoài episodes/",
+              "khac.txt")
+
+
+def test_file_chua_theo_doi_ngoai_episodes_cung_chan(rig):
+    (rig.root / "moi.txt").write_text("chưa theo dõi\n")
+    res = rig.run()
+    _dung_som(rig, res, "moi.txt")
+
+
+def test_thay_doi_trong_thu_muc_con_ngoai_episodes_cung_chan(rig):
+    d = rig.root / "video" / "src" / "khac"
+    d.mkdir(parents=True)
+    (d / "a.ts").write_text("x\n")
+    res = rig.run()
+    _dung_som(rig, res, "?? video/")
+
+
+def test_thay_doi_duoi_episodes_va_video_src_episodes_khong_chan(rig):
+    (rig.root / "episodes" / "tap-khac").mkdir(parents=True)
+    (rig.root / "episodes" / "tap-khac" / "a.json").write_text("{}\n")
+    d = rig.root / "video" / "src" / "episodes" / "tap-khac"
+    d.mkdir(parents=True)
+    (d / "b.ts").write_text("x\n")
+    res = rig.run()
+    assert res.returncode == 0, rig.log
+    assert rig.calls == ["claude", "gates", "upload", "pushcmd"]
+
+
+def test_khong_doc_duoc_trang_thai_cay_thi_dung(rig):
+    (rig.fake / "git.fail.status").write_text("")
+    res = rig.run()
+    _dung_som(rig, res)
+
+
+def test_dung_o_kiem_dau_luot_thi_khong_dong_vao_file_log_claude(rig):
+    _git(rig, "checkout", "-q", "-b", "tinh-nang")
+    rig.run()
+    assert list(rig.logs.glob("*-claude.json")) == []
+
+
+# --- tự chạy lại dưới caffeinate (khi AIVIDEO_CAFFEINATED rỗng) ---------
+
+
+def _caffeinate_rig(rig):
+    """Thư mục PATH riêng chứa `caffeinate` giả: ghi đối số và biến, rồi chạy
+    đúng lệnh đi sau (như caffeinate thật)."""
+    binp = rig.fake.parent / "bin"
+    binp.mkdir()
+    cf = binp / "caffeinate"
+    cf.write_text(
+        "#!/bin/sh\n"
+        'echo caffeinate >> "$FAKE_DIR/calls.txt"\n'
+        'printf "%s\\n" "$@" > "$FAKE_DIR/caffeinate.args"\n'
+        'printf "%s" "${AIVIDEO_CAFFEINATED-unset}" '
+        '> "$FAKE_DIR/caffeinate.env"\n'
+        'shift 2\n'  # bỏ cờ `-i -s` như caffeinate thật
+        'exec "$@"\n', encoding="utf-8")
+    cf.chmod(0o755)
+    rig.env.pop("AIVIDEO_CAFFEINATED", None)
+    rig.env["PATH"] = f"{binp}:{os.environ['PATH']}"
+    return cf
+
+
+def test_khong_dat_aivideo_caffeinated_thi_tu_chay_lai_duoi_caffeinate(rig):
+    _caffeinate_rig(rig)
+    res = rig.run()
+    assert res.returncode == 0, rig.log
+    a = rig.args("caffeinate")
+    assert a[:2] == ["-i", "-s"]
+    assert len(a) == 3
+    assert Path(a[2]).resolve() == (
+        rig.root / "scripts" / "run-daily.sh").resolve()
+
+
+def test_caffeinate_goi_dung_mot_lan_va_luot_chay_that_chi_mot_lan(rig):
+    _caffeinate_rig(rig)
+    assert rig.run().returncode == 0
+    allcalls = (rig.fake / "calls.txt").read_text().split()
+    assert allcalls.count("caffeinate") == 1
+    assert allcalls.count("claude") == 1
+    assert [c for c in allcalls if c != "notify"] == [
+        "caffeinate", "claude", "gates", "upload", "pushcmd"]
+
+
+def test_script_dat_aivideo_caffeinated_truoc_khi_exec_caffeinate(rig):
+    _caffeinate_rig(rig)
+    rig.run()
+    assert (rig.fake / "caffeinate.env").read_text() not in ("", "unset")
+
+
+def test_da_dat_aivideo_caffeinated_thi_khong_goi_caffeinate(rig):
+    _caffeinate_rig(rig)
+    rig.env["AIVIDEO_CAFFEINATED"] = "1"
+    assert rig.run().returncode == 0
+    assert not (rig.fake / "caffeinate.args").exists()
+    assert "caffeinate" not in (rig.fake / "calls.txt").read_text().split()
+
+
+def test_duoi_caffeinate_van_dung_khi_khong_o_main(rig):
+    _caffeinate_rig(rig)
+    _git(rig, "checkout", "-q", "-b", "tinh-nang")
+    res = rig.run()
+    assert res.returncode == 1
+    assert rig.calls == ["caffeinate"]
+    assert "không phải main" in rig.log
+
+
+# --- mẫu LaunchAgent: log và ghi chú (D25 bổ sung) -----------------------
+
+
+def test_plist_mau_ghi_log_launchd_ve_library_logs_aivideo():
+    d = _plist()
+    assert d["StandardOutPath"] == (
+        "/Users/TEN_MAY/Library/Logs/aivideo/launchd.out.log")
+    assert d["StandardErrorPath"] == (
+        "/Users/TEN_MAY/Library/Logs/aivideo/launchd.err.log")
+
+
+def test_plist_mau_ghi_chu_phien_ban_claude_code_va_tao_thu_muc_log():
+    text = PLIST.read_text(encoding="utf-8")
+    assert "v2.1.259" in text
+    assert "permission-prompts" in text
+    assert "mkdir -p ~/Library/Logs/aivideo" in text
+    assert "token" in text.lower() and "log" in text.lower()
+
+
+def test_plist_mau_la_xml_hop_le():
+    """Cú pháp XML chặt (vd không có `--` trong chú thích), không chỉ plutil."""
+    import xml.etree.ElementTree as ET
+
+    ET.parse(PLIST)
+
+
+# --- lệnh mặc định (không đặt biến AIVIDEO_*): đường dẫn có khoảng trắng ---
+
+
+def test_lenh_mac_dinh_dung_dung_khi_duong_dan_repo_co_khoang_trang(tmp_path):
+    rig = Rig(tmp_path, repo="repo co khoang trang")
+    py = rig.root / "audio" / ".venv" / "bin" / "python"
+    py.write_text(
+        "#!/bin/sh\n"
+        'if [ "$1" = -m ]; then\n'
+        '  printf "%s\\n" "$*" >> "$FAKE_DIR/py.log"\n'
+        '  pwd -P >> "$FAKE_DIR/py.cwd"\n'
+        "  exit 0\nfi\n"
+        f'exec "{sys.executable}" "$@"\n')
+    binp = tmp_path / "bin"
+    binp.mkdir()
+    (binp / "claude").symlink_to(rig.claude)
+    for k in ("AIVIDEO_CLAUDE", "AIVIDEO_GATES", "AIVIDEO_UPLOAD"):
+        del rig.env[k]
+    rig.env["PATH"] = f"{binp}:{os.environ['PATH']}"
+    res = rig.run()
+    assert res.returncode == 0, rig.log
+    lines = (rig.fake / "py.log").read_text(encoding="utf-8").splitlines()
+    mp4 = rig.root / "out" / "episodes" / SLUG / f"{SLUG}.mp4"
+    assert lines == [
+        f"-m aivideo.gates gate3 {SLUG} --video {mp4}",
+        f"-m aivideo.upload {SLUG}",
+    ]
+    cwds = (rig.fake / "py.cwd").read_text().split("\n")[:2]
+    assert [Path(c) for c in cwds] == [(rig.root / "audio").resolve()] * 2
+    assert rig.calls[0] == "claude"

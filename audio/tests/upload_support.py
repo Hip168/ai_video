@@ -18,22 +18,24 @@ URL_PREFIX = "https://www.youtube.com/watch?v="
 
 
 class FakeClient:
-    """Có đủ bảy phương thức của `YouTubeClient`, ghi lại lời gọi theo thứ tự."""
+    """Có đủ tám phương thức của `YouTubeClient`, ghi lại lời gọi theo thứ tự.
+
+    - `found`: videoId mà `find_uploaded` trả (None = không thấy).
+    - `fail_on` / `error`: bước ném lỗi (mặc định RuntimeError).
+    - `privacy_now`: `privacy_status` luôn trả giá trị này (vd "private" =
+      video bị khoá). Mặc định: trả đúng quyền vừa `set_privacy`.
+    """
 
     def __init__(self, channel=CHANNEL, video_id="vid123", statuses=None,
-                 fail_on=None, returned_privacy=None, error=None,
-                 privacy_now=None):
-        """`returned_privacy`: privacyStatus mà insert_video trả về (mặc định
-        đúng như body yêu cầu; "" = không có khoá `status`).
-        `error`: ngoại lệ ném ở bước `fail_on` thay cho RuntimeError."""
-        self.returned_privacy = returned_privacy
-        self.privacy_now = privacy_now
-        self.last_privacy = "unlisted"
-        self.error = error
+                 fail_on=None, error=None, found=None, privacy_now=None):
         self.channel = channel
         self.video_id = video_id
         self.statuses = list(statuses or ["succeeded"])
         self.fail_on = fail_on
+        self.error = error
+        self.found = found
+        self.privacy_now = privacy_now
+        self.current = "private"
         self.calls = []
 
     def _rec(self, name, *args):
@@ -51,16 +53,13 @@ class FakeClient:
         self._rec("channel_id")
         return self.channel
 
+    def find_uploaded(self, tag):
+        self._rec("find_uploaded", tag)
+        return self.found
+
     def insert_video(self, path, body):
         self._rec("insert_video", Path(path), body)
-        got = self.returned_privacy
-        if got is None:
-            got = body["status"]["privacyStatus"]
-        self.last_privacy = body["status"]["privacyStatus"]
-        res = {"id": self.video_id}
-        if got != "":
-            res["status"] = {"privacyStatus": got}
-        return res
+        return {"id": self.video_id}
 
     def processing_status(self, video_id):
         self._rec("processing_status", video_id)
@@ -74,10 +73,11 @@ class FakeClient:
         self._rec("privacy_status", video_id)
         if self.privacy_now is not None:
             return self.privacy_now
-        return self.last_privacy
+        return self.current
 
     def set_privacy(self, video_id, privacy):
         self._rec("set_privacy", video_id, privacy)
+        self.current = privacy
 
     def set_thumbnail(self, video_id, path):
         self._rec("set_thumbnail", video_id, Path(path))

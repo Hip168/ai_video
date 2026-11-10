@@ -10,6 +10,7 @@ Chạy từ `audio/`: `PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload ..
 - `python -m aivideo.upload auth`: mở trình duyệt một lần, ghi `~/.config/aivideo/youtube/token.json` quyền 600 (cần `client_secret.json` cùng thư mục). Không test được không có Google; không có biến thay thư mục.
 - Mặc định: `--out-dir` = `<episodes-dir>/../out/episodes`, `--kenh` = `<episodes-dir>/../.team/kenh.json` (như `gates gate3`).
 - Mã thoát: `0` xong (stdout một JSON); `1` lỗi hoặc bị chặn (`lỗi: ...` ra stderr, không JSON); `2` sai tham số (argparse, gồm `--privacy` ngoài 3 giá trị).
+- Mã `3` `CAN_NGUOI_DUNG` (D25): đã yêu cầu `unlisted` hoặc `public` mà `insert_video` trả `status.privacyStatus` là `private` (video có thể bị khoá). Mục sổ `dang` vẫn ghi trước khi dừng; không gọi `processing_status`, `set_thumbnail`, `insert_caption`. Stdout `{"state":"CAN_NGUOI_DUNG","reason","videoId","url"}`, stderr dòng `CAN_NGUOI_DUNG: ...`. Hàm `upload_episode` ném `NeedUser` (thuộc tính `result` = JSON trên). Chỉ xét lúc insert; chạy lại (nối tiếp) không xét lại. Thiếu `status.privacyStatus` thì không chặn.
 - `googleapiclient.errors.HttpError` ném ra từ client (thật hay giả) được `main` bắt riêng (D25): stderr một dòng `lỗi: Google trả HTTP <status>: <reason>`, mã 1, không traceback.
 - Stdout khi xong: `{"videoId","url","privacy","publishAt","resumed"}`. `url` = `https://www.youtube.com/watch?v=<videoId>`. `resumed` = `true` khi videoId lấy từ sổ (không gọi `insert_video`).
 
@@ -18,7 +19,7 @@ Chạy từ `audio/`: `PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload ..
 - Hàm chính (test gọi trực tiếp): `upload_episode(slug, *, client, episodes_dir="../episodes", out_dir=None, kenh_path=None, privacy=None, publish_at=None) -> dict` (trả đúng JSON stdout). Lỗi: ném `UploadError` (hoặc `GateError` khi slug sai, sổ vỡ).
 - Client giả cần đủ năm phương thức (cùng tên với lớp thật `YouTubeClient`), ghi lại lời gọi để test kiểm thứ tự:
   - `channel_id() -> str` (thật: `channels.list(mine=True)`)
-  - `insert_video(path: Path, body: dict) -> str` trả videoId (thật: `videos.insert`, resumable)
+  - `insert_video(path: Path, body: dict) -> dict` trả tài nguyên video YouTube trả về, ít nhất `{"id": <videoId>, "status": {"privacyStatus": ...}}` (thật: `videos.insert`, resumable; sửa 2026-11-10 theo D25, trước đó trả chuỗi videoId)
   - `processing_status(video_id) -> str` (thật: `videos.list(part=processingDetails)`; giá trị `processingStatus`)
   - `set_thumbnail(video_id, path: Path)` (thật: `thumbnails.set`)
   - `insert_caption(video_id, path: Path, language: str, name: str)` (thật: `captions.insert`; `language="vi"`, `name="Tiếng Việt"`)
@@ -87,7 +88,7 @@ Xét theo thứ tự:
 5. Dòng cuối của `result` không khớp `^SLUG: <slug>$` (slug dạng `^[a-z0-9]+(-[a-z0-9]+)*$`).
 6. Commit trong máy `episodes/<slug>/` lỗi (xem dưới).
 7. Lệnh `AIVIDEO_GATES gate3 ...` thoát mã khác 0 ("cổng không đạt": script tự chạy Cổng 3, không tin lời claude).
-8. Lệnh upload thoát mã khác 0 (vẫn commit sổ trước khi dừng, để giữ videoId đã ghi).
+8. Lệnh upload thoát mã khác 0 (vẫn commit sổ trước khi dừng, để giữ videoId đã ghi). Mã 3: lời dừng có `CAN_NGUOI_DUNG` (video có thể bị khoá).
 Đạt hết: log `XONG: đã đăng <slug>`, rồi push; mã 0, không thông báo.
 
 ### Commit và push (D25)
@@ -113,7 +114,7 @@ Mảng, mặc định `[]`. Mỗi phần tử:
 ## Nội dung bắt buộc của `publisher.md` và PLAYBOOK (D24)
 - `publisher.md` giữ sáu mục bắt buộc của đề mục 11; nêu lệnh `python -m aivideo.upload <slug>`; không còn Claude in Chrome / YouTube Studio làm cách đăng.
 - Phần "Không được làm" giữ ý: kênh lệch thì không đăng (`upload.py` tự chặn khi `channelId` lệch); video đầu không đặt `public`; không đăng khi hash lệch hoặc Cổng 3 chưa đạt.
-- PLAYBOOK: dòng bảng vai của `publisher` vẫn có `ops` (test khoá `test_roles_files.py`); khâu [13] chạy `python -m aivideo.upload`; mẫu 4.13 bỏ trình duyệt; lượt theo lịch thì `run-daily.sh` chạy khâu 13; mục 8: video đầu tải ở `private` (`--privacy private`), người dùng nhắn ok rồi mới chuyển `public`, không còn chữ "Không công khai" (D25).
+- PLAYBOOK: dòng bảng vai của `publisher` vẫn có `ops` (test khoá `test_roles_files.py`); khâu [13] chạy `python -m aivideo.upload`; mẫu 4.13 bỏ trình duyệt; lượt theo lịch thì `run-daily.sh` chạy khâu 13; mục 8: video đầu giữ "Không công khai" (`unlisted`, D21, D25 sửa 2026-11-10); danh sách `CẦN NGƯỜI DÙNG` có trường hợp upload thoát mã 3.
 
 ## Test
 TESTER: `audio/tests/test_upload*.py` (client giả) và `audio/tests/test_run_daily.py` (pytest + subprocess, các lệnh thay bằng script giả qua biến môi trường trên). Không gọi Google thật.

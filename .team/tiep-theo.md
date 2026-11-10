@@ -1,26 +1,35 @@
-# Tạm dừng 2026-11-04: chạy tiếp từ đây
+# Trạng thái hiện tại (cập nhật 2026-11-11), đọc file này trước khi chạy tiếp
 
-Người dùng bảo dừng, hôm sau chạy tiếp. Tất cả agent đã dừng, không còn tiến trình render nào chạy.
+MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 video lên kênh thì DỪNG. Tiết kiệm token: không mở đề mục mới, đề mục 14 tạm dừng. Đội tự đẩy lên GitHub. Chỉ hỏi người dùng ở các điểm dừng trong `autonomy.md`.
 
 ## Đã vào main
-Các đề mục 5 (#33), 6 (#34), 7 (#59), 8 (#61), 9 (#32) và 11 (#60). Main ở `f9592b5`, CI xanh cả 3 job.
+Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền đều đã xong:
+- `.team/kenh.json`: kênh Dao Le, `UC1aPohYcigcmBGPl7OlQaEw`, `@DaoLe-e4g`, đã xác minh số điện thoại.
+- OAuth: project `aivideo-upload-514316`, trạng thái In production. File `~/.config/aivideo/youtube/{client_secret,token}.json`, quyền 600. Đã gọi thử, trả về đúng kênh.
+- Trang chính sách: https://hip168.github.io/aivideo-policy/ (repo `Hip168/aivideo-policy`, toan-quyen).
+- GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
+- MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
-## Đang dở: đề mục 10 (render dài, ghép, kiểm)
-- Worktree: `.worktrees/10-render-dai`, nhánh `10-render-dai`, HEAD `f00924c`, cây sạch. Code ở `1406f0e`, test ở `f00924c` (`CHỜ DUYỆT`, chưa khoá).
-- DEV-LEAD đang KIỂM thì bị dừng, chưa có kết luận. Ngày mai gọi một DEV-LEAD MỚI kiểm từ đầu, đừng tin kết quả của lượt cũ.
-- Nhánh chưa có các đề mục 7, 8, 11 từ main. Phải merge `origin/main` vào nhánh, chạy lại test. Đề mục 11 có `KY_THUAT_CMD = aivideo.assemble verify`, nên phải kiểm xem đề mục 10 có đúng lệnh này không.
-- Luồng còn lại: DEV-LEAD KIỂM → TEST-LEAD DUYỆT, CHẠY & ĐỐI CHIẾU → TESTER KHOÁ → code review (có phát hiện thì sửa luôn) → README → DEPLOY (push, PR, CI) → người dùng merge.
+## Đang làm
+- **10 Render dài** (`.worktrees/10-render-dai`):
+  - Code xong, mới nhất `7d15e1c`.
+  - TESTER-10 đang viết nốt test. Thay đổi chưa commit trong worktree là của TESTER.
+  - Sau đó: TEST-LEAD duyệt, khoá, DEPLOY.
+- **13 Tự đăng** (`.worktrees/13-tu-dong`):
+  - Code xong theo D24, D25 và phần bổ sung, mới nhất `a41c307`.
+  - TESTER-13 đang viết test.
+  - Sau đó: TEST-LEAD duyệt lại từ đầu, review lần 2 nếu cần, khoá, DEPLOY.
+- **14 Shorts dọc** (D28, `.team/features/14-shorts.md`):
+  - code-architect đang thiết kế.
+  - Làm song song. Mỗi tập ra 1 bản dài và 2 Short, đăng cùng lượt.
+  - Short đầu tiên để Không công khai.
+- **12 Tập đầu:** làm sau khi 10 và 13 merge. Chạy theo `episodes/PLAYBOOK.md`, đăng `unlisted`, rồi gửi link cho người dùng duyệt.
 
-## Sau đề mục 10: đề mục 12 (kênh và tập thí điểm)
-Xem `.team/features/12-tap-thi-diem.md`. Trước tập đầu phải xử lý:
-- Issue (f) trong `.team/tests/8.md`: ở `flow`, 8 nút dọc thì chữ khoảng 11 px, và nhãn cạnh dạng fan đè lên nhau. Cần lint chặn khi chữ nút nhỏ hơn 28 px, và giới hạn số nút. BA đo ngưỡng rồi chốt.
-- Cân nhắc issue 1 và 7 trong `.team/tests/11.md` ("tin sếp tổng": `apply-factcheck` chưa gắn với phát hiện đã ghi sổ).
-- Chạy bộ cài lỗi `qualify` để đo người kiểm, ghi vào `.team/qualification.md`.
-- Việc của người dùng: chọn tên kênh, tạo kênh, xác minh số điện thoại, duyệt video đầu.
-
-## Lưu ý
-- Checkout chính có thay đổi chưa commit ở `video/tests/helpers/render.ts` và `.team/locks/2.sha256`. Đó là việc của phiên Claude khác, không đụng, không commit.
-- Đội tự push được. Lần push và tạo PR của đề mục 11 bị chặn quyền, nhưng của đề mục 8 thì qua. Người dùng tự merge.
-- Không đẩy commit tài liệu lên main khi CI của commit merge chưa chạy xong, vì CI có `cancel-in-progress`.
-- Thân PR ghi vào `/Users/leminhdao168/Documents/ai_video_spike/`, không ghi vào `/tmp`, vì `/tmp` của agent khác `/tmp` của người dùng.
-- Worktree `4-khung-doc` đang tạm dừng (D19).
+## Luật đã chốt cần nhớ
+- Không còn DEV-LEAD. Chỉ có một TEST-LEAD: gọi một lần rồi dùng SendMessage.
+- Review có phát hiện thì sửa luôn.
+- Không dùng claude.ai hay Claude in Chrome.
+- Dùng mac-control xong thì quay về terminal.
+- Hook `team guard` xét theo thư mục hiện tại: lệnh có chữ push phải chạy trong repo đúng.
+- Checkout chính có 2 file chưa commit của phiên khác: `video/tests/helpers/render.ts`, `.team/locks/2.sha256`. Không đụng.
+- Khởi động lại phiên thì agent đang chạy bị huỷ, không resume được. Kiểm worktree và commit thật rồi giao agent mới.

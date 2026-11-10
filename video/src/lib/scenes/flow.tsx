@@ -3,7 +3,7 @@ import { useCurrentFrame } from "remotion";
 import { clamp01, ease, useTheme } from "../hooks";
 import { Stage } from "../theme";
 import { itemStart, pointAlong, TextBlock } from "../b-kit";
-import { layoutFlow, type FlowLayout, type Pt } from "../layout-flow";
+import { flowSizes, layoutFlow, type FlowLayout, type Pt } from "../layout-flow";
 import type { SceneProps } from "../types";
 
 interface PacketIn {
@@ -28,13 +28,7 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
   const centre = (id: string): Pt => ({ x: boxOf.get(id)!.x + boxOf.get(id)!.w / 2, y: boxOf.get(id)!.y + boxOf.get(id)!.h / 2 });
   const n = packets.length + 1;
   const graphStart = itemStart(scene, 0, n);
-  // Cỡ chữ theo chiều cao hộp (88 * scale); hộp thấp thì 1 dòng.
-  const boxH = 88 * lay.scale;
-  const fsMax = Math.max(8, Math.min(30 * lay.scale, boxH * 0.4));
-  const nodeLines = boxH >= 60 ? 2 : 1;
-  const fs = nodeLines === 2 ? Math.min(fsMax, boxH * 0.3) : fsMax;
-  const lblW = 160 * Math.min(1, lay.scale + 0.2);
-  const lblH = 36 * Math.min(1, lay.scale + 0.2);
+  const { nodeLines, nodeFont: fs, lblW, lblH, lblFont } = flowSizes(lay.scale);
 
   const arrival: Record<string, number> = {};
   const pk = packets.map((k, i) => {
@@ -64,7 +58,7 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
             {e.label && e.label !== "" && (
               <g>
                 <rect x={mid.x - lblW / 2} y={mid.y - lblH / 2} width={lblW} height={lblH} rx={10} fill={theme.bg} opacity={0.9} />
-                <TextBlock text={e.label} x={mid.x} y={mid.y + lblH * 0.22} width={lblW - 12} fontSize={Math.min(24, lblH * 0.66)} fill={theme.muted} weight={400} />
+                <TextBlock text={e.label} x={mid.x} y={mid.y + lblH * 0.22} width={lblW - 12} fontSize={lblFont} fill={theme.muted} weight={400} />
               </g>
             )}
           </g>

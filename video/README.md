@@ -102,6 +102,8 @@ npm run lint:episode -- <slug> [--script f] [--timeline f] [--index f] [--json]
 ```
 Cấu trúc đọc từ `episodes/<slug>/script.json`, thời lượng từ `out/episodes/<slug>/timeline.json` nếu có (không có thì bỏ hai luật thời lượng). `episodes/index.json` là mảng. Mã thoát 0 đạt, 1 có lỗi, 2 lỗi dùng. Luật: ít nhất 10 loại khác nhau; một loại không quá `floor(số cảnh × 9/48)` (tối thiểu 1); không 3 cảnh liền cùng loại; ít nhất 3 cảnh `custom`; đầu `cold-open`, cuối `recap-outro`; theme khác tập liền trước; chuỗi loại cảnh giống mọi tập cũ dưới 60% (Levenshtein chuẩn hoá, `custom:*` gộp); tổng ít nhất 9 phút, cảnh dài nhất 20 giây, mỗi chương ít nhất 10 giây; `props` qua `propsSpec`; theme có trong danh sách. `min-beats` và `unknown-cue` chỉ cảnh báo.
 
+Cảnh `flow` có props hợp lệ được kiểm thêm, tính từ bố cục `layoutFlow` và `flowSizes` (`src/lib/layout-flow.ts`, dùng chung với cảnh), không render: `flow-node-font` lỗi khi chữ nút dưới 24 px; `flow-edge-label-font` lỗi khi có nhãn cạnh và chữ nhãn dưới 20 px; `flow-label-overlap` lỗi khi hai khung nhãn cạnh giao nhau quá 4 px. Ba lỗi này kèm gợi ý "tách thành hai cảnh `flow`". `flow-label-covers-edge` (nhãn che cạnh khác) chỉ cảnh báo.
+
 ### Trình duyệt khi render (D23)
 Trỏ `REMOTION_BROWSER_EXECUTABLE` tới Headless Shell đã cài, không đặt cứng trong mã:
 ```bash

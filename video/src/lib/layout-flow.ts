@@ -36,6 +36,17 @@ export interface FlowLayout {
   scale: number;
 }
 
+/** Cỡ chữ nút (theo chiều cao hộp 88 * scale; hộp thấp thì 1 dòng) và khung nhãn cạnh. Cảnh và lint cùng dùng. */
+export function flowSizes(scale: number): { nodeLines: number; nodeFont: number; lblW: number; lblH: number; lblFont: number } {
+  const boxH = NH * scale;
+  const fsMax = Math.max(8, Math.min(30 * scale, boxH * 0.4));
+  const nodeLines = boxH >= 60 ? 2 : 1;
+  const nodeFont = nodeLines === 2 ? Math.min(fsMax, boxH * 0.3) : fsMax;
+  const lblW = 160 * Math.min(1, scale + 0.2);
+  const lblH = 36 * Math.min(1, scale + 0.2);
+  return { nodeLines, nodeFont, lblW, lblH, lblFont: Math.min(24, lblH * 0.66) };
+}
+
 /** Bố cục thuần của `flow` (dagre). Bỏ cạnh trỏ tới nút lạ hoặc tự trỏ. Cảnh chỉ vẽ theo kết quả này. */
 export function layoutFlow(props: Record<string, unknown>): FlowLayout {
   const nodes = (Array.isArray(props.nodes) ? props.nodes : []) as FlowNodeIn[];

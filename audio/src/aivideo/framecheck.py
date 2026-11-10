@@ -124,7 +124,8 @@ def find_dips(c: list[int], ignore: set[int] = frozenset(), offset: int = 0) -> 
 
 
 def scan(src: Path | list[Path], timeline: dict | None = None, start: int = 0) -> list[dict]:
-    return find_dips(count_series(read_frames(src)), ignore_frames(timeline), start)
+    ignore = {j - start for j in ignore_frames(timeline)}
+    return find_dips(count_series(read_frames(src)), ignore, start)
 
 
 def _erode3(m: np.ndarray) -> np.ndarray:

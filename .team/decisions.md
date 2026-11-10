@@ -130,3 +130,6 @@ Người dùng muốn có thêm Shorts dọc, xem trên điện thoại vẫn ch
 - Mô tả của Short có link về video dài. Short đăng ngay trong cùng lượt chạy, sau video dài, bằng cùng `upload.py` (người dùng chốt 2026-11-11: "đẩy cả bản chuẩn cả bản short song song"). Short đầu tiên cũng để Không công khai và chờ người dùng duyệt cùng video dài đầu tiên.
 - Dùng lại phần đã làm ở nhánh `4-khung-doc` (D19 tạm dừng) làm nền bố cục dọc.
 - Làm song song với đề mục 10 và 13, ngay từ bây giờ (người dùng chốt 2026-11-11). Tập đầu ra cả bản dài lẫn 2 Shorts.
+
+## D29. Độ dài tập đầu 12:01 (BA chốt, 2026-11-11)
+Đề mục 12 ghi độ dài từ 9:30 đến 12:00. Giọng thật của tập `vi-sao-may-tinh-dung-nhi-phan` dài 721,4 giây, vượt mốc 1,4 giây. Không có cổng nào trong code kiểm độ dài. Chấp nhận, vì mục đích là video khoảng 10 phút, còn sửa lời sau Cổng 2 thì phải chạy lại cả ba cổng. Người dùng chọn không nghe trước tên riêng, xem luôn ở video đầu (Không công khai).

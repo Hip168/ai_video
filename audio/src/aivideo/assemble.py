@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 from aivideo.audio import measure_lufs
+from aivideo.framecheck import scan
 from aivideo.mix import true_peak
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -201,6 +202,13 @@ def verify(slug: str, root=ROOT) -> dict:
             put("av_gap_s", round(ad - vd, 3), abs(ad - vd) <= 1 / 30 + 0.02, f"tiếng lệch hình {ad - vd:.3f} s")
     runs = _black_runs(f) if v is not None else []
     put("black", runs, not runs, f"có đoạn đen liền ≥ {BLACK_MIN_S}s tại {runs[:3]} (mất hình)")
+    if v is not None and size == (1920, 1080):
+        # blackdetect chỉ bắt khung đen; khung chỉ còn nền theme (độ sáng ~0,06–0,07) do framecheck scan bắt.
+        # scan cắt vùng 1920x830 nên chỉ chạy khi đúng kích thước (sai kích thước đã bị check "size" chặn).
+        tl = d / "timeline.json"
+        hits = scan(f, json.loads(tl.read_text(encoding="utf-8")) if tl.is_file() else None)
+        put("dips", [h["frame"] for h in hits], not hits,
+            f"mất hình (đột biến) tại khung {[h['frame'] for h in hits[:3]]}")
     res = {"ok": not errs, "checks": checks, "errors": errs}
     if errs:
         raise VerifyError("; ".join(errs), res)

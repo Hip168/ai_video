@@ -4,6 +4,8 @@ import { CUSTOM_SCENES } from "../src/episodes/registry";
 import { specOf } from "../src/lib/registry";
 import { validateProps } from "../src/lib/propsSpec";
 import { THEME_IDS } from "../src/lib/theme-data";
+import { flowSizes, layoutFlow, type Pt } from "../src/lib/layout-flow";
+import { pointAlong } from "../src/lib/b-kit";
 
 export interface Finding {
   rule: string;
@@ -43,6 +45,9 @@ export const MIN_CHAPTER_FRAMES = 10 * FPS;
 export const MIN_TYPES = 10;
 export const MIN_CUSTOM = 3;
 export const SIMILARITY_LIMIT = 0.6;
+export const FLOW_MIN_NODE_FONT = 24;
+export const FLOW_MIN_LABEL_FONT = 20;
+export const FLOW_MAX_LABEL_OVERLAP = 4;
 
 export function levenshtein(a: string[], b: string[]): number {
   let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
@@ -148,7 +153,9 @@ export function lintEpisode(input: LintInput): Finding[] {
     if (spec.anyProps) {
       if (typeof s.props !== "object" || s.props === null || Array.isArray(s.props)) err("props", `cảnh ${s.id}: props phải là đối tượng`);
     } else {
-      for (const m of validateProps(spec.propsSpec, s.props ?? {})) err("props", `cảnh ${s.id} (${s.type}): ${m}`);
+      const bad = validateProps(spec.propsSpec, s.props ?? {});
+      for (const m of bad) err("props", `cảnh ${s.id} (${s.type}): ${m}`);
+      if (s.type === "flow" && bad.length === 0) lintFlow(s, err, warn);
     }
     const nb = s.beats?.length ?? 0;
     if (s.beats !== undefined && nb < spec.minBeats) warn("min-beats", `cảnh ${s.id} (${s.type}) có ${nb} beat, nên có ít nhất ${spec.minBeats}`);
@@ -158,4 +165,55 @@ export function lintEpisode(input: LintInput): Finding[] {
     }
   }
   return out;
+}
+
+type Rect = { x: number; y: number; w: number; h: number };
+
+/** Đoạn a-b có đi qua phần trong của khung r không (Liang–Barsky). */
+function segHitsRect(a: Pt, b: Pt, r: Rect): boolean {
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  let t0 = 0;
+  let t1 = 1;
+  for (const [p, q] of [[-dx, a.x - r.x], [dx, r.x + r.w - a.x], [-dy, a.y - r.y], [dy, r.y + r.h - a.y]]) {
+    if (p === 0) {
+      if (q <= 0) return false;
+    } else if (p < 0) t0 = Math.max(t0, q / p);
+    else t1 = Math.min(t1, q / p);
+  }
+  return t0 < t1;
+}
+
+/** Cảnh `flow`: chữ nút, chữ nhãn cạnh, nhãn đè nhau, tính từ bố cục như cảnh vẽ (không render). */
+function lintFlow(s: LintScene, err: (rule: string, message: string) => void, warn: (rule: string, message: string) => void): void {
+  const props = s.props as Record<string, unknown>;
+  const lay = layoutFlow(props);
+  const z = flowSizes(lay.scale);
+  const split = "tách thành hai cảnh `flow`";
+  const where = `cảnh ${s.id} (flow, ${lay.boxes.length} nút, hướng ${props.direction === "TB" ? "TB" : "LR"})`;
+  if (z.nodeFont < FLOW_MIN_NODE_FONT)
+    err("flow-node-font", `${where}: chữ nút ${z.nodeFont.toFixed(1)} px, cần ít nhất ${FLOW_MIN_NODE_FONT} px; ${split}`);
+  const labelled = lay.edges.filter((e) => e.label !== undefined && e.label !== "");
+  if (labelled.length > 0 && z.lblFont < FLOW_MIN_LABEL_FONT)
+    err("flow-edge-label-font", `${where}: chữ nhãn cạnh ${z.lblFont.toFixed(1)} px, cần ít nhất ${FLOW_MIN_LABEL_FONT} px; ${split}`);
+  const boxes = labelled.map((e) => {
+    const k = `${e.from}>${e.to}`;
+    const m = pointAlong(lay.paths[k], 0.5);
+    return { k, r: { x: m.x - z.lblW / 2, y: m.y - z.lblH / 2, w: z.lblW, h: z.lblH } };
+  });
+  for (let i = 0; i < boxes.length; i++) {
+    for (let j = i + 1; j < boxes.length; j++) {
+      const a = boxes[i].r;
+      const b = boxes[j].r;
+      const d = Math.min(Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x), Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
+      if (d > FLOW_MAX_LABEL_OVERLAP)
+        err("flow-label-overlap", `${where}: nhãn cạnh "${boxes[i].k}" và "${boxes[j].k}" đè nhau ${d.toFixed(1)} px, tối đa ${FLOW_MAX_LABEL_OVERLAP} px; ${split}`);
+    }
+  }
+  for (const { k, r } of boxes) {
+    const hit = lay.edges
+      .map((e) => `${e.from}>${e.to}`)
+      .filter((o) => o !== k && lay.paths[o].some((p, i) => i > 0 && segHitsRect(lay.paths[o][i - 1], p, r)));
+    if (hit.length > 0) warn("flow-label-covers-edge", `${where}: nhãn cạnh "${k}" che cạnh ${hit.map((o) => `"${o}"`).join(", ")}`);
+  }
 }

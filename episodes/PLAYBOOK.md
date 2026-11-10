@@ -267,7 +267,7 @@ Gói qc dùng sản phẩm chữ, chưa gồm video thật: khung hình mất v�
 
 ## 8. Điểm dừng (sếp tổng báo người dùng)
 
-- **Video đầu của kênh: Không công khai.** Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nói ok. Khi ok, đặt `firstVideoApproved: true` trong `.team/kenh.json`; từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.json` (D21).
+- **Video đầu của kênh: tải lên ở `private`** (`aivideo.upload <slug> --privacy private`, D25) để kiểm video có bị khoá không. Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nhắn ok, rồi mới chuyển video đó sang `public`. Khi ok, đặt `firstVideoApproved: true` trong `.team/kenh.json`; từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.json` (D21).
 - **Người dùng tự merge PR.** Mọi thứ đưa vào repo (mã, nội dung tập) đi qua DEPLOY: đẩy nhánh, mở PR, chờ CI xanh, báo link rồi dừng. Không ai chạy `gh pr merge` (`.team/autonomy.md`).
 - **`CẦN NGƯỜI DÙNG`** khi: vòng 4 của một cặp bị từ chối; trả xuyên khâu lần thứ 3; một lỗi còn sống tới lần thứ 2; thiếu LUFS sau 2 lần đọc lại; người kiểm trả `CHUA_DUYET` hai lần liền; `researcher`/người làm bác phát hiện; fact nguồn chỉ có `anecdotal`; chưa có dòng ĐẠT trong `.team/qualification.md` mà định làm tập; `BỊ CHẶN` ở bước kỹ thuật; lệnh `aivideo.upload` lỗi lần hai.
 - Việc người dùng tự làm: đăng nhập, tạo kênh, xác minh số điện thoại (đề mục 12).

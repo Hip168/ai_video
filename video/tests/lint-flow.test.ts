@@ -160,6 +160,9 @@ describe('[12-5] flow: nhãn cạnh đè nhau', () => {
     const px = ov.map((x) => /đè nhau (\d+\.\d) px/.exec(x.message)![1]);
     expect(px.filter((v) => v === '16.4')).toHaveLength(2);
     expect(px.filter((v) => v === '26.8')).toHaveLength(2);
+    const cov = of(f, 'flow-label-covers-edge');
+    expect(cov).toHaveLength(2);
+    expect(cov.every((x) => x.level === 'warn')).toBe(true);
   });
   test('mỗi cặp nhãn đè một lỗi riêng, tên cạnh đúng thứ tự edges', () => {
     const ov = of(flowFindings(fan(7, 'TB')), 'flow-label-overlap');

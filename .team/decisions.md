@@ -99,3 +99,12 @@ Chốt:
 - Cổng nào không đạt hoặc gặp `CẦN NGƯỜI DÙNG` thì lượt đó dừng, không đăng, ghi log và để lại tin cho người dùng.
 - Từ video thứ hai đăng Công khai sau khi người dùng duyệt video đầu (giữ nguyên D21).
 Nguồn: developers.google.com/youtube/v3 (revision_history, videos/insert, determine_quota_cost; 2026-11-03), developers.google.com/identity/protocols/oauth2 (2026-10-29), code.claude.com/docs/en/headless và /permissions (2026-11-10).
+
+## D25. Luồng của lượt chạy theo lịch (BA chốt, 2026-11-10, theo đề xuất DEV-13)
+- Claude (`claude -p`) chạy theo PLAYBOOK tới hết khâu 12 rồi in dòng cuối `SLUG: <slug>`. Sau đó `run-daily.sh` tự chạy `gate3` (không tin lời Claude). Cổng đạt thì mới chạy `upload`. Kết quả JSON có chữ `CAN_NGUOI_DUNG` thì dừng.
+- `upload` ghi mục `dang` vào sổ, `note` là URL `https://www.youtube.com/watch?v=<id>`, ghi ngay sau khi insert. Chạy lại mà gặp mục này thì không insert lần nữa. Thumbnail và phụ đề cũng không đặt lại nếu đã xong: sổ phải ghi đủ từng bước để biết bước nào đã xong.
+- Các chặn thêm trong `upload` đều giữ: đặt `public` khi `firstVideoApproved` chưa là true; `--publish-at` dùng khi privacy không phải `private`; `containsSyntheticMedia` khác false.
+- Tập đầu tải lên ở `private` để kiểm có bị khoá không. Người dùng xem và nhắn ok, rồi mới chuyển sang `public`. PLAYBOOK mục 8 sửa theo ý này, bỏ "Không công khai".
+- Sổ tập và file của tập: mục 6b yêu cầu `gate3` chặn khi sổ chưa commit. Vì vậy `run-daily.sh` commit trong máy riêng các đường dẫn `episodes/<slug>/` trước khi chạy `gate3`. Sau khi đăng xong thì push lên `main`, chỉ gồm các đường dẫn đó. Đây là nội dung tập, không phải code, nên không cần PR. Push lỗi thì chỉ ghi log, video vẫn tính là đã đăng.
+- Lỗi `HttpError` của Google được bắt riêng: in thông báo rõ ràng, thoát 1, không in traceback.
+- Mẫu plist đặt `PATH` có thư mục chứa `claude`, `uv` và `node`.

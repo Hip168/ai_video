@@ -36,6 +36,14 @@ class UploadError(Exception):
     pass
 
 
+class NeedUser(Exception):
+    """Dừng, cần người dùng xem (CAN_NGUOI_DUNG, mã 3)."""
+
+    def __init__(self, reason: str, result: dict):
+        super().__init__(reason)
+        self.result = {"state": "CAN_NGUOI_DUNG", "reason": reason, **result}
+
+
 class YouTubeClient:
     """Lớp mỏng quanh `googleapiclient`. Client giả trong test có đúng năm phương thức này."""
 
@@ -48,7 +56,7 @@ class YouTubeClient:
             raise UploadError(f"token thấy {len(items)} kênh, cần đúng 1")
         return items[0]["id"]
 
-    def insert_video(self, path: Path, body: dict) -> str:
+    def insert_video(self, path: Path, body: dict) -> dict:
         from googleapiclient.http import MediaFileUpload
 
         media = MediaFileUpload(str(path), mimetype="video/mp4", chunksize=8 * 1024 * 1024,
@@ -57,7 +65,7 @@ class YouTubeClient:
         resp = None
         while resp is None:
             _, resp = req.next_chunk(num_retries=3)
-        return resp["id"]
+        return resp
 
     def processing_status(self, video_id: str) -> str:
         items = self.service.videos().list(part="processingDetails", id=video_id).execute()
@@ -211,8 +219,13 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
     video_id = recorded_video_id(ep)
     resumed = video_id is not None
     if not resumed:
-        video_id = client.insert_video(mp4, build_body(pub, privacy, publish_at))
+        resp = client.insert_video(mp4, build_body(pub, privacy, publish_at))
+        video_id = resp["id"]
         _record(ep, STAGE, video_url(video_id), mp4)
+        got = (resp.get("status") or {}).get("privacyStatus")
+        if privacy in ("unlisted", "public") and got == "private":
+            raise NeedUser(f"đã yêu cầu {privacy} nhưng YouTube trả private: video có thể bị khoá",
+                           {"videoId": video_id, "url": video_url(video_id)})
     url = video_url(video_id)
     if _step_done(ep, STAGE_THUMBNAIL, url) and _step_done(ep, STAGE_CAPTION, url):
         return {"videoId": video_id, "url": url, "privacy": privacy, "publishAt": publish_at,
@@ -256,6 +269,10 @@ def main(argv: list[str] | None = None) -> int:
         r = upload_episode(a.slug, client=make_client(), episodes_dir=a.episodes_dir,
                            out_dir=a.out_dir, kenh_path=a.kenh, privacy=a.privacy,
                            publish_at=a.publish_at)
+    except NeedUser as e:
+        print(json.dumps(e.result, ensure_ascii=False, indent=2))
+        print(f"CAN_NGUOI_DUNG: {e}", file=sys.stderr)
+        return 3
     except HttpError as e:
         print(f"lỗi: Google trả HTTP {e.resp.status}: {getattr(e, 'reason', '') or e}",
               file=sys.stderr)

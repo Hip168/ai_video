@@ -108,3 +108,16 @@ Nguồn: developers.google.com/youtube/v3 (revision_history, videos/insert, dete
 - Sổ tập và file của tập: mục 6b yêu cầu `gate3` chặn khi sổ chưa commit. Vì vậy `run-daily.sh` commit trong máy riêng các đường dẫn `episodes/<slug>/` trước khi chạy `gate3`. Sau khi đăng xong thì push lên `main`, chỉ gồm các đường dẫn đó. Đây là nội dung tập, không phải code, nên không cần PR. Push lỗi thì chỉ ghi log, video vẫn tính là đã đăng.
 - Lỗi `HttpError` của Google được bắt riêng: in thông báo rõ ràng, thoát 1, không in traceback.
 - Mẫu plist đặt `PATH` có thư mục chứa `claude`, `uv` và `node`.
+
+## D26. Đề mục 10: tiêu chí đóng trình duyệt, thứ tự kiểm và ghép (BA chốt, 2026-11-11, theo TEST-LEAD và review)
+- Tiêu chí "đóng trong `finally`" chuyển thành tiêu chí về kết quả: sau khi chạy, dù chạy thành công, lỗi, SIGINT hay `close()` hỏng, không còn tiến trình `chrome-headless-shell` mồ côi, và manifest đã được ghi. Hợp đồng có thêm một điểm móc cho test: biến `AIVIDEO_FAIL_CLOSE=throw|hang` làm `close()` ném lỗi hoặc treo, để kiểm được đường diệt dự phòng (diệt theo nhóm tiến trình). Trước đây sổ test ghi "BA chốt: đột biến tương đương", nhưng không có nguồn; câu đó bỏ.
+- Thứ tự bước 6 và 7: ghép (6), rồi `framecheck verify` (7). Nếu bước 7 render lại đoạn nào thì phải ghép lại và chạy lại `assemble verify`. `clean` chỉ chạy sau khi lượt kiểm cuối cùng đạt. Không bao giờ để MP4 cuối giữ đoạn cũ.
+- `assemble verify` chạy thêm `framecheck scan` trên MP4 cuối, để bắt khung chỉ còn nền. Check khung đen giữ nguyên và chỉ bắt khung đen. Ghi vào file giao diện §3.
+- Tiêu chí "`_template` ngắt giữa chừng rồi chạy lại" giữ nguyên: test phải dùng `_template`, không thay bằng timeline tĩnh.
+
+## D27. [12-5] chấp nhận giới hạn fitText (BA chốt, 2026-11-11)
+Lint `flow` tính cỡ chữ theo `flowSizes`, chưa tính phần `fitText` co thêm khi nhãn nút dài. BA chấp nhận giới hạn này. Lý do: lỗi này lộ ra ở bước `qc` khi xem khung hình. Muốn chặn thì phải đo chữ thật, sẽ làm ở đề mục riêng nếu `qc` gặp.
+- Bổ sung D25 (BA chốt 2026-11-11, theo review đề mục 13):
+  - Luôn insert ở `private`. Đặt xong thumbnail và phụ đề thì mới `set_privacy` sang giá trị mong muốn. Sau đó đọc lại `privacyStatus`: nếu vẫn `private` thì coi là video bị khoá và trả mã 3. Cách này tránh để video công khai khi còn thiếu ảnh bìa hoặc phụ đề.
+  - Chống đăng trùng: gắn mốc `aivideo:<slug>` vào `tags`. Khi sổ chưa có `videoId`, trước khi insert, tra playlist uploads của kênh tìm mốc này. Nếu thấy thì dùng lại `videoId` đó và ghi sổ. Có `videoId` là in ra stderr ngay, trước khi ghi sổ. Mọi phép tính có thể lỗi (hash MP4…) làm trước khi insert.
+  - `run-daily.sh` commit và push đủ file của tập: `episodes/<slug>/`, `video/src/episodes/<slug>/`, `episodes/index.json` nếu có thay đổi. Không commit file nào khác.

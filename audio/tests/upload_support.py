@@ -18,14 +18,17 @@ URL_PREFIX = "https://www.youtube.com/watch?v="
 
 
 class FakeClient:
-    """Có đủ năm phương thức của `YouTubeClient`, ghi lại lời gọi theo thứ tự."""
+    """Có đủ bảy phương thức của `YouTubeClient`, ghi lại lời gọi theo thứ tự."""
 
     def __init__(self, channel=CHANNEL, video_id="vid123", statuses=None,
-                 fail_on=None, returned_privacy=None, error=None):
+                 fail_on=None, returned_privacy=None, error=None,
+                 privacy_now=None):
         """`returned_privacy`: privacyStatus mà insert_video trả về (mặc định
         đúng như body yêu cầu; "" = không có khoá `status`).
         `error`: ngoại lệ ném ở bước `fail_on` thay cho RuntimeError."""
         self.returned_privacy = returned_privacy
+        self.privacy_now = privacy_now
+        self.last_privacy = "unlisted"
         self.error = error
         self.channel = channel
         self.video_id = video_id
@@ -53,6 +56,7 @@ class FakeClient:
         got = self.returned_privacy
         if got is None:
             got = body["status"]["privacyStatus"]
+        self.last_privacy = body["status"]["privacyStatus"]
         res = {"id": self.video_id}
         if got != "":
             res["status"] = {"privacyStatus": got}
@@ -65,6 +69,15 @@ class FakeClient:
         if len(self.statuses) > 1:
             return self.statuses.pop(0)
         return self.statuses[0]
+
+    def privacy_status(self, video_id):
+        self._rec("privacy_status", video_id)
+        if self.privacy_now is not None:
+            return self.privacy_now
+        return self.last_privacy
+
+    def set_privacy(self, video_id, privacy):
+        self._rec("set_privacy", video_id, privacy)
 
     def set_thumbnail(self, video_id, path):
         self._rec("set_thumbnail", video_id, Path(path))

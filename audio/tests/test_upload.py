@@ -206,10 +206,11 @@ def test_chay_lai_khong_ap_lai_privacy_len_video_da_tai(tmp_path):
     env = make_upload_env(tmp_path)
     with pytest.raises(RuntimeError):
         _run(env, FakeClient(fail_on="set_thumbnail"))
-    c2 = FakeClient()
+    c2 = FakeClient(privacy_now="unlisted")
     r = _run(env, c2, privacy="unlisted")
     assert "insert_video" not in c2.names
     assert r["resumed"] is True
+    assert "set_privacy" not in c2.names
 
 
 def test_so_hong_chuoi_hash_thi_loi_va_khong_tai(tmp_path):
@@ -576,17 +577,97 @@ def test_thieu_status_privacy_trong_phan_hoi_thi_khong_chan(tmp_path):
     assert "insert_caption" in c.names
 
 
-def test_chay_lai_sau_can_nguoi_dung_khong_xet_lai_va_di_tiep(tmp_path):
+def test_chay_lai_van_private_trong_khi_yeu_cau_unlisted_thi_dung_lai(
+        tmp_path):
     env = make_upload_env(tmp_path)
     with pytest.raises(upload.NeedUser):
         _run(env, FakeClient(video_id="vK", returned_privacy="private"),
              privacy="unlisted")
-    c2 = FakeClient(returned_privacy="private")
+    c2 = FakeClient(privacy_now="private")
+    with pytest.raises(upload.NeedUser) as e:
+        _run(env, c2, privacy="unlisted")
+    assert c2.names == ["channel_id", "processing_status", "privacy_status"]
+    assert e.value.result["state"] == "CAN_NGUOI_DUNG"
+    assert e.value.result["videoId"] == "vK"
+    assert e.value.result["url"] == URL_PREFIX + "vK"
+    assert _stages(env) == ["dang"]
+
+
+def test_chay_lai_da_het_khoa_thi_di_tiep_sau_khi_kiem_privacy(tmp_path):
+    env = make_upload_env(tmp_path)
+    with pytest.raises(upload.NeedUser):
+        _run(env, FakeClient(video_id="vK", returned_privacy="private"),
+             privacy="unlisted")
+    c2 = FakeClient(privacy_now="unlisted")
     r = _run(env, c2, privacy="unlisted")
     assert r["resumed"] is True
     assert c2.names == [
-        "channel_id", "processing_status", "set_thumbnail", "insert_caption",
+        "channel_id", "processing_status", "privacy_status",
+        "set_thumbnail", "insert_caption",
     ]
+    assert _stages(env) == ["dang", "dang-thumbnail", "dang-caption"]
+
+
+def test_chay_lai_yeu_cau_public_van_private_thi_dung_lai(tmp_path):
+    env = make_upload_env(
+        tmp_path, kenh={"channelId": CHANNEL, "firstVideoApproved": True})
+    with pytest.raises(RuntimeError):
+        _run(env, FakeClient(video_id="vP", fail_on="set_thumbnail"),
+             privacy="public")
+    c2 = FakeClient(privacy_now="private")
+    with pytest.raises(upload.NeedUser):
+        _run(env, c2, privacy="public")
+    assert "set_thumbnail" not in c2.names
+    assert "insert_caption" not in c2.names
+
+
+def test_chay_lai_privacy_lay_tu_publish_json_cung_duoc_kiem(tmp_path):
+    env = make_upload_env(tmp_path, publish={"privacy": "unlisted"})
+    with pytest.raises(RuntimeError):
+        _run(env, FakeClient(fail_on="set_thumbnail"))
+    c2 = FakeClient(privacy_now="private")
+    with pytest.raises(upload.NeedUser):
+        _run(env, c2)
+    assert c2.names[-1] == "privacy_status"
+
+
+def test_chay_lai_yeu_cau_private_thi_khong_hoi_privacy_status(tmp_path):
+    env = make_upload_env(tmp_path)
+    with pytest.raises(RuntimeError):
+        _run(env, FakeClient(fail_on="set_thumbnail"))
+    c2 = FakeClient(privacy_now="private")
+    _run(env, c2, privacy="private")
+    assert "privacy_status" not in c2.names
+
+
+def test_tai_moi_khong_hoi_privacy_status(tmp_path):
+    env = make_upload_env(tmp_path)
+    c = FakeClient()
+    _run(env, c, privacy="unlisted")
+    assert "privacy_status" not in c.names
+
+
+def test_chay_lai_khi_da_xong_ca_ba_buoc_khong_hoi_privacy_status(tmp_path):
+    env = make_upload_env(tmp_path, publish={"privacy": "unlisted"})
+    _run(env, FakeClient())
+    c2 = FakeClient(privacy_now="private")
+    _run(env, c2)
+    assert c2.names == ["channel_id"]
+
+
+def test_cli_chay_lai_van_private_ma_3_va_json_stdout(
+        tmp_path, monkeypatch, capsys):
+    env = make_upload_env(tmp_path)
+    with pytest.raises(RuntimeError):
+        _run(env, FakeClient(video_id="vR", fail_on="set_thumbnail"),
+             privacy="unlisted")
+    c2 = FakeClient(privacy_now="private")
+    monkeypatch.setattr(upload, "make_client", lambda: c2)
+    code = upload.main(_cli_args(env, "--privacy", "unlisted"))
+    cap = capsys.readouterr()
+    assert code == 3
+    assert json.loads(cap.out)["videoId"] == "vR"
+    assert cap.err.startswith("CAN_NGUOI_DUNG:")
 
 
 def test_cli_video_bi_khoa_ma_3_json_stdout_va_dong_stderr(

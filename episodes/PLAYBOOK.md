@@ -2,7 +2,7 @@
 
 Đây là nguồn duy nhất của luồng sản xuất. Thiết kế và lý do: `.team/doi-san-xuat.md` (D20, D22). Mỗi vai có file riêng ở `episodes/roles/<vai>.md`. Luật chung của đội: `~/.claude/team/CONVENTIONS.md`.
 
-Người dùng ra lệnh "làm video về <đề tài>" (hoặc "làm video" để `researcher` tự chọn đề tài). Sếp tổng đặt `slug` (`^[a-z0-9]+(-[a-z0-9]+)*$`) rồi đi hết luồng dưới đây. Không hỏi giữa chừng, trừ các điểm dừng ở mục 8.
+Người dùng ra lệnh "làm video về <đề tài>" (hoặc "làm video": lấy mục đầu tiên chưa làm trong `episodes/queue.json`, dùng đúng `slug` của mục; hàng đợi hết thì `researcher` tự chọn đề tài). Định dạng hàng đợi: `.team/features/13-tu-dong-giao-dien.md`. Sếp tổng đặt `slug` (`^[a-z0-9]+(-[a-z0-9]+)*$`) rồi đi hết luồng dưới đây. Không hỏi giữa chừng, trừ các điểm dừng ở mục 8.
 
 ## 1. Bảng vai và loại agent
 
@@ -19,7 +19,7 @@ Sếp tổng chạy mỗi vai bằng một lần gọi agent MỚI (không dùng
 | `editor` | `general-purpose` | đủ | `out/episodes/<slug>/` |
 | `qc` | `Explore` | đọc và lệnh đo; không ghi file | không |
 | `packager` | `general-purpose` | đủ | `publish.json`, ảnh bìa |
-| `publisher` | `ops` | Claude in Chrome | không (báo URL) |
+| `publisher` | `ops` | Bash: chỉ `python -m aivideo.upload` (D24) | mục `dang` trong sổ, do lệnh ghi |
 
 Người làm và người kiểm là hai agent khác nhau, gọi mới. Agent con không gọi được agent con: mọi lần gọi do sếp tổng.
 
@@ -78,7 +78,7 @@ Lệnh → [1] research → [2] CỔNG 1 (fact-checker) → [3] viết → [4] b
 | 10 | `qc` | | qc | `verdict`, `ledger add --stage qc --pair editor/qc --artifact <MP4>` | theo `owner` của phát hiện |
 | 11 | `dong-goi` | packager | | `ledger add --stage dong-goi --role packager` | |
 | 12 | `cong3` | | CỔNG 3 | `gate3` | theo mục lỗi trong `checks` |
-| 13 | `dang` | publisher | | `ledger add --stage dang --note <URL>` | |
+| 13 | `dang` | publisher | | `python -m aivideo.upload <slug>` (tự ghi sổ) | |
 
 Từng khâu:
 
@@ -152,7 +152,11 @@ $G gate3 <slug> --video <đường dẫn MP4>
 ```
 Kiểm bằng script: chuỗi hash sổ tập nguyên vẹn; hash lời hiện tại bằng hash đã chốt ở Cổng 2 (sửa một ký tự thì chặn); `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản này; dòng `PHAN_QUYET` của qc đúng định dạng; MP4 đúng bản qc đã duyệt; `publish.json` đủ trường, đúng `channelId` trong `.team/kenh.json`, `containsSyntheticMedia` là `false`, đúng quyền riêng tư. Chặn thì sửa theo `checks[].detail`; không có cách tự cho qua.
 
-**[13] đăng.** Gọi `publisher` (`ops`, mẫu 4.13). Báo URL: `$G ledger add <slug> --stage dang --role publisher --note <URL>`.
+**[13] đăng.** Gọi `publisher` (`ops`, mẫu 4.13). Publisher chạy (D24, YouTube Data API, không dùng trình duyệt):
+```bash
+.venv/bin/python -m aivideo.upload <slug> [--privacy private|unlisted|public]
+```
+Lệnh kiểm kênh của token đúng `channelId` trong `.team/kenh.json` (lệch thì thoát 1, không tải), tải video ở `private` (gắn thẻ `aivideo:<slug>`), đợi xử lý, đặt ảnh bìa, tải phụ đề, rồi mới đặt quyền riêng tư mong muốn và đọc lại (vẫn `private` thì thoát mã 3); mỗi bước ghi một mục sổ (`dang`, `dang-thumbnail`, `dang-caption`, `dang-privacy`). Chạy lại sau lỗi không tạo video thứ hai: videoId lấy từ sổ, hoặc tìm lại trên kênh theo thẻ. Sếp tổng commit `ledger.json`. Lượt chạy theo lịch (`scripts/run-daily.sh`) không gọi publisher: script tự chạy `gate3` rồi lệnh trên. Giao diện: `.team/features/13-tu-dong-giao-dien.md`.
 
 ## 4. Mẫu prompt mỗi khâu
 
@@ -214,7 +218,7 @@ Viết episodes/<slug>/publish.json và ảnh bìa theo file vai.
 
 **4.13 publisher.**
 ```
-Việc lần này: đăng slug <slug> lên kênh "<tên kênh>", quyền riêng tư <unlisted|public>, MP4 <đường dẫn>.
+Việc lần này: đăng slug <slug> lên kênh "<tên kênh>" bằng python -m aivideo.upload, quyền riêng tư <private|unlisted|public>.
 scriptHash trong sổ: <hash>. Cổng 3 đã đạt lúc <giờ>.
 ```
 
@@ -263,9 +267,9 @@ Gói qc dùng sản phẩm chữ, chưa gồm video thật: khung hình mất v�
 
 ## 8. Điểm dừng (sếp tổng báo người dùng)
 
-- **Video đầu của kênh: Không công khai.** Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nói ok. Khi ok, đặt `firstVideoApproved: true` trong `.team/kenh.json`; từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.json` (D21).
+- **Video đầu của kênh: Không công khai.** Sau khi Cổng 3 đạt và `publisher` đăng xong, dừng và báo URL; người dùng xem và nói ok. Khi ok, sếp tổng đặt `firstVideoApproved: true` trong `.team/kenh.json`, rồi chạy (từ `audio/`) `.venv/bin/python -m aivideo.upload <slug> --set-privacy public` để chuyển video đầu sang Công khai (lệnh ghi mục `dang-privacy` vào sổ; sếp tổng commit `ledger.json`); từ video thứ hai `publisher` được đăng Công khai không hỏi, đúng kênh trong `kenh.json` (D21).
 - **Người dùng tự merge PR.** Mọi thứ đưa vào repo (mã, nội dung tập) đi qua DEPLOY: đẩy nhánh, mở PR, chờ CI xanh, báo link rồi dừng. Không ai chạy `gh pr merge` (`.team/autonomy.md`).
-- **`CẦN NGƯỜI DÙNG`** khi: vòng 4 của một cặp bị từ chối; trả xuyên khâu lần thứ 3; một lỗi còn sống tới lần thứ 2; thiếu LUFS sau 2 lần đọc lại; người kiểm trả `CHUA_DUYET` hai lần liền; `researcher`/người làm bác phát hiện; fact nguồn chỉ có `anecdotal`; chưa có dòng ĐẠT trong `.team/qualification.md` mà định làm tập; `BỊ CHẶN` ở bước kỹ thuật; hộp thoại lạ ở Studio.
+- **`CẦN NGƯỜI DÙNG`** khi: vòng 4 của một cặp bị từ chối; trả xuyên khâu lần thứ 3; một lỗi còn sống tới lần thứ 2; thiếu LUFS sau 2 lần đọc lại; người kiểm trả `CHUA_DUYET` hai lần liền; `researcher`/người làm bác phát hiện; fact nguồn chỉ có `anecdotal`; chưa có dòng ĐẠT trong `.team/qualification.md` mà định làm tập; `BỊ CHẶN` ở bước kỹ thuật; lệnh `aivideo.upload` lỗi lần hai hoặc thoát mã 3 (đã yêu cầu `unlisted`/`public` mà YouTube trả `private`: video có thể bị khoá, D25).
 - Việc người dùng tự làm: đăng nhập, tạo kênh, xác minh số điện thoại (đề mục 12).
 - Sếp tổng không tự phán để chạy tiếp. Không rõ thì hỏi theo luật KHÔNG TỰ ĐOÁN.
 

@@ -125,7 +125,32 @@ def find_dips(c: list[int], ignore: set[int] = frozenset(), offset: int = 0) -> 
 
 def scan(src: Path | list[Path], timeline: dict | None = None, start: int = 0) -> list[dict]:
     ignore = {j - start for j in ignore_frames(timeline)}
-    return find_dips(count_series(read_frames(src)), ignore, start)
+    hits = find_dips(count_series(read_frames(src)), ignore, start)
+    return confirm_dips(src, hits, start) if hits else hits
+
+
+def confirm_dips(src: Path | list[Path], hits: list[dict], start: int = 0) -> list[dict]:
+    """D30: chỉ giữ ứng viên mà khung tụt mất một vùng liền khối và hình hồi lại đúng như trước.
+
+    Loại báo sai do fade đều qua ngưỡng đếm, viền mảnh đang trượt, chữ số đang đếm, chuyển mờ chéo.
+    """
+    need = set()
+    for h in hits:
+        i = h["frame"] - start
+        need.update((i - 1, i, i + h["length"]))
+    got: dict[int, np.ndarray] = {}
+    for n, f in enumerate(read_frames(src)):
+        if n in need:
+            got[n] = f
+        if n >= max(need):
+            break
+    out = []
+    for h in hits:
+        i = h["frame"] - start
+        prev, dip, back = got[i - 1], got[i], got[i + h["length"]]
+        if region_size(prev, dip) >= MIN_REGION and region_size(prev, back) < MIN_REGION:
+            out.append(h)
+    return out
 
 
 def _erode3(m: np.ndarray) -> np.ndarray:

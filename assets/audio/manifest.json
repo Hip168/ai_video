@@ -2,17 +2,12 @@
   "tracks": [
     {
       "id": "reverence-endless",
-      "track": "Reverence ENDLESS (Week 35, Music Loop Bundle 2026 Q3)",
       "file": "reverence-endless.ogg",
       "sourceUrl": "https://tallbeard.itch.io/music-loop-bundle",
-      "license": "CC0 1.0 (Public Domain): \"To the extent possible under law, Abstraction Music and Tallbeard Studios has waived all copyright and related or neighboring rights to the music contained in this asset pack.\" Nguồn: _LICENSE.txt trong gói music-loop-bundle-2026-q3.zip và trang itch. Tác giả không khuyến khích dùng cho NFT, AI/ML, bán lại nguyên bản; video này không thuộc các loại đó.",
+      "license": "CC0 1.0 (Public Domain): \"To the extent possible under law, Abstraction Music and Tallbeard Studios has waived all copyright and related or neighboring rights to the music contained in this asset pack.\" Nguồn: _LICENSE.txt trong gói music-loop-bundle-2026-q3.zip và trang itch. Tác giả không khuyến khích dùng cho NFT, AI/ML, bán lại nguyên bản; video này không thuộc các loại đó. Tệp gốc \"Week 35 - Reverence ENDLESS.ogg\" trong music-loop-bundle-2026-q3.zip, vòng lặp 49,35 s.",
       "downloadedAt": "2026-11-11",
       "sha256": "a968cd101e70db04293d11d1c2b4527eb597ca02e3490e5b59b2f33fe52b8c51",
-      "attribution": "Không bắt buộc. Nếu ghi: Abstraction, https://abstractionmusic.com/ hoặc https://tallbeard.itch.io/music-loop-bundle",
-      "durationSeconds": 49.35,
-      "loop": true,
-      "packFile": "music-loop-bundle-2026-q3.zip",
-      "originalFile": "Week 35 - Reverence ENDLESS.ogg"
+      "attribution": "Không bắt buộc. Nếu ghi: Abstraction, https://abstractionmusic.com/ hoặc https://tallbeard.itch.io/music-loop-bundle"
     }
   ]
 }

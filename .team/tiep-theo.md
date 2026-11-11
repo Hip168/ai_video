@@ -11,6 +11,11 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
 ## Đang làm (2026-11-11)
+- **TẠM GIỮ (người dùng, 2026-11-11):** chưa chuyển video sang Công khai. Trước khi chuyển phải làm hai việc: (1) đổi tên kênh, (2) đổi ảnh đại diện.
+  - Hai việc này người dùng tự làm trong Studio, vì YouTube API không cho đổi tên kênh hay ảnh đại diện.
+  - Tên kênh: người dùng sẽ chốt sau. Các gợi ý đã đưa: Nhị Phân, Vì Sao Máy Tính, Bit Ơi, Gốc Tin Học.
+  - Ảnh đại diện: hold. Khi làm thì xuất PNG 800x800 cùng tông màu với video; gợi ý là chữ 0/1 màu vàng trên nền tối.
+  - Sau khi người dùng đổi xong và nói ok: đặt firstVideoApproved = true, rồi chạy --set-privacy public.
 - **VIDEO ĐẦU ĐÃ LÊN:** https://youtu.be/Dcb-Cy-V2HM (Không công khai). Chờ người dùng xem. Khi người dùng OK: đặt `firstVideoApproved: true` trong `.team/kenh.json`, chạy `python -m aivideo.upload vi-sao-may-tinh-dung-nhi-phan --set-privacy public`.
 - Đã vào main: PR #68 (đề mục 10). Nhánh `fix-manifest-nhac`, PR #70, gồm manifest 7 trường, D30 bộ dò mất hình và sổ tập: chờ CI, merge. Sau đó PR #69 (đề mục 13): cập nhật theo main, CI, merge. Main trên máy có commit tập (Cổng 3, đăng) đi trước origin, cần đẩy qua PR.
 - Lỗi nhỏ để tập sau: sc42 (`bon-muoi-bit`) chữ chồng nhau khi crossfade, khoảng 0,5 s, ở 7:23. Khung biểu đồ "flow": nhãn nằm lệch lên trên.

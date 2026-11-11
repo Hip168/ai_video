@@ -10,15 +10,11 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
-## Đang làm (TẠM DỪNG 2026-11-11 theo lệnh người dùng "tạm hold")
-- **10 Render dài:** PR #68, HEAD `f1e897e` (đã gộp main; có bản sửa ghi manifest khi nhận tín hiệu `74b6e97`). CI đang chạy trên GitHub, chưa merge. Chạy tiếp: kiểm CI #68, xanh thì merge.
-- **13 Tự đăng:** `.worktrees/13-tu-dong` HEAD `be46f17`, test đã khoá. Chưa push, chưa có PR. Thân PR có sẵn ở `ai_video_spike/pr13.md`. Chạy tiếp: gộp main, push, PR, CI, merge.
-- **Tập đầu `vi-sao-may-tinh-dung-nhi-phan`:** đã qua Cổng 1, Cổng 2, phần cảnh, lint và giọng thật (721,4 giây; D29). Sổ tập đã commit (`22a75e2`). File ra nằm ở `out/episodes/<slug>/`: narration, timeline, srt, chapters. Nhạc `reverence-endless` (CC0).
-  - Bước tiếp, sau khi 10 merge: `make-episode.sh <slug>`, `ledger run --stage ky-thuat`, qc, packager, gate3.
-  - Đăng: `upload.py` (cần 13 merge, hoặc chạy từ worktree 13), để `unlisted`, gửi link cho người dùng.
-  - Người dùng không nghe trước tên riêng, sẽ xem ở video đầu.
-- **14 Shorts:** tạm dừng.
-- Lưu ý: không đẩy file của tập lên main trong lúc nhánh 10 còn mở nếu chạm `video/src/episodes/registry.ts` (đã gây xung đột một lần).
+## Đang làm (2026-11-11)
+- **VIDEO ĐẦU ĐÃ LÊN:** https://youtu.be/Dcb-Cy-V2HM (Không công khai). Chờ người dùng xem. Khi người dùng OK: đặt `firstVideoApproved: true` trong `.team/kenh.json`, chạy `python -m aivideo.upload vi-sao-may-tinh-dung-nhi-phan --set-privacy public`.
+- Đã vào main: PR #68 (đề mục 10). Nhánh `fix-manifest-nhac`, PR #70, gồm manifest 7 trường, D30 bộ dò mất hình và sổ tập: chờ CI, merge. Sau đó PR #69 (đề mục 13): cập nhật theo main, CI, merge. Main trên máy có commit tập (Cổng 3, đăng) đi trước origin, cần đẩy qua PR.
+- Lỗi nhỏ để tập sau: sc42 (`bon-muoi-bit`) chữ chồng nhau khi crossfade, khoảng 0,5 s, ở 7:23. Khung biểu đồ "flow": nhãn nằm lệch lên trên.
+- **14 Shorts:** tạm dừng. [13-4] chạy theo lịch: chưa làm.
 
 ## Luật đã chốt cần nhớ
 - Không còn DEV-LEAD. Chỉ có một TEST-LEAD: gọi một lần rồi dùng SendMessage.

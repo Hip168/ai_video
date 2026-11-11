@@ -492,6 +492,68 @@
       "unresolvedSevere": null,
       "prevHash": "02b656bf1da7a771754dd52f00f19020b52f0fc411c1a17951c616863d9d9502",
       "entryHash": "4f9c9894602dd9a1b1e8391cd705f5c5456007224d126f50f5b0fa084ec5d7e6"
+    },
+    {
+      "seq": 15,
+      "ts": "2026-11-11T08:48:42Z",
+      "stage": "ky-thuat",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "90d447247e043409a5eb6581b231e40e3416000583b14bf37f41362fc72bf58d",
+      "verdict": "CHAN",
+      "scriptHash": "1ca29d1fb40591a242d672b0fac4a3aca3ba66188e139060571d66fb1d4f33e9",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "mã thoát 1",
+      "cmd": [
+        "/Users/leminhdao168/Documents/ai_video/audio/.venv/bin/python",
+        "-m",
+        "aivideo.assemble",
+        "verify",
+        "vi-sao-may-tinh-dung-nhi-phan"
+      ],
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "4f9c9894602dd9a1b1e8391cd705f5c5456007224d126f50f5b0fa084ec5d7e6",
+      "entryHash": "5ce14ddeb70308c5e196c96216d665c14b2b9e329c683a5bd566ed125073fc23"
+    },
+    {
+      "seq": 16,
+      "ts": "2026-11-11T09:14:34Z",
+      "stage": "ky-thuat",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "ac361708f3d8e4997b7f08801a4140a2a0b66b91bedd3cbf7945a1411ceca302",
+      "verdict": "DAT",
+      "scriptHash": "1ca29d1fb40591a242d672b0fac4a3aca3ba66188e139060571d66fb1d4f33e9",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "mã thoát 0",
+      "cmd": [
+        "/Users/leminhdao168/Documents/ai_video/audio/.venv/bin/python",
+        "-m",
+        "aivideo.assemble",
+        "verify",
+        "vi-sao-may-tinh-dung-nhi-phan"
+      ],
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "5ce14ddeb70308c5e196c96216d665c14b2b9e329c683a5bd566ed125073fc23",
+      "entryHash": "75818d6d5b8763b740e6dd0388a8c965bf520f0080bbcb623470ae706fa571a4"
     }
   ]
 }

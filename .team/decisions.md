@@ -133,3 +133,16 @@ Người dùng muốn có thêm Shorts dọc, xem trên điện thoại vẫn ch
 
 ## D29. Độ dài tập đầu 12:01 (BA chốt, 2026-11-11)
 Đề mục 12 ghi độ dài từ 9:30 đến 12:00. Giọng thật của tập `vi-sao-may-tinh-dung-nhi-phan` dài 721,4 giây, vượt mốc 1,4 giây. Không có cổng nào trong code kiểm độ dài. Chấp nhận, vì mục đích là video khoảng 10 phút, còn sửa lời sau Cổng 2 thì phải chạy lại cả ba cổng. Người dùng chọn không nghe trước tên riêng, xem luôn ở video đầu (Không công khai).
+
+## D30. Bộ dò mất hình: xác nhận bằng vùng liền khối (BA chốt, 2026-11-11)
+Tập đầu bị `find_dips` báo 40 khung "mất hình", nhưng xem từng khung thì tất cả đều là chuyển động hoặc fade hợp lệ:
+- viền thẻ mảnh bị răng cưa khi thu nhỏ;
+- fade vượt qua ngưỡng xám 80;
+- số đếm chạy;
+- crossfade chữ.
+
+Chốt lại: `find_dips` chỉ còn là bước lọc ứng viên. Một khung chỉ bị báo khi thoả cả hai điều kiện sau, đo bằng `region_size` sẵn có:
+- `region_size(f[i-1], f[i]) >= MIN_REGION`: mất một vùng liền khối;
+- `region_size(f[i-1], f[i+k]) < MIN_REGION`: hình hồi lại như cũ.
+
+Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược điểm: sẽ bỏ sót mất hình xảy ra đúng lúc cảnh đang chuyển động, vì QC xem khung bằng mắt vẫn còn.

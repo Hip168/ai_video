@@ -121,3 +121,15 @@ Lint `flow` tính cỡ chữ theo `flowSizes`, chưa tính phần `fitText` co t
   - Luôn insert ở `private`. Đặt xong thumbnail và phụ đề thì mới `set_privacy` sang giá trị mong muốn. Sau đó đọc lại `privacyStatus`: nếu vẫn `private` thì coi là video bị khoá và trả mã 3. Cách này tránh để video công khai khi còn thiếu ảnh bìa hoặc phụ đề.
   - Chống đăng trùng: gắn mốc `aivideo:<slug>` vào `tags`. Khi sổ chưa có `videoId`, trước khi insert, tra playlist uploads của kênh tìm mốc này. Nếu thấy thì dùng lại `videoId` đó và ghi sổ. Có `videoId` là in ra stderr ngay, trước khi ghi sổ. Mọi phép tính có thể lỗi (hash MP4…) làm trước khi insert.
   - `run-daily.sh` commit và push đủ file của tập: `episodes/<slug>/`, `video/src/episodes/<slug>/`, `episodes/index.json` nếu có thay đổi. Không commit file nào khác.
+
+## D28. YouTube Shorts dọc từ tập dài (người dùng yêu cầu, BA chốt, 2026-11-11)
+Người dùng muốn có thêm Shorts dọc, xem trên điện thoại vẫn chuẩn như video quay dọc thật. Chốt:
+- Không cắt từ MP4 ngang. Render lại từ chính timeline của tập, khung 1080×1920, 30 fps.
+- Bố cục dọc: tiêu đề ngắn ở trên; giữa là vùng vuông 1080×1080 cho cảnh; phụ đề to ở dưới, chừa vùng nút bấm của YouTube Shorts. Mỗi loại cảnh trong 18 loại có thêm biến thể vuông. Không thu nhỏ cảnh ngang để nhét vào.
+- Mỗi tập ra 2 Shorts, mỗi Short dưới 60 giây. Lấy đoạn trọn ý: có móc mở đầu và có câu kết. Lời đọc lấy nguyên từ kịch bản đã qua Cổng 2. Nếu cần câu mở hay câu kết mới thì câu đó phải qua lại Cổng 1 và Cổng 2.
+- Mô tả của Short có link về video dài. Short đăng ngay trong cùng lượt chạy, sau video dài, bằng cùng `upload.py` (người dùng chốt 2026-11-11: "đẩy cả bản chuẩn cả bản short song song"). Short đầu tiên cũng để Không công khai và chờ người dùng duyệt cùng video dài đầu tiên.
+- Dùng lại phần đã làm ở nhánh `4-khung-doc` (D19 tạm dừng) làm nền bố cục dọc.
+- Làm song song với đề mục 10 và 13, ngay từ bây giờ (người dùng chốt 2026-11-11). Tập đầu ra cả bản dài lẫn 2 Shorts.
+
+## D29. Độ dài tập đầu 12:01 (BA chốt, 2026-11-11)
+Đề mục 12 ghi độ dài từ 9:30 đến 12:00. Giọng thật của tập `vi-sao-may-tinh-dung-nhi-phan` dài 721,4 giây, vượt mốc 1,4 giây. Không có cổng nào trong code kiểm độ dài. Chấp nhận, vì mục đích là video khoảng 10 phút, còn sửa lời sau Cổng 2 thì phải chạy lại cả ba cổng. Người dùng chọn không nghe trước tên riêng, xem luôn ở video đầu (Không công khai).

@@ -1,0 +1,3270 @@
+{
+  "meta": {
+    "title": "Vì sao máy tính dùng hệ nhị phân",
+    "voice": "hoang_nam",
+    "speed": 1.25,
+    "theme": "mau-a",
+    "music": {
+      "track": "reverence-endless",
+      "gainDb": -24
+    }
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu"
+    },
+    {
+      "id": "chuong-1",
+      "title": "Bit là gì"
+    },
+    {
+      "id": "chuong-2",
+      "title": "Đếm bằng hai, và cái byte"
+    },
+    {
+      "id": "chuong-3",
+      "title": "Tín hiệu điện không bao giờ sạch"
+    },
+    {
+      "id": "chuong-4",
+      "title": "Logic vốn là có hoặc không"
+    },
+    {
+      "id": "chuong-5",
+      "title": "Những cỗ máy không chịu nhị phân"
+    },
+    {
+      "id": "chuong-6",
+      "title": "Nhiều mức, nhưng vẫn là bit"
+    },
+    {
+      "id": "ket",
+      "title": "Kết"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "Bên trong máy tính, tất cả chỉ là 0 và 1",
+        "kicker": "Vì sao lại là hai?"
+      },
+      "holdMs": 0,
+      "sfx": "whoosh",
+      "beats": [
+        {
+          "id": "b001",
+          "text": "Bức ảnh bạn vừa chụp, bài hát bạn đang nghe, cả video này nữa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b002",
+          "text": "Bên trong máy tính, tất cả chỉ là một dãy rất dài các số 0 và 1.",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        },
+        {
+          "id": "b003",
+          "text": "Con người đếm bằng mười ngón tay.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b004",
+          "text": "Vậy tại sao máy lại chọn đếm bằng hai?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "chapter": "mo-dau",
+      "type": "compare",
+      "props": {
+        "titleA": "ENIAC",
+        "titleB": "Máy ở Moskva",
+        "rows": [
+          {
+            "label": "Tính bằng hệ mười",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Dùng hệ ba",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Chạy thật, không chỉ là bản thử",
+            "a": true,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b006",
+          "text": "Chiếc máy tính điện tử lừng danh ENIAC lại tính bằng hệ thập phân, hệ mười.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b007",
+          "text": "Ở Moskva, người ta còn làm cả máy tính dùng hệ tam phân, tức hệ ba.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b008",
+          "text": "Và chúng đã được sản xuất thật, không chỉ là bản thử.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {
+        "term": "Công tắc",
+        "tag": "Câu trả lời",
+        "definition": "Một công tắc thì gần như không thể đọc nhầm",
+        "example": "Vậy hệ hai thắng nhờ đâu?"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b009",
+          "text": "Vậy hệ hai thắng nhờ đâu?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b010",
+          "text": "Câu trả lời nằm ở một điều rất đời thường: một công tắc thì gần như không thể đọc nhầm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+        "title": "Bit là gì",
+        "number": 1
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc05",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "Bit",
+        "tag": "binary digit",
+        "definition": "Chữ số nhị phân: trả lời một câu hỏi có hai đáp án",
+        "example": "Có hoặc không, bật hoặc tắt"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b012",
+          "text": "Hãy bắt đầu từ viên gạch nhỏ nhất: bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b013",
+          "text": "Bit là dạng viết gọn của cụm từ binary digit, nghĩa là chữ số nhị phân.",
+          "spoken": "Bit là dạng viết gọn của cụm từ bai-nơ-ri đi-jít, nghĩa là chữ số nhị phân.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b014",
+          "text": "Một bit chỉ trả lời một câu hỏi có hai đáp án: có hoặc không, bật hoặc tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc06",
+      "chapter": "chuong-1",
+      "type": "custom:mach-den",
+      "props": {
+        "mode": "mot"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b015",
+          "text": "Hãy nghĩ tới công tắc đèn trong phòng bạn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b016",
+          "text": "Nó chỉ có hai trạng thái, và bạn nhìn là biết ngay nó đang ở trạng thái nào.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc07",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "Claude Shannon",
+        "tag": "Bài báo năm 1948",
+        "definition": "Bài báo có cái tên bit, và một ý rất đơn giản về cách lưu thông tin"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b017",
+          "text": "Cái tên bit xuất hiện trong một bài báo năm 1948 của Claude Shannon.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        },
+        {
+          "id": "b021",
+          "text": "Shannon còn viết ra một ý rất đơn giản.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc08",
+      "chapter": "chuong-1",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "rele",
+            "label": "Rơ-le"
+          },
+          {
+            "id": "ff",
+            "label": "Flip-flop"
+          },
+          {
+            "id": "hai",
+            "label": "Hai vị trí ổn định"
+          },
+          {
+            "id": "bit",
+            "label": "Một bit thông tin"
+          }
+        ],
+        "edges": [
+          {
+            "from": "rele",
+            "to": "hai"
+          },
+          {
+            "from": "ff",
+            "to": "hai"
+          },
+          {
+            "from": "hai",
+            "to": "bit"
+          }
+        ],
+        "packets": [
+          {
+            "from": "rele",
+            "to": "hai"
+          },
+          {
+            "from": "ff",
+            "to": "hai"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b022",
+          "text": "Một thiết bị có hai vị trí ổn định thì lưu được một bit thông tin.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        },
+        {
+          "id": "b023",
+          "text": "Ví dụ như rơ-le, một loại công tắc được đóng mở bằng điện.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        },
+        {
+          "id": "b024",
+          "text": "Hoặc mạch flip-flop, một mạch điện tử nhỏ giữ yên một trong hai trạng thái.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc09",
+      "chapter": "chuong-1",
+      "type": "tree-graph",
+      "props": {
+        "nodes": [
+          {
+            "id": "g",
+            "label": "Bắt đầu"
+          },
+          {
+            "id": "1",
+            "parent": "g",
+            "label": "1"
+          },
+          {
+            "id": "0",
+            "parent": "g",
+            "label": "0"
+          },
+          {
+            "id": "11",
+            "parent": "1",
+            "label": "11"
+          },
+          {
+            "id": "10",
+            "parent": "1",
+            "label": "10"
+          },
+          {
+            "id": "01",
+            "parent": "0",
+            "label": "01"
+          },
+          {
+            "id": "00",
+            "parent": "0",
+            "label": "00"
+          },
+          {
+            "id": "111",
+            "parent": "11",
+            "label": "111"
+          },
+          {
+            "id": "110",
+            "parent": "11",
+            "label": "110"
+          },
+          {
+            "id": "101",
+            "parent": "10",
+            "label": "101"
+          },
+          {
+            "id": "100",
+            "parent": "10",
+            "label": "100"
+          },
+          {
+            "id": "011",
+            "parent": "01",
+            "label": "011"
+          },
+          {
+            "id": "010",
+            "parent": "01",
+            "label": "010"
+          },
+          {
+            "id": "001",
+            "parent": "00",
+            "label": "001"
+          },
+          {
+            "id": "000",
+            "parent": "00",
+            "label": "000"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b025",
+          "text": "Một công tắc cho hai khả năng. Vậy hai công tắc thì sao?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b026",
+          "text": "Shannon chỉ ra: cứ thêm một rơ-le vào nhóm, số trạng thái có thể có tăng gấp đôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b027",
+          "text": "Hai công tắc cho bốn kiểu bật tắt. Ba công tắc cho tám kiểu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc10",
+      "chapter": "chuong-1",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Số kiểu bật tắt",
+        "highlight": 2,
+        "data": [
+          {
+            "label": "1 công tắc",
+            "value": 2
+          },
+          {
+            "label": "2 công tắc",
+            "value": 4
+          },
+          {
+            "label": "3 công tắc",
+            "value": 8
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b028",
+          "text": "Cứ thêm một công tắc, số kiểu lại nhân đôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b029",
+          "text": "Và đó chính là cách máy tính đếm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc11",
+      "chapter": "chuong-2",
+      "type": "chapter-title",
+      "props": {
+        "title": "Đếm bằng hai, và cái byte",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc12",
+      "chapter": "chuong-2",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Hệ nhị phân ra đời cùng máy tính điện tử",
+            "fact": "Năm 1703, Leibniz đã công bố số học nhị phân, chỉ dùng hai ký tự 0 và 1"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b031",
+          "text": "Năm 1703, Leibniz công bố một bài viết về số học nhị phân.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        },
+        {
+          "id": "b032",
+          "text": "Bài in trong tập kỷ yếu của Viện Hàn lâm Khoa học Hoàng gia Pháp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        },
+        {
+          "id": "b033",
+          "text": "Ông mô tả cách viết con số chỉ dùng hai ký tự: 0 và 1.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        },
+        {
+          "id": "b034",
+          "text": "Nghĩa là hệ nhị phân có trước ENIAC hơn hai thế kỷ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c005",
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc13",
+      "chapter": "chuong-2",
+      "type": "scale-ladder",
+      "props": {
+        "rungs": [
+          {
+            "label": "Hàng đơn vị",
+            "value": "1",
+            "power": 0
+          },
+          {
+            "label": "Hàng chục",
+            "value": "10",
+            "power": 1
+          },
+          {
+            "label": "Hàng trăm",
+            "value": "100",
+            "power": 2
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b035",
+          "text": "Vậy đếm bằng hai chữ số như thế nào?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b036",
+          "text": "Trong hệ mười, mỗi hàng lớn gấp mười lần hàng bên phải nó: đơn vị, chục, trăm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc14",
+      "chapter": "chuong-2",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Giá trị các hàng trong hệ hai, từ phải sang trái",
+        "data": [
+          {
+            "label": "hàng 1",
+            "value": 1
+          },
+          {
+            "label": "hàng 2",
+            "value": 2
+          },
+          {
+            "label": "hàng 3",
+            "value": 4
+          },
+          {
+            "label": "hàng 4",
+            "value": 8
+          },
+          {
+            "label": "hàng 5",
+            "value": 16
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b037",
+          "text": "Trong hệ hai, mỗi hàng chỉ gấp đôi hàng bên phải.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        },
+        {
+          "id": "b038",
+          "text": "Từ phải sang trái, các hàng có giá trị 1, 2, 4, 8, 16, và cứ thế nhân đôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        },
+        {
+          "id": "b039",
+          "text": "Ở mỗi hàng chỉ có hai lựa chọn: lấy giá trị của hàng đó, hoặc không lấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc15",
+      "chapter": "chuong-2",
+      "type": "bits",
+      "props": {
+        "value": 5,
+        "width": 4,
+        "label": "Số năm trong hệ hai"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b040",
+          "text": "Thử viết số năm. Chỉ cần ba hàng: hàng bốn, hàng hai và hàng một.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        },
+        {
+          "id": "b040a",
+          "text": "Năm bằng bốn cộng một.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b040b",
+          "text": "Hàng bốn: lấy, ghi một. Hàng hai: không lấy, ghi không. Hàng một: lấy, ghi một.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b041",
+          "text": "Đọc liền từ trái sang, số năm trong hệ hai là: một, không, một.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": "ding",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc16",
+      "chapter": "chuong-2",
+      "type": "compare",
+      "props": {
+        "titleA": "Hệ mười",
+        "titleB": "Hệ hai",
+        "rows": [
+          {
+            "label": "Viết được mọi con số",
+            "a": true,
+            "b": true
+          },
+          {
+            "label": "Cần ít chữ số",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b042",
+          "text": "Hệ hai viết được mọi con số, chỉ là cần nhiều chữ số hơn hệ mười.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc17",
+      "chapter": "chuong-2",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Một bit",
+            "detail": "quá nhỏ, nên gom thành nhóm"
+          },
+          {
+            "name": "Byte",
+            "detail": "Werner Buchholz, 1956"
+          },
+          {
+            "name": "Máy tính Stretch",
+            "detail": "IBM đang thiết kế"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b043",
+          "text": "Một bit thì quá nhỏ, nên máy tính gom bit thành từng nhóm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b044",
+          "text": "Năm 1956, Werner Buchholz đặt ra một từ mới cho nhóm bit ấy: byte.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        },
+        {
+          "id": "b045",
+          "text": "Khi đó IBM đang thiết kế một máy tính tên là Stretch.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc18",
+      "chapter": "chuong-2",
+      "type": "custom:bite-byte",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046",
+          "text": "Byte xuất phát từ chữ bite, nghĩa là miếng cắn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        },
+        {
+          "id": "b047",
+          "text": "Nhưng bite viết bằng chữ i, nhìn dễ lẫn với bit, nên chữ i được cố ý đổi thành chữ y.",
+          "spoken": "Nhưng chữ bai này viết bằng chữ i, dễ lẫn với chữ bít, nên chữ i được đổi thành chữ i dài.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        },
+        {
+          "id": "b047a",
+          "text": "Đọc lên vẫn vậy, nhưng nhìn trên giấy thì không thể nhầm với bit nữa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc19",
+      "chapter": "chuong-2",
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "1948",
+            "title": "Cái tên bit",
+            "detail": "Bài báo của Claude Shannon"
+          },
+          {
+            "year": "1956",
+            "title": "Từ byte ra đời",
+            "detail": "Werner Buchholz, máy Stretch của IBM"
+          },
+          {
+            "year": "1964",
+            "title": "IBM System/360",
+            "detail": "Đi đầu với byte 8 bit"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b048",
+          "text": "Ngày 7 tháng 4 năm 1964, IBM ra mắt dòng máy System/360.",
+          "spoken": "Ngày bảy tháng tư năm một nghìn chín trăm sáu mươi tư, ai-bi-em ra mắt dòng máy System ba trăm sáu mươi.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        },
+        {
+          "id": "b049",
+          "text": "Chính hệ máy này đi đầu với byte 8 bit mà máy tính ngày nay vẫn dùng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc20",
+      "chapter": "chuong-2",
+      "type": "big-number",
+      "props": {
+        "value": 256,
+        "suffix": " giá trị",
+        "label": "Một byte 8 bit",
+        "note": "Từ 0 đến 255"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b050",
+          "text": "Một byte 8 bit cho bao nhiêu khả năng?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        },
+        {
+          "id": "b051",
+          "text": "Một bit cho hai, hai bit cho bốn, ba bit cho tám, cứ thế nhân đôi tám lần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b051a",
+          "text": "Kết quả là 256 giá trị, từ 0 đến 255.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        },
+        {
+          "id": "b051b",
+          "text": "Đủ chỗ để đánh số cả bảng chữ cái, như ta sẽ thấy ngay sau đây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc21",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {
+        "term": "ASCII",
+        "tag": "Mã 7 bit",
+        "definition": "Bảng mã gán cho mỗi ký tự một con số, có tất cả 128 mã",
+        "example": "Chữ A in hoa mang số 65"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b052",
+          "text": "Chữ cái cũng chỉ là con số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b053",
+          "text": "Bảng mã ASCII gán cho mỗi ký tự một con số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        },
+        {
+          "id": "b054",
+          "text": "ASCII là mã 7 bit, có tất cả 128 mã.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c011",
+            "c012"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc22",
+      "chapter": "chuong-2",
+      "type": "terminal",
+      "props": {
+        "title": "python",
+        "prompt": ">>>",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "ord(\"A\")"
+          },
+          {
+            "kind": "out",
+            "text": "65"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b055",
+          "text": "Chữ A in hoa mang số 65.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        },
+        {
+          "id": "b058",
+          "text": "Vậy trong máy, chữ A chỉ là số 65, cất trong một dãy công tắc bật tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc23",
+      "chapter": "chuong-2",
+      "type": "compare",
+      "props": {
+        "titleA": "Hai mức",
+        "titleB": "Mười mức",
+        "rows": [
+          {
+            "label": "Máy tính đang dùng",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Khớp với cách con người đếm",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b059",
+          "text": "Nhưng câu hỏi thật sự vẫn còn đó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b060",
+          "text": "Sao không dùng mười mức, cho khớp với cách con người đếm?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc24",
+      "chapter": "chuong-3",
+      "type": "chapter-title",
+      "props": {
+        "title": "Tín hiệu điện không bao giờ sạch",
+        "number": 3
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc25",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "bit",
+            "label": "Một bit"
+          },
+          {
+            "id": "dien",
+            "label": "Một mức điện áp"
+          },
+          {
+            "id": "day",
+            "label": "Trên dây dẫn"
+          }
+        ],
+        "edges": [
+          {
+            "from": "bit",
+            "to": "dien"
+          },
+          {
+            "from": "dien",
+            "to": "day"
+          }
+        ],
+        "packets": [
+          {
+            "from": "bit",
+            "to": "dien",
+            "label": "1"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b061",
+          "text": "Câu trả lời đầu tiên nằm ở dòng điện.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b062",
+          "text": "Trong máy tính, mỗi bit được thể hiện bằng một mức điện áp trên dây dẫn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc26",
+      "chapter": "chuong-3",
+      "type": "custom:dien-ap",
+      "props": {
+        "mode": "nhieu"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b063",
+          "text": "Nhưng điện áp thực tế không bao giờ đứng yên ở một con số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b064",
+          "text": "Nó rung nhẹ vì nhiệt, vì dây dẫn bên cạnh, vì nguồn điện chập chờn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b065",
+          "text": "Người ta gọi những dao động đó là nhiễu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc27",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "vao",
+            "label": "Tín hiệu vào"
+          },
+          {
+            "id": "cong",
+            "label": "Cổng logic TTL"
+          },
+          {
+            "id": "ra",
+            "label": "Có hoặc không"
+          }
+        ],
+        "edges": [
+          {
+            "from": "vao",
+            "to": "cong"
+          },
+          {
+            "from": "cong",
+            "to": "ra"
+          }
+        ],
+        "packets": [
+          {
+            "from": "vao",
+            "to": "cong"
+          },
+          {
+            "from": "cong",
+            "to": "ra"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b066",
+          "text": "Hãy xem một linh kiện có thật: cổng logic.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b067",
+          "text": "Cổng logic là mạch nhỏ nhận tín hiệu vào và trả ra kết quả có hoặc không.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b067a",
+          "text": "Con chip ta xem là một cổng logic của Texas Instruments, thuộc họ TTL.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc28",
+      "chapter": "chuong-3",
+      "type": "custom:dien-ap",
+      "props": {
+        "mode": "ttl"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b067b",
+          "text": "TTL chỉ là tên họ chip. Ta chỉ cần nhớ các mức điện áp của nó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b068",
+          "text": "Con chip này chạy bằng nguồn 5 vôn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b069",
+          "text": "Điện áp vào từ 0,8 vôn trở xuống được hiểu là mức thấp, tức số 0.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c016",
+            "c005"
+          ]
+        },
+        {
+          "id": "b070",
+          "text": "Từ 2 vôn trở lên được hiểu là mức cao, tức số 1.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c016",
+            "c005"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc29",
+      "chapter": "chuong-3",
+      "type": "custom:dien-ap",
+      "props": {
+        "mode": "vung-dem"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b071",
+          "text": "Còn khoảng ở giữa thì sao?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b072",
+          "text": "Đó là vùng đệm, khoảng trống để tín hiệu rung lắc mà không bị đọc nhầm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b073",
+          "text": "Mức cao bị nhiễu kéo xuống một chút, miễn còn từ 2 vôn trở lên, vẫn là 1.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c016",
+            "c005"
+          ]
+        },
+        {
+          "id": "b074",
+          "text": "Mạch chỉ cần trả lời một câu: thấp hay cao?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc30",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "Máy thập phân",
+        "tag": "Ví dụ tưởng tượng",
+        "definition": "Cùng con chip ấy, nhưng mạch phải đọc mười nấc thay vì hai mức"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b075",
+          "text": "Giờ thử hình dung một máy thập phân chạy trên cùng con chip đó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b076",
+          "text": "Đây chỉ là ví dụ tưởng tượng, để so sánh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc31",
+      "chapter": "chuong-3",
+      "type": "custom:dien-ap",
+      "props": {
+        "mode": "muoi-nac"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b077",
+          "text": "Ta chia 5 vôn ấy thành mười nấc, mỗi nấc ứng với một chữ số của hệ mười.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b078",
+          "text": "Mỗi nấc chỉ còn rộng khoảng nửa vôn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b079",
+          "text": "Nhiễu chỉ cần đẩy điện áp lệch một chút, số ba đã bị đọc thành số bốn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": "buzz",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc32",
+      "chapter": "chuong-3",
+      "type": "compare",
+      "props": {
+        "titleA": "Hai mức",
+        "titleB": "Mười nấc",
+        "rows": [
+          {
+            "label": "Mạch đo phải chính xác hơn rất nhiều",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Khoảng cách giữa các mức rộng",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Nhiễu khó lật được",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b080",
+          "text": "Muốn không đọc nhầm, mạch đo phải chính xác hơn rất nhiều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b081",
+          "text": "Với hai mức, khoảng cách giữa thấp và cao rộng hơn hẳn, nhiễu khó lật được.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc33",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "Transistor",
+        "tag": "Bell Labs, 12/1947",
+        "definition": "Linh kiện bán dẫn có thể dùng như một công tắc đóng mở bằng điện",
+        "example": "Transistor đầu tiên ra đời vào tháng 12 năm 1947"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b082",
+          "text": "Còn một điều thuận lợi nữa: linh kiện hai trạng thái rất dễ làm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b083",
+          "text": "Đó là transistor, linh kiện bán dẫn có thể dùng như một công tắc đóng mở bằng điện.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b084",
+          "text": "Transistor đầu tiên ra đời tại Bell Labs vào tháng 12 năm 1947.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc34",
+      "chapter": "chuong-3",
+      "type": "big-number",
+      "props": {
+        "value": 16,
+        "suffix": " tỉ",
+        "label": "Transistor trong chip Apple M1, công bố năm 2020",
+        "note": "Tiến trình 5 nanomet. Mỗi cái chỉ cần biết bật hay tắt"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b088",
+          "text": "Chip Apple M1, công bố năm 2020, có 16 tỉ transistor.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b089",
+          "text": "Nó được làm trên tiến trình 5 nanomet, con số chỉ thế hệ công nghệ làm chip.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b090",
+          "text": "Vậy là 16 tỉ công tắc, và mỗi cái chỉ cần biết mình đang bật hay tắt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc35",
+      "chapter": "chuong-4",
+      "type": "chapter-title",
+      "props": {
+        "title": "Logic vốn là có hoặc không",
+        "number": 4
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc36",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "Đại số Boole",
+        "tag": "George Boole, 1854",
+        "definition": "Nền móng từ cuốn sách về các quy luật của tư duy",
+        "example": "Một thứ toán chỉ có hai giá trị: đúng hoặc sai"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b091",
+          "text": "Lý do thứ hai không nằm ở dòng điện, mà nằm ở toán.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b092",
+          "text": "Năm 1854, George Boole công bố một cuốn sách về các quy luật của tư duy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        },
+        {
+          "id": "b094",
+          "text": "Cuốn sách là nền móng của đại số Boole.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc37",
+      "chapter": "chuong-4",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Hai giá trị",
+            "detail": "đúng hoặc sai"
+          },
+          {
+            "name": "Phép và"
+          },
+          {
+            "name": "Phép hoặc"
+          },
+          {
+            "name": "Phép không"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b095",
+          "text": "Đó là một thứ toán chỉ có hai giá trị: đúng hoặc sai.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b096",
+          "text": "Các phép tính của nó nghe rất đời thường: và, hoặc, không.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc38",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "Luận văn của Shannon",
+        "tag": "MIT, 1937",
+        "definition": "Đại số Boole dùng được để phân tích và thiết kế mạch rơ-le"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b099",
+          "text": "Năm 1937, Claude Shannon viết luận văn thạc sĩ ở MIT về mạch rơ-le.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
+          "id": "b100",
+          "text": "Ông chỉ ra rằng đại số Boole dùng được để phân tích và thiết kế mạch rơ-le.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc39",
+      "chapter": "chuong-4",
+      "type": "custom:mach-den",
+      "props": {
+        "mode": "noi-tiep"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b101",
+          "text": "Hãy hình dung một bóng đèn và hai công tắc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b101a",
+          "text": "Mắc nối tiếp là đặt hai công tắc liền nhau trên cùng một đường dây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b101b",
+          "text": "Dòng điện phải đi qua cả hai, nên đèn chỉ sáng khi cả hai cùng bật.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b101c",
+          "text": "Công tắc này và công tắc kia. Đó là phép và.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": "ding",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc40",
+      "chapter": "chuong-4",
+      "type": "custom:mach-den",
+      "props": {
+        "mode": "song-song"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b101d",
+          "text": "Mắc song song là đặt mỗi công tắc trên một nhánh dây riêng, cùng dẫn tới bóng đèn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b101e",
+          "text": "Chỉ cần một trong hai công tắc bật là đèn sáng. Đó là phép hoặc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": "ding",
+          "claims": []
+        },
+        {
+          "id": "b102",
+          "text": "Từ đó, thiết kế mạch trở thành làm toán trên giấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc41",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "Báo cáo năm 1946",
+        "definition": "Burks, Goldstine và von Neumann chọn hệ nhị phân, vì logic vốn là hệ có hoặc không",
+        "example": "Kèm một phép tính để so sánh"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b105",
+          "text": "Năm 1946, Arthur Burks, Herman Goldstine và John von Neumann viết một bản báo cáo.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        },
+        {
+          "id": "b107",
+          "text": "Họ chọn hệ nhị phân, và lập luận rằng logic vốn là hệ có hoặc không.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        },
+        {
+          "id": "b109",
+          "text": "Họ còn làm một phép tính để so sánh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc42",
+      "chapter": "chuong-4",
+      "type": "custom:bon-muoi-bit",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b110",
+          "text": "Giả sử ta cần độ chính xác tới mười chữ số thập phân.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        },
+        {
+          "id": "b110a",
+          "text": "Một chữ số thập phân có mười khả năng. Ba bit chỉ cho tám kiểu, chưa đủ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b110b",
+          "text": "Nên mỗi chữ số phải dùng bốn bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        },
+        {
+          "id": "b111",
+          "text": "Mười chữ số, mỗi chữ số bốn bit, là ít nhất 40 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc43",
+      "chapter": "chuong-4",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Số bit cho mười chữ số thập phân",
+        "unit": " bit",
+        "highlight": 1,
+        "data": [
+          {
+            "label": "Từng chữ số",
+            "value": 40
+          },
+          {
+            "label": "Nhị phân thẳng",
+            "value": 33
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b111a",
+          "text": "Nhưng bốn bit cho mười sáu kiểu, mà mỗi chữ số chỉ dùng mười. Phần còn lại bỏ phí.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b112",
+          "text": "Viết thẳng cả con số bằng nhị phân thì không phí chỗ nào, chỉ cần khoảng 33 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        },
+        {
+          "id": "b113",
+          "text": "Ít bit hơn nghĩa là ít linh kiện hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b114",
+          "text": "Phép nhân cũng gọn hơn nhiều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc44",
+      "chapter": "chuong-4",
+      "type": "compare",
+      "props": {
+        "titleA": "Nhân trong hệ mười",
+        "titleB": "Nhân trong hệ hai",
+        "rows": [
+          {
+            "label": "Phải thuộc cả bảng cửu chương",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Mỗi chữ số chỉ là một hoặc không",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Gặp 1 chép lại số kia, gặp 0 ghi 0",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b115",
+          "text": "Trong hệ mười, nhân với một chữ số là phải thuộc cả bảng cửu chương.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        },
+        {
+          "id": "b116",
+          "text": "Trong hệ hai, mỗi chữ số chỉ là một hoặc không.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        },
+        {
+          "id": "b116a",
+          "text": "Gặp số một thì chép lại nguyên số kia. Gặp số không thì ghi không. Rồi cộng lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc45",
+      "chapter": "chuong-5",
+      "type": "chapter-title",
+      "props": {
+        "title": "Những cỗ máy không chịu nhị phân",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc46",
+      "chapter": "chuong-5",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Máy tính chỉ chạy được bằng nhị phân",
+            "fact": "Đã có những cỗ máy chạy thật mà không dùng nó"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b117",
+          "text": "Nhưng nhị phân chưa bao giờ là cách duy nhất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b118",
+          "text": "Đã có những cỗ máy chạy thật mà không dùng nó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc47",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "ENIAC",
+        "tag": "Đại học Pennsylvania",
+        "definition": "Máy của John Mauchly và J. Presper Eckert, ra mắt công chúng tháng 2 năm 1946",
+        "example": "Tính toán bằng hệ thập phân"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b119",
+          "text": "Hãy gặp lại ENIAC.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b120",
+          "text": "Máy do John Mauchly và J. Presper Eckert chế tạo tại Đại học Pennsylvania.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b121",
+          "text": "ENIAC ra mắt công chúng vào tháng 2 năm 1946.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b122",
+          "text": "Nó tính toán bằng hệ thập phân.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc48",
+      "chapter": "chuong-5",
+      "type": "custom:bo-dem-vong",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b124",
+          "text": "Bóng đèn chân không là linh kiện có trước transistor, cũng đóng ngắt được dòng điện.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b123a",
+          "text": "Mỗi chữ số được lưu trong một bộ đếm vòng làm bằng bóng đèn như thế.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b123b",
+          "text": "Bộ đếm có mười vị trí xếp thành vòng, mỗi vị trí ứng với một chữ số từ không đến chín.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc49",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 18000,
+        "prefix": "~",
+        "suffix": " bóng",
+        "label": "Bóng đèn chân không trong ENIAC, cả cỗ máy nặng 30 tấn",
+        "note": "Vẫn hỏng khoảng một bóng sau mỗi một đến hai ngày"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b125",
+          "text": "Cái giá phải trả rất lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b126",
+          "text": "ENIAC dùng khoảng 18.000 bóng đèn chân không.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        },
+        {
+          "id": "b127",
+          "text": "Cả cỗ máy nặng 30 tấn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        },
+        {
+          "id": "b128",
+          "text": "Ngay cả sau khi được cải thiện, nó vẫn hỏng khoảng một bóng sau mỗi một đến hai ngày.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc50",
+      "chapter": "chuong-5",
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "1946",
+            "title": "ENIAC ra mắt công chúng",
+            "detail": "Tính bằng hệ thập phân"
+          },
+          {
+            "year": "1947",
+            "title": "Transistor đầu tiên",
+            "detail": "Bell Labs, tháng 12"
+          },
+          {
+            "year": "1958",
+            "title": "Setun sẵn sàng hoạt động",
+            "detail": "Máy tam phân, Đại học Quốc gia Moskva, nhóm Nikolay Brusentsov"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b129",
+          "text": "Cỗ máy thứ hai còn đi theo một hướng lạ hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b130",
+          "text": "Tại Đại học Quốc gia Moskva, nhóm của Nikolay Brusentsov làm ra máy tính Setun.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b131",
+          "text": "Chiếc đầu tiên sẵn sàng hoạt động vào cuối năm 1958.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc51",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Tam phân cân bằng",
+        "tag": "Setun",
+        "definition": "Ba chữ số: −1, 0 và +1. Mỗi chữ số có ba trạng thái thay vì hai",
+        "example": "Tổng cộng khoảng 50 chiếc Setun đã được sản xuất"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b132",
+          "text": "Setun dùng hệ tam phân cân bằng, với ba chữ số: −1, 0 và +1.",
+          "spoken": "Xê-tun dùng hệ tam phân cân bằng, với ba chữ số: âm một, không, và cộng một.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b133",
+          "text": "Mỗi chữ số có ba trạng thái, thay vì hai.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b134",
+          "text": "Tổng cộng khoảng 50 chiếc Setun đã được sản xuất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc52",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "tt",
+            "label": "Số trạng thái mỗi chữ số"
+          },
+          {
+            "id": "cs",
+            "label": "Số chữ số"
+          },
+          {
+            "id": "gia",
+            "label": "Giá của con số"
+          }
+        ],
+        "edges": [
+          {
+            "from": "tt",
+            "to": "gia",
+            "label": "nhân"
+          },
+          {
+            "from": "cs",
+            "to": "gia",
+            "label": "nhân"
+          }
+        ],
+        "packets": [
+          {
+            "from": "tt",
+            "to": "gia"
+          },
+          {
+            "from": "cs",
+            "to": "gia"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b135",
+          "text": "Vậy tam phân có gì hay? Toán học có một câu trả lời bất ngờ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b136",
+          "text": "Trước hết, cơ số là số ký hiệu mà một hệ đếm dùng. Hệ mười có cơ số mười.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b138",
+          "text": "Thử tính giá của một con số: lấy số trạng thái mỗi chữ số, nhân với số chữ số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc53",
+      "chapter": "chuong-5",
+      "type": "compare",
+      "props": {
+        "titleA": "Cơ số nhỏ",
+        "titleB": "Cơ số lớn",
+        "rows": [
+          {
+            "label": "Mỗi chữ số rẻ",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Cần ít chữ số",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b139",
+          "text": "Cơ số nhỏ thì mỗi chữ số rẻ, nhưng cần nhiều chữ số. Cơ số lớn thì ngược lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b139a",
+          "text": "Một ví dụ nhỏ, tự tính tại chỗ: cần ghi đủ chín khả năng khác nhau.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc54",
+      "chapter": "chuong-5",
+      "type": "scale-ladder",
+      "props": {
+        "rungs": [
+          {
+            "label": "Hệ mười, 1 chữ số",
+            "value": "giá 10",
+            "power": 10
+          },
+          {
+            "label": "Hệ hai, 4 bit",
+            "value": "giá 8",
+            "power": 8
+          },
+          {
+            "label": "Hệ ba, 2 chữ số",
+            "value": "giá 6",
+            "power": 6
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b139b",
+          "text": "Hệ mười chỉ cần một chữ số. Giá là mười.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b139c",
+          "text": "Hệ hai cần bốn bit. Giá là tám.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b139d",
+          "text": "Hệ ba cần hai chữ số. Giá chỉ còn sáu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b139e",
+          "text": "Số càng lớn, phần hơn của hệ ba càng nhỏ lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc55",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 2.718,
+        "decimals": 3,
+        "prefix": "e ≈ ",
+        "label": "Cơ số rẻ nhất về lý thuyết",
+        "note": "Một hằng số quen thuộc của toán học, nằm giữa 2 và 3"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b140",
+          "text": "Nếu cho phép cơ số là một số thập phân, thì cơ số rẻ nhất về lý thuyết là số e.",
+          "spoken": "Nếu cho phép cơ số là một số thập phân, thì cơ số rẻ nhất về lý thuyết là số e.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        },
+        {
+          "id": "b140a",
+          "text": "Số e là một hằng số quen thuộc của toán học, khoảng 2,718, nằm giữa 2 và 3.",
+          "spoken": "Số e là một hằng số quen thuộc của toán học, khoảng hai phẩy bảy một tám, nằm giữa hai và ba.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c033",
+            "c034"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc56",
+      "chapter": "chuong-5",
+      "type": "compare",
+      "props": {
+        "titleA": "Cơ số 2",
+        "titleB": "Cơ số 3",
+        "rows": [
+          {
+            "label": "Số trạng thái là số nguyên",
+            "a": true,
+            "b": true
+          },
+          {
+            "label": "Gần số e nhất",
+            "a": true,
+            "b": true
+          },
+          {
+            "label": "Rẻ hơn một chút",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b141",
+          "text": "Nhưng không ai làm được một chữ số có hai phẩy bảy trạng thái. Số trạng thái phải là số nguyên.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b141a",
+          "text": "Nên hai lựa chọn gần nhất là 2 và 3.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b142",
+          "text": "Và cơ số 3 còn rẻ hơn cơ số 2 một chút.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc57",
+      "chapter": "chuong-5",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Tam phân rẻ hơn nên lẽ ra phải thắng",
+            "fact": "Phần lợi ấy chỉ là một chút, và chỉ nằm trên giấy"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b143",
+          "text": "Vậy sao tam phân không thắng?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b144",
+          "text": "Vì phần lợi ấy chỉ là một chút, và chỉ nằm trên giấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b145",
+          "text": "Trong khi đó, linh kiện hai trạng thái vừa rẻ, vừa nhiều, vừa chắc chắn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc58",
+      "chapter": "chuong-5",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Transistor công tắc",
+            "detail": "có từ năm 1947"
+          },
+          {
+            "name": "Hàng tỉ chiếc mỗi chip",
+            "detail": "ngày nay"
+          },
+          {
+            "name": "Lợi thế ngoài đời thật",
+            "detail": "lớn hơn một chút lợi trên giấy"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b146",
+          "text": "Transistor dùng như công tắc bật tắt đã có từ năm 1947.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b147",
+          "text": "Ngày nay, mỗi con chip chứa hàng tỉ chiếc như thế.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b148",
+          "text": "Một chút lợi trên giấy không bù được lợi thế khổng lồ ngoài đời thật.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc59",
+      "chapter": "chuong-6",
+      "type": "chapter-title",
+      "props": {
+        "title": "Nhiều mức, nhưng vẫn là bit",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc60",
+      "chapter": "chuong-6",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Nhiều hơn hai mức",
+            "detail": "máy tính vẫn lén dùng"
+          },
+          {
+            "name": "Bộ nhớ flash",
+            "detail": "trong điện thoại và ổ SSD"
+          },
+          {
+            "name": "Ô nhớ",
+            "detail": "đọc ra như một mức điện áp"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b149",
+          "text": "Thế nhưng ngay hôm nay, máy tính vẫn lén dùng nhiều hơn hai mức.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b150",
+          "text": "Chỗ đó nằm trong bộ nhớ flash, loại bộ nhớ trong điện thoại và ổ SSD.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b151",
+          "text": "Mỗi ô nhớ được đọc ra như một mức điện áp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc61",
+      "chapter": "chuong-6",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Số mức điện áp mỗi ô nhớ",
+        "unit": " mức",
+        "data": [
+          {
+            "label": "3 bit",
+            "value": 8
+          },
+          {
+            "label": "4 bit",
+            "value": 16
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b152",
+          "text": "Có loại ô nhớ phân biệt 8 mức điện áp để chứa 3 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        },
+        {
+          "id": "b153",
+          "text": "Loại khác phân biệt tới 16 mức để chứa 4 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc62",
+      "chapter": "chuong-6",
+      "type": "custom:dien-ap",
+      "props": {
+        "mode": "flash"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b153a",
+          "text": "Tám mức ứng đúng với tám kiểu của ba bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c036",
+            "c004"
+          ]
+        },
+        {
+          "id": "b153b",
+          "text": "Mức thấp nhất là không, không, không. Mức cao nhất là một, một, một.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc63",
+      "chapter": "chuong-6",
+      "type": "compare",
+      "props": {
+        "titleA": "Ít bit mỗi ô",
+        "titleB": "Nhiều bit mỗi ô",
+        "rows": [
+          {
+            "label": "Phải trả giá",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Khoảng cách giữa các mức hẹp",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Đọc ghi chậm hơn, tuổi thọ ngắn hơn",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b154",
+          "text": "Nhưng nhiều mức hơn thì phải trả giá.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b155",
+          "text": "Hãng Kioxia giải thích: càng nhiều bit mỗi ô, khoảng cách giữa các mức càng hẹp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c037"
+          ]
+        },
+        {
+          "id": "b156",
+          "text": "Việc đọc ghi phải chậm hơn, và tuổi thọ của ô nhớ ngắn hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c037"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc64",
+      "chapter": "chuong-6",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "muc",
+            "label": "Một mức điện áp"
+          },
+          {
+            "id": "doc",
+            "label": "Máy đọc ra"
+          },
+          {
+            "id": "bit",
+            "label": "Ba bit 0 và 1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "muc",
+            "to": "doc"
+          },
+          {
+            "from": "doc",
+            "to": "bit"
+          }
+        ],
+        "packets": [
+          {
+            "from": "muc",
+            "to": "doc"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b157",
+          "text": "Nghe quen không? Đó chính là bài toán nhiễu và vùng đệm ở cổng TTL.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b158",
+          "text": "Máy đọc ra một mức điện áp, rồi dịch ngay thành ba bit 0 và 1 như thế.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c036",
+            "c005"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc65",
+      "chapter": "ket",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Hai là con số thông minh nhất",
+            "fact": "Trên giấy, cơ số 3 còn rẻ hơn. Hai là con số khó đọc nhầm nhất"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b159",
+          "text": "Vậy vì sao máy tính dùng hệ nhị phân?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b160",
+          "text": "Không phải vì hai là con số thông minh nhất. Trên giấy, cơ số 3 còn rẻ hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b161",
+          "text": "Mà vì hai là con số khó đọc nhầm nhất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc66",
+      "chapter": "ket",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "ct",
+            "label": "Công tắc bật tắt"
+          },
+          {
+            "id": "lg",
+            "label": "Logic đúng sai"
+          },
+          {
+            "id": "h2",
+            "label": "Hệ hai"
+          }
+        ],
+        "edges": [
+          {
+            "from": "ct",
+            "to": "h2",
+            "label": "khớp"
+          },
+          {
+            "from": "lg",
+            "to": "h2",
+            "label": "khớp"
+          }
+        ],
+        "packets": [
+          {
+            "from": "ct",
+            "to": "h2"
+          },
+          {
+            "from": "lg",
+            "to": "h2"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b162",
+          "text": "Nó khớp với công tắc bật tắt, và khớp với logic đúng sai.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b163",
+          "text": "Khi bạn có hàng tỉ công tắc, sự chắc chắn quan trọng hơn tất cả.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc67",
+      "chapter": "ket",
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Hai mức là khó đọc nhầm nhất",
+          "Khớp với công tắc bật tắt",
+          "Khớp với logic đúng sai",
+          "Hàng tỉ công tắc cần sự chắc chắn"
+        ],
+        "next": "Linh kiện ba trạng thái rẻ và chắc thì máy có quay lại tam phân không?"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b164",
+          "text": "Còn một câu hỏi để bạn nghĩ tiếp, và kể cho mình nghe ở phần bình luận.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b165",
+          "text": "Nếu linh kiện ba trạng thái rẻ và chắc như transistor, máy tính có quay lại tam phân không?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b167",
+          "text": "Cho tới ngày đó, máy tính vẫn đếm bằng hai: bật hoặc tắt, không bao giờ lẫn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 0,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,562 @@
+[
+  {
+    "id": "c001",
+    "claim": "Từ \"bit\" là dạng viết gọn của \"binary digit\", nghĩa là chữ số nhị phân.",
+    "question": "Từ \"bit\" được rút gọn từ cụm từ tiếng Anh nào?",
+    "sources": [
+      {
+        "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://nationalmaglab.org/magnet-academy/history-of-electricity-magnetism/pioneers/claude-shannon/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c002",
+    "claim": "Claude Shannon dùng từ \"bit\" trong bài báo \"A Mathematical Theory of Communication\" đăng trên Bell System Technical Journal năm 1948, và ghi rằng từ này do John Tukey gợi ý.",
+    "question": "Bài báo nào của Claude Shannon dùng từ \"bit\", đăng ở đâu, năm nào, và Shannon ghi ai là người gợi ý từ này?",
+    "sources": [
+      {
+        "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://nationalmaglab.org/magnet-academy/history-of-electricity-magnetism/pioneers/claude-shannon/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c003",
+    "claim": "Shannon viết rằng một thiết bị có hai vị trí ổn định, như rơ-le hay mạch flip-flop, lưu được một bit thông tin.",
+    "question": "Theo bài báo năm 1948 của Shannon, một thiết bị như rơ-le hay flip-flop lưu được bao nhiêu thông tin, và vì sao?",
+    "sources": [
+      {
+        "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c004",
+    "claim": "Theo Shannon, thêm một rơ-le vào một nhóm rơ-le thì số trạng thái có thể có của cả nhóm tăng gấp đôi.",
+    "question": "Theo Shannon, khi thêm một rơ-le vào một nhóm thì số trạng thái có thể có của nhóm thay đổi thế nào?",
+    "sources": [
+      {
+        "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c005",
+    "claim": "Leibniz mô tả số học nhị phân, chỉ dùng hai ký tự 0 và 1, trong bài \"Explication de l'arithmétique binaire\" thuộc tập Mémoires của Viện Hàn lâm Khoa học Hoàng gia Pháp năm 1703.",
+    "question": "Bài viết của Leibniz về số học nhị phân tên là gì, thuộc tập kỷ yếu của cơ quan nào và năm nào?",
+    "sources": [
+      {
+        "url": "https://www.uniba.it/it/docenti/petrocelli-carla/attivita-didattica/explication-de-larithmetique-binaire.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Binary_number",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c006",
+    "claim": "Trong hệ nhị phân, giá trị các hàng từ phải sang trái là 1, 2, 4, 8, 16, mỗi hàng gấp đôi hàng trước.",
+    "question": "Trong hệ nhị phân, giá trị của các hàng chữ số tăng theo quy luật nào?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Binary_number",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.uniba.it/it/docenti/petrocelli-carla/attivita-didattica/explication-de-larithmetique-binaire.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c007",
+    "claim": "Werner Buchholz đặt ra từ \"byte\" năm 1956, trong giai đoạn IBM thiết kế máy tính Stretch.",
+    "question": "Ai đặt ra từ \"byte\", vào năm nào và trong dự án máy tính nào?",
+    "sources": [
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/102636400.txt",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Byte",
+        "credibility": "secondary"
+      },
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c008",
+    "claim": "Từ \"byte\" được tạo từ chữ \"bite\" (miếng cắn) nhưng cố ý viết thành \"byte\" để tránh bị nhầm thành \"bit\".",
+    "question": "Từ \"byte\" bắt nguồn từ chữ nào và vì sao lại viết theo cách hiện nay?",
+    "sources": [
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Byte",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c009",
+    "claim": "IBM System/360 ra mắt ngày 7 tháng 4 năm 1964 và là hệ máy đi đầu với byte 8 bit vẫn dùng trong máy tính ngày nay.",
+    "question": "IBM System/360 được ra mắt ngày nào, và nó gắn với kích thước byte bao nhiêu bit?",
+    "sources": [
+      {
+        "url": "https://www.ibm.com/history/system-360",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Byte",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c010",
+    "claim": "Một byte 8 bit biểu diễn được 256 giá trị khác nhau, từ 0 đến 255.",
+    "question": "Một byte 8 bit biểu diễn được bao nhiêu giá trị khác nhau, trong khoảng nào?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Byte",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.kioxia.com/en-jp/rd/technology/multi-level-cell.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c011",
+    "claim": "ASCII là bảng mã 7 bit.",
+    "question": "ASCII chuẩn dùng bao nhiêu bit cho mỗi ký tự?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc20",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c012",
+    "claim": "Bảng mã ASCII có 128 mã, đánh số từ 0 đến 127.",
+    "question": "Bảng mã ASCII có tổng cộng bao nhiêu mã và đánh số trong khoảng nào?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc20",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c013",
+    "claim": "Trong bảng mã ASCII, chữ \"A\" in hoa mang mã số 65 (hệ thập phân).",
+    "question": "Chữ \"A\" in hoa mang mã số thập phân nào trong bảng ASCII?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc20",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c014",
+    "claim": "RFC 20, đề ngày 16 tháng 10 năm 1969, quy định ASCII 7 bit được đặt trong một byte 8 bit có bit cao nhất luôn bằng 0.",
+    "question": "RFC 20 ra đời ngày nào và quy định đặt mã ASCII vào byte 8 bit theo cách nào?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc20",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c015",
+    "claim": "Cổng logic TTL SN74LS00 của Texas Instruments dùng nguồn danh định 5 V.",
+    "question": "Điện áp nguồn danh định của cổng logic SN74LS00 là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.ti.com/lit/ds/symlink/sn74ls00.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c016",
+    "claim": "Với cổng logic SN74LS00 của Texas Instruments, điện áp vào từ 0,8 V trở xuống được hiểu là mức thấp, từ 2 V trở lên được hiểu là mức cao.",
+    "question": "Theo datasheet SN74LS00, ngưỡng điện áp vào tối đa của mức thấp và tối thiểu của mức cao là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.ti.com/lit/ds/symlink/sn74ls00.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c017",
+    "claim": "Transistor đầu tiên (transistor tiếp điểm điểm) ra đời tại Bell Labs vào tháng 12 năm 1947, do John Bardeen và Walter Brattain chế tạo trong nhóm do William Shockley dẫn dắt.",
+    "question": "Transistor đầu tiên ra đời ở đâu, tháng năm nào, và do những ai?",
+    "sources": [
+      {
+        "url": "https://www.computerhistory.org/siliconengine/invention-of-the-point-contact-transistor/",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://ethw.org/Bell_Demonstrates_Transistor",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/History_of_the_transistor",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c018",
+    "claim": "Bardeen, Brattain và Shockley cùng nhận giải Nobel Vật lý năm 1956.",
+    "question": "Ba nhà phát minh transistor nhận giải Nobel Vật lý năm nào?",
+    "sources": [
+      {
+        "url": "https://ethw.org/Bell_Demonstrates_Transistor",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/History_of_the_transistor",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c019",
+    "claim": "Chip Apple M1, công bố tháng 11 năm 2020, có 16 tỉ transistor và được làm trên tiến trình 5 nm.",
+    "question": "Chip Apple M1 có bao nhiêu transistor và làm trên tiến trình bao nhiêu nanomet?",
+    "sources": [
+      {
+        "url": "https://www.apple.com/newsroom/2020/11/apple-unleashes-m1/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c020",
+    "claim": "George Boole công bố cuốn \"An Investigation of the Laws of Thought\" năm 1854, nền móng của đại số Boole.",
+    "question": "Cuốn sách nền móng của đại số Boole tên là gì và xuất bản năm nào?",
+    "sources": [
+      {
+        "url": "https://www.gutenberg.org/ebooks/15114",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Binary_number",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c021",
+    "claim": "Năm 1937, Claude Shannon viết luận văn thạc sĩ tại MIT tên \"A Symbolic Analysis of Relay and Switching Circuits\", chỉ ra đại số Boole dùng được để phân tích và thiết kế mạch rơ-le; một bản được đăng trên Transactions of the AIEE năm 1938.",
+    "question": "Luận văn thạc sĩ của Shannon về mạch rơ-le tên là gì, viết năm nào, ở trường nào, nội dung chính là gì, và bản đăng tạp chí ra năm nào?",
+    "sources": [
+      {
+        "url": "https://dspace.mit.edu/handle/1721.1/11173",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://nationalmaglab.org/magnet-academy/history-of-electricity-magnetism/pioneers/claude-shannon/",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/A_Symbolic_Analysis_of_Relay_and_Switching_Circuits",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c022",
+    "claim": "ENIAC tính toán bằng hệ thập phân, mỗi chữ số được lưu bằng một bộ đếm vòng mười vị trí làm bằng bóng đèn chân không.",
+    "question": "ENIAC tính toán theo hệ cơ số nào, và mỗi chữ số được lưu bằng loại mạch gì?",
+    "sources": [
+      {
+        "url": "https://sunfest.seas.upenn.edu/wp-content/uploads/2018/07/blem03.pdf",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://almanac.upenn.edu/archive/v42/n18/eniac.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ENIAC",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c023",
+    "claim": "Năm 1946, Arthur Burks, Herman Goldstine và John von Neumann viết báo cáo \"Preliminary Discussion of the Logical Design of an Electronic Computing Instrument\", chọn hệ nhị phân và lập luận rằng logic là hệ có/không nên vốn là nhị phân.",
+    "question": "Báo cáo thiết kế máy tính năm 1946 của nhóm von Neumann tên là gì, do ai viết, và họ đưa ra lập luận gì về logic khi chọn hệ cơ số?",
+    "sources": [
+      {
+        "url": "https://www.cs.unc.edu/~adyilie/comp265/vonNeumann.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c024",
+    "claim": "Báo cáo năm 1946 của Burks, Goldstine và von Neumann tính rằng để đạt độ chính xác mười chữ số thập phân, mã hóa từng chữ số thập phân bằng bit cần ít nhất 40 bit, còn biểu diễn nhị phân thật chỉ cần khoảng 33 bit.",
+    "question": "Theo báo cáo năm 1946 của nhóm von Neumann, đạt độ chính xác mười chữ số thập phân cần bao nhiêu bit nếu mã hóa từng chữ số thập phân, và bao nhiêu bit nếu dùng nhị phân thật?",
+    "sources": [
+      {
+        "url": "https://www.cs.unc.edu/~adyilie/comp265/vonNeumann.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c025",
+    "claim": "Báo cáo năm 1946 của nhóm von Neumann viết rằng trong phép nhân nhị phân, tích của mỗi chữ số số nhân với số bị nhân chỉ là chính số bị nhân hoặc bằng không, còn ở hệ thập phân có mười khả năng.",
+    "question": "Theo báo cáo năm 1946 của nhóm von Neumann, phép nhân nhị phân đơn giản hơn thập phân ở điểm nào?",
+    "sources": [
+      {
+        "url": "https://www.cs.unc.edu/~adyilie/comp265/vonNeumann.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c026",
+    "claim": "ENIAC do John Mauchly và J. Presper Eckert chế tạo tại Đại học Pennsylvania và được ra mắt công chúng vào tháng 2 năm 1946.",
+    "question": "Ai chế tạo ENIAC, ở đâu, và máy được ra mắt công chúng vào tháng năm nào?",
+    "sources": [
+      {
+        "url": "https://www.engineering.upenn.edu/about/history-heritage/eniac/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.computerhistory.org/revolution/birth-of-the-computer/4/78",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c027",
+    "claim": "Máy tính tam phân Setun do nhóm của Nikolay Brusentsov làm tại Đại học Quốc gia Moskva; chiếc đầu tiên sẵn sàng hoạt động vào cuối năm 1958.",
+    "question": "Máy tính Setun được làm ở đâu, do ai dẫn dắt, và chiếc đầu tiên hoạt động khi nào?",
+    "sources": [
+      {
+        "url": "https://www.computer-museum.ru/english/setun.htm",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://computer-museum.ru/english/galglory_en/Brusentsov.htm",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Setun",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c028",
+    "claim": "Setun dùng hệ tam phân cân bằng, với ba chữ số −1, 0 và +1.",
+    "question": "Setun dùng loại hệ đếm nào và các chữ số của nó là gì?",
+    "sources": [
+      {
+        "url": "https://www.computer-museum.ru/english/setun.htm",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Setun",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c029",
+    "claim": "Tổng cộng khoảng 50 chiếc máy Setun đã được sản xuất.",
+    "question": "Có bao nhiêu chiếc máy Setun đã được sản xuất?",
+    "sources": [
+      {
+        "url": "https://www.computer-museum.ru/english/setun.htm",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Setun",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c030",
+    "claim": "ENIAC dùng khoảng 18.000 bóng đèn chân không.",
+    "question": "ENIAC dùng khoảng bao nhiêu bóng đèn chân không?",
+    "sources": [
+      {
+        "url": "https://www.engineering.upenn.edu/about/history-heritage/eniac/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.computerhistory.org/revolution/birth-of-the-computer/4/78",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c031",
+    "claim": "ENIAC nặng 30 tấn.",
+    "question": "ENIAC nặng bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.engineering.upenn.edu/about/history-heritage/eniac/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c032",
+    "claim": "Ngay cả sau khi được cải thiện, ENIAC vẫn hỏng khoảng một bóng đèn sau mỗi một đến hai ngày.",
+    "question": "Tần suất hỏng bóng đèn của ENIAC (sau khi đã cải thiện) là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.computerhistory.org/revolution/birth-of-the-computer/4/78",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ENIAC",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c033",
+    "claim": "Nếu tính chi phí biểu diễn một số bằng số trạng thái mỗi chữ số nhân với số chữ số, cơ số có chi phí thấp nhất về lý thuyết là e, khoảng 2,718.",
+    "question": "Theo mô hình chi phí bằng số trạng thái mỗi chữ số nhân số chữ số, cơ số liên tục nào có chi phí thấp nhất?",
+    "sources": [
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Optimal_radix_choice",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c034",
+    "claim": "Theo cùng mô hình chi phí đó, hai cơ số nguyên gần tối ưu nhất là 2 và 3, trong đó cơ số 3 có chi phí thấp hơn cơ số 2 một chút.",
+    "question": "Theo mô hình chi phí cơ số, những cơ số nguyên nào gần tối ưu nhất và cơ số nào trong đó tốt hơn?",
+    "sources": [
+      {
+        "url": "http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Optimal_radix_choice",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c036",
+    "claim": "Ô nhớ flash TLC phân biệt 8 mức điện áp ngưỡng để lưu 3 bit, còn ô QLC phân biệt 16 mức để lưu 4 bit.",
+    "question": "Ô nhớ flash TLC và QLC lần lượt phân biệt bao nhiêu mức điện áp và lưu bao nhiêu bit mỗi ô?",
+    "sources": [
+      {
+        "url": "https://www.kioxia.com/en-jp/rd/technology/multi-level-cell.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c037",
+    "claim": "Theo Kioxia, càng lưu nhiều bit trên một ô nhớ flash thì khoảng cách giữa các mức điện áp càng hẹp, việc đọc ghi phải chậm hơn và tuổi thọ ngắn hơn.",
+    "question": "Theo Kioxia, lưu thêm bit trên mỗi ô nhớ flash ảnh hưởng thế nào đến khoảng cách giữa các mức điện áp, tốc độ và tuổi thọ?",
+    "sources": [
+      {
+        "url": "https://www.kioxia.com/en-jp/rd/technology/multi-level-cell.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  }
+]

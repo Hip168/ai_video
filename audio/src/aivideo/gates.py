@@ -717,9 +717,11 @@ def ledger_run(ep: Path, stage: str) -> dict:
     if stage not in RUN_STAGES:
         raise GateError(f"--stage phải thuộc {RUN_STAGES}")
     cmd = expected_command(stage, ep.name)
-    cwd = ep.resolve().parent.parent / "video" if stage == "lint" else None
+    root = ep.resolve().parent.parent
+    cwd = root / "video" if stage == "lint" else None
+    env = {**os.environ, "AIVIDEO_ROOT": str(root)} if stage == "ky-thuat" else None
     try:
-        r = subprocess.run(cmd, capture_output=True, text=False, check=False, cwd=cwd)
+        r = subprocess.run(cmd, capture_output=True, text=False, check=False, cwd=cwd, env=env)
     except OSError as e:
         raise GateError(f"không chạy được lệnh {cmd[0]}: {e}") from e
     verdict = "DAT" if r.returncode == 0 else "CHAN"

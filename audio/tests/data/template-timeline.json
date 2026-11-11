@@ -1,0 +1,1044 @@
+{
+  "version": 2,
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "durationInFrames": 17661,
+  "theme": "mau-a",
+  "audio": {
+    "src": "narration.wav"
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu",
+      "startFrame": 0
+    },
+    {
+      "id": "chuong-1",
+      "title": "Chương một",
+      "startFrame": 818
+    },
+    {
+      "id": "chuong-2",
+      "title": "Chương hai",
+      "startFrame": 4491
+    },
+    {
+      "id": "chuong-3",
+      "title": "Chương ba",
+      "startFrame": 9747
+    },
+    {
+      "id": "ket",
+      "title": "Kết",
+      "startFrame": 15371
+    }
+  ],
+  "sfx": [
+    {
+      "frame": 0,
+      "name": "whoosh",
+      "gainDb": -18
+    },
+    {
+      "frame": 818,
+      "name": "pop",
+      "gainDb": -18
+    },
+    {
+      "frame": 4491,
+      "name": "pop",
+      "gainDb": -18
+    },
+    {
+      "frame": 5099,
+      "name": "pop",
+      "gainDb": -18
+    },
+    {
+      "frame": 9747,
+      "name": "pop",
+      "gainDb": -18
+    },
+    {
+      "frame": 10564,
+      "name": "pop",
+      "gainDb": -18
+    },
+    {
+      "frame": 15371,
+      "name": "pop",
+      "gainDb": -18
+    },
+    {
+      "frame": 16010,
+      "name": "pop",
+      "gainDb": -18
+    },
+    {
+      "frame": 16477,
+      "name": "ding",
+      "gainDb": -18
+    }
+  ],
+  "scenes": [
+    {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {},
+      "startFrame": 0,
+      "durationFrames": 818,
+      "beats": [
+        {
+          "id": "b001",
+          "startFrame": 0,
+          "durationFrames": 122,
+          "text": "Ý 1: Mỗi giây có hơn 1.007 lệnh được thực thi trong lõi.",
+          "cue": "hook"
+        },
+        {
+          "id": "b002",
+          "startFrame": 131,
+          "durationFrames": 93,
+          "text": "Ý 2: Độ trễ chỉ khoảng 7 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b003",
+          "startFrame": 236,
+          "durationFrames": 99,
+          "text": "Bộ vi xử lý chạy ở 2,5 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b004",
+          "startFrame": 350,
+          "durationFrames": 102,
+          "text": "Ý 4: Khoảng 14% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b005",
+          "startFrame": 458,
+          "durationFrames": 159,
+          "text": "Ý 5: Từ năm 1995 đến năm 2005, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b006",
+          "startFrame": 626,
+          "durationFrames": 180,
+          "text": "Ý 6: Giai đoạn 1996–2006 là thời kỳ bùng nổ của công nghệ này."
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {},
+      "startFrame": 818,
+      "durationFrames": 60,
+      "beats": []
+    },
+    {
+      "id": "sc03",
+      "chapter": "chuong-1",
+      "type": "custom:mo-phong",
+      "props": {},
+      "startFrame": 878,
+      "durationFrames": 1129,
+      "beats": [
+        {
+          "id": "b007",
+          "startFrame": 878,
+          "durationFrames": 80,
+          "text": "Ý 7: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b008",
+          "startFrame": 973,
+          "durationFrames": 82,
+          "text": "Ý 8: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b009",
+          "startFrame": 1061,
+          "durationFrames": 81,
+          "text": "Ý 9: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b010",
+          "startFrame": 1151,
+          "durationFrames": 94,
+          "text": "Ý 10: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b011",
+          "startFrame": 1257,
+          "durationFrames": 93,
+          "text": "Ý 11: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b012",
+          "startFrame": 1365,
+          "durationFrames": 116,
+          "text": "Ý 12: Bộ vi xử lý chạy ở 2,2 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b013",
+          "startFrame": 1487,
+          "durationFrames": 141,
+          "text": "Ý 13: Mỗi giây có hơn 13.091 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b014",
+          "startFrame": 1637,
+          "durationFrames": 109,
+          "text": "Ý 14: Độ trễ chỉ khoảng 19 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b015",
+          "startFrame": 1758,
+          "durationFrames": 113,
+          "text": "Ý 15: Tập tin nặng 25 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b016",
+          "startFrame": 1886,
+          "durationFrames": 115,
+          "text": "Ý 16: Khoảng 26% dữ liệu được đọc lại từ bộ nhớ đệm."
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "chapter": "chuong-1",
+      "type": "custom:so-sanh",
+      "props": {},
+      "startFrame": 2007,
+      "durationFrames": 1322,
+      "beats": [
+        {
+          "id": "b017",
+          "startFrame": 2007,
+          "durationFrames": 166,
+          "text": "Ý 17: Từ năm 1997 đến năm 2017, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b018",
+          "startFrame": 2182,
+          "durationFrames": 187,
+          "text": "Ý 18: Giai đoạn 1998–2018 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b019",
+          "startFrame": 2381,
+          "durationFrames": 89,
+          "text": "Ý 19: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b020",
+          "startFrame": 2485,
+          "durationFrames": 89,
+          "text": "Ý 20: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b021",
+          "startFrame": 2580,
+          "durationFrames": 93,
+          "text": "Ý 21: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b022",
+          "startFrame": 2682,
+          "durationFrames": 105,
+          "text": "Ý 22: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b023",
+          "startFrame": 2799,
+          "durationFrames": 97,
+          "text": "Ý 23: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b024",
+          "startFrame": 2911,
+          "durationFrames": 122,
+          "text": "Ý 24: Bộ vi xử lý chạy ở 2,4 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b025",
+          "startFrame": 3039,
+          "durationFrames": 151,
+          "text": "Ý 25: Mỗi giây có hơn 25.175 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b026",
+          "startFrame": 3199,
+          "durationFrames": 118,
+          "text": "Ý 26: Độ trễ chỉ khoảng 31 ms nên bạn khó mà nhận ra."
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "chapter": "chuong-1",
+      "type": "custom:bang-so",
+      "props": {},
+      "startFrame": 3329,
+      "durationFrames": 1162,
+      "beats": [
+        {
+          "id": "b027",
+          "startFrame": 3329,
+          "durationFrames": 117,
+          "text": "Ý 27: Tập tin nặng 37 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b028",
+          "startFrame": 3461,
+          "durationFrames": 119,
+          "text": "Ý 28: Khoảng 38% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b029",
+          "startFrame": 3586,
+          "durationFrames": 177,
+          "text": "Ý 29: Từ năm 1999 đến năm 2009, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b030",
+          "startFrame": 3772,
+          "durationFrames": 174,
+          "text": "Ý 30: Giai đoạn 1990–2010 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b031",
+          "startFrame": 3958,
+          "durationFrames": 92,
+          "text": "Ý 31: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b032",
+          "startFrame": 4065,
+          "durationFrames": 93,
+          "text": "Ý 32: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b033",
+          "startFrame": 4164,
+          "durationFrames": 90,
+          "text": "Ý 33: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b034",
+          "startFrame": 4263,
+          "durationFrames": 103,
+          "text": "Ý 34: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b035",
+          "startFrame": 4378,
+          "durationFrames": 98,
+          "text": "Ý 35: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        }
+      ]
+    },
+    {
+      "id": "sc06",
+      "chapter": "chuong-2",
+      "type": "chapter-title",
+      "props": {},
+      "startFrame": 4491,
+      "durationFrames": 60,
+      "beats": []
+    },
+    {
+      "id": "sc07",
+      "chapter": "chuong-2",
+      "type": "custom:dong-chay",
+      "props": {},
+      "startFrame": 4551,
+      "durationFrames": 1359,
+      "beats": [
+        {
+          "id": "b036",
+          "startFrame": 4551,
+          "durationFrames": 120,
+          "text": "Ý 36: Bộ vi xử lý chạy ở 2,6 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b037",
+          "startFrame": 4677,
+          "durationFrames": 150,
+          "text": "Ý 37: Mỗi giây có hơn 37.259 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b038",
+          "startFrame": 4836,
+          "durationFrames": 116,
+          "text": "Ý 38: Độ trễ chỉ khoảng 43 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b039",
+          "startFrame": 4964,
+          "durationFrames": 120,
+          "text": "Ý 39: Tập tin nặng 49 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b040",
+          "startFrame": 5099,
+          "durationFrames": 109,
+          "text": "Ý 40: Khoảng 50% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b041",
+          "startFrame": 5214,
+          "durationFrames": 173,
+          "text": "Ý 41: Từ năm 1991 đến năm 2001, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b042",
+          "startFrame": 5396,
+          "durationFrames": 192,
+          "text": "Ý 42: Giai đoạn 1992–2002 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b043",
+          "startFrame": 5600,
+          "durationFrames": 92,
+          "text": "Ý 43: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b044",
+          "startFrame": 5707,
+          "durationFrames": 95,
+          "text": "Ý 44: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b045",
+          "startFrame": 5808,
+          "durationFrames": 93,
+          "text": "Ý 45: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        }
+      ]
+    },
+    {
+      "id": "sc08",
+      "chapter": "chuong-2",
+      "type": "custom:so-do",
+      "props": {},
+      "startFrame": 5910,
+      "durationFrames": 1394,
+      "beats": [
+        {
+          "id": "b046",
+          "startFrame": 5910,
+          "durationFrames": 105,
+          "text": "Ý 46: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b047",
+          "startFrame": 6027,
+          "durationFrames": 99,
+          "text": "Ý 47: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b048",
+          "startFrame": 6141,
+          "durationFrames": 122,
+          "text": "Ý 48: Bộ vi xử lý chạy ở 2,8 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b049",
+          "startFrame": 6269,
+          "durationFrames": 150,
+          "text": "Ý 49: Mỗi giây có hơn 49.343 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b050",
+          "startFrame": 6428,
+          "durationFrames": 114,
+          "text": "Ý 50: Độ trễ chỉ khoảng 55 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b051",
+          "startFrame": 6554,
+          "durationFrames": 119,
+          "text": "Ý 51: Tập tin nặng 61 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b052",
+          "startFrame": 6688,
+          "durationFrames": 120,
+          "text": "Ý 52: Khoảng 62% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b053",
+          "startFrame": 6814,
+          "durationFrames": 168,
+          "text": "Ý 53: Từ năm 1993 đến năm 2013, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b054",
+          "startFrame": 6991,
+          "durationFrames": 193,
+          "text": "Ý 54: Giai đoạn 1994–2014 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b055",
+          "startFrame": 7196,
+          "durationFrames": 93,
+          "text": "Ý 55: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        }
+      ]
+    },
+    {
+      "id": "sc09",
+      "chapter": "chuong-2",
+      "type": "custom:vi-du",
+      "props": {},
+      "startFrame": 7304,
+      "durationFrames": 1290,
+      "beats": [
+        {
+          "id": "b056",
+          "startFrame": 7304,
+          "durationFrames": 95,
+          "text": "Ý 56: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b057",
+          "startFrame": 7405,
+          "durationFrames": 93,
+          "text": "Ý 57: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b058",
+          "startFrame": 7507,
+          "durationFrames": 105,
+          "text": "Ý 58: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b059",
+          "startFrame": 7624,
+          "durationFrames": 100,
+          "text": "Ý 59: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b060",
+          "startFrame": 7739,
+          "durationFrames": 119,
+          "text": "Ý 60: Bộ vi xử lý chạy ở 2,0 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b061",
+          "startFrame": 7864,
+          "durationFrames": 151,
+          "text": "Ý 61: Mỗi giây có hơn 61.427 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b062",
+          "startFrame": 8024,
+          "durationFrames": 119,
+          "text": "Ý 62: Độ trễ chỉ khoảng 67 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b063",
+          "startFrame": 8155,
+          "durationFrames": 116,
+          "text": "Ý 63: Tập tin nặng 73 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b064",
+          "startFrame": 8286,
+          "durationFrames": 121,
+          "text": "Ý 64: Khoảng 74% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b065",
+          "startFrame": 8413,
+          "durationFrames": 172,
+          "text": "Ý 65: Từ năm 1995 đến năm 2005, tốc độ tăng liên tục."
+        }
+      ]
+    },
+    {
+      "id": "sc10",
+      "chapter": "chuong-2",
+      "type": "custom:tong-ket-nho",
+      "props": {},
+      "startFrame": 8594,
+      "durationFrames": 1153,
+      "beats": [
+        {
+          "id": "b066",
+          "startFrame": 8594,
+          "durationFrames": 192,
+          "text": "Ý 66: Giai đoạn 1996–2006 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b067",
+          "startFrame": 8798,
+          "durationFrames": 94,
+          "text": "Ý 67: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b068",
+          "startFrame": 8907,
+          "durationFrames": 94,
+          "text": "Ý 68: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b069",
+          "startFrame": 9007,
+          "durationFrames": 95,
+          "text": "Ý 69: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b070",
+          "startFrame": 9111,
+          "durationFrames": 99,
+          "text": "Ý 70: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b071",
+          "startFrame": 9222,
+          "durationFrames": 99,
+          "text": "Ý 71: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b072",
+          "startFrame": 9336,
+          "durationFrames": 122,
+          "text": "Ý 72: Bộ vi xử lý chạy ở 2,2 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b073",
+          "startFrame": 9464,
+          "durationFrames": 142,
+          "text": "Ý 73: Mỗi giây có hơn 73.511 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b074",
+          "startFrame": 9615,
+          "durationFrames": 120,
+          "text": "Ý 74: Độ trễ chỉ khoảng 79 ms nên bạn khó mà nhận ra."
+        }
+      ]
+    },
+    {
+      "id": "sc11",
+      "chapter": "chuong-3",
+      "type": "chapter-title",
+      "props": {},
+      "startFrame": 9747,
+      "durationFrames": 60,
+      "beats": []
+    },
+    {
+      "id": "sc12",
+      "chapter": "chuong-3",
+      "type": "custom:buoc-xu-ly",
+      "props": {},
+      "startFrame": 9807,
+      "durationFrames": 1311,
+      "beats": [
+        {
+          "id": "b075",
+          "startFrame": 9807,
+          "durationFrames": 119,
+          "text": "Ý 75: Tập tin nặng 85 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b076",
+          "startFrame": 9941,
+          "durationFrames": 121,
+          "text": "Ý 76: Khoảng 86% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b077",
+          "startFrame": 10068,
+          "durationFrames": 172,
+          "text": "Ý 77: Từ năm 1997 đến năm 2017, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b078",
+          "startFrame": 10249,
+          "durationFrames": 193,
+          "text": "Ý 78: Giai đoạn 1998–2018 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b079",
+          "startFrame": 10454,
+          "durationFrames": 95,
+          "text": "Ý 79: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b080",
+          "startFrame": 10564,
+          "durationFrames": 88,
+          "text": "Ý 80: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b081",
+          "startFrame": 10658,
+          "durationFrames": 94,
+          "text": "Ý 81: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b082",
+          "startFrame": 10761,
+          "durationFrames": 104,
+          "text": "Ý 82: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b083",
+          "startFrame": 10877,
+          "durationFrames": 98,
+          "text": "Ý 83: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b084",
+          "startFrame": 10990,
+          "durationFrames": 122,
+          "text": "Ý 84: Bộ vi xử lý chạy ở 2,4 GHz và làm việc rất đều tay."
+        }
+      ]
+    },
+    {
+      "id": "sc13",
+      "chapter": "chuong-3",
+      "type": "custom:loi-thuong-gap",
+      "props": {},
+      "startFrame": 11118,
+      "durationFrames": 1356,
+      "beats": [
+        {
+          "id": "b085",
+          "startFrame": 11118,
+          "durationFrames": 152,
+          "text": "Ý 85: Mỗi giây có hơn 85.595 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b086",
+          "startFrame": 11279,
+          "durationFrames": 120,
+          "text": "Ý 86: Độ trễ chỉ khoảng 91 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b087",
+          "startFrame": 11411,
+          "durationFrames": 121,
+          "text": "Ý 87: Tập tin nặng 97 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b088",
+          "startFrame": 11547,
+          "durationFrames": 115,
+          "text": "Ý 88: Khoảng 18% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b089",
+          "startFrame": 11668,
+          "durationFrames": 176,
+          "text": "Ý 89: Từ năm 1999 đến năm 2009, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b090",
+          "startFrame": 11853,
+          "durationFrames": 177,
+          "text": "Ý 90: Giai đoạn 1990–2010 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b091",
+          "startFrame": 12042,
+          "durationFrames": 95,
+          "text": "Ý 91: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b092",
+          "startFrame": 12152,
+          "durationFrames": 96,
+          "text": "Ý 92: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b093",
+          "startFrame": 12254,
+          "durationFrames": 93,
+          "text": "Ý 93: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b094",
+          "startFrame": 12356,
+          "durationFrames": 106,
+          "text": "Ý 94: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        }
+      ]
+    },
+    {
+      "id": "sc14",
+      "chapter": "chuong-3",
+      "type": "custom:do-toc-do",
+      "props": {},
+      "startFrame": 12474,
+      "durationFrames": 1416,
+      "beats": [
+        {
+          "id": "b095",
+          "startFrame": 12474,
+          "durationFrames": 101,
+          "text": "Ý 95: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b096",
+          "startFrame": 12590,
+          "durationFrames": 123,
+          "text": "Ý 96: Bộ vi xử lý chạy ở 2,6 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b097",
+          "startFrame": 12719,
+          "durationFrames": 155,
+          "text": "Ý 97: Mỗi giây có hơn 97.679 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b098",
+          "startFrame": 12883,
+          "durationFrames": 113,
+          "text": "Ý 98: Độ trễ chỉ khoảng 13 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b099",
+          "startFrame": 13008,
+          "durationFrames": 131,
+          "text": "Ý 99: Tập tin nặng 109 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b100",
+          "startFrame": 13154,
+          "durationFrames": 108,
+          "text": "Ý 100: Khoảng 30% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b101",
+          "startFrame": 13268,
+          "durationFrames": 179,
+          "text": "Ý 101: Từ năm 1991 đến năm 2001, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b102",
+          "startFrame": 13456,
+          "durationFrames": 200,
+          "text": "Ý 102: Giai đoạn 1992–2002 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b103",
+          "startFrame": 13668,
+          "durationFrames": 99,
+          "text": "Ý 103: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b104",
+          "startFrame": 13782,
+          "durationFrames": 102,
+          "text": "Ý 104: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        }
+      ]
+    },
+    {
+      "id": "sc15",
+      "chapter": "chuong-3",
+      "type": "custom:so-lieu",
+      "props": {},
+      "startFrame": 13890,
+      "durationFrames": 1481,
+      "beats": [
+        {
+          "id": "b105",
+          "startFrame": 13890,
+          "durationFrames": 100,
+          "text": "Ý 105: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b106",
+          "startFrame": 13999,
+          "durationFrames": 112,
+          "text": "Ý 106: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b107",
+          "startFrame": 14123,
+          "durationFrames": 106,
+          "text": "Ý 107: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b108",
+          "startFrame": 14244,
+          "durationFrames": 129,
+          "text": "Ý 108: Bộ vi xử lý chạy ở 2,8 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b109",
+          "startFrame": 14379,
+          "durationFrames": 167,
+          "text": "Ý 109: Mỗi giây có hơn 109.763 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b110",
+          "startFrame": 14555,
+          "durationFrames": 120,
+          "text": "Ý 110: Độ trễ chỉ khoảng 25 ms nên bạn khó mà nhận ra."
+        },
+        {
+          "id": "b111",
+          "startFrame": 14687,
+          "durationFrames": 140,
+          "text": "Ý 111: Tập tin nặng 121 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b112",
+          "startFrame": 14842,
+          "durationFrames": 127,
+          "text": "Ý 112: Khoảng 42% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b113",
+          "startFrame": 14975,
+          "durationFrames": 176,
+          "text": "Ý 113: Từ năm 1993 đến năm 2013, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b114",
+          "startFrame": 15160,
+          "durationFrames": 199,
+          "text": "Ý 114: Giai đoạn 1994–2014 là thời kỳ bùng nổ của công nghệ này."
+        }
+      ]
+    },
+    {
+      "id": "sc16",
+      "chapter": "ket",
+      "type": "chapter-title",
+      "props": {},
+      "startFrame": 15371,
+      "durationFrames": 60,
+      "beats": []
+    },
+    {
+      "id": "sc17",
+      "chapter": "ket",
+      "type": "custom:nhin-lai",
+      "props": {},
+      "startFrame": 15431,
+      "durationFrames": 1046,
+      "beats": [
+        {
+          "id": "b115",
+          "startFrame": 15431,
+          "durationFrames": 101,
+          "text": "Ý 115: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b116",
+          "startFrame": 15547,
+          "durationFrames": 101,
+          "text": "Ý 116: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b117",
+          "startFrame": 15654,
+          "durationFrames": 101,
+          "text": "Ý 117: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b118",
+          "startFrame": 15764,
+          "durationFrames": 112,
+          "text": "Ý 118: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        },
+        {
+          "id": "b119",
+          "startFrame": 15888,
+          "durationFrames": 107,
+          "text": "Ý 119: Phép tính cứ thế diễn ra từng bước một, rất nhanh."
+        },
+        {
+          "id": "b120",
+          "startFrame": 16010,
+          "durationFrames": 132,
+          "text": "Ý 120: Bộ vi xử lý chạy ở 2,0 GHz và làm việc rất đều tay."
+        },
+        {
+          "id": "b121",
+          "startFrame": 16148,
+          "durationFrames": 177,
+          "text": "Ý 121: Mỗi giây có hơn 121.847 lệnh được thực thi trong lõi."
+        },
+        {
+          "id": "b122",
+          "startFrame": 16334,
+          "durationFrames": 131,
+          "text": "Ý 122: Độ trễ chỉ khoảng 37 ms nên bạn khó mà nhận ra."
+        }
+      ]
+    },
+    {
+      "id": "sc18",
+      "chapter": "ket",
+      "type": "recap-outro",
+      "props": {},
+      "startFrame": 16477,
+      "durationFrames": 1184,
+      "beats": [
+        {
+          "id": "b123",
+          "startFrame": 16477,
+          "durationFrames": 140,
+          "text": "Ý 123: Tập tin nặng 133 MB sẽ mất vài giây để tải xong."
+        },
+        {
+          "id": "b124",
+          "startFrame": 16632,
+          "durationFrames": 134,
+          "text": "Ý 124: Khoảng 54% dữ liệu được đọc lại từ bộ nhớ đệm."
+        },
+        {
+          "id": "b125",
+          "startFrame": 16772,
+          "durationFrames": 185,
+          "text": "Ý 125: Từ năm 1995 đến năm 2005, tốc độ tăng liên tục."
+        },
+        {
+          "id": "b126",
+          "startFrame": 16966,
+          "durationFrames": 206,
+          "text": "Ý 126: Giai đoạn 1996–2006 là thời kỳ bùng nổ của công nghệ này."
+        },
+        {
+          "id": "b127",
+          "startFrame": 17184,
+          "durationFrames": 106,
+          "text": "Ý 127: Chuyện này không hề phức tạp như bạn vẫn nghĩ."
+        },
+        {
+          "id": "b128",
+          "startFrame": 17305,
+          "durationFrames": 107,
+          "text": "Ý 128: Hãy thử hình dung một dãy công tắc bật rồi tắt."
+        },
+        {
+          "id": "b129",
+          "startFrame": 17418,
+          "durationFrames": 108,
+          "text": "Ý 129: Mỗi công tắc chỉ nhớ một trong hai trạng thái."
+        },
+        {
+          "id": "b130",
+          "startFrame": 17535,
+          "durationFrames": 110,
+          "text": "Ý 130: Ghép nhiều công tắc lại, ta biểu diễn được con số lớn."
+        }
+      ]
+    }
+  ]
+}

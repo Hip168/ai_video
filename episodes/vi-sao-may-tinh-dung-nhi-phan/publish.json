@@ -1,0 +1,21 @@
+{
+  "title": "Vì sao máy tính dùng hệ nhị phân? Bit, byte và lý do chỉ có 0 và 1",
+  "description": "Ảnh, nhạc hay chính video này, trong máy tính đều chỉ là một dãy 0 và 1. Video giải thích bit và byte là gì, vì sao hai mức điện áp khó đọc sai hơn mười mức, vì sao logic có hoặc không khớp với hệ nhị phân, và chuyện những cỗ máy từng không dùng nhị phân như ENIAC tính bằng hệ thập phân hay máy tam phân Setun.\n\nMục lục:\n00:00 Mở đầu\n00:35 Bit là gì\n01:37 Đếm bằng hai, và cái byte\n04:00 Tín hiệu điện không bao giờ sạch\n06:00 Logic vốn là có hoặc không\n07:59 Những cỗ máy không chịu nhị phân\n10:37 Nhiều mức, nhưng vẫn là bit\n11:27 Kết\n\nNguồn chính:\n- Claude Shannon, A Mathematical Theory of Communication (1948): https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf\n- Leibniz, Explication de l'arithmétique binaire (1703): https://www.uniba.it/it/docenti/petrocelli-carla/attivita-didattica/explication-de-larithmetique-binaire.pdf\n- Buchholz (chủ biên), Planning a Computer System: Project Stretch (1962): http://archive.computerhistory.org/resources/text/IBM/Stretch/pdfs/Buchholz_102636426.pdf\n- Burks, Goldstine, von Neumann, Preliminary Discussion of the Logical Design of an Electronic Computing Instrument (1946): https://www.cs.unc.edu/~adyilie/comp265/vonNeumann.html\n- Shannon, A Symbolic Analysis of Relay and Switching Circuits: https://dspace.mit.edu/handle/1721.1/11173\n- George Boole, An Investigation of the Laws of Thought (1854): https://www.gutenberg.org/ebooks/15114\n- RFC 20, ASCII format for Network Interchange (1969): https://www.rfc-editor.org/rfc/rfc20\n- Datasheet SN74LS00: https://www.ti.com/lit/ds/symlink/sn74ls00.pdf\n- IBM System/360: https://www.ibm.com/history/system-360\n- ENIAC, Penn Engineering: https://www.engineering.upenn.edu/about/history-heritage/eniac/\n- Apple M1: https://www.apple.com/newsroom/2020/11/apple-unleashes-m1/\n- Ô nhớ flash nhiều mức: https://www.kioxia.com/en-jp/rd/technology/multi-level-cell.html\n- Máy tính Setun: https://www.computer-museum.ru/english/setun.htm\n\nGiọng đọc trong video do AI tạo.",
+  "tags": [
+    "hệ nhị phân",
+    "vì sao máy tính dùng nhị phân",
+    "bit và byte",
+    "số nhị phân",
+    "tin học",
+    "khoa học máy tính",
+    "transistor",
+    "ENIAC",
+    "máy tính tam phân",
+    "logic Boole"
+  ],
+  "chapters": "00:00 Mở đầu\n00:35 Bit là gì\n01:37 Đếm bằng hai, và cái byte\n04:00 Tín hiệu điện không bao giờ sạch\n06:00 Logic vốn là có hoặc không\n07:59 Những cỗ máy không chịu nhị phân\n10:37 Nhiều mức, nhưng vẫn là bit\n11:27 Kết",
+  "thumbnail": "thumbnail.png",
+  "privacy": "unlisted",
+  "channelId": "UC1aPohYcigcmBGPl7OlQaEw",
+  "containsSyntheticMedia": false
+}

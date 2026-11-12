@@ -150,3 +150,11 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 ## D31. Tên kênh, ảnh đại diện, việc tiếp theo (người dùng chốt, 2026-11-12)
 - Tên kênh: "Chuyện Của Những Con Bit". Ảnh đại diện: hình con chip, PNG 800x800 ở `assets/brand/`. Người dùng tự đổi cả hai trong Studio vì API không cho đổi. Đổi xong thì chuyển video đầu sang Công khai và đặt `firstVideoApproved: true`.
 - Việc làm tiếp: sửa lỗi còn tồn (chữ chồng nhau ở sc42, khung flow, CI lỗi vì đĩa runner), làm tập 2, mở lại đề mục 14 Shorts.
+
+## D32. Hợp đồng Shorts (BA chốt, 2026-11-12, theo `14-shorts-giao-dien.md` a21847f)
+- MỞ-1: chọn A. Cảnh nằm trong hộp vuông 840 đặt gọn trong vùng an toàn (x 48–888, y 288–1248). Hook nằm ở dải trên. Sửa lại "hộp 1080" của D28.
+- MỞ-2: ngưỡng chữ ở khung dọc là 30 px cho chữ thường, 25 px cho nhãn cạnh, 48 px cho phụ đề (hệ số 1,22).
+- MỞ-3: không viết lời mới. Short chỉ dùng beat có sẵn, `hook` là chữ trên màn hình, không đọc.
+- MỞ-4: thêm cờ mới `--short <n>`, không dùng `--layout short`.
+- MỞ-5: từ 2023, link trong mô tả Short không bấm được. Vẫn ghi link video dài vào mô tả dạng chữ. Tiêu chí "có link về video dài" coi là đạt khi mô tả có link. Nút "video liên quan" chỉ đặt được trong Studio, không phải tiêu chí, có thể nhờ người dùng đặt.
+- Nguồn vùng an toàn: Google Ads Help 13547298, mục "Universal safe zones". Ghi vào `stack.md`.

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { useCurrentFrame } from "remotion";
 import { FONT_FAMILY } from "../font";
 import { ThemeContext, useTheme } from "./hooks";
@@ -11,6 +11,39 @@ export { useTheme };
 export const ThemeProvider: React.FC<{ theme: Theme; children?: React.ReactNode }> = ({ theme, children }) => (
   <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
 );
+
+/** Khung vẽ của cảnh: `wide` 1920×830 (tập dài), `square` 840×840 (Short, D32). 1 đơn vị = 1 px đầu ra. */
+export type Layout = "wide" | "square";
+export interface Box {
+  w: number;
+  h: number;
+  layout: Layout;
+}
+export const WIDE_BOX: Box = { w: 1920, h: 830, layout: "wide" };
+export const SQUARE_BOX: Box = { w: 840, h: 840, layout: "square" };
+
+/** Cỡ chữ tối thiểu ở khung Short, px đầu ra (D32): chữ thường, nhãn cạnh, phụ đề. */
+export const SHORT_MIN_TEXT_PX = 30;
+export const SHORT_MIN_EDGE_LABEL_PX = 25;
+export const SHORT_SUBTITLE_PX = 48;
+
+const LayoutContext = createContext<Box>(WIDE_BOX);
+
+export function useBox(): Box {
+  return useContext(LayoutContext);
+}
+
+/** Đặt layout cho các cảnh bên trong. `Episode` không bọc, nên mặc định là `wide`. */
+export const SceneBox: React.FC<{ layout: Layout; children?: React.ReactNode }> = ({ layout, children }) => (
+  <LayoutContext.Provider value={layout === "square" ? SQUARE_BOX : WIDE_BOX}>{children}</LayoutContext.Provider>
+);
+
+/** Ở layout `square`: chữ nhỏ hơn ngưỡng thì ném lỗi (lint `--short` bắt lỗi này). */
+export function assertShortText(box: Box, px: number, text: string, min = SHORT_MIN_TEXT_PX): void {
+  if (box.layout === "square" && px < min) {
+    throw new Error(`short-text-size: chữ ${Math.round(px * 10) / 10} px < ${min} px ở khung Short: "${text}"`);
+  }
+}
 
 export type IconName = "chip" | "wifi" | "lock" | "cloud" | "bolt" | "gear" | "book" | "star";
 
@@ -78,6 +111,8 @@ export const Icon: React.FC<{ name: IconName; x: number; y: number; size?: numbe
 
 /** Hoạ tiết nền, chỉ trong y < 830. Chuyển động chậm theo frame. */
 const Pattern: React.FC<{ theme: Theme; frame: number }> = ({ theme, frame }) => {
+  const box = useBox();
+  if (box.layout === "square") return <PatternSquare theme={theme} frame={frame} box={box} />;
   const drift = (frame * 0.4) % 80;
   const stroke = theme.muted;
   const items: React.ReactNode[] = [];
@@ -111,10 +146,55 @@ const Pattern: React.FC<{ theme: Theme; frame: number }> = ({ theme, frame }) =>
   );
 };
 
-/** Nền theme + SVG 1920x1080 cho cảnh. Dải y 830..1079 là màu nền phẳng. */
+/** Hoạ tiết nền ở layout `square`: cùng kiểu, phủ cả hộp. */
+const PatternSquare: React.FC<{ theme: Theme; frame: number; box: Box }> = ({ theme, frame, box }) => {
+  const { w, h } = box;
+  const drift = (frame * 0.4) % 80;
+  const items: React.ReactNode[] = [];
+  switch (theme.pattern) {
+    case "grid":
+      for (let x = -80; x <= w; x += 80) items.push(<line key={`v${x}`} x1={x + drift} y1={0} x2={x + drift} y2={h} />);
+      for (let y = 80; y < h; y += 80) items.push(<line key={`h${y}`} x1={0} y1={y} x2={w} y2={y} />);
+      break;
+    case "dots":
+      for (let x = 40; x < w; x += 80)
+        for (let y = 40; y < h; y += 80) items.push(<circle key={`${x}-${y}`} cx={x} cy={y + drift / 2} r={3} fill={theme.muted} stroke="none" />);
+      break;
+    case "diagonal":
+      for (let k = -h; k < w; k += 90) items.push(<line key={k} x1={k + drift} y1={h} x2={k + h + drift} y2={0} />);
+      break;
+    case "rings":
+      for (let r = 120; r < 700; r += 140) items.push(<circle key={r} cx={w / 2} cy={h / 2} r={r + drift} fill="none" />);
+      break;
+  }
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} width={w} height={h} style={{ position: "absolute", left: 0, top: 0 }}>
+      <g stroke={theme.muted} strokeWidth={2} opacity={0.16}>
+        {items}
+      </g>
+    </svg>
+  );
+};
+
+/** Nền theme + SVG 1920x1080 cho cảnh. Dải y 830..1079 là màu nền phẳng. Layout `square`: SVG 840x840. */
 export const Stage: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const theme = useTheme();
   const frame = useCurrentFrame();
+  const box = useBox();
+  if (box.layout === "square")
+    return (
+      <>
+        <Pattern theme={theme} frame={frame} />
+        <svg
+          viewBox={`0 0 ${box.w} ${box.h}`}
+          width={box.w}
+          height={box.h}
+          style={{ position: "absolute", inset: 0, fontFamily: `${FONT_FAMILY}, sans-serif` }}
+        >
+          {children}
+        </svg>
+      </>
+    );
   return (
     <>
       <Pattern theme={theme} frame={frame} />

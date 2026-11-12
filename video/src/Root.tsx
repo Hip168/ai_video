@@ -7,6 +7,7 @@ import { validateTimeline } from "./timeline";
 import { Episode, type EpisodeProps } from "./Episode";
 import { loadMonoFonts } from "./lib/fonts";
 import { validateTimeline2 } from "./timeline2";
+import { clipRange, Short, SHORT_H, SHORT_W, type ShortProps } from "./Short";
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props }) => {
   let raw: unknown = props.timeline;
@@ -37,6 +38,19 @@ const episodeMetadata: CalculateMetadataFunction<EpisodeProps> = async ({ props 
   };
 };
 
+const shortMetadata: CalculateMetadataFunction<ShortProps> = async ({ props }) => {
+  if (props.timeline === null || props.timeline === undefined || !props.clip) return { props };
+  const timeline = validateTimeline2(props.timeline);
+  const { start, end } = clipRange(timeline, props.clip);
+  return {
+    durationInFrames: end - start,
+    fps: timeline.fps,
+    width: SHORT_W,
+    height: SHORT_H,
+    props: { ...props, timeline },
+  };
+};
+
 loadFonts();
 loadMonoFonts();
 
@@ -61,6 +75,16 @@ export const Root: React.FC = () => (
       height={1080}
       defaultProps={{ timeline: null, muted: true } as EpisodeProps}
       calculateMetadata={episodeMetadata}
+    />
+    <Composition
+      id="Short"
+      component={Short}
+      durationInFrames={30}
+      fps={30}
+      width={SHORT_W}
+      height={SHORT_H}
+      defaultProps={{ timeline: null, clip: null, muted: true } as ShortProps}
+      calculateMetadata={shortMetadata}
     />
     <Composition
       id="KitDemo"

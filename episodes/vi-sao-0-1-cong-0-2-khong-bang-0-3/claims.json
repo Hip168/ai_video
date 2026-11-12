@@ -1,0 +1,758 @@
+[
+  {
+    "id": "c001",
+    "claim": "Trong JavaScript, phép tính 0.1 + 0.2 cho ra 0.30000000000000004, và phép so sánh 0.1 + 0.2 === 0.3 cho kết quả false.",
+    "question": "Trong JavaScript, 0.1 + 0.2 in ra giá trị gì, và phép so sánh nó với 0.3 bằng === cho kết quả gì?",
+    "sources": [
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c002",
+    "claim": "Trong Python, phép so sánh 0.1 + 0.1 + 0.1 == 0.3 cho kết quả False.",
+    "question": "Trong Python, cộng 0.1 ba lần rồi so sánh với 0.3 bằng == thì được kết quả gì?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.python.org/3/library/decimal.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c003",
+    "claim": "Trong hệ thập phân, phân số 1/3 viết thành 0,333...; viết bao nhiêu chữ số cũng không bao giờ đúng bằng 1/3, chỉ ngày càng gần hơn.",
+    "question": "Tài liệu Python dùng ví dụ phân số nào trong hệ thập phân để giải thích giới hạn của việc biểu diễn số, và nói gì về nó?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c004",
+    "claim": "Trong hệ nhị phân, 1/10 là một phân số lặp vô hạn (0,0001100110011...); dừng ở bất kỳ số bit hữu hạn nào cũng chỉ được giá trị gần đúng.",
+    "question": "Trong hệ cơ số 2, phân số 1/10 có biểu diễn hữu hạn hay vô hạn, và chuyện gì xảy ra khi cắt nó ở một số bit hữu hạn?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/cpp/build/ieee-floating-point-representation",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c005",
+    "claim": "Lý do 1/10 không biểu diễn chính xác được trong hệ nhị phân tương tự lý do 1/3 không biểu diễn chính xác được trong hệ thập phân.",
+    "question": "Tài liệu của Microsoft so sánh việc 1/10 không biểu diễn chính xác được trong nhị phân với trường hợp nào trong hệ thập phân?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/cpp/build/ieee-floating-point-representation",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c006",
+    "claim": "Giá trị máy thật sự lưu khi ta viết 0.1 (kiểu double) đúng bằng 0,1000000000000000055511151231257827021181583404541015625.",
+    "question": "Theo tài liệu Python, giá trị thập phân chính xác của số mà máy lưu khi ta viết 0.1 là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.python.org/3/library/decimal.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c007",
+    "claim": "Giá trị máy lưu cho 0.1 bằng phân số 3.602.879.701.896.397 chia cho 2 mũ 55.",
+    "question": "Theo tài liệu Python, giá trị máy lưu cho 0.1 viết dưới dạng phân số với mẫu là lũy thừa của 2 là phân số nào?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c008",
+    "claim": "Ít nhất từ năm 2000, hầu hết máy tính dùng số học dấu phẩy động nhị phân theo chuẩn IEEE 754, và hầu hết nền tảng ánh xạ kiểu float của Python vào kiểu binary64 \"độ chính xác kép\" của IEEE 754.",
+    "question": "Theo tài liệu Python, từ khoảng năm nào hầu hết máy tính dùng chuẩn số học dấu phẩy động nào, và float của Python ứng với định dạng nào của chuẩn đó?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c009",
+    "claim": "Kiểu Number của JavaScript là giá trị dấu phẩy động nhị phân độ chính xác kép 64 bit theo chuẩn IEEE 754.",
+    "question": "Kiểu Number của JavaScript dùng định dạng số nào, bao nhiêu bit, theo chuẩn nào?",
+    "sources": [
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c010",
+    "claim": "Số độ chính xác kép (double) dùng 64 bit, gồm 1 bit dấu, 11 bit số mũ và 52 bit phần định trị.",
+    "question": "Số độ chính xác kép 64 bit chia thành những phần nào, mỗi phần bao nhiêu bit?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/cpp/build/ieee-floating-point-representation",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c011",
+    "claim": "Chữ số 1 đứng đầu phần định trị của số double được ngầm hiểu và không lưu trong bộ nhớ, nên độ chính xác thực tế là 53 bit.",
+    "question": "Vì sao số double chỉ lưu 52 bit phần định trị nhưng lại có độ chính xác bao nhiêu bit?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/cpp/build/ieee-floating-point-representation",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c012",
+    "claim": "Một số double giữ trọn được tối đa 15 chữ số có nghĩa: trong Python, sys.float_info.dig bằng 15.",
+    "question": "Theo tài liệu Python, giá trị sys.float_info.dig là bao nhiêu và nó nghĩa là gì?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/sys.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c013",
+    "claim": "Khoảng cách giữa 1 và số lớn hơn 1 nhỏ nhất mà kiểu double biểu diễn được là khoảng 2,22 × 10 mũ âm 16 (Number.EPSILON trong JavaScript).",
+    "question": "Number.EPSILON trong JavaScript được định nghĩa là gì và có giá trị xấp xỉ bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.python.org/3/library/sys.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c014",
+    "claim": "Số nguyên an toàn lớn nhất trong JavaScript là 9.007.199.254.740.991, tức 2 mũ 53 trừ 1; cả 9.007.199.254.740.992 và 9.007.199.254.740.993 đều được ghi thành cùng một giá trị 9.007.199.254.740.992.",
+    "question": "Giá trị của Number.MAX_SAFE_INTEGER là bao nhiêu, và đặc tả ECMAScript nêu ví dụ nào về hai số nguyên lớn hơn nó bị ghi thành cùng một giá trị?",
+    "sources": [
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c015",
+    "claim": "Chuẩn IEEE yêu cầu kết quả của phép cộng, trừ, nhân, chia phải được làm tròn chính xác: tính như thể chính xác tuyệt đối rồi làm tròn về số dấu phẩy động gần nhất; mặc định là làm tròn về số gần nhất.",
+    "question": "Theo bài của Goldberg, chuẩn IEEE yêu cầu gì về kết quả của bốn phép tính cơ bản, và chế độ làm tròn mặc định là gì?",
+    "sources": [
+      {
+        "url": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c016",
+    "claim": "Bài \"What Every Computer Scientist Should Know About Floating-Point Arithmetic\" của David Goldberg đăng trên tạp chí Computing Surveys của ACM số tháng 3 năm 1991.",
+    "question": "Bài \"What Every Computer Scientist Should Know About Floating-Point Arithmetic\" do ai viết, đăng ở tạp chí nào, số tháng năm nào?",
+    "sources": [
+      {
+        "url": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c017",
+    "claim": "Trong Python, cộng 0.1 mười lần liên tiếp rồi so sánh với 1.0 bằng == cho kết quả False.",
+    "question": "Trong Python, cộng 0.1 mười lần bằng toán tử + rồi so với 1.0 thì được kết quả gì?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c018",
+    "claim": "Trước khi có chuẩn IEEE 754, mỗi dòng máy tính có phạm vi số, độ chính xác và cách làm tròn riêng, khiến chương trình tính toán khó chạy đúng trên máy khác.",
+    "question": "Theo William Kahan, tình trạng số học dấu phẩy động trên các dòng máy trước khi có chuẩn IEEE 754 như thế nào?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://ethw.org/Milestones:IEEE_Standard_754_for_Binary_Floating-Point_Arithmetic,_1985",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c019",
+    "claim": "Năm 1976, Intel bắt đầu thiết kế một bộ đồng xử lý dấu phẩy động và mời William Kahan, giáo sư Đại học California, Berkeley, làm cố vấn.",
+    "question": "Intel bắt đầu thiết kế bộ đồng xử lý dấu phẩy động năm nào, ai được mời làm cố vấn, và người đó làm việc ở trường nào?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://ethw.org/Milestones:IEEE_Standard_754_for_Binary_Floating-Point_Arithmetic,_1985",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www2.eecs.berkeley.edu/Faculty/Homepages/kahan.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c020",
+    "claim": "William Kahan cùng nghiên cứu sinh Jerome Coonen và giáo sư thỉnh giảng Harold Stone soạn bản đề xuất cho tiểu ban IEEE p754, ban đầu gọi là \"K-C-S\".",
+    "question": "Những ai soạn bản đề xuất đầu tiên trở thành chuẩn IEEE 754, và bản đó ban đầu được gọi tên gì?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://ethw.org/Milestones:IEEE_Standard_754_for_Binary_Floating-Point_Arithmetic,_1985",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c021",
+    "claim": "Intel ra mắt chip đồng xử lý toán 8087 năm 1980; kiểu dữ liệu và cách tính số học của nó là nền tảng của chuẩn IEEE 754.",
+    "question": "Chip 8087 của Intel ra mắt năm nào, và nó có liên hệ gì với chuẩn IEEE 754?",
+    "sources": [
+      {
+        "url": "https://ethw.org/Milestones:Intel_8087_Math_Coprocessor,_1980",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Intel_8087",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c022",
+    "claim": "Chuẩn IEEE 754-1985 (IEEE Standard for Binary Floating-Point Arithmetic) được hội đồng IEEE thông qua ngày 21 tháng 3 năm 1985.",
+    "question": "Chuẩn IEEE 754-1985 được hội đồng IEEE thông qua vào ngày nào?",
+    "sources": [
+      {
+        "url": "https://standards.ieee.org/ieee/754/993/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://ethw.org/Milestones:IEEE_Standard_754_for_Binary_Floating-Point_Arithmetic,_1985",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c023",
+    "claim": "William Kahan nhận giải Turing của ACM năm 1989.",
+    "question": "William Kahan nhận giải Turing năm nào?",
+    "sources": [
+      {
+        "url": "https://www2.eecs.berkeley.edu/Faculty/Homepages/kahan.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://ethw.org/Milestones:IEEE_Standard_754_for_Binary_Floating-Point_Arithmetic,_1985",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c024",
+    "claim": "Phiên bản hiện hành của chuẩn là IEEE 754-2019 (IEEE Standard for Floating-Point Arithmetic), xuất bản ngày 22 tháng 7 năm 2019.",
+    "question": "Phiên bản hiện hành của chuẩn IEEE 754 là bản năm nào, xuất bản ngày nào?",
+    "sources": [
+      {
+        "url": "https://standards.ieee.org/ieee/754/6210/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c025",
+    "claim": "Ngày 25 tháng 2 năm 1991, một hệ thống phòng thủ tên lửa Patriot ở Dhahran, Ả Rập Xê Út không theo dõi và đánh chặn được một tên lửa Scud; Scud rơi trúng doanh trại quân đội, làm 28 lính Mỹ thiệt mạng.",
+    "question": "Theo báo cáo GAO/IMTEC-92-26, chuyện gì xảy ra với hệ thống Patriot ở Dhahran, vào ngày nào, và có bao nhiêu người thiệt mạng?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.gao.gov/products/imtec-92-26",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c026",
+    "claim": "Đồng hồ trong hệ thống Patriot đếm thời gian bằng số nguyên với đơn vị phần mười giây, và các thanh ghi của máy tính chỉ dài 24 bit.",
+    "question": "Theo báo cáo GAO, đồng hồ của hệ thống Patriot giữ thời gian theo đơn vị nào, và thanh ghi của máy dài bao nhiêu bit?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www-users.cse.umn.edu/~arnold/disasters/Patriot-dharan-skeel-siam.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c027",
+    "claim": "Lúc xảy ra vụ việc ở Dhahran, khẩu đội Patriot đã chạy liên tục hơn 100 giờ.",
+    "question": "Theo báo cáo GAO, khẩu đội Patriot ở Dhahran đã chạy liên tục bao lâu khi vụ việc xảy ra?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c028",
+    "claim": "Sau 100 giờ chạy liên tục, sai số thời gian của Patriot là 0,3433 giây, làm vùng radar tìm mục tiêu lệch khoảng 687 mét.",
+    "question": "Theo phụ lục báo cáo GAO, sau 100 giờ chạy liên tục sai số thời gian là bao nhiêu giây và vùng radar lệch khoảng bao nhiêu mét?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www-users.cse.umn.edu/~arnold/disasters/Patriot-dharan-skeel-siam.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c029",
+    "claim": "Sau 8 giờ chạy liên tục, sai số thời gian của Patriot là 0,0275 giây, làm vùng radar lệch khoảng 55 mét.",
+    "question": "Theo phụ lục báo cáo GAO, sau 8 giờ chạy liên tục sai số thời gian là bao nhiêu giây và vùng radar lệch khoảng bao nhiêu mét?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www-users.cse.umn.edu/~arnold/disasters/Patriot-dharan-skeel-siam.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c030",
+    "claim": "Dữ liệu của Israel cho thấy vùng radar của Patriot lệch 20% sau 8 giờ chạy liên tục; ngoại suy ra sau khoảng 20 giờ, độ lệch đạt 50% và hệ thống không bám được mục tiêu.",
+    "question": "Theo báo cáo GAO, dữ liệu của Israel cho thấy độ lệch bao nhiêu sau bao nhiêu giờ, và ngoại suy ra sau khoảng bao lâu thì hệ thống không bám được mục tiêu?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c031",
+    "claim": "Khởi động lại hệ thống Patriot, mất khoảng 60 đến 90 giây, sẽ đưa đồng hồ về 0 và xóa độ lệch.",
+    "question": "Theo báo cáo GAO, khởi động lại hệ thống Patriot mất bao lâu và có tác dụng gì với đồng hồ?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c032",
+    "claim": "Phần mềm Patriot đã sửa lỗi tính thời gian đến Dhahran ngày 26 tháng 2 năm 1991, một ngày sau vụ tấn công.",
+    "question": "Theo báo cáo GAO, phần mềm sửa lỗi tính thời gian đến Dhahran vào ngày nào?",
+    "sources": [
+      {
+        "url": "https://www.gao.gov/assets/imtec-92-26.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c033",
+    "claim": "Lỗi tính thời gian của Patriot bắt nguồn từ việc biểu diễn 0,1 bằng 24 bit nhị phân bị cắt cụt, vì biểu diễn nhị phân của 0,1 không có điểm dừng.",
+    "question": "Theo bài của Robert Skeel trên SIAM News, nguyên nhân gốc của sai số thời gian trong hệ thống Patriot là gì?",
+    "sources": [
+      {
+        "url": "https://www-users.cse.umn.edu/~arnold/disasters/Patriot-dharan-skeel-siam.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www-users.cse.umn.edu/~arnold/disasters/patriot.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c034",
+    "claim": "Một bản sửa đã thêm chương trình con chuyển đổi thời gian chính xác hơn, nhưng nó không được gọi ở mọi chỗ cần trong mã, nên sai số giữa hai lần đo radar không còn triệt tiêu nhau.",
+    "question": "Theo Robert Skeel, vì sao một bản sửa phần mềm Patriot lại làm sai số thời gian giữa hai xung radar không còn triệt tiêu?",
+    "sources": [
+      {
+        "url": "https://www-users.cse.umn.edu/~arnold/disasters/Patriot-dharan-skeel-siam.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c035",
+    "claim": "Mô-đun decimal của Python biểu diễn chính xác số thập phân: với nó, 0.1 + 0.1 + 0.1 - 0.3 ra đúng 0, còn với số dấu phẩy động nhị phân thì ra khoảng 5,55 × 10 mũ âm 17; vì vậy decimal được ưa dùng trong kế toán.",
+    "question": "Theo tài liệu mô-đun decimal của Python, 0.1 + 0.1 + 0.1 - 0.3 cho kết quả gì trong số thập phân và trong số nhị phân, và vì thế decimal được ưa dùng ở lĩnh vực nào?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/decimal.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c036",
+    "claim": "Python có hàm math.isclose để so sánh hai số thực có đủ gần nhau không; math.isclose(0.1 + 0.1 + 0.1, 0.3) cho True.",
+    "question": "Tài liệu Python gợi ý hàm nào để so sánh hai số thực thay cho ==, và kết quả của hàm đó với 0.1 + 0.1 + 0.1 và 0.3 là gì?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c037",
+    "claim": "Trong hệ thập phân, 1/4 = 0,25 và 1/5 = 0,2: cả hai đều là số thập phân hữu hạn, viết ra là dừng.",
+    "question": "Viết 1/4 và 1/5 dưới dạng số thập phân thì được gì, và hai số đó hữu hạn hay lặp vô hạn?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Repeating_decimal",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://mathworld.wolfram.com/RepeatingDecimal.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c038",
+    "claim": "1/3 (1 chia 3) viết thành 0,333..., số 3 lặp mãi; 1/7 viết thành 0,142857142857..., khối 6 chữ số 142857 lặp lại không bao giờ dừng.",
+    "question": "Khai triển thập phân của 1/3 và 1/7 trông như thế nào, và khối lặp của mỗi số dài bao nhiêu chữ số?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Repeating_decimal",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://mathworld.wolfram.com/RepeatingDecimal.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c039",
+    "claim": "Vì 10 = 2 × 5, một phân số tối giản viết được thành số thập phân hữu hạn khi và chỉ khi mẫu số không có thừa số nguyên tố nào khác 2 và 5: mẫu 4 hay 5 thì viết gọn, còn mẫu 3 hay 7 thì lặp vô hạn.",
+    "question": "Điều kiện nào trên mẫu số quyết định một phân số tối giản có khai triển thập phân hữu hạn hay lặp vô hạn?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Repeating_decimal",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://mathworld.wolfram.com/RepeatingDecimal.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c040",
+    "claim": "Trong một hệ cơ số bất kỳ, phân số tối giản viết gọn được khi mọi thừa số nguyên tố của mẫu cũng là thừa số của cơ số. Hệ nhị phân (hệ hai, cơ số 2) không có thừa số 5, nên chỉ viết gọn được phân số có mẫu là lũy thừa của 2 (2, 4, 8, 16...); 0,1 tức 1/10 thì không, vì 10 có thừa số 5.",
+    "question": "Trong hệ cơ số 2, phân số nào có biểu diễn hữu hạn, và vì sao 1/10 không thuộc nhóm đó?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Repeating_decimal",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/cpp/build/ieee-floating-point-representation",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c041",
+    "claim": "Trong ký hiệu khoa học, một số được viết dưới dạng m × 10 mũ n với 1 ≤ |m| < 10; ví dụ 1.500 viết thành 1,5 × 10 mũ 3.",
+    "question": "Ký hiệu khoa học viết một số dưới dạng nào, và số 1.500 viết theo ký hiệu khoa học là gì?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Scientific_notation",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://mathworld.wolfram.com/ScientificNotation.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://docs.python.org/3/library/string.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c042",
+    "claim": "Python là một ngôn ngữ lập trình.",
+    "question": "Theo trang hỏi đáp chính thức của Python, Python là gì?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/faq/general.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c043",
+    "claim": "Kết quả 0.30000000000000004 có 17 chữ số có nghĩa: chữ số 3, mười lăm chữ số 0, rồi chữ số 4 ở vị trí có nghĩa thứ 17, cũng là chữ số thứ 17 sau dấu phẩy.",
+    "question": "Trong kết quả mà JavaScript in ra cho 0.1 + 0.2, chữ số khác 0 cuối cùng nằm ở vị trí có nghĩa thứ mấy, và tổng cộng con số đó có bao nhiêu chữ số có nghĩa?",
+    "sources": [
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://docs.python.org/3/tutorial/floatingpoint.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c044",
+    "claim": "Vì double chỉ giữ trọn tối đa 15 chữ số có nghĩa, từ chữ số có nghĩa thứ 16 trở đi không còn được đảm bảo: tài liệu Python đưa ví dụ chuỗi 16 chữ số '9876543211234567' đổi sang float rồi in lại thành 9876543211234568.",
+    "question": "Theo tài liệu Python về sys.float_info.dig, chuyện gì xảy ra với một chuỗi có nhiều chữ số có nghĩa hơn dig, và tài liệu đưa ví dụ nào?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/sys.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c045",
+    "claim": "Giá trị máy thật sự lưu khi ta viết 0.2 (kiểu double) là 0,200000000000000011102230246251565404236316680908203125, hơi lớn hơn 0,2.",
+    "question": "Giá trị thập phân chính xác của số double mà máy lưu cho 0.2 là bao nhiêu, và nó lớn hơn hay nhỏ hơn 0,2?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/decimal.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://jvns.ca/blog/2023/02/08/why-does-0-1-plus-0-2-equal-0-30000000000000004/",
+        "credibility": "anecdotal"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c046",
+    "claim": "Giá trị máy thật sự lưu khi ta viết 0.3 (kiểu double) là 0,299999999999999988897769753748434595763683319091796875, hơi nhỏ hơn 0,3.",
+    "question": "Giá trị thập phân chính xác của số double mà máy lưu cho 0.3 là bao nhiêu, và nó lớn hơn hay nhỏ hơn 0,3?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/decimal.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://jvns.ca/blog/2023/02/08/why-does-0-1-plus-0-2-equal-0-30000000000000004/",
+        "credibility": "anecdotal"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c047",
+    "claim": "Tổng chính xác của hai giá trị máy lưu cho 0.1 và 0.2 là 0,3000000000000000166533453693773481063544750213623046875, lớn hơn 0,3.",
+    "question": "Cộng chính xác hai giá trị double mà máy lưu cho 0.1 và 0.2 thì được số nào, và số đó so với 0,3 thế nào?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/decimal.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://jvns.ca/blog/2023/02/08/why-does-0-1-plus-0-2-equal-0-30000000000000004/",
+        "credibility": "anecdotal"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c048",
+    "claim": "Tổng chính xác của 0.1 và 0.2 (đã lưu) rơi đúng giữa giá trị máy lưu cho 0,3 và giá trị double ngay trên nó (0,3000000000000000444089209850062616169452667236328125); theo luật làm tròn về số gần nhất, hòa thì chọn số chẵn, kết quả được làm tròn lên số ngay trên, in ra là 0.30000000000000004.",
+    "question": "Tổng chính xác của 0.1 và 0.2 đã lưu nằm ở đâu so với hai giá trị double gần 0,3 nhất, và luật làm tròn nào quyết định kết quả cuối cùng?",
+    "sources": [
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.python.org/3/library/decimal.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://jvns.ca/blog/2023/02/08/why-does-0-1-plus-0-2-equal-0-30000000000000004/",
+        "credibility": "anecdotal"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c049",
+    "claim": "Số nguyên nhỏ được máy cất và cộng chính xác (trong JavaScript là mọi số nguyên đến 2 mũ 53 trừ 1; số nguyên của Python có độ chính xác không giới hạn), nên 100 + 200 đồng cho đúng 300 đồng, trong khi 0,1 + 0,2 nghìn đồng tính bằng số thực cho 0.30000000000000004.",
+    "question": "Vì sao tính tiền bằng số nguyên (vd 100 + 200 đồng) cho kết quả chính xác còn tính bằng số thực (0,1 + 0,2 nghìn đồng) thì không?",
+    "sources": [
+      {
+        "url": "https://tc39.es/ecma262/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.python.org/3/library/stdtypes.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  }
+]

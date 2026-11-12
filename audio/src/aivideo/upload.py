@@ -320,6 +320,120 @@ def upload_episode(slug: str, *, client, episodes_dir="../episodes", out_dir=Non
             "publishAt": publish_at, "resumed": resumed}
 
 
+SHORT_AI_LINE = "Giọng đọc trong video do AI tạo."
+
+
+def short_body(entry: dict, long_url: str, tag: str) -> dict:
+    """Body của Short (đề mục 14, D33): tiêu đề `title (Phần k/N) #Shorts`, mô tả có link video dài."""
+    from aivideo.shorts import title_suffix
+
+    part, total = entry["part"], entry["total"]
+    lines = [entry["hook"], "", f"Xem bản đầy đủ: {long_url}"]
+    if part == total:
+        lines.append(f"Cảm ơn bạn đã xem hết {total} phần. Bản đầy đủ liền mạch ở link trên.")
+    lines += ["", "#Shorts", "", SHORT_AI_LINE]
+    status = {"privacyStatus": "private", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": False}
+    return {"snippet": {"title": entry["title"] + title_suffix(part, total), "description": "\n".join(lines),
+                        "tags": [tag]},
+            "status": status}
+
+
+def upload_short(slug: str, n: int, *, client, episodes_dir="../episodes", out_dir=None, kenh_path=None,
+                 privacy: str | None = None) -> dict:
+    """Đăng Short phần `n` sau video dài (đề mục 14). Như `upload_episode` nhưng không đặt thumbnail."""
+    from aivideo.shorts import ShortsError, entry as short_entry, load_shorts
+
+    if not 1 <= n <= 8:
+        raise UploadError(f"--short phải là số 1..8, nhận {n}")
+    ep = _ep_dir(slug, episodes_dir)
+    out = Path(out_dir) if out_dir else ep.parent.parent / "out" / "episodes"
+    kenh = _kenh(Path(kenh_path) if kenh_path else ep.parent.parent / ".team" / "kenh.json")
+    try:
+        e = short_entry(load_shorts(ep / "shorts.json"), n)
+    except ShortsError as err:
+        raise UploadError(str(err)) from err
+    pub_path = ep / "publish.json"
+    pub = _read_json(pub_path) if pub_path.is_file() else {}
+    privacy = privacy or pub.get("privacy") or "private"
+    if privacy not in PRIVACY:
+        raise UploadError(f"privacy phải thuộc {PRIVACY}")
+    if privacy == "public" and kenh.get("firstVideoApproved") is not True:
+        raise UploadError("video đầu chưa được duyệt: không đặt public")
+    long_id = recorded_video_id(ep)
+    if long_id is None:
+        raise UploadError(f"sổ của {slug} chưa có videoId của video dài (mục {STAGE}): đăng video dài trước")
+    mp4 = out / slug / f"{slug}-short-{n}.mp4"
+    srt = out / slug / "shorts" / str(n) / "video.srt"
+    for f in (mp4, srt):
+        if not f.is_file():
+            raise UploadError(f"thiếu {f}")
+    stage = f"{STAGE}-short-{n}"
+    st_caption, st_privacy = f"{stage}-caption", f"{stage}-privacy"
+    tag = f"{TAG_PREFIX}{slug}:short-{n}"
+    hashes = {stage: sha256_file(mp4), st_caption: sha256_file(srt), st_privacy: None}
+    script_hash = _script_hash_of(ep)
+    body = short_body(e, video_url(long_id), tag)
+
+    token_channel = client.channel_id()
+    if token_channel != kenh["channelId"].strip():
+        raise UploadError(f"kênh của token {token_channel!r} khác kênh trong kenh.json "
+                          f"{kenh['channelId']!r}: không tải")
+
+    video_id = None
+    for en in reversed(Ledger(ep).entries()):
+        if en["stage"] == stage:
+            m = _URL_RE.match(en.get("note") or "")
+            if m:
+                video_id = m.group(1)
+                break
+
+    def record(st, note):
+        try:
+            _record(ep, st, note, hashes[st], script_hash)
+        except (GateError, OSError, ValueError) as err:
+            raise UploadError(f"Short {video_id} ({video_url(video_id)}) đã có trên YouTube nhưng ghi sổ khâu "
+                              f"{st} lỗi: {err}. Không tải lại; chạy lại lệnh sẽ tìm lại theo thẻ {tag}") from err
+
+    resumed = video_id is not None
+    if not resumed:
+        video_id = client.find_uploaded(tag)
+        resumed = video_id is not None
+        if not resumed:
+            video_id = client.insert_video(mp4, body)["id"]
+        print(f"videoId: {video_id}", file=sys.stderr, flush=True)
+        record(stage, video_url(video_id))
+    url = video_url(video_id)
+    priv_note = f"{url} privacy={privacy}"
+    want_set = privacy != "private"
+    done_caption = _step_done(ep, st_caption, url)
+    done_privacy = _step_done(ep, st_privacy, priv_note)
+    if done_caption and (done_privacy or not want_set):
+        return {"videoId": video_id, "url": url, "privacy": privacy, "resumed": resumed}
+
+    waited = 0
+    while True:
+        st = client.processing_status(video_id)
+        if st == "succeeded":
+            break
+        if st in ("failed", "rejected", "terminated"):
+            raise UploadError(f"YouTube xử lý Short {video_id} không thành: {st}")
+        if waited >= MAX_WAIT_SECONDS:
+            raise UploadError(f"quá {MAX_WAIT_SECONDS} giây chưa xử lý xong; chạy lại sau")
+        time.sleep(POLL_SECONDS)
+        waited += POLL_SECONDS
+
+    if not done_caption:
+        client.insert_caption(video_id, srt, CAPTION_LANGUAGE, CAPTION_NAME)
+        record(st_caption, url)
+    if want_set:
+        client.set_privacy(video_id, privacy)
+        if client.privacy_status(video_id) == "private":
+            raise NeedUser(f"đã đặt {privacy} nhưng Short vẫn private: có thể bị khoá",
+                           {"videoId": video_id, "url": url})
+        record(st_privacy, priv_note)
+    return {"videoId": video_id, "url": url, "privacy": privacy, "resumed": resumed}
+
+
 def set_video_privacy(slug: str, *, client, privacy: str, episodes_dir="../episodes",
                       kenh_path=None) -> dict:
     """Đổi quyền riêng tư của video đã đăng (videoId lấy từ sổ), rồi ghi mục `dang-privacy`."""
@@ -353,6 +467,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--episodes-dir", default="../episodes")
     ap.add_argument("--out-dir")
     ap.add_argument("--kenh")
+    ap.add_argument("--short", type=int, help="đăng Short phần n (1..8) sau video dài")
     a = ap.parse_args(argv)
     try:
         if a.slug == "auth":
@@ -363,6 +478,15 @@ def main(argv: list[str] | None = None) -> int:
                 ap.error("--set-privacy không đi cùng --publish-at, --out-dir")
             r = set_video_privacy(a.slug, client=make_client(), privacy=a.set_privacy,
                                   episodes_dir=a.episodes_dir, kenh_path=a.kenh)
+            print(json.dumps(r, ensure_ascii=False, indent=2))
+            return 0
+        if a.short is not None:
+            if a.set_privacy or a.publish_at:
+                ap.error("--short không đi cùng --set-privacy, --publish-at")
+            if not 1 <= a.short <= 8:
+                raise UploadError(f"--short phải là số 1..8, nhận {a.short}")
+            r = upload_short(a.slug, a.short, client=make_client(), episodes_dir=a.episodes_dir,
+                             out_dir=a.out_dir, kenh_path=a.kenh, privacy=a.privacy)
             print(json.dumps(r, ensure_ascii=False, indent=2))
             return 0
         r = upload_episode(a.slug, client=make_client(), episodes_dir=a.episodes_dir,

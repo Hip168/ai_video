@@ -189,10 +189,13 @@ def mix_episode(timeline_path, narration_path, out_path, *, music_path=None, mus
 
 # ---- CLI ----------------------------------------------------------------------
 
-def run_episode(slug: str, root=ROOT, stems: bool = False) -> dict:
+def run_episode(slug: str, root=ROOT, stems: bool = False, short: int | None = None) -> dict:
+    """`short`: trộn Short số `short` từ `<out>/shorts/<n>/` (timeline và narration đã cắt bởi `aivideo.shorts cut`)."""
     root = Path(root)
     script_p = root / "episodes" / slug / "script.json"
     out_dir = root / "out" / "episodes" / slug
+    if short is not None:
+        out_dir = out_dir / "shorts" / str(short)
     for p in (script_p, out_dir / "narration.wav", out_dir / "timeline.json"):
         if not p.is_file():
             raise RuntimeError(f"thiếu file: {p}")
@@ -215,9 +218,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("slug")
     ap.add_argument("--root", default=str(ROOT))
     ap.add_argument("--stems", action="store_true")
+    ap.add_argument("--short", type=int)
     a = ap.parse_args(argv)
     try:
-        r = run_episode(a.slug, a.root, a.stems)
+        r = run_episode(a.slug, a.root, a.stems, a.short)
     except (ValueError, RuntimeError, OSError, KeyError) as e:
         print(f"lỗi: {e}", file=sys.stderr)
         return 1

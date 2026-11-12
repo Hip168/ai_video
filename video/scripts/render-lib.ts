@@ -137,6 +137,8 @@ export function segmentHash(
   item: PlanItem,
   srcHash: string,
   rendererVersion: string,
+  /** Short (đề mục 14): đoạn clip (part, hook...) để đổi hook thì render lại. Không có thì hash như cũ. */
+  clip?: unknown,
 ): string {
   const scenes = timeline.scenes.filter((s) => s.startFrame <= item.endFrame && s.startFrame + s.durationFrames - 1 >= item.startFrame);
   return sha256(
@@ -151,6 +153,7 @@ export function segmentHash(
       crf: CRF,
       src: srcHash,
       renderer: rendererVersion,
+      ...(clip === undefined ? {} : { clip }),
     }),
   );
 }

@@ -21,6 +21,8 @@ export interface ShortClip {
   from: string;
   to: string;
   hook: string;
+  part: number;
+  total: number;
 }
 
 export interface ShortProps extends Record<string, unknown> {
@@ -30,15 +32,24 @@ export interface ShortProps extends Record<string, unknown> {
   muted?: boolean;
 }
 
-/** Dải frame của đoạn: `start` = đầu beat `from`, `end` = cuối beat `to` (không tính). */
+/** Chỉ số cảnh đầu và cuối (tính cả) của phần; cảnh đầu lùi qua các cảnh không có beat đứng ngay trước (D33). */
+export function sceneRange(timeline: Timeline2, clip: { from: string; to: string }): { first: number; last: number } {
+  const sceneOf = (id: string) => timeline.scenes.findIndex((s) => s.beats.some((b) => b.id === id));
+  let first = sceneOf(clip.from);
+  const last = sceneOf(clip.to);
+  if (first < 0) throw new Error(`Short: không có beat ${clip.from}`);
+  if (last < 0) throw new Error(`Short: không có beat ${clip.to}`);
+  if (last < first) throw new Error(`Short: beat ${clip.to} đứng trước ${clip.from}`);
+  while (first > 0 && timeline.scenes[first - 1].beats.length === 0) first--;
+  return { first, last };
+}
+
+/** Dải frame của phần: `start` = đầu cảnh đầu, `end` = cuối cảnh chứa `to` (không tính). */
 export function clipRange(timeline: Timeline2, clip: { from: string; to: string }): { start: number; end: number } {
-  const beats = timeline.scenes.flatMap((s) => s.beats);
-  const a = beats.findIndex((b) => b.id === clip.from);
-  const b = beats.findIndex((x) => x.id === clip.to);
-  if (a < 0) throw new Error(`Short: không có beat ${clip.from}`);
-  if (b < 0) throw new Error(`Short: không có beat ${clip.to}`);
-  if (b < a) throw new Error(`Short: beat ${clip.to} đứng trước ${clip.from}`);
-  return { start: beats[a].startFrame, end: beats[b].startFrame + beats[b].durationFrames };
+  const { first, last } = sceneRange(timeline, clip);
+  const a = timeline.scenes[first];
+  const b = timeline.scenes[last];
+  return { start: a.startFrame, end: b.startFrame + b.durationFrames };
 }
 
 /** Số ký tự tối đa một đoạn phụ đề Short (2 dòng chữ 48 px trong 840 px). */
@@ -80,7 +91,7 @@ export function splitSubtitleShort(text: string, durationFrames: number): Subtit
 
 const FONT = `${FONT_FAMILY}, sans-serif`;
 
-const Hook: React.FC<{ text: string }> = ({ text }) => {
+const Hook: React.FC<{ text: string; part: number; total: number }> = ({ text, part, total }) => {
   const theme = useTheme();
   return (
     <div
@@ -91,25 +102,21 @@ const Hook: React.FC<{ text: string }> = ({ text }) => {
         width: SHORT_HOOK.x1 - SHORT_HOOK.x0,
         height: SHORT_HOOK.y1 - SHORT_HOOK.y0,
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        gap: 6,
+        fontFamily: FONT,
+        fontWeight: 700,
+        textAlign: "center",
       }}
     >
+      <div data-testid="short-part" style={{ color: theme.muted, fontSize: 36, lineHeight: 1.2 }}>
+        {`Phần ${part}/${total}`}
+      </div>
       <div
         data-testid="short-hook"
-        style={{
-          color: theme.accent2,
-          fontFamily: FONT,
-          fontSize: 52,
-          fontWeight: 700,
-          lineHeight: 1.2,
-          textAlign: "center",
-          textWrap: "balance",
-          display: "-webkit-box",
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-        }}
+        style={{ color: theme.accent2, fontSize: 48, lineHeight: 1.2, whiteSpace: "nowrap", overflow: "hidden", maxWidth: "100%" }}
       >
         {text}
       </div>
@@ -177,7 +184,7 @@ const Body: React.FC<{ timeline: Timeline2; clip: ShortClip }> = ({ timeline, cl
   const scenes = timeline.scenes.filter((s) => s.startFrame < end && s.startFrame + s.durationFrames > start);
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      <Hook text={clip.hook} />
+      <Hook text={clip.hook} part={clip.part} total={clip.total} />
       <div
         style={{
           position: "absolute",

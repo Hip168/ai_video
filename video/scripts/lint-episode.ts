@@ -1,4 +1,4 @@
-// npm run lint:episode -- <slug> [--script f] [--timeline f] [--index f] [--json]
+// npm run lint:episode -- <slug> [--script f] [--timeline f] [--index f] [--json] [--short n]
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,9 +25,17 @@ const opt = (name: string, env: string): string | undefined => {
   if (i !== -1) return args[i + 1] ?? usage(`--${name} thiếu giá trị`);
   return process.env[env] || undefined;
 };
-const valueFlags = new Set(["--script", "--timeline", "--index"]);
+const valueFlags = new Set(["--script", "--timeline", "--index", "--short"]);
 const positional = args.filter((a, i) => !a.startsWith("--") && !valueFlags.has(args[i - 1]));
 const slug = positional[0] ?? usage("thiếu <slug>");
+
+// --short n: lint một phần Short (đề mục 14) thay cho lint tập.
+const shortArg = opt("short", "LINT_SHORT");
+if (shortArg !== undefined) {
+  if (!/^[1-8]$/.test(shortArg)) usage(`--short phải là số 1..8, nhận ${shortArg}`);
+  const { lintShort } = await import("./lint-short");
+  process.exit(await lintShort(ROOT, slug, Number(shortArg)));
+}
 const asJson = args.includes("--json");
 
 const scriptFile = path.resolve(opt("script", "LINT_SCRIPT") ?? path.join(ROOT, "episodes", slug, "script.json"));

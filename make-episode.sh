@@ -1,7 +1,8 @@
 #!/bin/zsh
 # Một lệnh từ kịch bản tập ra MP4 dài: out/episodes/<slug>/<slug>.mp4 (chỉ chạy trên Mac, zsh).
-# Dùng: ./make-episode.sh <slug> [--engine <id>] [--voice <id>] [--speed <số>] [--from <bước>] [--procs <N>]
+# Dùng: ./make-episode.sh <slug> [--engine <id>] [--voice <id>] [--speed <số>] [--from <bước>] [--procs <N>] [--short <n>]
 # Bước: tools build lint mix render assemble check. Giao diện: .team/features/10-render-dai-giao-dien.md
+# --short <n>: Short phần n sau tập dài, bước tools lint mix render assemble check (.team/features/14-shorts-giao-dien.md).
 set -eu
 zmodload zsh/datetime
 
@@ -11,13 +12,14 @@ voice=""
 speed=""
 from=tools
 procs=""
+short=""
 
-usage() { print -u2 "Dùng: ./make-episode.sh <slug> [--engine <id>] [--voice <id>] [--speed <số>] [--from <bước>] [--procs <N>]"; }
+usage() { print -u2 "Dùng: ./make-episode.sh <slug> [--engine <id>] [--voice <id>] [--speed <số>] [--from <bước>] [--procs <N>] [--short <n>]"; }
 
 slug=""
 while (( $# > 0 )); do
   case "$1" in
-    --engine|--voice|--speed|--from|--procs)
+    --engine|--voice|--speed|--from|--procs|--short)
       if (( $# < 2 )); then print -u2 "Thiếu giá trị cho $1"; usage; exit 2; fi
       case "$1" in
         --engine) engine="$2" ;;
@@ -25,6 +27,7 @@ while (( $# > 0 )); do
         --speed) speed="$2" ;;
         --from) from="$2" ;;
         --procs) procs="$2" ;;
+        --short) short="$2" ;;
       esac
       shift 2 ;;
     --*) print -u2 "Tham số lạ: $1"; usage; exit 2 ;;
@@ -37,6 +40,8 @@ done
 [[ "$slug" =~ '^[a-z0-9_]+([-][a-z0-9_]+)*$' ]] || { print -u2 "slug không hợp lệ: $slug"; exit 2; }
 (( ${steps[(Ie)$from]} )) || { print -u2 -- "--from phải là một trong: ${steps[*]}"; exit 2; }
 [[ -z "$procs" || "$procs" =~ '^[1-9][0-9]*$' ]] || { print -u2 -- "--procs phải là số nguyên dương"; exit 2; }
+[[ -z "$short" || "$short" =~ '^[1-8]$' ]] || { print -u2 -- "--short phải là số 1..8"; exit 2; }
+[[ -z "$short" || "$from" != build ]] || { print -u2 -- "--short không có bước build"; exit 2; }
 
 root="${0:A:h}"
 out="$root/out/episodes/$slug"
@@ -44,6 +49,7 @@ py="$root/audio/.venv/bin/python"
 total=7
 mkdir -p "$out"
 logf="$out/render.log"
+if [[ -n "$short" ]]; then total=6; logf="$out/short-$short.log"; fi
 fail() { print -u2 "LỖI ở $1: $2"; print "$(date '+%F %T') LỖI ở $1: $2" >> "$logf"; exit 1; }
 begin() { # $1 = số thứ tự, $2 = tên bước (đồng thời là khoá)
   step="Bước $1/$total: $2"
@@ -86,7 +92,7 @@ else
   [[ -x "$REMOTION_BROWSER_EXECUTABLE" ]] || fail "$step" "REMOTION_BROWSER_EXECUTABLE không trỏ tới file chạy được: $REMOTION_BROWSER_EXECUTABLE"
 fi
 [[ -f "$root/episodes/$slug/script.json" ]] || fail "$step" "thiếu episodes/$slug/script.json"
-if [[ "$engine" == korva ]]; then
+if [[ -z "$short" && "$engine" == korva ]]; then
   "$py" -c "import korvatts" >/dev/null 2>&1 || fail "$step" "thiếu gói korvatts trong audio/.venv (cài extras korva)"
 fi
 free_gb="${AIVIDEO_FREE_GB:-$(df -k "$out" | awk 'END{printf "%.1f", $4/1048576}')}"
@@ -94,6 +100,59 @@ min_gb="${AIVIDEO_MIN_FREE_GB:-6}"
 (( free_gb >= min_gb )) || fail "$step" "đĩa trống ${free_gb} GB < ${min_gb} GB"
 : > "$started"
 export PYTHONPATH="$root/audio/src"
+
+# --- Short phần n (đề mục 14): dùng lại lint, mix, render-episode, assemble, framecheck với --short ---
+if [[ -n "$short" ]]; then
+  sout="$out/shorts/$short"
+  final="$out/$slug-short-$short.mp4"
+  for f in timeline.json narration.wav; do [[ -s "$out/$f" ]] || fail "đầu vào" "thiếu $f của tập dài (chạy tập dài trước)"; done
+  [[ -f "$root/episodes/$slug/shorts.json" ]] || fail "đầu vào" "thiếu episodes/$slug/shorts.json"
+  short_assemble() {
+    for c in concat mux verify; do
+      ( cd "$root/audio" && run "$py" -m aivideo.assemble $c "$slug" --short "$short" ) || fail "$step" "assemble $c lỗi"
+    done
+    need_file "$final"
+  }
+  if want lint; then
+    begin 2 "lint phần $short (shorts.json, cỡ chữ khung dọc)"
+    ( cd "$root/video" && run npm run --silent lint:episode -- "$slug" --short "$short" ) || fail "$step" "lint không đạt"
+  fi
+  if want mix; then
+    begin 3 "cắt phần $short và trộn tiếng"
+    rm -f "$sout/mix.wav"
+    ( cd "$root/audio" && run "$py" -m aivideo.shorts cut "$slug" "$short" ) || fail "$step" "cắt phần lỗi"
+    ( cd "$root/audio" && run "$py" -m aivideo.mix "$slug" --short "$short" ) || fail "$step" "lệnh mix lỗi"
+    need_file "$sout/mix.wav"
+  fi
+  if want render; then
+    begin 4 "render phần $short (Remotion, ${procs:-3} trình duyệt)"
+    rm -f "$sout/video.silent.mp4" "$final"
+    [[ -n "$procs" ]] && export AIVIDEO_PROCS="$procs"
+    ( cd "$root/video" && run npx tsx scripts/render-episode.ts "$slug" --short "$short" ) || fail "$step" "render-episode lỗi"
+    need_file "$sout/manifest.json"
+  fi
+  if want assemble; then
+    begin 5 "ghép, gắn tiếng, kiểm MP4 phần $short"
+    short_assemble
+  fi
+  if want check; then
+    begin 6 "kiểm mất hình phần $short"
+    ( cd "$root/audio" && run "$py" -m aivideo.framecheck verify "$slug" --short "$short" ) || fail "$step" "kiểm mất hình không đạt"
+    newer=0
+    for seg in "$sout"/segments/*.mp4(N.); do
+      if [[ "$seg" -nt "$final" ]]; then newer=$((newer + 1)); fi
+    done
+    if [[ ! -s "$final" ]] || (( newer > 0 )); then
+      print "có đoạn render lại sau lần ghép: ghép và kiểm MP4 lại"
+      short_assemble
+    fi
+    ( cd "$root/audio" && run "$py" -m aivideo.assemble clean "$slug" --short "$short" ) || fail "$step" "dọn lỗi"
+  fi
+  rm -f "$started"
+  print "XONG: $final (cùng $sout/video.srt)"
+  print "$(date '+%F %T') XONG" >> "$logf"
+  exit 0
+fi
 
 # --- 2/7: dựng tập ---
 if want build; then

@@ -27,7 +27,9 @@ while (( $# > 0 )); do
         --speed) speed="$2" ;;
         --from) from="$2" ;;
         --procs) procs="$2" ;;
-        --short) short="$2" ;;
+        --short)
+          if [[ -n "$short" ]]; then print -u2 -- "--short chỉ được ghi một lần"; usage; exit 2; fi
+          short="$2" ;;
       esac
       shift 2 ;;
     --*) print -u2 "Tham số lạ: $1"; usage; exit 2 ;;
@@ -105,8 +107,8 @@ export PYTHONPATH="$root/audio/src"
 if [[ -n "$short" ]]; then
   sout="$out/shorts/$short"
   final="$out/$slug-short-$short.mp4"
-  for f in timeline.json narration.wav; do [[ -s "$out/$f" ]] || fail "đầu vào" "thiếu $f của tập dài (chạy tập dài trước)"; done
   [[ -f "$root/episodes/$slug/shorts.json" ]] || fail "đầu vào" "thiếu episodes/$slug/shorts.json"
+  for f in timeline.json narration.wav; do [[ -s "$out/$f" ]] || fail "đầu vào" "thiếu $f của tập dài (chạy tập dài trước)"; done
   short_assemble() {
     for c in concat mux verify; do
       ( cd "$root/audio" && run "$py" -m aivideo.assemble $c "$slug" --short "$short" ) || fail "$step" "assemble $c lỗi"

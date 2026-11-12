@@ -158,3 +158,8 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - MỞ-4: thêm cờ mới `--short <n>`, không dùng `--layout short`.
 - MỞ-5: từ 2023, link trong mô tả Short không bấm được. Vẫn ghi link video dài vào mô tả dạng chữ. Tiêu chí "có link về video dài" coi là đạt khi mô tả có link. Nút "video liên quan" chỉ đặt được trong Studio, không phải tiêu chí, có thể nhờ người dùng đặt.
 - Nguồn vùng an toàn: Google Ads Help 13547298, mục "Universal safe zones". Ghi vào `stack.md`.
+
+## D33. Shorts theo chuỗi phần, kèm TikTok (người dùng chốt 2026-11-12, sửa D28/D32)
+- Việc gấp nhất: Shorts cho tập 1. Cắt cả tập thành 5–6 phần liên tiếp, ghi "Phần k/N". `shorts.json` có N mục, N từ 1 đến 8 (bỏ quy định đúng 2 mục). Mỗi phần cắt ở ranh giới cảnh, dài tối đa 180 s (YouTube Shorts cho tối đa 3 phút) và nên dưới 150 s.
+- Mô tả mỗi phần có link video dài. Phần cuối có thêm lời mời xem bản đầy đủ. Link trong mô tả và bình luận của Short không bấm được, nên người dùng đặt "Video liên quan" trong Studio để có nút bấm thật.
+- TikTok: người dùng tự tạo tài khoản. Đăng tự động qua Content Posting API cần app đã qua duyệt; chưa duyệt thì chỉ đăng được ở chế độ riêng tư. Trước mắt đội xuất file 1080×1920 kèm caption để người dùng tự tải lên, rồi tính tiếp tự động sau. Link video dài để ở bio hoặc caption.

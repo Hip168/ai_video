@@ -72,3 +72,6 @@ Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTT
 - Kiểu trả về của `korvatts`, `vieneu`; nơi VieNeu lưu mô hình; dung lượng mô hình.
 - `korvatts` và `vieneu` có xung đột phụ thuộc không.
 - API `<Audio>`, `staticFile`, tên hàm trong `remotion.config.ts` đúng với 4.0.539.
+
+## Vùng an toàn Shorts (D32)
+- Nguồn: Google Ads Help 13547298, mục "Universal safe zones" (https://support.google.com/google-ads/answer/13547298). Khung dọc 1080×1920, lề trên 288, dưới 672, trái 48, phải 192 px. Vùng an toàn: x 48–888, y 288–1248.

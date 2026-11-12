@@ -1,17 +1,17 @@
-# Đề mục 14: giao diện công khai (BA duyệt, D32)
+# Đề mục 14: giao diện công khai (BA duyệt, D32; sửa theo D33)
 
-Đường dẫn tính từ gốc repo. `<out>` = `out/episodes/<slug>`, `<sout>` = `<out>/shorts/<n>` (n = 1, 2). Nền: D28, D32, `14-shorts.md`, `10-render-dai-giao-dien.md`.
+Đường dẫn tính từ gốc repo. `<out>` = `out/episodes/<slug>`, `<sout>` = `<out>/shorts/<n>` (n = số phần, 1..N). Nền: D28, D32, D33, `14-shorts.md`, `10-render-dai-giao-dien.md`.
 
 ## 1. Vùng an toàn (nguồn chính thức)
 Google Ads Help "About video ad specs" (13547298), mục *Universal safe zones for video ads on YouTube*, hình dọc 1080×1920: lề trên 288, dưới 672, trái 48, phải 192 px. Nguồn: https://support.google.com/google-ads/answer/13547298 (ảnh có số đo: `storage.googleapis.com/support-kms-prod/jbb4hOyc2nGdunbKddqpFAEQpHOQvy582jIR`; mẫu PNG: `services.google.com/fh/files/misc/youtubesafezoneoverlay_vertical_final.png`). Vùng an toàn: `x 48–888`, `y 288–1248` (840×960). BA chốt nguồn này (D32).
 
 ## 2. Composition `Short` (`video/src/Short.tsx`, đăng ký trong `Root.tsx`)
-1080×1920, 30 fps. Props `{ timeline: Timeline2 | null; clip: { from: string; to: string; hook: string } | null; muted?: boolean }`. `calculateMetadata`: `validateTimeline2`, `durationInFrames = end(to) − start(from)` (frame của beat). Bên trong: `<Sequence from={−start(from)}>` chạy lại đúng các cảnh của tập (cảnh thấy frame như trong tập dài, chuyển động giữ nguyên), fade 8 frame ở đầu và cuối Short. `Episode`, `Video`, `KitDemo` không đổi.
+1080×1920, 30 fps. Props `{ timeline: Timeline2 | null; clip: { from: string; to: string; hook: string; part: number; total: number } | null; muted?: boolean }`. `clipRange(timeline, clip)` (export trong `Short.tsx`): `start` = đầu cảnh chứa `from`, lùi qua các cảnh không có beat (vd `chapter-title`) đứng ngay trước; `end` = cuối cảnh chứa `to` (không tính). `calculateMetadata`: `validateTimeline2`, `durationInFrames = end − start`. Các phần liên tiếp nhờ vậy phủ kín tập. Bên trong: `<Sequence from={−start(from)}>` chạy lại đúng các cảnh của tập (cảnh thấy frame như trong tập dài, chuyển động giữ nguyên), fade 8 frame ở đầu và cuối Short. `Episode`, `Video`, `KitDemo` không đổi.
 
 Bố cục (D32, phương án A, hộp cảnh nằm trọn vùng an toàn):
 | Vùng | Toạ độ | Nội dung |
 |---|---|---|
-| hook | `x 48–888`, `y 150–280` | `clip.hook`, đậm, 1–2 dòng |
+| hook | `x 48–888`, `y 150–280` | dòng 1 `Phần k/N` (36 px, `data-testid="short-part"`), dòng 2 `clip.hook` (48 px, 1 dòng, `data-testid="short-hook"`) |
 | cảnh | hộp vuông `x 48–888`, `y 288–1128` (840×840) | cảnh ở layout `square` |
 | phụ đề | `x 48–888`, `y 1128–1248` | chữ 48 px, tối đa 2 dòng; beat dài tách theo thời gian, dùng lại `splitSubtitleDoc` của nhánh 4 |
 | còn lại | | nền theme, hoạ tiết nền được tràn |
@@ -26,19 +26,21 @@ D32 thay "hộp 1080" của D28 bằng hộp 840. Cảnh ở layout `square` v�
 ## 4. Ngưỡng cỡ chữ khung dọc
 Số đo có thật trong repo: `FLOW_MIN_NODE_FONT` 24 px, `FLOW_MIN_LABEL_FONT` 20 px (DEV-12 đo, khung 1080p ngang). Trên điện thoại 19,5:9, một điểm ảnh Short nhỏ hơn điểm ảnh video ngang xem toàn màn hình 1,22 lần (`(19,5/9)·(1080/1920)`). Ngưỡng (D32), tính theo px đầu ra: chữ thường và chữ nút ≥ 30 px, nhãn cạnh ≥ 25 px, phụ đề 48 px. Lint `npm run lint:episode -- <slug> --short <n>` render một still cuối mỗi cảnh trong đoạn; các component chữ (`T`, `TextBlock`, nhãn `flow`) ở layout `square` ném lỗi nêu cảnh và cỡ chữ khi dưới ngưỡng.
 
-## 5. `episodes/<slug>/shorts.json`
+## 5. `episodes/<slug>/shorts.json` (D33)
 ```json
 { "version": 1, "shorts": [
-  { "id": "short-1", "from": "b012", "to": "b031", "title": "… #Shorts", "hook": "Vì sao chỉ có 0 và 1?" },
-  { "id": "short-2", "from": "b120", "to": "b141", "title": "… #Shorts", "hook": "…" } ] }
+  { "part": 1, "total": 6, "from": "b001", "to": "b014", "title": "Vì sao máy tính chỉ dùng 0 và 1?", "hook": "Vì sao chỉ có 0 và 1?" },
+  { "part": 2, "total": 6, "from": "b015", "to": "b030", "title": "…", "hook": "…" } ] }
 ```
-Kiểm (Python `aivideo.shorts validate` và TS cùng luật): đúng 2 mục; `from`, `to` là id beat có trong `script.json`, `from` là beat đầu của một cảnh, `to` không đứng trước `from`; độ dài theo timeline < 60 s; `hook` ≤ 40 ký tự; `title` ≤ 100 ký tự. Lời đọc chỉ lấy từ beat có sẵn (đã qua Cổng 2); `hook` là chữ trên màn hình, không đọc. Không viết lời đọc mới (D32).
+Kiểm (`python -m aivideo.shorts validate <slug>` và `validateShorts` trong `video/src/shorts.ts`, cùng luật): 1 ≤ N ≤ 8 mục; mục thứ i có `part` = i, `total` = N; `from`, `to` là id beat có trong timeline, `from` là beat đầu của cảnh, `to` là beat cuối của cảnh (cắt ở ranh giới cảnh), `to` không đứng trước `from`; các phần theo thứ tự, không chồng nhau; độ dài `clipRange` ≤ 180 s (5400 frame; trên 150 s chỉ cảnh báo); đoạn không chứa cảnh `custom:*` (chưa có biến thể vuông); `hook` 1–40 ký tự; `title` không rỗng và `title + " (Phần k/N) #Shorts"` ≤ 100 ký tự. Lời đọc chỉ lấy từ beat có sẵn (đã qua Cổng 2); `hook` là chữ trên màn hình, không đọc. Không viết lời đọc mới (D32).
 
 ## 6. Render, ghép, kiểm
 - `render-episode.ts` đã có `--layout main|shift` (ranh giới đoạn, `framecheck` dùng). Đặt `--layout short` sẽ trùng nghĩa, nên dùng cờ mới `--short <n>` (D32): composition `Short`, manifest và `segments/`, `segments-shift/` riêng trong `<sout>`; `--layout main|shift` vẫn dùng như cũ bên trong.
 - `./make-episode.sh <slug> --short <n>`: chạy sau tập dài. Bước: `tools`, `lint` (§4), `mix` (cắt `mix.wav` theo khung của đoạn, chuẩn hoá lại -16 LUFS bằng hàm của `mix.py`; `assemble clean` đã xoá `mix.wav` thì dựng lại từ `narration.wav`), `render`, `assemble`, `check`. Ra `<out>/<slug>-short-<n>.mp4` và `<sout>/video.srt` (beat của đoạn, thời gian tính lại từ 0). Lệnh không `--short` giữ nguyên 7 bước.
 - `assemble concat|mux|verify|clean` và `framecheck verify` thêm `--short <n>`: verify đòi 1080×1920, < 60 s, cùng ngưỡng loudness, đen, mất hình; `framecheck scan/compare` quét vùng hộp cảnh của Short thay cho `y < 830`. Không có cờ thì như cũ.
 
-## 7. Đăng (`upload.py`)
-`python -m aivideo.upload <slug> --short <n>`: chạy sau khi tập dài đã có `videoId` trong sổ (`recorded_video_id`), thiếu thì lỗi. Tiêu đề lấy `title`, thêm ` #Shorts` nếu chưa có. Mô tả = câu dẫn + `Xem bản đầy đủ: <video_url(id dài)>` + `#Shorts` + dòng "Giọng đọc trong video do AI tạo." Thẻ `aivideo:<slug>:short-<n>` để chạy lại không tải trùng. Khâu sổ riêng: `dang-short-<n>`, `dang-short-<n>-caption`, `dang-short-<n>-privacy`. Không đặt thumbnail. Quyền mặc định theo `publish.json` của tập; Short đầu không public khi `firstVideoApproved` chưa true (như video dài). `run-daily.sh` gọi 2 lần sau lệnh đăng video dài.
-Link trong mô tả Short không bấm được (từ 2023); vẫn ghi dạng chữ, tiêu chí coi là đạt khi mô tả có link (D32). Nút "video liên quan" chỉ đặt trong Studio, ngoài phạm vi.
+## 7. Đăng (`upload.py`) và xuất TikTok
+`python -m aivideo.upload <slug> --short <n>`: chạy sau khi tập dài đã có `videoId` trong sổ (`recorded_video_id`), thiếu thì lỗi. Tiêu đề = `title + " (Phần k/N) #Shorts"`. Mô tả = `hook` + `Xem bản đầy đủ: <video_url(id dài)>` + (chỉ phần cuối) `Cảm ơn bạn đã xem hết N phần. Bản đầy đủ liền mạch ở link trên.` + `#Shorts` + "Giọng đọc trong video do AI tạo." Thẻ `aivideo:<slug>:short-<n>` để chạy lại không tải trùng. Khâu sổ riêng: `dang-short-<n>`, `dang-short-<n>-caption`, `dang-short-<n>-privacy`. Không đặt thumbnail. Phụ đề: `<sout>/video.srt`. Quyền mặc định theo `publish.json` của tập; không public khi `firstVideoApproved` chưa true. `run-daily.sh` gọi lần lượt mọi phần sau lệnh đăng video dài.
+Link trong mô tả Short không bấm được; vẫn ghi dạng chữ, đạt khi mô tả có link (D32, D33). Người dùng tự đặt "Video liên quan" trong Studio.
+
+Xuất cho TikTok (D33, không API): `python -m aivideo.shorts export <slug>` ghi `<out>/tiktok/`: `phan-<k>.mp4` (bản sao của `<slug>-short-<k>.mp4`), `phan-<k>.txt` (caption: tiêu đề kèm "(Phần k/N)", `hook`, link video dài nếu sổ đã có `videoId`, dòng mời xem bản đầy đủ ở phần cuối, "#tinhoc #khoahocmaytinh", dòng giọng AI) và `manifest.json` `{ "slug", "parts": [{ "part", "mp4", "caption" }] }`. Thiếu MP4 của phần nào thì lỗi, mã 1.

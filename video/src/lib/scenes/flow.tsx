@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useCurrentFrame } from "remotion";
 import { clamp01, ease, useTheme } from "../hooks";
-import { Stage } from "../theme";
+import { SHORT_MIN_EDGE_LABEL_PX, Stage, useBox } from "../theme";
 import { itemStart, pointAlong, TextBlock } from "../b-kit";
 import { flowSizes, layoutFlow, type FlowLayout, type Pt } from "../layout-flow";
 import type { SceneProps } from "../types";
@@ -19,16 +19,17 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
   const frame = useCurrentFrame();
   const p = scene.props;
   const packets = (Array.isArray(p.packets) ? p.packets : []) as PacketIn[];
-  const key = JSON.stringify([p.nodes, p.edges, p.direction]);
+  const sq = useBox().layout === "square";
+  const key = JSON.stringify([p.nodes, p.edges, p.direction, sq]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const lay: FlowLayout = useMemo(() => layoutFlow(p), [key]);
+  const lay: FlowLayout = useMemo(() => layoutFlow(p, sq), [key]);
   const nodes = (Array.isArray(p.nodes) ? p.nodes : []) as { id: string; label: string }[];
   const edges = lay.edges;
   const boxOf = new Map(lay.boxes.map((bx) => [bx.id, bx]));
   const centre = (id: string): Pt => ({ x: boxOf.get(id)!.x + boxOf.get(id)!.w / 2, y: boxOf.get(id)!.y + boxOf.get(id)!.h / 2 });
   const n = packets.length + 1;
   const graphStart = itemStart(scene, 0, n);
-  const { nodeLines, nodeFont: fs, lblW, lblH, lblFont } = flowSizes(lay.scale);
+  const { nodeLines, nodeFont: fs, lblW, lblH, lblFont } = flowSizes(lay.scale, sq);
 
   const arrival: Record<string, number> = {};
   const pk = packets.map((k, i) => {
@@ -58,7 +59,7 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
             {e.label && e.label !== "" && (
               <g>
                 <rect x={mid.x - lblW / 2} y={mid.y - lblH / 2} width={lblW} height={lblH} rx={10} fill={theme.bg} opacity={0.9} />
-                <TextBlock text={e.label} x={mid.x} y={mid.y + lblH * 0.22} width={lblW - 12} fontSize={lblFont} fill={theme.muted} weight={400} />
+                <TextBlock text={e.label} x={mid.x} y={mid.y + lblH * 0.22} width={lblW - 12} fontSize={lblFont} fill={theme.muted} weight={400} minPx={SHORT_MIN_EDGE_LABEL_PX} />
               </g>
             )}
           </g>
@@ -88,11 +89,11 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
         const fade = t <= 1 ? 1 : 1 - clamp01((t - 1) * TRAVEL / 14);
         if (fade <= 0) return null;
         const lbl = k.label ?? "";
-        const w = lbl === "" ? 44 : 112;
+        const w = lbl === "" ? 44 : sq ? 130 : 112;
         return (
           <g key={i} opacity={fade} transform={`translate(${pos.x} ${pos.y})`}>
             <rect x={-w / 2} y={-22} width={w} height={44} rx={12} fill={theme.accent2} />
-            {lbl !== "" && <TextBlock text={lbl} x={0} y={8} width={w - 16} fontSize={26} fill={theme.bg} />}
+            {lbl !== "" && <TextBlock text={lbl} x={0} y={sq ? 10 : 8} width={w - 16} fontSize={sq ? 30 : 26} fill={theme.bg} />}
             {lbl === "" && <circle r={9} fill={theme.bg} />}
           </g>
         );

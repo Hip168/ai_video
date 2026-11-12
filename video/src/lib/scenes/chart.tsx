@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { clamp01, useTheme } from "../hooks";
-import { Stage } from "../theme";
+import { Stage, useBox } from "../theme";
 import type { SceneProps } from "../types";
 import { appearAt, easeOutCubic, fmtNum, prog, T } from "./a-common";
 
@@ -10,15 +10,19 @@ interface Pt {
   value: number;
 }
 
-const LEFT = 160;
-const RIGHT = 1760;
-const TOP = 220;
-const BOTTOM = 680;
+/** Hình học theo khung: `wide` giữ đúng số cũ; `square` (Short) 840x840. */
+const WIDE = { left: 160, right: 1760, top: 220, bottom: 680, cx: 960, titleY: 110, titleSize: 52, titleW: 1500, titleLines: 1, valSize: 34, labelY: 775, labelSize: 34, labelLines: 1, barMax: 160 };
+const SQUARE = { left: 40, right: 800, top: 230, bottom: 640, cx: 420, titleY: 80, titleSize: 44, titleW: 760, titleLines: 2, valSize: 32, labelY: 700, labelSize: 32, labelLines: 2, barMax: 130 };
 
 /** Điểm/cột i hiện ở beat i. Cột mọc lên, đường nối dần tới điểm mới. */
 export const Chart: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const frame = useCurrentFrame();
+  const G = useBox().layout === "square" ? SQUARE : WIDE;
+  const LEFT = G.left;
+  const RIGHT = G.right;
+  const TOP = G.top;
+  const BOTTOM = G.bottom;
   const p = scene.props;
   const kind = p.kind === "line" ? "line" : "bar";
   const title = typeof p.title === "string" ? p.title : "";
@@ -51,7 +55,7 @@ export const Chart: React.FC<SceneProps> = ({ scene }) => {
   }
   return (
     <Stage>
-      {title !== "" && <T x={960} y={110} text={title} size={52} width={1500} maxLines={1} fill={theme.fg} opacity={head} />}
+      {title !== "" && <T x={G.cx} y={G.titleY} text={title} size={G.titleSize} width={G.titleW} maxLines={G.titleLines} fill={theme.fg} opacity={head} />}
       {[0.25, 0.5, 0.75, 1].map((g) => (
         <line key={g} x1={LEFT} y1={BOTTOM - g * (BOTTOM - TOP)} x2={RIGHT} y2={BOTTOM - g * (BOTTOM - TOP)} stroke={theme.muted} strokeWidth={2} opacity={0.25 * head} />
       ))}
@@ -61,7 +65,7 @@ export const Chart: React.FC<SceneProps> = ({ scene }) => {
         const at = appearAt(scene, i);
         const g = easeOutCubic((frame - at) / 22);
         const a = clamp01((frame - at) / 8);
-        const w = Math.min(160, slot * 0.6);
+        const w = Math.min(G.barMax, slot * 0.6);
         const y = yOf(d.value);
         const valY = d.value >= 0 ? yOf(d.value * g) - 16 : yOf(d.value * g) + 44;
         return (
@@ -75,13 +79,13 @@ export const Chart: React.FC<SceneProps> = ({ scene }) => {
               x={cx(i)}
               y={kind === "line" ? yOf(d.value) - 28 : valY}
               text={`${fmtNum(d.value * (kind === "bar" ? g : 1), decimals)}${unit}`}
-              size={34}
+              size={G.valSize}
               width={slot - 10}
               maxLines={1}
               fill={theme.fg}
               opacity={a}
             />
-            <T x={cx(i)} y={775} text={d.label} size={34} width={slot - 10} maxLines={1} fill={theme.muted} opacity={head} />
+            <T x={cx(i)} y={G.labelY} text={d.label} size={G.labelSize} width={slot - 10} maxLines={G.labelLines} fill={theme.muted} opacity={head} />
           </g>
         );
       })}

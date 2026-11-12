@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { beatStartIn, clamp01, ease } from "./hooks";
 import { fitText } from "./text";
+import { assertShortText, useBox } from "./theme";
 import { MONO_FAMILY } from "./fonts";
 import type { Scene2 } from "../timeline2";
 
@@ -42,8 +43,11 @@ export const TextBlock: React.FC<{
   weight?: 400 | 700;
   opacity?: number;
   lineHeight?: number;
-}> = ({ text, x, y, width, fontSize, maxLines = 1, fill, anchor = "middle", weight = 700, opacity = 1, lineHeight = 1.25 }) => {
+  /** Ngưỡng cỡ chữ ở layout `square` (mặc định ngưỡng chữ thường). */
+  minPx?: number;
+}> = ({ text, x, y, width, fontSize, maxLines = 1, fill, anchor = "middle", weight = 700, opacity = 1, lineHeight = 1.25, minPx }) => {
   const fit = useMemo(() => fitText({ text, fontSize, width, maxLines }), [text, fontSize, width, maxLines]);
+  assertShortText(useBox(), fit.fontSize, text, minPx);
   return (
     <g opacity={opacity}>
       {fit.lines.map((l, i) => (

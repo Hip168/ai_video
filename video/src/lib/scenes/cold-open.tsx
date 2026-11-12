@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { clamp01, ease, useBeat, useSpring, useTheme } from "../hooks";
-import { Stage } from "../theme";
+import { assertShortText, Stage, useBox } from "../theme";
 import { fitText, MIN_MARGIN } from "../text";
 import type { SceneProps } from "../types";
 import { useCurrentFrame } from "remotion";
@@ -9,37 +9,45 @@ import { useCurrentFrame } from "remotion";
 export const COLD_OPEN_PANEL_WIDTH = 1640;
 export const COLD_OPEN_TEXT_WIDTH = COLD_OPEN_PANEL_WIDTH - 2 * MIN_MARGIN;
 
+/** Hình học theo khung: `wide` giữ đúng số cũ; `square` (Short) 840x840. */
+const WIDE = { w: 1920, h: 830, cx: 960, cy: 415, ty: 420, panelX: 140, panelW: COLD_OPEN_PANEL_WIDTH, textW: COLD_OPEN_TEXT_WIDTH, sizes: [120, 92, 72], kick: 40, r0: 160, r1: 520 };
+const SQUARE = { w: 840, h: 840, cx: 420, cy: 420, ty: 440, panelX: 30, panelW: 780, textW: 780 - 2 * MIN_MARGIN, sizes: [96, 76, 60], kick: 44, r0: 90, r1: 300 };
+
 export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const frame = useCurrentFrame();
+  const box = useBox();
+  const G = box.layout === "square" ? SQUARE : WIDE;
   const t = useBeat(scene, "hook");
   const hook = String(scene.props.hook ?? "");
   const kicker = typeof scene.props.kicker === "string" ? scene.props.kicker : "";
-  const baseSize = hook.length <= 24 ? 120 : hook.length <= 48 ? 92 : 72;
+  const baseSize = hook.length <= 24 ? G.sizes[0] : hook.length <= 48 ? G.sizes[1] : G.sizes[2];
   const { lines, fontSize: size } = useMemo(
-    () => fitText({ text: hook, fontSize: baseSize, width: COLD_OPEN_TEXT_WIDTH, maxLines: 3 }),
-    [hook, baseSize],
+    () => fitText({ text: hook, fontSize: baseSize, width: G.textW, maxLines: 3 }),
+    [hook, baseSize, G.textW],
   );
-  const kick = useMemo(() => fitText({ text: kicker, fontSize: 40, width: COLD_OPEN_TEXT_WIDTH, maxLines: 1 }), [kicker]);
+  const kick = useMemo(() => fitText({ text: kicker, fontSize: G.kick, width: G.textW, maxLines: 1 }), [kicker, G.kick, G.textW]);
+  assertShortText(box, size, hook);
+  if (kicker !== "") assertShortText(box, kick.fontSize, kicker);
   const lineH = size * 1.25;
-  const top = 420 - ((lines.length - 1) * lineH) / 2;
+  const top = G.ty - ((lines.length - 1) * lineH) / 2;
   const pulse = (frame % 90) / 90;
   return (
     <Stage>
       <clipPath id="cold-open-clip">
-        <rect x={0} y={0} width={1920} height={830} />
+        <rect x={0} y={0} width={G.w} height={G.h} />
       </clipPath>
       <g clipPath="url(#cold-open-clip)">
       {[0, 1, 2].map((i) => {
         const p = (pulse + i / 3) % 1;
         return (
-          <circle key={i} cx={960} cy={415} r={160 + p * 520} fill="none" stroke={theme.accent} strokeWidth={4} opacity={0.35 * (1 - p)} />
+          <circle key={i} cx={G.cx} cy={G.cy} r={G.r0 + p * G.r1} fill="none" stroke={theme.accent} strokeWidth={4} opacity={0.35 * (1 - p)} />
         );
       })}
       </g>
-      <rect x={140} y={top - size} width={1640} height={lines.length * lineH + size * 0.6} rx={28} fill={theme.panel} opacity={0.85 * clamp01(t / 10 + 0.2)} />
+      <rect x={G.panelX} y={top - size} width={G.panelW} height={lines.length * lineH + size * 0.6} rx={28} fill={theme.panel} opacity={0.85 * clamp01(t / 10 + 0.2)} />
       {kicker !== "" && (
-        <text x={960} y={top - size - 30} fontSize={kick.fontSize} fontWeight={700} fill={theme.accent2} textAnchor="middle" opacity={useSpring(t, 0)}>
+        <text x={G.cx} y={top - size - 30} fontSize={kick.fontSize} fontWeight={700} fill={theme.accent2} textAnchor="middle" opacity={useSpring(t, 0)}>
           {kick.lines[0]}
         </text>
       )}
@@ -48,7 +56,7 @@ export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
         return (
           <text
             key={i}
-            x={960}
+            x={G.cx}
             y={top + i * lineH}
             fontSize={size}
             fontWeight={700}

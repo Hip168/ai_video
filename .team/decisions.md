@@ -146,3 +146,7 @@ Chốt lại: `find_dips` chỉ còn là bước lọc ứng viên. Một khung 
 - `region_size(f[i-1], f[i+k]) < MIN_REGION`: hình hồi lại như cũ.
 
 Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược điểm: sẽ bỏ sót mất hình xảy ra đúng lúc cảnh đang chuyển động, vì QC xem khung bằng mắt vẫn còn.
+
+## D31. Tên kênh, ảnh đại diện, việc tiếp theo (người dùng chốt, 2026-11-12)
+- Tên kênh: "Chuyện Của Những Con Bit". Ảnh đại diện: hình con chip, PNG 800x800 ở `assets/brand/`. Người dùng tự đổi cả hai trong Studio vì API không cho đổi. Đổi xong thì chuyển video đầu sang Công khai và đặt `firstVideoApproved: true`.
+- Việc làm tiếp: sửa lỗi còn tồn (chữ chồng nhau ở sc42, khung flow, CI lỗi vì đĩa runner), làm tập 2, mở lại đề mục 14 Shorts.

@@ -10,13 +10,12 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
-## Đang làm (2026-11-11)
+## Đang làm (2026-11-12)
+- Đã vào main: PR #68 (10), #69 (13), #70, #71. CI main xanh. Runner GitHub đôi khi thiếu đĩa: rerun `--failed` 1 lần. [13-4] chạy theo lịch: chưa làm.
 - **VIDEO ĐẦU CÔNG KHAI** (2026-11-12): https://youtu.be/Dcb-Cy-V2HM. Kênh đã đổi tên thành "Chuyện Của Những Con Bit" và dùng ảnh đại diện con chip (D31). `firstVideoApproved=true`: từ tập 2 đăng Công khai luôn.
 - Đang chạy: đề mục 15 sửa lỗi tồn (worktree `15-sua-ton`), tập 2 ở khâu researcher, đề mục 14 Shorts (DEV đang viết giao diện để BA duyệt).
 - Trang chính sách `aivideo-policy` vẫn ghi tên cũ "Dao Le", cần sửa.
-- Đã vào main: PR #68 (đề mục 10). Nhánh `fix-manifest-nhac`, PR #70, gồm manifest 7 trường, D30 bộ dò mất hình và sổ tập: chờ CI, merge. Sau đó PR #69 (đề mục 13): cập nhật theo main, CI, merge. Main trên máy có commit tập (Cổng 3, đăng) đi trước origin, cần đẩy qua PR.
-- Lỗi nhỏ để tập sau: sc42 (`bon-muoi-bit`) chữ chồng nhau khi crossfade, khoảng 0,5 s, ở 7:23. Khung biểu đồ "flow": nhãn nằm lệch lên trên.
-- **14 Shorts:** tạm dừng. [13-4] chạy theo lịch: chưa làm.
+- Lỗi nhỏ (đề mục 15 đang sửa): sc42 (`bon-muoi-bit`) chữ chồng nhau khi crossfade, khoảng 0,5 s, ở 7:23. Khung biểu đồ "flow": nhãn nằm lệch lên trên.
 
 ## Luật đã chốt cần nhớ
 - Không còn DEV-LEAD. Chỉ có một TEST-LEAD: gọi một lần rồi dùng SendMessage.

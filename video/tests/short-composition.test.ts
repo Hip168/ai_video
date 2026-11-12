@@ -71,6 +71,20 @@ describe('[14-2] ngưỡng chữ ở khung vuông: 30 px (chữ thường)', () 
     expect(() => tb(29, 'square')).toThrow(/29/);
     expect(() => tb(30, 'square')).not.toThrow();
   });
+  const LONG = 'Một chuỗi khá dài để buộc phải thu nhỏ chữ';
+  test('cỡ SAU khi fitText thu nhỏ mới tính: chuỗi dài bị thu dưới 30 px ném lỗi', () => {
+    // yêu cầu 30 px nhưng không vừa 300 px một dòng: fitText giảm tới 70%
+    expect(() => html(inBox('square', createElement(T, {...props, width: 300, text: LONG, size: 30})))).toThrow(/2\d/);
+    expect(() => html(inBox('square', createElement(TextBlock, {...props, width: 300, text: LONG, fontSize: 30})))).toThrow(/2\d/);
+  });
+  test('thu nhỏ nhưng vẫn >= 30 px thì không ném', () => {
+    const text = 'Hai mươi ký tự đó nha';
+    expect(() => html(inBox('square', createElement(T, {...props, width: 420, text, size: 40})))).not.toThrow();
+    expect(() => html(inBox('square', createElement(TextBlock, {...props, width: 420, text, fontSize: 40})))).not.toThrow();
+  });
+  test('cùng chuỗi dài ở wide: thu nhỏ dưới 30 px vẫn vẽ', () => {
+    expect(() => html(inBox('wide', createElement(T, {...props, width: 300, text: LONG, size: 30})))).not.toThrow();
+  });
   test('wide và không bọc: chữ 20 px vẫn vẽ bình thường (không đổi)', () => {
     for (const layout of ['wide', null] as const) {
       expect(() => t(20, layout)).not.toThrow();

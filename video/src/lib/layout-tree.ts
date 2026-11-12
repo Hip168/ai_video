@@ -24,11 +24,11 @@ export interface TreeLayout {
 }
 
 export const TREE_AREA = { x: 40, y: 40, w: 1840, h: 750 };
-/** Khung vuông của Short: cây nằm ngang (gốc bên trái), hộp 130x56, chữ cố định 30 px. */
+/** Khung vuông của Short: cây nằm ngang (gốc bên trái), hộp 150x56, chữ cố định 30 px. */
 export const TREE_AREA_SQUARE = { x: 30, y: 30, w: 780, h: 780 };
-const SW = 130;
+const SW = 150;
 const SH = 56;
-const SGAP = 70;
+const SGAP = 50;
 const INSET = 16;
 const r2 = (v: number) => Math.round(v * 100) / 100;
 const NW = 200;

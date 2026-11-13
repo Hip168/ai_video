@@ -4,6 +4,7 @@ import { ease, useTheme } from "../hooks";
 import { Stage, useBox } from "../theme";
 import { itemStart, TextBlock } from "../b-kit";
 import { layoutTree } from "../layout-tree";
+import { fitText } from "../text";
 import type { SceneProps } from "../types";
 
 export const TreeGraph: React.FC<SceneProps> = ({ scene }) => {
@@ -53,10 +54,12 @@ export const TreeGraph: React.FC<SceneProps> = ({ scene }) => {
         const id = q.id;
         const p = ease((frame - itemStart(scene, q.depth, nBeat)) / 14);
         const hot = frame >= (onPath.get(id) ?? Infinity);
+        // Khung vuông: tối đa hai dòng, khối chữ căn giữa hộp.
+        const nl = sq ? fitText({ text: q.label, fontSize: fs, width: w - 12, maxLines: 2 }).lines.length : 1;
         return (
           <g key={id} opacity={p} transform={sq ? `translate(${(1 - p) * -30} 0)` : `translate(0 ${(1 - p) * -30})`}>
             <rect x={q.x} y={q.y} width={w} height={h} rx={16 * lay.scale} fill={hot ? theme.accent2 : theme.panel} stroke={hot ? theme.accent2 : theme.accent} strokeWidth={4} />
-            <TextBlock text={q.label} x={q.x + w / 2} y={q.y + h / 2 + fs * 0.35} width={w - (sq ? 12 : 20)} fontSize={fs} fill={hot ? theme.bg : theme.fg} />
+            <TextBlock text={q.label} x={q.x + w / 2} y={q.y + h / 2 + fs * 0.35 - ((nl - 1) * fs * 1.1) / 2} width={w - (sq ? 12 : 20)} fontSize={fs} maxLines={sq ? 2 : 1} lineHeight={sq ? 1.1 : 1.25} fill={hot ? theme.bg : theme.fg} />
           </g>
         );
       })}

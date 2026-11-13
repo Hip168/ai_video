@@ -19,9 +19,9 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[3]
 W, FH = 960, 415  # vùng y < 830 của 1920x1080, nửa độ phân giải
-# Vùng quét (rộng, cao, x, y) ở độ phân giải gốc: tập dài y < 830; Short là hộp cảnh 840x840 tại (48, 288) (D32).
+# Vùng quét (rộng, cao, x, y) ở độ phân giải gốc: tập dài y < 830; Short là hộp cảnh 984x984 tại (48, 468) (toàn màn hình, chế độ xem sạch).
 WIDE_REGION = (1920, 830, 0, 0)
-SHORT_REGION = (840, 840, 48, 288)
+SHORT_REGION = (984, 984, 48, 468)
 LEVEL = 40  # ngưỡng chênh mức xám khi so hai khung
 COUNT_LEVEL = 80  # ngưỡng "khác nền" khi đếm: bỏ hoạ tiết nền mờ (vòng, lưới) đang nhấp nhô
 MIN_DROP, REL_DROP = 25, 0.04

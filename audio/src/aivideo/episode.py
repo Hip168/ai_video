@@ -64,6 +64,8 @@ def _validate_script(doc) -> list[str]:
     sp = meta.get("speed")
     if "speed" in meta and (isinstance(sp, bool) or not isinstance(sp, (int, float)) or sp <= 0):
         errs.append("meta.speed phải là số > 0")
+    if "outro" in meta and not isinstance(meta["outro"], bool):
+        errs.append("meta.outro phải là true hoặc false")
     chapters = doc.get("chapters")
     chap_ids: list[str] = []
     if not isinstance(chapters, list) or not chapters:

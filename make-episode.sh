@@ -70,8 +70,9 @@ want() { (( ${steps[(Ie)$1]} >= ${steps[(Ie)$from]} )); }
 need_file() { [[ -s "$1" ]] || fail "$step" "thiếu hoặc rỗng: ${1#$root/}"; }
 
 started="$out/.started"
-# Ghép đoạn main, gắn tiếng, kiểm MP4 cuối (dùng ở bước 6 và lại ở bước 7 khi có đoạn render lại).
+# Làm đoạn kết nếu tập bật (có cache thì bỏ qua), ghép đoạn main, gắn tiếng, kiểm MP4 cuối (dùng ở bước 6 và lại ở bước 7 khi có đoạn render lại).
 assemble_all() {
+  ( cd "$root/audio" && run "$py" -m aivideo.outro ensure "$slug" ) || fail "$step" "đoạn kết lỗi"
   ( cd "$root/audio" && run "$py" -m aivideo.assemble concat "$slug" ) || fail "$step" "ghép đoạn lỗi"
   need_file "$out/video.silent.mp4"
   ( cd "$root/audio" && run "$py" -m aivideo.assemble mux "$slug" ) || fail "$step" "gắn tiếng lỗi"
@@ -110,6 +111,7 @@ if [[ -n "$short" ]]; then
   [[ -f "$root/episodes/$slug/shorts.json" ]] || fail "đầu vào" "thiếu episodes/$slug/shorts.json"
   for f in timeline.json narration.wav; do [[ -s "$out/$f" ]] || fail "đầu vào" "thiếu $f của tập dài (chạy tập dài trước)"; done
   short_assemble() {
+    ( cd "$root/audio" && run "$py" -m aivideo.outro ensure "$slug" --short "$short" ) || fail "$step" "đoạn kết lỗi"
     for c in concat mux verify; do
       ( cd "$root/audio" && run "$py" -m aivideo.assemble $c "$slug" --short "$short" ) || fail "$step" "assemble $c lỗi"
     done

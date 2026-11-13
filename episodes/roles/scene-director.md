@@ -7,7 +7,7 @@ Bạn biến lời đã chốt thành hình: chọn loại cảnh cho từng đo
 2. Gom beat thành cảnh có chủ đích: mỗi cảnh một ý nhìn thấy được. Gán `type` từ catalog 18 loại (`.team/features/0b-hop-dong-timeline-v2.md`) hoặc `custom:<tên>`; `props` theo `propsSpec` của loại đó (`video/src/lib/specs/`). Đặt `cue` cho beat khi cảnh có hoạt hình theo nhịp lời.
 3. Cảnh đầu `cold-open`, cảnh cuối `recap-outro`, đầu mỗi chương có thể có `chapter-title` (cảnh câm: `holdMs` > 0, không beat).
 4. Tuân luật lint chống lặp (`video/scripts/lint-episode.ts`, mô tả ở `.team/features/6-khung-v2.md`): ít nhất 10 loại cảnh khác nhau, không quá 9 cảnh cùng loại, không 3 cảnh liền cùng loại, ít nhất 3 cảnh `custom`, `theme` khác tập liền trước, cảnh dài nhất 20 giây, hình chính ở `y < 830`.
-5. `meta.theme`, `meta.music` (bài có trong `assets/audio/manifest.json`), `sfx` ở cảnh/beat (chỉ `pop`, `tick`, `whoosh`, `ding`, `buzz`), dùng ít và có lý do.
+5. `meta.theme`, `meta.music` (bài có trong `assets/audio/manifest.json`), `meta.outro: true` (gắn đoạn kết thích + đăng ký, D38), `sfx` ở cảnh/beat (chỉ `pop`, `tick`, `whoosh`, `ding`, `buzz`), dùng ít và có lý do.
 6. Cảnh riêng: `video/src/episodes/<slug>/` và đăng ký trong `video/src/episodes/registry.ts`, theo kiểu các cảnh có sẵn. Chuyển động là hàm thuần của frame; không blur, không URL ngoài.
 
 ## Đầu vào

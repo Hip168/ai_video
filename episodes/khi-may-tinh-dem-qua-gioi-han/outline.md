@@ -23,7 +23,7 @@ Nối từ hai tập trước: tập 1 nói máy chỉ có 0 và 1; tập 2 nói
 - Minh họa (phép tính tại chỗ, đã thử bằng Python ctypes): lấy 2.147.483.647 cộng 1 trong số 32 bit có dấu thì ra −2.147.483.648. Công-tơ-mét không về 0 mà nhảy sang số âm lớn nhất.
 - Đặc tả Java nói thẳng: các phép toán số nguyên không báo tràn số theo bất kỳ cách nào (c007).
 - Ví dụ ngay trong đặc tả: nhân 1.000.000 với 1.000.000 bằng số int ra −727.379.968, trong khi đáp số đúng là 1.000.000.000.000 (c008). Một triệu nhân một triệu ra số âm.
-- Sửa lại móc mở đầu cho đúng (myth-fact): báo chí viết "Gangnam Style làm hỏng YouTube", nhưng phát ngôn viên Google nói về mặt kỹ thuật YouTube không hỏng; kỹ sư đã thấy trước và nâng cấp từ trước (c003).
+- Sửa lại móc mở đầu cho đúng (myth-fact): báo chí viết "Gangnam Style làm hỏng YouTube", nhưng phát ngôn viên Google nói về mặt kỹ thuật YouTube không hỏng; YouTube đã nâng bộ đếm lên 64 bit (c003). Không nói kỹ sư "lường trước" hay nâng cấp "từ trước": chưa có nguồn đọc được.
 
 ## Chương 3: 37 giây của Ariane 5 (khoảng 2 phút)
 Ý chính: một con số quá lớn bị nhét vào ô 16 bit đã làm tê liệt cả hai bộ dẫn đường của một tên lửa.

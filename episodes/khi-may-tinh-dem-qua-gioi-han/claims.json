@@ -37,8 +37,8 @@
   },
   {
     "id": "c003",
-    "claim": "Phát ngôn viên Google nói về mặt kỹ thuật YouTube không bị hỏng vì Gangnam Style; kỹ sư YouTube đã lường trước vấn đề và nâng bộ đếm lên 64 bit từ trước.",
-    "question": "Theo phía Google, YouTube có thật sự bị hỏng khi Gangnam Style vượt giới hạn bộ đếm không, và việc nâng cấp diễn ra trước hay sau?",
+    "claim": "Phát ngôn viên Google nói về mặt kỹ thuật YouTube không bị hỏng vì Gangnam Style; YouTube đã nâng bộ đếm lượt xem lên số nguyên 64 bit.",
+    "question": "Theo phía Google, YouTube có thật sự bị hỏng khi Gangnam Style vượt giới hạn bộ đếm không, và YouTube đã làm gì với bộ đếm lượt xem?",
     "sources": [
       {
         "url": "https://www.heraldnet.com/news/gangnam-style-pushes-youtube-to-its-limits",
@@ -49,7 +49,7 @@
         "credibility": "secondary"
       }
     ],
-    "status": "CHUA_KIEM"
+    "status": "DAT"
   },
   {
     "id": "c004",

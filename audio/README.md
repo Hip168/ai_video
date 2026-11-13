@@ -146,7 +146,7 @@ Mọi lệnh in một object JSON ra stdout. Mã thoát: `0` đạt, `1` bị ch
 
 - `gate1`: mọi claim `DAT` có nguồn `primary`/`secondary`; claim về số cần một nguồn `primary` hoặc hai nguồn khác tên miền gốc.
 - `gate2`: mọi số, tên riêng trong `text` gốc (trước `normalize_vi`) phải có claim `DAT` khớp trong `beat.claims`; `claims.json` phải khớp lần `apply-factcheck` cuối.
-- `gate3`: hash lời khớp lúc chốt, `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản, bằng chứng của `qc`, sổ tập đã commit và chỉ thêm (`so-git`), `publish.json` đúng `.team/kenh.json`.
+- `gate3`: hash lời khớp lúc chốt, `lint`, `ky-thuat`, `qc` (và `phat-am` khi lời có từ tiếng Anh) có mục `DAT` trên đúng bản kịch bản, bằng chứng của `qc`, sổ tập đã commit và chỉ thêm (`so-git`), `publish.json` đúng `.team/kenh.json`.
 - Sổ tập `episodes/<slug>/ledger.json` có chuỗi hash; sếp tổng commit sau mỗi cổng.
 
 Lưu ý: mục `ky-thuat` của `gate3` do `ledger run <slug> --stage ky-thuat` ghi, chạy `python -m aivideo.assemble verify <slug>` của đề mục 10. Lệnh đó chưa có trong nhánh này, nên `gate3` chưa đạt được cho tới khi đề mục 10 vào main. Lệnh `lint` cần `npm run lint:episode` của đề mục 6.
@@ -156,4 +156,63 @@ Lưu ý: mục `ky-thuat` của `gate3` do `ledger run <slug> --stage ky-thuat` 
 ### Kiểm thử (đội sản xuất)
 ```bash
 cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m "not real" tests/test_gates_*.py tests/test_qualify.py tests/test_roles_files.py
+```
+
+## Nghe phát âm tiếng Anh (đề mục 18)
+
+Giọng Việt đọc từ tiếng Anh dễ sai: tập 2 phiên âm `false` thành "phôn-xơ", máy nghe tiếng Việt vẫn qua nhưng người nghe thấy "phôn sơ". `aivideo.phatam` cho một máy nghe tiếng Anh nghe thử trước khi đăng.
+
+```bash
+cd audio && export PYTHONPATH=$PWD/src
+.venv/bin/python -m aivideo.phatam scan <slug>     # liệt kê từ tiếng Anh trong lời và cách đang đọc
+.venv/bin/python -m aivideo.phatam pick false --candidates "phôn,phôn-xơ,fôls" \
+    --meaning sai --context "Máy đáp: {}, tức là không."  # đọc từng ứng viên, xếp hạng
+.venv/bin/python -m aivideo.phatam check <slug>    # nghe narration.wav đã dựng; trượt thì mã 1
+.venv/bin/python -m aivideo.gates ledger run <slug> --stage phat-am   # ghi sổ, Cổng 3 kiểm
+```
+
+- `scan`: từ trong `text`/`spoken` có chữ Latin không phải âm tiết tiếng Việt (bỏ viết tắt phổ thông như CPU, DNS), cộng các khoá lexicon có trong lời. Cách đọc của mỗi lần xuất hiện lấy từ lexicon hoặc so `text` với `spoken`. `spoken` thay bằng nghĩa tiếng Việt (vd "sai") thì không chấm.
+- `pick`: ứng viên gồm phiên âm tự sinh từ IPA của espeak-ng (thô, chỉ để gợi ý), ứng viên của bạn, chữ tiếng Anh gốc và nghĩa tiếng Việt (`--meaning`, chỉ để nghe so, không bao giờ được chọn). Mỗi ứng viên được đọc trong câu `--context` bằng Korva, giọng `hoang_nam`, tốc độ 1,25 (D12), cắt lặng như lúc dựng tập. Mã thoát 0 khi có ứng viên ĐẠT, 1 khi không: khi đó thay từ bằng nghĩa tiếng Việt trong lời, chữ tiếng Anh chỉ hiện trên màn hình.
+- `check`: với mỗi lần đọc từ tiếng Anh, cắt nhịp đó trong `out/episodes/<slug>/narration.wav` theo `timeline.json` rồi chấm như `pick`. Cách đọc không xác định được cũng tính trượt.
+- Lệnh cố định của `ledger run --stage phat-am` là `python -m aivideo.phatam check <slug>`; `gate3` đòi mục `DAT` trên đúng bản kịch bản khi `scan` thấy lời có đọc từ tiếng Anh.
+
+Cách chấm: Whisper bị ép đọc đúng câu có từ tiếng Anh (teacher forcing), `pEn` là xác suất (trung bình nhân theo token) Whisper tiếng Anh gán cho từ đó. **ĐẠT khi `pEn ≥ 0,2`.** Bảng còn in để người xem: `pVi` (cùng phép đo với tiếng Việt), Whisper tiếng Anh nghe tự do đúng vùng từ, Whisper tiếng Việt nghe cả câu, âm vị nghe được và PER (khoảng cách âm vị tới IPA của espeak-ng). PER không dùng để chặn vì đánh trượt cả từ gốc đọc tốt (bảng dưới).
+
+Đo thật (giọng `hoang_nam` 1,25, 2026-11-14):
+
+| Từ (câu) | Ứng viên | pEn | pVi | PER | Whisper Việt nghe | Kết quả |
+|---|---|---|---|---|---|---|
+| false ("Máy đáp: {}, tức là không.") | `false` (gốc) | 0,618 | 0,606 | 0,00 | false | ĐẠT |
+| | `fôls` | 0,571 | 0,530 | 0,25 | false | ĐẠT |
+| | `phôn-xơ` (bản đã đăng) | 0,016 | 0,007 | 0,50 | phone sir | trượt |
+| | `phon-xơ` | 0,002 | 0,001 | 0,50 | foncer | trượt |
+| | `phôn` | 0,000 | 0,000 | 0,75 | phone | trượt |
+| | `phon-s` | 0,000 | 0,000 | 0,75 | font S | trượt |
+| | `sai` (nghĩa Việt) | 0,000 | 0,000 | — | sai | không chấm |
+| Python ("Sang {} cũng thế: …") | `Python` (gốc) | 0,747 | 0,798 | 0,67 | Python | ĐẠT |
+| | `pai-thon` | 0,618 | 0,823 | 0,50 | Python | ĐẠT |
+| | `pai-thơn` | 0,510 | 0,887 | 0,50 | Python | ĐẠT |
+| decimal ("Vì thế {} được ưa dùng trong kế toán.") | `decimal` (gốc) | 0,749 | 0,549 | 0,43 | decimal | ĐẠT |
+| | `đê-xi-mồ` | 0,478 | 0,219 | 0,57 | decimal | ĐẠT |
+| | `đe-xi-mơn` | 0,362 | 0,192 | 0,43 | Decimon | ĐẠT |
+| | `đe-xi-mơ` | 0,327 | 0,188 | 0,29 | decimer | ĐẠT |
+| | `đét-xi-mồ` | 0,164 | 0,053 | 0,43 | decimal | trượt |
+| | `đê-xi-mâu` | 0,055 | 0,006 | 0,29 | DCMOW | trượt |
+
+Ngưỡng 0,2 nằm giữa nhóm người nghe thấy sai ("phôn", "phôn-xơ": ≤ 0,05) và nhóm đúng (`false` gốc, `fôls`: ≥ 0,5). Một lượt `pick` 6–9 ứng viên mất khoảng 4 phút trên máy này (Whisper chạy CPU).
+
+Máy nghe (chạy offline, `local_files_only`, ngoài venv của dự án):
+- Whisper: [faster-whisper](https://github.com/SYSTRAN/faster-whisper) (MIT) với mô hình `mobiuslabsgmbh/faster-whisper-large-v3-turbo` (bản chuyển của OpenAI Whisper large-v3-turbo, MIT), trong `~/stt-work/venv`. Đổi bằng `AIVIDEO_STT_PYTHON`.
+- Âm vị, tuỳ chọn: `facebook/wav2vec2-lv-60-espeak-cv-ft` (Apache-2.0) qua `torch` + `transformers` trong `~/stt-work/phoneme-venv` (khoảng 0,7 GB, mô hình 1,26 GB). Đổi bằng `AIVIDEO_PHONEME_PYTHON`; không có thì cột âm vị để trống.
+- IPA và phiên âm tự sinh: [espeak-ng](https://github.com/espeak-ng/espeak-ng) (GPL-3.0, gọi như chương trình ngoài), `brew install espeak-ng`. Không có thì bỏ phiên âm tự sinh.
+
+```bash
+uv venv --python /opt/homebrew/bin/python3.12 ~/stt-work/phoneme-venv
+uv pip install --python ~/stt-work/phoneme-venv/bin/python torch transformers
+```
+
+### Kiểm thử (đề mục 18)
+```bash
+cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m "not real" tests/test_phatam.py   # máy nghe và TTS giả lập
+cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m real tests/test_phatam.py         # Korva + Whisper thật, khoảng 2 phút
 ```

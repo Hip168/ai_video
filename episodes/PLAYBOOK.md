@@ -73,7 +73,7 @@ Lệnh → [1] research → [2] CỔNG 1 (fact-checker) → [3] viết → [4] b
 | 5 | `fact-2` | | fact-checker (lô riêng, có `lines`) | `prepare-factcheck --with-lines`, `verdict`, `ledger add --pair scriptwriter/fact-checker` | `line:`: scriptwriter; `claim:`: researcher (+ Cổng 1 lại) |
 | 6 | `cong2` | | CỔNG 2 | `gate2` (tự ghi hash vào sổ) | scriptwriter / researcher |
 | 7 | `canh` | scene-director | lint | `episode build --engine fake`, `ledger run --stage lint` | scene-director |
-| 8 | `giong` | voice-producer | | `episode build --engine korva`, lại `ledger run --stage lint` | voice-producer |
+| 8 | `giong` | voice-producer | `phatam check` | `episode build --engine korva`, lại `ledger run --stage lint`, `ledger run --stage phat-am` | voice-producer (từ trượt: đề xuất `spoken` cho scriptwriter) |
 | 9 | `ky-thuat` | editor | script đo | `ledger run --stage ky-thuat` (sau `make-episode.sh`) | thiếu LUFS: voice-producer; lỗi mã: BỊ CHẶN báo người dùng |
 | 10 | `qc` | | qc | `verdict`, `ledger add --stage qc --pair editor/qc --artifact <MP4>` | theo `owner` của phát hiện |
 | 11 | `dong-goi` | packager | | `ledger add --stage dong-goi --role packager` | |
@@ -127,7 +127,11 @@ $G ledger run <slug> --stage lint     # lệnh cố định trong mã: npm run l
 ```
 Lint đỏ thì trả scene-director (kèm kết quả lint). `ledger run` tự đặt phán quyết `DAT` nếu mã thoát 0, ngược lại `CHAN`, không ai viết tay.
 
-**[8] giọng.** Gọi `voice-producer` (giọng đã chốt D12). Xong thì chạy lại lint như trên với dựng giọng thật; mục lint mới nhất trong sổ là bằng chứng của Cổng 3.
+**[8] giọng.** Gọi `voice-producer` (giọng đã chốt D12). Xong thì chạy lại lint như trên với dựng giọng thật; mục lint mới nhất trong sổ là bằng chứng của Cổng 3. Rồi nghe từ tiếng Anh (đề mục 18):
+```bash
+$G ledger run <slug> --stage phat-am     # lệnh cố định: python -m aivideo.phatam check <slug>
+```
+`CHAN` thì voice-producer chạy `phatam pick` cho từng từ trượt và đề xuất `spoken` (hoặc nghĩa tiếng Việt); scriptwriter sửa, đi lại khâu 5, 6 rồi dựng giọng và chạy lại lệnh trên tới khi `DAT`.
 
 **[9] render + kiểm kỹ thuật.** Sếp tổng chạy (nền, lâu):
 ```bash
@@ -150,7 +154,7 @@ Sếp tổng lưu JSON của qc (có `findings` và `evidence`) thành `episodes
 ```bash
 $G gate3 <slug> --video <đường dẫn MP4>
 ```
-Kiểm bằng script: chuỗi hash sổ tập nguyên vẹn; hash lời hiện tại bằng hash đã chốt ở Cổng 2 (sửa một ký tự thì chặn); `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản này; dòng `PHAN_QUYET` của qc đúng định dạng; MP4 đúng bản qc đã duyệt; `publish.json` đủ trường, đúng `channelId` trong `.team/kenh.json`, `containsSyntheticMedia` là `false`, đúng quyền riêng tư. Chặn thì sửa theo `checks[].detail`; không có cách tự cho qua.
+Kiểm bằng script: chuỗi hash sổ tập nguyên vẹn; hash lời hiện tại bằng hash đã chốt ở Cổng 2 (sửa một ký tự thì chặn); `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản này; `phat-am` cũng phải có mục `DAT` trên đúng bản kịch bản này khi lời đọc có từ tiếng Anh (theo `phatam scan`); dòng `PHAN_QUYET` của qc đúng định dạng; MP4 đúng bản qc đã duyệt; `publish.json` đủ trường, đúng `channelId` trong `.team/kenh.json`, `containsSyntheticMedia` là `false`, đúng quyền riêng tư. Chặn thì sửa theo `checks[].detail`; không có cách tự cho qua.
 
 **[13] đăng.** Gọi `publisher` (`ops`, mẫu 4.13). Publisher chạy (D24, YouTube Data API, không dùng trình duyệt):
 ```bash
@@ -231,7 +235,7 @@ scriptHash trong sổ: <hash>. Cổng 3 đã đạt lúc <giờ>.
 
 ## 6. Sổ tập và trao tay
 
-Các khâu `cong2`, `cong3`, `lint`, `ky-thuat`, `fact`, `fact-prepare` chỉ do `gate2`, `gate3`, `ledger run`, `prepare-factcheck`, `apply-factcheck` ghi; `ledger add` từ chối. **Sau mỗi cổng (và mỗi lần ghi sổ quan trọng) sếp tổng commit `episodes/<slug>/ledger.json`**: `gate3` chặn nếu sổ có thay đổi chưa commit hoặc lịch sử git của sổ không phải chỉ thêm. `gate3` cũng tự chạy lại phần kiểm của Cổng 2 trên dữ liệu hiện tại.
+Các khâu `cong2`, `cong3`, `lint`, `ky-thuat`, `phat-am`, `fact`, `fact-prepare` chỉ do `gate2`, `gate3`, `ledger run`, `prepare-factcheck`, `apply-factcheck` ghi; `ledger add` từ chối. **Sau mỗi cổng (và mỗi lần ghi sổ quan trọng) sếp tổng commit `episodes/<slug>/ledger.json`**: `gate3` chặn nếu sổ có thay đổi chưa commit hoặc lịch sử git của sổ không phải chỉ thêm. `gate3` cũng tự chạy lại phần kiểm của Cổng 2 trên dữ liệu hiện tại.
 
 `episodes/<slug>/ledger.json` ghi theo thời gian: khâu, vai, cặp, vòng, hash vào/ra, phán quyết, hash kịch bản. Mỗi mục có `prevHash` và `entryHash`; sửa hay xoá một mục thì chuỗi vỡ và mọi lệnh sổ, kể cả `gate3`, từ chối. Chỉ sếp tổng ghi, qua script.
 ```bash

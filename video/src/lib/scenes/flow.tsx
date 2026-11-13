@@ -4,6 +4,7 @@ import { clamp01, ease, useTheme } from "../hooks";
 import { Stage } from "../theme";
 import { itemStart, pointAlong, TextBlock } from "../b-kit";
 import { flowSizes, layoutFlow, type FlowLayout, type Pt } from "../layout-flow";
+import { fitText } from "../text";
 import type { SceneProps } from "../types";
 
 interface PacketIn {
@@ -71,11 +72,14 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
         const pulse = hit ? clamp01(1 - (frame - arrival[nd.id]) / 20) : 0;
         const w = boxOf.get(nd.id)!.w;
         const h = boxOf.get(nd.id)!.h;
+        // Căn giữa theo chiều dọc: khối chữ (1 hoặc 2 dòng) đặt quanh tâm hộp.
+        const fit = fitText({ text: nd.label, fontSize: fs, width: w - 24, maxLines: nodeLines });
+        const ty = c.y - ((fit.lines.length - 1) * fit.fontSize * 1.1) / 2 + fit.fontSize * 0.35;
         return (
           <g key={nd.id} opacity={a} transform={`translate(0 ${(1 - a) * 24})`}>
             <rect x={c.x - w / 2} y={c.y - h / 2} width={w} height={h} rx={18 * lay.scale} fill={theme.panel} stroke={hit ? theme.accent2 : theme.accent} strokeWidth={hit ? 7 : 5} />
             {pulse > 0 && <rect x={c.x - w / 2 - 10 * pulse} y={c.y - h / 2 - 10 * pulse} width={w + 20 * pulse} height={h + 20 * pulse} rx={24} fill="none" stroke={theme.accent2} strokeWidth={3} opacity={pulse} />}
-            <TextBlock text={nd.label} x={c.x} y={c.y + (nodeLines === 2 ? -fs * 0.15 : fs * 0.35)} width={w - 24} fontSize={fs} maxLines={nodeLines} fill={theme.fg} lineHeight={1.1} />
+            <TextBlock text={nd.label} x={c.x} y={ty} width={w - 24} fontSize={fs} maxLines={nodeLines} fill={theme.fg} lineHeight={1.1} />
           </g>
         );
       })}

@@ -19,7 +19,11 @@ export const BonMuoiBit: React.FC<SceneProps> = ({ scene }) => {
   const f = useCurrentFrame();
   const three = p(f, at(scene, 1));
   const split = p(f, at(scene, 2), 18);
-  const total = p(f, at(scene, 3));
+  // Chữ cũ tắt hẳn rồi chữ mới mới hiện, không chồng lên nhau.
+  const threeOut = p(f, at(scene, 2), 8);
+  const four = p(f, at(scene, 2) + 8, 10);
+  const fourOut = p(f, at(scene, 3), 8);
+  const total = p(f, at(scene, 3) + 8, 10);
   return (
     <Stage>
       <TextBlock text="Mười chữ số thập phân" x={960} y={150} width={1600} fontSize={60} fill={theme.fg} opacity={p(f, at(scene, 0))} />
@@ -37,13 +41,13 @@ export const BonMuoiBit: React.FC<SceneProps> = ({ scene }) => {
           </g>
         );
       })}
-      <g opacity={three * (1 - split)}>
+      <g opacity={three * (1 - threeOut)}>
         <TextBlock text="3 bit: 8 kiểu" x={560} y={600} width={600} fontSize={56} fill={theme.fg} />
         <TextBlock text="<" x={960} y={600} width={120} fontSize={64} fill={theme.warn} />
         <TextBlock text="1 chữ số: 10 khả năng" x={1360} y={600} width={600} fontSize={56} fill={theme.fg} />
         <TextBlock text="Chưa đủ" x={960} y={720} width={600} fontSize={64} fill={theme.warn} />
       </g>
-      <TextBlock text="Mỗi chữ số 4 bit" x={960} y={600} width={1200} fontSize={60} fill={theme.accent} opacity={split * (1 - total)} />
+      <TextBlock text="Mỗi chữ số 4 bit" x={960} y={600} width={1200} fontSize={60} fill={theme.accent} opacity={four * (1 - fourOut)} />
       <g opacity={total}>
         <path d={`M${X0} ${Y + H + 40} v24 H${1920 - X0} v-24`} fill="none" stroke={theme.accent2} strokeWidth={6} strokeLinejoin="round" />
         <TextBlock text="Ít nhất 40 bit" x={960} y={640} width={1200} fontSize={96} fill={theme.accent2} />

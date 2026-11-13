@@ -28,7 +28,11 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
     7. Tải lên Drive.
 - Tập 4 `con-tau-sao-hoa-mat-vi-nham-don-vi` (Mars Climate Orbiter):
   - Cổng 2 đạt (hash 310292ed…). Cảnh vòng 1 xong, lint với engine fake đạt.
-  - voice-producer đang dựng giọng korva. Nếu bị ngắt giữa chừng thì chạy lại build korva (đã có cache), rồi chạy `phatam check`, `ledger run --stage phat-am`, `ledger run --stage lint`.
+  - Giọng korva đã dựng: dài 719,4 s, lint đạt, cảnh dài nhất 18,6 s. `phatam check` VẪN TRƯỢT 10 chỗ "pound" ở b022, b023, b024, b030, b082.
+    - Việc tiếp: scriptwriter đổi `spoken` "pound lực" thành "pound-force" (pick đạt 0,322), hoặc chỉ nói nghĩa tiếng Việt.
+    - Báo DEV hai lỗi của phatam: (1) "pound-force" trong text và "pound" trong spoken chồng lên nhau ở `_forced_text`/`find_occurrences`; (2) chữ Việt có gạch nối như "ki-lô-mét" bị coi là tiếng Anh. Lexicon tập 4 `{"80 km": "tám mươi ki lô mét"}` chỉ để lách lỗi (2), sửa phatam xong thì xem lại.
+    - Sau đó dựng lại giọng và chạy lại các bước: `ledger run --stage phat-am`, `ledger run --stage lint`.
+  - (cũ) voice-producer đang dựng giọng korva. Nếu bị ngắt giữa chừng thì chạy lại build korva (đã có cache), rồi chạy `phatam check`, `ledger run --stage phat-am`, `ledger run --stage lint`.
   - Sau đó: render, qc, packager (#conbit4), gate3, đăng.
 - Trang link-in-bio: https://chuyenconbit.vercel.app. Thêm tập mới bằng `cd ~/Documents/conbit-link && python3 update-episodes.py`, commit, rồi `vercel --prod --yes`. Bước deploy người dùng phải tự chạy hoặc tự cho phép.
 - TikTok: người dùng tự đăng. Đội chỉ xuất file kèm caption lên Drive (D39).

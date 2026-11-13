@@ -229,7 +229,7 @@ def test_assemble_short_chi_nhan_so_tu_1_den_8(tmp_path):
 
 
 # ------------------------------------------------------------------ framecheck
-BOX_X0, BOX_Y0 = 48, 288
+BOX_X0, BOX_Y0 = 48, 468  # hộp cảnh 984x984, toàn màn hình (chế độ xem sạch)
 
 
 def short_frame(missing=()) -> np.ndarray:
@@ -241,7 +241,7 @@ def short_frame(missing=()) -> np.ndarray:
         x = BOX_X0 + 22 + (i % 5) * 160
         y = BOX_Y0 + 30 + (i // 5) * 180
         f[y:y + h, x:x + w] = FG
-    f[1150:1220, 100:800] = FG  # thanh phụ đề trong y 1128..1248
+    f[1500:1570, 100:800] = FG  # thanh phụ đề trong y 1472..1602
     return f
 
 

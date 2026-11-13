@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { clamp01, ease, useBeat, useSpring, useTheme } from "../hooks";
-import { assertShortText, Stage, useBox } from "../theme";
+import { assertShortText, shortMinScale, Stage, useBox } from "../theme";
 import { fitText, MIN_MARGIN } from "../text";
 import type { SceneProps } from "../types";
 import { useCurrentFrame } from "remotion";
@@ -31,9 +31,10 @@ export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
   const hook = String(scene.props.hook ?? "");
   const kicker = typeof scene.props.kicker === "string" ? scene.props.kicker : "";
   const baseSize = hook.length <= 24 ? G.sizes[0] : hook.length <= 48 ? G.sizes[1] : G.sizes[2];
+  const minScale = shortMinScale(box, baseSize);
   const { lines, fontSize: size } = useMemo(
-    () => fitText({ text: hook, fontSize: baseSize, width: G.textW, maxLines: 3 }),
-    [hook, baseSize, G.textW],
+    () => fitText({ text: hook, fontSize: baseSize, width: G.textW, maxLines: 3, minScale }),
+    [hook, baseSize, G.textW, minScale],
   );
   const kick = useMemo(() => fitText({ text: kicker, fontSize: G.kick, width: G.textW, maxLines: 1 }), [kicker, G.kick, G.textW]);
   assertShortText(box, size, hook);

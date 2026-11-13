@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import type { Scene2 } from "../../timeline2";
 import { beatStartIn, clamp01, ease } from "../hooks";
 import { fitText } from "../text";
-import { assertShortText, useBox } from "../theme";
+import { assertShortText, shortMinScale, useBox } from "../theme";
 
 /** Hết vùng hình chính (D10). */
 export const MAIN_END = 830;
@@ -61,8 +61,10 @@ export const T: React.FC<TProps> = ({
   valign = "top",
   opacity = 1,
 }) => {
-  const r = useMemo(() => fitText({ text, fontSize: size, width, maxLines }), [text, size, width, maxLines]);
-  assertShortText(useBox(), r.fontSize, text);
+  const box = useBox();
+  const minScale = shortMinScale(box, size);
+  const r = useMemo(() => fitText({ text, fontSize: size, width, maxLines, minScale }), [text, size, width, maxLines, minScale]);
+  assertShortText(box, r.fontSize, text);
   const n = r.lines.length;
   const step = r.fontSize * lh;
   const first =

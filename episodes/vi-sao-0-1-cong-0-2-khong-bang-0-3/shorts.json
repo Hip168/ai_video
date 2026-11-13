@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "shorts": [
+    { "part": 1, "total": 6, "from": "b001", "to": "b022", "title": "Vì sao 0,1 + 0,2 không bằng 0,3? Phân số viết mãi không hết", "hook": "0,1 + 0,2 không bằng 0,3?" },
+    { "part": 2, "total": 6, "from": "b022a", "to": "b043", "title": "Máy cất một số lẻ thế nào: vì sao 0,1 + 0,2 không bằng 0,3", "hook": "Máy cất một số lẻ thế nào?" },
+    { "part": 3, "total": 6, "from": "b044", "to": "b057", "title": "Giải mã 0.30000000000000004: vì sao 0,1 + 0,2 không bằng 0,3", "hook": "Giải mã 0.30000000000000004" },
+    { "part": 4, "total": 6, "from": "b058", "to": "b072", "title": "Vì sao máy nào cũng sai giống hệt nhau? Chuẩn IEEE 754", "hook": "Trước khi có luật chung" },
+    { "part": 5, "total": 6, "from": "b073", "to": "b094", "title": "Một phần mười giây ở Dhahran: khi con số 0,1 bị cắt cụt", "hook": "Một phần mười giây ở Dhahran" },
+    { "part": 6, "total": 6, "from": "b095", "to": "b111", "title": "Sống chung với số dấu phẩy động thế nào? Có ba cách", "hook": "Sống chung với sai số" }
+  ]
+}

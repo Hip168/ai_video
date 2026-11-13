@@ -31,24 +31,34 @@ export const Terminal: React.FC<SceneProps> = ({ scene }) => {
   const promptCols = [...prompt].length + 1;
   const full = lines.map((l) => (l.kind === "cmd" ? `${prompt} ${l.text}` : l.text));
   const { size, charW, cols } = fitMono(full, WIN.w - 100, 40, sq ? 30 : 18);
-  const lineH = Math.min(64, (WIN.h - BAR - 50) / Math.max(1, n));
+  const colsOf = (l: LineIn) => Math.max(1, cols - (l.kind === "cmd" ? promptCols : 0));
+  // Khung vuông: dòng dài xuống hàng (hàng sau thụt thẳng chữ hàng đầu) thay vì bị cắt. Khung ngang: một hàng mỗi dòng.
+  const chunk = (text: string, w: number): string[] => {
+    const ch = [...text];
+    const out: string[] = [];
+    for (let k = 0; k < ch.length; k += w) out.push(ch.slice(k, k + w).join(""));
+    return out.length > 0 ? out : [""];
+  };
+  const rowsOf = lines.map((l) => (sq ? chunk(l.text, colsOf(l)).length : 1));
+  const lineH = Math.min(64, (WIN.h - BAR - 50) / Math.max(1, rowsOf.reduce((a, b) => a + b, 0)));
   if (sq) {
-    // Dòng bị cắt hoặc dòng thấp hơn chữ: không đọc được ở khung Short.
-    const longest = Math.max(0, ...full.map((l) => [...l].length));
-    assertShortText(box, longest > cols ? 0 : Math.min(size, lineH), full.join(" / "));
+    // Hàng thấp hơn chữ: không đọc được ở khung Short.
+    assertShortText(box, Math.min(size, lineH), full.join(" / "));
   }
   const colorOf = (k: LineIn["kind"]) => (k === "err" ? theme.warn : k === "out" ? CODE_MUTED : CODE_FG);
   let cursorAt: { x: number; y: number } | null = null;
   const rows = lines.map((l, i) => {
     const t = frame - itemStart(scene, i, n);
     if (t < 0) return null;
-    const y = WIN.y + BAR + 46 + i * lineH;
+    const row0 = rowsOf.slice(0, i).reduce((a, b) => a + b, 0);
+    const y = WIN.y + BAR + 46 + row0 * lineH;
     const x0 = WIN.x + 50;
     const chars = [...l.text];
     const typed = l.kind === "cmd" ? Math.min(chars.length, Math.floor(t * TYPE_FPS)) : chars.length;
-    const shown = clipLine(chars.slice(0, typed).join(""), Math.max(1, cols - (l.kind === "cmd" ? promptCols : 0)));
+    const text = chars.slice(0, typed).join("");
+    const segs = sq ? chunk(text, colsOf(l)) : [clipLine(text, colsOf(l))];
     const startCol = l.kind === "cmd" ? promptCols : 0;
-    cursorAt = { x: x0 + (startCol + [...shown].length) * charW, y };
+    cursorAt = { x: x0 + (startCol + [...segs[segs.length - 1]].length) * charW, y: y + (segs.length - 1) * lineH };
     return (
       <g key={i} opacity={clamp01(t / 3 + 0.5)}>
         {l.kind === "cmd" && (
@@ -56,9 +66,11 @@ export const Terminal: React.FC<SceneProps> = ({ scene }) => {
             {prompt}
           </text>
         )}
-        <text x={x0 + startCol * charW} y={y} fontSize={size} fill={colorOf(l.kind)} xmlSpace="preserve" style={{ whiteSpace: "pre" }}>
-          {shown}
-        </text>
+        {segs.map((sg, j) => (
+          <text key={j} x={x0 + startCol * charW} y={y + j * lineH} fontSize={size} fill={colorOf(l.kind)} xmlSpace="preserve" style={{ whiteSpace: "pre" }}>
+            {sg}
+          </text>
+        ))}
       </g>
     );
   });

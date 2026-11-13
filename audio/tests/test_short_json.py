@@ -71,6 +71,9 @@ class Env:
         self.tl, self.ids = make_tl(plan)
         (self.out / "timeline.json").write_text(
             json.dumps(self.tl, ensure_ascii=False), "utf-8")
+        # Số tập = thứ tự trong episodes/index.json (D35): tập thử là tập 2.
+        (self.root / "episodes" / "index.json").write_text(
+            json.dumps([{"slug": "tap-khac"}, {"slug": SLUG}]), "utf-8")
 
     def shorts(self, items):
         (self.ep / "shorts.json").write_text(
@@ -340,7 +343,8 @@ def test_export_caption_co_tieu_de_phan_k_n_hook_hashtag_va_dong_ai(env):
     assert "AI" in c
 
 
-def test_export_caption_co_link_video_dai_khi_so_da_co_videoid(tmp_path):
+def test_export_caption_khong_co_url_ke_ca_khi_so_da_co_videoid(tmp_path):
+    """D35 sửa 1, 2: caption không ghi URL, không nhắc YouTube; link ở bio."""
     from aivideo import upload
     from upload_support import FakeClient, make_upload_env
     up = make_upload_env(tmp_path)
@@ -349,32 +353,61 @@ def test_export_caption_co_link_video_dai_khi_so_da_co_videoid(tmp_path):
     env = Env(tmp_path)
     seed(env, 2)
     assert env.cli("export", "--parts", "1-2").returncode == 0
-    link = "https://www.youtube.com/watch?v=vLong"
-    assert link in cap(env, 1)
-    assert link in cap(env, 2)
+    for k in (1, 2):
+        c = cap(env, k)
+        assert "http" not in c and "vLong" not in c
+        assert "youtube" not in c.lower()
 
 
-def test_export_chua_co_videoid_van_xuat_duoc_va_khong_co_link(env):
-    seed(env, 2)
-    assert env.cli("export", "--parts", "1-2").returncode == 0
-    assert "youtube.com" not in cap(env, 1)
+BIO = "Xem bản đầy đủ: link ở bio nhé"
+LAST = "Các phần còn lại và bản đầy đủ: link ở bio nha."
 
 
-def test_export_caption_phan_cuoi_da_xuat_moi_xem_tiep_tren_youtube(env):
+def test_export_caption_dung_mau_d35(env):
     seed(env, 4)
     ex(env, "1-3")
-    last, first = cap(env, 3), cap(env, 1)
-    assert "YouTube" in last
-    assert "YouTube" not in first
-    assert len(last) > len(first)
+    assert cap(env, 1) == (
+        "#conbit2 Tiêu đề (Phần 1/3)\n\nMóc\n\n" + BIO + "\n\n"
+        "#conbit2 #conbit #tinhoc #khoahocmaytinh\n"
+        "Giọng đọc trong video do AI tạo.\n")
+    assert cap(env, 3) == (
+        "#conbit2 Tiêu đề (Phần 3/3)\n\nMóc\n\n" + BIO + "\n\n"
+        + LAST + "\n\n#conbit2 #conbit #tinhoc #khoahocmaytinh\n"
+        "Giọng đọc trong video do AI tạo.\n")
+
+
+def test_export_so_tap_theo_thu_tu_trong_index_json(env):
+    seed(env, 2)
+    (env.root / "episodes" / "index.json").write_text(
+        json.dumps([{"slug": SLUG}]), "utf-8")
+    ex(env, "1-2")
+    assert cap(env, 1).startswith("#conbit1 ")
+    assert "#conbit1 #conbit #tinhoc" in cap(env, 2)
+
+
+def test_export_tap_khong_co_trong_index_json_ma_1(env):
+    seed(env, 2)
+    (env.root / "episodes" / "index.json").write_text(
+        json.dumps([{"slug": "tap-khac"}]), "utf-8")
+    p = env.cli("export", "--parts", "1-2")
+    assert p.returncode == 1, both(p)
+    assert p.stderr.startswith("lỗi:")
+
+
+def test_export_caption_phan_cuoi_da_xuat_moi_xem_cac_phan_con_lai(env):
+    seed(env, 4)
+    ex(env, "1-3")
+    assert LAST in cap(env, 3)
+    assert LAST not in cap(env, 1)
+    assert BIO in cap(env, 1)
 
 
 def test_export_phan_cuoi_la_phan_cuoi_cua_danh_sach_chon_khong_phai_cua_tap(
         env):
     seed(env, 4)
     ex(env, "2-3")
-    assert "YouTube" in cap(env, 3)
-    assert "YouTube" not in cap(env, 2)
+    assert LAST in cap(env, 3)
+    assert LAST not in cap(env, 2)
 
 
 def test_export_nhan_phan_theo_dai_xuat_render_lai_phan_i_tren_m(env):

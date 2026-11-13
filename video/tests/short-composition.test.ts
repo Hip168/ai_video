@@ -20,7 +20,7 @@ import {
 import {VIDEO_DIR} from './helpers/sample';
 import {loadSample2} from './helpers/sample2';
 
-// [14-1] [14-2] Composition Short 1080x1920, hộp cảnh 840, vùng an toàn, ngưỡng
+// [14-1] [14-2] Composition Short 1080x1920, hộp cảnh 984 toàn màn hình (vẽ theo hệ 840), ngưỡng
 // chữ khung vuông. Giao diện: .team/features/14-shorts-giao-dien.md mục 1-4.
 // Phần render chỉ chạy khi RENDER_TEST=1 (REMOTION_BROWSER_EXECUTABLE theo
 // stack.md, D23).
@@ -136,30 +136,30 @@ d('[14-1] Short render thật', () => {
     expect([c.width, c.height]).toEqual([1920, 1080]);
   }, 120_000);
 
-  test('mọi chữ nằm trong x 48..888 và y 150..1248; có chữ ở hook, hộp cảnh và phụ đề', async () => {
+  test('toàn màn hình (chế độ xem sạch): mọi chữ trong lề 48 px; có chữ ở hook, hộp cảnh 984 và phụ đề', async () => {
     const p = await still(CLIP);
     expect([p.width, p.height]).toEqual([1080, 1920]);
     expect(count(p, {x1: 48})).toBe(0);
-    expect(count(p, {x0: 888})).toBe(0);
-    expect(count(p, {y1: 150})).toBe(0);
-    expect(count(p, {y0: 1248})).toBe(0);
-    expect(count(p, {x0: 48, x1: 888, y0: 150, y1: 280})).toBeGreaterThan(200);
-    expect(count(p, {x0: 48, x1: 888, y0: 288, y1: 1128})).toBeGreaterThan(200);
-    expect(count(p, {x0: 48, x1: 888, y0: 1128, y1: 1248})).toBeGreaterThan(200);
+    expect(count(p, {x0: 1032})).toBe(0);
+    expect(count(p, {y1: 318})).toBe(0);
+    expect(count(p, {y0: 1602})).toBe(0);
+    expect(count(p, {x0: 48, x1: 1032, y0: 318, y1: 448})).toBeGreaterThan(200);
+    expect(count(p, {x0: 48, x1: 1032, y0: 468, y1: 1452})).toBeGreaterThan(200);
+    expect(count(p, {x0: 48, x1: 1032, y0: 1472, y1: 1602})).toBeGreaterThan(200);
   }, 180_000);
 
   test('"Phần k/N" đổi theo part/total và chỉ ở dải hook; phần còn lại giống hệt', async () => {
     const a = await still(CLIP);
     const b = await still({...CLIP, part: 5});
-    expect(diffRatio(a, b, 150, 290)).toBeGreaterThan(0);
-    expect(diffRatio(a, b, 290, 1920)).toBe(0);
-    expect(diffRatio(a, b, 0, 150)).toBe(0);
+    expect(diffRatio(a, b, 318, 458)).toBeGreaterThan(0);
+    expect(diffRatio(a, b, 458, 1920)).toBe(0);
+    expect(diffRatio(a, b, 0, 318)).toBe(0);
   }, 180_000);
 
   test('hook đổi chữ thì chỉ dải hook đổi', async () => {
     const a = await still(CLIP);
     const b = await still({...CLIP, hook: 'Một câu khác hẳn'});
-    expect(diffRatio(a, b, 150, 290)).toBeGreaterThan(0);
-    expect(diffRatio(a, b, 290, 1920)).toBe(0);
+    expect(diffRatio(a, b, 318, 458)).toBeGreaterThan(0);
+    expect(diffRatio(a, b, 458, 1920)).toBe(0);
   }, 180_000);
 });

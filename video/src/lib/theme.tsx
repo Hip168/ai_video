@@ -2,6 +2,7 @@ import React, { createContext, useContext } from "react";
 import { useCurrentFrame } from "remotion";
 import { FONT_FAMILY } from "../font";
 import { ThemeContext, useTheme } from "./hooks";
+import { MIN_FONT_SCALE } from "./text";
 import type { Theme } from "./theme-data";
 
 export { THEMES, THEME_IDS, getTheme } from "./theme-data";
@@ -37,6 +38,11 @@ export function useBox(): Box {
 export const SceneBox: React.FC<{ layout: Layout; children?: React.ReactNode }> = ({ layout, children }) => (
   <LayoutContext.Provider value={layout === "square" ? SQUARE_BOX : WIDE_BOX}>{children}</LayoutContext.Provider>
 );
+
+/** Ở layout `square`: cho fitText co chữ tới đúng ngưỡng trước khi cắt "…" (số dài một từ vẫn hiện đủ). Khung ngang: mặc định. */
+export function shortMinScale(box: Box, size: number, min = SHORT_MIN_TEXT_PX): number | undefined {
+  return box.layout === "square" ? Math.min(MIN_FONT_SCALE, min / size) : undefined;
+}
 
 /** Ở layout `square`: chữ nhỏ hơn ngưỡng thì ném lỗi (lint `--short` bắt lỗi này). */
 export function assertShortText(box: Box, px: number, text: string, min = SHORT_MIN_TEXT_PX): void {

@@ -75,3 +75,15 @@ Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTT
 
 ## Vùng an toàn Shorts (D32)
 - Nguồn: Google Ads Help 13547298, mục "Universal safe zones" (https://support.google.com/google-ads/answer/13547298). Khung dọc 1080×1920, lề trên 288, dưới 672, trái 48, phải 192 px. Vùng an toàn: x 48–888, y 288–1248.
+
+## Bố cục Short toàn màn hình (D37, người dùng 2026-11-14; thay D32 MỞ-1 và phần căn giữa của D34)
+- Lý do: YouTube và TikTok có chế độ xem sạch, ẩn bình luận, mô tả và các nút. Vì vậy khung dọc dùng toàn màn hình, không thu cảnh vào vùng an toàn ở trên nữa. Mục trên chỉ còn để tham khảo.
+- Vùng an toàn cũ không căn giữa được: hộp 840 đã kín bề ngang vùng an toàn (x 48–888), và hộp cộng phụ đề đã kín bề cao (y 288–1248). Muốn căn giữa trong vùng đó thì phải thu hộp còn khoảng 696, mà mọi cảnh vẽ cứng theo 840.
+- Lề 48 px quanh mép. Toạ độ trong `video/src/Short.tsx`:
+  - hook: x 48–1032, y 318–448 (dòng "Phần k/N" 36 px và hook 48 px, như cũ).
+  - cảnh: hộp vuông x 48–1032, y 468–1452 (984×984). Tâm hộp nằm ở giữa khung (540, 960).
+  - phụ đề: x 48–1032, y 1472–1602 (48 px, tối đa 2 dòng).
+- Cảnh vẫn vẽ theo hệ toạ độ 840×840 (`SQUARE_BOX`), rồi phóng lên bằng `transform: scale(984/840 ≈ 1,171)`. Cảnh không phải sửa.
+- Lint giữ ngưỡng D32 MỞ-2, tính theo đơn vị cảnh: 30, 25, 48. Chữ ra màn hình vì thế còn to hơn ngưỡng 1,17 lần.
+- `framecheck` quét vùng hộp cảnh mới: `SHORT_REGION = (984, 984, 48, 468)`.
+- Shorts tập 1 đã đăng theo bố cục cũ, không render lại.

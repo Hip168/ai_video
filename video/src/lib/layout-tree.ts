@@ -29,6 +29,8 @@ export const TREE_AREA_SQUARE = { x: 30, y: 30, w: 780, h: 780 };
 const SW = 150;
 const SH = 56;
 const SGAP = 50;
+/** Khung vuông: hộp cao đủ hai dòng chữ 30 px (D32). */
+const SH2 = 92;
 const INSET = 16;
 const r2 = (v: number) => Math.round(v * 100) / 100;
 const NW = 200;
@@ -83,13 +85,15 @@ export function layoutTree(props: Record<string, unknown>, square = false): Tree
 
 /** Cây nằm ngang trong khung vuông: x theo độ sâu, y theo d3 (tối đa 1,1 lần, không thu chữ). */
 function layoutSquare(h: ReturnType<typeof hierarchy<TNode>>): TreeLayout {
-  tree<TNode>().nodeSize([SH + 18, SW + SGAP])(h);
+  const A = TREE_AREA_SQUARE;
+  const depth = h.height + 1;
+  // Hộp rộng ra cho kín bề ngang khung, để nhãn dài vẫn giữ chữ 30 px.
+  const sw = Math.max(SW, (A.w - 2 * INSET - (depth - 1) * SGAP) / depth);
+  tree<TNode>().nodeSize([SH2 + 18, sw + SGAP])(h);
   const all = h.descendants() as unknown as { x: number; y: number; depth: number; data: TNode; parent: { data: TNode } | null }[];
   const xs = all.map((d) => d.x);
-  const depth = h.height + 1;
-  const gh = Math.max(...xs) - Math.min(...xs) + SH;
-  const gw = (depth - 1) * (SW + SGAP) + SW;
-  const A = TREE_AREA_SQUARE;
+  const gh = Math.max(...xs) - Math.min(...xs) + SH2;
+  const gw = (depth - 1) * (sw + SGAP) + sw;
   const s = Math.min(1.1, (A.w - 2 * INSET) / gw, (A.h - 2 * INSET) / gh);
   const ox = A.x + (A.w - gw * s) / 2;
   const oy = A.y + A.h / 2 - ((Math.max(...xs) + Math.min(...xs)) / 2) * s;
@@ -97,10 +101,10 @@ function layoutSquare(h: ReturnType<typeof hierarchy<TNode>>): TreeLayout {
     id: d.data.id,
     label: d.data.label,
     depth: d.depth,
-    w: r2(SW * s),
-    h: r2(SH * s),
+    w: r2(sw * s),
+    h: r2(SH2 * s),
     x: r2(ox + d.y * s),
-    y: r2(oy + d.x * s - (SH * s) / 2),
+    y: r2(oy + d.x * s - (SH2 * s) / 2),
   }));
   const links = all.filter((d) => d.parent).map((d) => ({ from: d.parent!.data.id, to: d.data.id }));
   return { boxes, links, depth, scale: s };

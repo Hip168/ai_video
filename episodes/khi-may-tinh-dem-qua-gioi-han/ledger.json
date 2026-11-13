@@ -1040,6 +1040,31 @@
       "unresolvedSevere": null,
       "prevHash": "638c728169da5c4e910eba16bc1d5f7bc46a4d232e18d4c4f0a52d60b0b10f24",
       "entryHash": "d4247bdb2c6c31700a2574059d8722e6626945a4e043a5232bd5288096619224"
+    },
+    {
+      "seq": 32,
+      "ts": "2026-11-13T20:51:33Z",
+      "stage": "dong-goi",
+      "role": "packager",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": "a53af940259035ab696a6ad4b5d940bdee6b138936e2304c9d5e325ae6260900",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "d4247bdb2c6c31700a2574059d8722e6626945a4e043a5232bd5288096619224",
+      "entryHash": "3aa6282fdec2ecbf83ba06e0c139eb32d6b0bf2ffca81df658583520a5675d57"
     }
   ]
 }

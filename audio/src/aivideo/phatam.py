@@ -116,6 +116,10 @@ def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str]):
             if form:
                 return form, ("nghia-viet" if _vi_phrase(form) else "phien-am")
             break
+    # Lời không còn chữ ngoại nào lạ so với text -> từ đã bị lược, không được đọc: bỏ qua.
+    text_lower = set(a)
+    if not any(is_foreign(t) and t.lower() not in text_lower for t in b):
+        return None, "khong-doc"
     return None, "khong-xac-dinh"
 
 
@@ -459,6 +463,9 @@ def check(slug: str, root: Path) -> dict:
             rows.append(row)
             if o["kind"] == "nghia-viet":
                 row.update({"pass": True, "note": "đã thay bằng nghĩa tiếng Việt"})
+                continue
+            if o["kind"] == "khong-doc":
+                row.update({"pass": True, "note": "không được đọc trong lời, bỏ qua"})
                 continue
             if o["span"] is None:
                 row.update({"pass": False, "note": "không xác định được cách đọc trong lời"})

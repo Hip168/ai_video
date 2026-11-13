@@ -1,0 +1,30 @@
+{
+  "slug": "con-tau-sao-hoa-mat-vi-nham-don-vi",
+  "entries": [
+    {
+      "seq": 1,
+      "ts": "2026-11-13T20:58:42Z",
+      "stage": "research",
+      "role": "researcher",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": null,
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "",
+      "entryHash": "d159cf80370370e11685eb663df1b3caab24fe3b893cfaea83c7f5d779945bed"
+    }
+  ]
+}

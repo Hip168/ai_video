@@ -49,7 +49,7 @@
       "chapter": "mo-dau",
       "type": "cold-open",
       "props": {
-        "hook": "0.1 + 0.2 = 0.30000000000000004",
+        "hook": "0.1 + 0.2 = ?",
         "kicker": "Phép cộng lớp ba"
       },
       "holdMs": 0,
@@ -59,13 +59,26 @@
           "id": "b001",
           "text": "Mở cửa sổ lập trình của trình duyệt, gõ một phép cộng lớp ba: 0.1 + 0.2.",
           "spoken": "Mở cửa sổ lập trình của trình duyệt, gõ một phép cộng lớp ba: không phẩy một cộng không phẩy hai.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "sc01b",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "0.30000000000000004",
+        "kicker": "Máy trả lời"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b002",
           "text": "Máy trả lời: 0.30000000000000004.",
@@ -186,12 +199,43 @@
     {
       "id": "sc04",
       "chapter": "mo-dau",
-      "type": "term-card",
+      "type": "flow",
       "props": {
-        "term": "Năm 1991",
-        "tag": "Phòng thủ tên lửa",
-        "definition": "Sai số của chính con số 0,1 khiến hệ thống không chặn được mục tiêu",
-        "example": "Vì sao 0,1 lại làm khó máy tính?"
+        "nodes": [
+          {
+            "id": "saiso",
+            "label": "1991: sai số 0,1"
+          },
+          {
+            "id": "phong",
+            "label": "Phòng thủ tên lửa"
+          },
+          {
+            "id": "truot",
+            "label": "Không chặn được"
+          }
+        ],
+        "edges": [
+          {
+            "from": "saiso",
+            "to": "phong"
+          },
+          {
+            "from": "phong",
+            "to": "truot"
+          }
+        ],
+        "packets": [
+          {
+            "from": "saiso",
+            "to": "phong"
+          },
+          {
+            "from": "phong",
+            "to": "truot"
+          }
+        ],
+        "direction": "LR"
       },
       "holdMs": 0,
       "sfx": null,
@@ -216,12 +260,25 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "sc04b",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "Vì sao 0,1 lại làm khó máy tính?",
+        "kicker": "Nhưng trước hết"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b010",
           "text": "Nhưng trước hết, hãy xem vì sao một con số giản dị như 0,1 lại làm khó máy tính.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 900,
           "sfx": null,
           "claims": [
@@ -594,26 +651,22 @@
     {
       "id": "sc13",
       "chapter": "chuong-1",
-      "type": "memory-array",
+      "type": "layers",
       "props": {
-        "name": "Mỗi số: số ô có hạn",
-        "cells": [
-          "0",
-          "0",
-          "0",
-          "1",
-          "1",
-          "0",
-          "0",
-          "1",
-          "1",
-          "0"
+        "layers": [
+          {
+            "name": "Mỗi số: số bit có hạn",
+            "detail": "mỗi ô chứa 0 hoặc 1"
+          },
+          {
+            "name": "Phải cắt ở đâu đó",
+            "detail": "chỉ được giá trị gần đúng"
+          },
+          {
+            "name": "Cắt ở đâu, cất ra sao?"
+          }
         ],
-        "base": 0,
-        "size": 1,
-        "access": [
-          9
-        ]
+        "highlight": 2
       },
       "holdMs": 0,
       "sfx": null,
@@ -1489,7 +1542,7 @@
           },
           {
             "id": "kq",
-            "label": "Cùng số 4 ở cuối"
+            "label": "Cùng số 4"
           }
         ],
         "edges": [

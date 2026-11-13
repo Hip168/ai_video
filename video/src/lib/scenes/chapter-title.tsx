@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useCurrentFrame } from "remotion";
 import { ease, useTheme } from "../hooks";
-import { Stage } from "../theme";
+import { assertShortText, Stage, useBox } from "../theme";
 import { fitText, MIN_MARGIN } from "../text";
 import type { SceneProps } from "../types";
 
@@ -16,27 +16,34 @@ export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
   const number = typeof scene.props.number === "number" ? scene.props.number : null;
   const subtitle = typeof scene.props.subtitle === "string" ? scene.props.subtitle : "";
   const hasNum = number !== null;
-  const width = hasNum ? CHAPTER_WIDTH_WITH_NUMBER : CHAPTER_WIDTH_CENTERED;
-  const baseSize = title.length <= 24 ? 100 : 76;
+  // Khung vuông (Short): số ở trên, chữ căn giữa bên dưới.
+  const box = useBox();
+  const sq = box.layout === "square";
+  const width = sq ? 760 : hasNum ? CHAPTER_WIDTH_WITH_NUMBER : CHAPTER_WIDTH_CENTERED;
+  const baseSize = sq ? (title.length <= 24 ? 84 : 64) : title.length <= 24 ? 100 : 76;
   const { lines, fontSize: size } = useMemo(
     () => fitText({ text: title, fontSize: baseSize, width, maxLines: 2 }),
     [title, baseSize, width],
   );
-  const sub = useMemo(() => fitText({ text: subtitle, fontSize: 42, width, maxLines: 2 }), [subtitle, width]);
+  const sub = useMemo(() => fitText({ text: subtitle, fontSize: sq ? 44 : 42, width, maxLines: 2 }), [subtitle, width, sq]);
   const subLines = sub.lines;
-  const x0 = hasNum ? 780 : 960;
-  const anchor = hasNum ? "start" : "middle";
+  assertShortText(box, size, title);
+  if (subtitle !== "") assertShortText(box, sub.fontSize, subtitle);
+  const left = hasNum && !sq; // chữ bên phải số (khung ngang)
+  const cx = sq ? 420 : 960;
+  const x0 = left ? 780 : cx;
+  const anchor = left ? "start" : "middle";
   const a = ease(frame / 18);
   const line = ease((frame - 6) / 24);
   const lineH = size * 1.25;
-  const top = 400 - ((lines.length - 1) * lineH) / 2;
+  const top = (sq ? (hasNum ? 520 : 400) : 400) - ((lines.length - 1) * lineH) / 2;
   const underY = top + (lines.length - 1) * lineH + 40;
   return (
     <Stage>
       {hasNum && (
-        <g opacity={a} transform={`translate(${(1 - a) * -60} 0)`}>
-          <circle cx={470} cy={415} r={190} fill={theme.panel} stroke={theme.accent} strokeWidth={8} />
-          <text x={470} y={415 + 70} fontSize={200} fontWeight={700} fill={theme.accent} textAnchor="middle">
+        <g opacity={a} transform={sq ? `translate(0 ${(1 - a) * -40})` : `translate(${(1 - a) * -60} 0)`}>
+          <circle cx={sq ? 420 : 470} cy={sq ? 230 : 415} r={sq ? 130 : 190} fill={theme.panel} stroke={theme.accent} strokeWidth={8} />
+          <text x={sq ? 420 : 470} y={sq ? 230 + 48 : 415 + 70} fontSize={sq ? 140 : 200} fontWeight={700} fill={theme.accent} textAnchor="middle">
             {String(number).padStart(2, "0")}
           </text>
         </g>
@@ -56,9 +63,9 @@ export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {
         </text>
       ))}
       <line
-        x1={hasNum ? x0 : 960 - 260 * line}
+        x1={left ? x0 : cx - 260 * line}
         y1={underY}
-        x2={hasNum ? x0 + 520 * line : 960 + 260 * line}
+        x2={left ? x0 + 520 * line : cx + 260 * line}
         y2={underY}
         stroke={theme.accent2}
         strokeWidth={8}

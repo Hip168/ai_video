@@ -44,3 +44,6 @@ export const CUSTOM_SCENES: Record<string, React.FC<SceneProps>> = {
   "do-lech": DoLech,
   "hai-lan-do": HaiLanDo,
 };
+
+/** Cảnh riêng đã tự vẽ vừa hộp vuông của Short (đọc `useBox()`); cảnh khác không được nằm trong Short (D33). */
+export const CUSTOM_SQUARE: ReadonlySet<string> = new Set<string>(["mach-den", "bite-byte", "dien-ap", "bon-muoi-bit", "bo-dem-vong"]);

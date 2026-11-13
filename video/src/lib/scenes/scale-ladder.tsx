@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { ease, useTheme } from "../hooks";
-import { Stage } from "../theme";
+import { Stage, useBox } from "../theme";
 import { itemStart, lerp, startedCount, TextBlock } from "../b-kit";
 import type { SceneProps } from "../types";
 
@@ -11,15 +11,20 @@ interface RungIn {
   power: number;
 }
 
-const TOP = 60;
-const AREA = 700;
-const X0 = 560;
-const MAXW = 1240;
+/** Hình học theo khung: `wide` giữ đúng số cũ; `square` (Short) 840x840. */
+const WIDE = { top: 60, area: 700, x0: 560, maxW: 1240, labelW: 440, right: 1880 };
+const SQUARE = { top: 50, area: 740, x0: 330, maxW: 470, labelW: 270, right: 810 };
 
 /** Bậc thang cỡ lớn: rung 0 ở dưới cùng, mỗi beat leo thêm một bậc. Độ dài thanh theo mũ 10 (thang log). */
 export const ScaleLadder: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const frame = useCurrentFrame();
+  const sq = useBox().layout === "square";
+  const G = sq ? SQUARE : WIDE;
+  const TOP = G.top;
+  const AREA = G.area;
+  const X0 = G.x0;
+  const MAXW = G.maxW;
   const rungs = (Array.isArray(scene.props.rungs) ? scene.props.rungs : []) as RungIn[];
   const n = rungs.length;
   const pw = rungs.map((r) => (typeof r.power === "number" ? r.power : 0));
@@ -27,7 +32,8 @@ export const ScaleLadder: React.FC<SceneProps> = ({ scene }) => {
   const hi = Math.max(...pw, lo + 1);
   const gap = 16;
   const h = Math.min(100, (AREA - gap * (n - 1)) / Math.max(1, n));
-  const fs = Math.min(40, h * 0.42);
+  // Khung vuông: chữ giá trị (0,85 fs) không dưới 30 px.
+  const fs = sq ? Math.max(36, Math.min(42, h * 0.42)) : Math.min(40, h * 0.42);
   const rowY = (i: number) => TOP + (n - 1 - i) * (h + gap);
   const cur = Math.max(0, startedCount(frame, scene, n) - 1);
   // Mốc leo: nằm giữa bậc đang tới và bậc kế, trượt theo frame.
@@ -48,11 +54,11 @@ export const ScaleLadder: React.FC<SceneProps> = ({ scene }) => {
         const vw = r.value.length * fs * 0.85 * 0.6; // độ rộng chữ giá trị ước lượng
         return (
           <g key={i} opacity={Math.min(1, a * 1.5)}>
-            <TextBlock text={r.label} x={X0 - 64} y={y + h / 2 + fs * 0.35} width={440} fontSize={fs} maxLines={2} fill={isCur ? theme.accent2 : theme.fg} anchor="end" lineHeight={1.05} />
+            <TextBlock text={r.label} x={X0 - 64} y={y + h / 2 + fs * 0.35} width={G.labelW} fontSize={fs} maxLines={2} fill={isCur ? theme.accent2 : theme.fg} anchor="end" lineHeight={1.05} />
             <rect x={X0} y={y} width={w} height={h} rx={16} fill={isCur ? theme.accent : theme.panel} stroke={theme.accent} strokeWidth={4} />
             {inside
               ? w >= vw + 48 && a > 0.6 && <TextBlock text={r.value} x={X0 + w - 24} y={y + h / 2 + fs * 0.35} width={w - 48} fontSize={fs * 0.85} fill={isCur ? theme.bg : theme.fg} anchor="end" />
-              : a > 0.9 && <TextBlock text={r.value} x={X0 + wFinal + 24} y={y + h / 2 + fs * 0.35} width={Math.min(vw + 8, 1880 - (X0 + wFinal + 24))} fontSize={fs * 0.85} fill={theme.fg} anchor="start" />}
+              : a > 0.9 && <TextBlock text={r.value} x={X0 + wFinal + 24} y={y + h / 2 + fs * 0.35} width={Math.min(vw + 8, G.right - (X0 + wFinal + 24))} fontSize={fs * 0.85} fill={theme.fg} anchor="start" />}
           </g>
         );
       })}

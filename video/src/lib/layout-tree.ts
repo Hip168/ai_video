@@ -24,6 +24,11 @@ export interface TreeLayout {
 }
 
 export const TREE_AREA = { x: 40, y: 40, w: 1840, h: 750 };
+/** Khung vuông của Short: cây nằm ngang (gốc bên trái), hộp 150x56, chữ cố định 30 px. */
+export const TREE_AREA_SQUARE = { x: 30, y: 30, w: 780, h: 780 };
+const SW = 150;
+const SH = 56;
+const SGAP = 50;
 const INSET = 16;
 const r2 = (v: number) => Math.round(v * 100) / 100;
 const NW = 200;
@@ -48,11 +53,12 @@ function build(nodes: TreeNodeIn[]): TNode | null {
 }
 
 /** Bố cục thuần của `tree-graph` (d3-hierarchy), toạ độ màn hình, (x, y) là góc trên trái. */
-export function layoutTree(props: Record<string, unknown>): TreeLayout {
+export function layoutTree(props: Record<string, unknown>, square = false): TreeLayout {
   const nodes = (Array.isArray(props.nodes) ? props.nodes : []) as TreeNodeIn[];
   const root = build(nodes);
   if (!root) return { boxes: [], links: [], depth: 0, scale: 1 };
   const h = hierarchy<TNode>(root, (d) => d.children);
+  if (square) return layoutSquare(h);
   tree<TNode>().nodeSize([NW + 40, NH + VGAP])(h);
   const all = h.descendants() as unknown as { x: number; y: number; depth: number; data: TNode; parent: { data: TNode } | null }[];
   const xs = all.map((d) => d.x);
@@ -70,6 +76,31 @@ export function layoutTree(props: Record<string, unknown>): TreeLayout {
     h: r2(NH * s),
     x: r2(ox + d.x * s - (NW * s) / 2),
     y: r2(oy + d.y * s),
+  }));
+  const links = all.filter((d) => d.parent).map((d) => ({ from: d.parent!.data.id, to: d.data.id }));
+  return { boxes, links, depth, scale: s };
+}
+
+/** Cây nằm ngang trong khung vuông: x theo độ sâu, y theo d3 (tối đa 1,1 lần, không thu chữ). */
+function layoutSquare(h: ReturnType<typeof hierarchy<TNode>>): TreeLayout {
+  tree<TNode>().nodeSize([SH + 18, SW + SGAP])(h);
+  const all = h.descendants() as unknown as { x: number; y: number; depth: number; data: TNode; parent: { data: TNode } | null }[];
+  const xs = all.map((d) => d.x);
+  const depth = h.height + 1;
+  const gh = Math.max(...xs) - Math.min(...xs) + SH;
+  const gw = (depth - 1) * (SW + SGAP) + SW;
+  const A = TREE_AREA_SQUARE;
+  const s = Math.min(1.1, (A.w - 2 * INSET) / gw, (A.h - 2 * INSET) / gh);
+  const ox = A.x + (A.w - gw * s) / 2;
+  const oy = A.y + A.h / 2 - ((Math.max(...xs) + Math.min(...xs)) / 2) * s;
+  const boxes: TreeBox[] = all.map((d) => ({
+    id: d.data.id,
+    label: d.data.label,
+    depth: d.depth,
+    w: r2(SW * s),
+    h: r2(SH * s),
+    x: r2(ox + d.y * s),
+    y: r2(oy + d.x * s - (SH * s) / 2),
   }));
   const links = all.filter((d) => d.parent).map((d) => ({ from: d.parent!.data.id, to: d.data.id }));
   return { boxes, links, depth, scale: s };

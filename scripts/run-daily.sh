@@ -16,6 +16,7 @@ claude_cmd=(claude);                    [[ -n "${AIVIDEO_CLAUDE:-}" ]] && claude
 upload_cmd=("$py" -m aivideo.upload);   [[ -n "${AIVIDEO_UPLOAD:-}" ]] && upload_cmd=(${(z)AIVIDEO_UPLOAD})
 gates_cmd=("$py" -m aivideo.gates);     [[ -n "${AIVIDEO_GATES:-}" ]] && gates_cmd=(${(z)AIVIDEO_GATES})
 git_cmd=(git);                          [[ -n "${AIVIDEO_GIT:-}" ]] && git_cmd=(${(z)AIVIDEO_GIT})
+make_cmd=("$root/make-episode.sh");     [[ -n "${AIVIDEO_MAKE:-}" ]] && make_cmd=(${(z)AIVIDEO_MAKE})
 push_cmd=(git push origin main);        [[ -n "${AIVIDEO_PUSH:-}" ]] && push_cmd=(${(z)AIVIDEO_PUSH})
 logdir="${AIVIDEO_LOG_DIR:-$HOME/Library/Logs/aivideo}"
 mkdir -p "$logdir"
@@ -105,5 +106,23 @@ commit_ep "[tap] $slug: sổ tập sau khi đăng" || log "commit sổ sau khi �
 (( code != 3 )) || stop "CAN_NGUOI_DUNG: upload $slug báo video có thể bị khoá"
 (( code == 0 )) || stop "upload $slug thoát mã $code"
 log "XONG: đã đăng $slug"
+
 # Push lỗi chỉ ghi log, video vẫn tính là đã đăng (D25).
 ( cd "$root" && "${push_cmd[@]}" ) >> "$logf" 2>&1 || log "push lỗi (video đã đăng): ${push_cmd[*]}"
+
+# Shorts (đề mục 14, D28, D33): có shorts.json thì render rồi đăng từng phần, sau video dài.
+if [[ -f "$root/episodes/$slug/shorts.json" ]]; then
+  parts=$("$py" -c 'import json,sys; print(len(json.load(open(sys.argv[1], encoding="utf-8"))["shorts"]))' "$root/episodes/$slug/shorts.json" 2>> "$logf") || stop "không đọc được episodes/$slug/shorts.json"
+  for n in {1..$parts}; do
+    if [[ ! -s "$root/out/episodes/$slug/$slug-short-$n.mp4" ]]; then
+      "${make_cmd[@]}" "$slug" --short "$n" >> "$logf" 2>&1 || stop "render Short phần $n của $slug lỗi (video dài đã đăng)"
+    fi
+    ( cd "$root/audio" && PYTHONPATH="$PWD/src" "${upload_cmd[@]}" "$slug" --short "$n" ) >> "$logf" 2>&1
+    code=$?
+    commit_ep "[tap] $slug: sổ tập sau khi đăng Short phần $n" || log "commit sổ sau khi đăng Short lỗi"
+    (( code != 3 )) || stop "CAN_NGUOI_DUNG: upload Short phần $n của $slug báo video có thể bị khoá"
+    (( code == 0 )) || stop "upload Short phần $n của $slug thoát mã $code (video dài đã đăng)"
+    log "XONG: đã đăng Short phần $n/$parts của $slug"
+  done
+  ( cd "$root" && "${push_cmd[@]}" ) >> "$logf" 2>&1 || log "push lỗi (Short đã đăng): ${push_cmd[*]}"
+fi

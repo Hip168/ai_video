@@ -56,6 +56,8 @@ interface Args {
   redo: string[];
   force: boolean;
   plan: boolean;
+  /** Short số n (đề mục 14): đọc và ghi trong `<out>/shorts/<n>/`, composition `Short`. */
+  short: number | null;
 }
 
 function parseArgs(argv: string[]): Args {
@@ -68,6 +70,7 @@ function parseArgs(argv: string[]): Args {
     redo: [],
     force: false,
     plan: false,
+    short: null,
   };
   const val = (i: number, name: string): string => {
     const v = argv[i + 1];
@@ -93,6 +96,11 @@ function parseArgs(argv: string[]): Args {
     } else if (t === "--redo") a.redo = val(i++, t).split(",").filter(Boolean);
     else if (t === "--force") a.force = true;
     else if (t === "--plan") a.plan = true;
+    else if (t === "--short") {
+      const v = val(i++, t);
+      if (!/^[1-8]$/.test(v)) throw new Usage(`--short phải là số 1..8, nhận ${v}`);
+      a.short = Number(v);
+    }
     else if (t.startsWith("--")) throw new Usage(`cờ lạ: ${t}`);
     else if (!a.slug) a.slug = t;
     else throw new Usage(`tham số thừa: ${t}`);
@@ -108,13 +116,17 @@ async function main(): Promise<number> {
   try {
     args = parseArgs(process.argv.slice(2));
   } catch (e) {
-    console.error(`${(e as Error).message}\ncách dùng: render-episode.ts <slug> [--root d] [--layout main|shift] [--procs N] [--frames a-b] [--redo id,id] [--force] [--plan]`);
+    console.error(`${(e as Error).message}\ncách dùng: render-episode.ts <slug> [--root d] [--layout main|shift] [--short n] [--procs N] [--frames a-b] [--redo id,id] [--force] [--plan]`);
     return 2;
   }
-  const outDir = path.join(args.root, "out", "episodes", args.slug);
+  const epDir = path.join(args.root, "out", "episodes", args.slug);
+  const outDir = args.short === null ? epDir : path.join(epDir, "shorts", String(args.short));
   const tlFile = path.join(outDir, "timeline.json");
-  if (!existsSync(tlFile)) throw new Fail(`thiếu ${tlFile} (chạy bước dựng tập trước)`);
+  if (!existsSync(tlFile)) throw new Fail(`thiếu ${tlFile} (chạy bước dựng tập${args.short === null ? "" : " và aivideo.shorts cut"} trước)`);
   const timeline = validateTimeline2(JSON.parse(readFileSync(tlFile, "utf8")));
+  const clipFile = path.join(outDir, "clip.json");
+  if (args.short !== null && !existsSync(clipFile)) throw new Fail(`thiếu ${clipFile} (chạy aivideo.shorts cut trước)`);
+  const clip = args.short === null ? undefined : JSON.parse(readFileSync(clipFile, "utf8"));
   const plan = planSegments(timeline.scenes, args.layout);
 
   if (args.plan) {
@@ -148,7 +160,7 @@ async function main(): Promise<number> {
 
   const prev = new Map((manifest.layouts[args.layout] ?? []).map((s) => [s.id + ":" + s.startFrame + "-" + s.endFrame, s]));
   const segments: Segment[] = plan.map((p) => {
-    const hash = segmentHash(timeline, p, srcHash, rendererVersion);
+    const hash = segmentHash(timeline, p, srcHash, rendererVersion, clip);
     const file = `${dirName}/${p.id}.mp4`;
     const before = prev.get(p.id + ":" + p.startFrame + "-" + p.endFrame);
     const reuse = before && before.hash === hash && before.status === "done" ? before : null;
@@ -232,8 +244,8 @@ async function main(): Promise<number> {
     }
     log(`bundle...`);
     const serveUrl = await bundleInWorker();
-    const inputProps = { timeline, muted: true };
-    const composition = await selectComposition({ serveUrl, id: "Episode", inputProps, puppeteerInstance: browsers[0], browserExecutable: browserExe });
+    const inputProps = args.short === null ? { timeline, muted: true } : { timeline, clip, muted: true };
+    const composition = await selectComposition({ serveUrl, id: args.short === null ? "Episode" : "Short", inputProps, puppeteerInstance: browsers[0], browserExecutable: browserExe });
 
     const queue = [...todo];
     let failure: Error | null = null;

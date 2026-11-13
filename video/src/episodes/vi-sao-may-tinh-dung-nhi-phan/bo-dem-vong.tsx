@@ -1,13 +1,13 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { useTheme } from "../../lib/hooks";
-import { Stage } from "../../lib/theme";
+import { Stage, useBox } from "../../lib/theme";
 import { TextBlock } from "../../lib/b-kit";
 import type { SceneProps } from "../../lib/types";
 import { at, lerp, p } from "./common";
 
-const CX = 960;
-const CY = 430;
+const CX_WIDE = 960;
+const CY_WIDE = 430;
 const R = 240;
 const STEP = 18; // frame mỗi bước sáng
 
@@ -28,6 +28,10 @@ const Tube: React.FC<{ x: number; y: number; s: number; glow: number; glass: str
 export const BoDemVong: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const f = useCurrentFrame();
+  // Khung vuông (Short): cùng hình, đặt giữa hộp 840x840.
+  const sq = useBox().layout === "square";
+  const CX = sq ? 420 : CX_WIDE;
+  const CY = sq ? 420 : CY_WIDE;
   const one = p(f, at(scene, 0));
   const ring = p(f, at(scene, 1), 24);
   const digits = p(f, at(scene, 2));
@@ -53,7 +57,7 @@ export const BoDemVong: React.FC<SceneProps> = ({ scene }) => {
           </g>
         );
       })}
-      <TextBlock text="Bóng đèn chân không" x={CX} y={CY + 250} width={1000} fontSize={60} fill={theme.fg} opacity={one * (1 - ring)} />
+      <TextBlock text="Bóng đèn chân không" x={CX} y={CY + 250} width={sq ? 760 : 1000} fontSize={60} fill={theme.fg} opacity={one * (1 - ring)} />
       <TextBlock text="Bộ đếm vòng" x={CX} y={CY - 10} width={420} fontSize={52} fill={theme.accent} opacity={ring} />
       <TextBlock text="một chữ số" x={CX} y={CY + 55} width={420} fontSize={40} fill={theme.muted} opacity={digits} weight={400} />
     </Stage>

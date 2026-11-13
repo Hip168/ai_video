@@ -49,7 +49,7 @@
       "chapter": "mo-dau",
       "type": "cold-open",
       "props": {
-        "hook": "0.1 + 0.2 = 0.30000000000000004",
+        "hook": "0.1 + 0.2 = ?",
         "kicker": "Phép cộng lớp ba"
       },
       "holdMs": 0,
@@ -59,13 +59,26 @@
           "id": "b001",
           "text": "Mở cửa sổ lập trình của trình duyệt, gõ một phép cộng lớp ba: 0.1 + 0.2.",
           "spoken": "Mở cửa sổ lập trình của trình duyệt, gõ một phép cộng lớp ba: không phẩy một cộng không phẩy hai.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "sc01b",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "0.30000000000000004",
+        "kicker": "Máy trả lời"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b002",
           "text": "Máy trả lời: 0.30000000000000004.",
@@ -111,7 +124,7 @@
         {
           "id": "b003",
           "text": "Hỏi tiếp: kết quả ấy có bằng 0.3 không? Máy đáp: false, tức là không.",
-          "spoken": "Hỏi tiếp: kết quả ấy có bằng không phẩy ba không? Máy đáp: phôn, tức là không.",
+          "spoken": "Hỏi tiếp: kết quả ấy có bằng không phẩy ba không? Máy đáp: phôn-xơ, tức là không.",
           "cue": null,
           "pause_ms": 300,
           "sfx": "buzz",
@@ -186,12 +199,43 @@
     {
       "id": "sc04",
       "chapter": "mo-dau",
-      "type": "term-card",
+      "type": "flow",
       "props": {
-        "term": "Năm 1991",
-        "tag": "Phòng thủ tên lửa",
-        "definition": "Sai số của chính con số 0,1 khiến hệ thống không chặn được mục tiêu",
-        "example": "Vì sao 0,1 lại làm khó máy tính?"
+        "nodes": [
+          {
+            "id": "saiso",
+            "label": "1991: sai số 0,1"
+          },
+          {
+            "id": "phong",
+            "label": "Phòng thủ tên lửa"
+          },
+          {
+            "id": "truot",
+            "label": "Không chặn được"
+          }
+        ],
+        "edges": [
+          {
+            "from": "saiso",
+            "to": "phong"
+          },
+          {
+            "from": "phong",
+            "to": "truot"
+          }
+        ],
+        "packets": [
+          {
+            "from": "saiso",
+            "to": "phong"
+          },
+          {
+            "from": "phong",
+            "to": "truot"
+          }
+        ],
+        "direction": "LR"
       },
       "holdMs": 0,
       "sfx": null,
@@ -216,12 +260,25 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "sc04b",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "Vì sao 0,1 lại làm khó máy tính?",
+        "kicker": "Nhưng trước hết"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b010",
           "text": "Nhưng trước hết, hãy xem vì sao một con số giản dị như 0,1 lại làm khó máy tính.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 900,
           "sfx": null,
           "claims": [
@@ -594,26 +651,22 @@
     {
       "id": "sc13",
       "chapter": "chuong-1",
-      "type": "memory-array",
+      "type": "layers",
       "props": {
-        "name": "Mỗi số: số ô có hạn",
-        "cells": [
-          "0",
-          "0",
-          "0",
-          "1",
-          "1",
-          "0",
-          "0",
-          "1",
-          "1",
-          "0"
+        "layers": [
+          {
+            "name": "Mỗi số: số bit có hạn",
+            "detail": "mỗi ô chứa 0 hoặc 1"
+          },
+          {
+            "name": "Phải cắt ở đâu đó",
+            "detail": "chỉ được giá trị gần đúng"
+          },
+          {
+            "name": "Cắt ở đâu, cất ra sao?"
+          }
         ],
-        "base": 0,
-        "size": 1,
-        "access": [
-          9
-        ]
+        "highlight": 2
       },
       "holdMs": 0,
       "sfx": null,
@@ -1203,7 +1256,7 @@
         {
           "id": "b046j",
           "text": "Khác vạch với 0,3, nên phép so sánh bằng nhau trả về false.",
-          "spoken": "Khác vạch với không phẩy ba, nên phép so sánh bằng nhau trả về phôn.",
+          "spoken": "Khác vạch với không phẩy ba, nên phép so sánh bằng nhau trả về phôn-xơ.",
           "cue": null,
           "pause_ms": 600,
           "sfx": "buzz",
@@ -1237,7 +1290,7 @@
         {
           "id": "b054",
           "text": "Cộng 0.1 mười lần, bạn cũng không được đúng 1.0.",
-          "spoken": "Cộng không phẩy một mười lần, bạn cũng không được đúng một phẩy không.",
+          "spoken": "Cộng mười lần số không phẩy một, bạn cũng không được đúng một phẩy không.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1489,7 +1542,7 @@
           },
           {
             "id": "kq",
-            "label": "Cùng số 4 ở cuối"
+            "label": "Cùng số 4"
           }
         ],
         "edges": [
@@ -1931,7 +1984,7 @@
         {
           "id": "b089",
           "text": "Cách xoá độ lệch lại rất đơn giản: khởi động lại, mất khoảng 60 đến 90 giây, đồng hồ về 0.",
-          "spoken": null,
+          "spoken": "Cách xoá độ lệch lại rất đơn giản: khởi động lại, mất khoảng sáu mươi đến chín mươi giây, đồng hồ về số không.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -2205,7 +2258,7 @@
         {
           "id": "b101",
           "text": "Với decimal, 0.1 + 0.1 + 0.1 - 0.3 ra đúng 0.",
-          "spoken": "Với đê-xi-mồ, cộng ba lần không phẩy một rồi trừ không phẩy ba, ra đúng không.",
+          "spoken": "Với đê-xi-mồ, cộng ba lần không phẩy một rồi trừ không phẩy ba, ra đúng số không.",
           "cue": null,
           "pause_ms": 300,
           "sfx": "ding",
@@ -2337,7 +2390,7 @@
         {
           "id": "b107",
           "text": "Chỉ có điều, 0,1 không nằm trong số đó.",
-          "spoken": null,
+          "spoken": "Chỉ có điều, con số không phẩy một thì không nằm trong số đó.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,

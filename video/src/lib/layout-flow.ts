@@ -27,6 +27,10 @@ const INSET = 16;
 const r2 = (v: number) => Math.round(v * 100) / 100;
 const NW = 240;
 const NH = 88;
+/** Phóng to tối đa so với nút gốc, để sơ đồ ít nút vẫn phủ khung. */
+const MAX_SCALE = 1.8;
+/** Mức phóng tối đa cũ; nhãn cạnh chỉ phóng theo phần vượt mức này, dưới mức này giữ nguyên như trước. */
+const LABEL_BASE_SCALE = 1.15;
 
 export interface FlowLayout {
   /** Hộp từng nút, toạ độ màn hình, (x, y) là góc trên trái. */
@@ -45,9 +49,11 @@ export function flowSizes(scale: number, square = false): { nodeLines: number; n
   const nodeLines = boxH >= 60 ? 2 : 1;
   const nodeFont = nodeLines === 2 ? Math.min(fsMax, boxH * 0.3) : fsMax;
   if (square) return { nodeLines, nodeFont, lblW: 200, lblH: 44, lblFont: 28 }; // nhãn cạnh ≥ 25 px (D32)
-  const lblW = 160 * Math.min(1, scale + 0.2);
-  const lblH = 36 * Math.min(1, scale + 0.2);
-  return { nodeLines, nodeFont, lblW, lblH, lblFont: Math.min(24, lblH * 0.66) };
+  const up = Math.max(1, scale / LABEL_BASE_SCALE);
+  const k = up > 1 ? up : Math.min(1, scale + 0.2);
+  const lblW = 160 * k;
+  const lblH = 36 * k;
+  return { nodeLines, nodeFont, lblW, lblH, lblFont: Math.min(24 * up, lblH * 0.66) };
 }
 
 /** Bố cục thuần của `flow` (dagre). Bỏ cạnh trỏ tới nút lạ hoặc tự trỏ. Cảnh chỉ vẽ theo kết quả này. */
@@ -67,7 +73,7 @@ export function layoutFlow(props: Record<string, unknown>, square = false): Flow
   const gl = g.graph();
   const gw = Math.max(1, gl.width ?? NW);
   const gh = Math.max(1, gl.height ?? NH);
-  const s = Math.min(1.15, (area.w - 2 * INSET) / gw, (area.h - 2 * INSET) / gh);
+  const s = Math.min(square ? LABEL_BASE_SCALE : MAX_SCALE, (area.w - 2 * INSET) / gw, (area.h - 2 * INSET) / gh);
   const ox = area.x + (area.w - gw * s) / 2;
   const oy = area.y + (area.h - gh * s) / 2;
   const T = (p: Pt): Pt => ({ x: r2(ox + p.x * s), y: r2(oy + p.y * s) });

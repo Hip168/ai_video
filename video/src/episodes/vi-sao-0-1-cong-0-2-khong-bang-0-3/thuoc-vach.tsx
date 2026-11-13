@@ -91,16 +91,20 @@ export const ThuocVach: React.FC<SceneProps> = ({ scene }) => {
       <g opacity={p(f, t0)}>
         <line x1={real3} y1={Y - 150} x2={real3} y2={Y + 30} stroke={theme.muted} strokeWidth={5} strokeDasharray="14 10" />
         <TextBlock text="0,3" x={real3} y={Y - 175} width={200} fontSize={44} fill={theme.muted} />
-        <TextBlock text="0,3 của máy" x={A} y={Y + 110} width={380} fontSize={40} fill={theme.fg} />
+        {/* Nhãn gắn riêng vào vạch dưới (vạch 0,3 của máy), tách hẳn khỏi ô kết quả ở bên phải vạch trên. */}
+        <circle cx={A} cy={Y} r={30} fill="none" stroke={theme.fg} strokeWidth={6} />
+        <TextBlock text="0,3 của máy" x={A - 20} y={Y + 110} width={420} fontSize={42} fill={theme.fg} anchor="end" />
       </g>
       <g opacity={come}>
         <circle cx={sx} cy={sy} r={24} fill={theme.accent2} />
         <TextBlock text="tổng" x={sx} y={sy - 44} width={200} fontSize={40} fill={theme.accent2} />
       </g>
       <Arrow x1={(A + B) / 2 + 30} y1={Y + 70} x2={B - 20} y2={Y + 70} color={theme.accent2} width={5} opacity={push * (1 - show)} />
+      {/* Ô kết quả treo dưới vạch trên, lệch hẳn sang phải để không nằm dưới vạch 0,3 của máy. */}
       <g opacity={show} style={monoStyle}>
-        <rect x={B - 330} y={Y + 130} width={660} height={84} rx={16} fill={theme.panel} stroke={theme.accent2} strokeWidth={4} />
-        <text x={B} y={Y + 188} fontSize={50} fontWeight={700} fill={theme.accent2} textAnchor="middle">
+        <line x1={B} y1={Y + 40} x2={B} y2={Y + 130} stroke={theme.accent2} strokeWidth={5} />
+        <rect x={B - 30} y={Y + 130} width={660} height={84} rx={16} fill={theme.panel} stroke={theme.accent2} strokeWidth={4} />
+        <text x={B + 300} y={Y + 188} fontSize={50} fontWeight={700} fill={theme.accent2} textAnchor="middle">
           {"0.30000000000000004"}
         </text>
       </g>

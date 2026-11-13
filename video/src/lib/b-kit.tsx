@@ -74,7 +74,12 @@ export function clipLine(line: string, cols: number): string {
   return ch.length <= cols ? line : `${ch.slice(0, Math.max(0, cols - 1)).join("")}…`;
 }
 
-export const monoStyle: React.CSSProperties = { fontFamily: `${MONO_FAMILY}, monospace` };
+/** Chữ mã: tắt ligature để "==", "===", "!=" hiện đúng từng ký tự. */
+export const monoStyle: React.CSSProperties = {
+  fontFamily: `${MONO_FAMILY}, monospace`,
+  fontVariantLigatures: "none",
+  fontFeatureSettings: '"liga" 0, "calt" 0',
+};
 
 /** Điểm tại tỉ lệ u (0..1) dọc đường gấp khúc. */
 export function pointAlong(pts: { x: number; y: number }[], u: number): { x: number; y: number } {

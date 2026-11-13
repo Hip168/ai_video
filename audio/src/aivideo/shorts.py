@@ -219,13 +219,24 @@ def render_relabeled(slug: str, root: Path, items: list[dict], n: int, work: Pat
     return mp4
 
 
-def tiktok_caption(e: dict, long_url: str | None, last: bool) -> str:
-    lines = [f"{e['title']} (Phần {e['part']}/{e['total']})", "", e["hook"]]
-    if long_url:
-        lines += ["", f"Xem bản đầy đủ trên YouTube: {long_url}"]
+def episode_number(root: Path, slug: str) -> int:
+    """Số tập = thứ tự (từ 1) của tập trong `episodes/index.json` (D35)."""
+    idx = Path(root) / "episodes" / "index.json"
+    if not idx.is_file():
+        raise ShortsError(f"thiếu {idx}")
+    slugs = [e.get("slug") for e in json.loads(idx.read_text("utf-8"))]
+    if slug not in slugs:
+        raise ShortsError(f"{slug} không có trong {idx}")
+    return slugs.index(slug) + 1
+
+
+def tiktok_caption(e: dict, ep_no: int, last: bool) -> str:
+    """Caption TikTok (D35): mở bằng `#conbit<n>`, không URL, không nhắc YouTube; link ở bio."""
+    tag = f"#conbit{ep_no}"
+    lines = [f"{tag} {e['title']} (Phần {e['part']}/{e['total']})", "", e["hook"], "", "Xem bản đầy đủ: link ở bio nhé"]
     if last:
-        lines += ["", "Các phần còn lại và bản đầy đủ có trên kênh YouTube của mình, ghé xem tiếp nhé."]
-    lines += ["", TIKTOK_TAGS, AI_LINE]
+        lines += ["", "Các phần còn lại và bản đầy đủ: link ở bio nha."]
+    lines += ["", f"{tag} #conbit {TIKTOK_TAGS}", AI_LINE]
     return "\n".join(lines) + "\n"
 
 
@@ -245,8 +256,6 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) ->
 
     Nhãn "Phần i/m" theo dải xuất (i = vị trí trong dải, m = số phần xuất). Trùng nhãn của Short YouTube thì
     `phan-<k>.mp4` là bản sao `<slug>-short-<k>.mp4`, khác thì render lại bằng `render`."""
-    from aivideo.upload import recorded_video_id, video_url
-
     root = Path(root)
     ep, out = _paths(slug, root)
     shorts = load_shorts(ep / "shorts.json")
@@ -257,8 +266,7 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) ->
         mp4 = out / f"{slug}-short-{k}.mp4"
         if not mp4.is_file():
             raise ShortsError(f"thiếu {mp4}")
-    vid = recorded_video_id(ep)
-    url = video_url(vid) if vid else None
+    ep_no = episode_number(root, slug)
     d = out / "tiktok"
     d.mkdir(parents=True, exist_ok=True)
     sel = [{**e, "part": i, "total": hi - lo + 1} for i, e in enumerate(shorts[lo - 1:hi], 1)]
@@ -272,7 +280,7 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) ->
             if (e["part"], e["total"]) != (shorts[k - 1]["part"], shorts[k - 1]["total"]):
                 src = render(slug, root, sel, e["part"], work)
             shutil.copyfile(src, mp4)
-            txt.write_text(tiktok_caption(e, url, k == hi), encoding="utf-8")
+            txt.write_text(tiktok_caption(e, ep_no, k == hi), encoding="utf-8")
             items.append({"part": k, "mp4": mp4.name, "caption": txt.name})
     finally:
         shutil.rmtree(work, ignore_errors=True)

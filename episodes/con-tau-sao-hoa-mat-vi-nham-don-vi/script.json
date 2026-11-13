@@ -153,7 +153,7 @@
         },
         {
           "id": "b008",
-          "text": "Nó cùng một con tàu anh em tốn tổng cộng 235,9 triệu đô la Mỹ, chưa kể tên lửa phóng.",
+          "text": "Nó và một tàu đổ bộ đi kèm tốn tổng cộng 235,9 triệu đô la Mỹ, chưa kể tên lửa phóng.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -326,8 +326,8 @@
         },
         {
           "id": "b022",
-          "text": "Còn hệ đơn vị Anh có một đơn vị lực khác, gọi là pao lực.",
-          "spoken": null,
+          "text": "Còn hệ đơn vị Anh có một đơn vị lực khác, gọi là pound-force.",
+          "spoken": "Còn hệ đơn vị Anh có một đơn vị lực khác, gọi là pound lực.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -348,24 +348,25 @@
       "beats": [
         {
           "id": "b023",
-          "text": "1 pao lực bằng khoảng 4,448 niu-tơn, tức là gấp hơn bốn lần.",
-          "spoken": null,
+          "text": "1 pound-force lớn gấp khoảng 4,45 lần 1 niu-tơn.",
+          "spoken": "Một pound lực lớn gấp khoảng bốn phẩy bốn mươi lăm lần một niu-tơn.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
-            "c002"
+            "c002",
+            "c013"
           ]
         },
         {
           "id": "b024",
-          "text": "Trong video này, ta làm tròn thành 4,45 cho gọn.",
-          "spoken": null,
+          "text": "Tức là pound-force là cái thước to hơn, to gấp hơn bốn lần.",
+          "spoken": "Tức là pound lực là cái thước to hơn, to gấp hơn bốn lần.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
-            "c013"
+            "c002"
           ]
         }
       ]
@@ -439,25 +440,27 @@
         },
         {
           "id": "b030",
-          "text": "Trong hệ Anh, nó đo bằng pao lực nhân giây.",
-          "spoken": null,
+          "text": "Trong hệ Anh, nó đo bằng pound-force nhân giây.",
+          "spoken": "Trong hệ Anh, nó đo bằng pound lực nhân giây.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c013",
-            "c024"
+            "c024",
+            "c002"
           ]
         },
         {
           "id": "b031",
-          "text": "Cùng một cú hích, con số theo pao lực nhân giây nhỏ hơn khoảng 4,45 lần so với niu-tơn giây.",
+          "text": "Cùng một cú hích, tính theo đơn vị Anh thì con số nhỏ hơn khoảng 4,45 lần.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
-            "c013"
+            "c013",
+            "c024"
           ]
         }
       ]
@@ -487,58 +490,6 @@
           "pause_ms": 600,
           "sfx": null,
           "claims": []
-        }
-      ]
-    },
-    {
-      "id": "s12",
-      "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b034",
-          "text": "Có những ngôn ngữ lập trình cho phép gắn đơn vị vào con số, ví dụ F#.",
-          "spoken": "Có những ngôn ngữ lập trình cho phép gắn đơn vị vào con số.",
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c028"
-          ]
-        },
-        {
-          "id": "b035",
-          "text": "Nhưng đơn vị chỉ được kiểm lúc dịch chương trình,",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c029"
-          ]
-        },
-        {
-          "id": "b036",
-          "text": "tức là lúc đổi mã do người viết ra thành lệnh cho máy chạy.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": []
-        },
-        {
-          "id": "b037",
-          "text": "Đến khi chương trình chạy thật, đơn vị đã bị xóa đi rồi.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 600,
-          "sfx": null,
-          "claims": [
-            "c029"
-          ]
         }
       ]
     },
@@ -879,7 +830,18 @@
         },
         {
           "id": "b062",
-          "text": "Khi đó tàu phải phụt các động cơ đẩy nhỏ, để bánh xe được quay chậm lại.",
+          "text": "Khi đó phải hãm cho bánh xe quay chậm lại. Nhưng hãm bánh xe thì thân tàu lại bị xoay theo.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        },
+        {
+          "id": "b062a",
+          "text": "Nên tàu phụt các động cơ đẩy nhỏ, đẩy bù ngược lại, để thân tàu đứng yên trong lúc bánh chậm dần.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1168,13 +1130,14 @@
       "beats": [
         {
           "id": "b082",
-          "text": "Nhưng phần mềm dưới mặt đất lại ghi con số theo pao lực nhân giây.",
-          "spoken": null,
+          "text": "Nhưng phần mềm dưới mặt đất lại ghi con số theo pound-force nhân giây.",
+          "spoken": "Nhưng phần mềm dưới mặt đất lại ghi con số theo pound lực nhân giây.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
-            "c013"
+            "c013",
+            "c002"
           ]
         },
         {
@@ -1209,7 +1172,7 @@
       "beats": [
         {
           "id": "b085",
-          "text": "Ta vừa thấy: cùng một cú hích, con số pao lực nhân giây nhỏ hơn khoảng 4,45 lần đấy.",
+          "text": "Tức là con số đo bằng cái thước to, lại bị đọc bằng cái thước nhỏ.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1386,7 +1349,7 @@
         },
         {
           "id": "b098",
-          "text": "Cách đo này nhạy nhất với chuyển động dọc theo đường nhìn, tức là tới gần hay ra xa.",
+          "text": "Cách đo này nhạy nhất khi tàu tiến lại gần hay lùi ra xa Trái Đất.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1407,7 +1370,7 @@
       "beats": [
         {
           "id": "b099",
-          "text": "Nhưng các cú phụt lại đẩy tàu chủ yếu theo chiều ngang, vuông góc với đường nhìn từ Trái Đất.",
+          "text": "Nhưng các cú phụt lại đẩy tàu chủ yếu sang ngang, so với hướng nhìn từ Trái Đất.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1417,8 +1380,17 @@
           ]
         },
         {
+          "id": "b099a",
+          "text": "Như chiếc xe chạy ngang qua trước mặt bạn từ xa: tiếng còi gần như không đổi giọng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
           "id": "b100",
-          "text": "Nên sai số cứ nằm đó, mà không lộ rõ ra.",
+          "text": "Nên tàu cứ bị đẩy lệch dần, mà sóng vô tuyến nghe vẫn gần như cũ. Sai số không lộ rõ ra.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -1573,7 +1545,7 @@
       "beats": [
         {
           "id": "b110",
-          "text": "Ngày 15 tháng 9, lần chỉnh hướng cuối cùng nhắm cho tàu bay qua ở độ cao 226 km so với bề mặt.",
+          "text": "Ngày 15 tháng 9, lần chỉnh hướng cuối nhắm cho tàu bay qua ở độ cao 226 km. Đó là con số kế hoạch.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1584,7 +1556,7 @@
         },
         {
           "id": "b111",
-          "text": "Độ cao thấp nhất mà tàu chịu được là 80 km. Thấp hơn nữa, khí quyển sẽ quá dày với nó.",
+          "text": "Còn con số cần nhớ là 80 km: mức thấp nhất tàu chịu được. Thấp hơn, khí quyển quá dày với nó.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1605,7 +1577,7 @@
       "beats": [
         {
           "id": "b112",
-          "text": "Trong tuần sau đó, các phép tính mới cho thấy độ cao cứ tụt dần, chỉ còn 150 đến 170 km thôi.",
+          "text": "Trong tuần sau đó, các ước tính mới cho thấy độ cao cứ tụt dần, còn 150 đến 170 km.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1616,7 +1588,7 @@
         },
         {
           "id": "b113",
-          "text": "Khoảng một giờ trước giờ đốt, số liệu chính xác hơn cho thấy có thể chỉ còn 110 km mà thôi.",
+          "text": "Khoảng một giờ trước giờ đốt, ước tính mới nhất là có thể chỉ còn 110 km.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1627,7 +1599,7 @@
         },
         {
           "id": "b114",
-          "text": "Vẫn trên mức 80 km. Vẫn có vẻ an toàn.",
+          "text": "Thấp hơn kế hoạch nhiều, nhưng vẫn trên mức 80 km cần nhớ. Vẫn có vẻ an toàn.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -1786,7 +1758,7 @@
       "beats": [
         {
           "id": "b125",
-          "text": "Ngày 29 tháng 9, lỗi pao lực và niu-tơn được phát hiện.",
+          "text": "Ngày 29 tháng 9, lỗi nhầm đơn vị được phát hiện.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -2022,8 +1994,8 @@
         },
         {
           "id": "b142",
-          "text": "Như đã nói, F# cho phép gắn đơn vị vào từng con số.",
-          "spoken": "Như đã nói, có ngôn ngữ cho phép gắn đơn vị vào từng con số.",
+          "text": "Ví dụ, ngôn ngữ F# cho phép gắn đơn vị vào từng con số.",
+          "spoken": "Ví dụ, có ngôn ngữ cho phép gắn đơn vị vào từng con số.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2033,14 +2005,24 @@
         },
         {
           "id": "b143",
-          "text": "Lỡ cộng niu-tơn với pao lực, trình dịch báo lỗi ngay, trước khi chương trình kịp chạy.",
+          "text": "Lỡ cộng niu-tơn với một đơn vị lực khác, máy báo lỗi ngay lúc dịch chương trình,",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
-            "c028"
+            "c028",
+            "c029"
           ]
+        },
+        {
+          "id": "b143a",
+          "text": "tức là lúc đổi mã do người viết ra thành lệnh cho máy chạy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
         }
       ]
     },
@@ -2054,7 +2036,7 @@
       "beats": [
         {
           "id": "b144",
-          "text": "Nhưng đơn vị bị xóa khi chương trình chạy, nên nó không đi theo con số vào tệp dữ liệu.",
+          "text": "Nhưng khi chương trình chạy thật, đơn vị đã bị xóa, nên nó không theo con số vào tệp dữ liệu.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,

@@ -789,6 +789,37 @@
       "unresolvedSevere": null,
       "prevHash": "a9172511d28217103b70de2d0427226893ed019a93a8e514baa8fd7f462fbccf",
       "entryHash": "84d1bf438eca60a20631e98c4fd4ce43b79430ef1df863fd559d4c63c03ff6b9"
+    },
+    {
+      "seq": 22,
+      "ts": "2026-11-13T15:38:36Z",
+      "stage": "ky-thuat",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "c01169cb35d17d68ffd89d172918ce0924435d69600352f514c1496672a75d37",
+      "verdict": "DAT",
+      "scriptHash": "91f23e7d08c3cb24efd2c821aa3dfc6bb232137ca40d15e43dc6d1025894e70e",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "mã thoát 0",
+      "cmd": [
+        "/Users/leminhdao168/Documents/ai_video/audio/.venv/bin/python",
+        "-m",
+        "aivideo.assemble",
+        "verify",
+        "vi-sao-0-1-cong-0-2-khong-bang-0-3"
+      ],
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "84d1bf438eca60a20631e98c4fd4ce43b79430ef1df863fd559d4c63c03ff6b9",
+      "entryHash": "5b3f0e21418e3a3ce23bfcafdf457d388d334e91c278c4444ea71546fe3c2c48"
     }
   ]
 }

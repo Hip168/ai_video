@@ -10,12 +10,29 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
-## Đang chờ (cập nhật 2026-11-14 ~03:00)
-- YouTube chặn tải lên với lỗi HTTP 400 "exceeded the number of videos they may upload". Đây là hạn mức tải lên theo ngày, thường mở lại sau khoảng 24 giờ.
-  - Short tập 2: đã đăng phần 1–3: N31vhiVd6f0, a7dVn7Vn29c, N7vt5qheGQ8. Phần 4–6 CHƯA đăng. File ở worktree `.worktrees/19-shorts-tap2/out/...`, không xoá worktree này trước khi đăng xong.
+## Đang chờ (cập nhật 2026-11-14 ~05:40, phiên đêm dừng lúc 06:00)
+- YouTube chặn tải lên với lỗi HTTP 400 "exceeded the number of videos they may upload" (khoảng 03:00 ngày 14/11). Hạn mức thường mở lại sau khoảng 24 giờ, tức khoảng 03:00 ngày 15/11.
+  - Short tập 2: đã đăng phần 1–3 (N31vhiVd6f0, a7dVn7Vn29c, N7vt5qheGQ8). Phần 4–6 CHƯA đăng.
+    - File nằm ở `.worktrees/19-shorts-tap2/out/...`. KHÔNG xoá worktree này trước khi đăng xong.
     - Lệnh: `cd .worktrees/19-shorts-tap2/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload vi-sao-0-1-cong-0-2-khong-bang-0-3 --short <4|5|6> --privacy public`
-  - Tập 3 `khi-may-tinh-dem-qua-gioi-han`: kịch bản đã chốt Cổng 2, lint đạt. Đang sửa cách đọc PSY ở b005 (phatam). Sau đó: render, qc, đóng gói, gate3, đăng. Việc đăng phải chờ hạn mức YouTube mở lại.
-- Điều kiện dừng phiên đêm: 06:00, hoặc hạn mức tuần chạm khoảng 80% (đo bằng `~/.claude/studio/usage7d.py`).
+- Tập 3 `khi-may-tinh-dem-qua-gioi-han`:
+  - Đã chốt Cổng 2. Phát âm, lint, đóng gói (publish.json, thumbnail, #conbit3) đều đạt.
+  - qc vòng 1 SỬA. Cảnh vòng 2 đã sửa và commit. Khung 0 đã sửa ở PR #82.
+  - Việc tiếp:
+    1. `./make-episode.sh khi-may-tinh-dem-qua-gioi-han` (khoảng 45 phút, có outro).
+    2. `ledger run --stage ky-thuat`.
+    3. qc vòng 2.
+    4. `gate3`.
+    5. Đăng public khi hạn mức YouTube mở lại.
+    6. Chạy lại tập 3 qua `shorts` (6 phần, outro ở phần 3 và 6) và xuất TikTok 1–3.
+    7. Tải lên Drive.
+- Tập 4 `con-tau-sao-hoa-mat-vi-nham-don-vi` (Mars Climate Orbiter):
+  - Cổng 2 đạt (hash 310292ed…). Cảnh vòng 1 xong, lint với engine fake đạt.
+  - voice-producer đang dựng giọng korva. Nếu bị ngắt giữa chừng thì chạy lại build korva (đã có cache), rồi chạy `phatam check`, `ledger run --stage phat-am`, `ledger run --stage lint`.
+  - Sau đó: render, qc, packager (#conbit4), gate3, đăng.
+- Trang link-in-bio: https://chuyenconbit.vercel.app. Thêm tập mới bằng `cd ~/Documents/conbit-link && python3 update-episodes.py`, commit, rồi `vercel --prod --yes`. Bước deploy người dùng phải tự chạy hoặc tự cho phép.
+- TikTok: người dùng tự đăng. Đội chỉ xuất file kèm caption lên Drive (D39).
+- Hạn mức Claude tuần: khoảng 76–77% lúc 05:30. Hạn mức làm mới vào tối 15/11. Đo bằng `~/.claude/studio/usage7d.py`.
 
 ## MỞ LẠI (người dùng, 2026-11-13)
 Kênh có 55 lượt xem và 3 người đăng ký. Người dùng dặn: "tiếp tục tạo video đăng lên đi, công khai luôn cx được, cả short cả thật".

@@ -211,3 +211,6 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Không xuất và không đăng TikTok cho các tập từ giờ, cho tới khi người dùng mở lại.
 - Chỉ làm video dài và YouTube Shorts.
 - Code TikTok (đề mục 17, caption D35) giữ lại trong repo nhưng không chạy.
+- Sửa D39 (người dùng nói rõ hơn, 2026-11-14): YouTube do đội làm trọn. TikTok do người dùng tự đăng tay.
+  - Đội VẪN xuất file TikTok phần 1–3 kèm caption (D35), tải lên Drive ở thư mục `<nn> <slug>/tiktok/`.
+  - Đội KHÔNG chạy `aivideo.tiktok post`.

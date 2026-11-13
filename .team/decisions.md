@@ -185,3 +185,7 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Số tập lấy theo thứ tự đăng trong `episodes/index.json`.
 - Lệnh xuất TikTok phải tự sinh dòng này. Đề mục 14 hoặc 17 sửa.
 - Sửa D35 (2026-11-14): caption TikTok KHÔNG ghi URL, vì link trong caption không bấm được và dễ bị TikTok giảm phân phối. Thay bằng dòng chữ: `Bản đầy đủ: tìm "Chuyện Của Những Con Bit" trên YouTube`. Mô tả kênh cũng không ghi link. Link bấm được trong mô tả kênh chỉ có khi tài khoản đủ 1.000 người theo dõi, hoặc là tài khoản doanh nghiệp; điều kiện này người dùng tự kiểm trong app.
+- Sửa D35 lần 2 (người dùng, 2026-11-14): caption TikTok không nhắc tới YouTube.
+  - Thay bằng dòng "Xem bản đầy đủ: link ở bio nhé".
+  - Phần cuối thì ghi "Các phần còn lại và bản đầy đủ: link ở bio nha."
+  - Link đặt ở bio của kênh TikTok.

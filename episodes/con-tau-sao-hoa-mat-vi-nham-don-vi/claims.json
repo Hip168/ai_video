@@ -1,0 +1,422 @@
+[
+  {
+    "id": "c001",
+    "claim": "Hội đồng điều tra của NASA kết luận nguyên nhân gốc làm mất tàu Mars Climate Orbiter là một file của phần mềm mặt đất đã không dùng đơn vị hệ mét.",
+    "question": "Hội đồng điều tra của NASA xác định nguyên nhân gốc làm mất tàu Mars Climate Orbiter là gì?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/text/mco_pr_19990930.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c002",
+    "claim": "Theo NIST, 1 pao lực (pound-force) bằng khoảng 4,448 niu-tơn.",
+    "question": "Một pao lực đổi ra bao nhiêu niu-tơn theo bảng hệ số chuyển đổi của NIST?",
+    "sources": [
+      {
+        "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c003",
+    "claim": "Mục tiêu của Mars Climate Orbiter là bay quanh Sao Hỏa làm vệ tinh thời tiết liên hành tinh đầu tiên và làm trạm chuyển tiếp liên lạc cho tàu đổ bộ Mars Polar Lander.",
+    "question": "Mars Climate Orbiter được giao những nhiệm vụ gì khi đến Sao Hỏa?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mcoarrivehq.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c004",
+    "claim": "Mars Climate Orbiter được phóng ngày 11 tháng 12 năm 1998 bằng tên lửa Delta II từ mũi Canaveral, bang Florida.",
+    "question": "Mars Climate Orbiter được phóng ngày nào, bằng tên lửa gì và từ đâu?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mcoarrivehq.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c005",
+    "claim": "Lúc phóng, Mars Climate Orbiter nặng 629 kg, gồm 338 kg thân tàu và 291 kg nhiên liệu.",
+    "question": "Khối lượng của Mars Climate Orbiter lúc phóng là bao nhiêu và chia ra thế nào?",
+    "sources": [
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mcoarrivehq.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mars98launch.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c006",
+    "claim": "Hành trình từ Trái Đất đến Sao Hỏa của Mars Climate Orbiter kéo dài khoảng 9 tháng rưỡi, quãng đường bay khoảng 669 triệu km.",
+    "question": "Hành trình của Mars Climate Orbiter đến Sao Hỏa kéo dài bao lâu và dài bao nhiêu ki-lô-mét?",
+    "sources": [
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mcoarrivehq.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mars98launch.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c007",
+    "claim": "Dự án Mars 98 tốn 193,1 triệu đô la Mỹ phát triển tàu và 42,8 triệu đô la vận hành, tổng 235,9 triệu đô la cho cả tàu quỹ đạo Mars Climate Orbiter và tàu đổ bộ Mars Polar Lander, chưa tính tên lửa phóng.",
+    "question": "Theo tài liệu báo chí của NASA, dự án Mars 98 tốn bao nhiêu tiền và con số đó gồm những gì?",
+    "sources": [
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mcoarrivehq.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mars98launch.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c008",
+    "claim": "Hãng Lockheed Martin Astronautics ở Denver, bang Colorado, thiết kế, chế tạo và vận hành con tàu; Phòng thí nghiệm Sức đẩy Phản lực (JPL) ở Pasadena, bang California, chịu trách nhiệm dẫn đường.",
+    "question": "Trong dự án Mars Climate Orbiter, việc chế tạo và vận hành tàu cùng việc dẫn đường do những đơn vị nào đảm nhận và họ đặt ở đâu?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/text/mco_pr_19990930.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c009",
+    "claim": "Mars Climate Orbiter giữ hướng bằng các bánh xe phản lực (giống bánh đà) bên trong; để các bánh xe không quay đến giới hạn, tàu phải định kỳ phụt các động cơ đẩy nhỏ, thủ tục gọi là xả động lượng (Angular Momentum Desaturation, AMD).",
+    "question": "Tàu Mars Climate Orbiter làm gì để các bánh xe phản lực của nó không bị quay đến giới hạn, và thủ tục đó tên là gì?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.jpl.nasa.gov/news/press_kits/mcoarrivehq.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c010",
+    "claim": "Sau mỗi lần xả động lượng, số liệu được gửi về mặt đất, phần mềm SM_FORCES xử lý và ghi vào file AMD; đội dẫn đường của JPL dùng số liệu từ file này để tính các lực nhỏ tác động lên quỹ đạo tàu.",
+    "question": "Số liệu về mỗi lần phụt động cơ đẩy nhỏ đi qua những phần mềm và file nào trước khi đến đội dẫn đường?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c011",
+    "claim": "Vì tấm pin mặt trời của Mars Climate Orbiter không đối xứng, các lần xả động lượng xảy ra nhiều gấp 10 đến 14 lần so với dự tính của đội dẫn đường.",
+    "question": "Các lần xả động lượng trên Mars Climate Orbiter xảy ra thường xuyên đến mức nào so với dự tính, và vì sao?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c012",
+    "claim": "Bản đặc tả giao tiếp phần mềm (Software Interface Specification) quy định xung lực trong file AMD phải tính bằng niu-tơn nhân giây, đơn vị hệ mét của xung lực (lực nhân thời gian).",
+    "question": "Bản đặc tả giao tiếp phần mềm quy định đơn vị nào cho xung lực trong file AMD?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c013",
+    "claim": "Phần mềm mặt đất ghi xung lực vào file AMD bằng pao lực nhân giây thay vì niu-tơn nhân giây, nên phần mềm dẫn đường tính thấp tác động của mỗi lần phụt đi 4,45 lần; lỗi này được phát hiện ngày 29 tháng 9 năm 1999.",
+    "question": "File AMD đã ghi xung lực bằng đơn vị nào, hậu quả với phép tính dẫn đường lớn đến mức nào, và lỗi được phát hiện khi nào?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c014",
+    "claim": "Phần mềm tính xung lực chạy trên chính con tàu dùng đơn vị hệ mét và tính đúng; sai lệch chỉ nằm ở phần mềm mặt đất.",
+    "question": "Phần mềm tính xung lực trên con tàu có mắc cùng lỗi đơn vị với phần mềm mặt đất không?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c015",
+    "claim": "Trong bốn tháng đầu bay, file AMD không dùng được vì lỗi định dạng nên đội dẫn đường dựa vào email báo giờ phụt; đến tháng 4 năm 1999 file mới dùng được và trong khoảng một tuần đã cho thấy số liệu bất thường; lực đẩy chủ yếu vuông góc với đường nhìn từ Trái Đất nên sai số khó phát hiện bằng phép đo Doppler.",
+    "question": "Vì sao sai số trong file AMD không bị phát hiện sớm trong những tháng đầu và cả sau tháng 4 năm 1999?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c016",
+    "claim": "Động cơ chính của Mars Climate Orbiter bắt đầu đốt để vào quỹ đạo Sao Hỏa lúc 09:00:46 giờ UTC ngày 23 tháng 9 năm 1999; mọi hệ thống hoạt động bình thường cho đến khi mất tín hiệu.",
+    "question": "Mars Climate Orbiter bắt đầu đốt động cơ để vào quỹ đạo Sao Hỏa vào lúc nào, và tình trạng các hệ thống trước khi mất tín hiệu ra sao?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/news/mco_19990923.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c017",
+    "claim": "Tàu mất tín hiệu khi khuất sau Sao Hỏa lúc 09:04:52 UTC, sớm hơn dự kiến 49 giây; sau khoảng thời gian khuất bóng dự kiến 21 phút, tín hiệu không trở lại, và các nỗ lực bắt lại tín hiệu kéo dài đến 25 tháng 9 năm 1999 đều thất bại.",
+    "question": "Tín hiệu của Mars Climate Orbiter mất lúc nào, so với dự kiến thế nào, và việc tìm lại tín hiệu kéo dài đến khi nào?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c018",
+    "claim": "Lần chỉnh hướng cuối (TCM-4) ngày 15 tháng 9 năm 1999 nhắm cho tàu bay qua điểm gần Sao Hỏa nhất ở độ cao 226 km; sau đó các tính toán cho thấy độ cao tụt xuống 150 đến 170 km, rồi khoảng một giờ trước khi đốt động cơ là có thể chỉ 110 km; độ cao tối thiểu tàu chịu được là 80 km.",
+    "question": "Độ cao bay qua Sao Hỏa dự kiến của Mars Climate Orbiter thay đổi thế nào trong tuần cuối, và độ cao tối thiểu tàu chịu được là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c019",
+    "claim": "Trong mùa xuân và mùa hè năm 1999, các mối lo về sai lệch giữa các lời giải dẫn đường chỉ được báo cáo không chính thức, và các sai lệch giữa các phương pháp tính quỹ đạo không được giải quyết.",
+    "question": "Trước khi tàu đến Sao Hỏa, những dấu hiệu sai lệch dẫn đường đã được xử lý ra sao?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c020",
+    "claim": "Tính lại với số liệu lực nhỏ đã sửa, Mars Climate Orbiter đã bay qua điểm thấp nhất ở độ cao khoảng 57 km, thấp hơn kế hoạch khoảng 170 km; tàu hoặc bị phá hủy trong khí quyển, hoặc văng ra đi vào quỹ đạo quanh Mặt Trời.",
+    "question": "Sau khi sửa số liệu, độ cao thực của Mars Climate Orbiter khi bay qua Sao Hỏa được ước tính là bao nhiêu, và số phận con tàu theo hội đồng điều tra là gì?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c021",
+    "claim": "Một lần chỉnh hướng khẩn cấp (TCM-5) đã được bàn bằng lời ngay trước khi đốt động cơ vào quỹ đạo nhưng không được thực hiện, một phần vì đội vận hành chưa chuẩn bị phân tích, kiểm thử và quy trình cho nó.",
+    "question": "Đội vận hành có cân nhắc lần chỉnh hướng khẩn cấp nào trước khi tàu vào quỹ đạo không, và vì sao nó không được thực hiện?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c022",
+    "claim": "Chế độ lật tàu 180 độ mỗi ngày (chế độ \"quay thịt nướng\") từng được lên kế hoạch để giảm tích tụ động lượng nhưng sau đó bị bỏ, và quyết định này không được báo cho đội dẫn đường.",
+    "question": "Kế hoạch nào từng được đưa ra để giảm tích tụ động lượng do pin mặt trời không đối xứng, và chuyện gì đã xảy ra với nó?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c023",
+    "claim": "Đội dẫn đường vận hành chỉ tham gia ngay trước khi phóng và không tham gia kiểm thử phần mềm mặt đất.",
+    "question": "Đội dẫn đường vận hành của Mars Climate Orbiter bắt đầu tham gia dự án khi nào, và họ có kiểm thử phần mềm mặt đất không?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c024",
+    "claim": "Thông cáo của NASA ngày 30 tháng 9 năm 1999 cho biết lỗi nằm ở việc trao đổi thông tin giữa đội tàu ở Colorado và đội dẫn đường ở California, trong đó một đội dùng đơn vị Anh còn đội kia dùng hệ mét cho một thao tác quan trọng.",
+    "question": "Thông cáo của NASA cuối tháng 9 năm 1999 mô tả lỗi làm mất Mars Climate Orbiter thế nào?",
+    "sources": [
+      {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/text/mco_pr_19990930.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c025",
+    "claim": "Ông Edward Weiler, phó giám đốc phụ trách khoa học vũ trụ của NASA, nói con người đôi khi mắc lỗi, và vấn đề không phải ở lỗi mà ở việc hệ thống kỹ thuật và các khâu kiểm tra của NASA không phát hiện ra lỗi.",
+    "question": "Ông Edward Weiler của NASA nhận định thế nào về nguyên nhân thật sự khiến mất con tàu?",
+    "sources": [
+      {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/text/mco_pr_19990930.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c026",
+    "claim": "Hội đồng điều tra sự cố Mars Climate Orbiter do ông Arthur G. Stephenson chủ trì công bố báo cáo giai đoạn 1 ngày 10 tháng 11 năm 1999.",
+    "question": "Ai chủ trì hội đồng điều tra sự cố Mars Climate Orbiter và báo cáo giai đoạn 1 được công bố khi nào?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c027",
+    "claim": "Khuyến nghị đứng đầu danh sách của hội đồng cho tàu Mars Polar Lander là kiểm tra việc dùng đơn vị nhất quán trong toàn bộ thiết kế và vận hành con tàu, kèm rà soát phần mềm cho mọi dữ liệu trao đổi giữa JPL và Lockheed Martin.",
+    "question": "Hội đồng điều tra đã khuyến nghị gì đầu tiên cho tàu Mars Polar Lander?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c028",
+    "claim": "Ngôn ngữ lập trình F# cho phép gắn đơn vị đo vào con số, và trình dịch báo lỗi khi các đơn vị trong phép tính không khớp.",
+    "question": "Ngôn ngữ F# hỗ trợ gì để ngăn lỗi nhầm đơn vị, và nó phát hiện lỗi vào lúc nào?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c029",
+    "claim": "Theo tài liệu F#, đơn vị đo chỉ dùng để kiểm tra lúc dịch chương trình; khi chương trình chạy, đơn vị bị xóa.",
+    "question": "Trong F#, đơn vị đo còn tồn tại khi chương trình chạy không?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c030",
+    "claim": "Ngày 24 tháng 9 năm 1999, trước khi tìm ra nguyên nhân, JPL ước tính ban đầu tàu đã bay qua Sao Hỏa ở độ cao khoảng 60 km thay vì khoảng 150 km dự kiến, và độ cao tối thiểu tàu chịu được là 85 km.",
+    "question": "Ngay sau khi mất tàu, JPL ước tính ban đầu độ cao bay qua Sao Hỏa và độ cao tối thiểu an toàn là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.sciencedaily.com/releases/1999/09/990924075938.htm",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://nssdc.gsfc.nasa.gov/planetary/news/mco_19990923.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c031",
+    "claim": "Peter Norvig, lúc đó là trưởng ban Khoa học Tính toán của trung tâm nghiên cứu Ames thuộc NASA, là một thành viên hội đồng điều tra sự cố Mars Climate Orbiter.",
+    "question": "Người nào phụ trách khoa học tính toán ở trung tâm Ames đã có mặt trong hội đồng điều tra sự cố Mars Climate Orbiter?",
+    "sources": [
+      {
+        "url": "https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  }
+]

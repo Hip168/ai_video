@@ -22,6 +22,12 @@ export const SHORT_SUBTITLE = { x0: 48, x1: 1032, y0: 1472, y1: 1602 } as const;
 export const SHORT_SCENE_SCALE = (SHORT_SCENE.x1 - SHORT_SCENE.x0) / SQUARE_BOX.w;
 export const SHORT_FADE = 8;
 
+/** Độ mờ của cả phần Short: khung 0 hiện đủ (không fade vào), chỉ fade ra `SHORT_FADE` frame cuối. */
+export function shortOpacity(frame: number, len: number): number {
+  const f = Math.max(1, Math.min(SHORT_FADE, Math.floor(len / 2)));
+  return interpolate(frame, [len - f, len], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+}
+
 export interface ShortClip {
   from: string;
   to: string;
@@ -129,14 +135,15 @@ const Hook: React.FC<{ text: string; part: number; total: number }> = ({ text, p
   );
 };
 
-const ShortSubtitle: React.FC<{ timeline: Timeline2; frame: number }> = ({ timeline, frame }) => {
+const ShortSubtitle: React.FC<{ timeline: Timeline2; frame: number; start: number }> = ({ timeline, frame, start }) => {
   const theme = useTheme();
   const beat = activeBeat2(timeline, frame);
   if (!beat) return null;
   const rel = frame - beat.startFrame;
   const seg = splitSubtitleShort(beat.text, beat.durationFrames).find((s) => rel >= s.start && rel < s.start + s.durationFrames);
   if (!seg) return null;
-  const opacity = Math.min(clamp01((rel - seg.start) / 4), clamp01((seg.start + seg.durationFrames - rel) / 4));
+  const fadeIn = beat.startFrame + seg.start > start ? clamp01((rel - seg.start) / 4) : 1;
+  const opacity = Math.min(fadeIn, clamp01((seg.start + seg.durationFrames - rel) / 4));
   return (
     <div
       style={{
@@ -184,8 +191,7 @@ const Body: React.FC<{ timeline: Timeline2; clip: ShortClip }> = ({ timeline, cl
   const frame = useCurrentFrame();
   const { start, end } = clipRange(timeline, clip);
   const len = end - start;
-  const f = Math.max(1, Math.min(SHORT_FADE, Math.floor(len / 2)));
-  const opacity = interpolate(frame, [0, f, len - f, len], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const opacity = shortOpacity(frame, len);
   const scenes = timeline.scenes.filter((s) => s.startFrame < end && s.startFrame + s.durationFrames > start);
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -216,7 +222,7 @@ const Body: React.FC<{ timeline: Timeline2; clip: ShortClip }> = ({ timeline, cl
             <Sequence from={-start} layout="none">
               {scenes.map((scene) => (
                 <Sequence key={scene.id} from={scene.startFrame} durationInFrames={scene.durationFrames}>
-                  <SceneFade scene={scene} />
+                  <SceneFade scene={scene} fadeIn={scene.startFrame > start} />
                 </Sequence>
               ))}
             </Sequence>
@@ -224,7 +230,7 @@ const Body: React.FC<{ timeline: Timeline2; clip: ShortClip }> = ({ timeline, cl
         </div>
       </div>
       <div style={{ opacity }}>
-        <ShortSubtitle timeline={timeline} frame={frame + start} />
+        <ShortSubtitle timeline={timeline} frame={frame + start} start={start} />
       </div>
     </AbsoluteFill>
   );

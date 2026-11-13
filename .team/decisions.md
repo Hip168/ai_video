@@ -193,3 +193,9 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 ## D36. Tập 3: tách chương 5 làm hai (người dùng chốt, 2026-11-14)
 - Script-editor trả lại lỗi "nhịp" ở chương 5 hai lần. Theo luật, lần thứ hai thì sổ ghi `CAN_NGUOI_DUNG`, phải hỏi người dùng.
 - Người dùng chọn tách chương 5 thành hai chương: một chương GPS, một chương về sự cố năm 2038 của Unix. Mỗi chương có một hình ảnh cụ thể riêng để người xem nghỉ.
+
+## D37. Khung dọc dùng toàn màn hình (người dùng chốt, 2026-11-14)
+- YouTube và TikTok có chế độ xem sạch, ẩn bình luận, mô tả và các nút. Vì vậy Short và TikTok dùng toàn khung 1080×1920 và không thu cảnh vào vùng an toàn nữa.
+- Chỉ chừa lề nhỏ quanh mép.
+- Quyết định này thay D32 MỞ-1 và phần căn giữa của D34.
+- Ngưỡng cỡ chữ ở D32 MỞ-2 giữ nguyên.

@@ -214,5 +214,5 @@ uv pip install --python ~/stt-work/phoneme-venv/bin/python torch transformers
 ### Kiểm thử (đề mục 18)
 ```bash
 cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m "not real" tests/test_phatam.py   # máy nghe và TTS giả lập
-cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m real tests/test_phatam.py         # Korva + Whisper thật, khoảng 2 phút
+cd audio && PYTHONPATH=$PWD/src .venv/bin/pytest -m real tests/test_phatam.py         # Korva + Whisper thật, khoảng 5 phút
 ```

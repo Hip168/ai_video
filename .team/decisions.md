@@ -184,3 +184,4 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Không dùng `#1` trần: hashtag này trùng với hàng triệu video khác trên TikTok, người xem tìm sẽ không ra video của kênh.
 - Số tập lấy theo thứ tự đăng trong `episodes/index.json`.
 - Lệnh xuất TikTok phải tự sinh dòng này. Đề mục 14 hoặc 17 sửa.
+- Sửa D35 (2026-11-14): caption TikTok KHÔNG ghi URL, vì link trong caption không bấm được và dễ bị TikTok giảm phân phối. Thay bằng dòng chữ: `Bản đầy đủ: tìm "Chuyện Của Những Con Bit" trên YouTube`. Mô tả kênh cũng không ghi link. Link bấm được trong mô tả kênh chỉ có khi tài khoản đủ 1.000 người theo dõi, hoặc là tài khoản doanh nghiệp; điều kiện này người dùng tự kiểm trong app.

@@ -214,6 +214,16 @@ def test_check_dat_va_truot(tmp_path, monkeypatch, capsys, no_phoneme):
     assert phatam.main(["--root", str(root), "check", "tap"]) == 0
 
 
+def test_check_cau_ep_doc_viet_moi_tu_tieng_anh_cua_nhip_bang_chu_goc(tmp_path, monkeypatch, no_phoneme):
+    root = _repo(tmp_path, [{"id": "b1", "text": "Mô-đun decimal của Python."}],
+                 {"decimal": "đê-xi-mồ", "Python": "pai-thơn"})
+    seen = []
+    monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.5) for _ in items])
+    assert phatam.main(["--root", str(root), "check", "tap"]) == 0
+    assert [(i["prefix"], i["term"], i["suffix"]) for i in seen] == [
+        ("Mô-đun ", "decimal", " của Python."), ("Mô-đun decimal của ", "Python", ".")]
+
+
 def test_check_khong_co_tu_tieng_anh_thi_dat_khong_goi_may_nghe(tmp_path, monkeypatch, capsys):
     root = _repo(tmp_path, [{"id": "b1", "text": "Một câu thuần Việt."}])
     monkeypatch.setattr(phatam, "listen", lambda items: pytest.fail("không được gọi"))

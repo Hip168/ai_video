@@ -429,6 +429,20 @@ def print_scan(occ: list[dict]) -> None:
         print(f"{t['term']:<16} {t['n']:>3}  {', '.join(t['forms']):<28} {', '.join(t['kinds']):<24} {', '.join(t['beats'])}")
 
 
+def _forced_text(o: dict, same_beat: list[dict]) -> tuple[str, str]:
+    """Câu ép Whisper đọc: mọi từ tiếng Anh của nhịp viết bằng chữ gốc. Trả (trước, sau) từ của `o`."""
+    out, pos, pre = "", 0, ""
+    for x in sorted((x for x in same_beat if x["span"]), key=lambda x: x["span"][0]):
+        a, z = x["span"]
+        out += o["line"][pos:a]
+        if x["span"] == o["span"]:
+            pre = out
+        out += x["term"]
+        pos = z
+    out += o["line"][pos:]
+    return pre, out[len(pre) + len(o["term"]):]
+
+
 def check(slug: str, root: Path) -> dict:
     _ep, script, lex = _episode(slug, root)
     out = root / "out" / "episodes" / slug
@@ -456,9 +470,9 @@ def check(slug: str, root: Path) -> dict:
             start = max(0.0, b["startFrame"] / FPS - BEAT_PAD_S)
             wav = Path(d) / f"o{len(jobs)}.wav"
             _to16k(narr, wav, start, b["durationFrames"] / FPS + 2 * BEAT_PAD_S)
-            a, z = o["span"]
-            jobs.append({"wav": str(wav), "prefix": o["line"][:a], "term": o["term"],
-                         "suffix": o["line"][z:], "row": row})
+            prefix, suffix = _forced_text(o, [x for x in occ if x["beat"] == o["beat"]])
+            jobs.append({"wav": str(wav), "prefix": prefix, "term": o["term"],
+                         "suffix": suffix, "row": row})
         ipas = {t: target_ipa(t) for t in {j["term"] for j in jobs}}
         for j, r in zip(jobs, _hear(jobs, ipas)):
             j["row"].update(r)

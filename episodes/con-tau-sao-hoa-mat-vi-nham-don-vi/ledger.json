@@ -220,6 +220,38 @@
       "unresolvedSevere": null,
       "prevHash": "a1e1362be3f4d6bff4b28a77389e649dcb602f106d7d685850301098b0187075",
       "entryHash": "7f96432fc821a0595241fb5bc76e016b692ac47daafcf68280e3c87de04f35ca"
+    },
+    {
+      "seq": 8,
+      "ts": "2026-11-13T21:16:53Z",
+      "stage": "bien-tap",
+      "role": "sep-tong",
+      "pair": "scriptwriter/script-editor",
+      "round": 2,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "SUA",
+      "scriptHash": "ee974b0766f92d4d4ffe86bbdb1094704c1f607769131e33a56c70b6a031f875",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": "416da20af3b2343462a632502b8ad8909ce1a2f259546e72c9a6cd11fa1e38fe",
+      "findingKeys": [
+        "4e1059cfa85e",
+        "820e3e9a78b9",
+        "a6e065512dd9",
+        "04da22529451",
+        "b04e34c61339",
+        "9539ce66cea7"
+      ],
+      "returnTo": null,
+      "escalate": false,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "7f96432fc821a0595241fb5bc76e016b692ac47daafcf68280e3c87de04f35ca",
+      "entryHash": "abd1b7088d4b7ca9b43503980365806183aede759f9aabe7e585a635419129bc"
     }
   ]
 }

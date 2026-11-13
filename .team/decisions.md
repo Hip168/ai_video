@@ -189,3 +189,7 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
   - Thay bằng dòng "Xem bản đầy đủ: link ở bio nhé".
   - Phần cuối thì ghi "Các phần còn lại và bản đầy đủ: link ở bio nha."
   - Link đặt ở bio của kênh TikTok.
+
+## D36. Tập 3: tách chương 5 làm hai (người dùng chốt, 2026-11-14)
+- Script-editor trả lại lỗi "nhịp" ở chương 5 hai lần. Theo luật, lần thứ hai thì sổ ghi `CAN_NGUOI_DUNG`, phải hỏi người dùng.
+- Người dùng chọn tách chương 5 thành hai chương: một chương GPS, một chương về sự cố năm 2038 của Unix. Mỗi chương có một hình ảnh cụ thể riêng để người xem nghỉ.

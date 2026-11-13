@@ -596,7 +596,7 @@
         {
           "id": "b036",
           "text": "Với 8 bit có dấu, ta không còn từ 0 đến 255 nữa, mà từ -128 đến 127.",
-          "spoken": null,
+          "spoken": "Với tám bit có dấu, ta không còn từ không đến hai trăm năm mươi lăm nữa, mà từ âm một trăm hai mươi tám đến một trăm hai mươi bảy.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -617,8 +617,8 @@
       "beats": [
         {
           "id": "b037",
-          "text": "Nửa này cho số âm, nửa kia cho số không và số dương, nên trần dương hụt đi một.",
-          "spoken": null,
+          "text": "128 chỗ cho số âm, 128 chỗ cho số không và số dương, nên số dương lớn nhất chỉ là 127.",
+          "spoken": "Một trăm hai mươi tám chỗ cho số âm, một trăm hai mươi tám chỗ cho số không và số dương, nên số dương lớn nhất chỉ là một trăm hai mươi bảy.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -935,7 +935,7 @@
         {
           "id": "b061",
           "text": "Ô 64 bit chứa nó thoải mái. Nhưng ô 16 bit có dấu chỉ chứa được đến 32.767.",
-          "spoken": null,
+          "spoken": "Ô sáu mươi bốn bit chứa nó thoải mái. Nhưng ô mười sáu bit có dấu chỉ chứa được đến ba mươi hai nghìn bảy trăm sáu mươi bảy.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1238,30 +1238,9 @@
       "beats": [
         {
           "id": "b072",
-          "text": "Ba: phần mềm có bảy biến dễ gây lỗi kiểu này. Bốn biến được bảo vệ, ba biến thì không.",
+          "text": "Ba: để đỡ tốn sức máy, ba biến dễ gây lỗi kiểu này bị bỏ không kiểm tra.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c015"
-          ]
-        },
-        {
-          "id": "b073",
-          "text": "Bảo vệ một biến là thêm phép kiểm tra, mà phép kiểm tra nào cũng tốn sức máy.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c015"
-          ]
-        },
-        {
-          "id": "b144",
-          "text": "Người ta lại muốn giữ tải máy tính không quá 80%, nên ba biến bị bỏ ngỏ.",
-          "spoken": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1617,7 +1596,7 @@
         {
           "id": "b095",
           "text": "Tín hiệu dân sự chính ghi số tuần ấy bằng 10 bit, nên lớn nhất chỉ là 1.023.",
-          "spoken": null,
+          "spoken": "Tín hiệu dân sự chính ghi số tuần ấy bằng mười bit, nên lớn nhất chỉ là một nghìn không trăm hai mươi ba.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1771,12 +1750,13 @@
       "beats": [
         {
           "id": "b101",
-          "text": "Với thiết bị đời cũ, lần quay vòng kế tiếp là ngày 20 tháng 11 năm 2038.",
+          "text": "Thiết bị còn dùng số tuần 10 bit kiểu cũ sẽ quay vòng lần tới vào ngày 20 tháng 11 năm 2038.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
+            "c022",
             "c025"
           ]
         },
@@ -1919,12 +1899,14 @@
         },
         {
           "id": "b109",
-          "text": "Bộ đếm giây sẽ lật sang số âm, như phép cộng ta vừa thử ở trên.",
+          "text": "Bộ đếm giây sẽ lật sang số âm, như khi ta cộng một vào trần của YouTube và ra số âm xa nhất.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c006"
+          ]
         },
         {
           "id": "b143",

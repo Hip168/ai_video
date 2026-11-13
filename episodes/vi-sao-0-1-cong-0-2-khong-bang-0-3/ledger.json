@@ -757,6 +757,38 @@
       "unresolvedSevere": null,
       "prevHash": "5ee8ec044220f801f8579acdc0f54c6adbaee33ffc9acf305e22d8dc7d58635f",
       "entryHash": "a9172511d28217103b70de2d0427226893ed019a93a8e514baa8fd7f462fbccf"
+    },
+    {
+      "seq": 21,
+      "ts": "2026-11-13T15:14:40Z",
+      "stage": "lint",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "a3a7a9d4b7cef254d0c4c561e8b2447918b5c7ef53c73966c5c5c50ecdfc46a8",
+      "verdict": "DAT",
+      "scriptHash": "91f23e7d08c3cb24efd2c821aa3dfc6bb232137ca40d15e43dc6d1025894e70e",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "mã thoát 0",
+      "cmd": [
+        "npm",
+        "run",
+        "lint:episode",
+        "--",
+        "vi-sao-0-1-cong-0-2-khong-bang-0-3",
+        "--json"
+      ],
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "a9172511d28217103b70de2d0427226893ed019a93a8e514baa8fd7f462fbccf",
+      "entryHash": "84d1bf438eca60a20631e98c4fd4ce43b79430ef1df863fd559d4c63c03ff6b9"
     }
   ]
 }

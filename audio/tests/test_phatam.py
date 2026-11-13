@@ -77,9 +77,22 @@ def test_hai_tu_lien_nhau_ghep_dung_vi_tri():
 
 
 def test_khong_tim_duoc_cach_doc_thi_ghi_khong_xac_dinh():
-    b = {"id": "b1", "text": "Từ false.", "spoken": "Một câu khác hẳn về nội dung."}
+    b = {"id": "b1", "text": "Từ false.", "spoken": "Một câu khác hẳn về nội dung, flóts."}
     occ = phatam.find_occurrences(_script(b), {})
     assert occ[0]["kind"] == "khong-xac-dinh" and occ[0]["span"] is None
+
+
+@pytest.mark.parametrize("text,spoken", [
+    ("Theo GPS.gov, nhiều máy gặp sự cố.", "Theo trang chính thức của hệ thống, nhiều thiết bị đã thật sự gặp sự cố."),
+    ("Biến BH tràn.", "Con số đó là một biến đo độ lệch ngang của tên lửa."),
+    ("Sinh ra Operand Error.", "Giá trị lúc ấy quá lớn. Phép đổi sinh ra lỗi toán hạng."),
+    ("Ông Jacques-Louis Lions nộp báo cáo.", "Hội đồng điều tra nộp báo cáo ngày mười chín."),
+    ("glibc trên Linux.", "Thư viện nền của Linux cho chương trình ba mươi hai bit."),
+])
+def test_spoken_luoc_bo_tu_thi_ghi_khong_doc(text, spoken):
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": text, "spoken": spoken}), {})
+    lost = [o for o in occ if o["term"] != "Linux"]
+    assert lost and all(o["kind"] == "khong-doc" and o["span"] is None for o in lost)
 
 
 # ---- chấm điểm ----------------------------------------------------------------------------
@@ -231,9 +244,18 @@ def test_check_khong_co_tu_tieng_anh_thi_dat_khong_goi_may_nghe(tmp_path, monkey
 
 
 def test_check_cach_doc_khong_xac_dinh_thi_truot(tmp_path, monkeypatch, capsys, no_phoneme):
-    root = _repo(tmp_path, [{"id": "b1", "text": "Từ false.", "spoken": "Một câu khác hẳn về nội dung."}])
+    root = _repo(tmp_path, [{"id": "b1", "text": "Từ false.", "spoken": "Một câu khác hẳn về nội dung, flóts."}])
     monkeypatch.setattr(phatam, "listen", lambda items: [_heard(0.9) for _ in items])
     assert phatam.main(["--root", str(root), "check", "tap"]) == 1
+
+
+def test_check_tu_khong_duoc_doc_thi_bo_qua(tmp_path, monkeypatch, capsys, no_phoneme):
+    root = _repo(tmp_path, [{"id": "b1", "text": "Cục FAA ra chỉ thị.", "spoken": "Cục hàng không liên bang Mỹ ra chỉ thị."},
+                            {"id": "b2", "text": "Dùng decimal nhé."}])
+    seen = []
+    monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.5) for _ in items])
+    assert phatam.main(["--root", str(root), "check", "tap"]) == 0
+    assert [i["term"] for i in seen] == ["decimal"]
 
 
 def test_check_thieu_giong_thi_loi(tmp_path, capsys):

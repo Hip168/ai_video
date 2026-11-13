@@ -617,8 +617,8 @@
       "beats": [
         {
           "id": "b037",
-          "text": "128 chỗ cho số âm, 128 chỗ cho số không và số dương, nên số dương lớn nhất chỉ là 127.",
-          "spoken": "Một trăm hai mươi tám chỗ cho số âm, một trăm hai mươi tám chỗ cho số không và số dương, nên số dương lớn nhất chỉ là một trăm hai mươi bảy.",
+          "text": "Một nửa số chỗ cho số âm, nửa kia cho số không và số dương, nên số dương lớn nhất chỉ là 127.",
+          "spoken": "Một nửa số chỗ cho số âm, nửa kia cho số không và số dương, nên số dương lớn nhất chỉ là một trăm hai mươi bảy.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1905,6 +1905,7 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": [
+            "c001",
             "c006"
           ]
         },

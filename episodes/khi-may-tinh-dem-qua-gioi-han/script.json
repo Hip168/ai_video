@@ -32,10 +32,14 @@
     },
     {
       "id": "chuong-5",
-      "title": "Khi chính đồng hồ bị tràn"
+      "title": "GPS và cuốn sổ đếm tuần"
     },
     {
       "id": "chuong-6",
+      "title": "Năm 2038 và chiếc đồng hồ đếm giây"
+    },
+    {
+      "id": "chuong-7",
       "title": "Sống chung với cái trần"
     },
     {
@@ -66,7 +70,7 @@
         {
           "id": "b002",
           "text": "Lượt xem của nó đã vượt 2.147.483.647.",
-          "spoken": null,
+          "spoken": "Lượt xem của nó đã vượt hơn hai tỷ một trăm bốn mươi bảy triệu.",
           "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
@@ -1646,6 +1650,26 @@
           "id": "b141",
           "text": "Hết mức ấy, số tuần quay về 0, như đồng hồ cây số lúc nãy.",
           "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b149",
+          "text": "Hãy hình dung một cuốn sổ chỉ hơn một nghìn trang, mỗi tuần một trang.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b150",
+          "text": "Hết trang cuối lại lật về trang đầu, mà sổ không ghi đây là vòng thứ mấy.",
+          "spoken": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1694,6 +1718,14 @@
       "holdMs": 0,
       "sfx": null,
       "beats": [
+        {
+          "id": "b151",
+          "text": "Nhìn một trang sổ, máy thu không biết đó là vòng đầu hay vòng sau.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
         {
           "id": "b099",
           "text": "Máy thu GPS nào không xử lý đúng có thể báo ngày lệch hẳn 19,7 năm.",
@@ -1753,31 +1785,41 @@
           "text": "Tín hiệu đời mới dùng số tuần 13 bit, không quay vòng trong hơn một trăm năm tới.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 900,
+          "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c025"
+          ]
+        },
+        {
+          "id": "b103",
+          "text": "Hãy nhớ cái hẹn tháng 11 năm 2038 ấy. Cùng năm đó còn một cái hẹn khác, sớm hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c025",
+            "c027"
           ]
         }
       ]
     },
     {
       "id": "sc46",
-      "chapter": "chuong-5",
+      "chapter": "chuong-6",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
       "sfx": null,
       "beats": [
         {
-          "id": "b103",
-          "text": "Hãy nhớ năm 2038 ấy, vì nó còn một cái hẹn thứ hai, sớm hơn, vào tháng 1.",
+          "id": "b152",
+          "text": "Cái hẹn thứ hai không ở trên vệ tinh, mà trong đồng hồ của máy tính.",
           "spoken": null,
-          "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
-            "c025",
             "c027"
           ]
         },
@@ -1796,7 +1838,7 @@
     },
     {
       "id": "sc47",
-      "chapter": "chuong-5",
+      "chapter": "chuong-6",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -1807,6 +1849,16 @@
           "text": "Theo chuẩn POSIX, mốc ấy là 0 giờ 0 phút 0 giây ngày 1 tháng 1 năm 1970, giờ UTC.",
           "spoken": "Theo một bộ chuẩn chung, mốc ấy là không giờ ngày một tháng một năm một nghìn chín trăm bảy mươi, giờ quốc tế.",
           "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b153",
+          "text": "Như một chiếc đồng hồ bấm giây, chạy từ đêm ấy và chưa từng dừng.",
+          "spoken": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
@@ -1829,7 +1881,7 @@
     },
     {
       "id": "sc48",
-      "chapter": "chuong-5",
+      "chapter": "chuong-6",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -1850,7 +1902,7 @@
     },
     {
       "id": "sc49",
-      "chapter": "chuong-5",
+      "chapter": "chuong-6",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -1888,7 +1940,7 @@
     },
     {
       "id": "sc50",
-      "chapter": "chuong-5",
+      "chapter": "chuong-6",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -1916,7 +1968,7 @@
     },
     {
       "id": "sc51",
-      "chapter": "chuong-5",
+      "chapter": "chuong-6",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -1960,7 +2012,7 @@
     },
     {
       "id": "sc52",
-      "chapter": "chuong-6",
+      "chapter": "chuong-7",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -1990,7 +2042,7 @@
     },
     {
       "id": "sc53",
-      "chapter": "chuong-6",
+      "chapter": "chuong-7",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -2029,7 +2081,7 @@
     },
     {
       "id": "sc54",
-      "chapter": "chuong-6",
+      "chapter": "chuong-7",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -2061,7 +2113,7 @@
     },
     {
       "id": "sc55",
-      "chapter": "chuong-6",
+      "chapter": "chuong-7",
       "type": "term-card",
       "props": {},
       "holdMs": 0,

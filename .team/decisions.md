@@ -206,3 +206,8 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - YouTube Shorts: phần 3 và phần 6 của mỗi tập cũng gắn đoạn kết này. Nếu tập có ít hơn 6 phần thì gắn ở phần cuối.
 - Bản TikTok tạm thời KHÔNG gắn.
 - Lời đọc của đoạn kết bằng tiếng Việt ("bấm thích", "đăng ký kênh"), không đọc chữ tiếng Anh. Lời phải qua `phatam check`.
+
+## D39. Dừng đăng TikTok (người dùng chốt, 2026-11-14)
+- Không xuất và không đăng TikTok cho các tập từ giờ, cho tới khi người dùng mở lại.
+- Chỉ làm video dài và YouTube Shorts.
+- Code TikTok (đề mục 17, caption D35) giữ lại trong repo nhưng không chạy.

@@ -19,7 +19,7 @@ export interface EpisodeProps extends Record<string, unknown> {
 
 const FADE = 8;
 
-const SceneFade: React.FC<{ scene: Scene2 }> = ({ scene }) => {
+export const SceneFade: React.FC<{ scene: Scene2 }> = ({ scene }) => {
   const frame = useCurrentFrame();
   const Comp = resolveScene(scene.type);
   const f = Math.max(1, Math.min(FADE, Math.floor(scene.durationFrames / 2)));

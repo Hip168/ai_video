@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { useTheme } from "../../lib/hooks";
-import { Stage } from "../../lib/theme";
+import { Stage, useBox } from "../../lib/theme";
 import { monoStyle, TextBlock } from "../../lib/b-kit";
 import type { SceneProps } from "../../lib/types";
 import { at, lerp, p } from "./common";
@@ -10,7 +10,7 @@ const FS = 170;
 const CW = FS * 0.6; // bề rộng một ký tự đơn cách
 
 /** Một từ vẽ từng ký tự (đơn cách) để tô riêng ký tự thứ `hi`. `swap` thay ký tự `hi` bằng `to` theo tiến độ 0..1. */
-const Word: React.FC<{ word: string; cx: number; y: number; hi: number; hiColor: string; color: string; swap?: { to: string; t: number } }> = ({
+const Word: React.FC<{ word: string; cx: number; y: number; hi: number; hiColor: string; color: string; swap?: { to: string; t: number }; fs?: number }> = ({
   word,
   cx,
   y,
@@ -18,13 +18,15 @@ const Word: React.FC<{ word: string; cx: number; y: number; hi: number; hiColor:
   hiColor,
   color,
   swap,
+  fs = FS,
 }) => {
   const chars = [...word];
-  const x0 = cx - (chars.length * CW) / 2 + CW / 2;
+  const cw = fs === FS ? CW : fs * 0.6;
+  const x0 = cx - (chars.length * cw) / 2 + cw / 2;
   return (
-    <g style={monoStyle} fontSize={FS} fontWeight={700} textAnchor="middle">
+    <g style={monoStyle} fontSize={fs} fontWeight={700} textAnchor="middle">
       {chars.map((c, i) => {
-        const x = x0 + i * CW;
+        const x = x0 + i * cw;
         if (i === hi && swap) {
           return (
             <g key={i}>
@@ -57,6 +59,25 @@ export const BiteByte: React.FC<SceneProps> = ({ scene }) => {
   const swapT = p(f, b1 + 70, 18);
   const b2 = p(f, at(scene, 2));
   const leftX = lerp(960, 600, split);
+  if (useBox().layout === "square") {
+    // Khung vuông (Short): "bite" ở trên, "bit" ở dưới, dấu so sánh ở giữa.
+    const topY = lerp(450, 270, split);
+    return (
+      <Stage>
+        <g opacity={a0}>
+          <Word word="bite" cx={420} y={topY} hi={1} hiColor={split > 0 ? theme.accent2 : theme.fg} color={theme.fg} swap={{ to: "y", t: swapT }} fs={150} />
+          <TextBlock text="miếng cắn" x={420} y={topY + 70} width={500} fontSize={44} fill={theme.muted} opacity={1 - swapT} />
+          <TextBlock text="Đọc lên vẫn vậy" x={420} y={800} width={760} fontSize={48} fill={theme.accent} opacity={b2} />
+        </g>
+        <g opacity={split}>
+          <Word word="bit" cx={420} y={670} hi={1} hiColor={theme.accent2} color={theme.fg} fs={150} />
+          <TextBlock text={swapT > 0.5 ? "≠" : "≈"} x={420} y={470} width={200} fontSize={100} fill={swapT > 0.5 ? theme.ok : theme.warn} />
+          <TextBlock text="Nhìn dễ lẫn" x={420} y={90} width={760} fontSize={56} fill={theme.warn} opacity={1 - b2} />
+        </g>
+        <TextBlock text="Không thể nhầm với bit nữa" x={420} y={90} width={780} fontSize={52} fill={theme.ok} opacity={b2} />
+      </Stage>
+    );
+  }
   return (
     <Stage>
       <g opacity={a0}>

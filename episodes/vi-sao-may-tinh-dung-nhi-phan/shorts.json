@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "shorts": [
+    { "part": 1, "total": 6, "from": "b001", "to": "b029", "title": "Vì sao máy tính chỉ dùng 0 và 1? Bit là gì", "hook": "Bit là gì?" },
+    { "part": 2, "total": 6, "from": "b031", "to": "b060", "title": "Đếm bằng hai và cái byte: vì sao máy tính dùng nhị phân", "hook": "Đếm bằng hai, và cái byte" },
+    { "part": 3, "total": 6, "from": "b061", "to": "b090", "title": "Tín hiệu điện không bao giờ sạch: vì sao máy tính dùng nhị phân", "hook": "Sao không dùng mười mức điện?" },
+    { "part": 4, "total": 6, "from": "b091", "to": "b116a", "title": "Logic vốn là có hoặc không: vì sao máy tính dùng nhị phân", "hook": "Logic vốn là có hoặc không" },
+    { "part": 5, "total": 6, "from": "b117", "to": "b142", "title": "ENIAC và Setun: những cỗ máy không chịu nhị phân", "hook": "Máy tính không dùng nhị phân" },
+    { "part": 6, "total": 6, "from": "b143", "to": "b167", "title": "Vì sao máy tính tam phân không thắng?", "hook": "Sao tam phân không thắng?" }
+  ]
+}

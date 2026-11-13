@@ -1,7 +1,7 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { clamp01, useTheme } from "../hooks";
-import { Stage } from "../theme";
+import { assertShortText, Stage, useBox } from "../theme";
 import { clipLine, fitMono, itemStart, monoStyle, TextBlock } from "../b-kit";
 import { CODE_BG, CODE_FG, CODE_MUTED } from "../code-highlight";
 import type { SceneProps } from "../types";
@@ -11,7 +11,9 @@ interface LineIn {
   text: string;
 }
 
-const WIN = { x: 130, y: 40, w: 1660, h: 750 };
+const WIN_WIDE = { x: 130, y: 40, w: 1660, h: 750 };
+/** Khung vuông (Short): cửa sổ gần kín hộp, chữ đơn cách tối thiểu 30 px. */
+const WIN_SQUARE = { x: 20, y: 20, w: 800, h: 800 };
 const BAR = 64;
 const TYPE_FPS = 1.1; // ký tự mỗi frame khi gõ lệnh
 
@@ -19,14 +21,22 @@ const TYPE_FPS = 1.1; // ký tự mỗi frame khi gõ lệnh
 export const Terminal: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const frame = useCurrentFrame();
+  const box = useBox();
+  const sq = box.layout === "square";
+  const WIN = sq ? WIN_SQUARE : WIN_WIDE;
   const lines = (Array.isArray(scene.props.lines) ? scene.props.lines : []) as LineIn[];
   const title = typeof scene.props.title === "string" && scene.props.title !== "" ? scene.props.title : "terminal";
   const prompt = typeof scene.props.prompt === "string" && scene.props.prompt !== "" ? scene.props.prompt : "$";
   const n = lines.length;
   const promptCols = [...prompt].length + 1;
   const full = lines.map((l) => (l.kind === "cmd" ? `${prompt} ${l.text}` : l.text));
-  const { size, charW, cols } = fitMono(full, WIN.w - 100, 40, 18);
+  const { size, charW, cols } = fitMono(full, WIN.w - 100, 40, sq ? 30 : 18);
   const lineH = Math.min(64, (WIN.h - BAR - 50) / Math.max(1, n));
+  if (sq) {
+    // Dòng bị cắt hoặc dòng thấp hơn chữ: không đọc được ở khung Short.
+    const longest = Math.max(0, ...full.map((l) => [...l].length));
+    assertShortText(box, longest > cols ? 0 : Math.min(size, lineH), full.join(" / "));
+  }
   const colorOf = (k: LineIn["kind"]) => (k === "err" ? theme.warn : k === "out" ? CODE_MUTED : CODE_FG);
   let cursorAt: { x: number; y: number } | null = null;
   const rows = lines.map((l, i) => {
@@ -61,7 +71,7 @@ export const Terminal: React.FC<SceneProps> = ({ scene }) => {
       {[theme.warn, theme.accent2, theme.ok].map((c, i) => (
         <circle key={i} cx={WIN.x + 40 + i * 42} cy={WIN.y + BAR / 2} r={13} fill={c} />
       ))}
-      <TextBlock text={title} x={WIN.x + WIN.w / 2} y={WIN.y + BAR / 2 + 11} width={800} fontSize={32} fill={theme.fg} />
+      <TextBlock text={title} x={WIN.x + WIN.w / 2} y={WIN.y + BAR / 2 + 11} width={sq ? 500 : 800} fontSize={32} fill={theme.fg} />
       <g style={monoStyle}>{rows}</g>
       {cursorAt && blink && (
         <rect x={(cursorAt as { x: number }).x + 4} y={(cursorAt as { y: number }).y - size * 0.8} width={charW * 0.8} height={size * 1.05} fill={theme.accent} opacity={0.9} />

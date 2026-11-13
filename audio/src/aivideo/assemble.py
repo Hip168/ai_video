@@ -14,13 +14,14 @@ import sys
 from pathlib import Path
 
 from aivideo.audio import measure_lufs
-from aivideo.framecheck import scan
+from aivideo.framecheck import SHORT_REGION, WIDE_REGION, scan, short_number
 from aivideo.mix import true_peak
 
 ROOT = Path(__file__).resolve().parents[3]
 LUFS_TOL = 1.0
 TP_MAX = -1.0  # AAC có thể vượt nhẹ so với mix (-1,5)
 BLACK_MIN_S = 0.5
+SHORT_MAX_FRAMES = 5400  # 180 s ở 30 fps (D33)
 DEFAULT_MIN_FREE_GB = 6.0
 EXIT_DISK = 3
 
@@ -84,6 +85,17 @@ def out_dir(slug: str, root: Path) -> Path:
     return Path(root) / "out" / "episodes" / slug
 
 
+def work_dir(slug: str, root: Path, short: int | None) -> Path:
+    """Thư mục làm việc: `<out>` của tập dài, hoặc `<out>/shorts/<n>` của Short."""
+    d = out_dir(slug, root)
+    return d if short is None else d / "shorts" / str(short)
+
+
+def final_path(slug: str, root: Path, short: int | None) -> Path:
+    d = out_dir(slug, root)
+    return d / (f"{slug}.mp4" if short is None else f"{slug}-short-{short}.mp4")
+
+
 def load_manifest(d: Path) -> dict:
     f = d / "manifest.json"
     if not f.is_file():
@@ -97,8 +109,8 @@ def save_manifest(d: Path, m: dict) -> None:
     os.replace(tmp, d / "manifest.json")
 
 
-def concat(slug: str, root=ROOT) -> Path:
-    d = out_dir(slug, Path(root))
+def concat(slug: str, root=ROOT, short: int | None = None) -> Path:
+    d = work_dir(slug, Path(root), short)
     check_disk(d)
     m = load_manifest(d)
     segs = (m.get("layouts") or {}).get("main")
@@ -136,23 +148,23 @@ def concat(slug: str, root=ROOT) -> Path:
     return out
 
 
-def mux(slug: str, root=ROOT) -> Path:
-    d = out_dir(slug, Path(root))
+def mux(slug: str, root=ROOT, short: int | None = None) -> Path:
+    d = work_dir(slug, Path(root), short)
     check_disk(d)
     silent, wav = d / "video.silent.mp4", d / "mix.wav"
     for f in (silent, wav):
         if not f.is_file() or f.stat().st_size == 0:
             raise RuntimeError(f"thiếu {f}")
     m = load_manifest(d)
-    out = d / f"{slug}.mp4"
-    tmp = d / f"{slug}.part.mp4"
+    out = final_path(slug, Path(root), short)
+    tmp = out.with_name(out.stem + ".part.mp4")
     try:
         _run(["ffmpeg", "-v", "error", "-y", "-i", str(silent), "-i", str(wav), "-map", "0:v:0", "-map", "1:a:0",
               "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(tmp)])
         os.replace(tmp, out)
     finally:
         tmp.unlink(missing_ok=True)
-    m.setdefault("assembled", {})["final"] = out.name
+    m.setdefault("assembled", {})["final"] = out.name if short is None else f"../../{out.name}"
     save_manifest(d, m)
     return out
 
@@ -163,9 +175,10 @@ def _black_runs(path: Path) -> list[tuple[float, float]]:
     return [(float(a), float(b)) for a, b in re.findall(r"black_start:([\d.]+) black_end:([\d.]+)", log)]
 
 
-def verify(slug: str, root=ROOT) -> dict:
-    d = out_dir(slug, Path(root))
-    f = d / f"{slug}.mp4"
+def verify(slug: str, root=ROOT, short: int | None = None) -> dict:
+    d = work_dir(slug, Path(root), short)
+    f = final_path(slug, Path(root), short)
+    want_size = (1920, 1080) if short is None else (1080, 1920)
     if not f.is_file() or f.stat().st_size == 0:
         raise RuntimeError(f"thiếu {f}")
     want = load_manifest(d)["durationInFrames"]
@@ -186,10 +199,12 @@ def verify(slug: str, root=ROOT) -> dict:
         put("codec", v.get("codec_name"), v.get("codec_name") == "h264", f"codec hình {v.get('codec_name')}, cần h264")
         put("pix_fmt", v.get("pix_fmt"), v.get("pix_fmt") == "yuv420p", f"pix_fmt {v.get('pix_fmt')}, cần yuv420p")
         size = (v.get("width"), v.get("height"))
-        put("size", list(size), size == (1920, 1080), f"kích thước {size[0]}x{size[1]}, cần 1920x1080")
+        put("size", list(size), size == want_size, f"kích thước {size[0]}x{size[1]}, cần {want_size[0]}x{want_size[1]}")
         put("fps", v.get("r_frame_rate"), v.get("r_frame_rate") == "30/1", f"fps {v.get('r_frame_rate')}, cần 30")
         n = probe_frames(f)
         put("frames", n, n == want, f"{n} frame, cần {want}")
+        if short is not None:
+            put("max_frames", n, n <= SHORT_MAX_FRAMES, f"Short dài {n} frame, tối đa {SHORT_MAX_FRAMES} (180 s)")
     if a is None:
         put("audio", None, False, "không có luồng âm thanh")
     else:
@@ -202,11 +217,12 @@ def verify(slug: str, root=ROOT) -> dict:
             put("av_gap_s", round(ad - vd, 3), abs(ad - vd) <= 1 / 30 + 0.02, f"tiếng lệch hình {ad - vd:.3f} s")
     runs = _black_runs(f) if v is not None else []
     put("black", runs, not runs, f"có đoạn đen liền ≥ {BLACK_MIN_S}s tại {runs[:3]} (mất hình)")
-    if v is not None and size == (1920, 1080):
+    if v is not None and size == want_size:
         # blackdetect chỉ bắt khung đen; khung chỉ còn nền theme (độ sáng ~0,06–0,07) do framecheck scan bắt.
         # scan cắt vùng 1920x830 nên chỉ chạy khi đúng kích thước (sai kích thước đã bị check "size" chặn).
         tl = d / "timeline.json"
-        hits = scan(f, json.loads(tl.read_text(encoding="utf-8")) if tl.is_file() else None)
+        hits = scan(f, json.loads(tl.read_text(encoding="utf-8")) if tl.is_file() else None,
+                    region=WIDE_REGION if short is None else SHORT_REGION)
         put("dips", [h["frame"] for h in hits], not hits,
             f"mất hình (đột biến) tại khung {[h['frame'] for h in hits[:3]]}")
     res = {"ok": not errs, "checks": checks, "errors": errs}
@@ -227,13 +243,13 @@ def _size(p: Path) -> int:
     return sum(x.stat().st_size for x in p.rglob("*") if x.is_file()) if p.exists() else 0
 
 
-def clean(slug: str, root=ROOT) -> dict:
-    d = out_dir(slug, Path(root))
-    final = d / f"{slug}.mp4"
+def clean(slug: str, root=ROOT, short: int | None = None) -> dict:
+    d = work_dir(slug, Path(root), short)
+    final = final_path(slug, Path(root), short)
     if not final.is_file():
         raise RuntimeError(f"không dọn: chưa có {final}")
     try:
-        verify(slug, root)
+        verify(slug, root, short)
     except VerifyError as e:
         raise RuntimeError(f"không dọn: kiểm MP4 không đạt ({e})")
     freed = 0
@@ -256,16 +272,17 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("cmd", choices=["concat", "mux", "verify", "clean"])
     ap.add_argument("slug")
     ap.add_argument("--root", default=os.environ.get("AIVIDEO_ROOT") or str(ROOT))
+    ap.add_argument("--short", type=short_number)
     a = ap.parse_args(argv)
     try:
         if a.cmd == "concat":
-            print(f"ghép: {concat(a.slug, a.root)}")
+            print(f"ghép: {concat(a.slug, a.root, a.short)}")
         elif a.cmd == "mux":
-            print(f"gắn tiếng: {mux(a.slug, a.root)}")
+            print(f"gắn tiếng: {mux(a.slug, a.root, a.short)}")
         elif a.cmd == "verify":
-            print(json.dumps(verify(a.slug, a.root), ensure_ascii=False))
+            print(json.dumps(verify(a.slug, a.root, a.short), ensure_ascii=False))
         else:
-            print(json.dumps(clean(a.slug, a.root)))
+            print(json.dumps(clean(a.slug, a.root, a.short)))
     except DiskError as e:
         print(f"lỗi: {e}", file=sys.stderr)
         return EXIT_DISK

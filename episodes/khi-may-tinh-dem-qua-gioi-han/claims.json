@@ -433,7 +433,7 @@
         "credibility": "primary"
       }
     ],
-    "status": "CHUA_KIEM"
+    "status": "DAT"
   },
   {
     "id": "c033",
@@ -445,6 +445,6 @@
         "credibility": "primary"
       }
     ],
-    "status": "CHUA_KIEM"
+    "status": "DAT"
   }
 ]

@@ -1934,7 +1934,7 @@
         },
         {
           "id": "b135",
-          "text": "mà ở chỗ các khâu kiểm tra của NASA đã không phát hiện ra nó.",
+          "text": "mà ở cách NASA tổ chức kỹ thuật cho cả hệ thống và các khâu kiểm tra chéo đã không phát hiện ra nó.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -2101,7 +2101,7 @@
         },
         {
           "id": "b147",
-          "text": "Một phép thử như thế có lẽ đã lộ ra chênh lệch 4,45 lần từ trước khi tàu rời mặt đất.",
+          "text": "Một phép thử như thế có thể đã phát hiện ra lỗi đơn vị từ sớm.",
           "spoken": null,
           "cue": null,
           "pause_ms": 800,

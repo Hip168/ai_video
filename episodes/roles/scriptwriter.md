@@ -24,6 +24,7 @@ Cảnh: đặt tạm `"type":"term-card"`, `"props":{}`, `"holdMs":0`, `"sfx":nu
 - Ngày `dd.mm.yyyy` (vd `15.01.2024`): bị đọc như số thập phân hoặc IP. Dùng `spoken`: "ngày mười lăm tháng một năm hai nghìn không trăm hai mươi bốn", hoặc viết ISO `2024-01-15`.
 - Chữ "Ngày" đứng ngay trước ngày ISO ("Ngày 2024-01-15"): nghe lặp "ngày ngày". Bỏ chữ "Ngày" ở `text`, hoặc dùng `spoken`.
 - Tên riêng, từ viết tắt đọc sai ở nhiều nơi (vd `router`): thêm vào `lexicon.json` của tập, khoá so trên chữ gốc không phân biệt hoa thường.
+- Từ khoá lập trình và từ tiếng Anh (vd `false`, `float`, `decimal`): trong lời đọc ưu tiên nghĩa tiếng Việt ("sai", "số thực dấu phẩy động", "số thập phân"), chữ tiếng Anh để hiện trên màn hình. Giọng Việt đọc tiếng Anh dễ sai: phiên âm kiểu "phôn-xơ" qua được máy nghe tiếng Việt nhưng người nghe thấy "phôn sơ". Chỉ giữ một từ tiếng Anh trong lời khi cách đọc của nó (chữ gốc hoặc `spoken`) có kết quả `ĐẠT` ở `python -m aivideo.phatam pick`; cách đọc do `voice-producer` đề xuất thì dùng đúng chữ đó.
 `spoken` mà có số thì số đó vẫn phải có claim. Giữ `spoken` chỉ chứa chữ, không chữ số, để khỏi mơ hồ.
 
 ## Đầu vào

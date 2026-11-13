@@ -19,7 +19,11 @@ export const BonMuoiBit: React.FC<SceneProps> = ({ scene }) => {
   const f = useCurrentFrame();
   const three = p(f, at(scene, 1));
   const split = p(f, at(scene, 2), 18);
-  const total = p(f, at(scene, 3));
+  // Chữ cũ tắt hẳn rồi chữ mới mới hiện, không chồng lên nhau.
+  const threeOut = p(f, at(scene, 2), 8);
+  const four = p(f, at(scene, 2) + 8, 10);
+  const fourOut = p(f, at(scene, 3), 8);
+  const total = p(f, at(scene, 3) + 8, 10);
   if (useBox().layout === "square") {
     // Khung vuông (Short): mười ô thành hai hàng năm ô; các dòng so sánh xếp dọc.
     const gw = 140;
@@ -44,13 +48,13 @@ export const BonMuoiBit: React.FC<SceneProps> = ({ scene }) => {
             </g>
           );
         })}
-        <g opacity={three * (1 - split)}>
+        <g opacity={three * (1 - threeOut)}>
           <TextBlock text="3 bit: 8 kiểu" x={420} y={bottom + 90} width={760} fontSize={48} fill={theme.fg} />
           <TextBlock text="<" x={420} y={bottom + 160} width={120} fontSize={56} fill={theme.warn} />
           <TextBlock text="1 chữ số: 10 khả năng" x={420} y={bottom + 230} width={760} fontSize={48} fill={theme.fg} />
           <TextBlock text="Chưa đủ" x={420} y={bottom + 330} width={600} fontSize={56} fill={theme.warn} />
         </g>
-        <TextBlock text="Mỗi chữ số 4 bit" x={420} y={bottom + 160} width={760} fontSize={56} fill={theme.accent} opacity={split * (1 - total)} />
+        <TextBlock text="Mỗi chữ số 4 bit" x={420} y={bottom + 160} width={760} fontSize={56} fill={theme.accent} opacity={four * (1 - fourOut)} />
         <g opacity={total}>
           <path d={`M${x0} ${bottom + 30} v24 H${840 - x0} v-24`} fill="none" stroke={theme.accent2} strokeWidth={6} strokeLinejoin="round" />
           <TextBlock text="Ít nhất 40 bit" x={420} y={bottom + 190} width={760} fontSize={88} fill={theme.accent2} />
@@ -75,13 +79,13 @@ export const BonMuoiBit: React.FC<SceneProps> = ({ scene }) => {
           </g>
         );
       })}
-      <g opacity={three * (1 - split)}>
+      <g opacity={three * (1 - threeOut)}>
         <TextBlock text="3 bit: 8 kiểu" x={560} y={600} width={600} fontSize={56} fill={theme.fg} />
         <TextBlock text="<" x={960} y={600} width={120} fontSize={64} fill={theme.warn} />
         <TextBlock text="1 chữ số: 10 khả năng" x={1360} y={600} width={600} fontSize={56} fill={theme.fg} />
         <TextBlock text="Chưa đủ" x={960} y={720} width={600} fontSize={64} fill={theme.warn} />
       </g>
-      <TextBlock text="Mỗi chữ số 4 bit" x={960} y={600} width={1200} fontSize={60} fill={theme.accent} opacity={split * (1 - total)} />
+      <TextBlock text="Mỗi chữ số 4 bit" x={960} y={600} width={1200} fontSize={60} fill={theme.accent} opacity={four * (1 - fourOut)} />
       <g opacity={total}>
         <path d={`M${X0} ${Y + H + 40} v24 H${1920 - X0} v-24`} fill="none" stroke={theme.accent2} strokeWidth={6} strokeLinejoin="round" />
         <TextBlock text="Ít nhất 40 bit" x={960} y={640} width={1200} fontSize={96} fill={theme.accent2} />

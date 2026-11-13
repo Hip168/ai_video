@@ -1,0 +1,2455 @@
+{
+  "meta": {
+    "title": "Vì sao 0,1 + 0,2 không bằng 0,3",
+    "voice": "hoang_nam",
+    "speed": 1.25,
+    "theme": "mau-b",
+    "music": {
+      "track": "reverence-endless",
+      "gainDb": -24
+    }
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu"
+    },
+    {
+      "id": "chuong-1",
+      "title": "Phân số viết mãi không hết"
+    },
+    {
+      "id": "chuong-2",
+      "title": "Máy cất một số lẻ thế nào"
+    },
+    {
+      "id": "chuong-3",
+      "title": "Giải mã 0.30000000000000004"
+    },
+    {
+      "id": "chuong-4",
+      "title": "Trước khi có luật chung"
+    },
+    {
+      "id": "chuong-5",
+      "title": "Một phần mười giây ở Dhahran"
+    },
+    {
+      "id": "chuong-6",
+      "title": "Sống chung với sai số"
+    },
+    {
+      "id": "ket",
+      "title": "Kết"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "sc01",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "0.1 + 0.2 = 0.30000000000000004",
+        "kicker": "Phép cộng lớp ba"
+      },
+      "holdMs": 0,
+      "sfx": "whoosh",
+      "beats": [
+        {
+          "id": "b001",
+          "text": "Mở cửa sổ lập trình của trình duyệt, gõ một phép cộng lớp ba: 0.1 + 0.2.",
+          "spoken": "Mở cửa sổ lập trình của trình duyệt, gõ một phép cộng lớp ba: không phẩy một cộng không phẩy hai.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b002",
+          "text": "Máy trả lời: 0.30000000000000004.",
+          "spoken": "Máy trả lời: không phẩy ba, mười lăm số không, rồi số bốn.",
+          "cue": "hook",
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "chapter": "mo-dau",
+      "type": "terminal",
+      "props": {
+        "title": "trình duyệt, rồi Python",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "0.1 + 0.2 === 0.3"
+          },
+          {
+            "kind": "out",
+            "text": "false"
+          },
+          {
+            "kind": "cmd",
+            "text": "0.1 + 0.1 + 0.1 == 0.3"
+          },
+          {
+            "kind": "out",
+            "text": "False"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b003",
+          "text": "Hỏi tiếp: kết quả ấy có bằng 0.3 không? Máy đáp: false, tức là không.",
+          "spoken": "Hỏi tiếp: kết quả ấy có bằng không phẩy ba không? Máy đáp: phôn, tức là không.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": "buzz",
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b004",
+          "text": "Sang Python cũng thế: 0.1 + 0.1 + 0.1 không bằng 0.3.",
+          "spoken": "Sang pai-thơn cũng thế: cộng ba lần không phẩy một, kết quả không bằng không phẩy ba.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "chapter": "mo-dau",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Lỗi của trình duyệt, hay lỗi của Python",
+            "fact": "Hầu hết máy tính ngày nay đều cộng ra đúng như vậy"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b005",
+          "text": "Đây không phải lỗi của trình duyệt, cũng không phải lỗi của Python.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c042"
+          ]
+        },
+        {
+          "id": "b006",
+          "text": "Hầu hết máy tính ngày nay đều cộng ra đúng như vậy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        },
+        {
+          "id": "b007",
+          "text": "Mà lệch ở chữ số thứ 17 sau dấu phẩy thì có gì đáng ngại?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c043"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {
+        "term": "Năm 1991",
+        "tag": "Phòng thủ tên lửa",
+        "definition": "Sai số của chính con số 0,1 khiến hệ thống không chặn được mục tiêu",
+        "example": "Vì sao 0,1 lại làm khó máy tính?"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b008",
+          "text": "Năm 1991, sai số của chính con số 0,1 khiến một hệ thống phòng thủ tên lửa không chặn được mục tiêu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c025",
+            "c033"
+          ]
+        },
+        {
+          "id": "b009",
+          "text": "Cuối video, ta sẽ quay lại câu chuyện đó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b010",
+          "text": "Nhưng trước hết, hãy xem vì sao một con số giản dị như 0,1 lại làm khó máy tính.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+        "title": "Phân số viết mãi không hết",
+        "number": 1
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc06",
+      "chapter": "chuong-1",
+      "type": "custom:phan-so-lap",
+      "props": {
+        "mode": "chia"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b011",
+          "text": "Bắt đầu bằng một phép chia quen thuộc: 1 chia 3.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c003",
+            "c038"
+          ]
+        },
+        {
+          "id": "b012",
+          "text": "Ta được 0,333..., số 3 cứ thế lặp mãi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c003",
+            "c038"
+          ]
+        },
+        {
+          "id": "b013",
+          "text": "Viết bao nhiêu chữ số cũng chưa bằng đúng 1/3, chỉ ngày càng gần hơn mà thôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc07",
+      "chapter": "chuong-1",
+      "type": "compare",
+      "props": {
+        "titleA": "Dừng",
+        "titleB": "Lặp mãi",
+        "rows": [
+          {
+            "label": "1/4 = 0,25",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "1/5 = 0,2",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b013a",
+          "text": "Nhưng không phải phân số nào cũng thế. Thử vài ví dụ trong hệ mười, tức hệ thập phân.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b013b",
+          "text": "1/4 là 0,25, dừng ngay. 1/5 là 0,2, cũng dừng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c037"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc08",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "1/7 = 0,142857142857...",
+        "tag": "Lặp mãi",
+        "definition": "1/3 lặp mãi. Với 1/7, khối 142857 lặp lại mãi, không bao giờ dừng"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b013c",
+          "text": "1/3 thì lặp mãi. 1/7 là 0,142857142857..., khối 142857 lặp lại mãi, không bao giờ dừng.",
+          "spoken": "Một phần ba thì lặp mãi. Một phần bảy là không phẩy một bốn hai tám năm bảy, rồi khối sáu chữ số ấy lặp lại mãi, không bao giờ dừng.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c038"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc09",
+      "chapter": "chuong-1",
+      "type": "tree-graph",
+      "props": {
+        "nodes": [
+          {
+            "id": "goc",
+            "label": "Hệ mười: 2 × 5"
+          },
+          {
+            "id": "gon",
+            "parent": "goc",
+            "label": "Chỉ 2 và 5: gọn"
+          },
+          {
+            "id": "khac",
+            "parent": "goc",
+            "label": "Có số khác: lặp"
+          },
+          {
+            "id": "m4",
+            "parent": "gon",
+            "label": "Mẫu 4"
+          },
+          {
+            "id": "m5",
+            "parent": "gon",
+            "label": "Mẫu 5"
+          },
+          {
+            "id": "m3",
+            "parent": "khac",
+            "label": "Mẫu 3"
+          },
+          {
+            "id": "m7",
+            "parent": "khac",
+            "label": "Mẫu 7"
+          }
+        ],
+        "path": [
+          "goc",
+          "khac",
+          "m3"
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b013d",
+          "text": "Bí quyết nằm ở mẫu số. Hệ mười xây trên số 10, mà 10 bằng 2 nhân 5.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c039"
+          ]
+        },
+        {
+          "id": "b013e",
+          "text": "Mẫu số chỉ gồm các số 2 và 5 nhân với nhau, như 4 hay 5, thì viết gọn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c039"
+          ]
+        },
+        {
+          "id": "b013f",
+          "text": "Còn mẫu số có số khác chen vào, như 3 hay 7, thì không bao giờ có điểm dừng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c039"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc10",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "Hệ nhị phân",
+        "tag": "Hệ hai",
+        "definition": "Chỉ có hai chữ số, không và một; xây trên số 2, không có số 5 nào cả"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b013g",
+          "text": "Máy tính thì không dùng hệ mười. Như tập trước, máy chỉ có hai chữ số là không và một.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b013h",
+          "text": "Đó là hệ hai, tức hệ nhị phân. Nó xây trên số 2, không có số 5 nào cả.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c040"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc11",
+      "chapter": "chuong-1",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "mau",
+            "label": "Mẫu 2, 4, 8, 16"
+          },
+          {
+            "id": "gon",
+            "label": "Viết gọn"
+          },
+          {
+            "id": "muoi",
+            "label": "1/10: 10 có thừa số 5"
+          },
+          {
+            "id": "cut",
+            "label": "Ngõ cụt"
+          }
+        ],
+        "edges": [
+          {
+            "from": "mau",
+            "to": "gon"
+          },
+          {
+            "from": "muoi",
+            "to": "cut"
+          }
+        ],
+        "packets": [
+          {
+            "from": "muoi",
+            "to": "cut"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b013i",
+          "text": "Nên nó chỉ viết gọn được phân số có mẫu là 2, 4, 8, 16, cứ thế nhân đôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c040"
+          ]
+        },
+        {
+          "id": "b019",
+          "text": "Còn 0,1 là một phần mười, mà 10 có thừa số 5. Với hệ hai, thừa số 5 ấy là ngõ cụt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c040"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc12",
+      "chapter": "chuong-1",
+      "type": "custom:phan-so-lap",
+      "props": {
+        "mode": "nhi-phan"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b020",
+          "text": "Kết quả: trong hệ nhị phân, 1/10 là một phân số lặp vô hạn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b021",
+          "text": "Nó trông như thế này: 0,0001100110011..., và cứ thế lặp mãi.",
+          "spoken": "Nó trông như thế này: không phẩy không không không, một một, không không, một một, và cứ thế lặp mãi.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b022",
+          "text": "1/10 trong hệ hai cũng tương tự 1/3 trong hệ mười: viết mãi không hết.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc13",
+      "chapter": "chuong-1",
+      "type": "memory-array",
+      "props": {
+        "name": "Mỗi số: số ô có hạn",
+        "cells": [
+          "0",
+          "0",
+          "0",
+          "1",
+          "1",
+          "0",
+          "0",
+          "1",
+          "1",
+          "0"
+        ],
+        "base": 0,
+        "size": 1,
+        "access": [
+          9
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b022a",
+          "text": "Mà trong máy, mỗi con số chỉ được cấp một số bit nhất định, tức một số ô chứa không hoặc một.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b024",
+          "text": "Nên máy phải cắt ở đâu đó, và cắt ở đâu cũng chỉ được giá trị gần đúng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b025",
+          "text": "Vậy máy cắt ở đâu, và cất con số ấy ra sao?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc14",
+      "chapter": "chuong-2",
+      "type": "chapter-title",
+      "props": {
+        "title": "Máy cất một số lẻ thế nào",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc15",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {
+        "term": "IEEE 754",
+        "tag": "Bộ luật cho số lẻ",
+        "definition": "Ít nhất từ năm 2000, hầu hết máy tính tính số lẻ theo chuẩn này",
+        "example": "Số lẻ được cất dưới dạng số dấu phẩy động"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b026",
+          "text": "Câu trả lời nằm trong một bộ luật có tên IEEE 754.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        },
+        {
+          "id": "b027",
+          "text": "Ít nhất từ năm 2000, hầu hết máy tính tính số lẻ theo chuẩn này.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        },
+        {
+          "id": "b028",
+          "text": "Trong chuẩn ấy, số lẻ được cất dưới dạng số dấu phẩy động.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc16",
+      "chapter": "chuong-2",
+      "type": "custom:dau-phay-dong",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b029",
+          "text": "Ý tưởng giống cách viết khoa học: 1.500 viết thành 1,5 nhân 10 mũ 3.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c041"
+          ]
+        },
+        {
+          "id": "b030",
+          "text": "Một phần giữ các chữ số, một phần là số mũ cho biết dấu phẩy nằm ở đâu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b031",
+          "text": "Dấu phẩy dịch theo số mũ, nên gọi là dấu phẩy động. Máy làm y vậy, chỉ là với cơ số 2.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c040"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc17",
+      "chapter": "chuong-2",
+      "type": "big-number",
+      "props": {
+        "value": 64,
+        "suffix": " bit",
+        "label": "Mỗi số kiểu độ chính xác kép, trong Python và JavaScript",
+        "note": "Phần cất các chữ số chỉ giữ trọn 15 chữ số có nghĩa"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b031a",
+          "text": "Python và JavaScript dùng kiểu độ chính xác kép: mỗi số chiếm 64 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c008",
+            "c009"
+          ]
+        },
+        {
+          "id": "b031b",
+          "text": "Phần cất các chữ số trong đó chỉ giữ trọn được 15 chữ số có nghĩa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c012"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc18",
+      "chapter": "chuong-2",
+      "type": "custom:chu-so-co-nghia",
+      "props": {
+        "mode": "giu-tron"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b031c",
+          "text": "Từ chữ số thứ 16 trở đi đã nằm ngoài phần được giữ trọn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c012",
+            "c044"
+          ]
+        },
+        {
+          "id": "b031d",
+          "text": "Con số 4 lạ lùng trong 0.30000000000000004 nằm đúng ở vùng đó: chữ số có nghĩa thứ 17.",
+          "spoken": "Con số bốn lạ lùng ở cuối kết quả lúc nãy nằm đúng ở vùng đó: chữ số có nghĩa thứ mười bảy.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c012",
+            "c043"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc19",
+      "chapter": "chuong-2",
+      "type": "custom:chu-so-co-nghia",
+      "props": {
+        "mode": "chinh-xac"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b040",
+          "text": "Giờ quay lại câu hỏi chính: khi bạn gõ 0.1, máy thật sự cất gì?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        },
+        {
+          "id": "b041",
+          "text": "Đúng bằng con số này: 0,1000000000000000055511151231257827021181583404541015625.",
+          "spoken": "Đúng bằng con số này: không phẩy một, một hàng dài số không, rồi năm năm năm một một, và còn dài nữa.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc20",
+      "chapter": "chuong-2",
+      "type": "compare",
+      "props": {
+        "titleA": "0,1 bạn gõ",
+        "titleB": "0,1 máy cất",
+        "rows": [
+          {
+            "label": "Bằng 3.602.879.701.896.397 chia cho 2 mũ 55",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Đúng bằng 0,1",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b042",
+          "text": "Tức phân số 3.602.879.701.896.397 chia cho 2 mũ 55.",
+          "spoken": "Tức là một số nguyên rất lớn, chia cho hai mũ năm mươi lăm.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        },
+        {
+          "id": "b043",
+          "text": "Rất gần 0,1, nhỉnh hơn một chút xíu. Nhưng không phải 0,1.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc21",
+      "chapter": "chuong-3",
+      "type": "chapter-title",
+      "props": {
+        "title": "Giải mã 0.30000000000000004",
+        "number": 3
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc22",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "phep",
+            "label": "0.1 + 0.2"
+          },
+          {
+            "id": "dung",
+            "label": "Tính chính xác tuyệt đối"
+          },
+          {
+            "id": "tron",
+            "label": "Làm tròn về số gần nhất"
+          }
+        ],
+        "edges": [
+          {
+            "from": "phep",
+            "to": "dung"
+          },
+          {
+            "from": "dung",
+            "to": "tron"
+          }
+        ],
+        "packets": [
+          {
+            "from": "phep",
+            "to": "dung"
+          },
+          {
+            "from": "dung",
+            "to": "tron"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b044",
+          "text": "Vậy chuyện gì xảy ra khi máy cộng 0.1 với 0.2?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b045",
+          "text": "Chuẩn IEEE 754 có một luật nghiêm cho phép cộng, trừ, nhân, chia.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c015",
+            "c008"
+          ]
+        },
+        {
+          "id": "b046",
+          "text": "Kết quả phải như thể máy đã tính chính xác tuyệt đối, rồi mới làm tròn về số gần nhất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc23",
+      "chapter": "chuong-3",
+      "type": "custom:thuoc-vach",
+      "props": {
+        "mode": "vach"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046a",
+          "text": "Hãy hình dung một cây thước. Máy chỉ cất được những số nằm đúng trên vạch.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b046b",
+          "text": "Số nào rơi vào giữa hai vạch thì phải làm tròn về một vạch.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b046c",
+          "text": "0,1 rơi giữa hai vạch. Máy chọn vạch nhỉnh hơn 0,1 một chút.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc24",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "a",
+            "label": "0,1 của máy: nhỉnh lên"
+          },
+          {
+            "id": "b",
+            "label": "0,2 của máy: nhỉnh lên"
+          },
+          {
+            "id": "tong",
+            "label": "Tổng vượt qua 0,3"
+          }
+        ],
+        "edges": [
+          {
+            "from": "a",
+            "to": "tong"
+          },
+          {
+            "from": "b",
+            "to": "tong"
+          }
+        ],
+        "packets": [
+          {
+            "from": "a",
+            "to": "tong"
+          },
+          {
+            "from": "b",
+            "to": "tong"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046d",
+          "text": "0,2 cũng vậy: máy cất vạch nhỉnh hơn 0,2 một chút.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c045"
+          ]
+        },
+        {
+          "id": "b046e",
+          "text": "Cộng hai số cùng nhỉnh lên, phần nhỉnh dồn lại. Tổng đã vượt qua 0,3 thật.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c047"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc25",
+      "chapter": "chuong-3",
+      "type": "compare",
+      "props": {
+        "titleA": "0.1 + 0.2 của máy",
+        "titleB": "0,3 của máy",
+        "rows": [
+          {
+            "label": "Nằm hơi thấp hơn 0,3",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Vượt lên trên 0,3",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046f",
+          "text": "Còn khi bạn gõ 0,3, vạch gần nhất lại nằm hơi thấp hơn 0,3 một chút.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c046"
+          ]
+        },
+        {
+          "id": "b046g",
+          "text": "Vậy là một bên vượt lên trên 0,3, một bên nằm dưới 0,3. Hai bên đã tách ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c046",
+            "c047"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc26",
+      "chapter": "chuong-3",
+      "type": "custom:thuoc-vach",
+      "props": {
+        "mode": "lam-tron"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046h",
+          "text": "Tổng rơi đúng giữa vạch 0,3 của máy và vạch ngay trên nó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c048"
+          ]
+        },
+        {
+          "id": "b046z",
+          "text": "Phép làm tròn đẩy nó lên vạch trên.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": "tick",
+          "claims": []
+        },
+        {
+          "id": "b046i",
+          "text": "Vạch đó, máy in ra là 0.30000000000000004.",
+          "spoken": "Vạch đó, máy in ra là không phẩy ba, mười lăm số không, rồi số bốn.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b046j",
+          "text": "Khác vạch với 0,3, nên phép so sánh bằng nhau trả về false.",
+          "spoken": "Khác vạch với không phẩy ba, nên phép so sánh bằng nhau trả về phôn.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": "buzz",
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc27",
+      "chapter": "chuong-3",
+      "type": "terminal",
+      "props": {
+        "title": "python",
+        "prompt": ">>>",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "sum([0.1] * 10) == 1.0"
+          },
+          {
+            "kind": "out",
+            "text": "False"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b054",
+          "text": "Cộng 0.1 mười lần, bạn cũng không được đúng 1.0.",
+          "spoken": "Cộng không phẩy một mười lần, bạn cũng không được đúng một phẩy không.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b055",
+          "text": "Sai số nhỏ, nhưng tích lũy được. Hãy nhớ điều này cho phần cuối video.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b057",
+          "text": "Nhưng nếu sai số là không tránh được, vì sao máy nào cũng sai giống hệt nhau?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc28",
+      "chapter": "chuong-4",
+      "type": "chapter-title",
+      "props": {
+        "title": "Trước khi có luật chung",
+        "number": 4
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc29",
+      "chapter": "chuong-4",
+      "type": "compare",
+      "props": {
+        "titleA": "Trước kia",
+        "titleB": "Giờ đây",
+        "rows": [
+          {
+            "label": "Có luật chung",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Mỗi dòng máy một phạm vi số, độ chính xác riêng",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Mỗi dòng máy làm tròn một kiểu riêng",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b058",
+          "text": "Vì giờ đây có luật chung. Còn trước kia thì không.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b059",
+          "text": "Trước IEEE 754, mỗi dòng máy có phạm vi số, độ chính xác và cách làm tròn của riêng nó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        },
+        {
+          "id": "b059a",
+          "text": "Nghĩa là mỗi dòng máy làm tròn theo một kiểu riêng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc30",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "Intel, năm 1976",
+        "tag": "Chip phụ tính số lẻ",
+        "definition": "Cố vấn: William Kahan, giáo sư Đại học California, Berkeley",
+        "example": "Kahan cùng hai cộng sự soạn đề xuất cho ủy ban làm chuẩn của IEEE"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b059b",
+          "text": "Năm 1976, Intel bắt đầu làm một con chip phụ chuyên tính số lẻ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b059c",
+          "text": "Họ mời William Kahan, một giáo sư Đại học California, Berkeley, làm cố vấn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b059d",
+          "text": "Kahan cùng hai cộng sự soạn một bản đề xuất cho ủy ban làm chuẩn của IEEE.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc31",
+      "chapter": "chuong-4",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Chip 8087, năm 1980",
+            "detail": "nền móng của chuẩn IEEE 754"
+          },
+          {
+            "name": "IEEE 754-1985",
+            "detail": "thông qua ngày 21 tháng 3 năm 1985"
+          }
+        ],
+        "highlight": 1
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b059e",
+          "text": "Năm 1980, con chip ấy ra đời với tên 8087. Cách tính của nó là nền móng của chuẩn IEEE 754.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
+          "id": "b067",
+          "text": "Ngày 21 tháng 3 năm 1985, chuẩn IEEE 754-1985 được thông qua.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc32",
+      "chapter": "chuong-4",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Chuẩn IEEE 754 xoá được sai số",
+            "fact": "Không. Nhưng cùng phép tính cho cùng kết quả, kể cả cùng sai số"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b067a",
+          "text": "Chuẩn không xoá được sai số. 1/10 vẫn lặp vô hạn trong hệ hai.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b070",
+          "text": "Nhưng nhờ luật làm tròn chung, cùng phép tính cho cùng kết quả, kể cả cùng sai số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc33",
+      "chapter": "chuong-4",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "dt",
+            "label": "Điện thoại"
+          },
+          {
+            "id": "lap",
+            "label": "Máy tính xách tay"
+          },
+          {
+            "id": "chu",
+            "label": "Máy chủ"
+          },
+          {
+            "id": "kq",
+            "label": "Cùng số 4 ở cuối"
+          }
+        ],
+        "edges": [
+          {
+            "from": "dt",
+            "to": "kq"
+          },
+          {
+            "from": "lap",
+            "to": "kq"
+          },
+          {
+            "from": "chu",
+            "to": "kq"
+          }
+        ],
+        "packets": [
+          {
+            "from": "dt",
+            "to": "kq"
+          },
+          {
+            "from": "lap",
+            "to": "kq"
+          },
+          {
+            "from": "chu",
+            "to": "kq"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b070a",
+          "text": "Gõ 0.1 + 0.2 trên điện thoại, máy tính xách tay hay máy chủ, bạn đều thấy cùng con số 4 ở cuối.",
+          "spoken": "Gõ không phẩy một cộng không phẩy hai trên điện thoại, máy tính xách tay hay máy chủ, bạn đều thấy cùng con số bốn ở cuối.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c008",
+            "c015",
+            "c043"
+          ]
+        },
+        {
+          "id": "b070b",
+          "text": "Sai số mà đoán trước được, thì lập trình viên xử lý được.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc34",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "0,1 bị cắt cụt",
+        "tag": "Chạy liên tục rất lâu",
+        "definition": "Chuyện gì xảy ra?"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b072",
+          "text": "Còn khi con số 0,1 bị cắt cụt trong một hệ thống chạy liên tục rất lâu, chuyện gì xảy ra?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc35",
+      "chapter": "chuong-5",
+      "type": "chapter-title",
+      "props": {
+        "title": "Một phần mười giây ở Dhahran",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": null,
+      "beats": []
+    },
+    {
+      "id": "sc36",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Dhahran, Ả Rập Xê Út",
+        "tag": "25 tháng 2 năm 1991",
+        "definition": "Khẩu đội Patriot không theo dõi và không đánh chặn được một tên lửa Scud"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b073",
+          "text": "Ngày 25 tháng 2 năm 1991, ở Dhahran, Ả Rập Xê Út, có một khẩu đội tên lửa phòng thủ Patriot.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        },
+        {
+          "id": "b074",
+          "text": "Hôm ấy, nó không theo dõi và không đánh chặn được một tên lửa Scud.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc37",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 28,
+        "label": "lính Mỹ thiệt mạng",
+        "note": "Quả Scud rơi trúng một doanh trại quân đội"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b075",
+          "text": "Quả Scud rơi trúng một doanh trại quân đội. 28 lính Mỹ thiệt mạng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1200,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc38",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "dem",
+            "label": "Đồng hồ đếm số nguyên"
+          },
+          {
+            "id": "don",
+            "label": "Mỗi đơn vị: 1/10 giây"
+          },
+          {
+            "id": "giay",
+            "label": "Đổi ra giây: dùng 0,1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "dem",
+            "to": "don"
+          },
+          {
+            "from": "don",
+            "to": "giay"
+          }
+        ],
+        "packets": [
+          {
+            "from": "dem",
+            "to": "don"
+          },
+          {
+            "from": "don",
+            "to": "giay"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b076",
+          "text": "Các phân tích sau đó lần ra gốc rễ ở chiếc đồng hồ bên trong hệ thống.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c026",
+            "c033"
+          ]
+        },
+        {
+          "id": "b077",
+          "text": "Đồng hồ ấy đếm thời gian bằng số nguyên, mỗi đơn vị là một phần mười giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b078",
+          "text": "Để đổi số đếm ấy ra giây, máy phải dùng tới con số 0,1.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc39",
+      "chapter": "chuong-5",
+      "type": "custom:cat-bit",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b079",
+          "text": "Mà các thanh ghi, tức những ô nhớ máy dùng để tính, chỉ dài 24 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b081",
+          "text": "Dãy nhị phân không có điểm dừng của 0,1 bị cắt cụt cho vừa 24 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc40",
+      "chapter": "chuong-5",
+      "type": "custom:do-lech",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b081a",
+          "text": "Phần bị cắt rất nhỏ, nhưng hệ thống chạy càng lâu, độ lệch càng lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c028",
+            "c029",
+            "c033"
+          ]
+        },
+        {
+          "id": "b083",
+          "text": "Tính ra, sau 8 giờ chạy liên tục, đồng hồ lệch 0,0275 giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        },
+        {
+          "id": "b083a",
+          "text": "Sau 100 giờ, đồng hồ lệch 0,3433 giây, tức khoảng một phần ba giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc41",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 687,
+        "prefix": "khoảng ",
+        "suffix": " mét",
+        "label": "Vùng ra-đa tìm mục tiêu bị lệch",
+        "note": "Tên lửa đã bay khỏi chỗ ra-đa đang nhìn"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b083b",
+          "text": "Ra-đa dùng đồng hồ ấy để đoán chỗ tìm mục tiêu tiếp theo.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b083c",
+          "text": "Lệch chừng ấy thời gian, vùng tìm kiếm lệch khoảng 687 mét.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b083d",
+          "text": "Tên lửa đã bay khỏi chỗ ra-đa đang nhìn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c025",
+            "c028"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc42",
+      "chapter": "chuong-5",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Số giờ chạy liên tục",
+        "unit": " giờ",
+        "highlight": 0,
+        "data": [
+          {
+            "label": "Dhahran đã chạy",
+            "value": 100
+          },
+          {
+            "label": "Hết bám mục tiêu",
+            "value": 20
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b086",
+          "text": "Hôm 25 tháng 2, khẩu đội ở Dhahran đã chạy liên tục hơn 100 giờ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c025",
+            "c027"
+          ]
+        },
+        {
+          "id": "b086a",
+          "text": "Dữ liệu từ phía Israel đã cho thấy độ lệch tăng dần theo giờ chạy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        },
+        {
+          "id": "b086b",
+          "text": "Ngoại suy ra, sau khoảng 20 giờ, hệ thống sẽ không còn bám được mục tiêu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc43",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 90,
+        "from": 60,
+        "suffix": " giây",
+        "label": "Khởi động lại: khoảng 60 đến 90 giây, đồng hồ về 0",
+        "note": "Cách xoá độ lệch rất đơn giản"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b089",
+          "text": "Cách xoá độ lệch lại rất đơn giản: khởi động lại, mất khoảng 60 đến 90 giây, đồng hồ về 0.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc44",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Đoạn mã chính xác hơn",
+        "tag": "Trớ trêu",
+        "definition": "Đã có trong mã, nhưng không được gọi ở mọi chỗ cần"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b090",
+          "text": "Trớ trêu hơn, trong mã đã có một đoạn chuyển đổi thời gian chính xác hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b091",
+          "text": "Nhưng nó không được gọi ở mọi chỗ cần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc45",
+      "chapter": "chuong-5",
+      "type": "custom:hai-lan-do",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b091a",
+          "text": "Hãy hình dung ra-đa so hai lần đo với nhau. Nếu cả hai cùng lệch y hệt, độ lệch tự bù trừ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b091b",
+          "text": "Nhưng một lần đo đi qua đoạn mã mới, lần kia thì không, nên hai độ lệch không còn triệt tiêu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc46",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "26 tháng 2 năm 1991",
+        "tag": "Bản sửa lỗi đến Dhahran",
+        "definition": "Một ngày sau vụ tấn công"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b093",
+          "text": "Phần mềm đã sửa lỗi đến Dhahran ngày 26 tháng 2 năm 1991.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        },
+        {
+          "id": "b094",
+          "text": "Một ngày sau vụ tấn công.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1200,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc47",
+      "chapter": "chuong-6",
+      "type": "chapter-title",
+      "props": {
+        "title": "Sống chung với sai số",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "sc48",
+      "chapter": "chuong-6",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "So cho đủ gần",
+            "detail": "đừng so bằng dấu bằng"
+          },
+          {
+            "name": "Dùng decimal",
+            "detail": "cho tiền bạc"
+          },
+          {
+            "name": "Tính bằng số nguyên"
+          }
+        ],
+        "highlight": 0
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b095",
+          "text": "Vậy sống chung với số dấu phẩy động thế nào? Có ba cách.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b096",
+          "text": "Thứ nhất, đừng so hai số thực bằng dấu bằng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc49",
+      "chapter": "chuong-6",
+      "type": "code-walk",
+      "props": {
+        "lang": "python",
+        "lines": [
+          "import math",
+          "",
+          "0.1 + 0.1 + 0.1 == 0.3",
+          "# False",
+          "",
+          "math.isclose(0.1 + 0.1 + 0.1, 0.3)",
+          "# True"
+        ],
+        "notes": [
+          {
+            "line": 6,
+            "text": "Hỏi: có đủ gần nhau không?"
+          },
+          {
+            "line": 7,
+            "text": "Được coi là bằng nhau"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b097",
+          "text": "Hãy hỏi chúng có đủ gần nhau không. Python có sẵn hàm math.isclose cho việc này.",
+          "spoken": "Hãy hỏi chúng có đủ gần nhau không. pai-thơn có sẵn hàm mát chấm ít-clâu cho việc này.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        },
+        {
+          "id": "b098",
+          "text": "Với hàm ấy, 0.1 + 0.1 + 0.1 và 0.3 được coi là bằng nhau.",
+          "spoken": "Với hàm ấy, cộng ba lần không phẩy một, và không phẩy ba, được coi là bằng nhau.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc50",
+      "chapter": "chuong-6",
+      "type": "terminal",
+      "props": {
+        "title": "python",
+        "prompt": ">>>",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "from decimal import Decimal as D"
+          },
+          {
+            "kind": "cmd",
+            "text": "D(\"0.1\") + D(\"0.1\") + D(\"0.1\") - D(\"0.3\")"
+          },
+          {
+            "kind": "out",
+            "text": "Decimal('0.0')"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b099",
+          "text": "Thứ hai, với tiền bạc, hãy dùng số thập phân thật sự.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        },
+        {
+          "id": "b100",
+          "text": "Mô-đun decimal của Python biểu diễn chính xác số thập phân, nên 0,1 là đúng 0,1.",
+          "spoken": "Mô-đun đê-xi-mồ của pai-thơn biểu diễn chính xác số thập phân, nên không phẩy một là đúng không phẩy một.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        },
+        {
+          "id": "b101",
+          "text": "Với decimal, 0.1 + 0.1 + 0.1 - 0.3 ra đúng 0.",
+          "spoken": "Với đê-xi-mồ, cộng ba lần không phẩy một rồi trừ không phẩy ba, ra đúng không.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": "ding",
+          "claims": [
+            "c035"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc51",
+      "chapter": "chuong-6",
+      "type": "big-number",
+      "props": {
+        "value": 5.55,
+        "decimals": 2,
+        "prefix": "khoảng ",
+        "suffix": " × 10 mũ −17",
+        "label": "0.1 + 0.1 + 0.1 - 0.3 với số dấu phẩy động nhị phân",
+        "note": "Vì thế decimal được ưa dùng trong kế toán"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b102",
+          "text": "Với số dấu phẩy động nhị phân, nó ra khoảng 5,55 × 10 mũ âm 17.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        },
+        {
+          "id": "b103",
+          "text": "Vì thế decimal được ưa dùng trong kế toán.",
+          "spoken": "Vì thế đê-xi-mồ được ưa dùng trong kế toán.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc52",
+      "chapter": "chuong-6",
+      "type": "compare",
+      "props": {
+        "titleA": "0,1 + 0,2 nghìn đồng",
+        "titleB": "100 + 200 đồng",
+        "rows": [
+          {
+            "label": "Số nguyên nhỏ, máy cất đúng",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Ra đúng 300 đồng",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b103a",
+          "text": "Thứ ba, tính bằng số nguyên. Đừng ghi 0,1 nghìn đồng cộng 0,2 nghìn đồng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c049"
+          ]
+        },
+        {
+          "id": "b103b",
+          "text": "Hãy ghi 100 đồng cộng 200 đồng. Số nguyên nhỏ thì máy cất đúng, nên kết quả là đúng 300 đồng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c049"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc53",
+      "chapter": "ket",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Máy tính cộng sai",
+            "fact": "Nó cộng đúng những con số mà nó cất được, và 0,1 không nằm trong số đó"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b105",
+          "text": "Vậy máy tính có cộng sai không?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b106",
+          "text": "Không. Nó cộng đúng những con số mà nó cất được.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b107",
+          "text": "Chỉ có điều, 0,1 không nằm trong số đó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc54",
+      "chapter": "ket",
+      "type": "big-number",
+      "props": {
+        "value": 100,
+        "prefix": "hơn ",
+        "suffix": " giờ",
+        "label": "Sai số bị cộng dồn ở Dhahran",
+        "note": "Phần lớn thời gian, sai số ấy vô hại"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b107a",
+          "text": "Phần lớn thời gian, sai số ấy vô hại. Nhưng ở Dhahran, nó bị cộng dồn qua hơn 100 giờ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c027",
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc55",
+      "chapter": "ket",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Ba điều cần nhớ",
+            "detail": "so đủ gần, decimal, số nguyên"
+          },
+          {
+            "name": "Cái giá của hệ nhị phân",
+            "detail": "có phân số máy không viết trọn"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b107b",
+          "text": "Nên nhớ ba điều: so cho đủ gần thay vì so bằng, dùng decimal cho tiền, hoặc tính bằng số nguyên.",
+          "spoken": "Nên nhớ ba điều: so cho đủ gần thay vì so bằng, dùng đê-xi-mồ cho tiền, hoặc tính bằng số nguyên.",
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b107c",
+          "text": "Đó là cái giá của hệ nhị phân ở tập trước: có những phân số rất quen mà máy không viết trọn được.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc56",
+      "chapter": "ket",
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Máy cộng đúng những số nó cất được",
+          "0,1 không nằm trong số đó",
+          "So đủ gần, dùng decimal, tính bằng số nguyên"
+        ],
+        "next": "Tự gõ thử vài phép cộng số lẻ vào trình duyệt"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b110",
+          "text": "Giờ đến lượt bạn: tự gõ thử vài phép cộng số lẻ khác vào trình duyệt, xem máy trả lời gì.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b111",
+          "text": "Rồi kể cho mình nghe ở phần bình luận, kèm lời giải thích của bạn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 0,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    }
+  ]
+}

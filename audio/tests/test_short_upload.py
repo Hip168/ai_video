@@ -323,6 +323,7 @@ def test_chua_co_videoid_video_dai_thi_loi_ma_1_va_khong_tai(
 def test_cong_chua_duyet_khong_dat_public(tmp_path, monkeypatch, capsys):
     env = _short_env(
         tmp_path, kenh={"channelId": CHANNEL, "firstVideoApproved": False})
+    capsys.readouterr()  # bỏ stderr của lần tải video dài
     c = FakeClient()
     assert _go(monkeypatch, env, c, "--privacy", "public") == 1
     assert capsys.readouterr().err.startswith("lỗi:")
@@ -332,6 +333,7 @@ def test_cong_chua_duyet_khong_dat_public(tmp_path, monkeypatch, capsys):
 def test_kenh_cua_token_lech_thi_dung_truoc_khi_tai(
         tmp_path, monkeypatch, capsys):
     env = _short_env(tmp_path)
+    capsys.readouterr()  # bỏ stderr của lần tải video dài
     c = FakeClient(channel="UC_khac")
     assert _go(monkeypatch, env, c) == 1
     assert capsys.readouterr().err.startswith("lỗi:")
@@ -340,6 +342,7 @@ def test_kenh_cua_token_lech_thi_dung_truoc_khi_tai(
 
 def test_thieu_shorts_json_loi_ma_1_khong_tai(tmp_path, monkeypatch, capsys):
     env = _short_env(tmp_path)
+    capsys.readouterr()  # bỏ stderr của lần tải video dài
     (env["ep"] / "shorts.json").unlink()
     c = FakeClient()
     assert _go(monkeypatch, env, c) == 1
@@ -349,6 +352,7 @@ def test_thieu_shorts_json_loi_ma_1_khong_tai(tmp_path, monkeypatch, capsys):
 
 def test_thieu_mp4_cua_short_loi_ma_1_khong_tai(tmp_path, monkeypatch, capsys):
     env = _short_env(tmp_path)
+    capsys.readouterr()  # bỏ stderr của lần tải video dài
     env["short_mp4"](1).unlink()
     c = FakeClient()
     assert _go(monkeypatch, env, c) == 1

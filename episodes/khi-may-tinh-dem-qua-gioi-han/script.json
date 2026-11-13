@@ -86,9 +86,19 @@
       "beats": [
         {
           "id": "b003",
-          "text": "Đó là con số lớn nhất mà bộ đếm số nguyên 32 bit của YouTube giữ được.",
+          "text": "Đó là con số lớn nhất mà bộ đếm của YouTube giữ được.",
           "spoken": null,
           "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b139",
+          "text": "Bộ đếm ấy dùng 32 bit, tức 32 ô, mỗi ô chỉ chứa không hoặc một.",
+          "spoken": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
@@ -400,6 +410,36 @@
       ]
     },
     {
+      "id": "sc10a",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b136",
+          "text": "Chương trình phải được dịch sang ngôn ngữ máy, theo một trong hai chế độ.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b137",
+          "text": "Chế độ gỡ lỗi để thử khi đang viết. Chế độ phát hành là bản giao cho người dùng.",
+          "spoken": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
       "id": "sc11",
       "chapter": "chuong-1",
       "type": "term-card",
@@ -409,7 +449,7 @@
       "beats": [
         {
           "id": "b026",
-          "text": "Khi dịch chương trình ở chế độ phát hành, 256 quay vòng thành 0, 257 thành 1.",
+          "text": "Ở chế độ phát hành, 256 quay vòng thành 0, 257 thành 1.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -435,6 +475,16 @@
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b138",
+          "text": "Nghĩa là bản người dùng chạy lại chính là bản im lặng.",
+          "spoken": null,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c004"
@@ -639,7 +689,7 @@
         {
           "id": "b042",
           "text": "Kết quả không phải số lớn hơn, mà là -2.147.483.648.",
-          "spoken": null,
+          "spoken": "Kết quả không phải số lớn hơn, mà là âm hai tỷ một trăm bốn mươi bảy triệu bốn trăm tám mươi ba nghìn sáu trăm bốn mươi tám.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -701,9 +751,9 @@
         {
           "id": "b046",
           "text": "Đáp số đúng là 1.000.000.000.000.",
-          "spoken": null,
+          "spoken": "Đáp số đúng là một nghìn tỷ.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c008"
@@ -712,7 +762,7 @@
         {
           "id": "b047",
           "text": "Máy trả về -727.379.968.",
-          "spoken": null,
+          "spoken": "Máy trả về âm bảy trăm hai mươi bảy triệu ba trăm bảy mươi chín nghìn chín trăm sáu mươi tám.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -828,59 +878,6 @@
       ]
     },
     {
-      "id": "sc23",
-      "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b055",
-          "text": "Khoảng 37 giây sau khi động cơ chính bắt đầu đánh lửa, tên lửa mất sạch thông tin dẫn đường.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c010"
-          ]
-        },
-        {
-          "id": "b056",
-          "text": "Nó bẻ lái hết cỡ. Góc tấn, tức góc giữa thân tên lửa và luồng gió, vượt 20 độ.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c010"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "sc24",
-      "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b057",
-          "text": "Khoảng giây thứ 39, tên lửa bắt đầu vỡ ra, và hệ thống tự hủy được kích hoạt.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 900,
-          "sfx": null,
-          "claims": [
-            "c010"
-          ]
-        }
-      ]
-    },
-    {
       "id": "sc25",
       "chapter": "chuong-3",
       "type": "term-card",
@@ -966,9 +963,20 @@
       "beats": [
         {
           "id": "b063",
-          "text": "Bộ tham chiếu quán tính, gọi tắt SRI, ngừng hoạt động.",
-          "spoken": "Bộ tham chiếu quán tính, bộ não định hướng của tên lửa, ngừng hoạt động.",
+          "text": "Lỗi ấy nằm trong bộ tham chiếu quán tính, bộ phận cho tên lửa biết nó đang hướng về đâu.",
+          "spoken": null,
           "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c011",
+            "c012"
+          ]
+        },
+        {
+          "id": "b130",
+          "text": "Gặp lỗi, bộ ấy ngừng hoạt động.",
+          "spoken": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
@@ -1017,6 +1025,128 @@
           "sfx": null,
           "claims": [
             "c012"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc23",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b055",
+          "text": "Lúc ấy là khoảng giây thứ 37 sau khi động cơ chính đánh lửa. Tên lửa hết nguồn dẫn đường.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc28a",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b131",
+          "text": "Nhưng bộ hỏng không im lặng. Nó gửi sang máy tính chính một dãy bit báo lỗi.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        },
+        {
+          "id": "b132",
+          "text": "Máy tính chính lại đọc dãy bit ấy như thể là số liệu bay thật.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        },
+        {
+          "id": "b133",
+          "text": "Giống người lái nhìn đèn báo hỏng mà tưởng là kim la bàn.",
+          "spoken": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc28b",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b134",
+          "text": "Nó tưởng tên lửa lệch hướng, liền ra lệnh bẻ hết cỡ các vòi phun,",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        },
+        {
+          "id": "b135",
+          "text": "để sửa một độ lệch không hề có.",
+          "spoken": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc24",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b056",
+          "text": "Vòi phun bẻ hết cỡ, góc tấn, tức góc giữa thân tên lửa và luồng gió, vượt 20 độ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c010",
+            "c033"
+          ]
+        },
+        {
+          "id": "b057",
+          "text": "Khoảng giây thứ 39, tên lửa bắt đầu vỡ ra, và hệ thống tự hủy được kích hoạt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c010"
           ]
         }
       ]
@@ -1115,9 +1245,19 @@
         },
         {
           "id": "b073",
-          "text": "Một lý do là người ta muốn giữ tải máy tính không quá 80%.",
+          "text": "Bảo vệ một biến là thêm phép kiểm tra, mà phép kiểm tra nào cũng tốn sức máy.",
           "spoken": null,
           "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b144",
+          "text": "Người ta lại muốn giữ tải máy tính không quá 80%, nên ba biến bị bỏ ngỏ.",
+          "spoken": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1461,8 +1601,39 @@
           ]
         },
         {
+          "id": "b140",
+          "text": "Vệ tinh GPS còn phát cả giờ, tính bằng số tuần kể từ một mốc.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
           "id": "b095",
-          "text": "Tín hiệu dân sự chính của GPS ghi số tuần bằng 10 bit, lớn nhất là 1.023.",
+          "text": "Tín hiệu dân sự chính ghi số tuần ấy bằng 10 bit, nên lớn nhất chỉ là 1.023.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sc42a",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b096",
+          "text": "Hơn một nghìn tuần, đổi ra năm, là khoảng 19,7 năm.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1472,10 +1643,9 @@
           ]
         },
         {
-          "id": "b096",
-          "text": "Hết mức ấy, số tuần quay về 0. Cứ khoảng 19,7 năm lại một lần.",
+          "id": "b141",
+          "text": "Hết mức ấy, số tuần quay về 0, như đồng hồ cây số lúc nãy.",
           "spoken": null,
-          "cue": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1505,8 +1675,8 @@
         },
         {
           "id": "b098",
-          "text": "Lần thứ hai lúc 23:59:42 giờ UTC, ngày 6 tháng 4 năm 2019.",
-          "spoken": "Lần thứ hai vào sát nửa đêm, giờ quốc tế, ngày sáu tháng tư năm hai nghìn không trăm mười chín.",
+          "text": "Lần thứ hai là ngày 6 tháng 4 năm 2019.",
+          "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1536,9 +1706,20 @@
           ]
         },
         {
+          "id": "b142",
+          "text": "Ngay sau lần thứ hai, máy lỗi có thể tưởng mình đang ở tháng 8 năm 1999.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c023",
+            "c031"
+          ]
+        },
+        {
           "id": "b100",
-          "text": "Theo trang GPS.gov, nhiều thiết bị đã gặp sự cố, có cái hỏng trước hoặc sau đó vài tháng.",
-          "spoken": "Theo trang chính thức của hệ thống, nhiều thiết bị đã gặp sự cố, có cái hỏng trước hoặc sau đó vài tháng.",
+          "text": "Theo trang GPS.gov, nhiều thiết bị đã thật sự gặp sự cố quanh lần ấy.",
+          "spoken": "Theo trang chính thức của hệ thống, nhiều thiết bị đã thật sự gặp sự cố quanh lần ấy.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -1569,10 +1750,10 @@
         },
         {
           "id": "b102",
-          "text": "Tín hiệu đời mới dùng số tuần 13 bit, không quay vòng cho đến năm 2137.",
+          "text": "Tín hiệu đời mới dùng số tuần 13 bit, không quay vòng trong hơn một trăm năm tới.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 900,
           "sfx": null,
           "claims": [
             "c025"
@@ -1590,7 +1771,7 @@
       "beats": [
         {
           "id": "b103",
-          "text": "Năm 2038 còn một hạn chót khác.",
+          "text": "Hãy nhớ năm 2038 ấy, vì nó còn một cái hẹn thứ hai, sớm hơn, vào tháng 1.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1657,7 +1838,7 @@
         {
           "id": "b107",
           "text": "Từ 03:14:08 giờ UTC ngày 19 tháng 1 năm 2038, con số ấy không còn đủ chỗ.",
-          "spoken": "Từ ba giờ mười bốn phút tám giây, giờ quốc tế, ngày mười chín tháng một năm hai nghìn không trăm ba mươi tám, con số ấy không còn đủ chỗ.",
+          "spoken": "Từ hơn ba giờ sáng ngày mười chín tháng một năm hai nghìn không trăm ba mươi tám, giờ quốc tế, con số ấy không còn đủ chỗ.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1692,6 +1873,16 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
+        },
+        {
+          "id": "b143",
+          "text": "Mà số giây âm thì máy hiểu là thời điểm trước mốc năm 1970.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
         }
       ]
     },
@@ -1705,7 +1896,7 @@
       "beats": [
         {
           "id": "b110",
-          "text": "Tính ra, đồng hồ của máy có thể nhảy lùi về tháng mười hai năm một nghìn chín trăm linh một.",
+          "text": "Lùi hơn hai tỷ giây từ mốc ấy là về tận tháng mười hai năm một nghìn chín trăm linh một.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1957,22 +2148,69 @@
         },
         {
           "id": "b128",
-          "text": "Tập này, số nguyên có trần. Mọi con số trong máy đều là một sự đánh đổi.",
+          "text": "Tập này, số nguyên có trần.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 300,
           "sfx": null,
           "claims": []
         },
+        {
+          "id": "b145",
+          "text": "Ô to thì tốn chỗ, tốn sức máy. Ô nhỏ thì gọn, nhưng sớm chạm trần.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b146",
+          "text": "Mọi con số trong máy đều là một sự đánh đổi. Nên luôn phải hỏi: ô này đủ to chưa?",
+          "spoken": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "sc58",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b129",
           "text": "Còn điện thoại của bạn, nó sẽ ra sao vào buổi sáng ngày 19 tháng 1 năm 2038?",
           "spoken": null,
           "cue": null,
-          "pause_ms": 0,
+          "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c027"
+          ]
+        },
+        {
+          "id": "b147",
+          "text": "Nếu đồng hồ trong máy đã có ô 64 bit, nó sẽ chạy tiếp như không có gì.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b148",
+          "text": "Nếu vẫn là ô 32 bit, hãy nhớ lại con số của YouTube.",
+          "spoken": null,
+          "pause_ms": 0,
+          "sfx": null,
+          "claims": [
+            "c027",
+            "c001"
           ]
         }
       ]

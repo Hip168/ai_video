@@ -420,6 +420,31 @@
       "unresolvedSevere": null,
       "prevHash": "d3a9b6eafe18bf08cdf1c9b4ad7731f929a74455d285a68b1aac75eced44fd7e",
       "entryHash": "f0b4cdf1a78bbb4b2ca069adfd34d700de87fbc37ff6f77d5f367f72a4273daa"
+    },
+    {
+      "seq": 13,
+      "ts": "2026-11-13T17:41:48Z",
+      "stage": "viet",
+      "role": "scriptwriter",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": "c5dd357d325ce1b944305987f7e2f4d2d0839a97fcf55f849f4e1d371c7fba38",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "f0b4cdf1a78bbb4b2ca069adfd34d700de87fbc37ff6f77d5f367f72a4273daa",
+      "entryHash": "064c49e4d8ecd2257cd4cc9b857f81524bdf4b9fc295e12ea5bdc0144d4739e6"
     }
   ]
 }

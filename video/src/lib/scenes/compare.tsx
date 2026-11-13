@@ -6,8 +6,8 @@ import type { SceneProps } from "../types";
 import { appearAt, Cross, prog, T, Tick } from "./a-common";
 
 /** Hình học theo khung: `wide` giữ đúng số cũ; `square` (Short) 840x840. */
-const WIDE = { colA: 1280, colB: 1620, top: 250, h: 560, titleY: 150, titleW: 310, titleSize: 50, divX: 1280 - 170, rowX: 100, rowW: 1720, labelX: 140, labelW: 1000, labelSize: 40, labelLines: 2, r: 32 };
-const SQUARE = { colA: 530, colB: 730, top: 210, h: 600, titleY: 110, titleW: 190, titleSize: 32, divX: 430, rowX: 20, rowW: 800, labelX: 44, labelW: 370, labelSize: 40, labelLines: 2, r: 28 };
+const WIDE = { colA: 1280, colB: 1620, top: 250, h: 560, titleY: 150, titleW: 310, titleSize: 50, divX: 1280 - 170, rowX: 100, rowW: 1720, labelX: 140, labelW: 1000, labelSize: 40, labelLines: 2, r: 32, pitch: 150 };
+const SQUARE = { colA: 530, colB: 730, top: 210, h: 600, titleY: 110, titleW: 190, titleSize: 32, divX: 430, rowX: 20, rowW: 800, labelX: 44, labelW: 370, labelSize: 40, labelLines: 2, r: 28, pitch: 180 }; // hàng cao hơn: nhãn 3 dòng không tràn hộp
 
 interface Row {
   label: string;
@@ -27,7 +27,7 @@ export const Compare: React.FC<SceneProps> = ({ scene }) => {
   const titleB = String(scene.props.titleB ?? "");
   const rows = (Array.isArray(scene.props.rows) ? scene.props.rows : []) as Row[];
   const head = prog(frame, 0, 14);
-  const pitch = Math.min(150, AREA_H / Math.max(rows.length, 1));
+  const pitch = Math.min(G.pitch, AREA_H / Math.max(rows.length, 1));
   const rowY = (i: number): number => AREA_TOP + pitch * (i + 0.5);
   const lineEnd = AREA_TOP + pitch * rows.length;
   return (

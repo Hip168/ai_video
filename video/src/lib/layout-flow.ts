@@ -48,7 +48,8 @@ export function flowSizes(scale: number, square = false): { nodeLines: number; n
   const fsMax = Math.max(8, Math.min(30 * scale, boxH * 0.4));
   const nodeLines = boxH >= 60 ? 2 : 1;
   const nodeFont = nodeLines === 2 ? Math.min(fsMax, boxH * 0.3) : fsMax;
-  if (square) return { nodeLines, nodeFont, lblW: 200, lblH: 44, lblFont: 28 }; // nhãn cạnh ≥ 25 px (D32)
+  // Khung vuông: chữ nút không nhỏ hơn ngưỡng 30 px (D32), hộp thấp thì xuống hai dòng; nhãn cạnh ≥ 25 px.
+  if (square) return { nodeLines, nodeFont: Math.max(30, nodeFont), lblW: 200, lblH: 44, lblFont: 28 };
   const up = Math.max(1, scale / LABEL_BASE_SCALE);
   const k = up > 1 ? up : Math.min(1, scale + 0.2);
   const lblW = 160 * k;

@@ -33,9 +33,9 @@ MAX_ROUNDS = 3
 MAX_QUOTE = 300
 MIN_FRAMES = 20
 COUNTED = ("CRITICAL", "MAJOR")
-RESERVED_STAGES = ("cong2", "cong3", "lint", "ky-thuat", "fact", "fact-prepare")
+RESERVED_STAGES = ("cong2", "cong3", "lint", "ky-thuat", "phat-am", "fact", "fact-prepare")
 MAX_CROSS_RETURNS = 2
-RUN_STAGES = ("lint", "ky-thuat")
+RUN_STAGES = ("lint", "ky-thuat", "phat-am")
 HANDOFF_SECTIONS = ("Đã chốt", "Đã bỏ", "Rủi ro", "File", "Còn lại")
 FORBIDDEN_IN_BLIND_PROMPT = ("script.json", "kịch bản", "episodes/")
 PRIVACY = ("unlisted", "public")
@@ -705,11 +705,12 @@ def ledger_add_findings(ep: Path, *, stage, role, pair, findings, root, input_ha
 
 LINT_CMD = ["npm", "run", "lint:episode", "--", "{slug}", "--json"]  # chạy trong <repo>/video
 KY_THUAT_CMD = [sys.executable, "-m", "aivideo.assemble", "verify", "{slug}"]  # đề mục 10
+PHAT_AM_CMD = [sys.executable, "-m", "aivideo.phatam", "check", "{slug}"]  # đề mục 18
 
 
 def expected_command(stage: str, slug: str) -> list[str]:
     """Lệnh cố định của stage (đọc hằng lúc gọi, để test monkeypatch được)."""
-    base = LINT_CMD if stage == "lint" else KY_THUAT_CMD
+    base = {"lint": LINT_CMD, "ky-thuat": KY_THUAT_CMD, "phat-am": PHAT_AM_CMD}[stage]
     return [x.replace("{slug}", slug) for x in base]
 
 
@@ -719,7 +720,7 @@ def ledger_run(ep: Path, stage: str) -> dict:
     cmd = expected_command(stage, ep.name)
     root = ep.resolve().parent.parent
     cwd = root / "video" if stage == "lint" else None
-    env = {**os.environ, "AIVIDEO_ROOT": str(root)} if stage == "ky-thuat" else None
+    env = {**os.environ, "AIVIDEO_ROOT": str(root)} if stage != "lint" else None
     try:
         r = subprocess.run(cmd, capture_output=True, text=False, check=False, cwd=cwd, env=env)
     except OSError as e:
@@ -758,6 +759,19 @@ def ledger_handoff(ep: Path, khau: str) -> Path:
 
 
 # ---- gate3 -------------------------------------------------------------------
+
+def _speaks_english(ep: Path) -> bool:
+    """Lời đọc có đọc từ tiếng Anh nào không (theo `phatam scan`); đọc lỗi thì coi là có."""
+    from aivideo import phatam
+
+    try:
+        script = _read_json(ep / "script.json")
+        lex = phatam.load_lexicon(ep, ep.resolve().parent.parent / "content" / "lexicon.json")
+        occ = phatam.find_occurrences(script, lex)
+    except (OSError, ValueError, KeyError, TypeError, AttributeError, GateError):
+        return True
+    return any(o["kind"] != "nghia-viet" for o in occ)
+
 
 def _kenh_info(kenh: Path):
     """(channelId | None, firstVideoApproved)."""
@@ -932,9 +946,11 @@ def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None, out
                 "đạt" if g2["pass"] else f"{len(g2['problems'])} vấn đề, vd {g2['problems'][0]}")
         except GateError as e:
             add("cong2-lai", False, str(e))
-    for stage in ("lint", "ky-thuat", "qc"):
+    for stage in ("lint", "ky-thuat", "phat-am", "qc"):
         e = last(stage)
-        if not e:
+        if stage == "phat-am" and not _speaks_english(ep):
+            add(stage, True, "lời đọc không có từ tiếng Anh")
+        elif not e:
             add(stage, False, "chưa có mục trong sổ tập")
         elif e.get("verdict") != "DAT":
             add(stage, False, f"phán quyết {e.get('verdict')}")

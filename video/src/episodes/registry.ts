@@ -2,6 +2,14 @@ import type React from "react";
 import type { SceneProps } from "../lib/types";
 import { MoPhong } from "./_demo/mo-phong";
 import { CanhMau } from "./_template/canh-mau";
+import { BonGcu } from "./khi-may-tinh-dem-qua-gioi-han/bon-gcu";
+import { CongBit } from "./khi-may-tinh-dem-qua-gioi-han/cong-bit";
+import { CongToMet } from "./khi-may-tinh-dem-qua-gioi-han/cong-to-met";
+import { DongHo2038 } from "./khi-may-tinh-dem-qua-gioi-han/dong-ho-2038";
+import { HaiBo } from "./khi-may-tinh-dem-qua-gioi-han/hai-bo";
+import { OChua } from "./khi-may-tinh-dem-qua-gioi-han/o-chua";
+import { SoTuan } from "./khi-may-tinh-dem-qua-gioi-han/so-tuan";
+import { VongSo } from "./khi-may-tinh-dem-qua-gioi-han/vong-so";
 import { CatBit } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/cat-bit";
 import { ChuSoCoNghia } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/chu-so-co-nghia";
 import { DauPhayDong } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/dau-phay-dong";
@@ -43,6 +51,15 @@ export const CUSTOM_SCENES: Record<string, React.FC<SceneProps>> = {
   "cat-bit": CatBit,
   "do-lech": DoLech,
   "hai-lan-do": HaiLanDo,
+  // khi-may-tinh-dem-qua-gioi-han
+  "cong-to-met": CongToMet,
+  "vong-so": VongSo,
+  "cong-bit": CongBit,
+  "o-chua": OChua,
+  "hai-bo": HaiBo,
+  "bon-gcu": BonGcu,
+  "so-tuan": SoTuan,
+  "dong-ho-2038": DongHo2038,
 };
 
 /** Cảnh riêng đã tự vẽ vừa hộp vuông của Short (đọc `useBox()`); cảnh khác không được nằm trong Short (D33). */
@@ -50,4 +67,6 @@ export const CUSTOM_SQUARE: ReadonlySet<string> = new Set<string>([
   "mach-den", "bite-byte", "dien-ap", "bon-muoi-bit", "bo-dem-vong",
   // vi-sao-0-1-cong-0-2-khong-bang-0-3
   "phan-so-lap", "dau-phay-dong", "chu-so-co-nghia", "thuoc-vach", "cat-bit", "do-lech", "hai-lan-do",
+  // khi-may-tinh-dem-qua-gioi-han
+  "cong-to-met", "vong-so", "cong-bit", "o-chua", "hai-bo", "bon-gcu", "so-tuan", "dong-ho-2038",
 ]);

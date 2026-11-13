@@ -13,6 +13,15 @@ export const COLD_OPEN_TEXT_WIDTH = COLD_OPEN_PANEL_WIDTH - 2 * MIN_MARGIN;
 const WIDE = { w: 1920, h: 830, cx: 960, cy: 415, ty: 420, panelX: 140, panelW: COLD_OPEN_PANEL_WIDTH, textW: COLD_OPEN_TEXT_WIDTH, sizes: [120, 92, 72], kick: 40, r0: 160, r1: 520 };
 const SQUARE = { w: 840, h: 840, cx: 420, cy: 420, ty: 440, panelX: 30, panelW: 780, textW: 780 - 2 * MIN_MARGIN, sizes: [96, 76, 60], kick: 44, r0: 90, r1: 300 };
 
+/**
+ * Chuyển động dòng hook thứ `i` ở nhịp `t`: chữ hiện đủ ngay từ frame 0 (không
+ * mờ dần, tránh frame đầu tập trống), chỉ trượt nhẹ lên vị trí.
+ */
+export const hookLineMotion = (t: number, i: number): { opacity: number; dy: number } => ({
+  opacity: 1,
+  dy: (1 - ease((t - i * 8) / 18)) * 40,
+});
+
 export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const frame = useCurrentFrame();
@@ -53,7 +62,7 @@ export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
         </text>
       )}
       {lines.map((line, i) => {
-        const p = ease((t - i * 8) / 18);
+        const m = hookLineMotion(t, i);
         return (
           <text
             key={i}
@@ -63,8 +72,8 @@ export const ColdOpen: React.FC<SceneProps> = ({ scene }) => {
             fontWeight={700}
             fill={i % 2 === 0 ? theme.fg : theme.accent}
             textAnchor="middle"
-            opacity={p}
-            transform={`translate(0 ${(1 - p) * 40})`}
+            opacity={m.opacity}
+            transform={`translate(0 ${m.dy})`}
           >
             {line}
           </text>

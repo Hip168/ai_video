@@ -76,7 +76,7 @@ Remotion miễn phí cho cá nhân và tổ chức tối đa 3 người. KorvaTT
 ## Vùng an toàn Shorts (D32)
 - Nguồn: Google Ads Help 13547298, mục "Universal safe zones" (https://support.google.com/google-ads/answer/13547298). Khung dọc 1080×1920, lề trên 288, dưới 672, trái 48, phải 192 px. Vùng an toàn: x 48–888, y 288–1248.
 
-## Bố cục Short toàn màn hình (người dùng, 2026-11-14; thay D32 MỞ-1 và phần căn giữa của D34)
+## Bố cục Short toàn màn hình (D37, người dùng 2026-11-14; thay D32 MỞ-1 và phần căn giữa của D34)
 - Lý do: YouTube và TikTok có chế độ xem sạch, ẩn bình luận, mô tả và các nút. Vì vậy khung dọc dùng toàn màn hình, không thu cảnh vào vùng an toàn ở trên nữa. Mục trên chỉ còn để tham khảo.
 - Vùng an toàn cũ không căn giữa được: hộp 840 đã kín bề ngang vùng an toàn (x 48–888), và hộp cộng phụ đề đã kín bề cao (y 288–1248). Muốn căn giữa trong vùng đó thì phải thu hộp còn khoảng 696, mà mọi cảnh vẽ cứng theo 840.
 - Lề 48 px quanh mép. Toạ độ trong `video/src/Short.tsx`:

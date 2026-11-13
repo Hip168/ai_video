@@ -369,6 +369,10 @@
         "credibility": "primary"
       },
       {
+        "url": "https://man7.org/linux/man-pages/man2/time.2.html",
+        "credibility": "primary"
+      },
+      {
         "url": "https://lwn.net/Articles/643234/",
         "credibility": "secondary"
       }
@@ -382,6 +386,14 @@
     "sources": [
       {
         "url": "https://www.gnu.org/software/gnulib/manual/html_node/Avoiding-the-year-2038-problem.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://sourceware.org/pipermail/libc-alpha/2021-August/129718.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://man7.org/linux/man-pages/man7/feature_test_macros.7.html",
         "credibility": "primary"
       }
     ],

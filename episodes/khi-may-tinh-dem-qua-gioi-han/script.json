@@ -3,7 +3,7 @@
     "title": "Khi máy tính đếm quá giới hạn",
     "voice": "hoang_nam",
     "speed": 1.25,
-    "theme": "mau-b",
+    "theme": "mau-d",
     "music": {
       "track": "reverence-endless",
       "gainDb": -24
@@ -32,10 +32,14 @@
     },
     {
       "id": "chuong-5",
-      "title": "Khi chính đồng hồ bị tràn"
+      "title": "GPS và cuốn sổ đếm tuần"
     },
     {
       "id": "chuong-6",
+      "title": "Năm 2038 và chiếc đồng hồ đếm giây"
+    },
+    {
+      "id": "chuong-7",
       "title": "Sống chung với cái trần"
     },
     {
@@ -45,12 +49,15 @@
   ],
   "scenes": [
     {
-      "id": "sc01",
+      "id": "s01",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Gangnam Style và bộ đếm lượt xem của YouTube",
+        "kicker": "Tháng 12 năm 2014"
+      },
       "holdMs": 0,
-      "sfx": null,
+      "sfx": "whoosh",
       "beats": [
         {
           "id": "b001",
@@ -62,28 +69,32 @@
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "big-number",
+      "props": {
+        "value": 2147483647,
+        "label": "Lượt xem Gangnam Style đã vượt con số này",
+        "note": "Số lớn nhất bộ đếm 32 bit của YouTube giữ được: 32 ô, mỗi ô 0 hoặc 1"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b002",
           "text": "Lượt xem của nó đã vượt 2.147.483.647.",
-          "spoken": null,
-          "cue": "hook",
+          "spoken": "Lượt xem của nó đã vượt hơn hai tỷ một trăm bốn mươi bảy triệu.",
+          "cue": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c001"
           ]
-        }
-      ]
-    },
-    {
-      "id": "sc02",
-      "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b003",
           "text": "Đó là con số lớn nhất mà bộ đếm của YouTube giữ được.",
@@ -103,13 +114,27 @@
           "sfx": null,
           "claims": [
             "c001"
-          ]
-        },
+          ],
+          "cue": null
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "“Nhưng đó là trước khi chúng tôi gặp PSY.”",
+        "kicker": "YouTube viết"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b004",
           "text": "YouTube viết rằng họ chưa từng nghĩ một video sẽ được xem nhiều đến thế.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
@@ -130,10 +155,14 @@
       ]
     },
     {
-      "id": "sc03",
+      "id": "s05",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 64,
+        "suffix": " bit",
+        "label": "Bộ đếm mới của YouTube: số nguyên 64 bit"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -147,7 +176,21 @@
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {
+        "term": "Vì sao không phải số tròn?",
+        "tag": "2.147.483.647",
+        "definition": "Và nếu cứ đếm vượt qua cái trần ấy, chuyện gì xảy ra?"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b007",
           "text": "Khoan đã. Vì sao trần lại là con số lẻ tẻ ấy, mà không phải một số tròn?",
@@ -169,10 +212,36 @@
       ]
     },
     {
-      "id": "sc04",
+      "id": "s07",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "loi",
+            "label": "Cùng một kiểu lỗi"
+          },
+          {
+            "id": "bo",
+            "label": "Boeing 787 phải tắt điện"
+          },
+          {
+            "id": "tl",
+            "label": "1996: tên lửa tự hủy"
+          }
+        ],
+        "edges": [
+          {
+            "from": "loi",
+            "to": "bo"
+          },
+          {
+            "from": "loi",
+            "to": "tl"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -204,10 +273,17 @@
       ]
     },
     {
-      "id": "sc05",
+      "id": "s08",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Số nguyên thì máy cất thoải mái",
+            "fact": "Số nguyên trong máy cũng có trần"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -232,10 +308,24 @@
       ]
     },
     {
-      "id": "sc06",
+      "id": "c1",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Bộ đếm nào cũng có số ô hữu hạn",
+        "number": 1
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s10",
+      "chapter": "chuong-1",
+      "type": "custom:cong-to-met",
+      "props": {
+        "mode": "chay"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -269,10 +359,12 @@
       ]
     },
     {
-      "id": "sc07",
+      "id": "s11",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:cong-to-met",
+      "props": {
+        "mode": "lat"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -282,7 +374,7 @@
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
-          "sfx": null,
+          "sfx": "tick",
           "claims": []
         },
         {
@@ -293,17 +385,7 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        }
-      ]
-    },
-    {
-      "id": "sc08",
-      "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b018",
           "text": "Số nguyên trong máy cũng vậy. Mỗi số được cấp sẵn một số bit, tức một số ô cố định.",
@@ -312,31 +394,49 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
-        {
-          "id": "b019",
-          "text": "Mỗi ô chỉ chứa không hoặc một. Thêm một ô, số cách sắp xếp nhân đôi.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": []
         }
       ]
     },
     {
-      "id": "sc09",
+      "id": "s13",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "scale-ladder",
+      "props": {
+        "rungs": [
+          {
+            "label": "1 ô",
+            "value": "2 cách",
+            "power": 0.3
+          },
+          {
+            "label": "8 ô",
+            "value": "256 cách",
+            "power": 2.41
+          },
+          {
+            "label": "32 ô",
+            "value": "hơn 4 tỷ cách",
+            "power": 9.63
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
         {
+          "id": "b019",
+          "text": "Mỗi ô chỉ chứa không hoặc một. Thêm một ô, số cách sắp xếp nhân đôi.",
+          "spoken": null,
+          "cue": "rung",
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
           "id": "b020",
           "text": "8 ô thì có 256 cách sắp xếp, tức 256 giá trị.",
           "spoken": null,
-          "cue": null,
+          "cue": "rung",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
@@ -348,7 +448,7 @@
           "id": "b021",
           "text": "Còn 32 ô thì có hơn bốn tỷ cách.",
           "spoken": null,
-          "cue": null,
+          "cue": "rung",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
@@ -367,10 +467,15 @@
       ]
     },
     {
-      "id": "sc10",
+      "id": "s14",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "u8",
+        "tag": "Sách Rust",
+        "definition": "Số nguyên 8 bit không dấu: chứa từ 0 đến 255",
+        "example": "Gán 256: tràn số, con số không còn vừa ô chứa"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -410,10 +515,48 @@
       ]
     },
     {
-      "id": "sc10a",
+      "id": "s15",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "ct",
+            "label": "Chương trình"
+          },
+          {
+            "id": "ph",
+            "label": "Phát hành: người dùng"
+          },
+          {
+            "id": "gl",
+            "label": "Gỡ lỗi: để thử"
+          }
+        ],
+        "edges": [
+          {
+            "from": "ct",
+            "to": "ph",
+            "label": "dịch"
+          },
+          {
+            "from": "ct",
+            "to": "gl",
+            "label": "dịch"
+          }
+        ],
+        "packets": [
+          {
+            "from": "ct",
+            "to": "gl"
+          },
+          {
+            "from": "ct",
+            "to": "ph"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -425,7 +568,8 @@
           "sfx": null,
           "claims": [
             "c004"
-          ]
+          ],
+          "cue": null
         },
         {
           "id": "b137",
@@ -435,15 +579,18 @@
           "sfx": null,
           "claims": [
             "c004"
-          ]
+          ],
+          "cue": null
         }
       ]
     },
     {
-      "id": "sc11",
+      "id": "s16",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:vong-so",
+      "props": {
+        "mode": "u8"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -468,7 +615,32 @@
           "claims": [
             "c004"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "chapter": "chuong-1",
+      "type": "compare",
+      "props": {
+        "titleA": "Gỡ lỗi",
+        "titleB": "Phát hành",
+        "rows": [
+          {
+            "label": "Dừng lại và báo lỗi khi tràn số",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Bản người dùng chạy",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b028",
           "text": "Chỉ ở chế độ gỡ lỗi, chương trình mới dừng lại và báo lỗi.",
@@ -488,14 +660,15 @@
           "sfx": null,
           "claims": [
             "c004"
-          ]
+          ],
+          "cue": null
         }
       ]
     },
     {
-      "id": "sc12",
+      "id": "s18",
       "chapter": "chuong-1",
-      "type": "term-card",
+      "type": "custom:cong-bit",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -530,10 +703,29 @@
       ]
     },
     {
-      "id": "sc13",
+      "id": "c2",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Vì sao lại là 2.147.483.647",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s20",
+      "chapter": "chuong-2",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Trần của 32 ô phải là hơn bốn tỷ",
+            "fact": "Kiểu số ấy phải chứa được cả số âm"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -560,10 +752,12 @@
       ]
     },
     {
-      "id": "sc14",
+      "id": "s21",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:vong-so",
+      "props": {
+        "mode": "i8"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -588,11 +782,36 @@
           "claims": [
             "c005"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s21b",
+      "chapter": "chuong-2",
+      "type": "compare",
+      "props": {
+        "titleA": "8 bit không dấu",
+        "titleB": "8 bit có dấu",
+        "rows": [
+          {
+            "label": "Từ 0 đến 255",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Từ −128 đến 127",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b036",
           "text": "Với 8 bit có dấu, ta không còn từ 0 đến 255 nữa, mà từ -128 đến 127.",
-          "spoken": null,
+          "spoken": "Với tám bit có dấu, ta không còn từ không đến hai trăm năm mươi lăm nữa, mà từ âm một trăm hai mươi tám đến một trăm hai mươi bảy.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -600,28 +819,33 @@
             "c005",
             "c004"
           ]
-        }
-      ]
-    },
-    {
-      "id": "sc15",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b037",
-          "text": "Nửa này cho số âm, nửa kia cho số không và số dương, nên trần dương hụt đi một.",
-          "spoken": null,
+          "text": "Một nửa số chỗ cho số âm, nửa kia cho số không và số dương, nên số dương lớn nhất chỉ là 127.",
+          "spoken": "Một nửa số chỗ cho số âm, nửa kia cho số không và số dương, nên số dương lớn nhất chỉ là một trăm hai mươi bảy.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c005"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s22",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {
+        "term": "int",
+        "tag": "Đặc tả Java",
+        "definition": "Số nguyên 32 bit: từ −2.147.483.648 đến 2.147.483.647",
+        "example": "Chính là con số của YouTube"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b038",
           "text": "Đặc tả chính thức của ngôn ngữ Java ghi rõ giới hạn của từng loại.",
@@ -632,17 +856,7 @@
           "claims": [
             "c006"
           ]
-        }
-      ]
-    },
-    {
-      "id": "sc16",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b039",
           "text": "Kiểu int, số nguyên 32 bit, chứa từ -2.147.483.648 đến 2.147.483.647.",
@@ -668,10 +882,12 @@
       ]
     },
     {
-      "id": "sc17",
+      "id": "s23",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:vong-so",
+      "props": {
+        "mode": "i32"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -692,11 +908,23 @@
           "spoken": "Kết quả không phải số lớn hơn, mà là âm hai tỷ một trăm bốn mươi bảy triệu bốn trăm tám mươi ba nghìn sáu trăm bốn mươi tám.",
           "cue": null,
           "pause_ms": 300,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c006"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s23b",
+      "chapter": "chuong-2",
+      "type": "custom:vong-so",
+      "props": {
+        "mode": "i32-xa"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b043",
           "text": "Đồng hồ không về số không, mà lật thẳng sang đầu bên kia: số âm xa nhất.",
@@ -709,10 +937,15 @@
       ]
     },
     {
-      "id": "sc18",
+      "id": "s24",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Không báo tràn số",
+        "tag": "Đặc tả Java",
+        "definition": "Ví dụ: 1.000.000 × 1.000.000 bằng kiểu int",
+        "example": "Đáp số đúng: 1.000.000.000.000"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -737,17 +970,7 @@
           "claims": [
             "c008"
           ]
-        }
-      ]
-    },
-    {
-      "id": "sc19",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b046",
           "text": "Đáp số đúng là 1.000.000.000.000.",
@@ -758,7 +981,21 @@
           "claims": [
             "c008"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s26",
+      "chapter": "chuong-2",
+      "type": "big-number",
+      "props": {
+        "value": -727379968,
+        "label": "Kết quả của 1.000.000 × 1.000.000 bằng kiểu int",
+        "note": "Không cảnh báo, không thông báo lỗi"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b047",
           "text": "Máy trả về -727.379.968.",
@@ -778,17 +1015,7 @@
           "pause_ms": 600,
           "sfx": null,
           "claims": []
-        }
-      ]
-    },
-    {
-      "id": "sc20",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b049",
           "text": "Không cảnh báo, không thông báo lỗi. Chương trình cứ thế chạy tiếp với con số sai.",
@@ -799,10 +1026,38 @@
           "claims": [
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "chapter": "chuong-2",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Gangnam Style đã làm YouTube sập",
+            "fact": "Google: về mặt kỹ thuật YouTube không hỏng, chỉ nâng bộ đếm lên 64 bit"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b050",
           "text": "Vậy YouTube có bị hỏng không? Nghe kể thì dễ tưởng Gangnam Style đã làm YouTube sập.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        },
+        {
+          "id": "b051",
+          "text": "Nhưng phát ngôn viên của Google nói rằng về mặt kỹ thuật, YouTube không hề hỏng.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -814,24 +1069,18 @@
       ]
     },
     {
-      "id": "sc21",
+      "id": "s28",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 4,
+        "prefix": "hơn ",
+        "suffix": " tỷ lần",
+        "label": "Trần mới của bộ đếm 64 bit, so với trần cũ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
-        {
-          "id": "b051",
-          "text": "Nhưng phát ngôn viên của Google nói rằng về mặt kỹ thuật, YouTube không hề hỏng.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c003"
-          ]
-        },
         {
           "id": "b052",
           "text": "YouTube chỉ nâng bộ đếm lên số nguyên 64 bit, trần mới cao gấp hơn bốn tỷ lần.",
@@ -846,10 +1095,26 @@
       ]
     },
     {
-      "id": "sc22",
+      "id": "c3",
+      "chapter": "chuong-3",
+      "type": "chapter-title",
+      "props": {
+        "title": "37 giây của Ariane 5",
+        "number": 3
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s30",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "4 tháng 6 năm 1996",
+        "tag": "Ariane 5",
+        "definition": "Tên lửa Ariane 5 bay chuyến đầu tiên: chuyến 501"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -878,9 +1143,9 @@
       ]
     },
     {
-      "id": "sc25",
+      "id": "s31",
       "chapter": "chuong-3",
-      "type": "term-card",
+      "type": "custom:o-chua",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -921,17 +1186,21 @@
       ]
     },
     {
-      "id": "sc26",
+      "id": "s32",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 32767,
+        "label": "Trần của ô 16 bit có dấu",
+        "note": "Giá trị lúc ấy quá lớn: Operand Error"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
         {
           "id": "b061",
           "text": "Ô 64 bit chứa nó thoải mái. Nhưng ô 16 bit có dấu chỉ chứa được đến 32.767.",
-          "spoken": null,
+          "spoken": "Ô sáu mươi bốn bit chứa nó thoải mái. Nhưng ô mười sáu bit có dấu chỉ chứa được đến ba mươi hai nghìn bảy trăm sáu mươi bảy.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -946,7 +1215,7 @@
           "spoken": "Giá trị lúc ấy quá lớn. Phép đổi sinh ra lỗi toán hạng.",
           "cue": null,
           "pause_ms": 600,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c011"
           ]
@@ -954,10 +1223,14 @@
       ]
     },
     {
-      "id": "sc27",
+      "id": "s33",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Bộ tham chiếu quán tính",
+        "tag": "Ariane 5",
+        "definition": "Cho tên lửa biết nó đang hướng về đâu"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -972,7 +1245,17 @@
             "c011",
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s34",
+      "chapter": "chuong-3",
+      "type": "custom:hai-bo",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b130",
           "text": "Gặp lỗi, bộ ấy ngừng hoạt động.",
@@ -981,7 +1264,8 @@
           "sfx": null,
           "claims": [
             "c012"
-          ]
+          ],
+          "cue": null
         },
         {
           "id": "b064",
@@ -994,17 +1278,7 @@
             "c012",
             "c009"
           ]
-        }
-      ]
-    },
-    {
-      "id": "sc28",
-      "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b065",
           "text": "Nhưng hai bộ giống hệt nhau, cả phần cứng lẫn phần mềm.",
@@ -1030,10 +1304,16 @@
       ]
     },
     {
-      "id": "sc23",
+      "id": "s35",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 37,
+        "prefix": "khoảng ",
+        "suffix": " giây",
+        "label": "Sau khi động cơ chính đánh lửa",
+        "note": "Tên lửa hết nguồn dẫn đường"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1051,10 +1331,55 @@
       ]
     },
     {
-      "id": "sc28a",
+      "id": "s36",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "hong",
+            "label": "Bộ hỏng"
+          },
+          {
+            "id": "bit",
+            "label": "Dãy bit báo lỗi"
+          },
+          {
+            "id": "may",
+            "label": "Máy tính chính"
+          },
+          {
+            "id": "sai",
+            "label": "Tưởng là số liệu bay"
+          }
+        ],
+        "edges": [
+          {
+            "from": "hong",
+            "to": "bit"
+          },
+          {
+            "from": "bit",
+            "to": "may"
+          },
+          {
+            "from": "may",
+            "to": "sai"
+          }
+        ],
+        "packets": [
+          {
+            "from": "bit",
+            "to": "may",
+            "label": "bit"
+          },
+          {
+            "from": "may",
+            "to": "sai"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1066,7 +1391,8 @@
           "sfx": null,
           "claims": [
             "c032"
-          ]
+          ],
+          "cue": null
         },
         {
           "id": "b132",
@@ -1076,7 +1402,8 @@
           "sfx": null,
           "claims": [
             "c032"
-          ]
+          ],
+          "cue": null
         },
         {
           "id": "b133",
@@ -1084,15 +1411,48 @@
           "spoken": null,
           "pause_ms": 600,
           "sfx": null,
-          "claims": []
+          "claims": [],
+          "cue": null
         }
       ]
     },
     {
-      "id": "sc28b",
+      "id": "s37",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "tuong",
+            "label": "Tưởng lệch hướng"
+          },
+          {
+            "id": "be",
+            "label": "Bẻ hết cỡ vòi phun"
+          },
+          {
+            "id": "sua",
+            "label": "Sửa độ lệch không có"
+          }
+        ],
+        "edges": [
+          {
+            "from": "tuong",
+            "to": "be"
+          },
+          {
+            "from": "be",
+            "to": "sua"
+          }
+        ],
+        "packets": [
+          {
+            "from": "be",
+            "to": "sua"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1104,7 +1464,8 @@
           "sfx": null,
           "claims": [
             "c033"
-          ]
+          ],
+          "cue": null
         },
         {
           "id": "b135",
@@ -1114,15 +1475,22 @@
           "sfx": null,
           "claims": [
             "c033"
-          ]
+          ],
+          "cue": null
         }
       ]
     },
     {
-      "id": "sc24",
+      "id": "s38",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 20,
+        "prefix": "vượt ",
+        "suffix": " độ",
+        "label": "Góc tấn: góc giữa thân tên lửa và luồng gió",
+        "note": "Khoảng giây thứ 39: tên lửa vỡ ra, hệ thống tự hủy kích hoạt"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1152,10 +1520,13 @@
       ]
     },
     {
-      "id": "sc29",
+      "id": "s39",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Ba điều trớ trêu",
+        "kicker": "Ariane 5"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1163,11 +1534,36 @@
           "id": "b067",
           "text": "Câu chuyện còn ba điều trớ trêu.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-3",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Tốc độ ngang tăng nhanh, so với Ariane 4",
+        "unit": " lần",
+        "highlight": 1,
+        "data": [
+          {
+            "label": "Ariane 4",
+            "value": 1
+          },
+          {
+            "label": "Ariane 5",
+            "value": 5
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b068",
           "text": "Một: thiết kế bộ này gần như giống hệt bộ đang dùng trên Ariane 4.",
@@ -1193,10 +1589,16 @@
       ]
     },
     {
-      "id": "sc30",
+      "id": "s41",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 40,
+        "prefix": "khoảng ",
+        "suffix": " giây",
+        "label": "Chức năng căn chỉnh vẫn chạy thêm khi đã bay",
+        "note": "Nó hết tác dụng khi tên lửa rời bệ phóng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1225,39 +1627,22 @@
       ]
     },
     {
-      "id": "sc31",
+      "id": "s42",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Ba biến không kiểm tra",
+        "tag": "Điều trớ trêu thứ ba",
+        "definition": "Để đỡ tốn sức máy, ba biến dễ gây lỗi kiểu này bị bỏ không kiểm tra"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
         {
           "id": "b072",
-          "text": "Ba: phần mềm có bảy biến dễ gây lỗi kiểu này. Bốn biến được bảo vệ, ba biến thì không.",
+          "text": "Ba: để đỡ tốn sức máy, ba biến dễ gây lỗi kiểu này bị bỏ không kiểm tra.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c015"
-          ]
-        },
-        {
-          "id": "b073",
-          "text": "Bảo vệ một biến là thêm phép kiểm tra, mà phép kiểm tra nào cũng tốn sức máy.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": [
-            "c015"
-          ]
-        },
-        {
-          "id": "b144",
-          "text": "Người ta lại muốn giữ tải máy tính không quá 80%, nên ba biến bị bỏ ngỏ.",
-          "spoken": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1267,10 +1652,42 @@
       ]
     },
     {
-      "id": "sc32",
+      "id": "s43",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "hd",
+            "label": "Hội đồng Lions"
+          },
+          {
+            "id": "bc",
+            "label": "Báo cáo 19/7/1996"
+          },
+          {
+            "id": "kn",
+            "label": "Đầu tiên: tắt căn chỉnh"
+          }
+        ],
+        "edges": [
+          {
+            "from": "hd",
+            "to": "bc"
+          },
+          {
+            "from": "bc",
+            "to": "kn"
+          }
+        ],
+        "packets": [
+          {
+            "from": "bc",
+            "to": "kn"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1299,10 +1716,29 @@
       ]
     },
     {
-      "id": "sc33",
+      "id": "c4",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Boeing 787 và 248 ngày",
+        "number": 4
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s45",
+      "chapter": "chuong-4",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Chỉ số quá lớn mới gây tràn",
+            "fact": "Chỉ cần thời gian: mỗi nhịp cộng một, chạy đủ lâu là chạm trần"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1329,10 +1765,15 @@
       ]
     },
     {
-      "id": "sc34",
+      "id": "s47",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 248,
+        "suffix": " ngày",
+        "label": "Boeing 787 cấp điện liên tục: có thể mất toàn bộ điện xoay chiều",
+        "note": "Chỉ thị bay an toàn của FAA, năm 2015"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1362,10 +1803,42 @@
       ]
     },
     {
-      "id": "sc35",
+      "id": "s48",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "dem",
+            "label": "Bộ đếm trong GCU"
+          },
+          {
+            "id": "tran",
+            "label": "Bị tràn"
+          },
+          {
+            "id": "ptn",
+            "label": "Lộ ra khi thử nghiệm"
+          }
+        ],
+        "edges": [
+          {
+            "from": "dem",
+            "to": "tran"
+          },
+          {
+            "from": "tran",
+            "to": "ptn"
+          }
+        ],
+        "packets": [
+          {
+            "from": "tran",
+            "to": "ptn"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1394,9 +1867,9 @@
       ]
     },
     {
-      "id": "sc36",
+      "id": "s49",
       "chapter": "chuong-4",
-      "type": "term-card",
+      "type": "custom:bon-gcu",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -1426,10 +1899,14 @@
       ]
     },
     {
-      "id": "sc37",
+      "id": "s50",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Cách chữa tạm thời",
+        "tag": "Có thể mất kiểm soát",
+        "definition": "Tắt đi rồi bật lại"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1458,10 +1935,16 @@
       ]
     },
     {
-      "id": "sc38",
+      "id": "s51",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 120,
+        "prefix": "tối đa ",
+        "suffix": " ngày",
+        "label": "Giữa hai lần bắt buộc tắt điện máy bay",
+        "note": "Áp dụng cho 28 chiếc đăng ký tại Mỹ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1490,10 +1973,14 @@
       ]
     },
     {
-      "id": "sc39",
+      "id": "s52",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Phần mềm mới cho cả sáu GCU",
+        "tag": "Chỉ thị năm 2018",
+        "definition": "FAA không công bố đơn vị của bộ đếm"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1522,10 +2009,17 @@
       ]
     },
     {
-      "id": "sc40",
+      "id": "s53",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 248.5,
+        "decimals": 1,
+        "prefix": "khoảng ",
+        "suffix": " ngày",
+        "label": "2.147.483.647 phần trăm giây",
+        "note": "Phép tính của kênh, không phải kết luận chính thức"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1563,10 +2057,25 @@
       ]
     },
     {
-      "id": "sc41",
+      "id": "c5",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "GPS và cuốn sổ đếm tuần",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-5",
+      "type": "cold-open",
+      "props": {
+        "hook": "Máy đo thời gian bằng một con số đếm lên từ một mốc",
+        "kicker": "Tràn số và đồng hồ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1574,21 +2083,11 @@
           "id": "b093",
           "text": "Tràn số còn nhắm vào cả đồng hồ. Máy đo thời gian bằng một con số đếm lên từ một mốc.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        }
-      ]
-    },
-    {
-      "id": "sc42",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b094",
           "text": "Lấy ví dụ GPS, hệ thống định vị bằng vệ tinh.",
@@ -1599,7 +2098,21 @@
           "claims": [
             "c022"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-5",
+      "type": "bits",
+      "props": {
+        "value": 1023,
+        "width": 10,
+        "label": "Số tuần trong tín hiệu GPS"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b140",
           "text": "Vệ tinh GPS còn phát cả giờ, tính bằng số tuần kể từ một mốc.",
@@ -1608,12 +2121,13 @@
           "sfx": null,
           "claims": [
             "c022"
-          ]
+          ],
+          "cue": null
         },
         {
           "id": "b095",
           "text": "Tín hiệu dân sự chính ghi số tuần ấy bằng 10 bit, nên lớn nhất chỉ là 1.023.",
-          "spoken": null,
+          "spoken": "Tín hiệu dân sự chính ghi số tuần ấy bằng mười bit, nên lớn nhất chỉ là một nghìn không trăm hai mươi ba.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1624,10 +2138,17 @@
       ]
     },
     {
-      "id": "sc42a",
+      "id": "s57",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 19.7,
+        "decimals": 1,
+        "prefix": "khoảng ",
+        "suffix": " năm",
+        "label": "Hơn một nghìn tuần, đổi ra năm",
+        "note": "Hết mức ấy, số tuần quay về 0"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1646,19 +2167,79 @@
           "id": "b141",
           "text": "Hết mức ấy, số tuần quay về 0, như đồng hồ cây số lúc nãy.",
           "spoken": null,
-          "pause_ms": 600,
+          "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c022"
-          ]
+          ],
+          "cue": null
         }
       ]
     },
     {
-      "id": "sc43",
+      "id": "s58",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:so-tuan",
+      "props": {
+        "mode": "lat"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b149",
+          "text": "Hãy hình dung một cuốn sổ chỉ hơn một nghìn trang, mỗi tuần một trang.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ],
+          "cue": null
+        },
+        {
+          "id": "b150",
+          "text": "Hết trang cuối lại lật về trang đầu, mà sổ không ghi đây là vòng thứ mấy.",
+          "spoken": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ],
+          "cue": null
+        }
+      ]
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "l1",
+            "label": "Tháng 8/1999: lần đầu"
+          },
+          {
+            "id": "l2",
+            "label": "6/4/2019: lần thứ hai"
+          }
+        ],
+        "edges": [
+          {
+            "from": "l1",
+            "to": "l2",
+            "label": "quay về 0"
+          }
+        ],
+        "packets": [
+          {
+            "from": "l1",
+            "to": "l2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1687,13 +2268,24 @@
       ]
     },
     {
-      "id": "sc44",
+      "id": "s60",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:so-tuan",
+      "props": {
+        "mode": "nham"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
+        {
+          "id": "b151",
+          "text": "Nhìn một trang sổ, máy thu không biết đó là vòng đầu hay vòng sau.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [],
+          "cue": null
+        },
         {
           "id": "b099",
           "text": "Máy thu GPS nào không xử lý đúng có thể báo ngày lệch hẳn 19,7 năm.",
@@ -1710,12 +2302,27 @@
           "text": "Ngay sau lần thứ hai, máy lỗi có thể tưởng mình đang ở tháng 8 năm 1999.",
           "spoken": null,
           "pause_ms": 300,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c023",
             "c031"
-          ]
-        },
+          ],
+          "cue": null
+        }
+      ]
+    },
+    {
+      "id": "s61",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Sự cố có thật",
+        "tag": "Theo GPS.gov",
+        "definition": "Nhiều thiết bị đã gặp sự cố quanh lần quay vòng thứ hai"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b100",
           "text": "Theo trang GPS.gov, nhiều thiết bị đã thật sự gặp sự cố quanh lần ấy.",
@@ -1730,21 +2337,37 @@
       ]
     },
     {
-      "id": "sc45",
+      "id": "s62",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Số tuần 10 bit",
+        "titleB": "Số tuần 13 bit",
+        "rows": [
+          {
+            "label": "Quay vòng ngày 20/11/2038",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Không quay vòng trong hơn 100 năm tới",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
         {
           "id": "b101",
-          "text": "Với thiết bị đời cũ, lần quay vòng kế tiếp là ngày 20 tháng 11 năm 2038.",
+          "text": "Thiết bị còn dùng số tuần 10 bit kiểu cũ sẽ quay vòng lần tới vào ngày 20 tháng 11 năm 2038.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
+            "c022",
             "c025"
           ]
         },
@@ -1753,7 +2376,7 @@
           "text": "Tín hiệu đời mới dùng số tuần 13 bit, không quay vòng trong hơn một trăm năm tới.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 900,
+          "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c025"
@@ -1762,24 +2385,64 @@
       ]
     },
     {
-      "id": "sc46",
+      "id": "s63",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Cùng năm 2038, còn một cái hẹn khác, sớm hơn",
+        "kicker": "Hãy nhớ tháng 11 năm 2038"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
         {
           "id": "b103",
-          "text": "Hãy nhớ năm 2038 ấy, vì nó còn một cái hẹn thứ hai, sớm hơn, vào tháng 1.",
+          "text": "Hãy nhớ cái hẹn tháng 11 năm 2038 ấy. Cùng năm đó còn một cái hẹn khác, sớm hơn.",
           "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
+          "cue": "hook",
+          "pause_ms": 900,
           "sfx": null,
           "claims": [
             "c025",
             "c027"
           ]
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "chapter": "chuong-6",
+      "type": "chapter-title",
+      "props": {
+        "title": "Năm 2038 và chiếc đồng hồ đếm giây",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s64",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "Đồng hồ của máy tính",
+        "tag": "Cái hẹn thứ hai",
+        "definition": "Nhiều hệ thống đếm giờ bằng số giây trôi qua kể từ một mốc"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b152",
+          "text": "Cái hẹn thứ hai không ở trên vệ tinh, mà trong đồng hồ của máy tính.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ],
+          "cue": null
         },
         {
           "id": "b104",
@@ -1795,10 +2458,14 @@
       ]
     },
     {
-      "id": "sc47",
-      "chapter": "chuong-5",
+      "id": "s65",
+      "chapter": "chuong-6",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "0 giờ ngày 1/1/1970, UTC",
+        "tag": "Mốc theo chuẩn POSIX",
+        "definition": "Như một chiếc đồng hồ bấm giây chạy từ đêm ấy, chưa từng dừng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1814,6 +2481,30 @@
           ]
         },
         {
+          "id": "b153",
+          "text": "Như một chiếc đồng hồ bấm giây, chạy từ đêm ấy và chưa từng dừng.",
+          "spoken": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ],
+          "cue": null
+        }
+      ]
+    },
+    {
+      "id": "s65b",
+      "chapter": "chuong-6",
+      "type": "big-number",
+      "props": {
+        "value": 2147483647,
+        "label": "Trần của số giây, nếu cất trong ô 32 bit có dấu"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
           "id": "b106",
           "text": "Nếu số giây ấy được cất trong số nguyên 32 bit có dấu, trần vẫn là 2.147.483.647.",
           "spoken": "Nếu số giây ấy được cất trong số nguyên ba mươi hai bit có dấu, trần vẫn là con số quen thuộc của YouTube.",
@@ -1828,10 +2519,12 @@
       ]
     },
     {
-      "id": "sc48",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "id": "s66",
+      "chapter": "chuong-6",
+      "type": "custom:dong-ho-2038",
+      "props": {
+        "mode": "moc"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1845,17 +2538,7 @@
           "claims": [
             "c027"
           ]
-        }
-      ]
-    },
-    {
-      "id": "sc49",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b108",
           "text": "Theo giờ nước ta, khi ấy là hơn mười giờ sáng.",
@@ -1864,15 +2547,30 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s67",
+      "chapter": "chuong-6",
+      "type": "custom:dong-ho-2038",
+      "props": {
+        "mode": "lat"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b109",
-          "text": "Bộ đếm giây sẽ lật sang số âm, như phép cộng ta vừa thử ở trên.",
+          "text": "Bộ đếm giây sẽ lật sang số âm, như khi ta cộng một vào trần của YouTube và ra số âm xa nhất.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
-          "sfx": null,
-          "claims": []
+          "sfx": "buzz",
+          "claims": [
+            "c001",
+            "c006"
+          ]
         },
         {
           "id": "b143",
@@ -1882,15 +2580,32 @@
           "sfx": null,
           "claims": [
             "c026"
-          ]
+          ],
+          "cue": null
         }
       ]
     },
     {
-      "id": "sc50",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "id": "s68",
+      "chapter": "chuong-6",
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "12/1901",
+            "title": "Lùi hơn hai tỷ giây từ mốc",
+            "detail": "Chỉ là phép tính; máy nào ra sao còn tùy cách viết"
+          },
+          {
+            "year": "1/1970",
+            "title": "Mốc đếm giây"
+          },
+          {
+            "year": "1/2038",
+            "title": "Ô 32 bit có dấu hết chỗ"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1915,10 +2630,14 @@
       ]
     },
     {
-      "id": "sc51",
-      "chapter": "chuong-5",
+      "id": "s69",
+      "chapter": "chuong-6",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Thời gian 64 bit",
+        "tag": "Cách chữa",
+        "definition": "Từ glibc 2.34, chương trình Linux 32 bit đã có thể dùng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1943,7 +2662,32 @@
           "claims": [
             "c028"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s70",
+      "chapter": "chuong-6",
+      "type": "compare",
+      "props": {
+        "titleA": "Tháng 1 năm 2038",
+        "titleB": "Tháng 11 năm 2038",
+        "rows": [
+          {
+            "label": "Đồng hồ đếm giây, 32 bit có dấu",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Số tuần GPS, 10 bit",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b114",
           "text": "Hai cái hẹn năm 2038, tháng 1 và tháng 11. Hai con số khác nhau, cùng một bệnh.",
@@ -1959,10 +2703,26 @@
       ]
     },
     {
-      "id": "sc52",
-      "chapter": "chuong-6",
+      "id": "c7",
+      "chapter": "chuong-7",
+      "type": "chapter-title",
+      "props": {
+        "title": "Sống chung với cái trần",
+        "number": 7
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s72",
+      "chapter": "chuong-7",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Cách thứ nhất: chọn ô đủ to",
+        "tag": "Số 64 bit có dấu",
+        "definition": "Chứa được đến 9.223.372.036.854.775.807"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1989,10 +2749,15 @@
       ]
     },
     {
-      "id": "sc53",
-      "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "id": "s73",
+      "chapter": "chuong-7",
+      "type": "big-number",
+      "props": {
+        "value": 292,
+        "prefix": "khoảng ",
+        "suffix": " tỷ năm",
+        "label": "Đếm giây bằng ô 64 bit có dấu thì đủ dùng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2004,7 +2769,21 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s74",
+      "chapter": "chuong-7",
+      "type": "term-card",
+      "props": {
+        "term": "Cách thứ hai: số nguyên không giới hạn",
+        "tag": "Python",
+        "definition": "Tài liệu chính thức: số nguyên có độ chính xác không giới hạn"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b118",
           "text": "Cách thứ hai: dùng ngôn ngữ có số nguyên không giới hạn.",
@@ -2028,10 +2807,57 @@
       ]
     },
     {
-      "id": "sc54",
-      "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "id": "s75",
+      "chapter": "chuong-7",
+      "type": "tree-graph",
+      "props": {
+        "nodes": [
+          {
+            "id": "r",
+            "label": "Rust: xử lý tràn"
+          },
+          {
+            "id": "c",
+            "parent": "r",
+            "label": "checked_"
+          },
+          {
+            "id": "w",
+            "parent": "r",
+            "label": "wrapping_"
+          },
+          {
+            "id": "o",
+            "parent": "r",
+            "label": "overflowing_"
+          },
+          {
+            "id": "s",
+            "parent": "r",
+            "label": "saturating_"
+          },
+          {
+            "id": "c2",
+            "parent": "c",
+            "label": "kiểm tra"
+          },
+          {
+            "id": "w2",
+            "parent": "w",
+            "label": "quay vòng"
+          },
+          {
+            "id": "o2",
+            "parent": "o",
+            "label": "báo tràn"
+          },
+          {
+            "id": "s2",
+            "parent": "s",
+            "label": "chặn ở trần"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2060,10 +2886,25 @@
       ]
     },
     {
-      "id": "sc55",
-      "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "id": "s76",
+      "chapter": "chuong-7",
+      "type": "compare",
+      "props": {
+        "titleA": "Trông cậy quay vòng",
+        "titleB": "Tắt thứ không cần",
+        "rows": [
+          {
+            "label": "Sách Rust coi là một lỗi",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Bài học của Ariane 5",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2093,10 +2934,12 @@
       ]
     },
     {
-      "id": "sc56",
+      "id": "s78",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:cong-to-met",
+      "props": {
+        "mode": "nhip"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2130,10 +2973,42 @@
       ]
     },
     {
-      "id": "sc57",
+      "id": "s79",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "t1",
+            "label": "Tập 1: hai trạng thái"
+          },
+          {
+            "id": "t2",
+            "label": "Tập 2: số lẻ không trọn"
+          },
+          {
+            "id": "t3",
+            "label": "Tập 3: số nguyên có trần"
+          }
+        ],
+        "edges": [
+          {
+            "from": "t1",
+            "to": "t2"
+          },
+          {
+            "from": "t2",
+            "to": "t3"
+          }
+        ],
+        "packets": [
+          {
+            "from": "t2",
+            "to": "t3"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2154,14 +3029,40 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s80",
+      "chapter": "ket",
+      "type": "compare",
+      "props": {
+        "titleA": "Ô to",
+        "titleB": "Ô nhỏ",
+        "rows": [
+          {
+            "label": "Tốn chỗ, tốn sức máy",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Gọn, nhưng sớm chạm trần",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b145",
           "text": "Ô to thì tốn chỗ, tốn sức máy. Ô nhỏ thì gọn, nhưng sớm chạm trần.",
           "spoken": null,
           "pause_ms": 300,
           "sfx": null,
-          "claims": []
+          "claims": [],
+          "cue": null
         },
         {
           "id": "b146",
@@ -2169,15 +3070,23 @@
           "spoken": null,
           "pause_ms": 600,
           "sfx": null,
-          "claims": []
+          "claims": [],
+          "cue": null
         }
       ]
     },
     {
-      "id": "sc58",
+      "id": "s81",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Số nguyên trong máy có trần",
+          "Đếm quá trần: có khi quay vòng trong im lặng",
+          "Chữa: ô to hơn, hoặc bắt máy kiểm tra"
+        ],
+        "next": "19/1/2038: đồng hồ trong máy bạn đã có ô 64 bit chưa?"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2200,7 +3109,8 @@
           "sfx": null,
           "claims": [
             "c028"
-          ]
+          ],
+          "cue": null
         },
         {
           "id": "b148",
@@ -2211,7 +3121,8 @@
           "claims": [
             "c027",
             "c001"
-          ]
+          ],
+          "cue": null
         }
       ]
     }

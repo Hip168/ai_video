@@ -12,6 +12,7 @@ dependencies = [
     "soundfile==0.14.0",
     "google-api-python-client==2.202.0",
     "google-auth-oauthlib==1.5.0",
+    "playwright==1.65.1",
 ]
 
 [project.optional-dependencies]

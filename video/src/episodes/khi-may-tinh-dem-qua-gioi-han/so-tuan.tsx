@@ -100,11 +100,13 @@ export const SoTuan: React.FC<SceneProps> = ({ scene }) => {
   const from = { x: sq ? CX : bx + bw + 10, y: sq ? by + bh + 30 : by + bh / 2 };
   const q = p(f, t0 + 10, 16);
   const span = p(f, t1, 16);
-  const pick = p(f, t2, 14);
+  const pick = p(f, t2 + 8, 14);
+  // Dấu "?" tắt hẳn trước khi nhãn "máy lỗi tưởng" / "thực tế" hiện ở cùng chỗ: không lúc nào đè nhau.
+  const qOff = p(f, t2 - 6, 10);
   const fsD = sq ? 40 : 50;
   const curve = (tx: number, ty: number) => {
     const mx = (from.x + tx) / 2;
-    const endY = ty - (sq ? 95 : 110);
+    const endY = ty - (sq ? 110 : 135);
     return `M${from.x} ${from.y} Q${mx} ${Math.min(from.y, endY) - (sq ? 20 : 80)} ${tx} ${endY}`;
   };
   return (
@@ -119,10 +121,10 @@ export const SoTuan: React.FC<SceneProps> = ({ scene }) => {
         const col = pick > 0.5 ? (d.wrong ? theme.warn : theme.ok) : theme.fg;
         return (
           <g key={i}>
-            <path d={curve(d.x, lineY)} fill="none" stroke={pick > 0.5 && d.wrong ? theme.warn : theme.accent2} strokeWidth={d.wrong && pick > 0.5 ? 8 : 5} strokeDasharray={pick > 0.5 && d.wrong ? undefined : "14 10"} opacity={q * (pick > 0.5 && !d.wrong ? 0.3 : 1)} />
+            <path d={curve(d.x, lineY)} fill="none" stroke={pick > 0.5 && d.wrong ? theme.warn : theme.accent2} strokeWidth={d.wrong && pick > 0.5 ? 8 : 5} strokeDasharray={pick > 0.5 && d.wrong ? undefined : "14 10"} opacity={q * (pick > 0.5 && !d.wrong ? 0.15 : 1)} />
             <circle cx={d.x} cy={lineY} r={16} fill={col} />
             <TextBlock text={d.label} x={d.x} y={lineY + (sq ? 60 : 70)} width={sq ? 300 : 360} fontSize={fsD} fill={col} />
-            <TextBlock text="?" x={d.x} y={lineY - (sq ? 40 : 45)} width={80} fontSize={fsD} fill={theme.accent2} opacity={q * (1 - pick)} />
+            <TextBlock text="?" x={d.x} y={lineY - (sq ? 40 : 45)} width={80} fontSize={fsD} fill={theme.accent2} opacity={q * (1 - qOff)} />
           </g>
         );
       })}

@@ -789,23 +789,8 @@
     {
       "id": "s21b",
       "chapter": "chuong-2",
-      "type": "compare",
-      "props": {
-        "titleA": "8 bit không dấu",
-        "titleB": "8 bit có dấu",
-        "rows": [
-          {
-            "label": "Từ 0 đến 255",
-            "a": true,
-            "b": false
-          },
-          {
-            "label": "Từ −128 đến 127",
-            "a": false,
-            "b": true
-          }
-        ]
-      },
+      "type": "custom:nua-am",
+      "props": {},
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -913,19 +898,7 @@
           "claims": [
             "c006"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s23b",
-      "chapter": "chuong-2",
-      "type": "custom:vong-so",
-      "props": {
-        "mode": "i32-xa"
-      },
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b043",
           "text": "Đồng hồ không về số không, mà lật thẳng sang đầu bên kia: số âm xa nhất.",
@@ -1978,9 +1951,9 @@
       "chapter": "chuong-4",
       "type": "term-card",
       "props": {
-        "term": "Phần mềm mới cho cả sáu GCU",
-        "tag": "Chỉ thị năm 2018",
-        "definition": "FAA không công bố đơn vị của bộ đếm"
+        "term": "Chỉ thị mới thay thế",
+        "tag": "Năm 2018",
+        "definition": "Yêu cầu cài phần mềm mới cho cả sáu GCU"
       },
       "holdMs": 0,
       "sfx": null,
@@ -1995,7 +1968,22 @@
           "claims": [
             "c021"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s52b",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "Đơn vị của bộ đếm",
+        "tag": "FAA",
+        "definition": "FAA không công bố đơn vị của bộ đếm",
+        "example": "Nhưng có một sự trùng khớp đáng chú ý"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b089",
           "text": "FAA không công bố đơn vị của bộ đếm. Nhưng có một sự trùng khớp đáng chú ý.",
@@ -2229,14 +2217,14 @@
         "edges": [
           {
             "from": "l1",
-            "to": "l2",
-            "label": "quay về 0"
+            "to": "l2"
           }
         ],
         "packets": [
           {
             "from": "l1",
-            "to": "l2"
+            "to": "l2",
+            "label": "về 0"
           }
         ],
         "direction": "LR"
@@ -2461,11 +2449,12 @@
     {
       "id": "s65",
       "chapter": "chuong-6",
-      "type": "term-card",
+      "type": "big-number",
       "props": {
-        "term": "0 giờ ngày 1/1/1970, UTC",
-        "tag": "Mốc theo chuẩn POSIX",
-        "definition": "Như một chiếc đồng hồ bấm giây chạy từ đêm ấy, chưa từng dừng"
+        "value": 0,
+        "suffix": " giây",
+        "label": "0 giờ ngày 1/1/1970, giờ UTC: mốc theo chuẩn POSIX",
+        "note": "Như một chiếc đồng hồ bấm giây chạy từ đêm ấy, chưa từng dừng"
       },
       "holdMs": 0,
       "sfx": null,
@@ -2778,9 +2767,9 @@
       "chapter": "chuong-7",
       "type": "term-card",
       "props": {
-        "term": "Cách thứ hai: số nguyên không giới hạn",
-        "tag": "Python",
-        "definition": "Tài liệu chính thức: số nguyên có độ chính xác không giới hạn"
+        "term": "Số nguyên không giới hạn",
+        "tag": "Cách thứ hai",
+        "definition": "Tài liệu chính thức của Python: số nguyên có độ chính xác không giới hạn"
       },
       "holdMs": 0,
       "sfx": null,
@@ -2815,27 +2804,27 @@
         "nodes": [
           {
             "id": "r",
-            "label": "Rust: xử lý tràn"
+            "label": "Rust"
           },
           {
             "id": "c",
             "parent": "r",
-            "label": "checked_"
+            "label": "checked"
           },
           {
             "id": "w",
             "parent": "r",
-            "label": "wrapping_"
+            "label": "wrapping"
           },
           {
             "id": "o",
             "parent": "r",
-            "label": "overflowing_"
+            "label": "overflowing"
           },
           {
             "id": "s",
             "parent": "r",
-            "label": "saturating_"
+            "label": "saturating"
           },
           {
             "id": "c2",

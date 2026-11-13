@@ -7,6 +7,7 @@ import { CongBit } from "./khi-may-tinh-dem-qua-gioi-han/cong-bit";
 import { CongToMet } from "./khi-may-tinh-dem-qua-gioi-han/cong-to-met";
 import { DongHo2038 } from "./khi-may-tinh-dem-qua-gioi-han/dong-ho-2038";
 import { HaiBo } from "./khi-may-tinh-dem-qua-gioi-han/hai-bo";
+import { NuaAm } from "./khi-may-tinh-dem-qua-gioi-han/nua-am";
 import { OChua } from "./khi-may-tinh-dem-qua-gioi-han/o-chua";
 import { SoTuan } from "./khi-may-tinh-dem-qua-gioi-han/so-tuan";
 import { VongSo } from "./khi-may-tinh-dem-qua-gioi-han/vong-so";
@@ -54,6 +55,7 @@ export const CUSTOM_SCENES: Record<string, React.FC<SceneProps>> = {
   // khi-may-tinh-dem-qua-gioi-han
   "cong-to-met": CongToMet,
   "vong-so": VongSo,
+  "nua-am": NuaAm,
   "cong-bit": CongBit,
   "o-chua": OChua,
   "hai-bo": HaiBo,
@@ -68,5 +70,5 @@ export const CUSTOM_SQUARE: ReadonlySet<string> = new Set<string>([
   // vi-sao-0-1-cong-0-2-khong-bang-0-3
   "phan-so-lap", "dau-phay-dong", "chu-so-co-nghia", "thuoc-vach", "cat-bit", "do-lech", "hai-lan-do",
   // khi-may-tinh-dem-qua-gioi-han
-  "cong-to-met", "vong-so", "cong-bit", "o-chua", "hai-bo", "bon-gcu", "so-tuan", "dong-ho-2038",
+  "cong-to-met", "vong-so", "nua-am", "cong-bit", "o-chua", "hai-bo", "bon-gcu", "so-tuan", "dong-ho-2038",
 ]);

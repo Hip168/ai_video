@@ -15,7 +15,8 @@ const angleOf = (idx: number, total: number, seam: number): number => seam + GAP
  * Vòng số: mọi giá trị của một kiểu số nguyên xếp quanh vòng tròn như mặt đồng hồ.
  * mode "u8": 0 đến 255, khe ở đỉnh; gán 256 thành 0, 257 thành 1.
  * mode "i8": khe xoay từ đỉnh xuống đáy, nửa trái thành số âm, rồi chữ "bù hai".
- * mode "i32": con trỏ ở 2.147.483.647, cộng 1 thì nhảy qua khe sang −2.147.483.648.
+ * mode "i32": con trỏ ở 2.147.483.647, "+ 1" hiện ở dòng riêng (beat 0); cộng 1 thì nhảy qua khe sang −2.147.483.648 (beat 1);
+ *   có beat 2 thì nhấn mạnh không về 0 mà sang số âm xa nhất (như "i32-xa").
  * mode "i32-xa": đã nhảy qua khe; nhấn mạnh không về 0 mà sang số âm xa nhất.
  */
 export const VongSo: React.FC<SceneProps> = ({ scene }) => {
@@ -25,6 +26,8 @@ export const VongSo: React.FC<SceneProps> = ({ scene }) => {
   const mode = typeof scene.props.mode === "string" ? scene.props.mode : "u8";
   const t0 = at(scene, 0);
   const t1 = at(scene, 1);
+  const t2 = scene.beats.length >= 3 ? at(scene, 2) : Infinity;
+  const xa = mode === "i32-xa" || (mode === "i32" && f >= t2);
   const R = sq ? 230 : 262;
   const CY = sq ? 360 : 360;
   const stroke = sq ? 34 : 40;
@@ -58,8 +61,8 @@ export const VongSo: React.FC<SceneProps> = ({ scene }) => {
   } else if (mode === "i32") {
     const jump = p(f, t1 + 4, 12);
     ptr = lerp(a(255), a(0) + 360, jump);
-    small = "int: 32 bit có dấu";
-    center = f < t1 + 10 ? "2.147.483.647 + 1" : "−2.147.483.648";
+    small = f >= t2 ? "không về 0" : "int: 32 bit có dấu";
+    center = f < t1 + 10 ? "2.147.483.647" : "−2.147.483.648";
     centerColor = f < t1 + 10 ? theme.fg : theme.warn;
   } else {
     ptr = a(0);
@@ -69,7 +72,9 @@ export const VongSo: React.FC<SceneProps> = ({ scene }) => {
   }
   const centerP = mode === "i8" ? p(f, t1, 14) : 1;
   const plusOne = mode === "i32" ? p(f, t0 + 10, 12) : 1;
-  const centerText = mode === "i32" && f < t1 + 10 && plusOne < 0.5 ? "2.147.483.647" : center;
+  const centerText = center;
+  // "+ 1" ở dòng riêng dưới số (một dòng không đủ chỗ), tắt khi nhảy qua khe.
+  const plusOp = mode === "i32" ? plusOne * (1 - p(f, t1 + 4, 8)) : 0;
 
   // Nhãn hai bên khe.
   const minLabel = mode === "u8" ? "0" : mode === "i8" ? "" : "−2.147.483.648";
@@ -129,7 +134,7 @@ export const VongSo: React.FC<SceneProps> = ({ scene }) => {
       {mode === "u8" && (
         <TextBlock text="Không hề báo lỗi" x={CX} y={CY + (sq ? 110 : 120)} width={R * 1.4} fontSize={sq ? 34 : 40} fill={theme.ok} opacity={p(f, t1, 14)} />
       )}
-      {mode === "i32-xa" && (
+      {xa && (
         <>
           {/* Mũi tên qua khe, nhấp nháy */}
           <path
@@ -140,11 +145,18 @@ export const VongSo: React.FC<SceneProps> = ({ scene }) => {
             strokeLinecap="round"
             opacity={0.4 + 0.6 * pulse}
           />
-          <TextBlock text="số âm xa nhất" x={CX} y={CY + (sq ? 110 : 125)} width={R * 1.5} fontSize={sq ? 38 : 48} fill={theme.warn} opacity={p(f, t0 + 20, 14)} />
+          <TextBlock text="số âm xa nhất" x={CX} y={CY + (sq ? 110 : 125)} width={R * 1.5} fontSize={sq ? 38 : 48} fill={theme.warn} opacity={p(f, (mode === "i32" ? t2 : t0) + 20, 14)} />
         </>
       )}
+      {mode === "i32" && plusOp > 0 && (
+        <TextBlock text="+ 1" x={CX} y={CY + (sq ? 110 : 125)} width={R * 1.2} fontSize={sq ? 50 : 64} fill={theme.accent2} opacity={plusOp} />
+      )}
       {mode === "i32" && f >= t1 + 10 && (
-        <path d={arcPath(CX, CY, R, 180 + GAP / 2, 180 + GAP / 2 + 40 * p(f, t1 + 10, 30))} fill="none" stroke={theme.accent2} strokeWidth={stroke + 10} opacity={0.5} />
+        <path d={arcPath(CX, CY, R, 180 + GAP / 2, 180 + GAP / 2 + 40 * p(f, t1 + 10, 30))} fill="none" stroke={theme.accent2} strokeWidth={stroke + 10} opacity={0.35 + 0.3 * pulse} />
+      )}
+      {/* Vầng sáng quanh con trỏ: nhịp liên tục để cảnh không đứng hình */}
+      {(mode === "i32" || mode === "i32-xa") && ptr >= 0 && (
+        <circle cx={pp.x} cy={pp.y} r={stroke * (0.9 + 0.35 * pulse)} fill="none" stroke={f < t1 + 10 && mode === "i32" ? theme.accent2 : theme.warn} strokeWidth={5} opacity={0.3 + 0.5 * (1 - pulse)} />
       )}
     </Stage>
   );

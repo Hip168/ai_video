@@ -8,6 +8,7 @@ import { Episode, type EpisodeProps } from "./Episode";
 import { loadMonoFonts } from "./lib/fonts";
 import { validateTimeline2 } from "./timeline2";
 import { clipRange, Short, SHORT_H, SHORT_W, type ShortProps } from "./Short";
+import { Outro, OUTRO_FRAMES, OUTRO_SIZE, type OutroProps } from "./Outro";
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props }) => {
   let raw: unknown = props.timeline;
@@ -86,6 +87,18 @@ export const Root: React.FC = () => (
       defaultProps={{ timeline: null, clip: null, muted: true } as ShortProps}
       calculateMetadata={shortMetadata}
     />
+    {(["wide", "vertical"] as const).map((layout) => (
+      <Composition
+        key={layout}
+        id={layout === "wide" ? "OutroWide" : "OutroVertical"}
+        component={Outro}
+        durationInFrames={OUTRO_FRAMES}
+        fps={30}
+        width={OUTRO_SIZE[layout].w}
+        height={OUTRO_SIZE[layout].h}
+        defaultProps={{ layout } as OutroProps}
+      />
+    ))}
     <Composition
       id="KitDemo"
       component={KitDemo}

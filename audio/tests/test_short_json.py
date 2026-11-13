@@ -255,10 +255,25 @@ def tiktok(env) -> Path:
     return env.out / "tiktok"
 
 
+def ex(env, parts="1-3", calls=None):
+    """Xuất trong tiến trình, thay bước render lại (Remotion) bằng bản giả ghi nhãn mới vào nội dung MP4."""
+    from aivideo import shorts
+
+    def render(slug, root, items, n, work):
+        e = items[n - 1]
+        if calls is not None:
+            calls.append((e["part"], e["total"], e["from"]))
+        f = Path(work) / f"r{n}.mp4"
+        f.parent.mkdir(parents=True, exist_ok=True)
+        f.write_bytes(b"render-%d/%d" % (e["part"], e["total"]))
+        return f
+
+    return shorts.export(SLUG, env.root, parts, render=render)
+
+
 def test_export_mac_dinh_phan_1_den_3_khong_xuat_phan_4(env):
     seed(env, 4)
-    p = env.cli("export")
-    assert p.returncode == 0, both(p)
+    ex(env)
     names = sorted(f.name for f in tiktok(env).iterdir())
     assert names == ["manifest.json", "phan-1.mp4", "phan-1.txt",
                      "phan-2.mp4", "phan-2.txt", "phan-3.mp4", "phan-3.txt"]
@@ -273,22 +288,20 @@ def test_export_mp4_la_ban_sao_dung_cua_phan_k(env):
 
 def test_export_parts_2_4_xuat_dung_cac_phan_do(env):
     seed(env, 4)
-    p = env.cli("export", "--parts", "2-4")
-    assert p.returncode == 0, both(p)
+    ex(env, "2-4")
     names = sorted(f.name for f in tiktok(env).glob("phan-*.mp4"))
     assert names == ["phan-2.mp4", "phan-3.mp4", "phan-4.mp4"]
 
 
 def test_export_parts_chi_xuat_phan_co_mp4_khong_doi_phan_khac(env):
     seed(env, 4, have=[2])
-    p = env.cli("export", "--parts", "2-2")
-    assert p.returncode == 0, both(p)
+    ex(env, "2-2")
     assert [f.name for f in tiktok(env).glob("phan-*.mp4")] == ["phan-2.mp4"]
 
 
 def test_export_thieu_mp4_cua_phan_can_xuat_ma_1(env):
     seed(env, 4)
-    assert env.cli("export").returncode == 0
+    ex(env)
     (env.out / f"{SLUG}-short-2.mp4").unlink()
     p = env.cli("export")  # mặc định 1-3, thiếu phần 2
     assert p.returncode == 1, both(p)
@@ -297,14 +310,14 @@ def test_export_thieu_mp4_cua_phan_can_xuat_ma_1(env):
 
 def test_export_parts_ngoai_so_phan_bi_tu_choi(env):
     seed(env, 4)
-    assert env.cli("export", "--parts", "1-3").returncode == 0
+    ex(env, "1-3")
     p = env.cli("export", "--parts", "3-5")
     assert p.returncode != 0, both(p)
 
 
 def test_export_manifest_json_dung_dang(env):
     seed(env, 4)
-    assert env.cli("export", "--parts", "1-2").returncode == 0
+    ex(env, "1-2")
     m = json.loads((tiktok(env) / "manifest.json").read_text("utf-8"))
     assert m == {"slug": SLUG, "parts": [
         {"part": 1, "mp4": "phan-1.mp4", "caption": "phan-1.txt"},
@@ -318,9 +331,10 @@ def cap(env, k):
 
 def test_export_caption_co_tieu_de_phan_k_n_hook_hashtag_va_dong_ai(env):
     seed(env, 4)
-    assert env.cli("export", "--parts", "1-2").returncode == 0
+    ex(env, "1-2")
     c = cap(env, 2)
-    assert "Tiêu đề (Phần 2/4)" in c
+    assert "Tiêu đề (Phần 2/2)" in c
+    assert "/4" not in c
     assert "Móc" in c
     assert "#tinhoc #khoahocmaytinh" in c
     assert "AI" in c
@@ -348,7 +362,7 @@ def test_export_chua_co_videoid_van_xuat_duoc_va_khong_co_link(env):
 
 def test_export_caption_phan_cuoi_da_xuat_moi_xem_tiep_tren_youtube(env):
     seed(env, 4)
-    assert env.cli("export", "--parts", "1-3").returncode == 0
+    ex(env, "1-3")
     last, first = cap(env, 3), cap(env, 1)
     assert "YouTube" in last
     assert "YouTube" not in first
@@ -358,6 +372,47 @@ def test_export_caption_phan_cuoi_da_xuat_moi_xem_tiep_tren_youtube(env):
 def test_export_phan_cuoi_la_phan_cuoi_cua_danh_sach_chon_khong_phai_cua_tap(
         env):
     seed(env, 4)
-    assert env.cli("export", "--parts", "2-3").returncode == 0
+    ex(env, "2-3")
     assert "YouTube" in cap(env, 3)
     assert "YouTube" not in cap(env, 2)
+
+
+def test_export_nhan_phan_theo_dai_xuat_render_lai_phan_i_tren_m(env):
+    seed(env, 6)
+    calls = []
+    ex(env, "1-3", calls)
+    assert [c[:2] for c in calls] == [(1, 3), (2, 3), (3, 3)]
+    for k in (1, 2, 3):
+        assert (tiktok(env) / f"phan-{k}.mp4").read_bytes() == b"render-%d/3" % k
+        assert f"(Phần {k}/3)" in cap(env, k)
+        assert "/6" not in cap(env, k)
+
+
+def test_export_parts_2_4_danh_so_lai_tu_1(env):
+    seed(env, 6)
+    calls = []
+    ex(env, "2-4", calls)
+    assert [c[:2] for c in calls] == [(1, 3), (2, 3), (3, 3)]
+    assert [c[2] for c in calls] == [env.ids[i][0] for i in (1, 2, 3)]
+    assert (tiktok(env) / "phan-2.mp4").read_bytes() == b"render-1/3"
+    assert "(Phần 1/3)" in cap(env, 2)
+    assert "(Phần 3/3)" in cap(env, 4)
+
+
+def test_export_ca_tap_trung_nhan_youtube_thi_chep_khong_render(env):
+    seed(env, 4)
+    calls = []
+    ex(env, "1-4", calls)
+    assert calls == []
+    for k in (1, 2, 3, 4):
+        assert (tiktok(env) / f"phan-{k}.mp4").read_bytes() == b"mp4-%d" % k
+        assert f"(Phần {k}/4)" in cap(env, k)
+
+
+def test_export_khong_doi_short_youtube_va_don_thu_muc_tam(env):
+    seed(env, 6)
+    ex(env, "1-3")
+    for k in range(1, 7):
+        assert (env.out / f"{SLUG}-short-{k}.mp4").read_bytes() == b"mp4-%d" % k
+    assert not (env.out / "shorts").exists()
+    assert not (tiktok(env) / ".work").exists()

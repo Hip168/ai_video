@@ -6,7 +6,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -188,6 +190,35 @@ def cut(slug: str, n: int, root=ROOT) -> Path:
     return d
 
 
+def render_relabeled(slug: str, root: Path, items: list[dict], n: int, work: Path) -> Path:
+    """Render phần n của `items` (các phần xuất, đã đánh số lại part/total) trong gốc tạm `work`; không ghi vào
+    `<out>/shorts/`. Cùng các bước của `make-episode.sh --short`: cắt, trộn tiếng, render, kiểm mất hình, ghép, kiểm MP4."""
+    from aivideo import assemble, framecheck, mix
+
+    ep, out = _paths(slug, root)
+    wep, wout = _paths(slug, work)
+    if not wep.is_dir():
+        wep.mkdir(parents=True)
+        wout.mkdir(parents=True)
+        for src, dst in ((ep / "script.json", wep / "script.json"), (root / "assets", work / "assets"),
+                         (out / "timeline.json", wout / "timeline.json"), (out / "narration.wav", wout / "narration.wav")):
+            if src.exists():
+                os.symlink(src.resolve(), dst)
+        (wep / "shorts.json").write_text(json.dumps({"version": 1, "shorts": items}, ensure_ascii=False) + "\n",
+                                         encoding="utf-8")
+    cut(slug, n, work)
+    mix.run_episode(slug, work, short=n)
+    r = subprocess.run(["npx", "tsx", "scripts/render-episode.ts", slug, "--root", str(work), "--short", str(n)],
+                       cwd=ROOT / "video")
+    if r.returncode != 0:
+        raise ShortsError(f"render phần {n}/{len(items)} cho TikTok lỗi (mã {r.returncode})")
+    framecheck.verify(slug, work, short=n)
+    assemble.concat(slug, work, n)
+    mp4 = assemble.mux(slug, work, n)
+    assemble.verify(slug, work, n)
+    return mp4
+
+
 def tiktok_caption(e: dict, long_url: str | None, last: bool) -> str:
     lines = [f"{e['title']} (Phần {e['part']}/{e['total']})", "", e["hook"]]
     if long_url:
@@ -209,8 +240,11 @@ def parse_parts(s: str) -> tuple[int, int]:
     return lo, hi
 
 
-def export(slug: str, root=ROOT, parts: str = "1-3") -> Path:
-    """Ghi `<out>/tiktok/`: `phan-<k>.mp4`, `phan-<k>.txt`, `manifest.json`."""
+def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) -> Path:
+    """Ghi `<out>/tiktok/`: `phan-<k>.mp4`, `phan-<k>.txt`, `manifest.json`.
+
+    Nhãn "Phần i/m" theo dải xuất (i = vị trí trong dải, m = số phần xuất). Trùng nhãn của Short YouTube thì
+    `phan-<k>.mp4` là bản sao `<slug>-short-<k>.mp4`, khác thì render lại bằng `render`."""
     from aivideo.upload import recorded_video_id, video_url
 
     root = Path(root)
@@ -227,12 +261,21 @@ def export(slug: str, root=ROOT, parts: str = "1-3") -> Path:
     url = video_url(vid) if vid else None
     d = out / "tiktok"
     d.mkdir(parents=True, exist_ok=True)
+    sel = [{**e, "part": i, "total": hi - lo + 1} for i, e in enumerate(shorts[lo - 1:hi], 1)]
+    work = d / ".work"
+    shutil.rmtree(work, ignore_errors=True)
     items = []
-    for k in range(lo, hi + 1):
-        mp4, txt = d / f"phan-{k}.mp4", d / f"phan-{k}.txt"
-        shutil.copyfile(out / f"{slug}-short-{k}.mp4", mp4)
-        txt.write_text(tiktok_caption(shorts[k - 1], url, k == hi), encoding="utf-8")
-        items.append({"part": k, "mp4": mp4.name, "caption": txt.name})
+    try:
+        for k, e in zip(range(lo, hi + 1), sel):
+            mp4, txt = d / f"phan-{k}.mp4", d / f"phan-{k}.txt"
+            src = out / f"{slug}-short-{k}.mp4"
+            if (e["part"], e["total"]) != (shorts[k - 1]["part"], shorts[k - 1]["total"]):
+                src = render(slug, root, sel, e["part"], work)
+            shutil.copyfile(src, mp4)
+            txt.write_text(tiktok_caption(e, url, k == hi), encoding="utf-8")
+            items.append({"part": k, "mp4": mp4.name, "caption": txt.name})
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
     (d / "manifest.json").write_text(json.dumps({"slug": slug, "parts": items}, ensure_ascii=False, indent=2) + "\n",
                                      encoding="utf-8")
     return d

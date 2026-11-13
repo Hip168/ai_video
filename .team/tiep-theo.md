@@ -10,6 +10,13 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
+## Đang chờ (cập nhật 2026-11-14 ~03:00)
+- YouTube chặn tải lên với lỗi HTTP 400 "exceeded the number of videos they may upload". Đây là hạn mức tải lên theo ngày, thường mở lại sau khoảng 24 giờ.
+  - Short tập 2: đã đăng phần 1–3: N31vhiVd6f0, a7dVn7Vn29c, N7vt5qheGQ8. Phần 4–6 CHƯA đăng. File ở worktree `.worktrees/19-shorts-tap2/out/...`, không xoá worktree này trước khi đăng xong.
+    - Lệnh: `cd .worktrees/19-shorts-tap2/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload vi-sao-0-1-cong-0-2-khong-bang-0-3 --short <4|5|6> --privacy public`
+  - Tập 3 `khi-may-tinh-dem-qua-gioi-han`: kịch bản đã chốt Cổng 2, lint đạt. Đang sửa cách đọc PSY ở b005 (phatam). Sau đó: render, qc, đóng gói, gate3, đăng. Việc đăng phải chờ hạn mức YouTube mở lại.
+- Điều kiện dừng phiên đêm: 06:00, hoặc hạn mức tuần chạm khoảng 80% (đo bằng `~/.claude/studio/usage7d.py`).
+
 ## MỞ LẠI (người dùng, 2026-11-13)
 Kênh có 55 lượt xem và 3 người đăng ký. Người dùng dặn: "tiếp tục tạo video đăng lên đi, công khai luôn cx được, cả short cả thật".
 - Đăng công khai cả video dài lẫn Shorts. Dự án truyện (Studio) tạm giữ nguyên ở `~/.claude/studio/TIEP-THEO.md`.

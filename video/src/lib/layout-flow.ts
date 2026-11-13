@@ -27,6 +27,8 @@ const NW = 240;
 const NH = 88;
 /** Phóng to tối đa so với nút gốc, để sơ đồ ít nút vẫn phủ khung. */
 const MAX_SCALE = 1.8;
+/** Mức phóng tối đa cũ; nhãn cạnh chỉ phóng theo phần vượt mức này, dưới mức này giữ nguyên như trước. */
+const LABEL_BASE_SCALE = 1.15;
 
 export interface FlowLayout {
   /** Hộp từng nút, toạ độ màn hình, (x, y) là góc trên trái. */
@@ -44,10 +46,11 @@ export function flowSizes(scale: number): { nodeLines: number; nodeFont: number;
   const fsMax = Math.max(8, Math.min(30 * scale, boxH * 0.4));
   const nodeLines = boxH >= 60 ? 2 : 1;
   const nodeFont = nodeLines === 2 ? Math.min(fsMax, boxH * 0.3) : fsMax;
-  const k = scale > 1 ? scale : Math.min(1, scale + 0.2);
+  const up = Math.max(1, scale / LABEL_BASE_SCALE);
+  const k = up > 1 ? up : Math.min(1, scale + 0.2);
   const lblW = 160 * k;
   const lblH = 36 * k;
-  return { nodeLines, nodeFont, lblW, lblH, lblFont: Math.min(24 * Math.max(1, scale), lblH * 0.66) };
+  return { nodeLines, nodeFont, lblW, lblH, lblFont: Math.min(24 * up, lblH * 0.66) };
 }
 
 /** Bố cục thuần của `flow` (dagre). Bỏ cạnh trỏ tới nút lạ hoặc tự trỏ. Cảnh chỉ vẽ theo kết quả này. */

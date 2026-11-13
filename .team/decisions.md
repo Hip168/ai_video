@@ -165,3 +165,15 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - TikTok: người dùng tự tạo tài khoản. Đăng tự động qua Content Posting API cần app đã qua duyệt; chưa duyệt thì chỉ đăng được ở chế độ riêng tư. Trước mắt đội xuất file 1080×1920 kèm caption để người dùng tự tải lên, rồi tính tiếp tự động sau. Link video dài để ở bio hoặc caption.
 - Sửa D33 (người dùng, 2026-11-12): tập 1 chỉ làm **3 phần**, phủ khoảng **nửa đầu** video (khoảng 6 phút). Phần 3 kết bằng lời mời xem tiếp nửa sau ở video đầy đủ. Không cắt hết cả tập. `shorts.json` vẫn cho N từ 1 đến 8, các phần không cần phủ hết tập.
 - Sửa D33 lần 2 (người dùng, 2026-11-12): **YouTube Shorts phủ hết cả tập**, vì Shorts trên YouTube kiếm tiền được. Cắt theo chương thành khoảng 5–6 phần, mỗi phần tối đa 150 s. **TikTok chỉ đăng 3 phần đầu** (nửa đầu tập); phần 3 trên TikTok mời người xem sang YouTube xem hết. Lệnh export TikTok nhận danh sách phần (mặc định 1–3).
+
+## D34. Drive, TikTok tự đăng, căn giữa Shorts (người dùng chốt, 2026-11-14)
+- Mọi video làm xong (video dài, YouTube Shorts, TikTok kèm caption) đều tải lên Google Drive của người dùng.
+  - Remote rclone `gdrive:`, quyền `drive.file`.
+  - Thư mục: `Chuyen Cua Nhung Con Bit/<nn> <slug>/`.
+- TikTok:
+  - Người dùng tạo tài khoản rồi gửi file cookie (định dạng Netscape). Đặt file ở `~/.config/aivideo/tiktok/cookies.txt`, quyền 600.
+  - Đội tự đăng các phần TikTok, rồi đổi ảnh đại diện và tên hiển thị cho giống kênh YouTube.
+  - Đề mục 17 viết phần này, dựa trên `live-battle/tu-dang/tiktok_dang.py` (dự án riêng của người dùng).
+- Shorts:
+  - Người dùng thấy khung cảnh trong Short hơi lệch sang trái và lên trên.
+  - Shorts tập 1 giữ nguyên. Từ tập sau, căn cảnh vào giữa hơn nhưng vẫn nằm trong vùng an toàn. Sửa D32 MỞ-1.

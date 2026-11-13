@@ -199,3 +199,10 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Chỉ chừa lề nhỏ quanh mép.
 - Quyết định này thay D32 MỞ-1 và phần căn giữa của D34.
 - Ngưỡng cỡ chữ ở D32 MỞ-2 giữ nguyên.
+
+## D38. Đoạn kết kêu gọi thích và đăng ký (người dùng chốt, 2026-11-14)
+- Từ tập 3, cuối video dài gắn một đoạn kết dùng chung cho mọi tập, mời người xem bấm thích và đăng ký kênh.
+- Đoạn kết làm một lần, có hai bản: ngang và dọc.
+- YouTube Shorts: phần 3 và phần 6 của mỗi tập cũng gắn đoạn kết này. Nếu tập có ít hơn 6 phần thì gắn ở phần cuối.
+- Bản TikTok tạm thời KHÔNG gắn.
+- Lời đọc của đoạn kết bằng tiếng Việt ("bấm thích", "đăng ký kênh"), không đọc chữ tiếng Anh. Lời phải qua `phatam check`.

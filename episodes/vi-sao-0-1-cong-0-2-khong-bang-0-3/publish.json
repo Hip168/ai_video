@@ -1,0 +1,21 @@
+{
+  "title": "Vì sao 0,1 + 0,2 không bằng 0,3? Số dấu phẩy động và chuẩn IEEE 754",
+  "description": "Gõ 0.1 + 0.2 vào trình duyệt, máy trả lời 0.30000000000000004. Video giải thích vì sao 0,1 là một phân số lặp vô hạn trong hệ nhị phân, máy cất số lẻ theo chuẩn IEEE 754 dưới dạng số dấu phẩy động ra sao, và vì sao tổng bị làm tròn lên vạch nằm trên 0,3. Kèm câu chuyện sai số của con số 0,1 ở khẩu đội Patriot tại Dhahran năm 1991, cùng ba cách sống chung với sai số: so cho đủ gần, dùng decimal cho tiền, hoặc tính bằng số nguyên.\n\nMục lục:\n00:00 Mở đầu\n00:50 Phân số viết mãi không hết\n02:39 Máy cất một số lẻ thế nào\n03:51 Giải mã 0.30000000000000004\n05:13 Trước khi có luật chung\n06:30 Một phần mười giây ở Dhahran\n08:33 Sống chung với sai số\n09:32 Kết\n\nNguồn chính:\n- Python, Floating-Point Arithmetic: Issues and Limitations: https://docs.python.org/3/tutorial/floatingpoint.html\n- Python, mô-đun decimal: https://docs.python.org/3/library/decimal.html\n- Đặc tả ECMAScript, kiểu Number: https://tc39.es/ecma262/\n- David Goldberg, What Every Computer Scientist Should Know About Floating-Point Arithmetic (1991): https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html\n- William Kahan, An Interview with the Old Man of Floating-Point (1998): https://people.eecs.berkeley.edu/~wkahan/ieee754status/754story.html\n- IEEE 754-1985: https://standards.ieee.org/ieee/754/993/\n- IEEE 754-2019: https://standards.ieee.org/ieee/754/6210/\n- GAO, Patriot Missile Defense: Software Problem Led to System Failure at Dhahran, Saudi Arabia (IMTEC-92-26, 1992): https://www.gao.gov/products/imtec-92-26\n- Robert Skeel, Roundoff Error and the Patriot Missile, SIAM News (1992): https://www-users.cse.umn.edu/~arnold/disasters/Patriot-dharan-skeel-siam.pdf\n- IEEE Milestone, Intel 8087 Math Coprocessor, 1980: https://ethw.org/Milestones:Intel_8087_Math_Coprocessor,_1980\n\nNhạc nền: Reverence, Abstraction (https://abstractionmusic.com/), giấy phép CC0, nguồn https://tallbeard.itch.io/music-loop-bundle\n\nGiọng đọc trong video do AI tạo.",
+  "tags": [
+    "0.1 + 0.2",
+    "số dấu phẩy động",
+    "IEEE 754",
+    "sai số làm tròn",
+    "hệ nhị phân",
+    "floating point",
+    "lập trình",
+    "tin học",
+    "khoa học máy tính",
+    "tên lửa Patriot"
+  ],
+  "chapters": "00:00 Mở đầu\n00:50 Phân số viết mãi không hết\n02:39 Máy cất một số lẻ thế nào\n03:51 Giải mã 0.30000000000000004\n05:13 Trước khi có luật chung\n06:30 Một phần mười giây ở Dhahran\n08:33 Sống chung với sai số\n09:32 Kết",
+  "thumbnail": "thumbnail.png",
+  "privacy": "public",
+  "channelId": "UC1aPohYcigcmBGPl7OlQaEw",
+  "containsSyntheticMedia": false
+}

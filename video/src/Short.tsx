@@ -3,18 +3,23 @@ import { AbsoluteFill, Sequence, interpolate, useCurrentFrame } from "remotion";
 import { FONT_FAMILY } from "./font";
 import { SceneFade } from "./Episode";
 import { clamp01, ThemeContext, useTheme } from "./lib/hooks";
-import { SceneBox, SHORT_SUBTITLE_PX } from "./lib/theme";
+import { SceneBox, SHORT_SUBTITLE_PX, SQUARE_BOX } from "./lib/theme";
 import { getTheme } from "./lib/theme-data";
 import { activeBeat2, type Timeline2 } from "./timeline2";
 
 /** Khung Short 1080×1920 (D28, D32). */
 export const SHORT_W = 1080;
 export const SHORT_H = 1920;
-/** Vùng an toàn dọc theo Google Ads Help 13547298: lề trên 288, dưới 672, trái 48, phải 192. */
-export const SHORT_SAFE = { x0: 48, x1: 888, y0: 288, y1: 1248 } as const;
-export const SHORT_HOOK = { x0: 48, x1: 888, y0: 150, y1: 280 } as const;
-export const SHORT_SCENE = { x0: 48, x1: 888, y0: 288, y1: 1128 } as const;
-export const SHORT_SUBTITLE = { x0: 48, x1: 888, y0: 1128, y1: 1248 } as const;
+/**
+ * Bố cục toàn màn hình (thay D32 MỞ-1 và phần căn giữa của D34): người xem dùng chế độ xem sạch của YouTube, TikTok
+ * (ẩn nút, mô tả), nên không thu cảnh vào vùng an toàn. Lề 48 px quanh mép; hộp cảnh vuông rộng hết 1080 − 2·48 = 984,
+ * tâm ở giữa khung (y 960); hook ngay trên, phụ đề ngay dưới.
+ */
+export const SHORT_SCENE = { x0: 48, x1: 1032, y0: 468, y1: 1452 } as const;
+export const SHORT_HOOK = { x0: 48, x1: 1032, y0: 318, y1: 448 } as const;
+export const SHORT_SUBTITLE = { x0: 48, x1: 1032, y0: 1472, y1: 1602 } as const;
+/** Cảnh vẽ theo hệ toạ độ 840x840 (`SQUARE_BOX`) rồi phóng lên hộp 984: chữ ra to hơn ngưỡng tính theo đơn vị cảnh. */
+export const SHORT_SCENE_SCALE = (SHORT_SCENE.x1 - SHORT_SCENE.x0) / SQUARE_BOX.w;
 export const SHORT_FADE = 8;
 
 export interface ShortClip {
@@ -52,7 +57,7 @@ export function clipRange(timeline: Timeline2, clip: { from: string; to: string 
   return { start: a.startFrame, end: b.startFrame + b.durationFrames };
 }
 
-/** Số ký tự tối đa một đoạn phụ đề Short (2 dòng chữ 48 px trong 840 px). */
+/** Số ký tự tối đa một đoạn phụ đề Short (2 dòng chữ 48 px; giữ số của hộp 840 cũ). */
 export const MAX_SHORT_SUBTITLE_CHARS = 52;
 
 export interface SubtitleSegment {
@@ -196,15 +201,27 @@ const Body: React.FC<{ timeline: Timeline2; clip: ShortClip }> = ({ timeline, cl
           opacity,
         }}
       >
-        <SceneBox layout="square">
-          <Sequence from={-start} layout="none">
-            {scenes.map((scene) => (
-              <Sequence key={scene.id} from={scene.startFrame} durationInFrames={scene.durationFrames}>
-                <SceneFade scene={scene} />
-              </Sequence>
-            ))}
-          </Sequence>
-        </SceneBox>
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: SQUARE_BOX.w,
+            height: SQUARE_BOX.h,
+            transform: `scale(${SHORT_SCENE_SCALE})`,
+            transformOrigin: "0 0",
+          }}
+        >
+          <SceneBox layout="square">
+            <Sequence from={-start} layout="none">
+              {scenes.map((scene) => (
+                <Sequence key={scene.id} from={scene.startFrame} durationInFrames={scene.durationFrames}>
+                  <SceneFade scene={scene} />
+                </Sequence>
+              ))}
+            </Sequence>
+          </SceneBox>
+        </div>
       </div>
       <div style={{ opacity }}>
         <ShortSubtitle timeline={timeline} frame={frame + start} />

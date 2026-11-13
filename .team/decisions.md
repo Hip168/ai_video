@@ -177,3 +177,10 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Shorts:
   - Người dùng thấy khung cảnh trong Short hơi lệch sang trái và lên trên.
   - Shorts tập 1 giữ nguyên. Từ tập sau, căn cảnh vào giữa hơn nhưng vẫn nằm trong vùng an toàn. Sửa D32 MỞ-1.
+
+## D35. Hashtag riêng cho từng tập trên TikTok (người dùng, 2026-11-14)
+- Caption TikTok mở đầu bằng `#conbit<số tập>`, ví dụ `#conbit1`. Dòng hashtag cuối caption cũng có `#conbit<số tập> #conbit`.
+- Phần mô tả kênh TikTok ghi: muốn xem thì tìm `#conbit` + số tập.
+- Không dùng `#1` trần: hashtag này trùng với hàng triệu video khác trên TikTok, người xem tìm sẽ không ra video của kênh.
+- Số tập lấy theo thứ tự đăng trong `episodes/index.json`.
+- Lệnh xuất TikTok phải tự sinh dòng này. Đề mục 14 hoặc 17 sửa.

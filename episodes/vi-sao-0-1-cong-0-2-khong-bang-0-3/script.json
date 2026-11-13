@@ -111,7 +111,7 @@
         {
           "id": "b003",
           "text": "Hỏi tiếp: kết quả ấy có bằng 0.3 không? Máy đáp: false, tức là không.",
-          "spoken": "Hỏi tiếp: kết quả ấy có bằng không phẩy ba không? Máy đáp: phôn, tức là không.",
+          "spoken": "Hỏi tiếp: kết quả ấy có bằng không phẩy ba không? Máy đáp: phôn-xơ, tức là không.",
           "cue": null,
           "pause_ms": 300,
           "sfx": "buzz",
@@ -1203,7 +1203,7 @@
         {
           "id": "b046j",
           "text": "Khác vạch với 0,3, nên phép so sánh bằng nhau trả về false.",
-          "spoken": "Khác vạch với không phẩy ba, nên phép so sánh bằng nhau trả về phôn.",
+          "spoken": "Khác vạch với không phẩy ba, nên phép so sánh bằng nhau trả về phôn-xơ.",
           "cue": null,
           "pause_ms": 600,
           "sfx": "buzz",
@@ -1237,7 +1237,7 @@
         {
           "id": "b054",
           "text": "Cộng 0.1 mười lần, bạn cũng không được đúng 1.0.",
-          "spoken": "Cộng không phẩy một mười lần, bạn cũng không được đúng một phẩy không.",
+          "spoken": "Cộng mười lần số không phẩy một, bạn cũng không được đúng một phẩy không.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1931,7 +1931,7 @@
         {
           "id": "b089",
           "text": "Cách xoá độ lệch lại rất đơn giản: khởi động lại, mất khoảng 60 đến 90 giây, đồng hồ về 0.",
-          "spoken": null,
+          "spoken": "Cách xoá độ lệch lại rất đơn giản: khởi động lại, mất khoảng sáu mươi đến chín mươi giây, đồng hồ về số không.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -2205,7 +2205,7 @@
         {
           "id": "b101",
           "text": "Với decimal, 0.1 + 0.1 + 0.1 - 0.3 ra đúng 0.",
-          "spoken": "Với đê-xi-mồ, cộng ba lần không phẩy một rồi trừ không phẩy ba, ra đúng không.",
+          "spoken": "Với đê-xi-mồ, cộng ba lần không phẩy một rồi trừ không phẩy ba, ra đúng số không.",
           "cue": null,
           "pause_ms": 300,
           "sfx": "ding",
@@ -2337,7 +2337,7 @@
         {
           "id": "b107",
           "text": "Chỉ có điều, 0,1 không nằm trong số đó.",
-          "spoken": null,
+          "spoken": "Chỉ có điều, con số không phẩy một thì không nằm trong số đó.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,

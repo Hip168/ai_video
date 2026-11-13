@@ -1,0 +1,426 @@
+[
+  {
+    "id": "c001",
+    "claim": "Tháng 12 năm 2014, YouTube cho biết lượt xem video \"Gangnam Style\" của PSY đã vượt 2.147.483.647, con số lớn nhất mà bộ đếm số nguyên 32 bit giữ được, và YouTube nâng bộ đếm lượt xem lên số nguyên 64 bit.",
+    "question": "Vào thời điểm nào, video nào trên YouTube đã vượt giới hạn của bộ đếm lượt xem cũ, giới hạn đó là bao nhiêu, và YouTube xử lý ra sao?",
+    "sources": [
+      {
+        "url": "https://www.guinnessworldrecords.com/world-records/381953-first-youtube-video-to-require-a-64-bit-counter",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.heraldnet.com/news/gangnam-style-pushes-youtube-to-its-limits",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.dawn.com/news/1148775",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c002",
+    "claim": "Trong bài đăng trên Google+, YouTube viết rằng họ chưa từng nghĩ một video sẽ được xem nhiều hơn mức của số nguyên 32 bit (2.147.483.647 lượt), \"nhưng đó là trước khi chúng tôi gặp PSY\".",
+    "question": "Bài đăng của YouTube trên Google+ về bộ đếm lượt xem năm 2014 đã viết gì?",
+    "sources": [
+      {
+        "url": "https://www.heraldnet.com/news/gangnam-style-pushes-youtube-to-its-limits",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.dawn.com/news/1148775",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c003",
+    "claim": "Phát ngôn viên Google nói về mặt kỹ thuật YouTube không bị hỏng vì Gangnam Style; kỹ sư YouTube đã lường trước vấn đề và nâng bộ đếm lên 64 bit từ trước.",
+    "question": "Theo phía Google, YouTube có thật sự bị hỏng khi Gangnam Style vượt giới hạn bộ đếm không, và việc nâng cấp diễn ra trước hay sau?",
+    "sources": [
+      {
+        "url": "https://www.heraldnet.com/news/gangnam-style-pushes-youtube-to-its-limits",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.dawn.com/news/1148775",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c004",
+    "claim": "Theo sách chính thức của Rust, kiểu u8 chứa giá trị từ 0 đến 255; gán 256 là tràn số; khi biên dịch ở chế độ phát hành (--release), giá trị quay vòng nên 256 thành 0 và 257 thành 1 mà chương trình không báo lỗi; ở chế độ gỡ lỗi thì chương trình dừng (panic).",
+    "question": "Sách Rust mô tả điều gì xảy ra khi một biến u8 nhận giá trị vượt phạm vi, ở chế độ gỡ lỗi và ở chế độ phát hành?",
+    "sources": [
+      {
+        "url": "https://doc.rust-lang.org/book/ch03-02-data-types.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c005",
+    "claim": "Số nguyên có dấu được lưu theo cách bù hai (two's complement); một kiểu n bit có dấu chứa từ −2ⁿ⁻¹ đến 2ⁿ⁻¹ − 1, nên kiểu 8 bit có dấu chứa từ −128 đến 127.",
+    "question": "Số nguyên có dấu được lưu theo cách biểu diễn nào, và phạm vi của một kiểu n bit có dấu được tính ra sao?",
+    "sources": [
+      {
+        "url": "https://doc.rust-lang.org/book/ch03-02-data-types.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c006",
+    "claim": "Theo đặc tả ngôn ngữ Java, kiểu short (16 bit) chứa từ −32.768 đến 32.767, kiểu int (32 bit) chứa từ −2.147.483.648 đến 2.147.483.647, và kiểu long (64 bit) chứa từ −9.223.372.036.854.775.808 đến 9.223.372.036.854.775.807.",
+    "question": "Đặc tả ngôn ngữ Java quy định phạm vi giá trị của các kiểu short, int và long là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c007",
+    "claim": "Đặc tả ngôn ngữ Java ghi rằng các phép toán số nguyên không báo tràn số theo bất kỳ cách nào.",
+    "question": "Đặc tả ngôn ngữ Java nói gì về việc phép toán số nguyên có báo hiệu khi bị tràn số hay không?",
+    "sources": [
+      {
+        "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c008",
+    "claim": "Trong ví dụ của đặc tả Java, nhân 1.000.000 với 1.000.000 bằng kiểu int cho ra −727.379.968, trong khi kết quả toán học đúng là 1.000.000.000.000.",
+    "question": "Ví dụ về tràn số trong đặc tả Java (mục phép toán số nguyên) nhân hai số nào và in ra kết quả gì với kiểu int?",
+    "sources": [
+      {
+        "url": "https://docs.oracle.com/javase/specs/jls/se21/html/jls-4.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c009",
+    "claim": "Ngày 4 tháng 6 năm 1996, chuyến bay đầu tiên của tên lửa Ariane 5 (chuyến 501) thất bại.",
+    "question": "Chuyến bay đầu tiên của Ariane 5 diễn ra ngày nào và kết quả ra sao?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c010",
+    "claim": "Khoảng 37 giây sau khi bắt đầu chuỗi đánh lửa động cơ chính, Ariane 5 mất hoàn toàn thông tin dẫn đường và tư thế; các vòi phun bẻ hết cỡ, góc tấn vượt 20 độ, tên lửa bắt đầu vỡ ra ở khoảng H0 + 39 giây vì tải khí động học và hệ thống tự hủy được kích hoạt.",
+    "question": "Theo báo cáo điều tra chuyến 501, tên lửa mất thông tin dẫn đường vào lúc nào, chuyện gì diễn ra sau đó và tên lửa vỡ ra lúc nào?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c011",
+    "claim": "Nguyên nhân trực tiếp của sự cố Ariane 501 là phép đổi một số dấu phẩy động 64 bit sang số nguyên có dấu 16 bit của biến độ lệch ngang (BH); giá trị quá lớn nên gây lỗi Operand Error.",
+    "question": "Báo cáo điều tra Ariane 501 xác định phép chuyển đổi dữ liệu nào, trên biến nào, đã gây lỗi phần mềm?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c012",
+    "claim": "Ariane 5 có hai bộ tham chiếu quán tính (SRI) chạy song song, giống hệt nhau cả phần cứng lẫn phần mềm; bộ dự phòng đã ngừng hoạt động vì cùng lỗi ở chu kỳ dữ liệu trước đó, tức sớm hơn 72 mili giây.",
+    "question": "Bộ tham chiếu quán tính dự phòng của Ariane 5 khác bộ chính ở điểm nào, và nó ngừng hoạt động lúc nào so với bộ chính?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c013",
+    "claim": "Thiết kế bộ SRI của Ariane 5 gần như giống hệt bộ đang dùng trên Ariane 4; quỹ đạo đầu của Ariane 5 làm tốc độ ngang tăng nhanh gấp 5 lần so với Ariane 4.",
+    "question": "Phần mềm SRI của Ariane 5 có nguồn gốc từ đâu, và quỹ đạo của Ariane 5 khác Ariane 4 thế nào về tốc độ ngang?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c014",
+    "claim": "Chức năng căn chỉnh tạo ra biến BH không còn tác dụng gì sau khi Ariane 5 rời bệ phóng, nhưng vẫn tiếp tục chạy khoảng 40 giây bay.",
+    "question": "Theo báo cáo, chức năng căn chỉnh của SRI có vai trò gì sau khi cất cánh và nó còn chạy bao lâu trong lúc bay?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c015",
+    "claim": "Trong bảy biến có nguy cơ gây lỗi Operand Error ở phần mềm SRI, bốn biến được bảo vệ và ba biến không được bảo vệ; một mục tiêu đặt ra là giữ tải máy tính SRI tối đa 80%.",
+    "question": "Trong phần mềm SRI, bao nhiêu biến có nguy cơ gây lỗi chuyển đổi, bao nhiêu biến được bảo vệ, và mục tiêu về tải máy tính là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c016",
+    "claim": "Hội đồng điều tra Ariane 501 do giáo sư Jacques-Louis Lions chủ trì, báo cáo đề ngày 19 tháng 7 năm 1996 tại Paris; khuyến nghị đầu tiên là tắt chức năng căn chỉnh của hệ quán tính ngay sau khi cất cánh.",
+    "question": "Ai chủ trì hội đồng điều tra Ariane 501, báo cáo đề ngày nào, và khuyến nghị số 1 là gì?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c017",
+    "claim": "Chỉ thị bay an toàn AD 2015-09-07 của FAA, có hiệu lực ngày 1 tháng 5 năm 2015, nêu rằng máy bay Boeing 787 được cấp điện liên tục 248 ngày có thể mất toàn bộ điện xoay chiều vì các bộ điều khiển máy phát điện (GCU) cùng chuyển sang chế độ an toàn, do một bộ đếm phần mềm bên trong GCU bị tràn.",
+    "question": "Chỉ thị FAA năm 2015 về Boeing 787 mô tả lỗi gì, xảy ra sau bao lâu cấp điện liên tục, và chỉ thị có hiệu lực ngày nào?",
+    "sources": [
+      {
+        "url": "https://ad.easa.europa.eu/blob/2015-09-07_superseded.pdf/AD_US-2015-09-07_1",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.govinfo.gov/content/pkg/FR-2018-10-16/html/2018-22152.htm",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c018",
+    "claim": "Theo FAA, lỗi bộ đếm của Boeing 787 được phát hiện trong thử nghiệm phòng thí nghiệm; nếu bốn GCU chính được bật cùng lúc thì sau 248 ngày cả bốn cùng chuyển sang chế độ an toàn, gây mất toàn bộ điện xoay chiều bất kể giai đoạn bay, có thể dẫn đến mất kiểm soát máy bay.",
+    "question": "Lỗi GCU của Boeing 787 được phát hiện bằng cách nào, có bao nhiêu GCU chính liên quan, và hậu quả FAA nêu là gì?",
+    "sources": [
+      {
+        "url": "https://ad.easa.europa.eu/blob/2015-09-07_superseded.pdf/AD_US-2015-09-07_1",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c019",
+    "claim": "Chỉ thị AD 2015-09-07 yêu cầu tắt điện máy bay Boeing 787 định kỳ, mỗi lần cách nhau không quá 120 ngày.",
+    "question": "Chỉ thị FAA năm 2015 yêu cầu biện pháp gì đối với Boeing 787, và theo chu kỳ bao lâu?",
+    "sources": [
+      {
+        "url": "https://ad.easa.europa.eu/blob/2015-09-07_superseded.pdf/AD_US-2015-09-07_1",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c020",
+    "claim": "FAA ước tính chỉ thị AD 2015-09-07 áp dụng cho 28 máy bay đăng ký tại Mỹ.",
+    "question": "Theo FAA, chỉ thị AD 2015-09-07 áp dụng cho bao nhiêu máy bay đăng ký tại Mỹ?",
+    "sources": [
+      {
+        "url": "https://ad.easa.europa.eu/blob/2015-09-07_superseded.pdf/AD_US-2015-09-07_1",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c021",
+    "claim": "Chỉ thị AD 2018-20-15 của FAA, có hiệu lực ngày 20 tháng 11 năm 2018, thay thế AD 2015-09-07 và yêu cầu cài phần mềm vận hành mới vào cả sáu GCU của Boeing 787.",
+    "question": "Chỉ thị FAA nào thay thế AD 2015-09-07, có hiệu lực ngày nào, và yêu cầu làm gì?",
+    "sources": [
+      {
+        "url": "https://www.govinfo.gov/content/pkg/FR-2018-10-16/html/2018-22152.htm",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c022",
+    "claim": "Tín hiệu GPS dân sự chính (mã C/A) phát số tuần bằng 10 bit, giá trị tối đa 1.023, nên khoảng 19,7 năm số tuần lại quay về 0.",
+    "question": "Số tuần trong tín hiệu GPS dân sự cũ được mã hóa bằng bao nhiêu bit, giá trị tối đa là bao nhiêu, và bao lâu thì quay về 0?",
+    "sources": [
+      {
+        "url": "https://archive.gps.gov/support/user/rollover/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.measurement.govt.nz/assets/Uploads/Memorandum-on-GPS-2019.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.gov.uk/government/publications/safety-bulletin-13-gps-week-number-rollover/safety-bulletin-13-gps-week-number-rollover",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c023",
+    "claim": "Số tuần GPS quay về 0 lần đầu vào tháng 8 năm 1999 và lần thứ hai lúc 23:59:42 UTC ngày 6 tháng 4 năm 2019.",
+    "question": "Số tuần GPS đã quay về 0 vào những thời điểm nào?",
+    "sources": [
+      {
+        "url": "https://archive.gps.gov/support/user/rollover/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.measurement.govt.nz/assets/Uploads/Memorandum-on-GPS-2019.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c024",
+    "claim": "Theo trang GPS.gov, nhiều thiết bị GPS không được thiết kế đúng để xử lý lần quay vòng đã gặp sự cố vào ngày 6 tháng 4 năm 2019, và có thiết bị hỏng vài tháng trước hoặc sau ngày đó, phải vá phần mềm.",
+    "question": "Trang GPS.gov mô tả hậu quả gì với thiết bị GPS quanh lần quay vòng số tuần năm 2019?",
+    "sources": [
+      {
+        "url": "https://archive.gps.gov/support/user/rollover/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c025",
+    "claim": "Thiết bị GPS chỉ dùng mã C/A và bản tin dẫn đường cũ (LNAV) sẽ gặp lần quay vòng tiếp theo vào ngày 20 tháng 11 năm 2038; tín hiệu dân sự mới dùng bản tin CNAV với số tuần 13 bit, không quay vòng cho đến năm 2137.",
+    "question": "Lần quay vòng số tuần GPS tiếp theo với thiết bị đời cũ là khi nào, và tín hiệu mới dùng bao nhiêu bit cho số tuần, kéo dài đến năm nào?",
+    "sources": [
+      {
+        "url": "https://archive.gps.gov/support/user/rollover/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c026",
+    "claim": "Theo chuẩn POSIX, mốc thời gian Epoch là 0 giờ 0 phút 0 giây ngày 1 tháng 1 năm 1970 theo giờ UTC; thời gian hệ thống được tính bằng số giây kể từ mốc này.",
+    "question": "Chuẩn POSIX định nghĩa mốc Epoch là thời điểm nào?",
+    "sources": [
+      {
+        "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c027",
+    "claim": "Chương trình dùng kiểu time_t là số nguyên 32 bit có dấu không biểu diễn được thời điểm từ 03:14:08 UTC ngày 19 tháng 1 năm 2038 trở đi.",
+    "question": "Kiểu time_t 32 bit có dấu không biểu diễn được thời điểm nào trở đi?",
+    "sources": [
+      {
+        "url": "https://www.gnu.org/software/gnulib/manual/html_node/Avoiding-the-year-2038-problem.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://lwn.net/Articles/643234/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c028",
+    "claim": "Cách chữa vấn đề năm 2038 là dùng time_t rộng hơn; với glibc 2.34 trở lên, chương trình Linux 32 bit có thể biên dịch với _TIME_BITS=64 để dùng thời gian 64 bit.",
+    "question": "Tài liệu Gnulib đề xuất cách nào để tránh vấn đề năm 2038 trên Linux 32 bit, và từ phiên bản glibc nào?",
+    "sources": [
+      {
+        "url": "https://www.gnu.org/software/gnulib/manual/html_node/Avoiding-the-year-2038-problem.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c029",
+    "claim": "Tài liệu chính thức của Python ghi rằng số nguyên trong Python có độ chính xác không giới hạn.",
+    "question": "Tài liệu Python nói gì về độ chính xác của kiểu số nguyên?",
+    "sources": [
+      {
+        "url": "https://docs.python.org/3/library/stdtypes.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c030",
+    "claim": "Thư viện chuẩn Rust có các nhóm hàm wrapping_*, checked_*, overflowing_* và saturating_* để xử lý tràn số một cách tường minh; sách Rust coi việc dựa vào hành vi quay vòng khi tràn là một lỗi.",
+    "question": "Sách Rust giới thiệu những nhóm hàm nào để xử lý tràn số, và đánh giá thế nào về việc dựa vào hành vi quay vòng?",
+    "sources": [
+      {
+        "url": "https://doc.rust-lang.org/book/ch03-02-data-types.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c031",
+    "claim": "Lần quay vòng số tuần GPS có thể khiến máy thu GPS độc lập và hệ thống dùng chip GPS đưa ra dữ liệu lệch 19,7 năm về quá khứ hoặc tương lai.",
+    "question": "Cơ quan Hàng hải và Tuần duyên Anh cảnh báo máy thu GPS có thể đưa ra dữ liệu sai như thế nào khi số tuần quay vòng?",
+    "sources": [
+      {
+        "url": "https://www.gov.uk/government/publications/safety-bulletin-13-gps-week-number-rollover/safety-bulletin-13-gps-week-number-rollover",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  }
+]

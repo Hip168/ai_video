@@ -1,0 +1,30 @@
+{
+  "slug": "khi-may-tinh-dem-qua-gioi-han",
+  "entries": [
+    {
+      "seq": 1,
+      "ts": "2026-11-13T17:22:03Z",
+      "stage": "research",
+      "role": "researcher",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": null,
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "",
+      "entryHash": "76005eaa04a1b9de91331a4a1bc5462f2ce0426ca2cc43315c9e97090e962999"
+    }
+  ]
+}

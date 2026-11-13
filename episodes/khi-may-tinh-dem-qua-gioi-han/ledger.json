@@ -1065,6 +1065,37 @@
       "unresolvedSevere": null,
       "prevHash": "d4247bdb2c6c31700a2574059d8722e6626945a4e043a5232bd5288096619224",
       "entryHash": "3aa6282fdec2ecbf83ba06e0c139eb32d6b0bf2ffca81df658583520a5675d57"
+    },
+    {
+      "seq": 33,
+      "ts": "2026-11-13T21:09:08Z",
+      "stage": "ky-thuat",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "e221d75059a582a841a250e973a2762bb51e6077ae5c0fd5ae4c436555d777f6",
+      "verdict": "DAT",
+      "scriptHash": "a53af940259035ab696a6ad4b5d940bdee6b138936e2304c9d5e325ae6260900",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "mã thoát 0",
+      "cmd": [
+        "/Users/leminhdao168/Documents/ai_video/audio/.venv/bin/python",
+        "-m",
+        "aivideo.assemble",
+        "verify",
+        "khi-may-tinh-dem-qua-gioi-han"
+      ],
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "3aa6282fdec2ecbf83ba06e0c139eb32d6b0bf2ffca81df658583520a5675d57",
+      "entryHash": "6824594cb5489ab57c02521c3a7dbefca0333a62900a5219ac89f464b4b9cb36"
     }
   ]
 }

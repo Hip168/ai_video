@@ -48,10 +48,13 @@
     {
       "id": "s01",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Một con tàu bay ra sau Sao Hỏa",
+        "kicker": "Ngày 23 tháng 9 năm 1999"
+      },
       "holdMs": 0,
-      "sfx": null,
+      "sfx": "whoosh",
       "beats": [
         {
           "id": "b001",
@@ -64,7 +67,19 @@
             "c016",
             "c017"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "custom:sao-hoa",
+      "props": {
+        "mode": "khuat"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b002",
           "text": "Theo kế hoạch, tín hiệu của nó sẽ tạm mất trong lúc tàu khuất sau hành tinh, rồi quay lại.",
@@ -101,10 +116,23 @@
       ]
     },
     {
-      "id": "s02",
+      "id": "s03",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "terminal",
+      "props": {
+        "title": "tín hiệu từ tàu",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "out",
+            "text": "giây cuối: mọi hệ thống vẫn bình thường"
+          },
+          {
+            "kind": "cmd",
+            "text": "vì sao tàu biến mất?"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -131,10 +159,15 @@
       ]
     },
     {
-      "id": "s03",
+      "id": "s04",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 669,
+        "prefix": "khoảng ",
+        "suffix": " triệu km",
+        "label": "Quãng đường tàu đã bay, trong khoảng 9 tháng rưỡi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -148,7 +181,23 @@
           "claims": [
             "c006"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "big-number",
+      "props": {
+        "value": 235.9,
+        "decimals": 1,
+        "suffix": " triệu USD",
+        "label": "Cả tàu quỹ đạo lẫn tàu đổ bộ của dự án",
+        "note": "Tổng chi phí, chưa kể tên lửa phóng"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b008",
           "text": "Dự án gồm nó và một tàu đổ bộ, tức một tàu sẽ hạ xuống mặt Sao Hỏa.",
@@ -171,7 +220,20 @@
           "claims": [
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "Một lỗi học sinh nào cũng từng bị trừ điểm",
+        "kicker": "Quên đổi đơn vị"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b009",
           "text": "Vậy mà nó mất tích vì một lỗi mà học sinh nào cũng từng bị trừ điểm.",
@@ -185,7 +247,7 @@
           "id": "b010",
           "text": "Quên đổi đơn vị: một con số ghi theo đơn vị này, nhưng được đọc theo đơn vị khác.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -196,10 +258,25 @@
       ]
     },
     {
-      "id": "s04",
+      "id": "s07",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Con số sai ở tệp nào",
+            "detail": "lần ra tệp dữ liệu chứa nó"
+          },
+          {
+            "name": "Vì sao không ai bắt được",
+            "detail": "suốt 9 tháng bay"
+          },
+          {
+            "name": "Chống lỗi này ra sao",
+            "detail": "cách làm của phần mềm ngày nay"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -235,10 +312,27 @@
       ]
     },
     {
-      "id": "s05",
+      "id": "c1",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Máy chỉ cất con số, không cất đơn vị",
+        "number": 1
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s08",
+      "chapter": "chuong-1",
+      "type": "big-number",
+      "props": {
+        "value": 2,
+        "suffix": " thịt",
+        "label": "Mẹ dặn: ra chợ mua “hai thịt”",
+        "note": "Hai lạng, hay hai cân? Chênh nhau tới mười lần"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -272,10 +366,15 @@
       ]
     },
     {
-      "id": "s06",
+      "id": "s09",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Đơn vị",
+        "tag": "mét · giây · ki-lô-gam",
+        "pronunciation": "cái thước để đo con số",
+        "definition": "Thiếu đơn vị, con số chỉ là một nửa câu nói"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -300,10 +399,14 @@
       ]
     },
     {
-      "id": "s07",
+      "id": "s10",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Lực",
+        "tag": "Đẩy xe máy chết máy",
+        "definition": "Độ mạnh của cú đẩy: đẩy càng mạnh, xe càng nhanh lên"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -324,7 +427,32 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "chapter": "chuong-1",
+      "type": "compare",
+      "props": {
+        "titleA": "Niu-tơn (N)",
+        "titleB": "Pound-force (lbf)",
+        "rows": [
+          {
+            "label": "Đơn vị lực của hệ mét",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Đơn vị lực của hệ Anh",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b021",
           "text": "Ở trường, ta đo lực bằng niu-tơn, một đơn vị của hệ mét.",
@@ -349,10 +477,17 @@
       ]
     },
     {
-      "id": "s08",
+      "id": "s12",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 4.45,
+        "decimals": 2,
+        "prefix": "1 lbf ≈ ",
+        "suffix": " N",
+        "label": "1 pound-force lớn gấp khoảng 4,45 lần 1 niu-tơn",
+        "note": "Pound-force là cái thước to hơn, gấp hơn bốn lần"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -382,9 +517,9 @@
       ]
     },
     {
-      "id": "s09",
+      "id": "s13",
       "chapter": "chuong-1",
-      "type": "term-card",
+      "type": "custom:xung-luc",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -419,10 +554,14 @@
       ]
     },
     {
-      "id": "s10",
+      "id": "s14",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Xung lực",
+        "tag": "Cú hích",
+        "definition": "Lực nhân với thời gian đẩy"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -436,7 +575,32 @@
           "claims": [
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "chapter": "chuong-1",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Cùng một cú hích, ghi theo hai đơn vị",
+        "decimals": 2,
+        "highlight": 1,
+        "data": [
+          {
+            "label": "N·s (hệ mét)",
+            "value": 4.45
+          },
+          {
+            "label": "lbf·s (hệ Anh)",
+            "value": 1
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b029",
           "text": "Trong hệ mét, xung lực đo bằng niu-tơn nhân giây.",
@@ -476,10 +640,25 @@
       ]
     },
     {
-      "id": "s11",
+      "id": "s16",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Con số",
+        "titleB": "Chữ “niu-tơn”",
+        "rows": [
+          {
+            "label": "Được cất trong bộ nhớ",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Chỉ là một dãy số 0 và 1",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -504,10 +683,50 @@
       ]
     },
     {
-      "id": "s13",
+      "id": "s17",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "a",
+            "label": "Chương trình nhóm này"
+          },
+          {
+            "id": "tep",
+            "label": "Tệp số liệu"
+          },
+          {
+            "id": "b",
+            "label": "Chương trình nhóm kia"
+          }
+        ],
+        "edges": [
+          {
+            "from": "a",
+            "to": "tep",
+            "label": "ghi số"
+          },
+          {
+            "from": "tep",
+            "to": "b",
+            "label": "đọc số"
+          }
+        ],
+        "packets": [
+          {
+            "from": "a",
+            "to": "tep",
+            "label": "số"
+          },
+          {
+            "from": "tep",
+            "to": "b",
+            "label": "số"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -543,10 +762,26 @@
       ]
     },
     {
-      "id": "s14",
+      "id": "c2",
+      "chapter": "chuong-2",
+      "type": "chapter-title",
+      "props": {
+        "title": "Vệ tinh thời tiết cho một hành tinh khác",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s18",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Quỹ đạo",
+        "tag": "Mars Climate Orbiter",
+        "definition": "Đường vòng mà tàu cứ thế bay quanh hành tinh, như hòn đá buộc dây quay quanh tay"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -569,7 +804,31 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-2",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Tàu được giao hai việc"
+          },
+          {
+            "name": "1. Vệ tinh thời tiết",
+            "detail": "Đầu tiên, theo dõi khí hậu Sao Hỏa"
+          },
+          {
+            "name": "2. Trạm chuyển tiếp",
+            "detail": "Liên lạc cho tàu đổ bộ cùng dự án"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b043",
           "text": "Tàu được giao hai việc.",
@@ -580,17 +839,7 @@
           "claims": [
             "c003"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s15",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b044",
           "text": "Một là làm vệ tinh thời tiết liên hành tinh đầu tiên, theo dõi khí hậu Sao Hỏa.",
@@ -616,10 +865,15 @@
       ]
     },
     {
-      "id": "s16",
+      "id": "s20",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 629,
+        "suffix": " kg",
+        "label": "Nặng lúc phóng, ngày 11 tháng 12 năm 1998",
+        "note": "Trong đó 291 kg là nhiên liệu: gần một nửa"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -659,10 +913,12 @@
       ]
     },
     {
-      "id": "s17",
+      "id": "s21",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:hai-doi",
+      "props": {
+        "mode": "gioi-thieu"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -703,10 +959,13 @@
       ]
     },
     {
-      "id": "s18",
+      "id": "s22",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Dẫn đường",
+        "definition": "Tính xem tàu đang ở đâu, đang bay theo hướng nào"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -720,7 +979,53 @@
           "claims": [
             "c008"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s23",
+      "chapter": "chuong-2",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "lai",
+            "label": "Người lái xe"
+          },
+          {
+            "id": "bd",
+            "label": "Người cầm bản đồ"
+          }
+        ],
+        "edges": [
+          {
+            "from": "lai",
+            "to": "bd",
+            "label": "báo"
+          }
+        ],
+        "packets": [
+          {
+            "from": "lai",
+            "to": "bd",
+            "label": "đánh lái"
+          },
+          {
+            "from": "lai",
+            "to": "bd",
+            "label": "đánh lái"
+          },
+          {
+            "from": "lai",
+            "to": "bd",
+            "label": "?"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b053",
           "text": "Giống như một người lái xe, và một người ngồi bên cầm bản đồ chỉ đường.",
@@ -738,17 +1043,7 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        }
-      ]
-    },
-    {
-      "id": "s19",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b055",
           "text": "Người cầm bản đồ cộng dồn những lần đánh lái đó, để biết xe đang ở đâu.",
@@ -770,10 +1065,27 @@
       ]
     },
     {
-      "id": "s20",
+      "id": "c3",
+      "chapter": "chuong-3",
+      "type": "chapter-title",
+      "props": {
+        "title": "Bánh đà và những cú phụt nhỏ",
+        "number": 3
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s24",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Giữ hướng",
+        "tag": "Không có gì để bám",
+        "definition": "Tàu xoay mình bằng các bánh xe quay ở bên trong",
+        "example": "Như bánh đà: cái bánh nặng quay tít trong con quay đồ chơi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -811,9 +1123,9 @@
       ]
     },
     {
-      "id": "s21",
+      "id": "s25",
       "chapter": "chuong-3",
-      "type": "term-card",
+      "type": "custom:banh-da",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -848,7 +1160,53 @@
           "claims": [
             "c009"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s26",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "gh",
+            "label": "Bánh chạm giới hạn"
+          },
+          {
+            "id": "ham",
+            "label": "Hãm bánh: thân tàu xoay"
+          },
+          {
+            "id": "phut",
+            "label": "Phụt động cơ đẩy bù"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gh",
+            "to": "ham"
+          },
+          {
+            "from": "ham",
+            "to": "phut"
+          }
+        ],
+        "packets": [
+          {
+            "from": "gh",
+            "to": "ham"
+          },
+          {
+            "from": "ham",
+            "to": "phut"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b061",
           "text": "Nhưng bánh xe không thể quay nhanh mãi. Đến một lúc, nó chạm giới hạn.",
@@ -885,10 +1243,14 @@
       ]
     },
     {
-      "id": "s22",
+      "id": "s27",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Xả động lượng",
+        "tag": "AMD",
+        "definition": "Như nồi áp suất: thỉnh thoảng phải mở van xả bớt hơi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -915,10 +1277,61 @@
       ]
     },
     {
-      "id": "s23",
+      "id": "s28",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "phut",
+            "label": "Cú phụt"
+          },
+          {
+            "id": "pm",
+            "label": "Phần mềm mặt đất"
+          },
+          {
+            "id": "tep",
+            "label": "Tệp xung lực"
+          },
+          {
+            "id": "dd",
+            "label": "Đội dẫn đường"
+          }
+        ],
+        "edges": [
+          {
+            "from": "phut",
+            "to": "pm"
+          },
+          {
+            "from": "pm",
+            "to": "tep"
+          },
+          {
+            "from": "tep",
+            "to": "dd"
+          }
+        ],
+        "packets": [
+          {
+            "from": "phut",
+            "to": "pm",
+            "label": "số liệu"
+          },
+          {
+            "from": "pm",
+            "to": "tep",
+            "label": "xung lực"
+          },
+          {
+            "from": "tep",
+            "to": "dd",
+            "label": "tệp"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -968,10 +1381,13 @@
       ]
     },
     {
-      "id": "s24",
+      "id": "s29",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Mỗi cú phụt chỉ làm tàu lệch rất ít",
+        "kicker": "Cộng dồn suốt 9 tháng thì khác"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -988,7 +1404,7 @@
           "id": "b070",
           "text": "Nhưng cộng dồn suốt chín tháng bay thì lại là chuyện khác.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": []
@@ -996,10 +1412,14 @@
       ]
     },
     {
-      "id": "s25",
+      "id": "s30",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Pin mặt trời một bên",
+        "tag": "Điểm lạ của con tàu",
+        "definition": "Một bên hứng nắng nhiều hơn hẳn, nên tàu càng hay bị xoay lệch"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1024,7 +1444,23 @@
           "claims": [
             "c011"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s31",
+      "chapter": "chuong-3",
+      "type": "big-number",
+      "props": {
+        "value": 14,
+        "from": 10,
+        "prefix": "10 đến ",
+        "suffix": " lần",
+        "label": "Số lần xả động lượng, so với đội dẫn đường dự tính"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b073",
           "text": "Kết quả là số lần xả động lượng nhiều gấp 10 đến 14 lần so với đội dẫn đường dự tính.",
@@ -1039,10 +1475,27 @@
       ]
     },
     {
-      "id": "s26",
+      "id": "s32",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "terminal",
+      "props": {
+        "title": "kế hoạch bay",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "out",
+            "text": "kế hoạch: mỗi ngày lật tàu 180 độ"
+          },
+          {
+            "kind": "out",
+            "text": "mặt nào cũng được nắng như nhau"
+          },
+          {
+            "kind": "err",
+            "text": "đã bỏ, không báo cho đội dẫn đường"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1082,10 +1535,13 @@
       ]
     },
     {
-      "id": "s27",
+      "id": "s33",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Càng phụt nhiều, sai số càng bị nhân lên",
+        "kicker": "Tệp dữ liệu ấy có một sai số"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1102,7 +1558,7 @@
           "id": "b078",
           "text": "Và tệp dữ liệu ấy, đúng là có một sai số.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 800,
           "sfx": null,
           "claims": []
@@ -1110,10 +1566,38 @@
       ]
     },
     {
-      "id": "s28",
+      "id": "c4",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Con số đúng, đơn vị sai",
+        "number": 4
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s34",
+      "chapter": "chuong-4",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Bản thỏa thuận viết sẵn",
+            "detail": "giữa hai phần mềm (SIS)"
+          },
+          {
+            "name": "Ghi rõ từng con số",
+            "detail": "con số gì, thứ tự nào, đơn vị gì"
+          },
+          {
+            "name": "Tệp xung lực",
+            "detail": "phải dùng niu-tơn × giây (N·s)"
+          }
+        ],
+        "highlight": 2
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1153,10 +1637,50 @@
       ]
     },
     {
-      "id": "s29",
+      "id": "s35",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "pm",
+            "label": "Phần mềm mặt đất"
+          },
+          {
+            "id": "tep",
+            "label": "Tệp xung lực"
+          },
+          {
+            "id": "dd",
+            "label": "Đội dẫn đường"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pm",
+            "to": "tep",
+            "label": "ghi: lbf·s"
+          },
+          {
+            "from": "tep",
+            "to": "dd",
+            "label": "đọc: N·s"
+          }
+        ],
+        "packets": [
+          {
+            "from": "pm",
+            "to": "tep",
+            "label": "con số"
+          },
+          {
+            "from": "tep",
+            "to": "dd",
+            "label": "con số"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1195,9 +1719,9 @@
       ]
     },
     {
-      "id": "s30",
+      "id": "s36",
       "chapter": "chuong-4",
-      "type": "term-card",
+      "type": "custom:hai-thuoc",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -1236,10 +1760,30 @@
       ]
     },
     {
-      "id": "s31",
+      "id": "s37",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Bản chạy trên tàu",
+        "titleB": "Bản dưới mặt đất",
+        "rows": [
+          {
+            "label": "Dùng đúng hệ mét",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Có lỗi đơn vị",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Nguyên nhân gốc của vụ mất tàu",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1279,10 +1823,14 @@
       ]
     },
     {
-      "id": "s32",
+      "id": "s38",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 3,
+        "suffix": " lý do",
+        "label": "Vì sao suốt 9 tháng không ai nhận ra?"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1298,10 +1846,27 @@
       ]
     },
     {
-      "id": "s33",
+      "id": "s39",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "Bốn tháng",
+            "title": "Lý do 1: tệp lỗi định dạng",
+            "detail": "Không dùng được"
+          },
+          {
+            "year": "Tạm thời",
+            "title": "Dựa vào thư điện tử báo giờ phụt",
+            "detail": "Rồi tự ước lượng"
+          },
+          {
+            "year": "4/1999",
+            "title": "Tệp mới dùng được"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1337,7 +1902,22 @@
           "claims": [
             "c015"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-4",
+      "type": "big-number",
+      "props": {
+        "value": 1,
+        "prefix": "khoảng ",
+        "suffix": " tuần",
+        "label": "Số liệu đã bắt đầu trông bất thường"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b095",
           "text": "Và chỉ trong khoảng một tuần, số liệu đã bắt đầu trông bất thường.",
@@ -1352,10 +1932,12 @@
       ]
     },
     {
-      "id": "s34",
+      "id": "s41",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:doppler",
+      "props": {
+        "mode": "doc"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1393,10 +1975,12 @@
       ]
     },
     {
-      "id": "s35",
+      "id": "s42",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:doppler",
+      "props": {
+        "mode": "ngang"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1434,10 +2018,21 @@
       ]
     },
     {
-      "id": "s36",
+      "id": "s43",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Lý do 3: mối lo",
+            "detail": "chỉ được báo cáo không chính thức"
+          },
+          {
+            "name": "Các cách tính lệch nhau",
+            "detail": "chỗ lệch không được giải quyết"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1466,10 +2061,14 @@
       ]
     },
     {
-      "id": "s37",
+      "id": "s44",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Ngay trước ngày phóng",
+        "tag": "Đội dẫn đường",
+        "definition": "Mới vào dự án, nên không hề tham gia kiểm thử (chạy thử để bắt lỗi) phần mềm dưới mặt đất"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1498,10 +2097,48 @@
       ]
     },
     {
-      "id": "s38",
+      "id": "c5",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Ngày 23 tháng 9 năm 1999",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s45",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "suot",
+            "label": "Sượt qua ở độ cao vừa đủ"
+          },
+          {
+            "id": "dot",
+            "label": "Đốt động cơ chính"
+          }
+        ],
+        "edges": [
+          {
+            "from": "suot",
+            "to": "dot",
+            "label": "rồi"
+          }
+        ],
+        "packets": [
+          {
+            "from": "suot",
+            "to": "dot",
+            "label": "tàu"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1529,9 +2166,9 @@
       ]
     },
     {
-      "id": "s39",
+      "id": "s46",
       "chapter": "chuong-5",
-      "type": "term-card",
+      "type": "custom:lia-thia",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -1568,10 +2205,15 @@
       ]
     },
     {
-      "id": "s40",
+      "id": "s47",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 226,
+        "suffix": " km",
+        "label": "Độ cao nhắm tới, sau lần chỉnh hướng cuối ngày 15 tháng 9",
+        "note": "Con số cần nhớ: 80 km, mức thấp nhất tàu chịu được"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1600,9 +2242,9 @@
       ]
     },
     {
-      "id": "s41",
+      "id": "s48",
       "chapter": "chuong-5",
-      "type": "term-card",
+      "type": "custom:do-cao",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -1643,10 +2285,23 @@
       ]
     },
     {
-      "id": "s42",
+      "id": "s49",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "terminal",
+      "props": {
+        "title": "chỉnh hướng khẩn cấp",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "out",
+            "text": "TCM-5: được bàn bằng miệng, ngay trước giờ đốt"
+          },
+          {
+            "kind": "err",
+            "text": "không thực hiện: chưa chuẩn bị quy trình"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1675,10 +2330,12 @@
       ]
     },
     {
-      "id": "s43",
+      "id": "s50",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:sao-hoa",
+      "props": {
+        "mode": "dot"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1703,7 +2360,19 @@
           "claims": [
             "c017"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s51",
+      "chapter": "chuong-5",
+      "type": "custom:sao-hoa",
+      "props": {
+        "mode": "som"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b120",
           "text": "Giờ giấc cụ thể không cần nhớ. Con số đáng để ý là: tàu khuất sớm hơn lịch 49 giây.",
@@ -1730,10 +2399,29 @@
       ]
     },
     {
-      "id": "s44",
+      "id": "s52",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "Kế hoạch",
+            "title": "Khuất khoảng 21 phút, rồi ló ra"
+          },
+          {
+            "year": "Chờ",
+            "title": "21 phút trôi qua, rồi thêm nhiều phút"
+          },
+          {
+            "year": "Im lặng",
+            "title": "Tín hiệu không trở lại"
+          },
+          {
+            "year": "25/9",
+            "title": "Cố bắt lại tín hiệu, đều thất bại"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1784,10 +2472,29 @@
       ]
     },
     {
-      "id": "s45",
+      "id": "s53",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Độ cao khi bay qua Sao Hỏa",
+        "unit": " km",
+        "highlight": 1,
+        "data": [
+          {
+            "label": "Kế hoạch",
+            "value": 226
+          },
+          {
+            "label": "Thực tế",
+            "value": 57
+          },
+          {
+            "label": "Mức chịu được",
+            "value": 80
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1829,10 +2536,25 @@
       ]
     },
     {
-      "id": "s46",
+      "id": "s54",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Bị phá hủy",
+            "detail": "trong khí quyển Sao Hỏa"
+          },
+          {
+            "name": "Hoặc văng ra ngoài",
+            "detail": "vào quỹ đạo quanh Mặt Trời"
+          },
+          {
+            "name": "Không ai biết chắc",
+            "detail": "là khả năng nào"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1873,10 +2595,29 @@
       ]
     },
     {
-      "id": "s47",
+      "id": "c6",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Lỗi của cả một hệ thống",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-6",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Một kỹ sư nào đó quên đổi đơn vị",
+            "fact": "Chính NASA không nhìn vấn đề như vậy"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1903,10 +2644,16 @@
       ]
     },
     {
-      "id": "s48",
+      "id": "s56",
       "chapter": "chuong-6",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Edward Weiler",
+        "tag": "NASA",
+        "pronunciation": "phụ trách khoa học vũ trụ",
+        "definition": "Đại ý: con người đôi khi mắc lỗi, và vấn đề không nằm ở lỗi đó",
+        "example": "Mà ở cách tổ chức kỹ thuật cả hệ thống, và các khâu kiểm tra chéo đã không phát hiện ra nó"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1946,10 +2693,14 @@
       ]
     },
     {
-      "id": "s49",
+      "id": "s57",
       "chapter": "chuong-6",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Báo cáo phần đầu",
+        "tag": "10 tháng 11 năm 1999",
+        "definition": "Hội đồng điều tra công bố phần đầu tiên của báo cáo"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1963,7 +2714,33 @@
           "claims": [
             "c026"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s58",
+      "chapter": "chuong-6",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Đơn vị có nhất quán?",
+            "detail": "khuyến nghị đứng đầu danh sách"
+          },
+          {
+            "name": "Tàu đổ bộ cùng dự án",
+            "detail": "toàn bộ thiết kế và vận hành"
+          },
+          {
+            "name": "Rà soát phần mềm",
+            "detail": "mọi dữ liệu trao đổi giữa hai đội"
+          }
+        ],
+        "highlight": 0
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b137",
           "text": "Khuyến nghị đứng đầu danh sách là kiểm tra xem đơn vị có được dùng nhất quán không,",
@@ -2001,10 +2778,13 @@
       ]
     },
     {
-      "id": "s50",
+      "id": "s59",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Ngày nay chống lỗi này ra sao?",
+        "kicker": "Cách 1: để ngôn ngữ giữ đơn vị"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2021,13 +2801,40 @@
           "id": "b141",
           "text": "Cách thứ nhất: để chính ngôn ngữ lập trình giữ đơn vị.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c028"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s60",
+      "chapter": "chuong-6",
+      "type": "terminal",
+      "props": {
+        "title": "F#",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "let cong (a: float<N>) (b: float<lbf>) = a + b"
+          },
+          {
+            "kind": "err",
+            "text": "lỗi: đơn vị 'lbf' không khớp với 'N'"
+          },
+          {
+            "kind": "out",
+            "text": "báo ngay lúc dịch chương trình"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b142",
           "text": "Ví dụ, ngôn ngữ F# cho phép gắn đơn vị vào từng con số.",
@@ -2063,10 +2870,21 @@
       ]
     },
     {
-      "id": "s51",
+      "id": "s61",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Khi chạy: đơn vị bị xóa",
+            "detail": "không theo con số vào tệp"
+          },
+          {
+            "name": "Cách thứ hai",
+            "detail": "thỏa thuận thật rõ, chạy thử cả chuỗi"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2089,7 +2907,19 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s62",
+      "chapter": "chuong-6",
+      "type": "custom:hai-doi",
+      "props": {
+        "mode": "thu"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b146",
           "text": "Tức là cho phần mềm dưới đất ghi ra tệp, rồi đưa đúng tệp đó cho phần mềm dẫn đường đọc thử.",
@@ -2113,10 +2943,29 @@
       ]
     },
     {
-      "id": "s52",
+      "id": "s63",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Ba tầng",
+            "detail": "của câu chuyện này"
+          },
+          {
+            "name": "Máy chỉ giữ con số",
+            "detail": "không giữ đơn vị"
+          },
+          {
+            "name": "Đơn vị là lời hứa",
+            "detail": "giữa người với người, giữa hai đội"
+          },
+          {
+            "name": "Lời hứa vỡ",
+            "detail": "con số đúng vẫn kéo tàu xuống 57 km"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2163,10 +3012,17 @@
       ]
     },
     {
-      "id": "s53",
+      "id": "s64",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Máy tính chỉ giữ con số, không giữ đơn vị",
+          "Đơn vị là lời hứa giữa người với người",
+          "Lời hứa vỡ: con tàu xuống chỉ còn 57 km"
+        ],
+        "next": "Tập sau: con số đúng, đơn vị đúng, nhưng thời điểm sai?"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [

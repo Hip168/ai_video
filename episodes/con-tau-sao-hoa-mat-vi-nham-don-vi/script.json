@@ -153,7 +153,19 @@
         },
         {
           "id": "b008",
-          "text": "Nó và một tàu đổ bộ đi kèm tốn tổng cộng 235,9 triệu đô la Mỹ, chưa kể tên lửa phóng.",
+          "text": "Dự án gồm nó và một tàu đổ bộ, tức một tàu sẽ hạ xuống mặt Sao Hỏa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c003",
+            "c007"
+          ]
+        },
+        {
+          "id": "b008a",
+          "text": "Cả hai tốn tổng cộng 235,9 triệu đô la Mỹ, chưa kể tên lửa phóng.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -503,7 +515,7 @@
       "beats": [
         {
           "id": "b038",
-          "text": "Vậy khi hai chương trình gửi số cho nhau qua một tệp dữ liệu,",
+          "text": "Giờ hình dung: chương trình của nhóm này ghi số vào một tệp, chương trình của nhóm kia mở ra đọc.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -512,7 +524,7 @@
         },
         {
           "id": "b039",
-          "text": "thì đơn vị không nằm trong con số. Nó nằm trong một lời hứa giữa hai nhóm người.",
+          "text": "Khi đó, đơn vị không nằm trong con số. Nó nằm trong một lời hứa giữa hai nhóm người.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -818,6 +830,28 @@
           "claims": []
         },
         {
+          "id": "b060a",
+          "text": "Mà ánh nắng cứ đẩy nhẹ lên tấm pin mặt trời, như gió đẩy cánh buồm, làm tàu bị xoay lệch.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        },
+        {
+          "id": "b060b",
+          "text": "Để giữ đúng hướng, bánh xe phải quay nhanh dần lên mà bù lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        },
+        {
           "id": "b061",
           "text": "Nhưng bánh xe không thể quay nhanh mãi. Đến một lúc, nó chạm giới hạn.",
           "spoken": null,
@@ -984,7 +1018,7 @@
         },
         {
           "id": "b072",
-          "text": "Ánh nắng đẩy lên tấm pin như gió đẩy cánh buồm, làm tàu cứ bị xoay lệch.",
+          "text": "Một bên hứng nắng nhiều hơn hẳn, nên tàu càng hay bị xoay lệch.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1577,7 +1611,7 @@
       "beats": [
         {
           "id": "b112",
-          "text": "Trong tuần sau đó, các ước tính mới cho thấy độ cao cứ tụt dần, còn 150 đến 170 km.",
+          "text": "Trong tuần sau đó, các ước tính mới cho thấy độ cao cứ tụt dần.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
@@ -1662,18 +1696,9 @@
           ]
         },
         {
-          "id": "b118",
-          "text": "Ở nước ta khi đó là khoảng bốn giờ chiều.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": []
-        },
-        {
           "id": "b119",
-          "text": "Bốn phút sau, lúc 09:04:52, tàu khuất sau Sao Hỏa.",
-          "spoken": "Bốn phút sau, lúc chín giờ bốn phút năm mươi hai giây, tàu khuất sau Sao Hỏa.",
+          "text": "Khoảng bốn phút sau, tàu khuất sau Sao Hỏa.",
+          "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1683,13 +1708,25 @@
         },
         {
           "id": "b120",
-          "text": "Sớm hơn dự kiến 49 giây so với lịch.",
+          "text": "Giờ giấc cụ thể không cần nhớ. Con số đáng để ý là: tàu khuất sớm hơn lịch 49 giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b120a",
+          "text": "Khuất sớm nghĩa là tàu đang đi thấp hơn, sát mặt Sao Hỏa hơn so với dự tính.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
-            "c017"
+            "c017",
+            "c020"
           ]
         }
       ]
@@ -1781,7 +1818,7 @@
         },
         {
           "id": "b127",
-          "text": "Thấp hơn kế hoạch khoảng 170 km, và thấp hơn cả mức 80 km mà nó chịu được.",
+          "text": "Hụt khoảng 170 km so với độ cao kế hoạch, và thấp hơn cả mức 80 km mà nó chịu được.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -2115,7 +2152,7 @@
         },
         {
           "id": "b151",
-          "text": "Khi lời hứa ấy vỡ, những con số đúng vẫn kéo con tàu xuống thấp hơn khoảng 170 km so với kế hoạch.",
+          "text": "Khi lời hứa ấy vỡ, những con số đúng vẫn kéo con tàu xuống chỉ còn 57 km.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,

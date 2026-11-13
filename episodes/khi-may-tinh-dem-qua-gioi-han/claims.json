@@ -422,5 +422,29 @@
       }
     ],
     "status": "DAT"
+  },
+  {
+    "id": "c032",
+    "claim": "Sau khi ngừng hoạt động vì lỗi phần mềm, bộ tham chiếu quán tính (SRI) đang dùng của Ariane 5 không gửi dữ liệu tư thế đúng nữa mà gửi chủ yếu thông tin chẩn đoán (một dãy bit báo lỗi) sang máy tính chính trên tên lửa, và máy tính chính đã hiểu dãy bit đó như dữ liệu bay.",
+    "question": "Theo báo cáo điều tra chuyến 501, sau khi bộ tham chiếu quán tính ngừng hoạt động, nó gửi gì sang máy tính chính trên tên lửa và máy tính chính xử lý dữ liệu đó ra sao?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c033",
+    "claim": "Dựa trên dữ liệu chẩn đoán bị hiểu nhầm là dữ liệu bay, máy tính chính của Ariane 5 ra lệnh cho các vòi phun của tầng đẩy nhiên liệu rắn, rồi vòi phun của động cơ chính Vulcain, bẻ hết cỡ để sửa một độ lệch tư thế không hề xảy ra; chính việc bẻ vòi phun hết cỡ này gây ra góc tấn lớn.",
+    "question": "Theo báo cáo điều tra chuyến 501, máy tính chính đã ra lệnh gì cho các vòi phun sau khi nhận dữ liệu từ bộ tham chiếu quán tính bị hỏng, nhằm mục đích gì, và lệnh đó dẫn tới điều gì?",
+    "sources": [
+      {
+        "url": "https://people.eecs.berkeley.edu/~demmel/ma221_Fall04/ariane5rep.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
   }
 ]

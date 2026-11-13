@@ -28,9 +28,12 @@ Nối từ hai tập trước: tập 1 nói máy chỉ có 0 và 1; tập 2 nói
 ## Chương 3: 37 giây của Ariane 5 (khoảng 2 phút)
 Ý chính: một con số quá lớn bị nhét vào ô 16 bit đã làm tê liệt cả hai bộ dẫn đường của một tên lửa.
 - Ngày 4 tháng 6 năm 1996, chuyến bay đầu tiên của tên lửa Ariane 5 (chuyến 501) thất bại (c009).
-- Khoảng 37 giây sau khi bắt đầu đánh lửa động cơ chính, tên lửa mất hoàn toàn thông tin dẫn đường và tư thế; nó bẻ lái, góc tấn vượt 20 độ, bắt đầu vỡ ra ở khoảng giây thứ 39 và kích hoạt hệ thống tự hủy (c010).
 - Nguyên nhân: phần mềm đổi một số dấu phẩy động 64 bit sang số nguyên có dấu 16 bit; giá trị "độ lệch ngang" (BH) quá lớn so với ô 16 bit, gây lỗi "Operand Error" (c011). Nối tập 2: số thực 64 bit chứa thoải mái, nhưng ô 16 bit có dấu chỉ chứa đến 32.767 (c006, kiểu short).
 - Hai bộ tham chiếu quán tính chạy song song, giống hệt nhau cả phần cứng lẫn phần mềm, nên bộ dự phòng hỏng y như vậy, chỉ sớm hơn một chu kỳ 72 mili giây (c012).
+- Mắt xích còn thiếu (vì sao hỏng bộ dẫn đường lại thành bẻ lái, chứ không chỉ là "mất dẫn đường"): bộ SRI hỏng không im lặng. Nó gửi sang máy tính chính một dãy bit chẩn đoán (báo lỗi), và máy tính chính đọc dãy bit đó như thể là số liệu bay thật (c032).
+- Tin vào số liệu sai đó, máy tính chính tưởng tên lửa đang lệch tư thế, nên ra lệnh bẻ hết cỡ vòi phun của hai tầng đẩy rồi của động cơ chính Vulcain để "sửa" một độ lệch không hề có (c033).
+- Hậu quả: khoảng 37 giây sau khi bắt đầu đánh lửa động cơ chính, tên lửa đã mất hoàn toàn thông tin dẫn đường và tư thế; vòi phun bẻ hết cỡ làm góc tấn vượt 20 độ, tên lửa bắt đầu vỡ ra ở khoảng giây thứ 39 và kích hoạt hệ thống tự hủy (c010).
+- Gợi ý hình ảnh: một con số báo lỗi bị đọc như một con số đo đạc; giống người lái nhìn đèn báo hỏng mà tưởng là kim la bàn.
 - Trớ trêu 1: phần mềm gần như dùng lại từ Ariane 4, nhưng Ariane 5 tăng tốc độ ngang nhanh gấp 5 lần, nên con số vượt mức mà Ariane 4 chưa từng gặp (c013).
 - Trớ trêu 2: chức năng tính con số đó (căn chỉnh) không còn tác dụng gì sau khi cất cánh, nhưng vẫn chạy thêm khoảng 40 giây bay (c014).
 - Trớ trêu 3: trong bảy biến có nguy cơ tràn, bốn biến được bảo vệ, ba biến thì không; một lý do là mục tiêu giữ tải máy tính dưới 80% (c015).

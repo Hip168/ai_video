@@ -121,14 +121,12 @@
         },
         {
           "id": "b006",
-          "text": "Không có hệ thống nào hỏng trước lúc mất tín hiệu cả.",
+          "text": "Vậy thì điều gì đã khiến nó biến mất?",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
-          "claims": [
-            "c016"
-          ]
+          "claims": []
         }
       ]
     },
@@ -1818,7 +1816,7 @@
         },
         {
           "id": "b127",
-          "text": "Hụt khoảng 170 km so với độ cao kế hoạch, và thấp hơn cả mức 80 km mà nó chịu được.",
+          "text": "Mức 57 km ấy thấp hơn cả mức 80 km mà nó chịu được.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -1979,13 +1977,14 @@
         },
         {
           "id": "b138",
-          "text": "trong toàn bộ thiết kế và vận hành của tàu đổ bộ đi sau.",
+          "text": "trong toàn bộ thiết kế và vận hành của tàu đổ bộ cùng dự án, con tàu sẽ tới Sao Hỏa sau.",
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
           "claims": [
-            "c027"
+            "c027",
+            "c003"
           ]
         },
         {

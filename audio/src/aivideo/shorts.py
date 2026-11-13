@@ -14,6 +14,7 @@ from pathlib import Path
 
 import soundfile as sf
 
+from aivideo import outro
 from aivideo.audio import write_srt
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -171,6 +172,9 @@ def cut(slug: str, n: int, root=ROOT) -> Path:
     e = entry(shorts, n)
     a, b = scene_range(timeline, e["from"], e["to"])
     start, end = clip_range(timeline, e["from"], e["to"])
+    if outro.wanted(slug, root, n) and end - start + outro.frames() > MAX_FRAMES:
+        raise ShortsError(f"phần {n} kèm đoạn kết dài {(end - start + outro.frames()) / 30:.1f} s, "
+                          f"tối đa {MAX_FRAMES // 30} s")
     tl = cut_timeline(timeline, a, b)
     _, out = _paths(slug, root)
     d = out / "shorts" / str(n)
@@ -213,7 +217,7 @@ def render_relabeled(slug: str, root: Path, items: list[dict], n: int, work: Pat
     if r.returncode != 0:
         raise ShortsError(f"render phần {n}/{len(items)} cho TikTok lỗi (mã {r.returncode})")
     framecheck.verify(slug, work, short=n)
-    assemble.concat(slug, work, n)
+    assemble.concat(slug, work, n, outro=False)  # TikTok không gắn đoạn kết (D38)
     mp4 = assemble.mux(slug, work, n)
     assemble.verify(slug, work, n)
     return mp4
@@ -269,7 +273,9 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) ->
         for k, e in zip(range(lo, hi + 1), sel):
             mp4, txt = d / f"phan-{k}.mp4", d / f"phan-{k}.txt"
             src = out / f"{slug}-short-{k}.mp4"
-            if (e["part"], e["total"]) != (shorts[k - 1]["part"], shorts[k - 1]["total"]):
+            # Short YouTube có đoạn kết thì render lại bản không có đoạn kết cho TikTok (D38).
+            if (e["part"], e["total"]) != (shorts[k - 1]["part"], shorts[k - 1]["total"]) \
+                    or outro.wanted(slug, root, k):
                 src = render(slug, root, sel, e["part"], work)
             shutil.copyfile(src, mp4)
             txt.write_text(tiktok_caption(e, url, k == hi), encoding="utf-8")

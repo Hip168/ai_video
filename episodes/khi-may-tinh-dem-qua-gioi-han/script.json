@@ -4,6 +4,7 @@
     "voice": "hoang_nam",
     "speed": 1.25,
     "theme": "mau-d",
+    "outro": true,
     "music": {
       "track": "reverence-endless",
       "gainDb": -24

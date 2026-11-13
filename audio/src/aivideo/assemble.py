@@ -13,6 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from aivideo import outro as outro_mod
 from aivideo.audio import measure_lufs
 from aivideo.framecheck import SHORT_REGION, WIDE_REGION, scan, short_number
 from aivideo.mix import true_peak
@@ -109,7 +110,8 @@ def save_manifest(d: Path, m: dict) -> None:
     os.replace(tmp, d / "manifest.json")
 
 
-def concat(slug: str, root=ROOT, short: int | None = None) -> Path:
+def concat(slug: str, root=ROOT, short: int | None = None, outro: bool = True) -> Path:
+    """Ghép các đoạn main; tập / phần bật đoạn kết (đề mục 21) thì nối hình đoạn kết vào sau. `outro=False`: không nối."""
     d = work_dir(slug, Path(root), short)
     check_disk(d)
     m = load_manifest(d)
@@ -129,21 +131,28 @@ def concat(slug: str, root=ROOT, short: int | None = None) -> Path:
         pos += s["frames"]
     if pos != m["durationInFrames"]:
         raise RuntimeError(f"các đoạn tổng {pos} frame, timeline {m['durationInFrames']}")
+    end = outro_mod.paths(slug, root, short) if outro else None
+    files = [(d / s["file"]).as_posix() for s in segs] + ([Path(end["mp4"]).as_posix()] if end else [])
+    total = m["durationInFrames"] + (end["frames"] if end else 0)
     lst = d / "segments.txt"
-    lst.write_text("".join(f"file '{(d / s['file']).as_posix()}'\n" for s in segs), encoding="utf-8")
+    lst.write_text("".join(f"file '{f}'\n" for f in files), encoding="utf-8")
     out = d / "video.silent.mp4"
     tmp = d / "video.silent.part.mp4"
     try:
         _run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy",
               "-movflags", "+faststart", str(tmp)])
         n = probe_frames(tmp)
-        if n != m["durationInFrames"]:
-            raise RuntimeError(f"video ghép có {n} frame, cần {m['durationInFrames']}")
+        if n != total:
+            raise RuntimeError(f"video ghép có {n} frame, cần {total}")
         os.replace(tmp, out)
     finally:
         tmp.unlink(missing_ok=True)
         lst.unlink(missing_ok=True)
     m.setdefault("assembled", {})["silent"] = out.name
+    if end:
+        m["outro"] = end
+    else:
+        m.pop("outro", None)
     save_manifest(d, m)
     return out
 
@@ -158,8 +167,12 @@ def mux(slug: str, root=ROOT, short: int | None = None) -> Path:
     m = load_manifest(d)
     out = final_path(slug, Path(root), short)
     tmp = out.with_name(out.stem + ".part.mp4")
+    end = m.get("outro")
+    # Có đoạn kết: tiếng = mix.wav rồi tới tiếng đoạn kết (cùng 48 kHz, cùng -16 LUFS).
+    audio = ["-i", end["wav"], "-filter_complex", "[1:a][2:a]concat=n=2:v=0:a=1[a]", "-map", "0:v:0", "-map", "[a]"] \
+        if end else ["-map", "0:v:0", "-map", "1:a:0"]
     try:
-        _run(["ffmpeg", "-v", "error", "-y", "-i", str(silent), "-i", str(wav), "-map", "0:v:0", "-map", "1:a:0",
+        _run(["ffmpeg", "-v", "error", "-y", "-i", str(silent), "-i", str(wav), *audio,
               "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(tmp)])
         os.replace(tmp, out)
     finally:
@@ -181,7 +194,8 @@ def verify(slug: str, root=ROOT, short: int | None = None) -> dict:
     want_size = (1920, 1080) if short is None else (1080, 1920)
     if not f.is_file() or f.stat().st_size == 0:
         raise RuntimeError(f"thiếu {f}")
-    want = load_manifest(d)["durationInFrames"]
+    m = load_manifest(d)
+    want = m["durationInFrames"] + (m.get("outro") or {}).get("frames", 0)
     info = probe_streams(f)
     v = next((s for s in info["streams"] if s["codec_type"] == "video"), None)
     a = next((s for s in info["streams"] if s["codec_type"] == "audio"), None)

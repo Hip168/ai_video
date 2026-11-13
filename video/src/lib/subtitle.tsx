@@ -4,10 +4,12 @@ import type { Beat2 } from "../timeline2";
 import { clamp01, useTheme } from "./hooks";
 import { measureWidth, MIN_FONT_SCALE, type MeasureWidth } from "./text";
 
-export function subtitleOpacity(beat: Beat2, frame: number): number {
+/** `fadeIn = false`: hiện đủ ngay frame đầu của beat (beat mở đầu tập, khung 0 không trống). */
+export function subtitleOpacity(beat: Beat2, frame: number, fadeIn = true): number {
   const end = beat.startFrame + beat.durationFrames;
   if (frame < beat.startFrame || frame >= end) return 0;
-  return Math.min(clamp01((frame - beat.startFrame) / 4), clamp01((end - frame) / 4));
+  const inOp = fadeIn ? clamp01((frame - beat.startFrame) / 4) : 1;
+  return Math.min(inOp, clamp01((end - frame) / 4));
 }
 
 const SUB_FONT = 52;

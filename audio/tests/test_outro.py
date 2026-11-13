@@ -173,6 +173,7 @@ def test_tiktok_export_never_copies_outro_part(tmp_path, monkeypatch):
     write_script(tmp_path)
     items = [{"part": i, "total": 3, "title": "T", "hook": "h", "from": "a", "to": "b"} for i in (1, 2, 3)]
     (tmp_path / "episodes" / SLUG / "shorts.json").write_text(json.dumps({"version": 1, "shorts": items}), "utf-8")
+    (tmp_path / "episodes" / "index.json").write_text(json.dumps([{"slug": SLUG}]), "utf-8")  # D35: số tập #conbit<n>
     out = tmp_path / "out" / "episodes" / SLUG
     out.mkdir(parents=True)
     for k in (1, 2, 3):

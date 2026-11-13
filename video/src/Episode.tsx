@@ -19,14 +19,19 @@ export interface EpisodeProps extends Record<string, unknown> {
 
 const FADE = 8;
 
-export const SceneFade: React.FC<{ scene: Scene2 }> = ({ scene }) => {
-  const frame = useCurrentFrame();
-  const Comp = resolveScene(scene.type);
-  const f = Math.max(1, Math.min(FADE, Math.floor(scene.durationFrames / 2)));
-  const opacity = interpolate(frame, [0, f, scene.durationFrames - f, scene.durationFrames], [0, 1, 1, 0], {
+/** Độ mờ của cảnh tại frame cục bộ; `fadeIn = false` cho cảnh mở đầu (khung 0 hiện đủ, không mờ dần từ nền). */
+export function sceneOpacity(frame: number, durationFrames: number, fadeIn = true): number {
+  const f = Math.max(1, Math.min(FADE, Math.floor(durationFrames / 2)));
+  return interpolate(frame, [0, f, durationFrames - f, durationFrames], [fadeIn ? 0 : 1, 1, 1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+}
+
+export const SceneFade: React.FC<{ scene: Scene2; fadeIn?: boolean }> = ({ scene, fadeIn = true }) => {
+  const frame = useCurrentFrame();
+  const Comp = resolveScene(scene.type);
+  const opacity = sceneOpacity(frame, scene.durationFrames, fadeIn);
   return (
     <AbsoluteFill style={{ opacity }}>
       <Comp scene={scene} />
@@ -38,7 +43,7 @@ const Subtitles: React.FC<{ timeline: Timeline2 }> = ({ timeline }) => {
   const frame = useCurrentFrame();
   const beat = activeBeat2(timeline, frame);
   if (!beat) return null;
-  return <Subtitle text={beat.text} opacity={subtitleOpacity(beat, frame)} />;
+  return <Subtitle text={beat.text} opacity={subtitleOpacity(beat, frame, beat.startFrame > 0)} />;
 };
 
 const Body: React.FC<{ timeline: Timeline2; muted: boolean; audioSrc?: string }> = ({ timeline, muted, audioSrc }) => {
@@ -48,7 +53,7 @@ const Body: React.FC<{ timeline: Timeline2; muted: boolean; audioSrc?: string }>
       {!muted && audioSrc ? <Audio src={audioSrc} /> : null}
       {timeline.scenes.map((scene) => (
         <Sequence key={scene.id} from={scene.startFrame} durationInFrames={scene.durationFrames}>
-          <SceneFade scene={scene} />
+          <SceneFade scene={scene} fadeIn={scene.startFrame > 0} />
         </Sequence>
       ))}
       <Subtitles timeline={timeline} />

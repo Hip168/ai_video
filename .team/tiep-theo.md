@@ -10,6 +10,9 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
+## TẠM GIỮ (người dùng, 2026-11-14 sáng)
+Người dùng dặn "hold dự án này lại". KHÔNG tự chạy tiếp, chờ người dùng mở lại. Người dùng sẽ tự lấy file TikTok trên Drive (`Chuyen Cua Nhung Con Bit/<nn> <slug>/tiktok/`) để đăng. Khi mở lại thì làm tiếp từ mục "Đang chờ" bên dưới.
+
 ## Đang chờ (cập nhật 2026-11-14 ~05:40, phiên đêm dừng lúc 06:00)
 - YouTube chặn tải lên với lỗi HTTP 400 "exceeded the number of videos they may upload" (khoảng 03:00 ngày 14/11). Hạn mức thường mở lại sau khoảng 24 giờ, tức khoảng 03:00 ngày 15/11.
   - Short tập 2: đã đăng phần 1–3 (N31vhiVd6f0, a7dVn7Vn29c, N7vt5qheGQ8). Phần 4–6 CHƯA đăng.

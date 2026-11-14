@@ -19,6 +19,7 @@ Người dùng dặn "hold dự án này lại". KHÔNG tự chạy tiếp, ch�
     - Người dùng chốt 2026-11-14: Short 6 tập 2 phải RENDER LẠI CÓ OUTRO (like & sub) trước khi đăng (ngoại lệ D38). Short 3 tập 2 đã đăng thì giữ nguyên. Không tải bản phan-6 cũ trên Drive lên, mà thay bằng bản mới.
     - File nằm ở `.worktrees/19-shorts-tap2/out/...`. KHÔNG xoá worktree này trước khi đăng xong.
     - Lệnh: `cd .worktrees/19-shorts-tap2/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload vi-sao-0-1-cong-0-2-khong-bang-0-3 --short <4|5|6> --privacy public`
+- GIỌNG MỚI (D40): từ tập 3 dùng VieNeu giọng `thien_minh`. Tập 3 và tập 4 phải dựng lại giọng trước khi render. Việc đầu tiên khi mở lại: DEV cài vieneu vào `audio/.venv` và kiểm engine với giọng `thien_minh`.
 - Tập 3 `khi-may-tinh-dem-qua-gioi-han`:
   - Đã chốt Cổng 2. Phát âm, lint, đóng gói (publish.json, thumbnail, #conbit3) đều đạt.
   - qc vòng 1 SỬA. Cảnh vòng 2 đã sửa và commit. Khung 0 đã sửa ở PR #82.

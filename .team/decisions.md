@@ -214,3 +214,11 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Sửa D39 (người dùng nói rõ hơn, 2026-11-14): YouTube do đội làm trọn. TikTok do người dùng tự đăng tay.
   - Đội VẪN xuất file TikTok phần 1–3 kèm caption (D35), tải lên Drive ở thư mục `<nn> <slug>/tiktok/`.
   - Đội KHÔNG chạy `aivideo.tiktok post`.
+
+## D40. Đổi giọng đọc sang VieNeu, giọng Thiên Minh (người dùng chốt sau khi nghe, 2026-11-14)
+- Người dùng nghe 5 mẫu trong `out/compare-vieneu/`: korva hoang_nam, cùng 4 giọng VieNeu là hai_dang, mai_anh, thien_minh, truc_ly. Người dùng chọn `vieneu_thien_minh.wav`.
+- Áp dụng TỪ TẬP 3 trở đi. Tập 1 và tập 2 giữ giọng korva cũ (D12).
+- Tập 3 và tập 4 đã dựng giọng korva rồi: phải dựng lại giọng bằng vieneu/thien_minh. Sau đó chạy lại `phatam check`, các stage `phat-am` và `lint`. Tập 3 đổi lời đọc nên qua lại Cổng 3 như bình thường. Vướng "pound" của tập 4 phải kiểm lại với giọng mới.
+- VieNeu không có tham số `speed` (engine ném ValueError khi speed khác 1.0). Độ dài video điều chỉnh bằng `pause_ms`. Kiểm `make-episode.sh` và `episode build` khi dùng `--engine vieneu --voice <id>` với speed 1.0.
+- Gói `vieneu` CHƯA cài trong `audio/.venv`: các mẫu được tạo ở một venv tạm, nay đã xoá. Cài qua extra đã ghim (`vieneu==3.8.3`) và kiểm không xung đột với korvatts. Nếu không cài được thì DEV báo lại. Kiểm mã giọng `thien_minh` có trong `VOICES['vieneu']` không; không có thì thêm vào.
+- Đoạn outro (D38) dựng lại bằng giọng mới cho thống nhất.

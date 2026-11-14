@@ -16,6 +16,7 @@ Người dùng dặn "hold dự án này lại". KHÔNG tự chạy tiếp, ch�
 ## Đang chờ (cập nhật 2026-11-14 ~05:40, phiên đêm dừng lúc 06:00)
 - YouTube chặn tải lên với lỗi HTTP 400 "exceeded the number of videos they may upload" (khoảng 03:00 ngày 14/11). Hạn mức thường mở lại sau khoảng 24 giờ, tức khoảng 03:00 ngày 15/11.
   - Short tập 2: đã đăng phần 1–3 (N31vhiVd6f0, a7dVn7Vn29c, N7vt5qheGQ8). Phần 4–6 CHƯA đăng.
+    - Người dùng chốt 2026-11-14: Short 6 tập 2 phải RENDER LẠI CÓ OUTRO (like & sub) trước khi đăng (ngoại lệ D38). Short 3 tập 2 đã đăng thì giữ nguyên. Không tải bản phan-6 cũ trên Drive lên, mà thay bằng bản mới.
     - File nằm ở `.worktrees/19-shorts-tap2/out/...`. KHÔNG xoá worktree này trước khi đăng xong.
     - Lệnh: `cd .worktrees/19-shorts-tap2/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload vi-sao-0-1-cong-0-2-khong-bang-0-3 --short <4|5|6> --privacy public`
 - Tập 3 `khi-may-tinh-dem-qua-gioi-han`:

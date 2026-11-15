@@ -12,6 +12,10 @@ export const OUTRO_SIZE: Record<OutroLayout, { w: number; h: number }> = {
   wide: { w: 1920, h: 1080 },
   vertical: { w: 1080, h: 1920 },
 };
+/** Khung dọc: dải nút UI (thích, bình luận, chia sẻ) của Shorts nằm bên phải x = 900, mọi chữ phải ở bên trái mốc này. */
+export const OUTRO_SAFE_X = 900;
+/** Cột nội dung khung dọc, trùng hộp an toàn của Shorts (D32: x 48–888). */
+export const OUTRO_VERTICAL_COLUMN = { x0: 48, x1: 888 } as const;
 /** Frame bấm nút: hai nút đổi trạng thái ngay sau mốc này. */
 export const LIKE_PRESS = 60;
 export const SUB_PRESS = 95;
@@ -107,7 +111,7 @@ export const Outro: React.FC<OutroProps> = ({ layout }) => {
   const { fps } = useVideoConfig();
   const theme = getTheme(OUTRO.theme);
   const v = layout === "vertical";
-  const k = v ? 1 : 0.9;
+  const k = v ? 0.94 : 0.9;
   const pop = spring({ frame, fps, config: { damping: 12 } });
   const fade = (a: number) => interpolate(frame, [a, a + 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const avatarPx = v ? 340 : 230;
@@ -122,12 +126,13 @@ export const Outro: React.FC<OutroProps> = ({ layout }) => {
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(circle at 50% 42%, ${theme.panel} 0%, ${theme.bg} 70%)`,
+        background: `radial-gradient(circle at ${v ? (100 * (OUTRO_VERTICAL_COLUMN.x0 + OUTRO_VERTICAL_COLUMN.x1)) / 2 / OUTRO_SIZE.vertical.w : 50}% 42%, ${theme.panel} 0%, ${theme.bg} 70%)`,
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
         gap: v ? 64 : 34,
-        padding: v ? "0 60px" : "0 120px",
+        // Khung dọc: lề phải rộng hơn để cột nội dung kết thúc ở x = 888, chừa dải nút của Shorts.
+        padding: v ? `0 ${OUTRO_SIZE.vertical.w - OUTRO_VERTICAL_COLUMN.x1}px 0 ${OUTRO_VERTICAL_COLUMN.x0}px` : "0 120px",
       }}
     >
       <div style={{ ...text(v ? 64 : 56, theme.accent), opacity: fade(0) }}>{OUTRO.headline}</div>
@@ -143,14 +148,14 @@ export const Outro: React.FC<OutroProps> = ({ layout }) => {
       />
       <div
         style={{
-          ...text(v ? 66 : 64, theme.fg),
+          ...text(v ? 60 : 64, theme.fg),
           opacity: fade(8),
           transform: `translateY(${(1 - fade(8)) * 30}px)`,
         }}
       >
         {OUTRO.channel}
       </div>
-      <Buttons theme={theme} k={k} gap={v ? 40 : 48} />
+      <Buttons theme={theme} k={k} gap={v ? 32 : 48} />
       <div style={{ ...text(v ? 46 : 38, theme.muted, 400), opacity: fade(110) }}>{OUTRO.footer}</div>
     </AbsoluteFill>
   );

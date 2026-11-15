@@ -1466,6 +1466,37 @@
       "unresolvedSevere": null,
       "prevHash": "cbd0e8d093e0737794052144bb292e186adb0b27a2175c71ba660e069ed940dc",
       "entryHash": "44a75d8b9eec2786824e07e1266488c3fd2103c1f3ccf97bc083c5c67daa9d72"
+    },
+    {
+      "seq": 45,
+      "ts": "2026-11-15T07:47:11Z",
+      "stage": "qc",
+      "role": "sep-tong",
+      "pair": "editor/qc",
+      "round": 1,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "DAT",
+      "scriptHash": "1620616925e635ac6a2ae4a4752ab755366732436093815c97c688225bac5f01",
+      "claimsHash": null,
+      "artifactHash": "e67837f21927575910069f50cbffe0672d98d44377393d468ae406305113cc16",
+      "findingsHash": "08ef5a6b1de0bb94373a951878905bb9601f8da4933f7d353f8b935c85b0192a",
+      "findingKeys": [
+        "2af97b35773a",
+        "a9aa8f9e3763",
+        "4659a27ddd92",
+        "827a3125933d",
+        "d7e1195c3bbe"
+      ],
+      "returnTo": null,
+      "escalate": false,
+      "note": "người dùng chấp nhận 5 MINOR lặp 2026-11-15; nộp lại evidence đầy đủ của qc vòng 2 do điều phối rút gọn nhầm",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "44a75d8b9eec2786824e07e1266488c3fd2103c1f3ccf97bc083c5c67daa9d72",
+      "entryHash": "0f9c88426f3daf7947c90954cdaedf86e35ca2054699d097ef574d73ee0bdcbe"
     }
   ]
 }

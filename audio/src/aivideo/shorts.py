@@ -27,7 +27,7 @@ TIKTOK_TAGS = "#tinhoc #khoahocmaytinh"
 TIKTOK_TAIL = "#hoccungtiktok #LearnOnTikTok"
 AI_LINE = "Giọng đọc trong video do AI tạo."
 NEXT_LINE = "Theo dõi để xem phần tiếp."
-FULL_LINE = 'Bản đầy đủ trên YouTube: link ở trang cá nhân (hoặc tìm "Chuyện Của Những Con Bit" trên YouTube).'
+FULL_LINE = "Các phần còn lại và bản đầy đủ: link ở bio nha."
 
 
 class ShortsError(RuntimeError):
@@ -238,13 +238,13 @@ def episode_number(root: Path, slug: str) -> int:
 
 
 def tiktok_caption(e: dict, ep_no: int, last: bool) -> str:
-    """Caption TikTok theo mẫu out/tiktok-dang/ (2026-11-15): tiêu đề "(Phần k/N)", đoạn mở, lời mời theo dõi
-    (phần cuối: chỗ xem bản đầy đủ), câu hỏi gợi bình luận, dòng giọng AI, hashtag `#conbit<n> #conbit`.
+    """Caption TikTok (D35) theo mẫu out/tiktok-dang/ (2026-11-15): dòng 1 `#conbit<n> <tiêu đề> (Phần k/N)`, đoạn mở,
+    lời mời theo dõi (phần cuối: link ở bio), câu hỏi gợi bình luận, dòng giọng AI, hashtag `#conbit<n> #conbit`.
 
     Chữ riêng cho TikTok đặt ở khoá tuỳ chọn `tiktok` của mục `shorts.json`: `title`, `intro`, `question`, `tags`;
     thiếu thì dùng `title`, `hook` của mục, bỏ câu hỏi, hashtag chủ đề mặc định."""
     t = e.get("tiktok") or {}
-    lines = [f"{t.get('title') or e['title']} (Phần {e['part']}/{e['total']})", "", t.get("intro") or e["hook"],
+    lines = [f"#conbit{ep_no} {t.get('title') or e['title']} (Phần {e['part']}/{e['total']})", "", t.get("intro") or e["hook"],
              "", FULL_LINE if last else NEXT_LINE]
     if t.get("question"):
         lines += ["", t["question"]]

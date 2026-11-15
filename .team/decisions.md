@@ -189,6 +189,15 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
   - Thay bằng dòng "Xem bản đầy đủ: link ở bio nhé".
   - Phần cuối thì ghi "Các phần còn lại và bản đầy đủ: link ở bio nha."
   - Link đặt ở bio của kênh TikTok.
+- Sửa D35 lần 3 (mẫu người dùng đang đăng, `out/tiktok-dang/`, 2026-11-15): caption gồm các đoạn cách nhau một dòng trống, theo thứ tự:
+  - Dòng 1: `#conbit<n> <tiêu đề> (Phần k/N)`.
+  - Đoạn mở.
+  - "Theo dõi để xem phần tiếp." Phần cuối của dải xuất thì thay bằng "Các phần còn lại và bản đầy đủ: link ở bio nha."
+  - Câu hỏi gợi bình luận.
+  - "Giọng đọc trong video do AI tạo."
+  - Hashtag: `#conbit<n> #conbit <chủ đề> #hoccungtiktok #LearnOnTikTok`.
+  - Vẫn không ghi URL, không nhắc YouTube.
+  - Chữ riêng cho TikTok đặt ở khoá tuỳ chọn `tiktok: {title, intro, question, tags}` của từng mục `shorts.json`. Thiếu khoá thì dùng `title`, `hook` của mục, bỏ câu hỏi, chủ đề mặc định `#tinhoc #khoahocmaytinh`.
 
 ## D36. Tập 3: tách chương 5 làm hai (người dùng chốt, 2026-11-14)
 - Script-editor trả lại lỗi "nhịp" ở chương 5 hai lần. Theo luật, lần thứ hai thì sổ ghi `CAN_NGUOI_DUNG`, phải hỏi người dùng.

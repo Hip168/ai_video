@@ -1,0 +1,11 @@
+#conbit3 2.147.483.647 cộng 1 lại ra số âm: máy tính đếm sai sao? (Phần 2/3)
+
+Trong ô 32 bit có dấu, cộng thêm 1 vào 2.147.483.647 không ra số lớn hơn mà ra -2.147.483.648. Một triệu nhân một triệu cũng ra số âm, và máy chẳng báo lỗi gì.
+
+Theo dõi để xem phần tiếp.
+
+Với 8 bit có dấu, số lớn nhất là 127. Vậy 127 cộng 1 ra bao nhiêu? Đoán thử dưới bình luận.
+
+Giọng đọc trong video do AI tạo.
+
+#conbit3 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok

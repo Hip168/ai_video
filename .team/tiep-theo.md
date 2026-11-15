@@ -12,7 +12,11 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 
 ## MỞ LẠI (người dùng, 2026-11-15) — trạng thái cuối ngày
 - Tập 2: đủ 6 Short (4 Cn3M_p-Qocw, 5 SyMgHdJpsy0, 6 OS1AeT5_bGE có outro). Video liên quan đã gắn Short 1–5 cả hai tập; Short 6 (OS1AeT5_bGE) người dùng tự gắn.
-- Tập 3 `khi-may-tinh-dem-qua-gioi-han`: ĐÃ ĐĂNG https://youtu.be/PMxx3oFLU98 (VieNeu Thiện Minh, PR #85), Drive 03. Còn: 6 Shorts + TikTok 1–3, rải các ngày sau, không dồn; gắn video liên quan. Worktree `.worktrees/24-vieneu` (nhánh 25-tap3-giong) giữ để làm Shorts.
+- Tập 3 `khi-may-tinh-dem-qua-gioi-han`: ĐÃ ĐĂNG https://youtu.be/PMxx3oFLU98 (VieNeu Thiện Minh, PR #85), Drive 03.
+  - Short 1–3 ĐÃ ĐĂNG công khai 15/11: 1 nJW8Yy94E0I, 2 hCydIFV2mss, 3 DVUv6wR5YxY (có outro). Tiêu đề sửa theo QC ở PR #90, ledger PR #91.
+  - Short 4–6 CHỜ ĐĂNG ngày sau (không dồn): `cd .worktrees/27-shorts-tap3/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload khi-may-tinh-dem-qua-gioi-han --short <4|5|6> --privacy public`. Đăng xong ghi ledger (PR), gắn video liên quan. KHÔNG xoá worktree 27-shorts-tap3 trước khi đăng xong. Nhánh 27 đã squash vào main nhiều lần: trước PR ledger tiếp theo, `git merge origin/main` (xung đột add/add thì lấy bản main).
+  - Drive 03 đã đủ: youtube-shorts/phan-1..6.mp4, tiktok/phan-1..3 (mp4, txt, bia-phan-k.png). TikTok 1–3 người dùng tự đăng (caption D35 ở out/tiktok-dang/).
+  - Caption TikTok tập 1–3 trong out/tiktok-dang/ đã sửa theo D35 (mở bằng #conbit<n>, phần 3 ghi "Các phần còn lại và bản đầy đủ: link ở bio nha.", không nhắc YouTube). Bản caption tập 1–2 trên Drive là bản sinh tự động cũ, khác bản trong out/tiktok-dang/.
 - Tập 4 Mars Climate Orbiter: dựng lại bằng VieNeu (D40), xử lý "pound" (phatam), rồi render/qc/gate3/đăng.
 - Việc DEV tồn: (a) outro dọc: tên kênh lấn dải phải ~50 px, thu ≤ 900 px trước Shorts tập 3; (b) `tiktok_caption()` trong audio/src/aivideo/shorts.py theo mẫu mới ở out/tiktok-dang/; (c) gate3 không băm lại handoff/qc.json so với findings_sha256; (d) prepare-factcheck --with-lines lấy `text` thay vì `spoken`; (e) phatam pick cứng engine korva; (f) Remotion mặc định chết "Target closed" — cần REMOTION_BROWSER_EXECUTABLE=~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell (cả aivideo.outro.render_video); (g) script.json tập 3 meta.voice còn ghi hoang_nam/1.25; (h) zsh không tách từ `$G` trong PLAYBOOK.
 - 5 MINOR tập 3 người dùng đã chấp nhận (phụ đề nhanh, s75 đứng 6 s, s21b nhãn đè, phụ đề ngắt "Ariane | 5", chip Rust nhỏ): sửa cho tập sau.

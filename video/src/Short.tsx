@@ -17,7 +17,8 @@ export const SHORT_H = 1920;
  */
 export const SHORT_SCENE = { x0: 48, x1: 1032, y0: 468, y1: 1452 } as const;
 export const SHORT_HOOK = { x0: 48, x1: 1032, y0: 318, y1: 448 } as const;
-export const SHORT_SUBTITLE = { x0: 48, x1: 1032, y0: 1472, y1: 1602 } as const;
+/** Phụ đề trong cột x 48–888 như đoạn kết dọc (PR #88): chữ không lấn dải nút bên phải (x > 900). */
+export const SHORT_SUBTITLE = { x0: 48, x1: 888, y0: 1472, y1: 1602 } as const;
 /** Cảnh vẽ theo hệ toạ độ 840x840 (`SQUARE_BOX`) rồi phóng lên hộp 984: chữ ra to hơn ngưỡng tính theo đơn vị cảnh. */
 export const SHORT_SCENE_SCALE = (SHORT_SCENE.x1 - SHORT_SCENE.x0) / SQUARE_BOX.w;
 export const SHORT_FADE = 8;

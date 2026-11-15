@@ -1,0 +1,11 @@
+#conbit3 Ariane 5 tự hủy chỉ vì một con số không vừa ô 16 bit (Phần 3/3)
+
+Ngày 4 tháng 6 năm 1996, phần mềm của Ariane 5 đổi một số dấu phẩy động 64 bit sang ô số nguyên 16 bit có dấu, loại chỉ chứa được tới 32.767. Khoảng giây thứ 37 sau khi đánh lửa, tên lửa mất dẫn đường, dù có hẳn một bộ dự phòng chạy song song.
+
+Các phần còn lại và bản đầy đủ: link ở bio nha.
+
+Có bộ dự phòng chạy song song rồi, theo bạn sao nó không cứu được tên lửa? Đoán trước khi xem nhé.
+
+Giọng đọc trong video do AI tạo.
+
+#conbit3 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok

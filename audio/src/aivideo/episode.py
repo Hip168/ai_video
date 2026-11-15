@@ -529,6 +529,9 @@ def build_episode(slug: str, engine: str, voice: str | None = None, speed: float
         json.dumps(timeline, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     audio.write_srt(all_beats, out / "video.srt")
     (out / "chapters.txt").write_text(chapters_txt(timeline), encoding="utf-8")
+    # giọng thật đã dựng tập (phatam pick --slug đọc lại để tổng hợp ứng viên cùng giọng)
+    (out / "voice.json").write_text(json.dumps({"engine": engine, "voice": voice, "speed": speed},
+                                               ensure_ascii=False) + "\n", encoding="utf-8")
     for w in _chapter_warnings(timeline):
         print(w, file=sys.stderr)
     return timeline

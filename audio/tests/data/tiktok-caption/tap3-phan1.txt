@@ -1,0 +1,11 @@
+#conbit3 Vì sao Gangnam Style vượt trần 2.147.483.647 lượt xem? Bộ đếm nào cũng hữu hạn (Phần 1/3)
+
+Năm 2014, Gangnam Style vượt 2.147.483.647 lượt xem, con số lớn nhất bộ đếm 32 bit của YouTube giữ được. Mà sao trần lại là con số lẻ tẻ ấy, và đếm vượt qua thì chuyện gì xảy ra?
+
+Theo dõi để xem phần tiếp.
+
+Đồng hồ cây số trên xe máy đang chỉ toàn số 9, đi thêm 1 cây số thì nó hiện gì? Ghi đáp án dưới bình luận nhé.
+
+Giọng đọc trong video do AI tạo.
+
+#conbit3 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok

@@ -126,7 +126,7 @@ def test_phien_am_tu_sinh():
 @pytest.fixture
 def fake_audio(monkeypatch):
     """synth_clip ghi câu vào file; listen trả pEn theo câu trong file."""
-    def synth(line, voice, speed, dst):
+    def synth(line, voice, speed, dst, engine=phatam.ENGINE):
         Path(dst).write_text(line, encoding="utf-8")
 
     def listen_by(table):

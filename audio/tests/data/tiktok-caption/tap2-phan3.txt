@@ -1,0 +1,11 @@
+#conbit2 0.1 + 0.2 = 0.30000000000000004: số 4 ở cuối từ đâu ra? (Phần 3/3)
+
+Hãy hình dung một cây thước: máy chỉ cất được những số nằm đúng trên vạch. 0,1 và 0,2 rơi vào đâu, và vì sao tổng lại lệch khỏi 0,3?
+
+Các phần còn lại và bản đầy đủ: link ở bio nha.
+
+Cộng 0.1 mười lần thì có ra đúng 1.0 không? Đoán trước khi xem nhé.
+
+Giọng đọc trong video do AI tạo.
+
+#conbit2 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok

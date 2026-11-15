@@ -95,6 +95,9 @@ else
   [[ -x "$REMOTION_BROWSER_EXECUTABLE" ]] || fail "$step" "REMOTION_BROWSER_EXECUTABLE không trỏ tới file chạy được: $REMOTION_BROWSER_EXECUTABLE"
 fi
 [[ -f "$root/episodes/$slug/script.json" ]] || fail "$step" "thiếu episodes/$slug/script.json"
+# nhạc nền nằm ngoài git: thiếu thì báo ngay, không đợi tới bước trộn tiếng hay đoạn kết
+PYTHONPATH="$root/audio/src" "$py" -m aivideo.mix "$slug" --check --root "$root" >/dev/null \
+  || fail "$step" "thiếu hoặc lệch file nhạc của tập (xem dòng lỗi trên)"
 if [[ -z "$short" && "$engine" == korva ]]; then
   "$py" -c "import korvatts" >/dev/null 2>&1 || fail "$step" "thiếu gói korvatts trong audio/.venv (cài extras korva)"
 fi

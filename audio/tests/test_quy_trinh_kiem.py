@@ -3,10 +3,13 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -120,3 +123,48 @@ def test_playbook_dinh_nghia_g_chay_dung_trong_shell(sh, tmp_path):
                        capture_output=True, text=True)
     assert r.returncode == 0, r.stderr
     assert r.stdout == "-m|aivideo.gates|verdict|a b.json|--root|x|"
+
+
+# ---- nhạc nền nằm ngoài git: báo ngay ở bước 1 -------------------------------------------
+
+def _music_repo(root: Path, *, with_file: bool) -> Path:
+    data = b"ogg-gia"
+    write_json(root / "episodes" / "tap-thu" / "script.json",
+               {"meta": {"title": "T", "theme": "mau-a", "music": {"track": "bai-a", "gainDb": -24}}})
+    write_json(root / "assets" / "audio" / "manifest.json", {"tracks": [{
+        "id": "bai-a", "file": "bai-a.ogg", "sourceUrl": "https://vi-du.test/bai-a",
+        "sha256": hashlib.sha256(data).hexdigest()}]})
+    files = root / "assets" / "audio" / "files"
+    files.mkdir(parents=True, exist_ok=True)
+    if with_file:
+        (files / "bai-a.ogg").write_bytes(data)
+    return files / "bai-a.ogg"
+
+
+def test_mix_check_thieu_file_nhac_ma_1_va_chi_cach_lay(tmp_path):
+    from rd_support import run_module
+    _music_repo(tmp_path, with_file=False)
+    p = run_module("mix", ["tap-thu", "--check", "--root", tmp_path])
+    assert p.returncode == 1, p.stdout + p.stderr
+    assert "bai-a.ogg" in p.stderr and "checkout chính" in p.stderr and "https://vi-du.test/bai-a" in p.stderr
+
+
+def test_mix_check_co_file_dung_sha_thi_dat(tmp_path):
+    from rd_support import run_module
+    f = _music_repo(tmp_path, with_file=True)
+    p = run_module("mix", ["tap-thu", "--check", "--root", tmp_path])
+    assert p.returncode == 0, p.stdout + p.stderr
+    assert str(f) in p.stdout
+
+
+@pytest.mark.skipif(sys.platform != "darwin" or not shutil.which("zsh"), reason="make-episode.sh chỉ chạy trên Mac")
+def test_make_episode_thieu_nhac_dung_o_buoc_1(tmp_path):
+    from rd_support import repo_copy
+    repo = repo_copy(tmp_path / "repo")
+    _music_repo(repo, with_file=False)
+    env = {**os.environ, "AIVIDEO_FREE_GB": "100", "REMOTION_BROWSER_EXECUTABLE": sys.executable}
+    r = subprocess.run([str(repo / "make-episode.sh"), "tap-thu", "--engine", "fake", "--from", "mix"],
+                       capture_output=True, text=True, env=env, cwd=repo, timeout=120)
+    assert r.returncode == 1, r.stdout + r.stderr
+    assert re.findall(r"== Bước \d", r.stdout) == ["== Bước 1"]
+    assert "LỖI ở Bước 1/7" in r.stderr and "bai-a.ogg" in r.stderr

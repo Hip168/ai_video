@@ -10,7 +10,10 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
-## TẠM GIỮ (người dùng, 2026-11-14 sáng)
+## MỞ LẠI (người dùng, 2026-11-15 ~09:40)
+Người dùng dặn: hôm nay đăng nốt tập 2 và đăng tập 3. Đã đăng Short 4 (Cn3M_p-Qocw) và Short 5 (SyMgHdJpsy0) của tập 2. DEV đang làm lại Short 6 có đoạn kết, sau đó dựng giọng VieNeu cho tập 3.
+
+## (cũ) TẠM GIỮ (người dùng, 2026-11-14 sáng)
 Người dùng dặn "hold dự án này lại". KHÔNG tự chạy tiếp, chờ người dùng mở lại. Người dùng sẽ tự lấy file TikTok trên Drive (`Chuyen Cua Nhung Con Bit/<nn> <slug>/tiktok/`) để đăng. Khi mở lại thì làm tiếp từ mục "Đang chờ" bên dưới.
 
 ## Đang chờ (cập nhật 2026-11-14 ~05:40, phiên đêm dừng lúc 06:00)

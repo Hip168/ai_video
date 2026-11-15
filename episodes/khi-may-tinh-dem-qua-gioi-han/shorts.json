@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "shorts": [
+    { "part": 1, "total": 6, "from": "b001", "to": "b031", "title": "Vì sao YouTube từng chạm trần 2.147.483.647 lượt xem? Bộ đếm nào cũng hữu hạn", "hook": "YouTube từng chạm trần?" },
+    { "part": 2, "total": 6, "from": "b032", "to": "b052", "title": "2.147.483.647 cộng 1 ra số âm: vì sao trần lại là con số ấy?", "hook": "Cộng thêm 1 lại ra số âm?" },
+    { "part": 3, "total": 6, "from": "b053", "to": "b075", "title": "Ariane 5 tự hủy chỉ vì một con số không vừa ô 16 bit", "hook": "37 giây của Ariane 5" },
+    { "part": 4, "total": 6, "from": "b076", "to": "b092", "title": "Boeing 787 và 248 ngày: bộ đếm buộc máy bay phải tắt điện định kỳ", "hook": "Boeing 787 và 248 ngày" },
+    { "part": 5, "total": 6, "from": "b093", "to": "b114", "title": "GPS và năm 2038: khi chiếc đồng hồ trong máy tính đếm quá giới hạn", "hook": "Hai cái hẹn năm 2038" },
+    { "part": 6, "total": 6, "from": "b115", "to": "b148", "title": "Sống chung với giới hạn của máy tính: ba cách chống tràn số", "hook": "Sống chung với cái trần" }
+  ]
+}

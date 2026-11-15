@@ -63,7 +63,7 @@
         {
           "id": "b001",
           "text": "Tháng 12 năm 2014, YouTube báo một tin lạ về video Gangnam Style của PSY.",
-          "spoken": null,
+          "spoken": "Tháng mười hai năm hai nghìn không trăm mười bốn, YouTube báo một tin lạ về video ca nhạc gangnam style.",
           "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
@@ -145,7 +145,7 @@
         {
           "id": "b005",
           "text": "“Nhưng đó là trước khi chúng tôi gặp PSY.”",
-          "spoken": null,
+          "spoken": "Nhưng đó là trước khi họ gặp ca sĩ của bài hát ấy.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -483,7 +483,7 @@
         {
           "id": "b023",
           "text": "Sách hướng dẫn chính thức của ngôn ngữ Rust có một ví dụ rất gọn.",
-          "spoken": null,
+          "spoken": "Sách hướng dẫn chính thức của ngôn ngữ lập trình hiện trên màn hình có một ví dụ rất gọn.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2854,7 +2854,7 @@
         {
           "id": "b120",
           "text": "Cách thứ ba: bắt máy kiểm tra. Rust có sẵn các nhóm hàm để xử lý tràn số một cách rõ ràng.",
-          "spoken": null,
+          "spoken": "Cách thứ ba: bắt máy kiểm tra. Ngôn ngữ hiện trên màn hình có sẵn các nhóm hàm để xử lý tràn số một cách rõ ràng.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2901,7 +2901,7 @@
         {
           "id": "b122",
           "text": "Sách hướng dẫn của Rust còn coi việc trông cậy vào quay vòng là một lỗi.",
-          "spoken": null,
+          "spoken": "Sách hướng dẫn của ngôn ngữ này còn coi việc trông cậy vào quay vòng là một lỗi.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,

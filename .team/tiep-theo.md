@@ -10,8 +10,14 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub: `toan-quyen`. Các lệnh `gh`/push đã cho phép trong `.claude/settings.local.json`.
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
-## MỞ LẠI (người dùng, 2026-11-15 ~09:40)
-Người dùng dặn: hôm nay đăng nốt tập 2 và đăng tập 3. Đã đăng Short 4 (Cn3M_p-Qocw) và Short 5 (SyMgHdJpsy0) của tập 2. DEV đang làm lại Short 6 có đoạn kết, sau đó dựng giọng VieNeu cho tập 3.
+## MỞ LẠI (người dùng, 2026-11-15) — trạng thái cuối ngày
+- Tập 2: đủ 6 Short (4 Cn3M_p-Qocw, 5 SyMgHdJpsy0, 6 OS1AeT5_bGE có outro). Video liên quan đã gắn Short 1–5 cả hai tập; Short 6 (OS1AeT5_bGE) người dùng tự gắn.
+- Tập 3 `khi-may-tinh-dem-qua-gioi-han`: ĐÃ ĐĂNG https://youtu.be/PMxx3oFLU98 (VieNeu Thiện Minh, PR #85), Drive 03. Còn: 6 Shorts + TikTok 1–3, rải các ngày sau, không dồn; gắn video liên quan. Worktree `.worktrees/24-vieneu` (nhánh 25-tap3-giong) giữ để làm Shorts.
+- Tập 4 Mars Climate Orbiter: dựng lại bằng VieNeu (D40), xử lý "pound" (phatam), rồi render/qc/gate3/đăng.
+- Việc DEV tồn: (a) outro dọc: tên kênh lấn dải phải ~50 px, thu ≤ 900 px trước Shorts tập 3; (b) `tiktok_caption()` trong audio/src/aivideo/shorts.py theo mẫu mới ở out/tiktok-dang/; (c) gate3 không băm lại handoff/qc.json so với findings_sha256; (d) prepare-factcheck --with-lines lấy `text` thay vì `spoken`; (e) phatam pick cứng engine korva; (f) Remotion mặc định chết "Target closed" — cần REMOTION_BROWSER_EXECUTABLE=~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell (cả aivideo.outro.render_video); (g) script.json tập 3 meta.voice còn ghi hoang_nam/1.25; (h) zsh không tách từ `$G` trong PLAYBOOK.
+- 5 MINOR tập 3 người dùng đã chấp nhận (phụ đề nhanh, s75 đứng 6 s, s21b nhãn đè, phụ đề ngắt "Ariane | 5", chip Rust nhỏ): sửa cho tập sau.
+- TikTok tập 1–2: caption kiểu mới ở out/tiktok-dang/, người dùng tự đăng.
+- GitHub Actions hết phút tới 01/12: kiểm local rồi merge. PR tập video đội tự merge (người dùng chốt 15/11).
 
 ## (cũ) TẠM GIỮ (người dùng, 2026-11-14 sáng)
 Người dùng dặn "hold dự án này lại". KHÔNG tự chạy tiếp, chờ người dùng mở lại. Người dùng sẽ tự lấy file TikTok trên Drive (`Chuyen Cua Nhung Con Bit/<nn> <slug>/tiktok/`) để đăng. Khi mở lại thì làm tiếp từ mục "Đang chờ" bên dưới.

@@ -46,7 +46,7 @@ def fake_cache(root, *, size="1920x1080", name="wide.mp4"):
 def test_config_5_to_7_seconds_and_vietnamese_line():
     cfg = outro.load_config()
     assert 150 <= cfg["frames"] <= 210
-    assert (cfg["engine"], cfg["voice"], cfg["speed"]) == ("korva", "hoang_nam", 1.25)
+    assert (cfg["engine"], cfg["voice"], cfg["speed"]) == ("vieneu", "Thiện Minh", 1.0)
     assert outro.foreign_words(cfg["line"]) == []
     assert "bấm thích" in cfg["line"] and "đăng ký kênh" in cfg["line"]
 

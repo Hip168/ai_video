@@ -3,9 +3,9 @@
   "headline": "Cảm ơn bạn đã xem!",
   "footer": "Hẹn gặp lại ở tập sau",
   "line": "Nếu thấy hay, bấm thích và đăng ký kênh để xem tập sau nhé.",
-  "engine": "korva",
-  "voice": "hoang_nam",
-  "speed": 1.25,
+  "engine": "vieneu",
+  "voice": "Thiện Minh",
+  "speed": 1.0,
   "theme": "mau-a",
   "frames": 180,
   "voiceStartFrame": 12

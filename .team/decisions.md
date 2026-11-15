@@ -222,3 +222,4 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - VieNeu không có tham số `speed` (engine ném ValueError khi speed khác 1.0). Độ dài video điều chỉnh bằng `pause_ms`. Kiểm `make-episode.sh` và `episode build` khi dùng `--engine vieneu --voice <id>` với speed 1.0.
 - Gói `vieneu` CHƯA cài trong `audio/.venv`: các mẫu được tạo ở một venv tạm, nay đã xoá. Cài qua extra đã ghim (`vieneu==3.8.3`) và kiểm không xung đột với korvatts. Nếu không cài được thì DEV báo lại. Kiểm mã giọng `thien_minh` có trong `VOICES['vieneu']` không; không có thì thêm vào.
 - Đoạn outro (D38) dựng lại bằng giọng mới cho thống nhất.
+- Mã giọng trong thư viện là "Thiện Minh" (tên hiển thị); `thien_minh` chỉ là tên file mẫu, không thêm bí danh.

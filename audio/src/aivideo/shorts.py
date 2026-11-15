@@ -24,7 +24,10 @@ WARN_FRAMES = 4500  # 150 s
 MAX_HOOK = 40
 MAX_TITLE = 100
 TIKTOK_TAGS = "#tinhoc #khoahocmaytinh"
+TIKTOK_TAIL = "#hoccungtiktok #LearnOnTikTok"
 AI_LINE = "Giọng đọc trong video do AI tạo."
+NEXT_LINE = "Theo dõi để xem phần tiếp."
+FULL_LINE = 'Bản đầy đủ trên YouTube: link ở trang cá nhân (hoặc tìm "Chuyện Của Những Con Bit" trên YouTube).'
 
 
 class ShortsError(RuntimeError):
@@ -235,12 +238,17 @@ def episode_number(root: Path, slug: str) -> int:
 
 
 def tiktok_caption(e: dict, ep_no: int, last: bool) -> str:
-    """Caption TikTok (D35): mở bằng `#conbit<n>`, không URL, không nhắc YouTube; link ở bio."""
-    tag = f"#conbit{ep_no}"
-    lines = [f"{tag} {e['title']} (Phần {e['part']}/{e['total']})", "", e["hook"], "", "Xem bản đầy đủ: link ở bio nhé"]
-    if last:
-        lines += ["", "Các phần còn lại và bản đầy đủ: link ở bio nha."]
-    lines += ["", f"{tag} #conbit {TIKTOK_TAGS}", AI_LINE]
+    """Caption TikTok theo mẫu out/tiktok-dang/ (2026-11-15): tiêu đề "(Phần k/N)", đoạn mở, lời mời theo dõi
+    (phần cuối: chỗ xem bản đầy đủ), câu hỏi gợi bình luận, dòng giọng AI, hashtag `#conbit<n> #conbit`.
+
+    Chữ riêng cho TikTok đặt ở khoá tuỳ chọn `tiktok` của mục `shorts.json`: `title`, `intro`, `question`, `tags`;
+    thiếu thì dùng `title`, `hook` của mục, bỏ câu hỏi, hashtag chủ đề mặc định."""
+    t = e.get("tiktok") or {}
+    lines = [f"{t.get('title') or e['title']} (Phần {e['part']}/{e['total']})", "", t.get("intro") or e["hook"],
+             "", FULL_LINE if last else NEXT_LINE]
+    if t.get("question"):
+        lines += ["", t["question"]]
+    lines += ["", AI_LINE, "", f"#conbit{ep_no} #conbit {t.get('tags') or TIKTOK_TAGS} {TIKTOK_TAIL}"]
     return "\n".join(lines) + "\n"
 
 

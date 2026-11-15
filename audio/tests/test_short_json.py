@@ -344,7 +344,7 @@ def test_export_caption_co_tieu_de_phan_k_n_hook_hashtag_va_dong_ai(env):
 
 
 def test_export_caption_khong_co_url_ke_ca_khi_so_da_co_videoid(tmp_path):
-    """D35 sửa 1, 2: caption không ghi URL, không nhắc YouTube; link ở bio."""
+    """D35: caption không ghi URL. Mẫu 2026-11-15: chỉ phần cuối nhắc YouTube (không link)."""
     from aivideo import upload
     from upload_support import FakeClient, make_upload_env
     up = make_upload_env(tmp_path)
@@ -356,24 +356,78 @@ def test_export_caption_khong_co_url_ke_ca_khi_so_da_co_videoid(tmp_path):
     for k in (1, 2):
         c = cap(env, k)
         assert "http" not in c and "vLong" not in c
-        assert "youtube" not in c.lower()
+    assert "youtube" not in cap(env, 1).lower()
 
 
-BIO = "Xem bản đầy đủ: link ở bio nhé"
-LAST = "Các phần còn lại và bản đầy đủ: link ở bio nha."
+BIO = "Theo dõi để xem phần tiếp."
+LAST = ('Bản đầy đủ trên YouTube: link ở trang cá nhân '
+        '(hoặc tìm "Chuyện Của Những Con Bit" trên YouTube).')
+TAGS2 = "#conbit2 #conbit #tinhoc #khoahocmaytinh #hoccungtiktok #LearnOnTikTok"
 
 
-def test_export_caption_dung_mau_d35(env):
+def test_export_caption_dung_mau_moi_khi_chua_co_chu_rieng_tiktok(env):
     seed(env, 4)
     ex(env, "1-3")
     assert cap(env, 1) == (
-        "#conbit2 Tiêu đề (Phần 1/3)\n\nMóc\n\n" + BIO + "\n\n"
-        "#conbit2 #conbit #tinhoc #khoahocmaytinh\n"
-        "Giọng đọc trong video do AI tạo.\n")
+        "Tiêu đề (Phần 1/3)\n\nMóc\n\n" + BIO + "\n\n"
+        "Giọng đọc trong video do AI tạo.\n\n" + TAGS2 + "\n")
     assert cap(env, 3) == (
-        "#conbit2 Tiêu đề (Phần 3/3)\n\nMóc\n\n" + BIO + "\n\n"
-        + LAST + "\n\n#conbit2 #conbit #tinhoc #khoahocmaytinh\n"
-        "Giọng đọc trong video do AI tạo.\n")
+        "Tiêu đề (Phần 3/3)\n\nMóc\n\n" + LAST + "\n\n"
+        "Giọng đọc trong video do AI tạo.\n\n" + TAGS2 + "\n")
+
+
+# Nguyên văn out/tiktok-dang/tap1-phan1.txt và tap3-phan3.txt (mẫu người dùng đã đăng, 2026-11-15).
+TAP1_PHAN1 = """Vì sao máy tính chỉ dùng số 0 và 1? Bit là gì (Phần 1/3)
+
+Ảnh bạn chụp, bài hát bạn nghe, cả video này: bên trong máy tính chỉ là 0 và 1. Vậy mà ENIAC từng tính bằng hệ mười, còn ở Moskva có cả máy dùng hệ ba. Hệ hai thắng nhờ đâu?
+
+Theo dõi để xem phần tiếp.
+
+Đoán thử: 3 công tắc cho được bao nhiêu kiểu bật tắt? Ghi đáp án dưới bình luận nhé.
+
+Giọng đọc trong video do AI tạo.
+
+#conbit1 #conbit #tinhoc #khoahocmaytinh #hoccungtiktok #LearnOnTikTok
+"""
+TAP3_PHAN3 = """Ariane 5 tự hủy chỉ vì một con số không vừa ô 16 bit (Phần 3/3)
+
+Ngày 4 tháng 6 năm 1996, phần mềm của Ariane 5 nhét một số 64 bit vào ô 16 bit có dấu, chỉ chứa được tới 32.767. Khoảng giây thứ 37, tên lửa mất dẫn đường. Bộ dự phòng cũng hỏng y như vậy.
+
+Bản đầy đủ trên YouTube: link ở trang cá nhân (hoặc tìm "Chuyện Của Những Con Bit" trên YouTube).
+
+Theo bạn, có hai bộ dẫn đường chạy song song rồi sao vẫn hỏng cả hai? Đoán trước khi xem nhé.
+
+Giọng đọc trong video do AI tạo.
+
+#conbit3 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok
+"""
+
+
+@pytest.mark.parametrize("sample,ep_no,part,tags", [
+    (TAP1_PHAN1, 1, 1, None),
+    (TAP3_PHAN3, 3, 3, "#tinhoc #laptrinh"),
+])
+def test_tiktok_caption_trung_tung_byte_voi_mau_da_dang(sample, ep_no, part, tags):
+    from aivideo import shorts
+    paras = sample.rstrip("\n").split("\n\n")
+    tk = {"title": paras[0].rsplit(" (Phần", 1)[0], "intro": paras[1], "question": paras[3]}
+    if tags:
+        tk["tags"] = tags
+    e = {"part": part, "total": 3, "title": "Tiêu đề Short", "hook": "Móc", "tiktok": tk}
+    assert shorts.tiktok_caption(e, ep_no, part == 3) == sample
+
+
+def test_export_dung_chu_rieng_tiktok_trong_shorts_json(env):
+    seed(env, 4)
+    items = json.loads((env.ep / "shorts.json").read_text("utf-8"))
+    items["shorts"][0]["tiktok"] = {"title": "Tựa TikTok", "intro": "Đoạn mở.",
+                                    "question": "Bạn đoán sao?", "tags": "#tinhoc #laptrinh"}
+    (env.ep / "shorts.json").write_text(json.dumps(items, ensure_ascii=False), "utf-8")
+    ex(env, "1-3")
+    assert cap(env, 1) == (
+        "Tựa TikTok (Phần 1/3)\n\nĐoạn mở.\n\n" + BIO + "\n\nBạn đoán sao?\n\n"
+        "Giọng đọc trong video do AI tạo.\n\n"
+        "#conbit2 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok\n")
 
 
 def test_export_so_tap_theo_thu_tu_trong_index_json(env):
@@ -381,8 +435,8 @@ def test_export_so_tap_theo_thu_tu_trong_index_json(env):
     (env.root / "episodes" / "index.json").write_text(
         json.dumps([{"slug": SLUG}]), "utf-8")
     ex(env, "1-2")
-    assert cap(env, 1).startswith("#conbit1 ")
-    assert "#conbit1 #conbit #tinhoc" in cap(env, 2)
+    assert "\n#conbit1 #conbit #tinhoc" in cap(env, 1)
+    assert "\n#conbit1 #conbit #tinhoc" in cap(env, 2)
 
 
 def test_export_tap_khong_co_trong_index_json_ma_1(env):

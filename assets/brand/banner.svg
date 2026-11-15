@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1440" viewBox="0 0 2560 1440">
+<style>
+@font-face{font-family:BVP;font-weight:400;src:url("../../video/public/fonts/be-vietnam-pro-latin-400-normal.woff2") format("woff2");}
+@font-face{font-family:BVP;font-weight:700;src:url("../../video/public/fonts/be-vietnam-pro-latin-700-normal.woff2") format("woff2");}
+@font-face{font-family:JBM;font-weight:700;src:url("../../video/public/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2");}
+@font-face{font-family:BVP;font-weight:400;src:url("../../video/public/fonts/be-vietnam-pro-latin-ext-400-normal.woff2") format("woff2");}
+@font-face{font-family:BVP;font-weight:700;src:url("../../video/public/fonts/be-vietnam-pro-latin-ext-700-normal.woff2") format("woff2");}
+@font-face{font-family:JBM;font-weight:700;src:url("../../video/public/fonts/jetbrains-mono-latin-ext-700-normal.woff2") format("woff2");}
+@font-face{font-family:BVP;font-weight:400;src:url("../../video/public/fonts/be-vietnam-pro-vietnamese-400-normal.woff2") format("woff2");}
+@font-face{font-family:BVP;font-weight:700;src:url("../../video/public/fonts/be-vietnam-pro-vietnamese-700-normal.woff2") format("woff2");}
+@font-face{font-family:JBM;font-weight:700;src:url("../../video/public/fonts/jetbrains-mono-vietnamese-700-normal.woff2") format("woff2");}
+</style>
+<defs>
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" fill="none" stroke="#1a2640" stroke-width="1.5"/>
+  </pattern>
+  <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#14203a" stop-opacity="1"/>
+    <stop offset="1" stop-color="#0b1220" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="fadeX" x1="0" x2="1" y1="0" y2="0">
+    <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+    <stop offset="0.35" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="1"/>
+  </linearGradient>
+  <mask id="fadeMid"><rect width="2560" height="1440" fill="url(#fadeX)"/></mask>
+</defs>
+<rect width="2560" height="1440" fill="#0b1220"/>
+<rect width="2560" height="1440" fill="url(#grid)"/>
+<ellipse cx="1280" cy="720" rx="1100" ry="420" fill="url(#glow)"/>
+<g font-family="JBM" font-weight="700" font-size="36" mask="url(#fadeMid)"><text x="1058" y="130" fill="#f5c518" fill-opacity="0.11">1110000001</text><text x="1356" y="130" fill="#4cc9f0" fill-opacity="0.14">11010001</text><text x="1618" y="130" fill="#4cc9f0" fill-opacity="0.08">111101101011</text><text x="1040" y="208" fill="#4cc9f0" fill-opacity="0.14">01100110001</text><text x="1454" y="208" fill="#4cc9f0" fill-opacity="0.11">01010</text><text x="1679" y="208" fill="#4cc9f0" fill-opacity="0.09">0111</text><text x="1878" y="208" fill="#4cc9f0" fill-opacity="0.09">110111</text><text x="1094" y="286" fill="#4cc9f0" fill-opacity="0.14">1100110101</text><text x="1515" y="286" fill="#4cc9f0" fill-opacity="0.16">111100</text><text x="1839" y="286" fill="#4cc9f0" fill-opacity="0.09">101010</text><text x="1014" y="364" fill="#4cc9f0" fill-opacity="0.05">01111</text><text x="1295" y="364" fill="#f5c518" fill-opacity="0.08">00000101</text><text x="1677" y="364" fill="#f5c518" fill-opacity="0.05">0010001100</text><text x="1041" y="442" fill="#4cc9f0" fill-opacity="0.13">1111101</text><text x="1405" y="442" fill="#4cc9f0" fill-opacity="0.09">1101011</text><text x="1675" y="442" fill="#f5c518" fill-opacity="0.16">0000</text><text x="1031" y="1031" fill="#4cc9f0" fill-opacity="0.08">11100000</text><text x="1427" y="1031" fill="#4cc9f0" fill-opacity="0.08">101110</text><text x="1685" y="1031" fill="#4cc9f0" fill-opacity="0.13">111100101</text><text x="1006" y="1109" fill="#f5c518" fill-opacity="0.16">111001011101</text><text x="1387" y="1109" fill="#4cc9f0" fill-opacity="0.07">010000110000</text><text x="1850" y="1109" fill="#4cc9f0" fill-opacity="0.17">11100001</text><text x="1094" y="1187" fill="#4cc9f0" fill-opacity="0.12">00110111</text><text x="1406" y="1187" fill="#4cc9f0" fill-opacity="0.16">10111101</text><text x="1649" y="1187" fill="#4cc9f0" fill-opacity="0.07">11010</text><text x="1095" y="1265" fill="#4cc9f0" fill-opacity="0.09">11100001</text><text x="1402" y="1265" fill="#4cc9f0" fill-opacity="0.13">1001100110</text><text x="1755" y="1265" fill="#4cc9f0" fill-opacity="0.06">0010111</text><text x="1014" y="1343" fill="#4cc9f0" fill-opacity="0.07">11110010001</text><text x="1336" y="1343" fill="#4cc9f0" fill-opacity="0.12">100011001010</text><text x="1703" y="1343" fill="#f5c518" fill-opacity="0.15">0101110</text></g>
+<polyline points="60,438.2608695652174 300,438.2608695652174 493.6956521739131,631.9565217391305 545,631.9565217391305" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5" stroke-linejoin="round"/><circle cx="60" cy="438.2608695652174" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5"/>
+<polyline points="371.9565217391305,70 511.9565217391305,70 631.9565217391305,190 631.9565217391305,545" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="371.9565217391305" cy="70" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="371.9565217391305,1370 511.9565217391305,1370 631.9565217391305,1250 631.9565217391305,895" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="371.9565217391305" cy="1370" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="90,626.0869565217391 280,626.0869565217391 344.5652173913044,690.6521739130435 545,690.6521739130435" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5" stroke-linejoin="round"/><circle cx="90" cy="626.0869565217391" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5"/>
+<polyline points="470.6521739130435,96 570.6521739130435,96 690.6521739130435,216 690.6521739130435,545" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="470.6521739130435" cy="96" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="470.6521739130435,1344 570.6521739130435,1344 690.6521739130435,1224 690.6521739130435,895" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="470.6521739130435" cy="1344" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="120,813.9130434782609 260,813.9130434782609 324.5652173913044,749.3478260869565 545,749.3478260869565" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5" stroke-linejoin="round"/><circle cx="120" cy="813.9130434782609" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5"/>
+<polyline points="569.3478260869565,122 629.3478260869565,122 749.3478260869565,242 749.3478260869565,545" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="569.3478260869565" cy="122" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="569.3478260869565,1318 629.3478260869565,1318 749.3478260869565,1198 749.3478260869565,895" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="569.3478260869565" cy="1318" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="150,1001.7391304347826 240,1001.7391304347826 433.6956521739131,808.0434782608695 545,808.0434782608695" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5" stroke-linejoin="round"/><circle cx="150" cy="1001.7391304347826" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.32" stroke-width="5"/>
+<polyline points="668.0434782608695,148 688.0434782608695,148 808.0434782608695,268 808.0434782608695,545" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="668.0434782608695" cy="148" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="668.0434782608695,1292 688.0434782608695,1292 808.0434782608695,1172 808.0434782608695,895" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5" stroke-linejoin="round"/><circle cx="668.0434782608695" cy="1292" r="9" fill="none" stroke="#f5c518" stroke-opacity="0.22" stroke-width="5"/>
+<polyline points="2490,140 2320,140 2250,210 2090,210" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="140" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<polyline points="2490,1300 2320,1300 2250,1230 2090,1230" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="1300" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<polyline points="2490,220 2290,220 2220,290 2070,290" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="220" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<polyline points="2490,1220 2290,1220 2220,1150 2070,1150" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="1220" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<polyline points="2490,300 2260,300 2190,370 2050,370" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="300" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<polyline points="2490,1140 2260,1140 2190,1070 2050,1070" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="1140" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<polyline points="2490,380 2230,380 2160,450 2030,450" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="380" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<polyline points="2490,1060 2230,1060 2160,990 2030,990" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5" stroke-linejoin="round"/><circle cx="2490" cy="1060" r="9" fill="none" stroke="#4cc9f0" stroke-opacity="0.2" stroke-width="5"/>
+<g fill="#f5c518"><rect x="618.9565217391305" y="545" width="26" height="50" rx="7"/><rect x="618.9565217391305" y="845" width="26" height="50" rx="7"/><rect x="545" y="618.9565217391305" width="50" height="26" rx="7"/><rect x="845" y="618.9565217391305" width="50" height="26" rx="7"/><rect x="677.6521739130435" y="545" width="26" height="50" rx="7"/><rect x="677.6521739130435" y="845" width="26" height="50" rx="7"/><rect x="545" y="677.6521739130435" width="50" height="26" rx="7"/><rect x="845" y="677.6521739130435" width="50" height="26" rx="7"/><rect x="736.3478260869565" y="545" width="26" height="50" rx="7"/><rect x="736.3478260869565" y="845" width="26" height="50" rx="7"/><rect x="545" y="736.3478260869565" width="50" height="26" rx="7"/><rect x="845" y="736.3478260869565" width="50" height="26" rx="7"/><rect x="795.0434782608695" y="545" width="26" height="50" rx="7"/><rect x="795.0434782608695" y="845" width="26" height="50" rx="7"/><rect x="545" y="795.0434782608695" width="50" height="26" rx="7"/><rect x="845" y="795.0434782608695" width="50" height="26" rx="7"/></g>
+  <rect x="585" y="585" width="270" height="270" rx="34" fill="#16213a" stroke="#f5c518" stroke-width="13"/>
+  <circle cx="623" cy="623" r="10" fill="#f5c518"/>
+  <text x="720" y="770" text-anchor="middle" font-family="BVP" font-weight="700" font-size="150" letter-spacing="-4"><tspan fill="#e8eefc">0</tspan><tspan fill="#f5c518">1</tspan></text>
+
+  <text x="960" y="672" font-family="BVP" font-weight="700" font-size="112" fill="#e8eefc" letter-spacing="-1">Chuyện Của Những</text>
+  <text x="960" y="800" font-family="BVP" font-weight="700" font-size="112" fill="#f5c518" letter-spacing="-1">Con Bit</text>
+  <rect x="964" y="838" width="90" height="6" rx="3" fill="#f5c518"/>
+  <text x="960" y="902" font-family="BVP" font-weight="400" font-size="46" fill="#9aa8c4">Máy tính hoạt động thế nào — kể bằng chuyện</text>
+
+</svg>

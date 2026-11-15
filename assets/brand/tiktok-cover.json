@@ -1,0 +1,8 @@
+[
+  { "name": "tap1-phan1", "video": "tap1-phan1.mp4", "time": "0:05", "focusY": 700, "part": "1/3", "title": ["Vì sao chỉ có", "*0 và 1*?"] },
+  { "name": "tap1-phan2", "video": "tap1-phan2.mp4", "time": "1:44", "focusY": 700, "part": "2/3", "title": ["*Byte*", "là gì?"] },
+  { "name": "tap1-phan3", "video": "tap1-phan3.mp4", "time": "1:12", "focusY": 680, "part": "3/3", "title": ["Sao không", "dùng *hệ 10*?"] },
+  { "name": "tap2-phan1", "video": "tap2-phan1.mp4", "time": "0:08", "focusY": 940, "part": "1/3", "title": ["0,1 + 0,2", "*≠ 0,3?*"] },
+  { "name": "tap2-phan2", "video": "tap2-phan2.mp4", "time": "1:12", "focusY": 900, "part": "2/3", "title": ["Máy cất *0,1*", "thế nào?"] },
+  { "name": "tap2-phan3", "video": "tap2-phan3.mp4", "time": "0:57", "focusY": 860, "part": "3/3", "title": ["Số *4* ở cuối", "từ đâu?"] }
+]

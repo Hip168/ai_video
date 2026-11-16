@@ -1,0 +1,21 @@
+{
+  "title": "Con tàu Sao Hỏa mất tích vì nhầm đơn vị: Mars Climate Orbiter, pound-force và niu-tơn",
+  "description": "Ngày 23 tháng 9 năm 1999, tàu quỹ đạo khí hậu Sao Hỏa của NASA (Mars Climate Orbiter) bay ra sau Sao Hỏa và không bao giờ liên lạc lại. Video giải thích vì sao máy tính chỉ cất con số chứ không cất đơn vị, vì sao một phần mềm dưới mặt đất ghi xung lực theo pound-force nhân giây trong khi bản thỏa thuận yêu cầu niu-tơn nhân giây, và vì sao sai số 4,45 lần ấy không bị bắt cho tới khi quá muộn, kéo con tàu xuống chỉ còn khoảng 57 km trên Sao Hỏa. Cuối video là cách người viết phần mềm ngày nay chống lỗi đơn vị: gắn đơn vị vào con số như trong F#, viết bản thỏa thuận thật rõ và chạy thử cả chuỗi.\n\nMục lục:\n00:00 Mở đầu\n00:55 Máy chỉ cất con số, không cất đơn vị\n02:21 Vệ tinh thời tiết cho một hành tinh khác\n03:25 Bánh đà và những cú phụt nhỏ\n05:03 Con số đúng, đơn vị sai\n06:58 Ngày 23 tháng 9 năm 1999\n08:46 Lỗi của cả một hệ thống\n10:01 Kết\n\nNguồn chính:\n- NASA, Mars Climate Orbiter Mishap Investigation Board Phase I Report (10/11/1999): https://llis.nasa.gov/llis_lib/pdf/1009464main1_0641-mr.pdf\n- NASA/JPL, Mars Climate Orbiter Arrival press kit (9/1999): https://www.jpl.nasa.gov/news/press_kits/mcoarrivehq.pdf\n- NASA/JPL, Mars 98 Launch press kit (12/1998): https://www.jpl.nasa.gov/news/press_kits/mars98launch.pdf\n- NASA Release 99-113, Mars Climate Orbiter Team Finds Likely Cause of Loss (30/9/1999): https://nssdc.gsfc.nasa.gov/planetary/text/mco_pr_19990930.txt\n- NASA NSSDC, tin ngày 23/9/1999: https://nssdc.gsfc.nasa.gov/planetary/news/mco_19990923.html\n- NIST SP 811, phụ lục B.9 (hệ số chuyển đổi): https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b9\n- Microsoft Learn, F# Units of Measure: https://learn.microsoft.com/en-us/dotnet/fsharp/language-reference/units-of-measure\n\nNhạc nền: Reverence, Abstraction (https://abstractionmusic.com/), giấy phép CC0, nguồn https://tallbeard.itch.io/music-loop-bundle\n\n#conbit4\n\nGiọng đọc trong video do AI tạo.",
+  "tags": [
+    "Mars Climate Orbiter",
+    "nhầm đơn vị",
+    "pound-force",
+    "niu-tơn",
+    "đơn vị đo",
+    "lỗi phần mềm",
+    "NASA",
+    "lập trình",
+    "tin học",
+    "khoa học máy tính"
+  ],
+  "chapters": "00:00 Mở đầu\n00:55 Máy chỉ cất con số, không cất đơn vị\n02:21 Vệ tinh thời tiết cho một hành tinh khác\n03:25 Bánh đà và những cú phụt nhỏ\n05:03 Con số đúng, đơn vị sai\n06:58 Ngày 23 tháng 9 năm 1999\n08:46 Lỗi của cả một hệ thống\n10:01 Kết",
+  "thumbnail": "thumbnail.png",
+  "privacy": "public",
+  "channelId": "UC1aPohYcigcmBGPl7OlQaEw",
+  "containsSyntheticMedia": false
+}

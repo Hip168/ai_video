@@ -862,6 +862,31 @@
       "unresolvedSevere": null,
       "prevHash": "7560a0e60c62f265e5788422d6878e30dd15559e56566a788c53cc39af172abf",
       "entryHash": "044dec7c43e975fa7b04e6b66a19a1e335255e66b7d3e4aa6ebf284a55f203a1"
+    },
+    {
+      "seq": 27,
+      "ts": "2026-11-16T16:37:37Z",
+      "stage": "dong-goi",
+      "role": "packager",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": "a15c3e4e170dbebbdbb05b71eeba01429780edd6544674bcac8325cf4c2f3ecf",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "044dec7c43e975fa7b04e6b66a19a1e335255e66b7d3e4aa6ebf284a55f203a1",
+      "entryHash": "0dd4d638ebb062740d5e2354240408bc72a5543da72110f6b55cc5b388108097"
     }
   ]
 }

@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "Con tàu Sao Hỏa mất tích vì nhầm đơn vị",
-    "voice": "hoang_nam",
-    "speed": 1.25,
+    "voice": "Thiện Minh",
+    "speed": 1.0,
     "theme": "mau-c",
     "outro": true,
     "music": {
@@ -465,7 +465,7 @@
         {
           "id": "b022",
           "text": "Còn hệ đơn vị Anh có một đơn vị lực khác, gọi là pound-force.",
-          "spoken": "Còn hệ đơn vị Anh có một đơn vị lực khác, gọi là pound lực.",
+          "spoken": "Còn hệ đơn vị Anh có một đơn vị lực khác, tạm gọi là cân Anh lực.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -494,7 +494,7 @@
         {
           "id": "b023",
           "text": "1 pound-force lớn gấp khoảng 4,45 lần 1 niu-tơn.",
-          "spoken": "Một pound lực lớn gấp khoảng bốn phẩy bốn mươi lăm lần một niu-tơn.",
+          "spoken": "Một cân Anh lực lớn gấp khoảng bốn phẩy bốn mươi lăm lần một niu-tơn.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -506,7 +506,7 @@
         {
           "id": "b024",
           "text": "Tức là pound-force là cái thước to hơn, to gấp hơn bốn lần.",
-          "spoken": "Tức là pound lực là cái thước to hơn, to gấp hơn bốn lần.",
+          "spoken": "Tức là cân Anh lực là cái thước to hơn, to gấp hơn bốn lần.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -615,7 +615,7 @@
         {
           "id": "b030",
           "text": "Trong hệ Anh, nó đo bằng pound-force nhân giây.",
-          "spoken": "Trong hệ Anh, nó đo bằng pound lực nhân giây.",
+          "spoken": "Trong hệ Anh, nó đo bằng cân Anh lực nhân giây.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1687,7 +1687,7 @@
         {
           "id": "b082",
           "text": "Nhưng phần mềm dưới mặt đất lại ghi con số theo pound-force nhân giây.",
-          "spoken": "Nhưng phần mềm dưới mặt đất lại ghi con số theo pound lực nhân giây.",
+          "spoken": "Nhưng phần mềm dưới mặt đất lại ghi con số theo cân Anh lực nhân giây.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2660,7 +2660,7 @@
         {
           "id": "b133",
           "text": "Ông Edward Weiler, phó giám đốc phụ trách khoa học vũ trụ của NASA, nói đại ý rằng",
-          "spoken": null,
+          "spoken": "Ông phó giám đốc phụ trách khoa học vũ trụ của NASA nói đại ý rằng",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,

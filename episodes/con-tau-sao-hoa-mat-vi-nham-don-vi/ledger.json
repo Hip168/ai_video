@@ -887,6 +887,34 @@
       "unresolvedSevere": null,
       "prevHash": "044dec7c43e975fa7b04e6b66a19a1e335255e66b7d3e4aa6ebf284a55f203a1",
       "entryHash": "0dd4d638ebb062740d5e2354240408bc72a5543da72110f6b55cc5b388108097"
+    },
+    {
+      "seq": 28,
+      "ts": "2026-11-16T17:38:08Z",
+      "stage": "qc",
+      "role": "sep-tong",
+      "pair": "editor/qc",
+      "round": 2,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "DAT",
+      "scriptHash": "a15c3e4e170dbebbdbb05b71eeba01429780edd6544674bcac8325cf4c2f3ecf",
+      "claimsHash": null,
+      "artifactHash": "1e9d6910016e20a3811fc3e37fabee67feb3b60fa8cfbc4151ad2bd63066fe9a",
+      "findingsHash": "a2fe2a5ba14f763a0e537f9c3a7ed64daecb74144ecc8de2ea35a7cde3fc5e44",
+      "findingKeys": [
+        "dc1112a1b999",
+        "3541085cf191"
+      ],
+      "returnTo": null,
+      "escalate": true,
+      "note": "qc vòng 2: 3 MAJOR vòng 1 đã sửa (Short 1/5/6, TikTok 1-3 render lại); publish.json, thumbnail ĐẠT; còn 2 MINOR",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "0dd4d638ebb062740d5e2354240408bc72a5543da72110f6b55cc5b388108097",
+      "entryHash": "6a86551dd9a8090b4488d69ff083e100b0d82cf337a0fc9e61af254923749fa1"
     }
   ]
 }

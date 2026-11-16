@@ -22,7 +22,7 @@
         "question": "Mỗi cú phụt chỉ làm tàu lệch rất ít, vậy cộng dồn suốt chín tháng thì sao? Đoán trước khi xem nhé.",
         "tags": "#tinhoc #laptrinh"
       } },
-    { "part": 4, "total": 6, "from": "b079", "to": "b104", "title": "Con số đúng, đơn vị sai: pound-force bị đọc thành niu-tơn mà không ai nhận ra", "hook": "Mỗi cú phụt bị tính yếu 4,45 lần" },
+    { "part": 4, "total": 6, "from": "b079", "to": "b104", "title": "Con số đúng, đơn vị sai: pound-force bị đọc thành niu-tơn, vì sao lỗi lọt qua?", "hook": "Mỗi cú phụt bị tính yếu 4,45 lần" },
     { "part": 5, "total": 6, "from": "b105", "to": "b130", "title": "Kế hoạch 226 km, thực tế chỉ khoảng 57 km: phút cuối của tàu khí hậu Sao Hỏa", "hook": "226 km hóa ra chỉ khoảng 57 km" },
     { "part": 6, "total": 6, "from": "b131", "to": "b153", "title": "Không chỉ lỗi một kỹ sư: NASA nhìn lại và lập trình viên chống lỗi đơn vị ra sao", "hook": "Lỗi của cả một hệ thống" }
   ]

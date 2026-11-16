@@ -830,6 +830,38 @@
       "unresolvedSevere": null,
       "prevHash": "c6c641286474f9c41495d7a22f60ffa7b7784bd7ac96aeb56607c2ae0e066331",
       "entryHash": "7560a0e60c62f265e5788422d6878e30dd15559e56566a788c53cc39af172abf"
+    },
+    {
+      "seq": 26,
+      "ts": "2026-11-16T16:33:38Z",
+      "stage": "qc",
+      "role": "sep-tong",
+      "pair": "editor/qc",
+      "round": 1,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "SUA",
+      "scriptHash": "a15c3e4e170dbebbdbb05b71eeba01429780edd6544674bcac8325cf4c2f3ecf",
+      "claimsHash": null,
+      "artifactHash": "1e9d6910016e20a3811fc3e37fabee67feb3b60fa8cfbc4151ad2bd63066fe9a",
+      "findingsHash": "fa1e6a88d39d1b77ad7a310e81e9b5ce57f3aac9eae0801ed572e5eeb26f284a",
+      "findingKeys": [
+        "7060bc53e5cb",
+        "df8140f66104",
+        "691315c4b0d0",
+        "19c7e5e025e1",
+        "dc1112a1b999",
+        "3541085cf191"
+      ],
+      "returnTo": "scene-director",
+      "escalate": false,
+      "note": "qc vòng 1: video dài 161 khung + 6 Short + 3 TikTok; 3 MAJOR chữ terminal bị ngắt giữa từ ở khung dọc (Short 1/TikTok 1, Short 5, Short 6)",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "7560a0e60c62f265e5788422d6878e30dd15559e56566a788c53cc39af172abf",
+      "entryHash": "044dec7c43e975fa7b04e6b66a19a1e335255e66b7d3e4aa6ebf284a55f203a1"
     }
   ]
 }

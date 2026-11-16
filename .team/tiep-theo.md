@@ -1,4 +1,4 @@
-# Trạng thái hiện tại (cập nhật 2026-11-11), đọc file này trước khi chạy tiếp
+# Trạng thái hiện tại (cập nhật 2026-11-16), đọc file này trước khi chạy tiếp
 
 MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 video lên kênh thì DỪNG. Tiết kiệm token: không mở đề mục mới, đề mục 14 tạm dừng. Đội tự đẩy lên GitHub. Chỉ hỏi người dùng ở các điểm dừng trong `autonomy.md`.
 
@@ -14,7 +14,9 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - Tập 2: đủ 6 Short (4 Cn3M_p-Qocw, 5 SyMgHdJpsy0, 6 OS1AeT5_bGE có outro). Video liên quan đã gắn Short 1–5 cả hai tập; Short 6 (OS1AeT5_bGE) người dùng tự gắn.
 - Tập 3 `khi-may-tinh-dem-qua-gioi-han`: ĐÃ ĐĂNG https://youtu.be/PMxx3oFLU98 (VieNeu Thiện Minh, PR #85), Drive 03.
   - Short 1–3 ĐÃ ĐĂNG công khai 15/11: 1 nJW8Yy94E0I, 2 hCydIFV2mss, 3 DVUv6wR5YxY (có outro). Tiêu đề sửa theo QC ở PR #90, ledger PR #91.
-  - Short 4–6 CHỜ ĐĂNG ngày sau (không dồn): `cd .worktrees/27-shorts-tap3/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload khi-may-tinh-dem-qua-gioi-han --short <4|5|6> --privacy public`. Đăng xong ghi ledger (PR), gắn video liên quan. KHÔNG xoá worktree 27-shorts-tap3 trước khi đăng xong. Nhánh 27 đã squash vào main nhiều lần: trước PR ledger tiếp theo, `git merge origin/main` (xung đột add/add thì lấy bản main).
+  - Short 4–6 ĐÃ ĐĂNG công khai 16/11 (cách nhau ~25 phút): 4 Db4aqh6QbOc, 5 xUf9UzFwUmY, 6 -rLoINQVBEI (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link PMxx3oFLU98. Ledger PR #93. Tập 3 đủ 6 Short.
+  - CÒN: gắn video liên quan cho Short 1–6 tập 3 (cần cookie, chưa làm).
+  - Đã xoá worktree và nhánh 27-shorts-tap3 (local + remote) sau khi `rclone check` Drive 03 youtube-shorts: 6/6 khớp.
   - Drive 03 đã đủ: youtube-shorts/phan-1..6.mp4, tiktok/phan-1..3 (mp4, txt, bia-phan-k.png). TikTok 1–3 người dùng tự đăng (caption D35 ở out/tiktok-dang/).
   - Caption TikTok tập 1–3 trong out/tiktok-dang/ đã sửa theo D35 (mở bằng #conbit<n>, phần 3 ghi "Các phần còn lại và bản đầy đủ: link ở bio nha.", không nhắc YouTube). Bản caption tập 1–2 trên Drive là bản sinh tự động cũ, khác bản trong out/tiktok-dang/.
 - Tập 4 Mars Climate Orbiter: dựng lại bằng VieNeu (D40), xử lý "pound" (phatam), rồi render/qc/gate3/đăng.

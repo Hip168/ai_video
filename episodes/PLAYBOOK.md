@@ -36,7 +36,7 @@ Quy tắc khi gọi:
 ```bash
 cd /đường/dẫn/gốc-repo/audio
 export PYTHONPATH=$PWD/src
-G=".venv/bin/python -m aivideo.gates"     # mọi lệnh cổng
+G() { .venv/bin/python -m aivideo.gates "$@"; }   # mọi lệnh cổng; hàm chạy được cả zsh lẫn bash
 ```
 Đường dẫn mặc định tính từ `audio/`: `--episodes-dir ../episodes`. Mọi lệnh in một JSON ra stdout, mã thoát 0 là đạt, 1 là chặn, 3 là `CAN_NGUOI_DUNG`. Giao diện đầy đủ: `.team/features/11-doi-san-xuat-giao-dien.md`.
 
@@ -44,13 +44,13 @@ JSON phát hiện của người kiểm: sếp tổng chép nguyên đoạn JSON
 
 Phát hiện mỗi người kiểm trả có dạng: `{"findings":[{"severity":"CRITICAL|MAJOR|MINOR","rule","file","quote","failing_case","owner"}]}`. Phán quyết (do script tính, không ai tự viết):
 ```bash
-$G verdict <findings.json> --root <thư mục gốc để tìm file>
+G verdict <findings.json> --root <thư mục gốc để tìm file>
 ```
 `CHAN` (có CRITICAL) · `SUA` (có MAJOR) · `DAT` · `CHUA_DUYET` (thiếu JSON hoặc sai dạng: coi như chưa duyệt, gọi lại người kiểm). Phát hiện có `quote` không nằm trong file bị loại và nằm ở `dropped`; `complete:false` thì gọi lại người kiểm để họ trích lại cho đúng, rồi mới tính vòng.
 
 Ghi mỗi vòng của người kiểm vào sổ tập:
 ```bash
-$G ledger add <slug> --stage <khâu> --role sep-tong --pair <người làm>/<người kiểm> \
+G ledger add <slug> --stage <khâu> --role sep-tong --pair <người làm>/<người kiểm> \
    --findings <findings.json> --root <thư mục gốc> [--return-to <vai>]
 ```
 Mã thoát 3 hoặc `state:"CAN_NGUOI_DUNG"` ở stdout: dừng, mục 6.
@@ -82,27 +82,27 @@ Lệnh → [1] research → [2] CỔNG 1 (fact-checker) → [3] viết → [4] b
 
 Từng khâu:
 
-**[1] research.** Gọi `researcher`. Xong thì có `outline.md`, `sources.md`, `claims.json` (mọi `status` là `CHUA_KIEM`). Lập trao tay: `$G ledger handoff <slug> research` (tạo mẫu 5 mục `Đã chốt / Đã bỏ / Rủi ro / File / Còn lại` ở `episodes/<slug>/handoff/research.md`), sếp tổng điền từ báo cáo của vai. Trao tay nào cũng làm vậy.
+**[1] research.** Gọi `researcher`. Xong thì có `outline.md`, `sources.md`, `claims.json` (mọi `status` là `CHUA_KIEM`). Lập trao tay: `G ledger handoff <slug> research` (tạo mẫu 5 mục `Đã chốt / Đã bỏ / Rủi ro / File / Còn lại` ở `episodes/<slug>/handoff/research.md`), sếp tổng điền từ báo cáo của vai. Trao tay nào cũng làm vậy.
 
 **[2] Cổng 1, fact.**
 ```bash
-$G prepare-factcheck <slug> --role ../episodes/roles/fact-checker.md
+G prepare-factcheck <slug> --role ../episodes/roles/fact-checker.md
 ```
 In `{batchDir, items, prompt}`. Lô nằm trong thư mục tạm của hệ điều hành, NGOÀI repo, tên trung tính (`lo-xxxxxxxx/items.json`). Trong lô chỉ có `items.json` (id, claim, question, sourceUrls; không có `status`, `credibility`, không kịch bản) và `prompt.txt`. Lệnh từ chối nếu thư mục nằm trong repo hay prompt có `script.json`, `kịch bản` hoặc `episodes/`. Đây là cách chuẩn bị input mù: fact-checker không thấy kịch bản, dàn ý, lý lẽ của biên kịch.
 
 Gọi `fact-checker` (`feature-dev:code-reviewer`) với prompt = nội dung `prompt.txt` NGUYÊN VĂN, không thêm gì (xem mẫu 4.2). Lưu JSON vào `<batchDir>/findings.json`, rồi:
 ```bash
-$G verdict <batchDir>/findings.json --root <batchDir>
-$G ledger add <slug> --stage fact-1 --role sep-tong --pair researcher/fact-checker \
+G verdict <batchDir>/findings.json --root <batchDir>
+G ledger add <slug> --stage fact-1 --role sep-tong --pair researcher/fact-checker \
    --findings <batchDir>/findings.json --root <batchDir>
-$G apply-factcheck <slug> --findings <batchDir>/findings.json --batch <batchDir>
-$G gate1 <slug>
+G apply-factcheck <slug> --findings <batchDir>/findings.json --batch <batchDir>
+G gate1 <slug>
 ```
 `prepare-factcheck` ghi vào sổ mục `fact-prepare` (hash từng claim); `apply-factcheck` từ chối nếu claim đã đổi sau đó, nếu bất kỳ file nào của lô (`items.json`, `prompt.txt`) bị sửa sau prepare (sổ lưu sha256 từng file), nếu `items.json` bị đổi tập id, hoặc nếu lô đã được apply (muốn kiểm lại phải `prepare-factcheck` lô mới) và ghi mục `fact` (hash `claims.json` sau khi áp). `gate2`/`gate3` chặn nếu `claims.json` không khớp mục `fact` mới nhất, nên không sửa tay `status`; sau mỗi lần `apply-factcheck` sếp tổng commit sổ. Nếu `apply-factcheck` thoát mã 3 thì DỪNG: còn phát hiện CRITICAL/MAJOR bị loại (quote lệch) hoặc không ánh xạ được (`rule` sai dạng như `claim:3`); `gate1`/`gate2` sẽ chặn cho tới khi có lô mới. Gọi lại `fact-checker` với lô `prepare-factcheck` mới (nhắc trả đúng `rule` `claim:<id>` và `quote` nguyên văn), hoặc hỏi người dùng. `apply-factcheck` ghi lại `status` của từng claim: phát hiện `claim:<id>` mức CRITICAL thành `SAI`, MAJOR thành `CHUA_KIEM`, không có phát hiện thì `DAT`. Gate1 vẫn chặn nếu claim `DAT` mà nguồn chỉ `anecdotal`, hoặc claim về số mà không có nguồn `primary` và không có hai nguồn khác tên miền gốc. Gate1 chặn thì trả researcher kèm danh sách `problems`; vòng mới dùng một lô mới (chạy lại `prepare-factcheck`).
 
 **[3] viết.** Gọi `scriptwriter` với `outline.md`, `claims.json` (đã `DAT`). Hướng dẫn đọc số trong file vai: ca nghe chưa hay (`Python 3.12`, `24/7`, số điện thoại, ngày `dd.mm.yyyy`, chữ "Ngày" đứng trước ngày ISO) thì dùng `spoken` hoặc lexicon của tập. Có thể chạy thử `extract-claims` để biết số/tên nào cần claim:
 ```bash
-$G extract-claims ../episodes/<slug>/script.json
+G extract-claims ../episodes/<slug>/script.json
 ```
 Danh sách số và tên bắt trên `text` gốc, trước khi đổi số thành chữ cho giọng đọc.
 
@@ -110,33 +110,33 @@ Danh sách số và tên bắt trên `text` gốc, trước khi đổi số thà
 
 **[5] fact-checker lượt 2.** Kịch bản đã đổi so với lúc kiểm claim; kiểm lại câu nói có đúng claim không:
 ```bash
-$G prepare-factcheck <slug> --role ../episodes/roles/fact-checker.md --with-lines
+G prepare-factcheck <slug> --role ../episodes/roles/fact-checker.md --with-lines
 ```
 Mỗi phần tử có thêm `lines` (chỉ chữ của các beat trỏ tới claim, không có file kịch bản). Không chạy `apply-factcheck` ở lượt này. Ledger: `--stage fact-2 --pair scriptwriter/fact-checker`.
 
 **[6] Cổng 2, chốt kịch bản.**
 ```bash
-$G gate2 <slug>
+G gate2 <slug>
 ```
 Chặn khi: số/tên (bắt cả `3,14`, `1.000`, `15.01.2024`, `x86`) trong lời đọc không có claim trong `beat.claims`; claim không chứa số/tên đó; claim `CHUA_KIEM` hoặc `SAI`; script sai hợp đồng. Đạt thì ghi vào `ledger.json` hash sha256 của phần lời (`scriptHash`) và hash `claims.json`. Từ đây KHÔNG ai sửa lời. Cần sửa lời: quay về khâu 3, sau đó qua lại khâu 5, 6.
 
 **[7] cảnh + lint.** Gọi `scene-director`. Rồi:
 ```bash
 .venv/bin/python -m aivideo.episode build <slug> --engine fake
-$G ledger run <slug> --stage lint     # lệnh cố định trong mã: npm run lint:episode -- <slug> --json (trong video/)
+G ledger run <slug> --stage lint     # lệnh cố định trong mã: npm run lint:episode -- <slug> --json (trong video/)
 ```
 Lint đỏ thì trả scene-director (kèm kết quả lint). `ledger run` tự đặt phán quyết `DAT` nếu mã thoát 0, ngược lại `CHAN`, không ai viết tay.
 
 **[8] giọng.** Gọi `voice-producer` (giọng đã chốt D12). Xong thì chạy lại lint như trên với dựng giọng thật; mục lint mới nhất trong sổ là bằng chứng của Cổng 3. Rồi nghe từ tiếng Anh (đề mục 18):
 ```bash
-$G ledger run <slug> --stage phat-am     # lệnh cố định: python -m aivideo.phatam check <slug>
+G ledger run <slug> --stage phat-am     # lệnh cố định: python -m aivideo.phatam check <slug>
 ```
-`CHAN` thì voice-producer chạy `phatam pick` cho từng từ trượt và đề xuất `spoken` (hoặc nghĩa tiếng Việt); scriptwriter sửa, đi lại khâu 5, 6 rồi dựng giọng và chạy lại lệnh trên tới khi `DAT`.
+`CHAN` thì voice-producer chạy `phatam pick <từ> --slug <slug>` (tổng hợp bằng đúng engine, giọng, tốc độ đã dựng tập, đọc từ `out/episodes/<slug>/voice.json`) cho từng từ trượt và đề xuất `spoken` (hoặc nghĩa tiếng Việt); scriptwriter sửa, đi lại khâu 5, 6 rồi dựng giọng và chạy lại lệnh trên tới khi `DAT`.
 
 **[9] render + kiểm kỹ thuật.** Sếp tổng chạy (nền, lâu):
 ```bash
 ../make-episode.sh <slug>                # editor chạy; thuộc đề mục 10
-$G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivideo.assemble verify <slug>
+G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivideo.assemble verify <slug>
 ```
 Đoạn kết thích + đăng ký (D38, đề mục 21): tập có `meta.outro: true` thì `make-episode.sh` tự gắn đoạn kết 6 giây vào cuối video dài và vào phần 3, phần 6 của Shorts (ít hơn 6 phần: phần cuối). Lần đầu làm đoạn kết mất khoảng 1 phút (Korva + Remotion), sau đó dùng lại từ `out/outro/`. TikTok không gắn. Tập 1, 2 không có khoá này nên giữ nguyên.
 
@@ -144,8 +144,8 @@ $G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivide
 
 **[10] qc.** Gọi `qc` (`Explore`, mẫu 4.10). JSON qc có thêm khoá `evidence` (sha256 MP4, mốc giây các khung đã trích, loudness). Xong:
 ```bash
-$G verdict /tmp/<slug>-qc-<vòng>.json --root ..
-$G ledger add <slug> --stage qc --role sep-tong --pair editor/qc \
+G verdict /tmp/<slug>-qc-<vòng>.json --root ..
+G ledger add <slug> --stage qc --role sep-tong --pair editor/qc \
    --findings /tmp/<slug>-qc-<vòng>.json --root .. --artifact <đường dẫn MP4>
 ```
 Sếp tổng lưu JSON của qc (có `findings` và `evidence`) thành `episodes/<slug>/handoff/qc.json` rồi nộp `--findings` bằng file đó (`ledger add` còn ghi `handoff/qc.verdict`), một dòng `PHAN_QUYET: <phán quyết> findings_sha256=... script_sha256=...`. Phát hiện trả về vai ở `owner`. Trả xuyên khâu (vd qc trả về scriptwriter) thêm `--return-to scriptwriter`; tối đa 2 lần mỗi tập. Sửa lời sau Cổng 2 thì hash đổi: qua lại khâu 5 và 6, rồi các khâu sau bị ảnh hưởng (cảnh, giọng, render, qc) chạy lại.
@@ -154,7 +154,7 @@ Sếp tổng lưu JSON của qc (có `findings` và `evidence`) thành `episodes
 
 **[12] Cổng 3.**
 ```bash
-$G gate3 <slug> --video <đường dẫn MP4>
+G gate3 <slug> --video <đường dẫn MP4>
 ```
 Kiểm bằng script: chuỗi hash sổ tập nguyên vẹn; hash lời hiện tại bằng hash đã chốt ở Cổng 2 (sửa một ký tự thì chặn); `lint`, `ky-thuat`, `qc` có mục `DAT` trên đúng bản kịch bản này; `phat-am` cũng phải có mục `DAT` trên đúng bản kịch bản này khi lời đọc có từ tiếng Anh (theo `phatam scan`); dòng `PHAN_QUYET` của qc đúng định dạng; MP4 đúng bản qc đã duyệt; `publish.json` đủ trường, đúng `channelId` trong `.team/kenh.json`, `containsSyntheticMedia` là `false`, đúng quyền riêng tư. Chặn thì sửa theo `checks[].detail`; không có cách tự cho qua.
 
@@ -247,8 +247,8 @@ Các khâu `cong2`, `cong3`, `lint`, `ky-thuat`, `phat-am`, `fact`, `fact-prepar
 
 `episodes/<slug>/ledger.json` ghi theo thời gian: khâu, vai, cặp, vòng, hash vào/ra, phán quyết, hash kịch bản. Mỗi mục có `prevHash` và `entryHash`; sửa hay xoá một mục thì chuỗi vỡ và mọi lệnh sổ, kể cả `gate3`, từ chối. Chỉ sếp tổng ghi, qua script.
 ```bash
-$G ledger show <slug>        # tiến độ, số vòng từng cặp, hash kịch bản hiện tại
-$G ledger handoff <slug> <khâu>   # tạo episodes/<slug>/handoff/<khâu>.md với 5 mục
+G ledger show <slug>        # tiến độ, số vòng từng cặp, hash kịch bản hiện tại
+G ledger handoff <slug> <khâu>   # tạo episodes/<slug>/handoff/<khâu>.md với 5 mục
 ```
 Phiên bị ngắt: đọc `ledger show` và `handoff/` để biết đang ở khâu nào, không đoán.
 

@@ -1,0 +1,11 @@
+#conbit2 Gõ 0.1, máy tính thật sự cất số gì? Số dấu phẩy động (Phần 2/3)
+
+Trong Python và JavaScript, mỗi số chỉ có 64 bit. Không đủ chỗ cho 0,1 viết mãi không hết, nên máy phải cắt ở đâu đó. Cắt rồi thì còn lại số nào?
+
+Theo dõi để xem phần tiếp.
+
+Bạn đoán số 0,1 mà máy cất dài bao nhiêu chữ số? Đoán trước rồi xem nhé.
+
+Giọng đọc trong video do AI tạo.
+
+#conbit2 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok

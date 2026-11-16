@@ -1,5 +1,7 @@
+import { existsSync } from "node:fs";
 import os from "node:os";
 import { Config } from "@remotion/cli/config";
+import { DEFAULT_BROWSER } from "./scripts/render-lib";
 
 Config.setCodec("h264");
 Config.setPixelFormat("yuv420p");
@@ -10,6 +12,8 @@ Config.setVideoImageFormat("png");
 Config.setOverwriteOutput(true);
 
 // Mac: Headless Shell tải về có thể lỗi "icudtl.dat not found in bundle". Đặt biến này để dùng Chrome của máy.
-if (process.env.REMOTION_BROWSER_EXECUTABLE) {
-  Config.setBrowserExecutable(process.env.REMOTION_BROWSER_EXECUTABLE);
+// Không đặt mà có bản chép ra ~/.cache (D23) thì tự dùng bản đó, như scripts/render-episode.ts.
+const browser = process.env.REMOTION_BROWSER_EXECUTABLE || (existsSync(DEFAULT_BROWSER) ? DEFAULT_BROWSER : null);
+if (browser) {
+  Config.setBrowserExecutable(browser);
 }

@@ -359,21 +359,57 @@ def test_export_caption_khong_co_url_ke_ca_khi_so_da_co_videoid(tmp_path):
         assert "youtube" not in c.lower()
 
 
-BIO = "Xem bản đầy đủ: link ở bio nhé"
+BIO = "Theo dõi để xem phần tiếp."
 LAST = "Các phần còn lại và bản đầy đủ: link ở bio nha."
+TAGS2 = "#conbit2 #conbit #tinhoc #khoahocmaytinh #hoccungtiktok #LearnOnTikTok"
 
 
-def test_export_caption_dung_mau_d35(env):
+def test_export_caption_dung_mau_moi_khi_chua_co_chu_rieng_tiktok(env):
     seed(env, 4)
     ex(env, "1-3")
     assert cap(env, 1) == (
         "#conbit2 Tiêu đề (Phần 1/3)\n\nMóc\n\n" + BIO + "\n\n"
-        "#conbit2 #conbit #tinhoc #khoahocmaytinh\n"
-        "Giọng đọc trong video do AI tạo.\n")
+        "Giọng đọc trong video do AI tạo.\n\n" + TAGS2 + "\n")
     assert cap(env, 3) == (
-        "#conbit2 Tiêu đề (Phần 3/3)\n\nMóc\n\n" + BIO + "\n\n"
-        + LAST + "\n\n#conbit2 #conbit #tinhoc #khoahocmaytinh\n"
-        "Giọng đọc trong video do AI tạo.\n")
+        "#conbit2 Tiêu đề (Phần 3/3)\n\nMóc\n\n" + LAST + "\n\n"
+        "Giọng đọc trong video do AI tạo.\n\n" + TAGS2 + "\n")
+
+
+# Bản chép nguyên văn 9 caption người dùng đang đăng (out/tiktok-dang/, sửa lần cuối 2026-11-15 20:13).
+MAU = sorted((Path(__file__).parent / "data" / "tiktok-caption").glob("tap*-phan*.txt"))
+
+
+def test_co_du_9_mau_caption():
+    assert [f.name for f in MAU] == [f"tap{t}-phan{k}.txt" for t in (1, 2, 3) for k in (1, 2, 3)]
+
+
+@pytest.mark.parametrize("f", MAU, ids=lambda f: f.stem)
+def test_tiktok_caption_trung_tung_byte_voi_mau_dang_dung(f):
+    """Lấy chữ riêng (tiêu đề, đoạn mở, câu hỏi, hashtag chủ đề) từ mẫu, ghép lại phải ra đúng từng byte."""
+    import re
+    from aivideo import shorts
+    sample = f.read_text(encoding="utf-8")
+    paras = sample.rstrip("\n").split("\n\n")
+    m = re.fullmatch(r"#conbit(\d) (.+) \(Phần (\d)/3\)", paras[0])
+    tags = re.fullmatch(r"#conbit\d #conbit (.+) #hoccungtiktok #LearnOnTikTok", paras[-1])
+    assert m and tags, sample
+    part = int(m[3])
+    e = {"part": part, "total": 3, "title": "Tiêu đề Short", "hook": "Móc",
+         "tiktok": {"title": m[2], "intro": paras[1], "question": paras[3], "tags": tags[1]}}
+    assert shorts.tiktok_caption(e, int(m[1]), part == 3).encode("utf-8") == f.read_bytes()
+
+
+def test_export_dung_chu_rieng_tiktok_trong_shorts_json(env):
+    seed(env, 4)
+    items = json.loads((env.ep / "shorts.json").read_text("utf-8"))
+    items["shorts"][0]["tiktok"] = {"title": "Tựa TikTok", "intro": "Đoạn mở.",
+                                    "question": "Bạn đoán sao?", "tags": "#tinhoc #laptrinh"}
+    (env.ep / "shorts.json").write_text(json.dumps(items, ensure_ascii=False), "utf-8")
+    ex(env, "1-3")
+    assert cap(env, 1) == (
+        "#conbit2 Tựa TikTok (Phần 1/3)\n\nĐoạn mở.\n\n" + BIO + "\n\nBạn đoán sao?\n\n"
+        "Giọng đọc trong video do AI tạo.\n\n"
+        "#conbit2 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok\n")
 
 
 def test_export_so_tap_theo_thu_tu_trong_index_json(env):
@@ -382,7 +418,7 @@ def test_export_so_tap_theo_thu_tu_trong_index_json(env):
         json.dumps([{"slug": SLUG}]), "utf-8")
     ex(env, "1-2")
     assert cap(env, 1).startswith("#conbit1 ")
-    assert "#conbit1 #conbit #tinhoc" in cap(env, 2)
+    assert "\n#conbit1 #conbit #tinhoc" in cap(env, 2)
 
 
 def test_export_tap_khong_co_trong_index_json_ma_1(env):

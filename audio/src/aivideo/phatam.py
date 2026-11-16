@@ -312,11 +312,11 @@ def _to16k(src: Path, dst: Path, start: float | None = None, dur: float | None =
     audio._ffmpeg([*cut, "-i", str(src), "-ar", str(SR16), "-ac", "1", "-c:a", "pcm_s16le", str(dst)])
 
 
-def synth_clip(line: str, voice: str, speed: float, dst: Path) -> None:
+def synth_clip(line: str, voice: str, speed: float, dst: Path, engine: str = ENGINE) -> None:
     """Tổng hợp như lúc dựng tập (engines.synth rồi cắt lặng TRIM_FULL), ghi wav 16 kHz."""
     import soundfile as sf
 
-    raw, sr = engines.synth(ENGINE, line, voice, speed)
+    raw, sr = engines.synth(engine, line, voice, speed)
     wav = audio._filter_wav(raw, sr, audio.TRIM_FULL)
     tmp = dst.with_suffix(".48k.wav")
     sf.write(tmp, wav, audio.OUT_SR, subtype="FLOAT")
@@ -361,7 +361,7 @@ def candidates(term: str, user: list[str], meaning: str | None, ipa: str | None)
 
 
 def pick(term: str, user: list[str], context: str, meaning: str | None,
-         voice: str = VOICE, speed: float = SPEED) -> dict:
+         voice: str = VOICE, speed: float = SPEED, engine: str = ENGINE) -> dict:
     if context.count("{}") != 1:
         raise ValueError("--context phải có đúng một chỗ {}")
     prefix, suffix = context.split("{}")
@@ -371,7 +371,7 @@ def pick(term: str, user: list[str], context: str, meaning: str | None,
         jobs = []
         for i, (c, _kind) in enumerate(cands):
             wav = Path(d) / f"c{i}.wav"
-            synth_clip(prefix + c + suffix, voice, speed, wav)
+            synth_clip(prefix + c + suffix, voice, speed, wav, engine)
             jobs.append({"wav": str(wav), "prefix": prefix, "term": term, "suffix": suffix})
         res = _hear(jobs, {term: ipa})
     rows = [{"candidate": c, "kind": k, **r} for (c, k), r in zip(cands, res)]
@@ -410,6 +410,15 @@ def _episode(slug: str, root: Path):
         raise ValueError(f"không có {ep / 'script.json'}")
     script = json.loads((ep / "script.json").read_text(encoding="utf-8"))
     return ep, script, load_lexicon(ep, root / "content" / "lexicon.json")
+
+
+def episode_voice(slug: str, root: Path) -> tuple[str, str, float]:
+    """(engine, giọng, tốc độ) đã dựng tập, đọc từ `out/episodes/<slug>/voice.json` do `episode build` ghi."""
+    p = root / "out" / "episodes" / slug / "voice.json"
+    if not p.is_file():
+        raise ValueError(f"thiếu {p}: dựng giọng tập trước (episode build)")
+    v = json.loads(p.read_text(encoding="utf-8"))
+    return v["engine"], v["voice"], float(v["speed"])
 
 
 def scan(slug: str, root: Path) -> list[dict]:
@@ -499,7 +508,8 @@ def print_check(res: dict) -> None:
               f"{_fmt(r.get('per'), 2):>5}  {(_heard_en(r) if 'heardEn' in r else '—'):<20} {verdict} {extra}")
     bad = [r for r in res["rows"] if not r["pass"]]
     if bad:
-        print(f"TRƯỢT {len(bad)} chỗ: chạy `python -m aivideo.phatam pick <từ> --context \"<câu có {{}}>\"` "
+        print(f"TRƯỢT {len(bad)} chỗ: chạy `python -m aivideo.phatam pick <từ> --slug {res['slug']} "
+              "--context \"<câu có {}>\"` "
               "cho từng từ, đưa cách đọc ĐẠT cho scriptwriter làm `spoken`, hoặc thay bằng nghĩa tiếng Việt.")
     else:
         print("ĐẠT")
@@ -517,8 +527,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--candidates", default="")
     p.add_argument("--context", default=DEFAULT_CONTEXT)
     p.add_argument("--meaning")
-    p.add_argument("--voice", default=VOICE)
-    p.add_argument("--speed", type=float, default=SPEED)
+    p.add_argument("--slug", help="dùng đúng engine, giọng, tốc độ đã dựng tập này")
+    p.add_argument("--voice")
+    p.add_argument("--speed", type=float)
     sub.add_parser("check").add_argument("slug")
     a = ap.parse_args(argv)
     try:
@@ -526,8 +537,12 @@ def main(argv: list[str] | None = None) -> int:
             print_scan(scan(a.slug, Path(a.root)))
             return 0
         if a.cmd == "pick":
+            if a.slug and (a.voice or a.speed is not None):
+                raise ValueError("--slug đã lấy giọng của tập, không ghi thêm --voice/--speed")
+            engine, voice, speed = episode_voice(a.slug, Path(a.root)) if a.slug else \
+                (ENGINE, a.voice or VOICE, SPEED if a.speed is None else a.speed)
             res = pick(a.term, [c for c in a.candidates.split(",") if c.strip()], a.context, a.meaning,
-                       a.voice, a.speed)
+                       voice, speed, engine)
             print_pick(res)
             return 0 if res["winner"] else 1
         res = check(a.slug, Path(a.root))

@@ -975,6 +975,9 @@ def gate3(slug: str, episodes_dir="../episodes", kenh_path=None, video=None, out
             add("qc-dong-phan-quyet", False, "script_sha256 không khớp kịch bản hiện tại")
         elif qe and qe.get("findingsHash") != m.group(1):
             add("qc-dong-phan-quyet", False, "findings_sha256 không khớp sổ tập")
+        elif not (ep / "handoff" / "qc.json").is_file() \
+                or sha256_file(ep / "handoff" / "qc.json") != m.group(1):
+            add("qc-dong-phan-quyet", False, "handoff/qc.json khác findings_sha256 (sửa sau khi ghi sổ)")
         else:
             add("qc-dong-phan-quyet", True)
     add(*_check_ledger_git(ep))
@@ -1053,7 +1056,9 @@ def prepare_factcheck(slug: str, episodes_dir, role_file, tmp_parent=None,
         lines: dict[str, list[str]] = {}
         for _, b in _iter_beats(_read_json(sp)):
             for cid in b.get("claims") or []:
-                lines.setdefault(cid, []).append(b.get("text") or "")
+                # câu người xem nghe được: `spoken` (nếu có) thay `text` khi dựng giọng
+                said = b["spoken"] if isinstance(b.get("spoken"), str) and b["spoken"].strip() else b.get("text")
+                lines.setdefault(cid, []).append(said or "")
         for it in items:
             it["lines"] = lines.get(it["id"], [])
     role_text = Path(role_file).read_text(encoding="utf-8")

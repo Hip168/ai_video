@@ -213,14 +213,41 @@ def run_episode(slug: str, root=ROOT, stems: bool = False, short: int | None = N
         stem_music_path=out_dir / "mix.music.wav" if stems and music_path else None)
 
 
+def check_music(slug: str, root=ROOT) -> Path | None:
+    """Kiểm sớm (bước 1 của make-episode.sh) file nhạc của tập có mặt, đúng sha256. Trả đường dẫn, hoặc None nếu
+    tập không dùng nhạc. script.json hỏng thì bỏ qua để bước build báo lỗi của nó."""
+    root = Path(root)
+    try:
+        meta = json.loads((root / "episodes" / slug / "script.json").read_text(encoding="utf-8")).get("meta")
+    except (OSError, ValueError, AttributeError):
+        return None
+    music = meta.get("music") if isinstance(meta, dict) else None
+    if not isinstance(music, dict):
+        return None
+    manifest = root / "assets" / "audio" / "manifest.json"
+    try:
+        return resolve_track(music.get("track", ""), manifest, root / "assets" / "audio" / "files")
+    except MusicError as e:
+        entry = next((t for t in load_manifest(manifest)["tracks"]
+                      if isinstance(t, dict) and t.get("id") == music.get("track")), {})
+        raise MusicError(f"{e}. Nhạc nằm ngoài git (assets/audio/files/ trong .gitignore): worktree mới thì chép "
+                         f"file từ assets/audio/files/ của checkout chính, hoặc tải lại từ "
+                         f"{entry.get('sourceUrl') or 'nguồn ghi trong manifest'}") from None
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="aivideo.mix")
     ap.add_argument("slug")
     ap.add_argument("--root", default=str(ROOT))
     ap.add_argument("--stems", action="store_true")
     ap.add_argument("--short", type=int)
+    ap.add_argument("--check", action="store_true", help="chỉ kiểm file nhạc của tập, không trộn")
     a = ap.parse_args(argv)
     try:
+        if a.check:
+            m = check_music(a.slug, a.root)
+            print(f"nhạc: {m}" if m else "nhạc: tập không dùng nhạc")
+            return 0
         r = run_episode(a.slug, a.root, a.stems, a.short)
     except (ValueError, RuntimeError, OSError, KeyError) as e:
         print(f"lỗi: {e}", file=sys.stderr)

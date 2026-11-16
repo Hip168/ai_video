@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "shorts": [
+    { "part": 1, "total": 6, "from": "b001", "to": "b040", "title": "Tàu Sao Hỏa mất tích năm 1999 vì một lỗi học sinh nào cũng mắc: quên đổi đơn vị", "hook": "Tín hiệu tắt sớm 49 giây",
+      "tiktok": {
+        "title": "Tàu Sao Hỏa mất tích năm 1999 vì một lỗi học sinh nào cũng mắc: quên đổi đơn vị",
+        "intro": "Ngày 23 tháng 9 năm 1999, một con tàu vũ trụ bay vòng ra sau Sao Hỏa, tín hiệu tắt sớm hơn dự kiến 49 giây rồi không bao giờ quay lại. Thủ phạm là một con số ghi theo đơn vị này nhưng được đọc theo đơn vị khác.",
+        "question": "Bạn từng bị trừ điểm vì quên ghi hay quên đổi đơn vị chưa? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #laptrinh"
+      } },
+    { "part": 2, "total": 6, "from": "b041", "to": "b056", "title": "Một con tàu, hai đội ở hai bang: ai lái, ai cầm bản đồ cho tàu khí hậu Sao Hỏa?", "hook": "Một tàu, hai đội, hai bang",
+      "tiktok": {
+        "title": "Một con tàu, hai đội ở hai bang: ai lái, ai cầm bản đồ cho tàu khí hậu Sao Hỏa?",
+        "intro": "Hãng Lockheed Martin ở bang Colorado chế tạo và vận hành con tàu, còn Phòng thí nghiệm Sức đẩy Phản lực của NASA ở bang California lo việc dẫn đường. Giống một người lái xe và một người ngồi bên cầm bản đồ.",
+        "question": "Nếu người lái và người cầm bản đồ hiểu chữ \"một chút\" theo hai cách khác nhau thì sao? Đoán dưới bình luận nhé.",
+        "tags": "#tinhoc #laptrinh"
+      } },
+    { "part": 3, "total": 6, "from": "b057", "to": "b078", "title": "Bánh đà và những cú phụt nhỏ: vì sao tàu Sao Hỏa phải xả động lượng thường xuyên?", "hook": "Phụt nhiều gấp 10 đến 14 lần",
+      "tiktok": {
+        "title": "Bánh đà và những cú phụt nhỏ: vì sao tàu Sao Hỏa phải xả động lượng thường xuyên?",
+        "intro": "Ngoài vũ trụ không có gì để bám, nên tàu xoay mình bằng bánh đà, rồi thỉnh thoảng phụt động cơ nhỏ để xả động lượng. Con tàu này phải xả nhiều gấp 10 đến 14 lần so với đội dẫn đường dự tính.",
+        "question": "Mỗi cú phụt chỉ làm tàu lệch rất ít, vậy cộng dồn suốt chín tháng thì sao? Đoán trước khi xem nhé.",
+        "tags": "#tinhoc #laptrinh"
+      } },
+    { "part": 4, "total": 6, "from": "b079", "to": "b104", "title": "Con số đúng, đơn vị sai: pound-force bị đọc thành niu-tơn mà không ai nhận ra", "hook": "Mỗi cú phụt bị tính yếu 4,45 lần" },
+    { "part": 5, "total": 6, "from": "b105", "to": "b130", "title": "Kế hoạch 226 km, thực tế chỉ khoảng 57 km: phút cuối của tàu khí hậu Sao Hỏa", "hook": "226 km hóa ra chỉ khoảng 57 km" },
+    { "part": 6, "total": 6, "from": "b131", "to": "b153", "title": "Không chỉ lỗi một kỹ sư: NASA nhìn lại và lập trình viên chống lỗi đơn vị ra sao", "hook": "Lỗi của cả một hệ thống" }
+  ]
+}

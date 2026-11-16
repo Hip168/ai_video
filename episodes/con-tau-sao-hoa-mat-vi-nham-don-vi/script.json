@@ -436,7 +436,7 @@
       "type": "compare",
       "props": {
         "titleA": "Niu-tơn (N)",
-        "titleB": "Pound-force (lbf)",
+        "titleB": "lbf",
         "rows": [
           {
             "label": "Đơn vị lực của hệ mét",
@@ -444,7 +444,7 @@
             "b": false
           },
           {
-            "label": "Đơn vị lực của hệ Anh",
+            "label": "Đơn vị lực của hệ Anh (pound-force)",
             "a": false,
             "b": true
           }
@@ -1008,12 +1008,12 @@
           {
             "from": "lai",
             "to": "bd",
-            "label": "đánh lái"
+            "label": "lái"
           },
           {
             "from": "lai",
             "to": "bd",
-            "label": "đánh lái"
+            "label": "lái"
           },
           {
             "from": "lai",
@@ -1322,7 +1322,7 @@
           {
             "from": "pm",
             "to": "tep",
-            "label": "xung lực"
+            "label": "con số"
           },
           {
             "from": "tep",
@@ -2652,7 +2652,7 @@
         "tag": "NASA",
         "pronunciation": "phụ trách khoa học vũ trụ",
         "definition": "Đại ý: con người đôi khi mắc lỗi, và vấn đề không nằm ở lỗi đó",
-        "example": "Mà ở cách tổ chức kỹ thuật cả hệ thống, và các khâu kiểm tra chéo đã không phát hiện ra nó"
+        "example": "Mà ở cách tổ chức kỹ thuật cả hệ thống, và khâu kiểm tra chéo đã bỏ sót nó"
       },
       "holdMs": 0,
       "sfx": null,

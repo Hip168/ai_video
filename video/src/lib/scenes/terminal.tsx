@@ -17,6 +17,52 @@ const WIN_SQUARE = { x: 20, y: 20, w: 800, h: 800 };
 const BAR = 64;
 const TYPE_FPS = 1.1; // ký tự mỗi frame khi gõ lệnh
 
+/**
+ * Chia một dòng (theo ký tự, đếm code point) thành các hàng rộng tối đa `cols` cột, xuống hàng ở dấu cách.
+ * Trả về [đầu, cuối) của từng hàng; dấu cách ở chỗ xuống hàng bị bỏ. Chỉ cắt giữa một token khi token dài hơn cả hàng.
+ */
+export function wrapRanges(text: string, cols: number): Array<[number, number]> {
+  const ch = [...text];
+  const w = Math.max(1, Math.floor(cols));
+  const out: Array<[number, number]> = [];
+  let i = 0;
+  while (i < ch.length) {
+    if (ch.length - i <= w) {
+      out.push([i, ch.length]);
+      break;
+    }
+    let j = -1;
+    for (let k = i + w; k > i; k--) {
+      if (ch[k] === " ") {
+        j = k;
+        break;
+      }
+    }
+    if (j > i) {
+      let e = j;
+      while (e > i && ch[e - 1] === " ") e--;
+      out.push([i, e > i ? e : j]);
+      i = j;
+      while (i < ch.length && ch[i] === " ") i++;
+    } else {
+      out.push([i, i + w]);
+      i += w;
+    }
+  }
+  return out.length > 0 ? out : [[0, 0]];
+}
+
+/** Các hàng của một dòng khi mới gõ được `typed` ký tự: cắt theo điểm xuống hàng của cả dòng. */
+export function typedRows(chars: string[], typed: number, cols: number): string[] {
+  const rs = wrapRanges(chars.join(""), cols);
+  const out: string[] = [];
+  for (const [a, b] of rs) {
+    if (out.length > 0 && typed <= a) break;
+    out.push(chars.slice(a, Math.min(b, typed)).join(""));
+  }
+  return out;
+}
+
 /** Cửa sổ dòng lệnh: mỗi beat thêm một dòng; lệnh được gõ từng ký tự, kết quả hiện nguyên dòng. */
 export const Terminal: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
@@ -32,14 +78,8 @@ export const Terminal: React.FC<SceneProps> = ({ scene }) => {
   const full = lines.map((l) => (l.kind === "cmd" ? `${prompt} ${l.text}` : l.text));
   const { size, charW, cols } = fitMono(full, WIN.w - 100, 40, sq ? 30 : 18);
   const colsOf = (l: LineIn) => Math.max(1, cols - (l.kind === "cmd" ? promptCols : 0));
-  // Khung vuông: dòng dài xuống hàng (hàng sau thụt thẳng chữ hàng đầu) thay vì bị cắt. Khung ngang: một hàng mỗi dòng.
-  const chunk = (text: string, w: number): string[] => {
-    const ch = [...text];
-    const out: string[] = [];
-    for (let k = 0; k < ch.length; k += w) out.push(ch.slice(k, k + w).join(""));
-    return out.length > 0 ? out : [""];
-  };
-  const rowsOf = lines.map((l) => (sq ? chunk(l.text, colsOf(l)).length : 1));
+  // Khung vuông: dòng dài xuống hàng theo từ (hàng sau thụt thẳng chữ hàng đầu) thay vì bị cắt. Khung ngang: một hàng mỗi dòng.
+  const rowsOf = lines.map((l) => (sq ? wrapRanges(l.text, colsOf(l)).length : 1));
   const lineH = Math.min(64, (WIN.h - BAR - 50) / Math.max(1, rowsOf.reduce((a, b) => a + b, 0)));
   if (sq) {
     // Hàng thấp hơn chữ: không đọc được ở khung Short.
@@ -56,7 +96,8 @@ export const Terminal: React.FC<SceneProps> = ({ scene }) => {
     const chars = [...l.text];
     const typed = l.kind === "cmd" ? Math.min(chars.length, Math.floor(t * TYPE_FPS)) : chars.length;
     const text = chars.slice(0, typed).join("");
-    const segs = sq ? chunk(text, colsOf(l)) : [clipLine(text, colsOf(l))];
+    // Điểm xuống hàng tính trên cả dòng, nên chữ đang gõ không nhảy hàng giữa chừng.
+    const segs = sq ? typedRows(chars, typed, colsOf(l)) : [clipLine(text, colsOf(l))];
     const startCol = l.kind === "cmd" ? promptCols : 0;
     cursorAt = { x: x0 + (startCol + [...segs[segs.length - 1]].length) * charW, y: y + (segs.length - 1) * lineH };
     return (

@@ -1,0 +1,17 @@
+{
+  "channel": "Chuyện Của Những Con Bit",
+  "page": "facebook.com/bitstory168",
+  "headline": "Cảm ơn bạn đã xem!",
+  "footer": "Hẹn gặp lại ở tập sau",
+  "line": "Nếu thấy hay, bấm thích, theo dõi trang và chia sẻ cho bạn bè nhé.",
+  "engine": "vieneu",
+  "voice": "Thiện Minh",
+  "speed": 1.0,
+  "theme": "mau-a",
+  "brand": "#0866FF",
+  "frames": 180,
+  "voiceStartFrame": 12,
+  "likePress": 55,
+  "followPress": 85,
+  "sharePress": 115
+}

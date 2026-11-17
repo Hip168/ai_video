@@ -263,8 +263,12 @@ def parse_parts(s: str) -> tuple[int, int]:
     return lo, hi
 
 
-def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) -> Path:
+def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled, endcard: bool = True,
+           append=None) -> Path:
     """Ghi `<out>/tiktok/`: `phan-<k>.mp4`, `phan-<k>.txt`, `manifest.json`.
+
+    Tập từ số `tiktok_endcard.FROM_EPISODE` (D42): mỗi phần nối thêm thẻ kết chữ (không giọng) bằng
+    `append(slug, root, src, dst)` (mặc định `tiktok_endcard.append`); `endcard=False` thì bỏ. Tập trước đó chép như cũ.
 
     Nhãn "Phần i/m" theo dải xuất (i = vị trí trong dải, m = số phần xuất). Trùng nhãn của Short YouTube thì
     `phan-<k>.mp4` là bản sao `<slug>-short-<k>.mp4`, khác thì render lại bằng `render`."""
@@ -279,6 +283,10 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) ->
         if not mp4.is_file():
             raise ShortsError(f"thiếu {mp4}")
     ep_no = episode_number(root, slug)
+    from aivideo import tiktok_endcard
+    if append is None:
+        append = lambda s, r, src, dst: tiktok_endcard.append(s, src, dst, r)  # noqa: E731
+    card = endcard and tiktok_endcard.wanted(ep_no)
     d = out / "tiktok"
     d.mkdir(parents=True, exist_ok=True)
     sel = [{**e, "part": i, "total": hi - lo + 1} for i, e in enumerate(shorts[lo - 1:hi], 1)]
@@ -293,9 +301,13 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled) ->
             if (e["part"], e["total"]) != (shorts[k - 1]["part"], shorts[k - 1]["total"]) \
                     or outro.wanted(slug, root, k):
                 src = render(slug, root, sel, e["part"], work)
-            shutil.copyfile(src, mp4)
+            if card:
+                append(slug, root, src, mp4)
+            else:
+                shutil.copyfile(src, mp4)
             txt.write_text(tiktok_caption(e, ep_no, k == hi), encoding="utf-8")
-            items.append({"part": k, "mp4": mp4.name, "caption": txt.name})
+            items.append({"part": k, "mp4": mp4.name, "caption": txt.name,
+                          **({"endcard": tiktok_endcard.text()} if card else {})})
     finally:
         shutil.rmtree(work, ignore_errors=True)
     (d / "manifest.json").write_text(json.dumps({"slug": slug, "parts": items}, ensure_ascii=False, indent=2) + "\n",
@@ -314,6 +326,7 @@ def main(argv: list[str] | None = None) -> int:
     x = sub.add_parser("export")
     x.add_argument("slug")
     x.add_argument("--parts", default="1-3")
+    x.add_argument("--no-endcard", action="store_true", help="không gắn thẻ kết chữ (D42) dù tập từ số 5")
     for p in (v, c, x):
         p.add_argument("--root", default=str(ROOT))
     a = ap.parse_args(argv)
@@ -334,9 +347,9 @@ def main(argv: list[str] | None = None) -> int:
         if a.cmd == "cut":
             print(f"cắt: {cut(a.slug, a.n, a.root)}")
             return 0
-        print(f"xuất TikTok: {export(a.slug, a.root, a.parts)}")
+        print(f"xuất TikTok: {export(a.slug, a.root, a.parts, endcard=not a.no_endcard)}")
         return 0
-    except (ShortsError, OSError, KeyError, ValueError) as e:
+    except (ShortsError, RuntimeError, OSError, KeyError, ValueError) as e:  # RuntimeError: thẻ kết, đoạn kết
         print(f"lỗi: {e}", file=sys.stderr)
         return 1
 

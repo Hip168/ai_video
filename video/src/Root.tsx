@@ -10,6 +10,7 @@ import { validateTimeline2 } from "./timeline2";
 import { clipRange, Short, SHORT_H, SHORT_W, type ShortProps } from "./Short";
 import { Outro, OUTRO_FRAMES, OUTRO_SIZE, type OutroProps } from "./Outro";
 import { OutroFacebook, FB_OUTRO_FRAMES, type OutroFacebookProps } from "./OutroFacebook";
+import { TiktokEndCard, TT_CARD_FRAMES, TT_CARD_SIZE } from "./TiktokEndCard";
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props }) => {
   let raw: unknown = props.timeline;
@@ -112,6 +113,14 @@ export const Root: React.FC = () => (
         defaultProps={{ layout } as OutroFacebookProps}
       />
     ))}
+    <Composition
+      id="TiktokEndCard"
+      component={TiktokEndCard}
+      durationInFrames={TT_CARD_FRAMES}
+      fps={30}
+      width={TT_CARD_SIZE.w}
+      height={TT_CARD_SIZE.h}
+    />
     <Composition
       id="KitDemo"
       component={KitDemo}

@@ -140,6 +140,8 @@ G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivideo
 ```
 Đoạn kết thích + đăng ký (D38, đề mục 21): tập có `meta.outro: true` thì `make-episode.sh` tự gắn đoạn kết 6 giây vào cuối video dài và vào phần 3, phần 6 của Shorts (ít hơn 6 phần: phần cuối). Lần đầu làm đoạn kết mất khoảng 1 phút (Korva + Remotion), sau đó dùng lại từ `out/outro/`. TikTok không gắn. Tập 1, 2 không có khoá này nên giữ nguyên.
 
+Thẻ kết TikTok (D42, đề mục 33): từ tập 5, `python -m aivideo.shorts export <slug>` tự nối vào cuối mỗi phần TikTok một thẻ chữ 2,5 giây "Xem full tại diu tiu bé @bitstory168" (không giọng, không logo, chỉ nhạc nền nhẹ; viết lái cố ý để TikTok không hạn chế video). Lần đầu render thẻ (`out/tiktok-endcard/`) mất khoảng nửa phút. Không bao giờ ghi tên nền tảng kia bằng chữ thật lên bản TikTok. `--no-endcard` để bỏ thẻ. Short YouTube và bản Facebook không đổi.
+
 Bản Facebook (D41, đề mục 32): từ tập 5, sau khi video dài và Shorts YouTube đã render xong, xuất thêm bản Facebook (page https://www.facebook.com/bitstory168):
 ```bash
 .venv/bin/python -m aivideo.facebook export <slug> --all        # video dài + mọi phần Short có trong out/episodes/<slug>/

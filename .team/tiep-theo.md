@@ -2,6 +2,13 @@
 
 MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 video lên kênh thì DỪNG. Tiết kiệm token: không mở đề mục mới, đề mục 14 tạm dừng. Đội tự đẩy lên GitHub. Chỉ hỏi người dùng ở các điểm dừng trong `autonomy.md`.
 
+## THẺ KẾT TIKTOK (2026-11-17, đề mục 33, D42)
+- Từ tập 5: mỗi phần TikTok (1–3) tự nối thẻ chữ 2,5 s "Xem full tại diu tiu bé @bitstory168" (không giọng, không logo, chỉ nhạc nền nhẹ; viết lái cố ý để tránh TikTok kiểm duyệt). Lệnh xuất như cũ, thẻ tự gắn theo số tập trong `episodes/index.json`:
+  `cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.shorts export <slug>`
+  Kết quả `out/episodes/<slug>/tiktok/phan-1..3.mp4` (+ caption D35 giữ nguyên), tải lên Drive `<nn> <slug>/tiktok/`. Cần `REMOTION_BROWSER_EXECUTABLE=~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell` khi render thẻ lần đầu (cache `out/tiktok-endcard/`).
+- Gắn vào một MP4 có sẵn: `python -m aivideo.tiktok_endcard append <slug> --src <mp4> --out <mp4>`. Bỏ thẻ: `shorts export <slug> --no-endcard`.
+- Tập 1–4 TikTok đã đăng: KHÔNG làm lại. Mẫu xem thử: `out/tiktok-the-ket-mau/`.
+
 ## BẢN FACEBOOK (2026-11-17, đề mục 32, D41)
 - Từ tập mới (tập 5 trở đi): sau khi render video dài và Shorts YouTube, xuất thêm bản Facebook có đoạn kết Facebook (Thích, Theo dõi, Chia sẻ; giọng VieNeu Thiện Minh):
   `cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.facebook export <slug> --all`

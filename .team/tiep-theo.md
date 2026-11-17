@@ -1,4 +1,4 @@
-# Trạng thái hiện tại (cập nhật 2026-11-16), đọc file này trước khi chạy tiếp
+# Trạng thái hiện tại (cập nhật 2026-11-17), đọc file này trước khi chạy tiếp
 
 MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 video lên kênh thì DỪNG. Tiết kiệm token: không mở đề mục mới, đề mục 14 tạm dừng. Đội tự đẩy lên GitHub. Chỉ hỏi người dùng ở các điểm dừng trong `autonomy.md`.
 
@@ -16,10 +16,18 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
   - Short 1–3 ĐÃ ĐĂNG công khai 15/11: 1 nJW8Yy94E0I, 2 hCydIFV2mss, 3 DVUv6wR5YxY (có outro). Tiêu đề sửa theo QC ở PR #90, ledger PR #91.
   - Short 4–6 ĐÃ ĐĂNG công khai 16/11 (cách nhau ~25 phút): 4 Db4aqh6QbOc, 5 xUf9UzFwUmY, 6 -rLoINQVBEI (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link PMxx3oFLU98. Ledger PR #93. Tập 3 đủ 6 Short.
   - CÒN: gắn video liên quan cho Short 1–6 tập 3 (cần cookie, chưa làm).
+  - Dọn 17/11: đã xoá worktree `24-vieneu` + nhánh `25-tap3-giong` (PR #85 đã merge; MP4 tập 3 khớp md5 Drive 03) và `out/shorts-tap3/` (6 Short + 3 TikTok khớp md5 Drive 03). Worktree `28-quy-trinh-kiem` + nhánh 28 (PR #92) đã xoá; `kiemlocal.py` nháp giữ ở nhánh `28-kiemlocal-nhap` (đã push, chưa PR).
   - Đã xoá worktree và nhánh 27-shorts-tap3 (local + remote) sau khi `rclone check` Drive 03 youtube-shorts: 6/6 khớp.
   - Drive 03 đã đủ: youtube-shorts/phan-1..6.mp4, tiktok/phan-1..3 (mp4, txt, bia-phan-k.png). TikTok 1–3 người dùng tự đăng (caption D35 ở out/tiktok-dang/).
   - Caption TikTok tập 1–3 trong out/tiktok-dang/ đã sửa theo D35 (mở bằng #conbit<n>, phần 3 ghi "Các phần còn lại và bản đầy đủ: link ở bio nha.", không nhắc YouTube). Bản caption tập 1–2 trên Drive là bản sinh tự động cũ, khác bản trong out/tiktok-dang/.
-- Tập 4 Mars Climate Orbiter: dựng lại bằng VieNeu (D40), xử lý "pound" (phatam), rồi render/qc/gate3/đăng.
+- Tập 4 `con-tau-sao-hoa-mat-vi-nham-don-vi` (Mars Climate Orbiter): ĐÃ ĐĂNG 17/11 https://youtu.be/rOo1PJzsW-0 (VieNeu Thiện Minh, PR #94, gate3 mã 0), Drive 04 (rclone check 18/18 khớp).
+  - Short 1–3 ĐÃ ĐĂNG công khai 17/11 (cách nhau ~25 phút): 1 s9dh9Z4tWs0 (bản render lại), 2 PQhxSa5Nh7Q, 3 3n8ZVOwYkB4 (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link rOo1PJzsW-0. Ledger PR #96.
+  - Short 4–6 CHỜ NGÀY SAU, cách nhau 20–30 phút. MP4 ở worktree `29-tap4-vieneu` (đã giữ lại) và `out/tap4/`. KHÔNG xoá worktree 29 và `out/tap4/` trước khi đăng xong. Lệnh (từng phần):
+    `cd .worktrees/29-tap4-vieneu/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload con-tau-sao-hoa-mat-vi-nham-don-vi --short <4|5|6> --privacy public`
+    Đăng xong: đọc lại qua API, ghi ledger bằng PR đường nhanh, rồi xoá worktree 29 + nhánh và `out/tap4/` (đã có trên Drive 04).
+  - CÒN: gắn video liên quan cho Short 1–3 tập 4 (cần cookie, chưa làm).
+  - 2 MINOR qc lặp người dùng đã chấp nhận 17/11 (ghi sổ như tập 3): b022 lời đọc "cân Anh lực" nhưng hình ghi "pound-force"; b134 chữ "con" đầu câu đọc nhẹ. ÁP DỤNG TỪ TẬP SAU: trên hình ghi "pound-force (cân Anh lực)" (thuật ngữ Anh kèm nghĩa Việt khớp lời đọc); nghe lại âm đầu câu sau khi dựng giọng.
+  - TikTok 1–3 tập 4: file + caption + ảnh bìa đã lên Drive 04/tiktok, người dùng tự đăng (D39).
 - Việc DEV tồn: (a) outro dọc: tên kênh lấn dải phải ~50 px, thu ≤ 900 px trước Shorts tập 3; (b) `tiktok_caption()` trong audio/src/aivideo/shorts.py theo mẫu mới ở out/tiktok-dang/; (c) gate3 không băm lại handoff/qc.json so với findings_sha256; (d) prepare-factcheck --with-lines lấy `text` thay vì `spoken`; (e) phatam pick cứng engine korva; (f) Remotion mặc định chết "Target closed" — cần REMOTION_BROWSER_EXECUTABLE=~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell (cả aivideo.outro.render_video); (g) script.json tập 3 meta.voice còn ghi hoang_nam/1.25; (h) zsh không tách từ `$G` trong PLAYBOOK.
 - 5 MINOR tập 3 người dùng đã chấp nhận (phụ đề nhanh, s75 đứng 6 s, s21b nhãn đè, phụ đề ngắt "Ariane | 5", chip Rust nhỏ): sửa cho tập sau.
 - TikTok tập 1–2: caption kiểu mới ở out/tiktok-dang/, người dùng tự đăng.

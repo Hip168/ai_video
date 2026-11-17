@@ -232,3 +232,11 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Gói `vieneu` CHƯA cài trong `audio/.venv`: các mẫu được tạo ở một venv tạm, nay đã xoá. Cài qua extra đã ghim (`vieneu==3.8.3`) và kiểm không xung đột với korvatts. Nếu không cài được thì DEV báo lại. Kiểm mã giọng `thien_minh` có trong `VOICES['vieneu']` không; không có thì thêm vào.
 - Đoạn outro (D38) dựng lại bằng giọng mới cho thống nhất.
 - Mã giọng trong thư viện là "Thiện Minh" (tên hiển thị); `thien_minh` chỉ là tên file mẫu, không thêm bí danh.
+
+## D41. Bản Facebook có đoạn kết riêng (người dùng chốt, 2026-11-17)
+- Từ tập mới (tập 5 trở đi), mỗi video dài và mỗi phần Short xuất thêm một bản cho page Facebook "Chuyện Của Những Con Bit" (facebook.com/bitstory168).
+- Đoạn kết Facebook giữ bố cục, nền, ảnh kênh, độ dài 6 giây và giọng VieNeu Thiện Minh của đoạn kết YouTube (D38, D40). Lời: "Nếu thấy hay, bấm thích, theo dõi trang và chia sẻ cho bạn bè nhé." Ba nút kiểu Facebook: "Thích" (ngón cái), "Theo dõi" (người + dấu cộng, bấm thành "Đang theo dõi"), "Chia sẻ" (mũi tên), màu xanh Facebook #0866FF. Dưới tên kênh ghi facebook.com/bitstory168. Không có "Đăng ký" hay chuông.
+- Mọi phần Short bản Facebook đều gắn đoạn kết (mỗi bài trên page đứng riêng), khác YouTube chỉ phần 3 và 6.
+- Cách làm: không render lại tập. Lấy MP4 YouTube, bỏ đoạn kết YouTube ở cuối, nối đoạn kết Facebook bằng FFmpeg (chép luồng hình, nén lại tiếng AAC). Lệnh `python -m aivideo.facebook export <slug> --all`, kết quả ở `out/facebook/<slug>/`.
+- Bản YouTube không đổi: `Outro.tsx`, `outro.json` và khoá cache `out/outro/` giữ nguyên; đoạn kết Facebook là composition riêng `OutroFacebookWide/Vertical`, cache riêng `out/outro-facebook/`.
+- Đội chỉ xuất file và tải lên Drive; người dùng tự đăng lên Facebook.

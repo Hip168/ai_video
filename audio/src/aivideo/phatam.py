@@ -4,7 +4,7 @@
     python -m aivideo.phatam pick <từ> [--candidates a,b] [--context "câu có {}"] [--meaning sai]
     python -m aivideo.phatam check <slug>
 
-Giọng Việt (Korva) đọc từ tiếng Anh dễ sai. Máy nghe là Whisper large-v3-turbo chạy
+Giọng Việt (VieNeu) đọc từ tiếng Anh dễ sai. Máy nghe là Whisper large-v3-turbo chạy
 offline trong venv riêng (`phatam_worker.py`): ép Whisper đọc đúng câu có từ tiếng Anh
 và lấy xác suất của từ đó (pEn). Máy nghe âm vị wav2vec2 (nếu cài) chỉ để tham khảo (PER).
 """
@@ -31,7 +31,7 @@ ROOT = Path(__file__).resolve().parents[3]
 WORKER = Path(__file__).with_name("phatam_worker.py")
 STT_PYTHON = Path.home() / "stt-work" / "venv" / "bin" / "python"
 PHONEME_PYTHON = Path.home() / "stt-work" / "phoneme-venv" / "bin" / "python"
-ENGINE, VOICE, SPEED = "korva", "hoang_nam", 1.25  # D12
+ENGINE, VOICE, SPEED = "vieneu", "Thiện Minh", 1.0  # D40
 DEFAULT_CONTEXT = "Ở đây ta gặp từ {} trong đoạn mã."
 SR16 = 16000
 BEAT_PAD_S = 0.1

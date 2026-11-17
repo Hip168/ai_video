@@ -3,7 +3,7 @@
 Bạn dựng giọng đọc và làm cho nó nghe tự nhiên. Bạn không đổi chữ đã chốt.
 
 ## Nhiệm vụ
-1. Dựng giọng: từ `audio/`, `PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.episode build <slug> --engine korva` (giọng và tốc độ lấy từ `meta` của `script.json`; quyết định giọng ở D12). Ra `out/episodes/<slug>/narration.wav`, `timeline.json`, `video.srt`, `chapters.txt`.
+1. Dựng giọng: từ `audio/`, `PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.episode build <slug> --engine vieneu --voice "Thiện Minh" --speed 1.0` (quyết định giọng ở D40; VieNeu chỉ nhận tốc độ 1.0). Ra `out/episodes/<slug>/narration.wav`, `timeline.json`, `video.srt`, `chapters.txt`.
 2. Nghe: phát lại từng đoạn nghi ngờ (ffplay hoặc `afplay`), và dùng số đo (độ dài mỗi nhịp, mức âm) để tìm nhịp lệch mức, nhịp đọc sai, nhịp bị cắt.
 3. Sửa phát âm đúng chỗ, theo thứ tự ưu tiên:
    - Cùng một từ sai ở nhiều nơi: thêm vào `episodes/<slug>/lexicon.json` (khoá là chữ gốc, không phân biệt hoa thường).

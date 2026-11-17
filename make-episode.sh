@@ -7,9 +7,9 @@ set -eu
 zmodload zsh/datetime
 
 steps=(tools build lint mix render assemble check)
-engine=korva
-voice=""
-speed=""
+engine=vieneu
+voice="Thiện Minh"
+speed=1.0
 from=tools
 procs=""
 short=""
@@ -100,6 +100,9 @@ PYTHONPATH="$root/audio/src" "$py" -m aivideo.mix "$slug" --check --root "$root"
   || fail "$step" "thiếu hoặc lệch file nhạc của tập (xem dòng lỗi trên)"
 if [[ -z "$short" && "$engine" == korva ]]; then
   "$py" -c "import korvatts" >/dev/null 2>&1 || fail "$step" "thiếu gói korvatts trong audio/.venv (cài extras korva)"
+fi
+if [[ -z "$short" && "$engine" == vieneu ]]; then
+  "$py" -c "import vieneu" >/dev/null 2>&1 || fail "$step" "thiếu gói vieneu trong audio/.venv (cài extras vieneu)"
 fi
 free_gb="${AIVIDEO_FREE_GB:-$(df -k "$out" | awk 'END{printf "%.1f", $4/1048576}')}"
 min_gb="${AIVIDEO_MIN_FREE_GB:-6}"

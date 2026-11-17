@@ -3,7 +3,7 @@
 Đường dẫn tính từ gốc repo. `<out>` = `out/episodes/<slug>`. Môi trường: `npm ci` trong `video/`, `audio/.venv` (Python 3.12, extras `dev`), `PYTHONPATH=src` khi chạy Python từ `audio/`.
 
 ## 1. `./make-episode.sh <slug> [--engine fake|korva|vieneu] [--voice V] [--speed S] [--from <bước>] [--procs N]`
-Chỉ Mac, zsh. `--engine` mặc định `korva`. Các bước (in `== Bước i/7: <tên> ==`), tên dùng cho `--from`:
+Chỉ Mac, zsh. `--engine` mặc định `vieneu`, `--voice` mặc định `Thiện Minh`, `--speed` mặc định `1.0` (D40). Các bước (in `== Bước i/7: <tên> ==`), tên dùng cho `--from`:
 1. `tools` kiểm công cụ, trình duyệt (D23), đĩa
 2. `build` `python -m aivideo.episode build`
 3. `lint` `npm run lint:episode -- <slug>`

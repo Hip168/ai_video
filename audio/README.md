@@ -172,7 +172,7 @@ cd audio && export PYTHONPATH=$PWD/src
 ```
 
 - `scan`: từ trong `text`/`spoken` có chữ Latin không phải âm tiết tiếng Việt (bỏ viết tắt phổ thông như CPU, DNS), cộng các khoá lexicon có trong lời. Cách đọc của mỗi lần xuất hiện lấy từ lexicon hoặc so `text` với `spoken`. `spoken` thay bằng nghĩa tiếng Việt (vd "sai") thì không chấm.
-- `pick`: ứng viên gồm phiên âm tự sinh từ IPA của espeak-ng (thô, chỉ để gợi ý), ứng viên của bạn, chữ tiếng Anh gốc và nghĩa tiếng Việt (`--meaning`, chỉ để nghe so, không bao giờ được chọn). Mỗi ứng viên được đọc trong câu `--context` bằng Korva, giọng `hoang_nam`, tốc độ 1,25 (D12), cắt lặng như lúc dựng tập. Mã thoát 0 khi có ứng viên ĐẠT, 1 khi không: khi đó thay từ bằng nghĩa tiếng Việt trong lời, chữ tiếng Anh chỉ hiện trên màn hình.
+- `pick`: ứng viên gồm phiên âm tự sinh từ IPA của espeak-ng (thô, chỉ để gợi ý), ứng viên của bạn, chữ tiếng Anh gốc và nghĩa tiếng Việt (`--meaning`, chỉ để nghe so, không bao giờ được chọn). Mỗi ứng viên được đọc trong câu `--context` bằng VieNeu, giọng `Thiện Minh`, tốc độ 1,0 (D40), cắt lặng như lúc dựng tập. Mã thoát 0 khi có ứng viên ĐẠT, 1 khi không: khi đó thay từ bằng nghĩa tiếng Việt trong lời, chữ tiếng Anh chỉ hiện trên màn hình.
 - `check`: với mỗi lần đọc từ tiếng Anh, cắt nhịp đó trong `out/episodes/<slug>/narration.wav` theo `timeline.json` rồi chấm như `pick`. Cách đọc không xác định được cũng tính trượt.
 - Lệnh cố định của `ledger run --stage phat-am` là `python -m aivideo.phatam check <slug>`; `gate3` đòi mục `DAT` trên đúng bản kịch bản khi `scan` thấy lời có đọc từ tiếng Anh.
 

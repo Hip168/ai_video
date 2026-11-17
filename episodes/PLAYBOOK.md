@@ -73,7 +73,7 @@ Lệnh → [1] research → [2] CỔNG 1 (fact-checker) → [3] viết → [4] b
 | 5 | `fact-2` | | fact-checker (lô riêng, có `lines`) | `prepare-factcheck --with-lines`, `verdict`, `ledger add --pair scriptwriter/fact-checker` | `line:`: scriptwriter; `claim:`: researcher (+ Cổng 1 lại) |
 | 6 | `cong2` | | CỔNG 2 | `gate2` (tự ghi hash vào sổ) | scriptwriter / researcher |
 | 7 | `canh` | scene-director | lint | `episode build --engine fake`, `ledger run --stage lint` | scene-director |
-| 8 | `giong` | voice-producer | `phatam check` | `episode build --engine korva`, lại `ledger run --stage lint`, `ledger run --stage phat-am` | voice-producer (từ trượt: đề xuất `spoken` cho scriptwriter) |
+| 8 | `giong` | voice-producer | `phatam check` | `episode build --engine vieneu`, lại `ledger run --stage lint`, `ledger run --stage phat-am` | voice-producer (từ trượt: đề xuất `spoken` cho scriptwriter) |
 | 9 | `ky-thuat` | editor | script đo | `ledger run --stage ky-thuat` (sau `make-episode.sh`) | thiếu LUFS: voice-producer; lỗi mã: BỊ CHẶN báo người dùng |
 | 10 | `qc` | | qc | `verdict`, `ledger add --stage qc --pair editor/qc --artifact <MP4>` | theo `owner` của phát hiện |
 | 11 | `dong-goi` | packager | | `ledger add --stage dong-goi --role packager` | |
@@ -138,7 +138,7 @@ G ledger run <slug> --stage phat-am     # lệnh cố định: python -m aivideo
 ../make-episode.sh <slug>                # editor chạy; thuộc đề mục 10
 G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivideo.assemble verify <slug>
 ```
-Đoạn kết thích + đăng ký (D38, đề mục 21): tập có `meta.outro: true` thì `make-episode.sh` tự gắn đoạn kết 6 giây vào cuối video dài và vào phần 3, phần 6 của Shorts (ít hơn 6 phần: phần cuối). Lần đầu làm đoạn kết mất khoảng 1 phút (Korva + Remotion), sau đó dùng lại từ `out/outro/`. TikTok không gắn. Tập 1, 2 không có khoá này nên giữ nguyên.
+Đoạn kết thích + đăng ký (D38, đề mục 21): tập có `meta.outro: true` thì `make-episode.sh` tự gắn đoạn kết 6 giây vào cuối video dài và vào phần 3, phần 6 của Shorts (ít hơn 6 phần: phần cuối). Lần đầu làm đoạn kết mất khoảng 1 phút (VieNeu + Remotion), sau đó dùng lại từ `out/outro/`. TikTok không gắn. Tập 1, 2 không có khoá này nên giữ nguyên.
 
 `ledger run` không nhận lệnh tuỳ ý: lệnh nằm trong mã theo `--stage`, phán quyết từ mã thoát, kèm sha256 đầu ra JSON. Lỗi thì gọi `editor` chẩn đoán và chạy lại bước hỏng, rồi chạy lại lệnh trên cho tới khi có mục `DAT`. Thiếu LUFS: không nới ngưỡng; `editor` trả `voice-producer` tìm nhịp lệch mức để đọc lại; vẫn lỗi sau 2 lần: `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
 

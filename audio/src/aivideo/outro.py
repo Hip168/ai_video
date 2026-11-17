@@ -3,7 +3,7 @@
     python -m aivideo.outro ensure <slug> [--short <n>]
 
 Làm một lần cho mọi tập, lưu ở `out/outro/<khoá>/`: `wide.mp4`, `vertical.mp4` (hình câm, Remotion)
-và `mix.wav` (lời đọc Korva + nhạc nền của tập, -16 LUFS). Khoá là sha256 của mọi đầu vào, đổi gì thì làm lại.
+và `mix.wav` (lời đọc theo `assets/brand/outro.json` + nhạc nền của tập, -16 LUFS). Khoá là sha256 của mọi đầu vào, đổi gì thì làm lại.
 `assemble concat/mux` nối hình và tiếng này vào sau tập (hoặc phần Short) khi tập bật `meta.outro`.
 """
 from __future__ import annotations

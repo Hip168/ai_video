@@ -29,9 +29,9 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
   - Caption TikTok tập 1–3 trong out/tiktok-dang/ đã sửa theo D35 (mở bằng #conbit<n>, phần 3 ghi "Các phần còn lại và bản đầy đủ: link ở bio nha.", không nhắc YouTube). Bản caption tập 1–2 trên Drive là bản sinh tự động cũ, khác bản trong out/tiktok-dang/.
 - Tập 4 `con-tau-sao-hoa-mat-vi-nham-don-vi` (Mars Climate Orbiter): ĐÃ ĐĂNG 17/11 https://youtu.be/rOo1PJzsW-0 (VieNeu Thiện Minh, PR #94, gate3 mã 0), Drive 04 (rclone check 18/18 khớp).
   - Short 1–3 ĐÃ ĐĂNG công khai 17/11 (cách nhau ~25 phút): 1 s9dh9Z4tWs0 (bản render lại), 2 PQhxSa5Nh7Q, 3 3n8ZVOwYkB4 (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link rOo1PJzsW-0. Ledger PR #96.
-  - Short 4–6 CHỜ NGÀY SAU, cách nhau 20–30 phút. MP4 ở worktree `29-tap4-vieneu` (đã giữ lại) và `out/tap4/`. KHÔNG xoá worktree 29 và `out/tap4/` trước khi đăng xong. Lệnh (từng phần):
-    `cd .worktrees/29-tap4-vieneu/audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.upload con-tau-sao-hoa-mat-vi-nham-don-vi --short <4|5|6> --privacy public`
-    Đăng xong: đọc lại qua API, ghi ledger bằng PR đường nhanh, rồi xoá worktree 29 + nhánh và `out/tap4/` (đã có trên Drive 04).
+  - Short 4–6 ĐÃ ĐĂNG công khai 17/11 (cách nhau ~26 phút): 4 utt980GAI_Q, 5 AaPR37fM9wA, 6 puKEjXndNGo (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link rOo1PJzsW-0. Ledger PR #98. Tập 4 đủ 6 Short.
+  - Dọn 17/11: md5 `out/tap4/` khớp Drive 04 (10/10: video dài, 6 Short, 3 TikTok); đã xoá worktree `29-tap4-vieneu` + nhánh (local, remote) và `out/tap4/`. `out/facebook/` giữ lại để đăng page.
+  - CÒN: gắn video liên quan cho Short 4–6 tập 4 (cần cookie, chưa làm).
   - CÒN: gắn video liên quan cho Short 1–3 tập 4 (cần cookie, chưa làm).
   - 2 MINOR qc lặp người dùng đã chấp nhận 17/11 (ghi sổ như tập 3): b022 lời đọc "cân Anh lực" nhưng hình ghi "pound-force"; b134 chữ "con" đầu câu đọc nhẹ. ÁP DỤNG TỪ TẬP SAU: trên hình ghi "pound-force (cân Anh lực)" (thuật ngữ Anh kèm nghĩa Việt khớp lời đọc); nghe lại âm đầu câu sau khi dựng giọng.
   - TikTok 1–3 tập 4: file + caption + ảnh bìa đã lên Drive 04/tiktok, người dùng tự đăng (D39).

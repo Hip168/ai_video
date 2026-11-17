@@ -18,11 +18,11 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - MCP `mac-control` đã đăng ký cho dự án. Bộ phân quyền chặn thao tác trên trang đồng ý OAuth.
 
 ## MỞ LẠI (người dùng, 2026-11-15) — trạng thái cuối ngày
-- Tập 2: đủ 6 Short (4 Cn3M_p-Qocw, 5 SyMgHdJpsy0, 6 OS1AeT5_bGE có outro). Video liên quan đã gắn Short 1–5 cả hai tập; Short 6 (OS1AeT5_bGE) người dùng tự gắn.
+- Tập 2: đủ 6 Short (4 Cn3M_p-Qocw, 5 SyMgHdJpsy0, 6 OS1AeT5_bGE có outro). Video liên quan đã gắn Short 1–5 cả hai tập; Short 6 (OS1AeT5_bGE) người dùng tự gắn; kiểm 17/11: đúng 4lccNqZROTs.
 - Tập 3 `khi-may-tinh-dem-qua-gioi-han`: ĐÃ ĐĂNG https://youtu.be/PMxx3oFLU98 (VieNeu Thiện Minh, PR #85), Drive 03.
   - Short 1–3 ĐÃ ĐĂNG công khai 15/11: 1 nJW8Yy94E0I, 2 hCydIFV2mss, 3 DVUv6wR5YxY (có outro). Tiêu đề sửa theo QC ở PR #90, ledger PR #91.
   - Short 4–6 ĐÃ ĐĂNG công khai 16/11 (cách nhau ~25 phút): 4 Db4aqh6QbOc, 5 xUf9UzFwUmY, 6 -rLoINQVBEI (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link PMxx3oFLU98. Ledger PR #93. Tập 3 đủ 6 Short.
-  - CÒN: gắn video liên quan cho Short 1–6 tập 3 (cần cookie, chưa làm).
+  - Video liên quan Short 1–6 tập 3: kiểm 17/11 trong Studio, cả 6 đã gắn đúng PMxx3oFLU98 (để nguyên).
   - Dọn 17/11: đã xoá worktree `24-vieneu` + nhánh `25-tap3-giong` (PR #85 đã merge; MP4 tập 3 khớp md5 Drive 03) và `out/shorts-tap3/` (6 Short + 3 TikTok khớp md5 Drive 03). Worktree `28-quy-trinh-kiem` + nhánh 28 (PR #92) đã xoá; `kiemlocal.py` nháp giữ ở nhánh `28-kiemlocal-nhap` (đã push, chưa PR).
   - Đã xoá worktree và nhánh 27-shorts-tap3 (local + remote) sau khi `rclone check` Drive 03 youtube-shorts: 6/6 khớp.
   - Drive 03 đã đủ: youtube-shorts/phan-1..6.mp4, tiktok/phan-1..3 (mp4, txt, bia-phan-k.png). TikTok 1–3 người dùng tự đăng (caption D35 ở out/tiktok-dang/).
@@ -31,8 +31,7 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
   - Short 1–3 ĐÃ ĐĂNG công khai 17/11 (cách nhau ~25 phút): 1 s9dh9Z4tWs0 (bản render lại), 2 PQhxSa5Nh7Q, 3 3n8ZVOwYkB4 (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link rOo1PJzsW-0. Ledger PR #96.
   - Short 4–6 ĐÃ ĐĂNG công khai 17/11 (cách nhau ~26 phút): 4 utt980GAI_Q, 5 AaPR37fM9wA, 6 puKEjXndNGo (có outro). Đọc lại qua API: public, processed, tiêu đề đúng shorts.json, mô tả có link rOo1PJzsW-0. Ledger PR #98. Tập 4 đủ 6 Short.
   - Dọn 17/11: md5 `out/tap4/` khớp Drive 04 (10/10: video dài, 6 Short, 3 TikTok); đã xoá worktree `29-tap4-vieneu` + nhánh (local, remote) và `out/tap4/`. `out/facebook/` giữ lại để đăng page.
-  - CÒN: gắn video liên quan cho Short 4–6 tập 4 (cần cookie, chưa làm).
-  - CÒN: gắn video liên quan cho Short 1–3 tập 4 (cần cookie, chưa làm).
+  - Video liên quan Short 1–6 tập 4: ĐÃ GẮN 17/11 → rOo1PJzsW-0 (Playwright headless, cookie trong bộ nhớ, đã xoá cookie sau việc); mở lại Studio xác nhận cả 6 đúng.
   - 2 MINOR qc lặp người dùng đã chấp nhận 17/11 (ghi sổ như tập 3): b022 lời đọc "cân Anh lực" nhưng hình ghi "pound-force"; b134 chữ "con" đầu câu đọc nhẹ. ÁP DỤNG TỪ TẬP SAU: trên hình ghi "pound-force (cân Anh lực)" (thuật ngữ Anh kèm nghĩa Việt khớp lời đọc); nghe lại âm đầu câu sau khi dựng giọng.
   - TikTok 1–3 tập 4: file + caption + ảnh bìa đã lên Drive 04/tiktok, người dùng tự đăng (D39).
 - Việc DEV tồn: (a) outro dọc: tên kênh lấn dải phải ~50 px, thu ≤ 900 px trước Shorts tập 3; (b) `tiktok_caption()` trong audio/src/aivideo/shorts.py theo mẫu mới ở out/tiktok-dang/; (c) gate3 không băm lại handoff/qc.json so với findings_sha256; (d) prepare-factcheck --with-lines lấy `text` thay vì `spoken`; (e) phatam pick cứng engine korva; (f) Remotion mặc định chết "Target closed" — cần REMOTION_BROWSER_EXECUTABLE=~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell (cả aivideo.outro.render_video); (g) script.json tập 3 meta.voice còn ghi hoang_nam/1.25; (h) zsh không tách từ `$G` trong PLAYBOOK.

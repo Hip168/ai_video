@@ -240,3 +240,15 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Cách làm: không render lại tập. Lấy MP4 YouTube, bỏ đoạn kết YouTube ở cuối, nối đoạn kết Facebook bằng FFmpeg (chép luồng hình, nén lại tiếng AAC). Lệnh `python -m aivideo.facebook export <slug> --all`, kết quả ở `out/facebook/<slug>/`.
 - Bản YouTube không đổi: `Outro.tsx`, `outro.json` và khoá cache `out/outro/` giữ nguyên; đoạn kết Facebook là composition riêng `OutroFacebookWide/Vertical`, cache riêng `out/outro-facebook/`.
 - Đội chỉ xuất file và tải lên Drive; người dùng tự đăng lên Facebook.
+
+## D42. Bản TikTok có thẻ kết chữ "Xem full tại diu tiu bé @bitstory168" (người dùng chốt, 2026-11-17)
+- Từ tập 5 trở đi, mỗi phần TikTok (phần 1–3) kết thúc bằng một thẻ chỉ có chữ, ghi đúng nguyên văn: `Xem full tại diu tiu bé @bitstory168`. Tập 1–4 đã đăng TikTok thì không làm lại.
+- Tên nền tảng viết lái thành "diu tiu bé" là CỐ Ý: người dùng muốn tránh TikTok kiểm duyệt, bắt duyệt lại hay hạn chế phân phối video khi thấy tên một nền tảng khác. Vì vậy:
+  - Không viết tên nền tảng đó bằng chữ thật ở bất cứ đâu trong file TikTok (hình, phụ đề, metadata). Lệnh gắn thẻ xoá toàn bộ metadata của nguồn.
+  - Không logo, không biểu tượng nút phát, không màu đỏ đặc trưng của nền tảng đó.
+  - Không đọc thành tiếng: thẻ không có giọng, không thêm track tiếng mới; tiếng thẻ chỉ là nhạc nền nhẹ của tập (mức `gainDb` như dưới lời đọc, mờ vào/mờ ra), tập không có nhạc thì im.
+- Thẻ dài 2,5 giây (75 frame), nền và phông của kênh (chủ đề `mau-a` như đoạn kết D38), chữ trong hộp an toàn x 48–888, y 220–1400 (chừa dải nút bên phải và dải chữ/nhạc TikTok phủ ở đáy).
+- Cách làm: thẻ riêng nối vào cuối, không phủ chữ lên vài giây cuối của phần. Lý do: nối thì hình phần chính chép nguyên luồng (không nén lại), thẻ render một lần rồi cache ở `out/tiktok-endcard/`, giống D41; phủ chữ thì phải nén lại toàn bộ hình mỗi phần và chữ đè lên cảnh/phụ đề cuối.
+- Lệnh: `python -m aivideo.shorts export <slug>` tự gắn cho tập số ≥ 5 (số theo `episodes/index.json`); `--no-endcard` để bỏ. Gắn vào một MP4 bất kỳ: `python -m aivideo.tiktok_endcard append <slug> --src <mp4> --out <mp4>`.
+- Thay đổi so với D35, D38: D35 (caption) vẫn giữ nguyên: caption không ghi URL, không nhắc tên nền tảng kia, phần cuối vẫn "link ở bio". D42 chỉ thêm lời nhắc trong HÌNH ở cuối video, và cũng viết lái nên không trái tinh thần D35. Câu "Bản TikTok tạm thời KHÔNG gắn" của D38 vẫn đúng với đoạn kết thích/đăng ký; bản TikTok gắn thẻ D42 thay vào chỗ đó.
+- Short YouTube, video dài và bản Facebook (D41) không đổi.

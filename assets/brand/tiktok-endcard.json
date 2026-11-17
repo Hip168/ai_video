@@ -1,0 +1,9 @@
+{
+  "text": "Xem full tại diu tiu bé @bitstory168",
+  "lines": ["Xem full tại", "diu tiu bé", "@bitstory168"],
+  "theme": "mau-a",
+  "frames": 75,
+  "musicFadeInS": 0.3,
+  "musicFadeOutS": 1.0,
+  "safe": { "x0": 48, "x1": 888, "y0": 220, "y1": 1400 }
+}

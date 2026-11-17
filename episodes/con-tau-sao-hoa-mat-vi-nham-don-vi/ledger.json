@@ -915,6 +915,34 @@
       "unresolvedSevere": null,
       "prevHash": "0dd4d638ebb062740d5e2354240408bc72a5543da72110f6b55cc5b388108097",
       "entryHash": "6a86551dd9a8090b4488d69ff083e100b0d82cf337a0fc9e61af254923749fa1"
+    },
+    {
+      "seq": 29,
+      "ts": "2026-11-17T01:53:49Z",
+      "stage": "qc",
+      "role": "sep-tong",
+      "pair": "editor/qc",
+      "round": 1,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "DAT",
+      "scriptHash": "a15c3e4e170dbebbdbb05b71eeba01429780edd6544674bcac8325cf4c2f3ecf",
+      "claimsHash": null,
+      "artifactHash": "1e9d6910016e20a3811fc3e37fabee67feb3b60fa8cfbc4151ad2bd63066fe9a",
+      "findingsHash": "a2fe2a5ba14f763a0e537f9c3a7ed64daecb74144ecc8de2ea35a7cde3fc5e44",
+      "findingKeys": [
+        "dc1112a1b999",
+        "3541085cf191"
+      ],
+      "returnTo": null,
+      "escalate": false,
+      "note": "người dùng chấp nhận 2 MINOR lặp 2026-11-17 (b022 cân Anh lực/pound-force, b134 chữ con đầu câu nhẹ); evidence qc vòng 2 đầy đủ 71 khung",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "6a86551dd9a8090b4488d69ff083e100b0d82cf337a0fc9e61af254923749fa1",
+      "entryHash": "ae55fac577a9e393e1a465a8b2ca6ae6fe0d209ec74957042a67c09eeaba0556"
     }
   ]
 }

@@ -2,6 +2,13 @@
 
 MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 video lên kênh thì DỪNG. Tiết kiệm token: không mở đề mục mới, đề mục 14 tạm dừng. Đội tự đẩy lên GitHub. Chỉ hỏi người dùng ở các điểm dừng trong `autonomy.md`.
 
+## BẢN FACEBOOK (2026-11-17, đề mục 32, D41)
+- Từ tập mới (tập 5 trở đi): sau khi render video dài và Shorts YouTube, xuất thêm bản Facebook có đoạn kết Facebook (Thích, Theo dõi, Chia sẻ; giọng VieNeu Thiện Minh):
+  `cd audio && PYTHONPATH=$PWD/src .venv/bin/python -m aivideo.facebook export <slug> --all`
+  Kết quả ở `out/facebook/<slug>/` (video dài + mọi phần Short, phần nào cũng gắn). Tải lên Drive `<nn> <slug>/facebook/`. Người dùng tự đăng lên page facebook.com/bitstory168.
+- Tập 3, 4 đã đăng Facebook bằng bản YouTube: không bắt buộc làm lại. Muốn làm thì dùng `--short <n> --src <mp4>`.
+- Mẫu xem thử: `out/facebook-outro-mau/` (ngang và dọc).
+
 ## Đã vào main
 Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền đều đã xong:
 - `.team/kenh.json`: kênh Dao Le, `UC1aPohYcigcmBGPl7OlQaEw`, `@DaoLe-e4g`, đã xác minh số điện thoại.

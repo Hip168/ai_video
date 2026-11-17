@@ -9,6 +9,7 @@ import { loadMonoFonts } from "./lib/fonts";
 import { validateTimeline2 } from "./timeline2";
 import { clipRange, Short, SHORT_H, SHORT_W, type ShortProps } from "./Short";
 import { Outro, OUTRO_FRAMES, OUTRO_SIZE, type OutroProps } from "./Outro";
+import { OutroFacebook, FB_OUTRO_FRAMES, type OutroFacebookProps } from "./OutroFacebook";
 
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = async ({ props }) => {
   let raw: unknown = props.timeline;
@@ -97,6 +98,18 @@ export const Root: React.FC = () => (
         width={OUTRO_SIZE[layout].w}
         height={OUTRO_SIZE[layout].h}
         defaultProps={{ layout } as OutroProps}
+      />
+    ))}
+    {(["wide", "vertical"] as const).map((layout) => (
+      <Composition
+        key={`fb-${layout}`}
+        id={layout === "wide" ? "OutroFacebookWide" : "OutroFacebookVertical"}
+        component={OutroFacebook}
+        durationInFrames={FB_OUTRO_FRAMES}
+        fps={30}
+        width={OUTRO_SIZE[layout].w}
+        height={OUTRO_SIZE[layout].h}
+        defaultProps={{ layout } as OutroFacebookProps}
       />
     ))}
     <Composition

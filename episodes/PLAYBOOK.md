@@ -140,6 +140,13 @@ G ledger run <slug> --stage ky-thuat    # lệnh cố định: python -m aivideo
 ```
 Đoạn kết thích + đăng ký (D38, đề mục 21): tập có `meta.outro: true` thì `make-episode.sh` tự gắn đoạn kết 6 giây vào cuối video dài và vào phần 3, phần 6 của Shorts (ít hơn 6 phần: phần cuối). Lần đầu làm đoạn kết mất khoảng 1 phút (Korva + Remotion), sau đó dùng lại từ `out/outro/`. TikTok không gắn. Tập 1, 2 không có khoá này nên giữ nguyên.
 
+Bản Facebook (D41, đề mục 32): từ tập 5, sau khi video dài và Shorts YouTube đã render xong, xuất thêm bản Facebook (page https://www.facebook.com/bitstory168):
+```bash
+.venv/bin/python -m aivideo.facebook export <slug> --all        # video dài + mọi phần Short có trong out/episodes/<slug>/
+.venv/bin/python -m aivideo.facebook export <slug> --short <n> --src <mp4 YouTube>   # một video, nguồn ở chỗ khác
+```
+Lệnh không render lại tập: cắt bỏ đoạn kết YouTube ở cuối (nếu có), nối đoạn kết Facebook ("Thích", "Theo dõi", "Chia sẻ", cùng giọng VieNeu Thiện Minh) bằng FFmpeg, chép nguyên luồng hình. Mọi phần Short đều gắn. Lần đầu làm đoạn kết Facebook (`out/outro-facebook/`) mất khoảng 1 phút. Kết quả ở `out/facebook/<slug>/`; tải lên Drive thư mục `<nn> <slug>/facebook/`. Đội không đăng lên Facebook.
+
 `ledger run` không nhận lệnh tuỳ ý: lệnh nằm trong mã theo `--stage`, phán quyết từ mã thoát, kèm sha256 đầu ra JSON. Lỗi thì gọi `editor` chẩn đoán và chạy lại bước hỏng, rồi chạy lại lệnh trên cho tới khi có mục `DAT`. Thiếu LUFS: không nới ngưỡng; `editor` trả `voice-producer` tìm nhịp lệch mức để đọc lại; vẫn lỗi sau 2 lần: `CẦN NGƯỜI DÙNG`. Trộn âm chạy trước render nên lỗi này không tốn thời gian render.
 
 **[10] qc.** Gọi `qc` (`Explore`, mẫu 4.10). JSON qc có thêm khoá `evidence` (sha256 MP4, mốc giây các khung đã trích, loudness). Xong:

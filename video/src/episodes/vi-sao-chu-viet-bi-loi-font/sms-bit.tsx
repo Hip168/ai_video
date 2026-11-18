@@ -4,7 +4,7 @@ import { useTheme } from "../../lib/hooks";
 import { Stage } from "../../lib/theme";
 import { TextBlock } from "../../lib/b-kit";
 import type { SceneProps } from "../../lib/types";
-import { at, Cell, p, useGeom } from "./common";
+import { at, Cell, modeOf, p, useGeom } from "./common";
 
 /**
  * SMS: 160 ký tự bảng 7 bit, từ một tin 140 byte.
@@ -15,6 +15,32 @@ export const SmsBit: React.FC<SceneProps> = ({ scene }) => {
   const theme = useTheme();
   const f = useCurrentFrame();
   const { W, sq } = useGeom();
+  if (modeOf(scene.props, "tinh") === "cot") {
+    // Hai cột 160 và 70 ký tự, hiện đủ ngay từ khung đầu (không đếm số).
+    const bx = sq ? 40 : 200;
+    const maxW = W - bx * 2;
+    const rows = [
+      { label: "Chữ không dấu", n: 160, color: theme.accent },
+      { label: "Có chữ ế, ệ", n: 70, color: theme.warn },
+    ];
+    const top = sq ? 150 : 150;
+    const pitch = sq ? 250 : 260;
+    return (
+      <Stage>
+        <TextBlock text="Số ký tự trong một tin SMS" x={W / 2} y={sq ? 90 : 90} width={W - 80} fontSize={sq ? 48 : 60} fill={theme.fg} />
+        {rows.map((r, i) => {
+          const y = top + i * pitch;
+          return (
+            <g key={i}>
+              <TextBlock text={r.label} x={bx} y={y + (sq ? 40 : 46)} width={maxW} fontSize={sq ? 40 : 50} fill={theme.muted} anchor="start" />
+              <rect x={bx} y={y + (sq ? 70 : 80)} width={(maxW * r.n) / 160} height={sq ? 110 : 120} rx={18} fill={r.color} />
+              <TextBlock text={`${r.n} ký tự`} x={bx + 28} y={y + (sq ? 70 : 80) + (sq ? 74 : 80)} width={sq ? 300 : 360} fontSize={sq ? 56 : 66} fill={theme.bg} anchor="start" />
+            </g>
+          );
+        })}
+      </Stage>
+    );
+  }
   const t1 = at(scene, 1);
   const cw = sq ? 82 : 120;
   const gap = sq ? 8 : 12;

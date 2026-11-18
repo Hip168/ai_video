@@ -698,14 +698,11 @@
     {
       "id": "s20b",
       "chapter": "chuong-2",
-      "type": "myth-fact",
+      "type": "term-card",
       "props": {
-        "pairs": [
-          {
-            "myth": "Mọi bản đều giống nhau",
-            "fact": "Nhiều tổ chức và hãng làm bản riêng, đôi khi mâu thuẫn nhau"
-          }
-        ]
+        "term": "Nhiều bản riêng",
+        "tag": "mâu thuẫn nhau",
+        "definition": "Nhiều tổ chức và hãng làm bản của riêng mình, và đôi khi các bản ấy mâu thuẫn nhau"
       },
       "holdMs": 0,
       "sfx": null,
@@ -726,9 +723,23 @@
     {
       "id": "s21",
       "chapter": "chuong-2",
-      "type": "custom:hai-tu-dien",
+      "type": "layers",
       "props": {
-        "mode": "mot-so"
+        "layers": [
+          {
+            "name": "Cùng một con số",
+            "detail": "ở bảng này là một chữ"
+          },
+          {
+            "name": "Sang bảng kia",
+            "detail": "lại là chữ khác"
+          },
+          {
+            "name": "Chữ ma",
+            "detail": "sinh ra từ đó"
+          }
+        ],
+        "highlight": 2
       },
       "holdMs": 0,
       "sfx": null,
@@ -2076,22 +2087,9 @@
     {
       "id": "s60",
       "chapter": "chuong-6",
-      "type": "chart",
+      "type": "custom:sms-bit",
       "props": {
-        "kind": "bar",
-        "title": "Số ký tự trong một tin SMS",
-        "unit": " ký tự",
-        "highlight": 1,
-        "data": [
-          {
-            "label": "Không dấu",
-            "value": 160
-          },
-          {
-            "label": "Có chữ ế, ệ",
-            "value": 70
-          }
-        ]
+        "mode": "cot"
       },
       "holdMs": 0,
       "sfx": null,

@@ -392,7 +392,7 @@
         "title": "Chữ chỉ là con số trong một bảng tra",
         "number": 1
       },
-      "holdMs": 5500,
+      "holdMs": 6500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -620,7 +620,7 @@
         "title": "Thời mỗi nhà một bảng mã",
         "number": 2
       },
-      "holdMs": 5500,
+      "holdMs": 6500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -977,7 +977,7 @@
         "title": "Unicode và tấm lót đĩa ở New Jersey",
         "number": 3
       },
-      "holdMs": 5500,
+      "holdMs": 6500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1376,7 +1376,7 @@
         "title": "Việt Nam chuyển sang một bảng chung",
         "number": 4
       },
-      "holdMs": 5500,
+      "holdMs": 6500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1546,7 +1546,7 @@
         "title": "Một chữ, hai cách viết",
         "number": 5
       },
-      "holdMs": 5000,
+      "holdMs": 1000,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1764,7 +1764,15 @@
         "lines": [
           {
             "kind": "cmd",
-            "text": "ệ dựng sẵn so với ệ phân rã, từng điểm mã"
+            "text": "so từng điểm mã: ệ dựng sẵn với ệ phân rã"
+          },
+          {
+            "kind": "out",
+            "text": "ệ dựng sẵn: một điểm mã"
+          },
+          {
+            "kind": "out",
+            "text": "ệ phân rã: ba điểm mã"
           },
           {
             "kind": "err",
@@ -1806,7 +1814,7 @@
         "title": "Khi máy đoán sai, và tin nhắn 70 chữ",
         "number": 6
       },
-      "holdMs": 5000,
+      "holdMs": 1000,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1999,6 +2007,10 @@
           {
             "name": "Tài liệu của Microsoft",
             "detail": "có chuỗi ASCII bị nhận nhầm"
+          },
+          {
+            "name": "Đoán thì có lúc trật",
+            "detail": "máy chỉ còn cách đoán"
           }
         ]
       },
@@ -2315,7 +2327,7 @@
         "title": "Không riêng Việt Nam",
         "number": 7
       },
-      "holdMs": 5500,
+      "holdMs": 6500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2440,7 +2452,7 @@
         "title": "Kết",
         "number": 8
       },
-      "holdMs": 5000,
+      "holdMs": 6500,
       "sfx": "whoosh",
       "beats": []
     },

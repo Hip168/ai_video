@@ -52,23 +52,40 @@
     {
       "id": "s01",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Tiáº¿ng Viá»‡t",
+        "kicker": "Đáng lẽ phải là: Tiếng Việt"
+      },
       "holdMs": 0,
-      "sfx": null,
+      "sfx": "whoosh",
       "beats": [
         {
           "id": "b001",
           "text": "Bạn mở tin nhắn và thấy: Tiáº¿ng Viá»‡t. Đáng lẽ đó phải là Tiếng Việt.",
           "spoken": "Bạn mở một tin nhắn và thấy một chuỗi ký tự lạ. Đáng lẽ đó phải là Tiếng Việt.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c001",
             "c002"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {
+        "term": "Chữ ma",
+        "tag": "còn gọi là loạn mã",
+        "definition": "Chữ Việt hiện thành ký tự lạ. Ai dùng máy lâu năm cũng từng gặp"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b002",
           "text": "Dân dùng máy tính gọi chuyện này là chữ ma, hay loạn mã. Ai dùng lâu năm cũng từng gặp.",
@@ -79,7 +96,22 @@
           "claims": [
             "c002"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {
+        "term": "mojibake",
+        "tag": "tên tiếng Nhật",
+        "pronunciation": "nghĩa là biến đổi ký tự",
+        "definition": "Cái tên riêng của người Nhật cho hiện tượng chữ ma"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b003",
           "text": "Tiếng Nhật còn có hẳn một cái tên cho nó: mojibake, nghĩa là biến đổi ký tự.",
@@ -94,10 +126,17 @@
       ]
     },
     {
-      "id": "s02",
+      "id": "s04",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Máy hỏng rồi, chữ mất đi đâu mất",
+            "fact": "Không. Máy không hỏng, chữ của bạn cũng không hề mất đi đâu cả"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -109,7 +148,57 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "so",
+            "label": "Con số trong máy"
+          },
+          {
+            "id": "bang",
+            "label": "Bảng tra"
+          },
+          {
+            "id": "chu",
+            "label": "Chữ hiện ra"
+          }
+        ],
+        "edges": [
+          {
+            "from": "so",
+            "to": "bang",
+            "label": "tra số"
+          },
+          {
+            "from": "bang",
+            "to": "chu",
+            "label": "ra chữ"
+          }
+        ],
+        "packets": [
+          {
+            "from": "so",
+            "to": "bang",
+            "label": "số"
+          },
+          {
+            "from": "bang",
+            "to": "chu",
+            "label": "chữ"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b005",
           "text": "Máy tính không cất chữ. Nó chỉ cất con số, và chữ chỉ hiện ra khi có người tra số ấy trong một bảng.",
@@ -118,7 +207,21 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {
+        "term": "UTF-8",
+        "tag": "cách ghi chữ",
+        "definition": "Cách ghi phổ biến nhất hiện nay. Thử với hai chữ: Tiếng Việt"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b006",
           "text": "Hãy thử với hai chữ Tiếng Việt, khi lưu theo UTF-8, cách ghi phổ biến nhất hiện nay.",
@@ -129,7 +232,19 @@
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "chapter": "mo-dau",
+      "type": "custom:chu-ma",
+      "props": {
+        "mode": "luu"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b007",
           "text": "Máy cất mỗi chữ vào một hay vài ô nhớ, gọi là byte. Mỗi ô được ghi bằng hai ký tự, như 54 hay E1.",
@@ -155,10 +270,12 @@
       ]
     },
     {
-      "id": "s03",
+      "id": "s08",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:chu-ma",
+      "props": {
+        "mode": "doc"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -179,11 +296,33 @@
           "spoken": "Ba ô của chữ ế bị đọc thành ba ký tự riêng lẻ, và cả dãy hiện ra thành chuỗi ký tự lạ ban đầu.",
           "cue": null,
           "pause_ms": 300,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "mo-dau",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Các ô nhớ",
+            "detail": "không một ô nào bị đổi"
+          },
+          {
+            "name": "Cuốn từ điển để tra",
+            "detail": "chỉ có cái này là sai"
+          }
+        ],
+        "highlight": 1
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b011",
           "text": "Không một ô nhớ nào bị đổi. Chỉ có cuốn từ điển dùng để tra là sai.",
@@ -192,7 +331,24 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "mo-dau",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Chữ ma là chữ bị mất",
+            "fact": "Cùng một dãy số, bị tra nhầm bảng"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b012",
           "text": "Chữ ma không phải chữ mất. Đó là cùng một dãy số, bị tra nhầm bảng.",
@@ -201,12 +357,25 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "Vì sao hai bên tra hai bảng khác nhau?",
+        "kicker": "Và vì sao người Việt khổ đến thế?"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b013",
           "text": "Nhưng vì sao hai bên lại tra hai bảng khác nhau? Và vì sao chuyện này làm khổ người Việt đến thế?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -216,10 +385,48 @@
       ]
     },
     {
-      "id": "s04",
+      "id": "c1",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Chữ chỉ là con số trong một bảng tra",
+        "number": 1
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s12",
+      "chapter": "chuong-1",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "so",
+            "label": "Con số"
+          },
+          {
+            "id": "chu",
+            "label": "Chữ A"
+          }
+        ],
+        "edges": [
+          {
+            "from": "so",
+            "to": "chu",
+            "label": "bảng quy ước"
+          }
+        ],
+        "packets": [
+          {
+            "from": "so",
+            "to": "chu",
+            "label": "số"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -231,7 +438,21 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "ASCII",
+        "tag": "bảng mã đầu tiên",
+        "definition": "Bảng quy ước số nào ứng với chữ nào gọi là bảng mã (encoding)"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b015",
           "text": "Bảng quy ước ấy gọi là bảng mã. Bảng đầu tiên được dùng rộng rãi tên là ASCII.",
@@ -244,10 +465,14 @@
       ]
     },
     {
-      "id": "s05",
+      "id": "s14",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 128,
+        "suffix": " vị trí",
+        "label": "ASCII công bố lần đầu năm 1963, dùng 7 bit"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -261,7 +486,17 @@
           "claims": [
             "c005"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "chapter": "chuong-1",
+      "type": "custom:ngan-keo",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b017",
           "text": "Hãy tưởng tượng một tủ 128 ngăn kéo, mỗi ngăn cất một ký tự, và mỗi ngăn có một số thứ tự.",
@@ -283,7 +518,17 @@
           "claims": [
             "c005"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "chapter": "chuong-1",
+      "type": "custom:bit-byte",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b019",
           "text": "Vì sao 7 bit mà không dùng đủ tám? Bit thứ tám để dành làm bit chẵn lẻ, một bit phụ kiểm tra lỗi.",
@@ -298,10 +543,23 @@
       ]
     },
     {
-      "id": "s06",
+      "id": "s17",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "terminal",
+      "props": {
+        "title": "tủ ASCII",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "tìm chữ ế trong 128 ngăn"
+          },
+          {
+            "kind": "err",
+            "text": "không có ngăn nào: ASCII không có chữ ế hay ệ"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -323,16 +581,29 @@
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "chapter": "chuong-1",
+      "type": "cold-open",
+      "props": {
+        "hook": "Chỗ rắc rối của chữ Việt bắt đầu từ đây",
+        "kicker": "ASCII không có chữ mang dấu"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b022",
           "text": "Đó là chỗ rắc rối của chữ Việt bắt đầu.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -342,10 +613,27 @@
       ]
     },
     {
-      "id": "s07",
+      "id": "c2",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Thời mỗi nhà một bảng mã",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-2",
+      "type": "big-number",
+      "props": {
+        "value": 128,
+        "suffix": " ngăn nữa",
+        "label": "ASCII chỉ dùng 7 bit, một byte tám bit nên thừa ra một bit",
+        "note": "Còn trống"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -361,7 +649,32 @@
             "c006",
             "c008"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s20",
+      "chapter": "chuong-2",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Ngăn trống",
+            "detail": "ai cũng muốn dùng, tự nhét chữ vào"
+          },
+          {
+            "name": "Windows và máy Mac",
+            "detail": "mỗi bên một tập mở rộng riêng"
+          },
+          {
+            "name": "Nhiều tổ chức và hãng",
+            "detail": "làm bản riêng, đôi khi mâu thuẫn"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b024",
           "text": "Ngăn trống thì ai cũng muốn dùng, và mỗi nơi tự nhét chữ của mình vào.",
@@ -394,7 +707,19 @@
           "claims": [
             "c008"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s21",
+      "chapter": "chuong-2",
+      "type": "custom:hai-tu-dien",
+      "props": {
+        "mode": "mot-so"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b027",
           "text": "Cùng một con số, ở bảng này là một chữ, sang bảng kia lại là chữ khác. Chữ ma sinh ra từ đó.",
@@ -409,10 +734,13 @@
       ]
     },
     {
-      "id": "s08",
+      "id": "s22",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Từng có thời chữ Việt không có một bảng mã chung",
+        "kicker": "Trước năm 2001"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -420,13 +748,27 @@
           "id": "b028",
           "text": "Từng có thời chữ Việt không có một bảng mã chung.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c010"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s23",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {
+        "term": "Bảng mã",
+        "tag": "cuốn từ điển cho máy",
+        "definition": "Cho máy biết con số nào ứng với chữ nào"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b029",
           "text": "Bảng mã là cuốn từ điển cho máy biết con số nào ứng với chữ nào.",
@@ -435,7 +777,23 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s24",
+      "chapter": "chuong-2",
+      "type": "big-number",
+      "props": {
+        "value": 40,
+        "prefix": "khoảng ",
+        "suffix": " bảng mã",
+        "label": "Trước năm 2001, chữ Việt có khoảng 40 bảng mã 8 bit khác nhau",
+        "note": "Một số báo còn ghi là hơn 40. Bốn mươi cách để ghi cùng một thứ tiếng"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b030",
           "text": "Trước năm 2001, chữ Việt có khoảng 40 bảng mã 8 bit khác nhau, một số báo còn ghi là hơn 40.",
@@ -457,7 +815,36 @@
           "claims": [
             "c010"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s25",
+      "chapter": "chuong-2",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "TCVN3 (còn gọi là ABC)",
+            "detail": "một bảng riêng"
+          },
+          {
+            "name": "VNI",
+            "detail": "một bảng riêng"
+          },
+          {
+            "name": "VPS",
+            "detail": "một bảng riêng"
+          },
+          {
+            "name": "VISCII",
+            "detail": "một bảng riêng"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b032",
           "text": "Được dùng nhiều là TCVN3, còn gọi là ABC, rồi VNI, VPS và VISCII. Mỗi tên là một bảng riêng.",
@@ -469,7 +856,32 @@
             "c010",
             "c011"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s26",
+      "chapter": "chuong-2",
+      "type": "compare",
+      "props": {
+        "titleA": "TCVN",
+        "titleB": "VNI",
+        "rows": [
+          {
+            "label": "Được dùng nhiều ở miền Bắc",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Phổ biến ở miền Nam",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b033",
           "text": "Bảng TCVN được dùng nhiều ở miền Bắc, còn VNI phổ biến ở miền Nam.",
@@ -480,7 +892,17 @@
           "claims": [
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "chapter": "chuong-2",
+      "type": "custom:phong-cu",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b034",
           "text": "Ai từng soạn văn bản thời ấy nhớ: phải cài bộ phông VNI hay ABC mới thấy chữ Việt.",
@@ -501,7 +923,19 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s28",
+      "chapter": "chuong-2",
+      "type": "custom:hai-tu-dien",
+      "props": {
+        "mode": "hai"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b036",
           "text": "Cứ như hai người mỗi người cầm một cuốn từ điển khác nhau, cùng nhìn một dãy số.",
@@ -536,10 +970,25 @@
       ]
     },
     {
-      "id": "s09",
+      "id": "c3",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Unicode và tấm lót đĩa ở New Jersey",
+        "number": 3
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s29",
+      "chapter": "chuong-3",
+      "type": "cold-open",
+      "props": {
+        "hook": "Một bảng cho mọi chữ trên thế giới",
+        "kicker": "Thay vì mỗi nơi một bảng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -547,11 +996,25 @@
           "id": "b039",
           "text": "Cuối cùng người ta nhận ra: thay vì mỗi nơi một bảng, hãy làm một bảng cho mọi chữ trên thế giới.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s30",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "Unicode",
+        "tag": "tháng 10 năm 1991",
+        "definition": "Phiên bản 1.0 được xuất bản. Một bảng cho mọi chữ trên thế giới"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b040",
           "text": "Bảng đó tên là Unicode. Phiên bản 1.0 được xuất bản vào tháng 10 năm 1991.",
@@ -562,7 +1025,57 @@
           "claims": [
             "c016"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s31",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "chu",
+            "label": "Chữ"
+          },
+          {
+            "id": "so",
+            "label": "Số trong Unicode"
+          },
+          {
+            "id": "byte",
+            "label": "Byte trong máy"
+          }
+        ],
+        "edges": [
+          {
+            "from": "chu",
+            "to": "so",
+            "label": "bảng Unicode"
+          },
+          {
+            "from": "so",
+            "to": "byte",
+            "label": "ghi ra sao?"
+          }
+        ],
+        "packets": [
+          {
+            "from": "chu",
+            "to": "so",
+            "label": "chữ"
+          },
+          {
+            "from": "so",
+            "to": "byte",
+            "label": "số"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b041",
           "text": "Nhưng bảng mới chỉ nói số nào ứng với chữ nào. Còn phải quyết định ghi số ấy thành byte ra sao.",
@@ -575,10 +1088,13 @@
       ]
     },
     {
-      "id": "s10",
+      "id": "s32",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "ASCII không có chỗ cho chữ như ế",
+        "kicker": "Chữ trong máy là những ô nhớ: byte"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -586,13 +1102,28 @@
           "id": "b042",
           "text": "Chữ trong máy là những ô nhớ gọi là byte. Bảng mã đầu tiên, ASCII, không có chỗ cho chữ như ế.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s33",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "UTF-8",
+        "tag": "khoảng tháng 9 năm 1992",
+        "definition": "Cách ghi chữ mà hầu hết trang web ngày nay dùng",
+        "example": "Hai người thiết kế: Ken Thompson và Rob Pike"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b043",
           "text": "Khoảng tháng 9 năm 1992, hai người thiết kế một cách ghi chữ mà hầu hết trang web ngày nay dùng.",
@@ -615,18 +1146,45 @@
           "claims": [
             "c018"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s34",
+      "chapter": "chuong-3",
+      "type": "cold-open",
+      "props": {
+        "hook": "Trên một tấm lót đĩa ở quán ăn New Jersey",
+        "kicker": "Theo lời kể của Pike"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b045",
           "text": "Theo lời kể của Pike, họ làm nó trên một tấm lót đĩa trong một quán ăn ở New Jersey.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c018"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s35",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "Ken Thompson",
+        "tag": "theo lời Pike",
+        "definition": "Nghĩ ra cách xếp bit vào từng byte, còn Pike đứng bên cổ vũ"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b046",
           "text": "Theo Pike, Ken nghĩ ra cách xếp bit vào từng byte, còn ông đứng bên cổ vũ.",
@@ -641,10 +1199,12 @@
       ]
     },
     {
-      "id": "s11",
+      "id": "s36",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:utf8-bit",
+      "props": {
+        "mode": "yeu-cau"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -680,7 +1240,19 @@
           "claims": [
             "c021"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s37",
+      "chapter": "chuong-3",
+      "type": "custom:utf8-bit",
+      "props": {
+        "mode": "bon"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b050",
           "text": "Mỗi ký tự dùng từ 1 đến 4 byte. ASCII chỉ cần một byte, nên văn bản ASCII cũ vẫn đọc được.",
@@ -703,7 +1275,32 @@
           "claims": [
             "c024"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s38",
+      "chapter": "chuong-3",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Gọn",
+            "detail": "mỗi ký tự từ 1 đến 4 byte"
+          },
+          {
+            "name": "Đủ chỗ cho cả chữ ế",
+            "detail": "và cả biểu tượng"
+          },
+          {
+            "name": "Không làm hỏng ASCII cũ",
+            "detail": "văn bản cũ vẫn đọc được"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b052",
           "text": "Gọn, đủ chỗ cho cả chữ ế, và không làm hỏng văn bản ASCII cũ. Không tệ cho một tấm lót đĩa.",
@@ -720,10 +1317,16 @@
       ]
     },
     {
-      "id": "s12",
+      "id": "s39",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 99.1,
+        "decimals": 1,
+        "suffix": "%",
+        "label": "Trang web biết bảng mã đều dùng UTF-8",
+        "note": "Theo W3Techs, tháng 11 năm 2026"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -737,7 +1340,21 @@
           "claims": [
             "c025"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "WHATWG",
+        "tag": "nhóm làm chuẩn web",
+        "definition": "Giao thức và định dạng mới phải dùng UTF-8 và chỉ UTF-8"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b054",
           "text": "Nhóm làm chuẩn web WHATWG viết rằng giao thức và định dạng mới phải dùng UTF-8 và chỉ UTF-8.",
@@ -752,10 +1369,26 @@
       ]
     },
     {
-      "id": "s13",
+      "id": "c4",
+      "chapter": "chuong-4",
+      "type": "chapter-title",
+      "props": {
+        "title": "Việt Nam chuyển sang một bảng chung",
+        "number": 4
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s41",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "TCVN 6909:2001",
+        "tag": "tháng 9 năm 2001",
+        "definition": "Bộ mã chữ Việt dựa trên Unicode, được ban hành"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -769,7 +1402,32 @@
           "claims": [
             "c027"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s42",
+      "chapter": "chuong-4",
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "9/2001",
+            "title": "TCVN 6909:2001 được ban hành"
+          },
+          {
+            "year": "2002",
+            "title": "Thủ tướng đặt mốc"
+          },
+          {
+            "year": "1/1/2003",
+            "title": "Dùng chung một bộ mã này"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b056",
           "text": "Năm 2002, Thủ tướng đặt mốc: từ ngày 1 tháng 1 năm 2003, dùng chung một bộ mã này.",
@@ -780,7 +1438,32 @@
           "claims": [
             "c028"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s43",
+      "chapter": "chuong-4",
+      "type": "compare",
+      "props": {
+        "titleA": "Phải dùng chung",
+        "titleB": "Không bắt buộc",
+        "rows": [
+          {
+            "label": "Tổ chức của Đảng và Nhà nước",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Mọi người dân",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b057",
           "text": "Nhưng phạm vi hẹp: chỉ giữa các tổ chức của Đảng và Nhà nước, không phải mọi người.",
@@ -791,7 +1474,24 @@
           "claims": [
             "c028"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s44",
+      "chapter": "chuong-4",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Bảng mã chỉ là chuyện riêng của dân kỹ thuật",
+            "fact": "Dùng chung một bảng mã thành chủ trương của Nhà nước"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b058",
           "text": "Dùng chung một bảng mã không còn là chuyện riêng của dân kỹ thuật, mà thành chủ trương Nhà nước.",
@@ -802,7 +1502,29 @@
           "claims": [
             "c028"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s45",
+      "chapter": "chuong-4",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Dữ liệu cũ",
+            "detail": "chuyển dần, tùy mức độ cấp bách"
+          },
+          {
+            "name": "Chữ cũ vẫn nằm đâu đó",
+            "detail": "chờ người tra nhầm bảng"
+          }
+        ],
+        "highlight": 1
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b059",
           "text": "Dữ liệu cũ chuyển dần, tùy mức độ cấp bách. Nên chữ cũ vẫn nằm đâu đó, chờ người tra nhầm bảng.",
@@ -817,10 +1539,24 @@
       ]
     },
     {
-      "id": "s14",
+      "id": "c5",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Một chữ, hai cách viết",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s46",
+      "chapter": "chuong-5",
+      "type": "custom:chu-ej",
+      "props": {
+        "mode": "hai"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -845,7 +1581,21 @@
           "claims": [
             "c031"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s47",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Điểm mã",
+        "tag": "Unicode gán cho ký tự",
+        "definition": "Con số mà Unicode gán cho mỗi ký tự"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b062",
           "text": "Điểm mã là con số mà Unicode gán cho mỗi ký tự.",
@@ -856,7 +1606,19 @@
           "claims": [
             "c032"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s48",
+      "chapter": "chuong-5",
+      "type": "custom:chu-ej",
+      "props": {
+        "mode": "gop"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b063",
           "text": "Cách thứ nhất là dạng dựng sẵn: cả chữ ệ chỉ là một điểm mã duy nhất, U+1EC7.",
@@ -867,17 +1629,7 @@
           "claims": [
             "c031"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s15",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b064",
           "text": "Cách thứ hai là dạng phân rã: chữ e (U+0065), dấu nặng (U+0323), rồi dấu mũ (U+0302).",
@@ -899,7 +1651,32 @@
           "claims": [
             "c031"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s49",
+      "chapter": "chuong-5",
+      "type": "compare",
+      "props": {
+        "titleA": "NFC",
+        "titleB": "NFD",
+        "rows": [
+          {
+            "label": "Dạng dựng sẵn: ghép lại thành một ký tự",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Dạng phân rã: chữ gốc cộng với dấu rời",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b066",
           "text": "Dân kỹ thuật gọi dạng dựng sẵn là NFC: các mảnh được ghép lại thành một ký tự khi có thể.",
@@ -925,10 +1702,14 @@
       ]
     },
     {
-      "id": "s16",
+      "id": "s50",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "a + dấu mũ rời",
+        "tag": "ghép lại",
+        "definition": "Chữ a cộng dấu mũ rời có thể ghép lại thành chữ â"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -942,7 +1723,24 @@
           "claims": [
             "c032"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s51",
+      "chapter": "chuong-5",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Hai dạng viết là hai chữ khác nhau",
+            "fact": "Tương đương chính tắc: cùng một chữ, chỉ khác cách viết"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b069",
           "text": "Unicode coi hai dạng là tương đương chính tắc: cùng một chữ, chỉ khác cách viết.",
@@ -953,7 +1751,30 @@
           "claims": [
             "c032"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s52",
+      "chapter": "chuong-5",
+      "type": "terminal",
+      "props": {
+        "title": "so sánh điểm mã",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "ệ dựng sẵn so với ệ phân rã, từng điểm mã"
+          },
+          {
+            "kind": "err",
+            "text": "không bằng nhau: mắt thấy chữ, máy thấy số"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b070",
           "text": "Nhưng với một chương trình so sánh từng điểm mã, hai chữ nhìn y hệt vẫn có thể không bằng nhau.",
@@ -978,10 +1799,25 @@
       ]
     },
     {
-      "id": "s17",
+      "id": "c6",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Khi máy đoán sai, và tin nhắn 70 chữ",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s53",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "Một câu ngắn biến chữ thành chữ Trung Quốc",
+        "kicker": "Chỉ cần lưu rồi mở lại"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -989,13 +1825,25 @@
           "id": "b072",
           "text": "Có một câu ngắn làm chữ biến thành chữ Trung Quốc, chỉ cần lưu rồi mở lại.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c035"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s54",
+      "chapter": "chuong-6",
+      "type": "custom:notepad",
+      "props": {
+        "mode": "bush"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b073",
           "text": "Mở Notepad, chương trình soạn thảo của Windows, gõ đúng câu: Bush hid the facts. Lưu rồi mở lại.",
@@ -1013,11 +1861,59 @@
           "spoken": null,
           "cue": null,
           "pause_ms": 300,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c035"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-6",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "byte",
+            "label": "Cùng một dãy byte"
+          },
+          {
+            "id": "bang",
+            "label": "Đọc theo bảng khác"
+          },
+          {
+            "id": "chu",
+            "label": "Hiện ra chữ khác"
+          }
+        ],
+        "edges": [
+          {
+            "from": "byte",
+            "to": "bang"
+          },
+          {
+            "from": "bang",
+            "to": "chu"
+          }
+        ],
+        "packets": [
+          {
+            "from": "byte",
+            "to": "bang",
+            "label": "byte"
+          },
+          {
+            "from": "bang",
+            "to": "chu",
+            "label": "chữ"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b075",
           "text": "Chữ lạ ấy từ đâu ra? Cùng một dãy byte, bị đọc theo một bảng khác, thì hiện ra chữ khác.",
@@ -1026,7 +1922,24 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-6",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Trông như tệp hỏng",
+            "fact": "Cả dãy byte vẫn còn nguyên"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b076",
           "text": "Với người dùng, trông như tệp hỏng, dù cả dãy byte vẫn còn nguyên.",
@@ -1039,10 +1952,12 @@
       ]
     },
     {
-      "id": "s18",
+      "id": "s57",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:notepad",
+      "props": {
+        "mode": "doan"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1068,7 +1983,28 @@
           "claims": [
             "c034"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s58",
+      "chapter": "chuong-6",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Raymond Chen (Microsoft)",
+            "detail": "không tuyệt đối chắc, chuỗi ngắn dễ nhầm"
+          },
+          {
+            "name": "Tài liệu của Microsoft",
+            "detail": "có chuỗi ASCII bị nhận nhầm"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b079",
           "text": "Raymond Chen của Microsoft viết rằng cách đoán này không tuyệt đối chắc, chuỗi ngắn dễ nhầm nhất.",
@@ -1090,7 +2026,21 @@
           "claims": [
             "c036"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "Tệp không ghi bảng mã",
+        "tag": "chuyện vui, nhưng",
+        "definition": "Máy chỉ còn cách đoán"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b081",
           "text": "Chuyện vui, nhưng nó nhắc ta: tệp không ghi rõ bảng mã thì máy chỉ còn cách đoán.",
@@ -1103,10 +2053,25 @@
       ]
     },
     {
-      "id": "s19",
+      "id": "s60",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Số ký tự trong một tin SMS",
+        "unit": " ký tự",
+        "highlight": 1,
+        "data": [
+          {
+            "label": "Không dấu",
+            "value": 160
+          },
+          {
+            "label": "Có chữ ế, ệ",
+            "value": 70
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1121,16 +2086,39 @@
             "c037",
             "c039"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s61",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "160 và 70 không phải ngẫu nhiên",
+        "kicker": "Chúng là một phép tính về bit"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b083",
           "text": "Hai con số ấy không phải ngẫu nhiên. Chúng là một phép tính về bit.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s62",
+      "chapter": "chuong-6",
+      "type": "custom:sms-bit",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b084",
           "text": "Bảng 7 bit mặc định của GSM cho mỗi ký tự chiếm 7 bit, và một tin chứa 140 byte.",
@@ -1157,10 +2145,30 @@
       ]
     },
     {
-      "id": "s20",
+      "id": "s63",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Bảng 7 bit",
+        "titleB": "Bảng mở rộng",
+        "rows": [
+          {
+            "label": "Có chữ ệ",
+            "a": false,
+            "b": false
+          },
+          {
+            "label": "Có chữ ữ",
+            "a": false,
+            "b": false
+          },
+          {
+            "label": "Có chữ ế",
+            "a": false,
+            "b": false
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1175,7 +2183,30 @@
             "c039",
             "c010"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s64",
+      "chapter": "chuong-6",
+      "type": "terminal",
+      "props": {
+        "title": "tin nhắn UCS2",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "cmd",
+            "text": "đổi sang UCS2: mỗi ký tự chiếm 2 byte"
+          },
+          {
+            "kind": "out",
+            "text": "140 byte / 2 byte = 70 ký tự"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b087",
           "text": "Tin có chúng buộc phải đổi sang bảng UCS2, mỗi ký tự chiếm 2 byte.",
@@ -1198,7 +2229,24 @@
           "claims": [
             "c038"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s65",
+      "chapter": "chuong-6",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Chữ nào cũng chiếm chỗ như nhau",
+            "fact": "Chữ có dấu chiếm nhiều chỗ hơn, nên một tin chứa được ít chữ hơn hẳn"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b089",
           "text": "Mỗi chữ chiếm nhiều chỗ hơn, nên cùng một tin chỉ chứa được ít chữ hơn hẳn.",
@@ -1209,7 +2257,21 @@
           "claims": [
             "c038"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s66",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "Nhắn tin không dấu",
+        "tag": "có thể là một lý do",
+        "definition": "Nhiều người từng nhắn không dấu cho đỡ tốn, và bài toán bit này có thể là một lý do"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b090",
           "text": "Nhiều người từng nhắn tin không dấu cho đỡ tốn, và bài toán bit này có thể là một lý do.",
@@ -1218,12 +2280,25 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s67",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "Chữ có dấu đắt hơn chữ không dấu",
+        "kicker": "Cái giá ấy được tính bằng bit"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b091",
           "text": "Chữ có dấu như ế đắt hơn chữ không dấu, và cái giá ấy được tính bằng bit.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1233,10 +2308,24 @@
       ]
     },
     {
-      "id": "s21",
+      "id": "c7",
       "chapter": "chuong-7",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Không riêng Việt Nam",
+        "number": 7
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s68",
+      "chapter": "chuong-7",
+      "type": "custom:hai-tu-dien",
+      "props": {
+        "mode": "myanmar"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1261,7 +2350,28 @@
           "claims": [
             "c040"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s69",
+      "chapter": "chuong-7",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Ngày 26 tháng 9 năm 2019",
+            "detail": "Facebook công bố bộ chuyển đổi phông"
+          },
+          {
+            "name": "Một năm trước đó",
+            "detail": "Facebook bỏ Zawgyi khỏi giao diện"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b094",
           "text": "Ngày 26 tháng 9 năm 2019, Facebook công bố bộ chuyển đổi phông chữ trong Facebook và Messenger.",
@@ -1283,7 +2393,32 @@
           "claims": [
             "c041"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s70",
+      "chapter": "chuong-7",
+      "type": "compare",
+      "props": {
+        "titleA": "Việt Nam",
+        "titleB": "Myanmar",
+        "rows": [
+          {
+            "label": "Hai bảng mã cho một dãy số",
+            "a": true,
+            "b": true
+          },
+          {
+            "label": "Các hãng phải ra tay chuyển đổi",
+            "a": true,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b096",
           "text": "Cùng một nỗi rối, khác chữ: hai bảng mã cho một dãy số, và các hãng phải ra tay chuyển đổi.",
@@ -1298,10 +2433,17 @@
       ]
     },
     {
-      "id": "s22",
+      "id": "s71",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Chữ ma là do máy hỏng",
+            "fact": "Chữ chỉ là số, và chữ ma là hai bên tra hai bảng khác nhau"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1313,7 +2455,29 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s72",
+      "chapter": "ket",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Gặp chữ ma",
+            "detail": "hỏi: bảng mã nào đang đọc?"
+          },
+          {
+            "name": "Lưu hay gửi tệp",
+            "detail": "chọn UTF-8"
+          }
+        ],
+        "highlight": 1
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b098",
           "text": "Lần sau gặp chữ ma, hãy hỏi bảng mã nào đang đọc, và khi lưu hay gửi tệp thì chọn UTF-8.",
@@ -1324,7 +2488,24 @@
           "claims": [
             "c026"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s73",
+      "chapter": "ket",
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Chữ chỉ là con số trong một bảng tra",
+          "Chữ ma: hai bên tra hai bảng khác nhau",
+          "Lưu và gửi tệp bằng UTF-8"
+        ],
+        "next": "Tập sau: thời gian, năm tháng ngày giờ, máy cất ra sao?"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b099",
           "text": "Chữ đã là số. Vậy thời gian, năm tháng ngày giờ, máy cất ra sao? Hẹn gặp lại ở tập sau.",

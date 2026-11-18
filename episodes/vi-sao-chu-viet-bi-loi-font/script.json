@@ -65,7 +65,7 @@
           "text": "Bạn mở tin nhắn và thấy: Tiáº¿ng Viá»‡t. Đáng lẽ đó phải là Tiếng Việt.",
           "spoken": "Bạn mở một tin nhắn và thấy một chuỗi ký tự lạ. Đáng lẽ đó phải là Tiếng Việt.",
           "cue": "hook",
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c001",
@@ -91,7 +91,7 @@
           "text": "Dân dùng máy tính gọi chuyện này là chữ ma, hay loạn mã. Ai dùng lâu năm cũng từng gặp.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 540,
           "sfx": null,
           "claims": [
             "c002"
@@ -117,7 +117,7 @@
           "text": "Tiếng Nhật còn có hẳn một cái tên cho nó: mojibake, nghĩa là biến đổi ký tự.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 540,
           "sfx": null,
           "claims": [
             "c002"
@@ -145,7 +145,7 @@
           "text": "Vậy máy hỏng rồi sao? Không. Chữ của bạn cũng không hề mất đi đâu cả.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -204,7 +204,7 @@
           "text": "Máy tính không cất chữ. Nó chỉ cất con số, và chữ chỉ hiện ra khi có người tra số ấy trong một bảng.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -227,7 +227,7 @@
           "text": "Hãy thử với hai chữ Tiếng Việt, khi lưu theo UTF-8, cách ghi phổ biến nhất hiện nay.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c001"
@@ -250,7 +250,7 @@
           "text": "Máy cất mỗi chữ vào một hay vài ô nhớ, gọi là byte. Mỗi ô được ghi bằng hai ký tự, như 54 hay E1.",
           "spoken": "Máy cất mỗi chữ vào một hay vài ô nhớ, gọi là bai. Mỗi ô được ghi bằng hai ký tự, như năm bốn hay e một.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c001"
@@ -261,7 +261,7 @@
           "text": "54 69 E1 BA BF 6E 67 20 56 69 E1 BB 87 74: mười bốn ô. Riêng chữ ế chiếm ba ô, E1 BA BF.",
           "spoken": "Hai chữ Tiếng Việt thành mười bốn ô nhớ. Riêng chữ ế chiếm nhiều ô liền nhau: e một, bê a, bê ép.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 540,
           "sfx": null,
           "claims": [
             "c001"
@@ -284,7 +284,7 @@
           "text": "Giờ đưa đúng những ô ấy cho chương trình đọc nhầm theo một bảng cũ của Windows, tên Windows-1252.",
           "spoken": "Giờ đưa đúng những ô ấy cho chương trình đọc nhầm theo một bảng cũ của Windows, tên là Windows một hai năm hai.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 460,
           "sfx": null,
           "claims": [
             "c001"
@@ -295,7 +295,7 @@
           "text": "Ba ô của chữ ế bị đọc thành ba ký tự riêng lẻ, và cả dãy hiện ra: Tiáº¿ng Viá»‡t.",
           "spoken": "Ba ô của chữ ế bị đọc thành ba ký tự riêng lẻ, và cả dãy hiện ra thành chuỗi ký tự lạ ban đầu.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": "buzz",
           "claims": [
             "c001"
@@ -328,7 +328,7 @@
           "text": "Không một ô nhớ nào bị đổi. Chỉ có cuốn từ điển dùng để tra là sai.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -376,7 +376,7 @@
           "text": "Nhưng vì sao hai bên lại tra hai bảng khác nhau? Và vì sao chuyện này làm khổ người Việt đến thế?",
           "spoken": null,
           "cue": "hook",
-          "pause_ms": 600,
+          "pause_ms": 1200,
           "sfx": null,
           "claims": [
             "c002"
@@ -435,7 +435,7 @@
           "text": "Vậy chữ A nằm ở đâu trong đó? Phải có một bảng quy ước: số này ứng với chữ này.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": []
         }
@@ -458,7 +458,7 @@
           "text": "Bảng quy ước ấy gọi là bảng mã. Bảng đầu tiên được dùng rộng rãi tên là ASCII.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": []
         }
@@ -481,7 +481,7 @@
           "text": "ASCII được công bố lần đầu năm 1963, dùng 7 bit, nên có đúng 128 vị trí.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c005"
@@ -502,7 +502,7 @@
           "text": "Hãy tưởng tượng một tủ 128 ngăn kéo, mỗi ngăn cất một ký tự, và mỗi ngăn có một số thứ tự.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c005"
@@ -513,7 +513,7 @@
           "text": "Có 95 ngăn dành cho ký tự in được như chữ, số, dấu câu, và 33 ngăn cho ký tự điều khiển.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c005"
@@ -534,7 +534,7 @@
           "text": "Vì sao 7 bit mà không dùng đủ tám? Bit thứ tám để dành làm bit chẵn lẻ, một bit phụ kiểm tra lỗi.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c006"
@@ -568,7 +568,7 @@
           "text": "128 ngăn kéo là đủ cho văn bản không dấu. Nhưng thử tìm xem chữ ế nằm ở ngăn nào?",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c005",
@@ -580,7 +580,7 @@
           "text": "Không có ngăn nào. Bộ ASCII không có chữ nào mang dấu như ế hay ệ.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": "buzz",
           "claims": [
             "c007"
@@ -604,7 +604,7 @@
           "text": "Đó là chỗ rắc rối của chữ Việt bắt đầu.",
           "spoken": null,
           "cue": "hook",
-          "pause_ms": 600,
+          "pause_ms": 1200,
           "sfx": null,
           "claims": [
             "c010"
@@ -642,7 +642,7 @@
           "text": "Vì ASCII chỉ cần bảy bit, một byte tám bit thừa ra một bit, tức là thêm 128 ngăn kéo nữa, còn trống.",
           "spoken": "Vì a ét xi ai ai chỉ cần bảy bit, một ô nhớ tám bit thừa ra một bit, tức là thêm một trăm hai mươi tám ngăn kéo nữa, còn trống.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c005",
@@ -680,7 +680,7 @@
           "text": "Ngăn trống thì ai cũng muốn dùng, và mỗi nơi tự nhét chữ của mình vào.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c008"
@@ -691,7 +691,7 @@
           "text": "Windows dùng một tập mở rộng riêng, máy Mac dùng một bộ khác, và còn nhiều bộ mã quốc tế nữa.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c008"
@@ -702,7 +702,7 @@
           "text": "Nhiều tổ chức và hãng làm bản của riêng mình, và đôi khi các bản ấy mâu thuẫn nhau.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c008"
@@ -725,7 +725,7 @@
           "text": "Cùng một con số, ở bảng này là một chữ, sang bảng kia lại là chữ khác. Chữ ma sinh ra từ đó.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c008"
@@ -749,7 +749,7 @@
           "text": "Từng có thời chữ Việt không có một bảng mã chung.",
           "spoken": null,
           "cue": "hook",
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c010"
@@ -774,7 +774,7 @@
           "text": "Bảng mã là cuốn từ điển cho máy biết con số nào ứng với chữ nào.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -799,7 +799,7 @@
           "text": "Trước năm 2001, chữ Việt có khoảng 40 bảng mã 8 bit khác nhau, một số báo còn ghi là hơn 40.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c010"
@@ -810,7 +810,7 @@
           "text": "Hình dung: bốn mươi cách khác nhau để ghi cùng một thứ tiếng.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c010"
@@ -850,7 +850,7 @@
           "text": "Được dùng nhiều là TCVN3, còn gọi là ABC, rồi VNI, VPS và VISCII. Mỗi tên là một bảng riêng.",
           "spoken": "Được dùng nhiều là tê xê vê en ba, còn gọi là a bê xê, rồi vê en i, vê pê ét và vít si. Mỗi tên là một bảng riêng.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c010",
@@ -887,7 +887,7 @@
           "text": "Bảng TCVN được dùng nhiều ở miền Bắc, còn VNI phổ biến ở miền Nam.",
           "spoken": "Bảng tê xê vê en được dùng nhiều ở miền Bắc, còn vê en i phổ biến ở miền Nam.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c012"
@@ -908,7 +908,7 @@
           "text": "Ai từng soạn văn bản thời ấy nhớ: phải cài bộ phông VNI hay ABC mới thấy chữ Việt.",
           "spoken": "Ai từng soạn văn bản thời ấy nhớ: phải cài bộ phông vê en i hay a bê xê mới thấy chữ Việt.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c010",
@@ -920,7 +920,7 @@
           "text": "Gửi tệp cho người khác, máy họ thiếu bộ phông ấy, và họ thấy toàn ký tự lạ.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -941,7 +941,7 @@
           "text": "Cứ như hai người mỗi người cầm một cuốn từ điển khác nhau, cùng nhìn một dãy số.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": []
         },
@@ -950,7 +950,7 @@
           "text": "Người này tra ra chữ Việt đàng hoàng. Người kia tra ra những ký tự chẳng ai đọc nổi.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c010"
@@ -997,7 +997,7 @@
           "text": "Cuối cùng người ta nhận ra: thay vì mỗi nơi một bảng, hãy làm một bảng cho mọi chữ trên thế giới.",
           "spoken": null,
           "cue": "hook",
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": []
         }
@@ -1020,7 +1020,7 @@
           "text": "Bảng đó tên là Unicode. Phiên bản 1.0 được xuất bản vào tháng 10 năm 1991.",
           "spoken": "Bảng đó tên là Unicode. Phiên bản một chấm không được xuất bản vào tháng mười năm một nghìn chín trăm chín mươi mốt.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c016"
@@ -1081,7 +1081,7 @@
           "text": "Nhưng bảng mới chỉ nói số nào ứng với chữ nào. Còn phải quyết định ghi số ấy thành byte ra sao.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": []
         }
@@ -1103,7 +1103,7 @@
           "text": "Chữ trong máy là những ô nhớ gọi là byte. Bảng mã đầu tiên, ASCII, không có chỗ cho chữ như ế.",
           "spoken": "Chữ trong máy được cất thành từng ô nhớ. Bảng mã đầu tiên, a ét xi ai ai, không có chỗ cho chữ như ế.",
           "cue": "hook",
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c007"
@@ -1129,7 +1129,7 @@
           "text": "Khoảng tháng 9 năm 1992, hai người thiết kế một cách ghi chữ mà hầu hết trang web ngày nay dùng.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c018",
@@ -1141,7 +1141,7 @@
           "text": "Họ là Ken Thompson và Rob Pike, và cách ghi ấy tên là UTF-8.",
           "spoken": "Họ là Ken Thompson và người đồng sáng tạo của ông, và cách ghi ấy tên là u ti ép tám.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c018"
@@ -1165,7 +1165,7 @@
           "text": "Theo lời kể của Pike, họ làm nó trên một tấm lót đĩa trong một quán ăn ở New Jersey.",
           "spoken": "Theo lời kể của ông ấy, họ làm nó trên một tấm lót đĩa trong một quán ăn ở New Jersey.",
           "cue": "hook",
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c018"
@@ -1190,7 +1190,7 @@
           "text": "Theo Pike, Ken nghĩ ra cách xếp bit vào từng byte, còn ông đứng bên cổ vũ.",
           "spoken": "Theo ông, Ken nghĩ ra cách xếp bit vào từng ô nhớ, còn ông đứng bên cổ vũ.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c020"
@@ -1213,7 +1213,7 @@
           "text": "Yêu cầu thứ nhất: byte của chữ như a hay b không bao giờ lẫn vào trong byte của chữ như ế.",
           "spoken": "Yêu cầu thứ nhất: ô nhớ của chữ như a hay b không bao giờ lẫn vào trong các ô nhớ của chữ như ế.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c021"
@@ -1224,7 +1224,7 @@
           "text": "Yêu cầu thứ hai: nghe dở chừng, máy vẫn nhận ra ngay chỗ đầu của chữ kế tiếp.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c021"
@@ -1235,7 +1235,7 @@
           "text": "Nhờ vậy một lỗi nhỏ không kéo hỏng cả đoạn chữ phía sau.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c021"
@@ -1258,7 +1258,7 @@
           "text": "Mỗi ký tự dùng từ 1 đến 4 byte. ASCII chỉ cần một byte, nên văn bản ASCII cũ vẫn đọc được.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c022",
@@ -1270,7 +1270,7 @@
           "text": "Chữ é chiếm 2 byte, chữ ế chiếm 3 byte, còn biểu tượng 👍 chiếm 4 byte.",
           "spoken": "Chữ é chiếm hai ô nhớ, chữ ế chiếm ba ô nhớ, còn biểu tượng giơ ngón cái chiếm bốn ô nhớ.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c024"
@@ -1335,7 +1335,7 @@
           "text": "Theo trang thống kê W3Techs, tháng 11 năm 2026, 99,1% trang web biết bảng mã đều dùng UTF-8.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c025"
@@ -1360,7 +1360,7 @@
           "text": "Nhóm làm chuẩn web WHATWG viết rằng giao thức và định dạng mới phải dùng UTF-8 và chỉ UTF-8.",
           "spoken": "Nhóm làm chuẩn web viết rằng giao thức và định dạng mới phải dùng u ti ép tám và chỉ u ti ép tám.",
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 1200,
           "sfx": null,
           "claims": [
             "c026"
@@ -1397,7 +1397,7 @@
           "text": "Ở trong nước, tháng 9 năm 2001, bộ mã chữ Việt TCVN 6909:2001, dựa trên Unicode, được ban hành.",
           "spoken": "Ở trong nước, tháng chín năm hai nghìn không trăm linh một, bộ mã chữ Việt tê xê vê en sáu chín không chín, dựa trên diu ni cốt, được ban hành.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c027"
@@ -1433,7 +1433,7 @@
           "text": "Năm 2002, Thủ tướng đặt mốc: từ ngày 1 tháng 1 năm 2003, dùng chung một bộ mã này.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c028"
@@ -1469,7 +1469,7 @@
           "text": "Nhưng phạm vi hẹp: chỉ giữa các tổ chức của Đảng và Nhà nước, không phải mọi người.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c028"
@@ -1497,7 +1497,7 @@
           "text": "Dùng chung một bảng mã không còn là chuyện riêng của dân kỹ thuật, mà thành chủ trương Nhà nước.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c028"
@@ -1530,7 +1530,7 @@
           "text": "Dữ liệu cũ chuyển dần, tùy mức độ cấp bách. Nên chữ cũ vẫn nằm đâu đó, chờ người tra nhầm bảng.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 1200,
           "sfx": null,
           "claims": [
             "c029"
@@ -1565,7 +1565,7 @@
           "text": "Có hai chữ ệ nhìn giống hệt nhau trên màn hình, nhưng bên trong là hai dãy số khác nhau.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c031"
@@ -1576,7 +1576,7 @@
           "text": "Khi gõ chữ có dấu, ta chỉ thấy một chữ ệ, nhưng máy có thể cất nó theo một trong hai cách.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c031"
@@ -1601,7 +1601,7 @@
           "text": "Điểm mã là con số mà Unicode gán cho mỗi ký tự.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c032"
@@ -1624,7 +1624,7 @@
           "text": "Cách thứ nhất là dạng dựng sẵn: cả chữ ệ chỉ là một điểm mã duy nhất, U+1EC7.",
           "spoken": "Cách thứ nhất là dạng dựng sẵn: cả chữ ệ chỉ là một điểm mã duy nhất.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c031"
@@ -1635,7 +1635,7 @@
           "text": "Cách thứ hai là dạng phân rã: chữ e (U+0065), dấu nặng (U+0323), rồi dấu mũ (U+0302).",
           "spoken": "Cách thứ hai là dạng phân rã, ghép từ ba điểm mã: chữ e, dấu nặng dưới chân, rồi dấu mũ.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c031"
@@ -1646,7 +1646,7 @@
           "text": "Đếm thử: một điểm mã, hay ba điểm mã, mà cả hai đều hiện ra chữ ệ.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c031"
@@ -1682,7 +1682,7 @@
           "text": "Dân kỹ thuật gọi dạng dựng sẵn là NFC: các mảnh được ghép lại thành một ký tự khi có thể.",
           "spoken": "Dân kỹ thuật gọi dạng dựng sẵn là en ép xê: các mảnh được ghép lại thành một ký tự khi có thể.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c032"
@@ -1693,7 +1693,7 @@
           "text": "Còn dạng phân rã gọi là NFD: chữ gốc cộng với dấu rời.",
           "spoken": "Còn dạng phân rã gọi là en ép đê: chữ gốc cộng với dấu rời.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c032"
@@ -1718,7 +1718,7 @@
           "text": "Ví dụ chữ a cộng dấu mũ rời có thể ghép lại thành chữ â.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c032"
@@ -1746,7 +1746,7 @@
           "text": "Unicode coi hai dạng là tương đương chính tắc: cùng một chữ, chỉ khác cách viết.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c032"
@@ -1788,7 +1788,7 @@
           "text": "Nhưng với một chương trình so sánh từng điểm mã, hai chữ nhìn y hệt vẫn có thể không bằng nhau.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c031",
@@ -1834,7 +1834,7 @@
           "text": "Có một câu ngắn làm chữ biến thành chữ Trung Quốc, chỉ cần lưu rồi mở lại.",
           "spoken": null,
           "cue": "hook",
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c035"
@@ -1857,7 +1857,7 @@
           "text": "Mở Notepad, chương trình soạn thảo của Windows, gõ đúng câu: Bush hid the facts. Lưu rồi mở lại.",
           "spoken": "Mở nốt pát, chương trình soạn thảo của Windows, gõ một câu tiếng Anh nói rằng ông Bush giấu sự thật. Lưu rồi mở lại.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c035"
@@ -1868,7 +1868,7 @@
           "text": "Chữ biến thành một chuỗi ký tự Trung Quốc vô nghĩa.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": "buzz",
           "claims": [
             "c035"
@@ -1927,7 +1927,7 @@
           "text": "Chữ lạ ấy từ đâu ra? Cùng một dãy byte, bị đọc theo một bảng khác, thì hiện ra chữ khác.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -1953,7 +1953,7 @@
           "text": "Với người dùng, trông như tệp hỏng, dù cả dãy byte vẫn còn nguyên.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -1974,7 +1974,7 @@
           "text": "Không ai gõ sai, không virus, không ổ đĩa hỏng. Tệp văn bản chỉ không tự ghi nó dùng bảng mã nào.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c035",
@@ -1986,7 +1986,7 @@
           "text": "Nên Notepad phải đoán: tệp này theo bảng mã cũ, hay theo Unicode, bảng chung cho mọi chữ?",
           "spoken": "Nên nốt pát phải đoán: tệp này theo bảng mã cũ, hay theo diu ni cốt, bảng chung cho mọi chữ?",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c034"
@@ -2022,7 +2022,7 @@
           "text": "Raymond Chen của Microsoft viết rằng cách đoán này không tuyệt đối chắc, chuỗi ngắn dễ nhầm nhất.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c034"
@@ -2033,7 +2033,7 @@
           "text": "Tài liệu của Microsoft cũng ghi: có chuỗi ASCII bị nhận nhầm. Đoán thì có lúc trật.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c036"
@@ -2092,7 +2092,7 @@
           "text": "Một tin nhắn SMS chứa tối đa 160 ký tự, nhưng nếu có chữ có dấu như ế hay ệ thì chỉ còn 70.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c037",
@@ -2117,7 +2117,7 @@
           "text": "Hai con số ấy không phải ngẫu nhiên. Chúng là một phép tính về bit.",
           "spoken": null,
           "cue": "hook",
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -2136,7 +2136,7 @@
           "text": "Bảng 7 bit mặc định của GSM cho mỗi ký tự chiếm 7 bit, và một tin chứa 140 byte.",
           "spoken": "Bảng bảy bit mặc định của gờ ét em cho mỗi ký tự chiếm bảy bit, và một tin chứa một trăm bốn mươi bai.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c037",
@@ -2148,7 +2148,7 @@
           "text": "Một byte có 8 bit, nên 140 byte là 140 × 8 bit. Chia cho 7 bit mỗi ký tự được 160 ký tự.",
           "spoken": "Một bai có tám bit, nên một trăm bốn mươi bai là một trăm bốn mươi nhân tám bit. Chia cho bảy bit mỗi ký tự được một trăm sáu mươi ký tự.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c038"
@@ -2189,7 +2189,7 @@
           "text": "Nhưng chữ có dấu tiếng Việt như ệ, ữ, ế không có trong bảng 7 bit ấy, hay bảng mở rộng.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c039",
@@ -2224,7 +2224,7 @@
           "text": "Tin có chúng buộc phải đổi sang bảng UCS2, mỗi ký tự chiếm 2 byte.",
           "spoken": "Tin có chúng buộc phải đổi sang bảng u xê ét hai, mỗi ký tự chiếm hai bai.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 520,
           "sfx": null,
           "claims": [
             "c038",
@@ -2236,7 +2236,7 @@
           "text": "Khi đó 140 byte chỉ chứa được 70 ký tự, chưa bằng một nửa so với 160.",
           "spoken": "Khi đó một trăm bốn mươi ô nhớ chỉ chứa được bảy mươi ký tự, chưa bằng một nửa so với một trăm sáu mươi.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c038"
@@ -2264,7 +2264,7 @@
           "text": "Mỗi chữ chiếm nhiều chỗ hơn, nên cùng một tin chỉ chứa được ít chữ hơn hẳn.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c038"
@@ -2289,7 +2289,7 @@
           "text": "Nhiều người từng nhắn tin không dấu cho đỡ tốn, và bài toán bit này có thể là một lý do.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": []
         }
@@ -2346,7 +2346,7 @@
           "text": "Không riêng gì ta: ở Myanmar, chữ viết cũng từng rối vì hai cách mã hóa.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c040"
@@ -2357,7 +2357,7 @@
           "text": "Zawgyi là cách mã hóa tiếng Miến Điện không tương thích với Unicode, mà phần lớn thiết bị ở đó dùng.",
           "spoken": "Đây là cách mã hóa tiếng Miến Điện không tương thích với Unicode, mà phần lớn thiết bị ở đó dùng.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c040"
@@ -2389,7 +2389,7 @@
           "text": "Ngày 26 tháng 9 năm 2019, Facebook công bố bộ chuyển đổi phông chữ trong Facebook và Messenger.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c040"
@@ -2400,7 +2400,7 @@
           "text": "Một năm trước đó, Facebook đã bỏ Zawgyi khỏi ngôn ngữ giao diện cho người dùng mới.",
           "spoken": "Một năm trước đó, Facebook đã bỏ cách mã hóa cũ khỏi ngôn ngữ giao diện cho người dùng mới.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c041"
@@ -2436,7 +2436,7 @@
           "text": "Cùng một nỗi rối, khác chữ: hai bảng mã cho một dãy số, và các hãng phải ra tay chuyển đổi.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 1200,
           "sfx": null,
           "claims": [
             "c040"
@@ -2476,7 +2476,7 @@
           "text": "Tóm lại: chữ chỉ là số, và chữ ma là hai bên tra hai bảng khác nhau, chứ máy không hỏng.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": []
         }
@@ -2507,7 +2507,7 @@
           "text": "Lần sau gặp chữ ma, hãy hỏi bảng mã nào đang đọc, và khi lưu hay gửi tệp thì chọn UTF-8.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
             "c026"
@@ -2535,7 +2535,7 @@
           "text": "Chữ đã là số. Vậy thời gian, năm tháng ngày giờ, máy cất ra sao? Hẹn gặp lại ở tập sau.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 0,
+          "pause_ms": 400,
           "sfx": null,
           "claims": []
         }

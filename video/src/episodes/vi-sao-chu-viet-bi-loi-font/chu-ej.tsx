@@ -45,7 +45,7 @@ export const ChuEj: React.FC<SceneProps> = ({ scene }) => {
   if (mode === "hai") {
     const cx = [W * (sq ? 0.27 : 0.3), W * (sq ? 0.73 : 0.7)];
     const cy = sq ? 270 : 330;
-    const eqP = p(f, 6, 14);
+    const eqP = 1;
     const boxP = p(f, 24, 12);
     const wayP = p(f, t1, 14);
     const bw = sq ? 96 : 130;

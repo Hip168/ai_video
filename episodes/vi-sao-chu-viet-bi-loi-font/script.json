@@ -392,7 +392,7 @@
         "title": "Chữ chỉ là con số trong một bảng tra",
         "number": 1
       },
-      "holdMs": 6500,
+      "holdMs": 2500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -620,7 +620,7 @@
         "title": "Thời mỗi nhà một bảng mã",
         "number": 2
       },
-      "holdMs": 6500,
+      "holdMs": 2500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -665,10 +665,6 @@
           {
             "name": "Windows và máy Mac",
             "detail": "mỗi bên một tập mở rộng riêng"
-          },
-          {
-            "name": "Nhiều tổ chức và hãng",
-            "detail": "làm bản riêng, đôi khi mâu thuẫn"
           }
         ]
       },
@@ -696,7 +692,24 @@
           "claims": [
             "c008"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s20b",
+      "chapter": "chuong-2",
+      "type": "myth-fact",
+      "props": {
+        "pairs": [
+          {
+            "myth": "Mọi bản đều giống nhau",
+            "fact": "Nhiều tổ chức và hãng làm bản riêng, đôi khi mâu thuẫn nhau"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b026",
           "text": "Nhiều tổ chức và hãng làm bản của riêng mình, và đôi khi các bản ấy mâu thuẫn nhau.",
@@ -977,7 +990,7 @@
         "title": "Unicode và tấm lót đĩa ở New Jersey",
         "number": 3
       },
-      "holdMs": 6500,
+      "holdMs": 2500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1117,9 +1130,8 @@
       "type": "term-card",
       "props": {
         "term": "UTF-8",
-        "tag": "khoảng tháng 9 năm 1992",
-        "definition": "Cách ghi chữ mà hầu hết trang web ngày nay dùng",
-        "example": "Hai người thiết kế: Ken Thompson và Rob Pike"
+        "tag": "cách ghi chữ",
+        "definition": "Khoảng tháng 9 năm 1992, hai người thiết kế cách ghi chữ mà hầu hết trang web ngày nay dùng"
       },
       "holdMs": 0,
       "sfx": null,
@@ -1135,7 +1147,28 @@
             "c018",
             "c025"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s33b",
+      "chapter": "chuong-3",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Ken Thompson",
+            "detail": "một người thiết kế UTF-8"
+          },
+          {
+            "name": "Rob Pike",
+            "detail": "người thiết kế còn lại"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b044",
           "text": "Họ là Ken Thompson và Rob Pike, và cách ghi ấy tên là UTF-8.",
@@ -1376,7 +1409,7 @@
         "title": "Việt Nam chuyển sang một bảng chung",
         "number": 4
       },
-      "holdMs": 6500,
+      "holdMs": 2500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1537,18 +1570,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "c5",
-      "chapter": "chuong-5",
-      "type": "chapter-title",
-      "props": {
-        "title": "Một chữ, hai cách viết",
-        "number": 5
-      },
-      "holdMs": 1000,
-      "sfx": "whoosh",
-      "beats": []
     },
     {
       "id": "s46",
@@ -1805,18 +1826,6 @@
           "claims": []
         }
       ]
-    },
-    {
-      "id": "c6",
-      "chapter": "chuong-6",
-      "type": "chapter-title",
-      "props": {
-        "title": "Khi máy đoán sai, và tin nhắn 70 chữ",
-        "number": 6
-      },
-      "holdMs": 1000,
-      "sfx": "whoosh",
-      "beats": []
     },
     {
       "id": "s53",
@@ -2327,7 +2336,7 @@
         "title": "Không riêng Việt Nam",
         "number": 7
       },
-      "holdMs": 6500,
+      "holdMs": 2500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2443,18 +2452,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "c8",
-      "chapter": "ket",
-      "type": "chapter-title",
-      "props": {
-        "title": "Kết",
-        "number": 8
-      },
-      "holdMs": 6500,
-      "sfx": "whoosh",
-      "beats": []
     },
     {
       "id": "s71",

@@ -259,7 +259,7 @@
         {
           "id": "b008",
           "text": "54 69 E1 BA BF 6E 67 20 56 69 E1 BB 87 74: mười bốn ô. Riêng chữ ế chiếm ba ô, E1 BA BF.",
-          "spoken": "Hai chữ Tiếng Việt thành mười bốn ô nhớ. Riêng chữ ế chiếm ba ô liền nhau: e một, bê a, bê ép.",
+          "spoken": "Hai chữ Tiếng Việt thành mười bốn ô nhớ. Riêng chữ ế chiếm nhiều ô liền nhau: e một, bê a, bê ép.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -282,7 +282,7 @@
         {
           "id": "b009",
           "text": "Giờ đưa đúng những ô ấy cho chương trình đọc nhầm theo một bảng cũ của Windows, tên Windows-1252.",
-          "spoken": "Giờ đưa đúng những ô ấy cho chương trình đọc nhầm theo một bảng cũ của Windows, tên là win đâu một hai năm hai.",
+          "spoken": "Giờ đưa đúng những ô ấy cho chương trình đọc nhầm theo một bảng cũ của Windows, tên là Windows một hai năm hai.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -640,7 +640,7 @@
         {
           "id": "b023",
           "text": "Vì ASCII chỉ cần bảy bit, một byte tám bit thừa ra một bit, tức là thêm 128 ngăn kéo nữa, còn trống.",
-          "spoken": null,
+          "spoken": "Vì a ét xi ai ai chỉ cần bảy bit, một ô nhớ tám bit thừa ra một bit, tức là thêm một trăm hai mươi tám ngăn kéo nữa, còn trống.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1101,7 +1101,7 @@
         {
           "id": "b042",
           "text": "Chữ trong máy là những ô nhớ gọi là byte. Bảng mã đầu tiên, ASCII, không có chỗ cho chữ như ế.",
-          "spoken": null,
+          "spoken": "Chữ trong máy được cất thành từng ô nhớ. Bảng mã đầu tiên, a ét xi ai ai, không có chỗ cho chữ như ế.",
           "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
@@ -1139,7 +1139,7 @@
         {
           "id": "b044",
           "text": "Họ là Ken Thompson và Rob Pike, và cách ghi ấy tên là UTF-8.",
-          "spoken": null,
+          "spoken": "Họ là Ken Thompson và người đồng sáng tạo của ông, và cách ghi ấy tên là u ti ép tám.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1163,7 +1163,7 @@
         {
           "id": "b045",
           "text": "Theo lời kể của Pike, họ làm nó trên một tấm lót đĩa trong một quán ăn ở New Jersey.",
-          "spoken": null,
+          "spoken": "Theo lời kể của ông ấy, họ làm nó trên một tấm lót đĩa trong một quán ăn ở New Jersey.",
           "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
@@ -1188,7 +1188,7 @@
         {
           "id": "b046",
           "text": "Theo Pike, Ken nghĩ ra cách xếp bit vào từng byte, còn ông đứng bên cổ vũ.",
-          "spoken": null,
+          "spoken": "Theo ông, Ken nghĩ ra cách xếp bit vào từng ô nhớ, còn ông đứng bên cổ vũ.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1211,7 +1211,7 @@
         {
           "id": "b047",
           "text": "Yêu cầu thứ nhất: byte của chữ như a hay b không bao giờ lẫn vào trong byte của chữ như ế.",
-          "spoken": null,
+          "spoken": "Yêu cầu thứ nhất: ô nhớ của chữ như a hay b không bao giờ lẫn vào trong các ô nhớ của chữ như ế.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1268,7 +1268,7 @@
         {
           "id": "b051",
           "text": "Chữ é chiếm 2 byte, chữ ế chiếm 3 byte, còn biểu tượng 👍 chiếm 4 byte.",
-          "spoken": "Chữ é chiếm hai byte, chữ ế chiếm ba byte, còn biểu tượng giơ ngón cái chiếm bốn byte.",
+          "spoken": "Chữ é chiếm hai ô nhớ, chữ ế chiếm ba ô nhớ, còn biểu tượng giơ ngón cái chiếm bốn ô nhớ.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -1358,7 +1358,7 @@
         {
           "id": "b054",
           "text": "Nhóm làm chuẩn web WHATWG viết rằng giao thức và định dạng mới phải dùng UTF-8 và chỉ UTF-8.",
-          "spoken": null,
+          "spoken": "Nhóm làm chuẩn web viết rằng giao thức và định dạng mới phải dùng u ti ép tám và chỉ u ti ép tám.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -1847,7 +1847,7 @@
         {
           "id": "b073",
           "text": "Mở Notepad, chương trình soạn thảo của Windows, gõ đúng câu: Bush hid the facts. Lưu rồi mở lại.",
-          "spoken": "Mở nốt pát, chương trình soạn thảo của win đâu, gõ đúng câu: Bush hid the facts. Lưu rồi mở lại.",
+          "spoken": "Mở nốt pát, chương trình soạn thảo của Windows, gõ một câu tiếng Anh nói rằng ông Bush giấu sự thật. Lưu rồi mở lại.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2222,7 +2222,7 @@
         {
           "id": "b088",
           "text": "Khi đó 140 byte chỉ chứa được 70 ký tự, chưa bằng một nửa so với 160.",
-          "spoken": null,
+          "spoken": "Khi đó một trăm bốn mươi ô nhớ chỉ chứa được bảy mươi ký tự, chưa bằng một nửa so với một trăm sáu mươi.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2343,7 +2343,7 @@
         {
           "id": "b093",
           "text": "Zawgyi là cách mã hóa tiếng Miến Điện không tương thích với Unicode, mà phần lớn thiết bị ở đó dùng.",
-          "spoken": null,
+          "spoken": "Đây là cách mã hóa tiếng Miến Điện không tương thích với Unicode, mà phần lớn thiết bị ở đó dùng.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2386,7 +2386,7 @@
         {
           "id": "b095",
           "text": "Một năm trước đó, Facebook đã bỏ Zawgyi khỏi ngôn ngữ giao diện cho người dùng mới.",
-          "spoken": null,
+          "spoken": "Một năm trước đó, Facebook đã bỏ cách mã hóa cũ khỏi ngôn ngữ giao diện cho người dùng mới.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,

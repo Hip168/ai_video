@@ -1308,6 +1308,62 @@
       "unresolvedSevere": null,
       "prevHash": "848e004b564d53e3cc7a92362a6d1e7bf260f7f0050e2da373eedcbdfe8e1452",
       "entryHash": "1fb16d20cd8afe5bf0c6743e0fee7864c442b84f6a0278bed913f295fdc1638a"
+    },
+    {
+      "seq": 38,
+      "ts": "2026-11-18T12:15:41Z",
+      "stage": "qc",
+      "role": "sep-tong",
+      "pair": "editor/qc",
+      "round": 3,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "DAT",
+      "scriptHash": "1ed186e151016885a3fd003507d4fe04a6a7210e15dca31d21242d1128549318",
+      "claimsHash": null,
+      "artifactHash": "db406acb6d08dcc3961004de528e823eac9f39580f4f7ceb6636d0af0dd67d7a",
+      "findingsHash": "2afa4eaa7bcf1f6a4cdeeca1c0ba983e7ad21ceda0426d587fae7fa8d4d57c1e",
+      "findingKeys": [
+        "f2ac62fa878e",
+        "0426adca03df"
+      ],
+      "returnTo": null,
+      "escalate": true,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "1fb16d20cd8afe5bf0c6743e0fee7864c442b84f6a0278bed913f295fdc1638a",
+      "entryHash": "e447d3b745eefb4adceed1edec89aa12e432cc2f17a4c62f563d904c380e69a4"
+    },
+    {
+      "seq": 39,
+      "ts": "2026-11-18T12:34:07Z",
+      "stage": "qc",
+      "role": "sep-tong",
+      "pair": "editor/qc",
+      "round": 1,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "DAT",
+      "scriptHash": "1ed186e151016885a3fd003507d4fe04a6a7210e15dca31d21242d1128549318",
+      "claimsHash": null,
+      "artifactHash": "db406acb6d08dcc3961004de528e823eac9f39580f4f7ceb6636d0af0dd67d7a",
+      "findingsHash": "2afa4eaa7bcf1f6a4cdeeca1c0ba983e7ad21ceda0426d587fae7fa8d4d57c1e",
+      "findingKeys": [
+        "f2ac62fa878e",
+        "0426adca03df"
+      ],
+      "returnTo": null,
+      "escalate": false,
+      "note": "người dùng chấp nhận 2 MINOR 2026-11-18 (thẻ chương 5, 6, Kết bỏ có chủ ý để Short 4, 5 mở bằng cảnh nội dung; render.log còn dòng text-fit của lần dựng cũ); qc vòng 4 ĐẠT, evidence 43 khung",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "e447d3b745eefb4adceed1edec89aa12e432cc2f17a4c62f563d904c380e69a4",
+      "entryHash": "be9c09c3edd8e686170aa61313a12864ee62fa2168658cb262d60da5dd15f3bb"
     }
   ]
 }

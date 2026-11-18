@@ -392,7 +392,7 @@
         "title": "Chữ chỉ là con số trong một bảng tra",
         "number": 1
       },
-      "holdMs": 2500,
+      "holdMs": 5500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -620,7 +620,7 @@
         "title": "Thời mỗi nhà một bảng mã",
         "number": 2
       },
-      "holdMs": 2500,
+      "holdMs": 5500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -977,7 +977,7 @@
         "title": "Unicode và tấm lót đĩa ở New Jersey",
         "number": 3
       },
-      "holdMs": 2500,
+      "holdMs": 5500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1376,7 +1376,7 @@
         "title": "Việt Nam chuyển sang một bảng chung",
         "number": 4
       },
-      "holdMs": 2500,
+      "holdMs": 5500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1546,7 +1546,7 @@
         "title": "Một chữ, hai cách viết",
         "number": 5
       },
-      "holdMs": 2500,
+      "holdMs": 5000,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1806,7 +1806,7 @@
         "title": "Khi máy đoán sai, và tin nhắn 70 chữ",
         "number": 6
       },
-      "holdMs": 2500,
+      "holdMs": 5000,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2315,7 +2315,7 @@
         "title": "Không riêng Việt Nam",
         "number": 7
       },
-      "holdMs": 2500,
+      "holdMs": 5500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2431,6 +2431,18 @@
           ]
         }
       ]
+    },
+    {
+      "id": "c8",
+      "chapter": "ket",
+      "type": "chapter-title",
+      "props": {
+        "title": "Kết",
+        "number": 8
+      },
+      "holdMs": 5000,
+      "sfx": "whoosh",
+      "beats": []
     },
     {
       "id": "s71",

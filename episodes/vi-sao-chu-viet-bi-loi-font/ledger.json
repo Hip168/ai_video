@@ -882,6 +882,38 @@
       "unresolvedSevere": null,
       "prevHash": "c188be3f6c920041b2cd1dbe4e6c19e230903a78c3e7d84d520ca517020091d9",
       "entryHash": "420a0a301186ec6616a73a696614f04e0a7f02429b48d7c28aac6ad713c947d7"
+    },
+    {
+      "seq": 24,
+      "ts": "2026-11-18T08:31:49Z",
+      "stage": "lint",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "eff933e1880655430398e94e0fedb48523a89aa5ce21c7cf24c3625a3864cfc8",
+      "verdict": "CHAN",
+      "scriptHash": "1ed186e151016885a3fd003507d4fe04a6a7210e15dca31d21242d1128549318",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "mã thoát 1",
+      "cmd": [
+        "npm",
+        "run",
+        "lint:episode",
+        "--",
+        "vi-sao-chu-viet-bi-loi-font",
+        "--json"
+      ],
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "420a0a301186ec6616a73a696614f04e0a7f02429b48d7c28aac6ad713c947d7",
+      "entryHash": "46482e91ec2cb378f73744c2159cc255f56c3758c2110510b0b4e136825bfade"
     }
   ]
 }

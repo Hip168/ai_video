@@ -1,6 +1,21 @@
-# Trạng thái hiện tại (cập nhật 2026-11-17), đọc file này trước khi chạy tiếp
+# Trạng thái hiện tại (cập nhật 2026-11-19), đọc file này trước khi chạy tiếp
 
 MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 video lên kênh thì DỪNG. Tiết kiệm token: không mở đề mục mới, đề mục 14 tạm dừng. Đội tự đẩy lên GitHub. Chỉ hỏi người dùng ở các điểm dừng trong `autonomy.md`.
+
+## TẬP 5 `vi-sao-chu-viet-bi-loi-font` (2026-11-18/19)
+- Video dài ĐÃ ĐĂNG https://youtu.be/lDP7ja2RZ1s.
+- Short 1–6 ĐÃ ĐĂNG công khai: 1 ynFkpU1deqI, 2 3hJYe16T6jo, 3 90tayb3x8w0, 4 HH1e10-LPpA, 5 C3mUUdo60cA, 6 AGjWVqst7lA (19/11). Short 6 đọc lại qua API: public, processed, tiêu đề đúng shorts.json + " (Phần 6/6) #Shorts", mô tả có link lDP7ja2RZ1s.
+- Drive `05 vi-sao-chu-viet-bi-loi-font/`: 23/23 file khớp md5 (video-dai.mp4/.srt, chapters.txt, thumbnail.png, youtube-shorts/phan-1..6, tiktok/phan-1..3 mp4+txt, facebook/video-dai + phan-1..6).
+- PR #100 (cảnh riêng tập 5 + registry + ledger) đã merge bằng admin sau kiểm local: tsc 0, vitest đủ bộ 1289 đạt (cần `REMOTION_BROWSER_EXECUTABLE=~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell`, không chạy song song với pytest), pytest 2731 đạt, lint tập 5 đạt, kiểm khoá 0, không media.
+- Facebook page Con Bit: đã có video dài và Short phần 1 (đều có Tin). Short 2–6 bản Facebook CHƯA đăng, file ở `out/facebook/vi-sao-chu-viet-bi-loi-font/`.
+- TikTok: phần 1 đã lên (chưa ghi link vào `out/tiktok-dang/DA-DANG-TIKTOK.md`); phần 2–3 đang HOLD theo ý người dùng, file ở `out/tiktok-dang/video/tap5/`.
+- Video liên quan cho 6 Short tập 5: CHƯA gắn, cần cookie mới.
+- 2 MINOR người dùng đã chấp nhận (thẻ chương 5, 6 bỏ có chủ ý; log text-fit cũ), ghi sổ seq 39.
+- Bài học tập 5:
+  - Đừng kéo video cho đủ 9 phút bằng thẻ chương im lặng; dùng `pause_ms` (không nằm trong hash lời).
+  - `sceneRange` của Short lùi qua các cảnh không có beat, nên thẻ chương đứng trước một Short sẽ lọt vào đầu Short đó.
+  - QC báo lỗi hình: `file` phải là `script.json`, `quote` phải là `text` của một beat; ghi đường dẫn MP4 thì phát hiện bị loại.
+  - Chatterbox (Follow the Buck) chiếm ~22 GB RAM: chỉ tổng hợp lại beat đã đổi, không render song song lúc đang tổng hợp.
 
 ## THẺ KẾT TIKTOK (2026-11-17, đề mục 33, D42)
 - Từ tập 5: mỗi phần TikTok (1–3) tự nối thẻ chữ 2,5 s "Xem full tại diu tiu bé @bitstory168" (không giọng, không logo, chỉ nhạc nền nhẹ; viết lái cố ý để tránh TikTok kiểm duyệt). Lệnh xuất như cũ, thẻ tự gắn theo số tập trong `episodes/index.json`:

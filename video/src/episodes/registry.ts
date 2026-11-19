@@ -19,6 +19,15 @@ import { NuaAm } from "./khi-may-tinh-dem-qua-gioi-han/nua-am";
 import { OChua } from "./khi-may-tinh-dem-qua-gioi-han/o-chua";
 import { SoTuan } from "./khi-may-tinh-dem-qua-gioi-han/so-tuan";
 import { VongSo } from "./khi-may-tinh-dem-qua-gioi-han/vong-so";
+import { BitByte } from "./vi-sao-chu-viet-bi-loi-font/bit-byte";
+import { ChuEj } from "./vi-sao-chu-viet-bi-loi-font/chu-ej";
+import { ChuMa } from "./vi-sao-chu-viet-bi-loi-font/chu-ma";
+import { HaiTuDien } from "./vi-sao-chu-viet-bi-loi-font/hai-tu-dien";
+import { NganKeo } from "./vi-sao-chu-viet-bi-loi-font/ngan-keo";
+import { Notepad } from "./vi-sao-chu-viet-bi-loi-font/notepad";
+import { PhongCu } from "./vi-sao-chu-viet-bi-loi-font/phong-cu";
+import { SmsBit } from "./vi-sao-chu-viet-bi-loi-font/sms-bit";
+import { Utf8Bit } from "./vi-sao-chu-viet-bi-loi-font/utf8-bit";
 import { CatBit } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/cat-bit";
 import { ChuSoCoNghia } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/chu-so-co-nghia";
 import { DauPhayDong } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/dau-phay-dong";
@@ -79,6 +88,16 @@ export const CUSTOM_SCENES: Record<string, React.FC<SceneProps>> = {
   "doppler": Doppler,
   "lia-thia": LiaThia,
   "do-cao": DoCao,
+  // vi-sao-chu-viet-bi-loi-font
+  "chu-ma": ChuMa,
+  "ngan-keo": NganKeo,
+  "bit-byte": BitByte,
+  "hai-tu-dien": HaiTuDien,
+  "phong-cu": PhongCu,
+  "utf8-bit": Utf8Bit,
+  "chu-ej": ChuEj,
+  "notepad": Notepad,
+  "sms-bit": SmsBit,
 };
 
 /** Cảnh riêng đã tự vẽ vừa hộp vuông của Short (đọc `useBox()`); cảnh khác không được nằm trong Short (D33). */
@@ -90,4 +109,6 @@ export const CUSTOM_SQUARE: ReadonlySet<string> = new Set<string>([
   "cong-to-met", "vong-so", "nua-am", "cong-bit", "o-chua", "hai-bo", "bon-gcu", "so-tuan", "dong-ho-2038",
   // con-tau-sao-hoa-mat-vi-nham-don-vi
   "sao-hoa", "xung-luc", "hai-doi", "banh-da", "hai-thuoc", "doppler", "lia-thia", "do-cao",
+  // vi-sao-chu-viet-bi-loi-font
+  "chu-ma", "ngan-keo", "bit-byte", "hai-tu-dien", "phong-cu", "utf8-bit", "chu-ej", "notepad", "sms-bit",
 ]);

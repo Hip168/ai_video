@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "shorts": [
+    {
+      "part": 1,
+      "total": 6,
+      "from": "b001",
+      "to": "b012",
+      "title": "Vì sao hiện chữ ma \"Tiáº¿ng Viá»‡t\" thay cho \"Tiếng Việt\"?",
+      "hook": "Chữ ma, không phải chữ mất",
+      "tiktok": {
+        "title": "Vì sao hiện chữ ma \"Tiáº¿ng Viá»‡t\" thay cho \"Tiếng Việt\"?",
+        "intro": "Bạn mở tin nhắn và thấy \"Tiáº¿ng Viá»‡t\", đáng lẽ phải là \"Tiếng Việt\". Máy không hỏng, chữ cũng không mất: cùng một dãy số bị tra nhầm bảng, và cái tên của hiện tượng này là chữ ma.",
+        "question": "Bạn từng gặp chữ ma ở đâu rồi? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #laptrinh"
+      }
+    },
+    {
+      "part": 2,
+      "total": 6,
+      "from": "b028",
+      "to": "b038",
+      "title": "Cuộc chiến bảng mã chữ Việt: khoảng 40 bảng, mỗi nơi một kiểu",
+      "hook": "Từng có khoảng 40 bảng mã",
+      "tiktok": {
+        "title": "Cuộc chiến bảng mã chữ Việt: khoảng 40 bảng, mỗi nơi một kiểu",
+        "intro": "Trước năm 2001, chữ Việt có khoảng 40 bảng mã 8 bit khác nhau. Gửi tệp cho người máy thiếu bộ phông thì họ thấy toàn ký tự lạ, như hai người cầm hai cuốn từ điển khác nhau nhìn cùng một dãy số.",
+        "question": "Bạn có nhớ thời phải cài phông VNI hay ABC mới thấy chữ Việt không? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #laptrinh"
+      }
+    },
+    {
+      "part": 3,
+      "total": 6,
+      "from": "b042",
+      "to": "b052",
+      "title": "UTF-8 ra đời trên một tấm lót đĩa trong quán ăn ở New Jersey",
+      "hook": "UTF-8 trên tấm lót đĩa",
+      "tiktok": {
+        "title": "UTF-8 ra đời trên một tấm lót đĩa trong quán ăn ở New Jersey",
+        "intro": "Khoảng tháng 9 năm 1992, Ken Thompson và Rob Pike thiết kế UTF-8, cách ghi chữ mà hầu hết trang web ngày nay dùng. Theo lời kể của Pike, họ làm nó trên một tấm lót đĩa trong một quán ăn ở New Jersey.",
+        "question": "Chữ ế chiếm 3 byte, biểu tượng 👍 chiếm 4 byte. Bạn đoán chữ nào chiếm 1 byte? Đoán dưới bình luận nhé.",
+        "tags": "#tinhoc #laptrinh"
+      }
+    },
+    {
+      "part": 4,
+      "total": 6,
+      "from": "b060",
+      "to": "b071",
+      "title": "Hai chữ ệ giống hệt nhau nhưng máy thấy là hai thứ khác nhau",
+      "hook": "Một chữ ệ, hai cách lưu"
+    },
+    {
+      "part": 5,
+      "total": 6,
+      "from": "b072",
+      "to": "b081",
+      "title": "Gõ \"Bush hid the facts\" vào Notepad rồi mở lại: chữ hóa chữ Trung Quốc",
+      "hook": "Gõ một câu, hiện chữ Trung"
+    },
+    {
+      "part": 6,
+      "total": 6,
+      "from": "b082",
+      "to": "b091",
+      "title": "Vì sao tin nhắn SMS có chữ có dấu chỉ còn 70 ký tự thay vì 160?",
+      "hook": "SMS 160 chữ thành 70"
+    }
+  ]
+}

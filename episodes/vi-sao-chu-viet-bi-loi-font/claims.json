@@ -1,0 +1,518 @@
+[
+  {
+    "id": "c001",
+    "claim": "Chuỗi \"Tiếng Việt\" lưu theo UTF-8 gồm các byte 54 69 E1 BA BF 6E 67 20 56 69 E1 BB 87 74; nếu một chương trình đọc nhầm các byte đó theo bảng mã Windows-1252 thì hiện ra \"Tiáº¿ng Viá»‡t\". (Phép tính tại chỗ, đã chạy bằng Python; người kiểm tự chạy lại.)",
+    "question": "Chuỗi tiếng Việt \"Tiếng Việt\" lưu bằng UTF-8 gồm những byte nào, và nếu giải mã các byte đó theo Windows-1252 thì ra chữ gì?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc3629",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://encoding.spec.whatwg.org/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c002",
+    "claim": "Hiện tượng chữ bị đọc sai bảng mã tiếng Nhật gọi là mojibake (文字化け, nghĩa \"biến đổi ký tự\"); người Việt gọi là \"chữ ma\" hoặc \"loạn mã\".",
+    "question": "Hiện tượng văn bản bị giải mã sai bảng mã tên là gì trong tiếng Nhật, và người Việt thường gọi nó là gì?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Mojibake",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c004",
+    "claim": "Trong tiêu chuẩn của WHATWG, nhãn \"latin1\" và \"ascii\" thực ra chỉ là tên khác của bảng mã windows-1252.",
+    "question": "Theo đặc tả Encoding của WHATWG, nhãn \"latin1\" và \"ascii\" trỏ tới bảng mã nào?",
+    "sources": [
+      {
+        "url": "https://encoding.spec.whatwg.org/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c005",
+    "claim": "ASCII được công bố lần đầu năm 1963 (tiêu chuẩn ASA X3.4-1963), là bộ mã 7 bit với 128 vị trí, gồm 95 ký tự in được và 33 ký tự điều khiển.",
+    "question": "ASCII được công bố năm nào, dùng bao nhiêu bit, có bao nhiêu vị trí và chia thành những loại nào?",
+    "sources": [
+      {
+        "url": "https://ethw.org/Milestones:American_Standard_Code_for_Information_Interchange_ASCII,_1963",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc20",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c006",
+    "claim": "Bit thứ tám của một byte ban đầu được để dành làm bit chẵn lẻ (parity) để kiểm tra lỗi, nên ASCII chỉ dùng 7 bit.",
+    "question": "Vì sao ASCII chỉ dùng 7 bit của một byte, bit còn lại ban đầu để làm gì?",
+    "sources": [
+      {
+        "url": "https://www.linfo.org/ascii.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c007",
+    "claim": "Bộ ASCII không có chữ nào có dấu như ế hay ệ. (Kiểm tra bằng cách đối chiếu bảng 128 ký tự ASCII.)",
+    "question": "Chữ \"ế\" có nằm trong 128 ký tự của ASCII không?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc20",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c008",
+    "claim": "Bit thứ tám sau này được dùng cho các bộ mã mở rộng: ISO 8859, Windows dùng một tập mở rộng của Latin 1, Mac OS dùng MacRoman; nhiều tổ chức và hãng làm bản riêng, đôi khi mâu thuẫn nhau.",
+    "question": "Khi bit thứ tám của byte được giải phóng, các bộ mã mở rộng nào ra đời và chúng có thống nhất với nhau không?",
+    "sources": [
+      {
+        "url": "https://www.linfo.org/ascii.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c009",
+    "claim": "ASCII là bảng mã phổ biến nhất trên web cho tới tháng 12 năm 2007, khi UTF-8 vượt lên.",
+    "question": "Bảng mã nào là phổ biến nhất trên web cho tới cuối năm 2007, và bảng mã nào vượt qua nó?",
+    "sources": [
+      {
+        "url": "https://ethw.org/Milestones:American_Standard_Code_for_Information_Interchange_ASCII,_1963",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/ASCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c010",
+    "claim": "Trước năm 2001, chữ Việt có khoảng 40 bảng mã 8 bit khác nhau (một số báo ghi \"hơn 40\"), trong đó có ABC, VNI và TCVN 5712.",
+    "question": "Trước năm 2001 chữ Việt có khoảng bao nhiêu bảng mã 8 bit, kể tên một vài bảng mã?",
+    "sources": [
+      {
+        "url": "https://vnexpress.net/hay-dung-unicode-de-phuc-vu-cho-tieng-viet-1505023.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://ngonngu.net/cv_datdau_ptl0/86",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c011",
+    "claim": "TCVN3 (còn gọi là ABC) là một trong các bảng mã chữ Việt 8 bit được dùng nhiều trước thời Unicode, cùng với VNI, VPS và VISCII.",
+    "question": "Kể tên các bảng mã chữ Việt 8 bit cũ được dùng nhiều trước thời Unicode, và TCVN3 còn có tên gọi nào?",
+    "sources": [
+      {
+        "url": "https://vietunicode.sourceforge.net/main.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/VSCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c012",
+    "claim": "VSCII (TCVN) được dùng nhiều ở miền Bắc Việt Nam, còn VNI phổ biến ở miền Nam.",
+    "question": "Bảng mã nào phổ biến ở miền Bắc và bảng mã nào phổ biến ở miền Nam trước thời Unicode?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/VSCII",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Vietnamese_language_and_computers",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c013",
+    "claim": "Trong TCVN3, chữ hoa có dấu của nguyên âm được ánh xạ sang một phông chữ hoa riêng trông giống phông thường.",
+    "question": "Trong TCVN3, các nguyên âm viết hoa có dấu được xử lý ra sao?",
+    "sources": [
+      {
+        "url": "https://vietunicode.sourceforge.net/charset/index.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/VSCII",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c016",
+    "claim": "Tập 1 của Unicode 1.0 được xuất bản vào tháng 10 năm 1991.",
+    "question": "Unicode phiên bản 1.0 được xuất bản vào thời điểm nào?",
+    "sources": [
+      {
+        "url": "https://www.unicode.org/history/publicationdates.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c017",
+    "claim": "Unicode 6.0 được phát hành ngày 11 tháng 10 năm 2010, với 2.088 ký tự mới, trong đó có các biểu tượng cảm xúc (emoji) quan trọng cho điện thoại di động.",
+    "question": "Unicode 6.0 phát hành ngày nào, thêm bao nhiêu ký tự mới và nổi bật có gì?",
+    "sources": [
+      {
+        "url": "https://www.unicode.org/versions/Unicode6.0.0/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.unicode.org/history/publicationdates.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c018",
+    "claim": "UTF-8 do Ken Thompson thiết kế cùng Rob Pike, vào khoảng tháng 9 năm 1992, theo lời kể của Rob Pike là trên một tấm lót đĩa (placemat) trong một quán ăn ở New Jersey.",
+    "question": "Ai thiết kế UTF-8, khi nào và theo lời kể thì ở đâu?",
+    "sources": [
+      {
+        "url": "https://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c019",
+    "claim": "Lịch sử mã nguồn Plan 9 của Russ Cox ghi thay đổi mã utf ngày 4 tháng 9 năm 1992, và đề xuất được gửi cho X/Open ngày 8 tháng 9 năm 1992.",
+    "question": "Các mốc ngày tháng nào trong tháng 9 năm 1992 gắn với thiết kế UTF-8 trên Plan 9 và gửi cho X/Open?",
+    "sources": [
+      {
+        "url": "https://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c020",
+    "claim": "Ken Thompson là người nghĩ ra cách đóng gói bit (bit-packing) của UTF-8 và viết mã đóng gói, giải đóng gói; Rob Pike viết rằng \"Ken designed it with me cheering him on, whatever the history books say\".",
+    "question": "Rob Pike mô tả vai trò của Ken Thompson trong việc thiết kế UTF-8 thế nào?",
+    "sources": [
+      {
+        "url": "https://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c021",
+    "claim": "Một yêu cầu thiết kế UTF-8 là dòng byte nhận được giữa chừng phải tự đồng bộ lại trong vòng chưa tới một ký tự, và byte ASCII không bao giờ xuất hiện bên trong ký tự nhiều byte.",
+    "question": "Hai yêu cầu thiết kế nào của UTF-8 nói về việc đọc giữa chừng và về byte ASCII?",
+    "sources": [
+      {
+        "url": "https://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c022",
+    "claim": "RFC 3629 (UTF-8), công bố tháng 11 năm 2003, quy định UTF-8 mã hóa mỗi ký tự trong khoảng U+0000 đến U+10FFFF bằng 1 đến 4 byte.",
+    "question": "RFC 3629 công bố khi nào và quy định UTF-8 dùng bao nhiêu byte cho một ký tự?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc3629",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c023",
+    "claim": "Theo RFC 3629, ký tự ASCII trong UTF-8 chỉ dùng đúng một byte với giá trị ASCII thường, nên một chuỗi ASCII thuần cũng là chuỗi UTF-8 hợp lệ.",
+    "question": "Theo RFC 3629 ký tự ASCII được mã hóa thế nào trong UTF-8 và điều đó có hệ quả gì cho văn bản ASCII?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc3629",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c024",
+    "claim": "Chữ \"ế\" (U+1EBF) chiếm 3 byte trong UTF-8 (E1 BA BF), chữ \"é\" (U+00E9) chiếm 2 byte (C3 A9), và biểu tượng 👍 (U+1F44D) chiếm 4 byte (F0 9F 91 8D). (Phép tính tại chỗ bằng Python, đối chiếu bảng mẫu bit của RFC 3629.)",
+    "question": "Trong UTF-8, các ký tự \"é\", \"ế\" và 👍 lần lượt chiếm bao nhiêu byte?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc3629",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c025",
+    "claim": "UTF-8 được dùng bởi 99,1% các trang web mà W3Techs biết được bảng mã, theo số liệu tháng 11 năm 2026.",
+    "question": "Theo W3Techs, UTF-8 được bao nhiêu phần trăm website dùng (số liệu mới nhất)?",
+    "sources": [
+      {
+        "url": "https://w3techs.com/technologies/details/en-utf8",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c026",
+    "claim": "Tiêu chuẩn Encoding của WHATWG viết rằng giao thức và định dạng mới \"must use the UTF-8 encoding exclusively\".",
+    "question": "Tiêu chuẩn Encoding của WHATWG yêu cầu giao thức và định dạng mới dùng bảng mã nào?",
+    "sources": [
+      {
+        "url": "https://encoding.spec.whatwg.org/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c027",
+    "claim": "TCVN 6909:2001, bộ mã chữ Việt dựa trên ISO/IEC 10646 (Unicode), được ban hành vào tháng 9 năm 2001.",
+    "question": "Bộ mã chữ Việt TCVN 6909:2001 được ban hành vào thời điểm nào và dựa trên chuẩn quốc tế nào?",
+    "sources": [
+      {
+        "url": "https://unicode.org/irg/docs/n0866-VietnamActivityReport.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://vnexpress.net/hay-dung-unicode-de-phuc-vu-cho-tieng-viet-1505023.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c028",
+    "claim": "Quyết định 72/2002/QĐ-TTg ngày 10 tháng 6 năm 2002 của Thủ tướng yêu cầu thống nhất dùng bộ mã TCVN 6909:2001 trong trao đổi thông tin điện tử giữa các tổ chức của Đảng và Nhà nước kể từ ngày 1 tháng 1 năm 2003.",
+    "question": "Quyết định nào của Thủ tướng năm 2002 nói về bộ mã chữ Việt, ngày ban hành, phạm vi và ngày áp dụng?",
+    "sources": [
+      {
+        "url": "https://caselaw.vn/van-ban-phap-luat/235396-quyet-dinh-so-72-2002-qd-ttg-ngay-10-06-2002-cua-thu-tuong-chinh-phu-thong-nhat-dung-bo-ma-cac-ky-tu-chu-viet-theo-tieu-chuan-tcvn-6909-2001-trong-trao-doi-thong-tin-dien-tu-giua-cac-to-chuc-cua-dang-va-nha-nuoc",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://vnexpress.net/hay-dung-unicode-de-phuc-vu-cho-tieng-viet-1505023.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c029",
+    "claim": "Quyết định 72/2002/QĐ-TTg quy định các cơ sở dữ liệu đang lưu theo bộ mã khác được chuyển sang TCVN 6909:2001 từng bước, tùy mức độ cấp bách và phạm vi phục vụ của từng tổ chức.",
+    "question": "Quyết định 72/2002/QĐ-TTg nói gì về cơ sở dữ liệu đang dùng bộ mã khác?",
+    "sources": [
+      {
+        "url": "https://caselaw.vn/van-ban-phap-luat/235396-quyet-dinh-so-72-2002-qd-ttg-ngay-10-06-2002-cua-thu-tuong-chinh-phu-thong-nhat-dung-bo-ma-cac-ky-tu-chu-viet-theo-tieu-chuan-tcvn-6909-2001-trong-trao-doi-thong-tin-dien-tu-giua-cac-to-chuc-cua-dang-va-nha-nuoc",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c031",
+    "claim": "Chữ \"ệ\" có một dạng dựng sẵn là U+1EC7 (một điểm mã), và dạng phân rã gồm chữ e (U+0065) cộng dấu nặng dưới chân (U+0323) cộng dấu mũ (U+0302). (Phép tính tại chỗ bằng Python unicodedata; người kiểm tự chạy lại.)",
+    "question": "Chữ \"ệ\" có thể được lưu bằng mấy điểm mã Unicode, lần lượt là những điểm mã nào?",
+    "sources": [
+      {
+        "url": "https://www.unicode.org/reports/tr15/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c032",
+    "claim": "Chuẩn hóa Unicode (UAX #15) định nghĩa dạng NFD (phân rã thành chữ gốc cộng dấu rời) và NFC (ghép lại thành ký tự dựng sẵn khi có thể); ví dụ chữ a cộng dấu mũ rời ghép thành â, và hai dạng này tương đương theo quy tắc \"canonical equivalence\".",
+    "question": "UAX #15 định nghĩa NFD và NFC là gì và thế nào là tương đương chính tắc?",
+    "sources": [
+      {
+        "url": "https://www.unicode.org/reports/tr15/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c033",
+    "claim": "Theo tài liệu của Apple (TN1150), hệ tệp HFS+ lưu tên tệp ở dạng phân rã hoàn toàn (fully decomposed) và theo thứ tự chuẩn.",
+    "question": "Tài liệu TN1150 của Apple nói gì về cách HFS+ lưu chuỗi tên tệp?",
+    "sources": [
+      {
+        "url": "https://developer.apple.com/library/archive/technotes/tn/tn1150.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c034",
+    "claim": "Raymond Chen (Microsoft) viết ngày 24 tháng 3 năm 2004 rằng khi tệp không có BOM, Notepad phải đoán giữa ANSI và Unicode little-endian bằng hàm IsTextUnicode; hàm này không chắc chắn tuyệt đối và chuỗi ngắn dễ bị đoán nhầm nhất.",
+    "question": "Bài của Raymond Chen ngày 24/3/2004 giải thích Notepad đoán bảng mã tệp bằng cách nào và khi nào dễ sai?",
+    "sources": [
+      {
+        "url": "https://devblogs.microsoft.com/oldnewthing/20040324-00/?p=40093",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c035",
+    "claim": "Gõ \"Bush hid the facts\" vào Notepad (Windows), lưu rồi mở lại thì chữ biến thành một chuỗi ký tự Trung Quốc vô nghĩa; các chuỗi như \"this app can break\" hay \"a \" cũng gây lỗi tương tự.",
+    "question": "Câu \"Bush hid the facts\" gây ra hiện tượng gì trong Notepad sau khi lưu và mở lại?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Bush_hid_the_facts",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://archives.miloush.net/michkap/archive/2007/04/22/2239345.html",
+        "credibility": "anecdotal"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c036",
+    "claim": "Hàm IsTextUnicode của Windows đoán một chuỗi có phải Unicode bằng các phép thử thống kê mà Microsoft ghi rõ là \"not foolproof\" (không chắc chắn tuyệt đối); một số chuỗi ASCII có thể bị nhận nhầm.",
+    "question": "Tài liệu Microsoft nói gì về độ tin cậy của các phép thử thống kê trong hàm IsTextUnicode?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-istextunicode",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://devblogs.microsoft.com/oldnewthing/20040324-00/?p=40093",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c037",
+    "claim": "Theo đặc tả 3GPP TS 23.038, một tin SMS dùng bảng 7 bit mặc định của GSM chứa tối đa 160 ký tự, còn tin dùng UCS2 tối đa 140 octet, tức 70 ký tự UCS2.",
+    "question": "Theo 3GPP TS 23.038, một tin SMS chứa tối đa bao nhiêu ký tự với bảng 7 bit mặc định và với UCS2?",
+    "sources": [
+      {
+        "url": "https://www.etsi.org/deliver/etsi_ts/123000_123099/123038/17.00.00_60/ts_123038v170000p.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://itecspec.com/spec/3gpp-23-038-4-sms-data-coding-scheme",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c038",
+    "claim": "Trong TS 23.038, 140 octet có thể đóng gói (140×8)/7 = 160 ký tự 7 bit, còn UCS2 dùng 2 octet cho mỗi ký tự nên chỉ được 70 ký tự.",
+    "question": "Phép tính nào giải thích con số 160 và 70 ký tự trong một tin SMS?",
+    "sources": [
+      {
+        "url": "https://www.etsi.org/deliver/etsi_ts/123000_123099/123038/17.00.00_60/ts_123038v170000p.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c039",
+    "claim": "Các chữ ệ, ữ và ế không nằm trong bảng 7 bit mặc định của GSM (GSM 03.38 / 3GPP TS 23.038, mục 6.2.1) và cũng không nằm trong bảng mở rộng, nên tin nhắn chứa chúng phải dùng UCS2 và giới hạn còn 70 ký tự.",
+    "question": "Các chữ ệ, ữ, ế có nằm trong bảng 7 bit mặc định hoặc bảng mở rộng của GSM không, và hệ quả với một tin SMS chứa chúng là gì?",
+    "sources": [
+      {
+        "url": "https://en.wikipedia.org/wiki/GSM_03.38",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.etsi.org/deliver/etsi_ts/123000_123099/123038/17.00.00_60/ts_123038v170000p.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c040",
+    "claim": "Ngày 26 tháng 9 năm 2019, Facebook công bố đã làm bộ chuyển đổi phông chữ trong Facebook và Messenger, vì phần lớn thiết bị ở Myanmar vẫn dùng Zawgyi, một cách mã hóa tiếng Miến Điện không tương thích với Unicode.",
+    "question": "Facebook công bố điều gì về chữ Miến Điện vào ngày 26/9/2019 và vì sao?",
+    "sources": [
+      {
+        "url": "https://engineering.fb.com/2019/09/26/android/unicode-font-converter/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c041",
+    "claim": "Facebook đã bỏ Zawgyi khỏi danh sách ngôn ngữ giao diện cho người dùng mới từ một năm trước bài đăng tháng 9 năm 2019 để thúc đẩy chuyển sang Unicode.",
+    "question": "Facebook đã làm gì với tùy chọn ngôn ngữ Zawgyi cho người dùng mới trước tháng 9/2019?",
+    "sources": [
+      {
+        "url": "https://engineering.fb.com/2019/09/26/android/unicode-font-converter/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  }
+]

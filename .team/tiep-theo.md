@@ -9,7 +9,7 @@ MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 vi
 - PR #100 (cảnh riêng tập 5 + registry + ledger) đã merge bằng admin sau kiểm local: tsc 0, vitest đủ bộ 1289 đạt (cần `REMOTION_BROWSER_EXECUTABLE=~/.cache/aivideo/chrome-headless-shell/chrome-headless-shell`, không chạy song song với pytest), pytest 2731 đạt, lint tập 5 đạt, kiểm khoá 0, không media.
 - Facebook page Con Bit: đã có video dài và Short phần 1 (đều có Tin). Short 2–6 bản Facebook CHƯA đăng, file ở `out/facebook/vi-sao-chu-viet-bi-loi-font/`.
 - TikTok: phần 1 đã lên (chưa ghi link vào `out/tiktok-dang/DA-DANG-TIKTOK.md`); phần 2–3 đang HOLD theo ý người dùng, file ở `out/tiktok-dang/video/tap5/`.
-- Video liên quan cho 6 Short tập 5: CHƯA gắn, cần cookie mới.
+- Video liên quan Short 1–6 tập 5: ĐÃ GẮN 19/11 → lDP7ja2RZ1s (Playwright headless, cookie trong bộ nhớ, đã xoá cookie sau việc); trước đó cả 6 "Không có"; mở lại Studio xác nhận cả 6 đúng.
 - 2 MINOR người dùng đã chấp nhận (thẻ chương 5, 6 bỏ có chủ ý; log text-fit cũ), ghi sổ seq 39.
 - Bài học tập 5:
   - Đừng kéo video cho đủ 9 phút bằng thẻ chương im lặng; dùng `pause_ms` (không nằm trong hash lời).

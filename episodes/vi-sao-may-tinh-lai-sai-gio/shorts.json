@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "shorts": [
+    {
+      "part": 1,
+      "total": 6,
+      "from": "b001",
+      "to": "b012",
+      "title": "Vì sao Chrome báo \"đồng hồ của bạn bị chậm\" rồi chặn cả trang web?",
+      "hook": "Đồng hồ của bạn bị chậm",
+      "tiktok": {
+        "title": "Vì sao Chrome báo \"đồng hồ của bạn bị chậm\" rồi chặn cả trang web?",
+        "intro": "Mở lại chiếc máy tính cũ cất lâu ngày, vào trang quen thì bị chặn ngay: đồng hồ của bạn bị chậm. Trang web không hỏng, mạng cũng không rớt. Thứ sai là ngày giờ trên máy, và chứng chỉ bảo mật của trang web thì có hạn dùng.",
+        "question": "Bạn từng gặp dòng báo này chưa? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #meotinhoc"
+      }
+    },
+    {
+      "part": 2,
+      "total": 6,
+      "from": "b015",
+      "to": "b028",
+      "title": "Đồng hồ thạch anh đếm đủ 32.768 nhịp rung của mảnh đá mới tính là 1 giây",
+      "hook": "32.768 nhịp là 1 giây",
+      "tiktok": {
+        "title": "Đồng hồ thạch anh đếm đủ 32.768 nhịp rung của mảnh đá mới tính là 1 giây",
+        "intro": "Mảnh thạch anh trong đồng hồ thường rung 32.768 lần mỗi giây. Con số lẻ ấy chính là 2 mũ 15, nên mạch điện chỉ cần chia đôi 15 lần là còn đúng 1 nhịp mỗi giây. Nhưng không mảnh đá nào rung chuẩn tuyệt đối.",
+        "question": "Đồng hồ của bạn chạy nhanh hay chậm? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #khoahoc"
+      }
+    },
+    {
+      "part": 3,
+      "total": 6,
+      "from": "b046",
+      "to": "b059",
+      "title": "Từ 1906 tới 1975, giờ ở Sài Gòn đã đổi tất cả 8 lần",
+      "hook": "Giờ Sài Gòn đổi 8 lần",
+      "tiktok": {
+        "title": "Từ 1906 tới 1975, giờ ở Sài Gòn đã đổi tất cả 8 lần",
+        "intro": "Từ tháng 7/1906 tới tháng 6/1975, mức giờ ở Sài Gòn đổi tất cả 8 lần: giờ Phù Liễn lẻ tới từng giây, UTC+7, UTC+8, cả giờ Nhật UTC+9. Có lúc ngoài Bắc mới 7 giờ thì trong Nam đã 8 giờ.",
+        "question": "Ông bà, bố mẹ bạn có còn nhớ ngày Sài Gòn vặn đồng hồ chậm một giờ không? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #lichsu"
+      }
+    },
+    {
+      "part": 4,
+      "total": 6,
+      "from": "b060",
+      "to": "b066",
+      "title": "Samoa từng xoá hẳn một ngày khỏi lịch: thứ Sáu 30/12/2011 không tồn tại",
+      "hook": "Samoa xoá một ngày"
+    },
+    {
+      "part": 5,
+      "total": 6,
+      "from": "b083",
+      "to": "b096",
+      "title": "Khi đồng hồ chỉ 23:59:60: giây nhuận làm sập hệ thống đặt chỗ máy bay",
+      "hook": "Phút có 61 giây"
+    },
+    {
+      "part": 6,
+      "total": 6,
+      "from": "b097",
+      "to": "b109",
+      "title": "Một giây nhuận làm đồng hồ chạy lùi và gây lỗi một phần DNS của Cloudflare",
+      "hook": "Khi thời gian chạy lùi"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Vì sao máy tính lại sai giờ? Thạch anh 32.768 nhịp, múi giờ và phút có 61 giây",
+  "description": "Chrome báo \"đồng hồ của bạn bị chậm\" và chặn cả trang web, dù mạng vẫn chạy. Video giải thích vì sao ngày giờ sai làm chứng chỉ bảo mật bị từ chối, vì sao đồng hồ thạch anh, đếm nhịp một mảnh đá thường rung 32.768 lần mỗi giây, vẫn trôi dần, cách máy hỏi giờ qua mạng bằng NTP và cất thời gian thành số giây kể từ mốc 1/1/1970. Sau đó là chuyện giờ ở Sài Gòn đổi 8 lần từ 1906 tới 1975, Samoa bỏ hẳn thứ Sáu 30/12/2011, cuốn sổ múi giờ do tình nguyện viên giữ từng bị kiện vi phạm bản quyền, và giây nhuận 23:59:60 từng làm sập hệ thống đặt chỗ máy bay năm 2012 và làm lỗi một phần DNS của Cloudflare năm 2017.\n\nMục lục:\n00:00 Mở đầu\n01:11 Một viên đá rung 32.768 lần mỗi giây\n02:35 Hỏi giờ qua mạng, và cái mốc năm 1970\n04:05 Cùng một con số, mỗi nơi một giờ\n06:52 Cuốn sổ múi giờ suýt bị kiện mất\n07:57 Khi một phút có 61 giây\n10:32 Rải giây, bỏ giây, và giây nhuận âm\n11:35 Kết\n\nNguồn chính:\n- Google Chrome Help, lỗi \"Your clock is behind\": https://support.google.com/chrome/answer/95669?hl=en\n- RFC 5280, chứng chỉ X.509 (thời hạn hiệu lực): https://www.rfc-editor.org/rfc/rfc5280\n- Let's Encrypt, FAQ (thời hạn chứng chỉ): https://letsencrypt.org/docs/faq/\n- NIST, Timekeeping and Clocks FAQs (thạch anh 32.768 Hz, giây theo xêsi): https://www.nist.gov/pml/time-and-frequency-division/timekeeping-and-clocks-faqs\n- RFC 5905, NTP phiên bản 4 (6/2010): https://www.rfc-editor.org/rfc/rfc5905\n- POSIX (The Open Group), Seconds Since the Epoch: https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html\n- Cơ sở dữ liệu múi giờ tz, lịch sử giờ Việt Nam: https://github.com/eggert/tz/blob/main/asia\n- Cơ sở dữ liệu múi giờ tz, Samoa 2011: https://github.com/eggert/tz/blob/main/australasia\n- IANA, Time Zone Database: https://www.iana.org/time-zones\n- EFF (22/2/2012), vụ kiện cơ sở dữ liệu múi giờ: https://www.eff.org/press/releases/eff-wins-protection-time-zone-database\n- RFC 6557 (2/2012), quy trình duy trì cơ sở dữ liệu múi giờ: https://www.rfc-editor.org/rfc/rfc6557\n- NIST, Leap Seconds FAQs: https://www.nist.gov/pml/time-and-frequency-division/leap-seconds-faqs\n- IERS, bảng giây nhuận: https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat\n- The Register (2/7/2012), giây nhuận làm sập hệ thống đặt chỗ: https://www.theregister.com/2012/07/02/leap_second_crashes_airlines/\n- Cloudflare (1/2017), giây nhuận ảnh hưởng DNS: https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/\n- Go 1.9 release notes (giờ đơn điệu): https://go.dev/doc/go1.9\n- Google Public NTP, rải giây nhuận: https://developers.google.com/time/smear\n- BIPM, Nghị quyết 4 CGPM 2022: https://www.bipm.org/en/cgpm-2022/resolution-4\n- UC San Diego (3/2024), giây nhuận âm: https://today.ucsd.edu/story/global-warming-is-influencing-global-timekeeping\n\nNhạc nền: Reverence, Abstraction (https://abstractionmusic.com/), giấy phép CC0, nguồn https://tallbeard.itch.io/music-loop-bundle\n\n#conbit6\n\nGiọng đọc trong video do AI tạo.",
+  "tags": [
+    "máy tính sai giờ",
+    "đồng hồ bị chậm",
+    "giây nhuận",
+    "múi giờ",
+    "đồng hồ thạch anh",
+    "NTP",
+    "Unix time",
+    "giờ Việt Nam",
+    "Samoa",
+    "tin học"
+  ],
+  "chapters": "00:00 Mở đầu\n01:11 Một viên đá rung 32.768 lần mỗi giây\n02:35 Hỏi giờ qua mạng, và cái mốc năm 1970\n04:05 Cùng một con số, mỗi nơi một giờ\n06:52 Cuốn sổ múi giờ suýt bị kiện mất\n07:57 Khi một phút có 61 giây\n10:32 Rải giây, bỏ giây, và giây nhuận âm\n11:35 Kết",
+  "thumbnail": "thumbnail.png",
+  "privacy": "public",
+  "channelId": "UC1aPohYcigcmBGPl7OlQaEw",
+  "containsSyntheticMedia": false
+}

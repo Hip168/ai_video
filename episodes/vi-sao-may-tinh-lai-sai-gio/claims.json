@@ -497,8 +497,8 @@
   },
   {
     "id": "c037",
-    "claim": "Theo tzdb, sau 1945 giờ còn đổi thêm: từ 1/4/1947 vùng Đông Dương do Pháp kiểm soát dùng UTC+8; từ 1 giờ ngày 1/7/1955 miền Nam lùi về UTC+7 (Dụ số 46 ngày 25/6/1955). Đếm theo bảng của tzdb cho Asia/Ho_Chi_Minh, từ 1/7/1906 đến 13/6/1975 giờ ở Sài Gòn đổi tất cả 9 lần. (Con số 9 là phép đếm các dòng chuyển giờ trong tzdb.)",
-    "question": "Theo cơ sở dữ liệu múi giờ, giờ ở miền Nam đổi thế nào trong các năm 1947 và 1955, và từ 1906 đến 1975 giờ ở Sài Gòn đổi tổng cộng bao nhiêu lần?",
+    "claim": "Theo tzdb, sau 1945 giờ còn đổi thêm: từ 1/4/1947 vùng Đông Dương do Pháp kiểm soát dùng UTC+8; từ 1 giờ ngày 1/7/1955 miền Nam lùi về UTC+7 (Dụ số 46 ngày 25/6/1955). Từ 1/7/1906 đến 13/6/1975, bảng múi giờ Asia/Ho_Chi_Minh của tzdb ghi 9 lần chuyển; trong đó lần 1906 chỉ đổi tên (từ LMT sang PLMT, cùng mức 7 giờ 6 phút 30 giây), nên mức chênh so với giờ UTC ở Sài Gòn thực sự đổi 8 lần: 1911, 12/1942, 3/1945, 9/1945, 1947, 1955, 1959 và 1975. (Các con số 9 và 8 là phép đếm trên bảng của tzdb.)",
+    "question": "Theo cơ sở dữ liệu múi giờ, giờ ở miền Nam đổi thế nào trong các năm 1947 và 1955, và từ 1906 đến 1975 mức chênh giờ ở Sài Gòn so với UTC thực sự thay đổi bao nhiêu lần?",
     "sources": [
       {
         "url": "https://github.com/eggert/tz/blob/main/asia",

@@ -859,8 +859,8 @@
       "beats": [
         {
           "id": "b046",
-          "text": "Bạn có biết: từ tháng 7/1906 tới tháng 6/1975, giờ ở Sài Gòn đã đổi tất cả 9 lần?",
-          "spoken": "Bạn có biết: từ năm một nghìn chín trăm linh sáu tới năm một nghìn chín trăm bảy mươi lăm, giờ ở Sài Gòn đã đổi tất cả chín lần?",
+          "text": "Bạn có biết: từ tháng 7/1906 tới tháng 6/1975, mức giờ ở Sài Gòn đã đổi tất cả 8 lần?",
+          "spoken": "Bạn có biết: từ năm một nghìn chín trăm linh sáu tới năm một nghìn chín trăm bảy mươi lăm, mức giờ ở Sài Gòn đã đổi tất cả tám lần?",
           "cue": "hook",
           "pause_ms": 700,
           "sfx": null,
@@ -870,8 +870,8 @@
         },
         {
           "id": "b047",
-          "text": "Con số 9 ấy là phép đếm trên cuốn sổ múi giờ mà máy tính khắp thế giới dùng chung.",
-          "spoken": "Con số chín ấy là phép đếm trên cuốn sổ múi giờ mà máy tính khắp thế giới dùng chung.",
+          "text": "Con số 8 ấy là phép đếm trên cuốn sổ múi giờ mà máy tính khắp thế giới dùng chung.",
+          "spoken": "Con số tám ấy là phép đếm trên cuốn sổ múi giờ mà máy tính khắp thế giới dùng chung.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -1092,8 +1092,8 @@
       "beats": [
         {
           "id": "b059",
-          "text": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi 9 lần đổi.",
-          "spoken": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi chín lần đổi.",
+          "text": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi 8 lần đổi.",
+          "spoken": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi tám lần đổi.",
           "cue": null,
           "pause_ms": 1100,
           "sfx": null,
@@ -1178,7 +1178,7 @@
         {
           "id": "b064",
           "text": "Mục đích là để khớp ngày với các đối tác thương mại chính, New Zealand và Úc.",
-          "spoken": "Mục đích là để khớp ngày với các đối tác thương mại chính, trong đó có Úc.",
+          "spoken": "Mục đích là để khớp ngày với các đối tác thương mại chính, Tân Tây Lan và Úc.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -1878,15 +1878,15 @@
       "beats": [
         {
           "id": "b103",
-          "text": "Nhưng bộ đếm giây không có chỗ cho giây thứ 60, và đêm ấy giờ trên máy đã lùi lại.",
+          "text": "Bộ đếm giây không có chỗ cho giây thứ 60, nên để chèn nó, nhân Linux đặt đồng hồ lùi lại một giây.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 250,
+          "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c014",
             "c026",
-            "c031"
+            "c038"
           ]
         },
         {
@@ -1897,7 +1897,8 @@
           "pause_ms": 450,
           "sfx": null,
           "claims": [
-            "c031"
+            "c031",
+            "c038"
           ]
         }
       ]
@@ -1933,8 +1934,8 @@
       "beats": [
         {
           "id": "b106",
-          "text": "Lúc cao điểm, khoảng 0,2% lượt hỏi DNS bị ảnh hưởng. Bản sửa chạy khắp thế giới lúc 6 giờ 45 UTC.",
-          "spoken": "Lúc cao điểm, khoảng không phẩy hai phần trăm lượt hỏi danh bạ bị ảnh hưởng. Bản sửa chạy khắp thế giới lúc sáu giờ bốn mươi lăm, giờ quốc tế.",
+          "text": "Lúc cao điểm, khoảng 0,2% lượt hỏi DNS bị ảnh hưởng. Đến 6 giờ 45 UTC, sự cố mới chấm dứt.",
+          "spoken": "Lúc cao điểm, khoảng không phẩy hai phần trăm lượt hỏi danh bạ bị ảnh hưởng. Đến sáu giờ bốn mươi lăm theo giờ quốc tế, sự cố mới chấm dứt.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -2083,8 +2084,8 @@
         },
         {
           "id": "b115",
-          "text": "Việc ấy làm trong hoặc trước năm 2035, tức thực tế là ngừng thêm giây nhuận.",
-          "spoken": "Việc ấy làm trong hoặc trước năm hai nghìn không trăm ba mươi lăm, tức thực tế là ngừng thêm giây nhuận.",
+          "text": "Mức nới ấy áp dụng trong hoặc trước năm 2035, nên giây nhuận sẽ không còn phải chèn thường xuyên.",
+          "spoken": "Mức nới ấy áp dụng trong hoặc trước năm hai nghìn không trăm ba mươi lăm, nên giây nhuận sẽ không còn phải chèn thường xuyên.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,

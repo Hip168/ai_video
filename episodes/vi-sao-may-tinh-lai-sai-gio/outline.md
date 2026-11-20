@@ -82,7 +82,7 @@ Ghi chú lời đọc (theo luật từ tiếng Anh của kênh): nói "giây nh
 ## Sáu đoạn cắt Short (mỗi đoạn tự đứng được, khoảng 60 đến 90 giây, một ý, một chuyện nhỏ)
 1. S1 "Vì sao Chrome bảo đồng hồ của bạn bị chậm": móc mở đầu, c001–c004. Ý: chứng chỉ có ngày bắt đầu và ngày hết hạn, máy sai giờ thì chặn cả trang đúng. Kết bằng mẹo bật giờ tự động.
 2. S2 "Con số 32.768 trong đồng hồ của bạn": Chương 1, c005–c008. Ý: 2 mũ 15, chia đôi 15 lần ra một giây; đá rung lệch thì đồng hồ lệch.
-3. S3 "Ngày Sài Gòn vặn đồng hồ chậm một giờ": Chương 3, c017–c020, c037. Ý: trước 1975 hai miền hai giờ; theo tzdb, giờ ở Sài Gòn đổi 9 lần từ 1906 đến 1975 (c037, phép đếm). (Đây là Short "gần Việt Nam" nên đăng sớm.)
+3. S3 "Ngày Sài Gòn vặn đồng hồ chậm một giờ": Chương 3, c017–c020, c037. Ý: trước 1975 hai miền hai giờ; theo tzdb, mức giờ ở Sài Gòn thực sự đổi 8 lần từ 1906 đến 1975 (c037, phép đếm; lần 1906 chỉ đổi tên nên không tính). (Đây là Short "gần Việt Nam" nên đăng sớm.)
 4. S4 "Đất nước bỏ hẳn một ngày": Chương 3 đoạn Samoa, c022, c021. Ý: thứ Năm nhảy sang thứ Bảy; phần mềm phải tra bảng múi giờ mới biết.
 5. S5 "Khi một phút có 61 giây": Chương 5, c026, c027, c029, c030. Ý: 23:59:60 làm sập hãng bay và Reddit năm 2012.
 6. S6 "Lỗi vì tin rằng thời gian không chạy lùi": Chương 5 đoạn Cloudflare, c031, c032, c014. Ý: số âm từ đồng hồ; bài học "giờ đơn điệu".

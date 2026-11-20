@@ -2663,7 +2663,7 @@
         {
           "id": "b103",
           "text": "Bộ đếm giây không có chỗ cho giây thứ 60, nên để chèn nó, nhân Linux đặt đồng hồ lùi lại một giây.",
-          "spoken": null,
+          "spoken": "Bộ đếm giây không có chỗ cho giây thứ sáu mươi, nên để chèn nó, lõi của Linux đặt đồng hồ lùi lại một giây.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2734,7 +2734,7 @@
       "beats": [
         {
           "id": "b105",
-          "text": "Một hàm của Go nhận phải số âm thì dừng hẳn, không chạy tiếp được nữa.",
+          "text": "Một hàm của Go nhận phải số âm thì báo lỗi, làm hỏng lượt hỏi đang được xử lý.",
           "spoken": null,
           "cue": null,
           "pause_ms": 500,

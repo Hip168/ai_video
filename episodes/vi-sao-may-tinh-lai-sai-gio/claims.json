@@ -1,0 +1,510 @@
+[
+  {
+    "id": "c001",
+    "claim": "Khi ngày giờ trên máy tính hoặc điện thoại bị sai, trình duyệt Chrome có thể báo lỗi \"Your clock is behind\" (đồng hồ của bạn bị chậm), \"Your clock is ahead\" (bị nhanh) hoặc mã NET::ERR_CERT_DATE_INVALID; cách sửa Google đưa ra là chỉnh lại ngày giờ cho đúng.",
+    "question": "Theo trang trợ giúp chính thức của Chrome, những thông báo lỗi nào liên quan tới đồng hồ của thiết bị, nguyên nhân là gì và cách sửa ra sao?",
+    "sources": [
+      {
+        "url": "https://support.google.com/chrome/answer/95669?hl=en",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c002",
+    "claim": "Theo chuẩn RFC 5280, mỗi chứng chỉ bảo mật của trang web ghi hai mốc thời gian, notBefore (bắt đầu có hiệu lực) và notAfter (hết hiệu lực); chứng chỉ chỉ hợp lệ trong khoảng từ mốc đầu tới mốc cuối, tính cả hai đầu.",
+    "question": "Trong chuẩn chứng chỉ X.509 trên Internet, thời hạn hiệu lực của chứng chỉ được ghi bằng những trường nào và khoảng hiệu lực tính như thế nào?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc5280",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c003",
+    "claim": "Chứng chỉ mặc định của Let's Encrypt có hiệu lực 90 ngày; người dùng có thể chọn loại ngắn hạn chỉ có hiệu lực 6 ngày.",
+    "question": "Chứng chỉ do Let's Encrypt cấp mặc định có hiệu lực bao lâu, và loại ngắn hạn có hiệu lực bao lâu?",
+    "sources": [
+      {
+        "url": "https://letsencrypt.org/docs/faq/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c004",
+    "claim": "Phép tính minh họa: một chứng chỉ có hiệu lực từ tháng 11/2026 tới tháng 2/2027; nếu điện thoại tưởng hôm nay là năm 2015 thì theo RFC 5280 chứng chỉ \"chưa tới ngày có hiệu lực\" và bị từ chối, dù trang web hoàn toàn bình thường. (Ví dụ dựng sẵn, không phải sự cố có thật.)",
+    "question": "Nếu đồng hồ thiết bị chỉ một ngày nằm trước mốc bắt đầu hiệu lực của chứng chỉ, chứng chỉ đó được coi là hợp lệ hay không theo RFC 5280?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc5280",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c005",
+    "claim": "Trong đồng hồ thạch anh, như phần lớn đồng hồ đeo tay, mảnh tinh thể thạch anh thường dao động ở tần số 32.768 Hz; mạch điện đếm và chia số dao động cho 32.768 để ra từng nhịp một giây.",
+    "question": "Theo Viện Tiêu chuẩn và Công nghệ Mỹ (NIST), tinh thể thạch anh trong đồng hồ đeo tay thường dao động ở tần số bao nhiêu và đồng hồ suy ra một giây bằng cách nào?",
+    "sources": [
+      {
+        "url": "https://www.nist.gov/pml/time-and-frequency-division/timekeeping-and-clocks-faqs",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.nist.gov/node/1861426",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c006",
+    "claim": "Phép tính: 32.768 = 2 mũ 15, nên chỉ cần chia đôi liên tiếp 15 lần là từ 32.768 nhịp còn đúng 1 nhịp mỗi giây. (Phép tính tại chỗ; con số 32.768 Hz lấy từ NIST.)",
+    "question": "32.768 bằng 2 mũ mấy, và cần chia đôi bao nhiêu lần để từ 32.768 còn 1?",
+    "sources": [
+      {
+        "url": "https://www.nist.gov/pml/time-and-frequency-division/timekeeping-and-clocks-faqs",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c007",
+    "claim": "Theo NIST, nếu tần số thạch anh của đồng hồ lệch 0,1 Hz thì đồng hồ sai một giây sau 327.680 giây, tức khoảng 0,26 giây mỗi ngày.",
+    "question": "Theo ví dụ của NIST, tần số thạch anh lệch 0,1 Hz thì sau bao lâu đồng hồ sai một giây, và mỗi ngày sai khoảng bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.nist.gov/pml/time-and-frequency-division/timekeeping-and-clocks-faqs",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.nist.gov/node/1861426",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c008",
+    "claim": "Từ năm 1967, Hệ đơn vị quốc tế (SI) định nghĩa một giây bằng 9.192.631.770 chu kỳ bức xạ của nguyên tử xêsi-133.",
+    "question": "Từ năm nào một giây được định nghĩa theo nguyên tử, dựa trên nguyên tố nào, và bằng bao nhiêu chu kỳ bức xạ?",
+    "sources": [
+      {
+        "url": "https://www.nist.gov/pml/time-and-frequency-division/timekeeping-and-clocks-faqs",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c009",
+    "claim": "Theo tài liệu Android (AOSP), điện thoại Android mặc định tự lấy giờ từ hai nguồn: máy chủ giờ qua giao thức NTP và tín hiệu NITZ của mạng di động; nguồn NTP được ưu tiên hơn. Nguồn GNSS (vệ tinh) có từ Android 12 nhưng không bật mặc định.",
+    "question": "Theo tài liệu chính thức của Android, điện thoại tự lấy giờ từ những nguồn nào theo mặc định, và nguồn nào được ưu tiên?",
+    "sources": [
+      {
+        "url": "https://source.android.com/docs/core/connect/time",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c010",
+    "claim": "Giao thức giờ mạng NTP được mô tả lần đầu trong RFC 958, tháng 9/1985, tác giả D. L. Mills.",
+    "question": "Tài liệu RFC đầu tiên mô tả giao thức NTP có số hiệu nào, ra đời khi nào và ai viết?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc958",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c011",
+    "claim": "Theo RFC 5905 (tháng 6/2010, NTP phiên bản 4), máy chủ giờ gốc trên máy hiện đại chính xác tới vài chục micro giây; máy khách trong mạng nội bộ nhanh chính xác trong vòng vài trăm micro giây.",
+    "question": "Theo đặc tả NTP phiên bản 4, máy chủ gốc và máy khách trong mạng nội bộ đạt độ chính xác cỡ bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc5905",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c012",
+    "claim": "NTP đếm giờ từ mốc 0 giờ UTC ngày 1/1/1900; \"kỷ\" đầu tiên của bộ đếm NTP hết vào ngày 8/2/2036, khi trường thời gian quay vòng về 0 và bắt đầu kỷ thứ hai.",
+    "question": "NTP lấy mốc thời gian 0 là ngày nào, và kỷ đầu tiên của bộ đếm NTP kết thúc vào ngày nào?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc5905",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c013",
+    "claim": "Theo chuẩn POSIX, \"Epoch\" (mốc 0 của giờ máy tính kiểu Unix) là 0 giờ 0 phút 0 giây ngày 1/1/1970 theo giờ UTC.",
+    "question": "Theo chuẩn POSIX của The Open Group, mốc Epoch là thời điểm nào?",
+    "sources": [
+      {
+        "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap03.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c014",
+    "claim": "Theo chuẩn POSIX, khi đếm \"số giây kể từ Epoch\", mỗi ngày được tính đúng 86.400 giây; vì vậy bộ đếm kiểu Unix không có chỗ cho một giây nhuận.",
+    "question": "Theo định nghĩa \"Seconds Since the Epoch\" của POSIX, một ngày được tính bằng bao nhiêu giây?",
+    "sources": [
+      {
+        "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c015",
+    "claim": "Phép tính: 0 giờ UTC ngày 20/11/2026 (7 giờ sáng giờ Việt Nam) ứng với con số 1.795.132.800 giây kể từ mốc 1/1/1970. (Phép tính tại chỗ bằng Python; người kiểm tự chạy lại.)",
+    "question": "Thời điểm 0 giờ UTC ngày 20/11/2026 ứng với bao nhiêu giây kể từ mốc Epoch 1/1/1970?",
+    "sources": [
+      {
+        "url": "https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap04.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c016",
+    "claim": "Tháng 2/2016, Apple thừa nhận: chỉnh tay ngày trên thiết bị iOS về tháng 5/1970 hoặc sớm hơn có thể khiến máy không bật lên được sau khi khởi động lại; Apple hứa bản cập nhật phần mềm sẽ sửa lỗi.",
+    "question": "Năm 2016 Apple thừa nhận lỗi gì xảy ra khi người dùng chỉnh tay ngày trên iPhone về một mốc rất xa trong quá khứ, mốc đó là khi nào?",
+    "sources": [
+      {
+        "url": "https://www.macrumors.com/2016/02/15/apple-to-fix-january-1-1970-date-bug-ios/",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://fortune.com/2016/02/16/apple-ios-update-will-fix-1970-bug/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c017",
+    "claim": "Theo cơ sở dữ liệu múi giờ (tzdb), từ ngày 1/7/1906 Đông Dương dùng giờ theo kinh tuyến đài thiên văn Phù Liễn (Hải Phòng), nhanh hơn giờ Greenwich khoảng 7 giờ 6 phút 30 giây; từ 1/5/1911 chuyển sang tròn 7 giờ (UTC+7).",
+    "question": "Theo cơ sở dữ liệu múi giờ, năm 1906 Đông Dương lấy giờ theo đài thiên văn nào, giờ đó lệch Greenwich bao nhiêu, và từ năm nào chuyển sang tròn UTC+7?",
+    "sources": [
+      {
+        "url": "https://github.com/eggert/tz/blob/main/asia",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c018",
+    "claim": "Theo tzdb: cuối năm 1942 (23 giờ ngày 31/12/1942) Đông Dương chuyển sang UTC+8; ngày 14/3/1945 sang UTC+9 (giờ Nhật); rồi từ 24 giờ ngày 1/9/1945 Việt Nam lùi về UTC+7, theo Việt Nam Dân Quốc Công Báo số 1 (29/9/1945).",
+    "question": "Trong giai đoạn 1942–1945 giờ ở Đông Dương đã đổi những lần nào, sang múi nào, và Việt Nam trở lại UTC+7 khi nào theo văn bản nào?",
+    "sources": [
+      {
+        "url": "https://github.com/eggert/tz/blob/main/asia",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c019",
+    "claim": "Ở miền Nam, theo sắc lệnh số 362-TTP ngày 30/12/1959, từ 23 giờ ngày 31/12/1959 đồng hồ được vặn nhanh 1 giờ sang UTC+8, nên trước 1975 hai miền Nam, Bắc dùng hai giờ khác nhau, lệch nhau 1 tiếng.",
+    "question": "Trước năm 1975, giờ chính thức ở miền Nam khác miền Bắc bao nhiêu, theo văn bản nào và từ khi nào?",
+    "sources": [
+      {
+        "url": "https://github.com/eggert/tz/blob/main/asia",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://tienphong.vn/xa-hoi/8102/Truoc-nam-1975-Viet-Nam-su-dung-2-mui-gio.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c020",
+    "claim": "Ngày 13/6/1975 cả nước thống nhất dùng giờ UTC+7; đồng hồ ở Sài Gòn được vặn chậm lại 1 giờ.",
+    "question": "Từ ngày nào hai miền Việt Nam dùng chung một giờ, giờ đó là múi nào, và đồng hồ ở Sài Gòn được chỉnh ra sao?",
+    "sources": [
+      {
+        "url": "https://github.com/eggert/tz/blob/main/asia",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://tienphong.vn/xa-hoi/8102/Truoc-nam-1975-Viet-Nam-su-dung-2-mui-gio.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://baovanhoa.vn/doi-song/ca-nuoc-thong-nhat-su-dung-mui-gio-gmt7-236411.html",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c021",
+    "claim": "Cơ sở dữ liệu múi giờ (Time Zone Database, còn gọi tz hay zoneinfo) do IANA phát hành chứa \"lịch sử giờ địa phương\" của nhiều địa điểm trên thế giới, chủ yếu dành cho người viết phần mềm; người dùng thường nhận bản cập nhật qua hệ điều hành. Bản mới nhất khi đọc là 2026f, phát hành ngày 27/10/2026.",
+    "question": "Cơ sở dữ liệu múi giờ của IANA chứa gì, dành cho ai, và bản phát hành mới nhất là bản nào, ra ngày nào?",
+    "sources": [
+      {
+        "url": "https://www.iana.org/time-zones",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c022",
+    "claim": "Samoa bỏ hẳn ngày thứ Sáu 30/12/2011: sau 23:59:59 thứ Năm 29/12/2011 là 00:00:00 thứ Bảy 31/12/2011, khi nước này chuyển từ UTC−11 sang UTC+13 sang phía tây đường đổi ngày, để khớp với các đối tác thương mại chính là New Zealand và Úc.",
+    "question": "Năm 2011 Samoa đã làm gì với lịch và múi giờ, ngày nào bị bỏ qua, và lý do được nêu là gì?",
+    "sources": [
+      {
+        "url": "https://github.com/eggert/tz/blob/main/australasia",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.rnz.co.nz/international/pacific-news/201742/samoa-to-skip-a-day-tonight",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c023",
+    "claim": "Ngày 30/9/2011 công ty Astrolabe kiện những người tình nguyện duy trì cơ sở dữ liệu múi giờ vì cáo buộc vi phạm bản quyền; tháng 10/2011 ICANN nhận vận hành cơ sở dữ liệu theo đề nghị của IETF. Theo ICANN, cơ sở dữ liệu đã được nhóm tình nguyện duy trì gần ba thập kỷ, người điều phối là Arthur David Olson ở Viện Y tế Quốc gia Mỹ (NIH).",
+    "question": "Năm 2011 cơ sở dữ liệu múi giờ gặp vụ kiện nào, ai tiếp nhận vận hành nó sau đó, theo đề nghị của ai, và trước đó ai duy trì trong bao lâu?",
+    "sources": [
+      {
+        "url": "https://mm.icann.org/pipermail/tz/2011-October/017036.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.eff.org/press/releases/eff-wins-protection-time-zone-database",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c024",
+    "claim": "Ngày 22/2/2012, EFF thông báo vụ Astrolabe (một công ty phần mềm chiêm tinh) kiện Arthur David Olson và Paul Eggert đã bị rút; Astrolabe xin lỗi và cam kết không kiện lại. Luật sư Corynne McSherry của EFF: \"facts are not copyrightable\" (sự thật không có bản quyền).",
+    "question": "Vụ kiện của Astrolabe về cơ sở dữ liệu múi giờ kết thúc khi nào và ra sao, và EFF nêu nguyên tắc bản quyền nào?",
+    "sources": [
+      {
+        "url": "https://www.eff.org/press/releases/eff-wins-protection-time-zone-database",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.theregister.com/2012/02/23/astrolabe_to_leave_tz_database_alone/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c025",
+    "claim": "RFC 6557 (tháng 2/2012) quy định cách duy trì cơ sở dữ liệu múi giờ: một người điều phối (TZ Coordinator) có ít nhất một người dự phòng; người điều phối không được tự đặt chính sách giờ cho một vùng mà ghi lại giờ mà người dân nơi đó coi là đúng.",
+    "question": "Tài liệu RFC nào quy định cách duy trì cơ sở dữ liệu múi giờ, ra năm nào, và người điều phối có được tự quyết giờ của một vùng không?",
+    "sources": [
+      {
+        "url": "https://www.rfc-editor.org/rfc/rfc6557",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c026",
+    "claim": "Giây nhuận được thêm để giữ giờ UTC (theo đồng hồ nguyên tử) lệch không quá 0,9 giây so với giờ thiên văn UT1 theo vòng quay Trái Đất; nó được chèn vào giây cuối của ngày cuối tháng 6 hoặc tháng 12, ghi là 23 giờ 59 phút 60 giây.",
+    "question": "Giây nhuận được thêm nhằm giữ độ lệch giữa giờ nguyên tử và giờ thiên văn dưới mức bao nhiêu, vào những ngày nào, và giây đó được ghi là gì?",
+    "sources": [
+      {
+        "url": "https://www.nist.gov/pml/time-and-frequency-division/leap-seconds-faqs",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c027",
+    "claim": "Năm 1972 hiệu TAI−UTC là 10 giây; từ 1/1/2017 nó là 37 giây, tức đã có 27 giây nhuận được thêm từ 1972 tới nay; giây nhuận gần nhất được chèn vào cuối ngày 31/12/2016.",
+    "question": "Từ năm 1972 tới nay đã có bao nhiêu giây nhuận được thêm vào giờ UTC, và lần gần nhất là khi nào?",
+    "sources": [
+      {
+        "url": "https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://engineering.fb.com/2022/07/25/production-engineering/its-time-to-leave-the-leap-second-in-the-past/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c028",
+    "claim": "Bản tin C số 72 của IERS (6/7/2026) thông báo sẽ KHÔNG có giây nhuận vào cuối tháng 12/2026; hiệu UTC−TAI vẫn là −37 giây kể từ 1/1/2017.",
+    "question": "Bản tin mới nhất của IERS về giây nhuận nói gì về cuối năm 2026?",
+    "sources": [
+      {
+        "url": "https://datacenter.iers.org/data/latestVersion/bulletinC.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c029",
+    "claim": "Giây nhuận ngày 30/6/2012 làm sập hệ thống đặt chỗ Altea của Amadeus khoảng một giờ; Qantas và Virgin Australia phải làm thủ tục cho khách bằng tay; Amadeus nói nguyên nhân là lỗi trong nhân Linux bị giây nhuận kích hoạt.",
+    "question": "Giây nhuận giữa năm 2012 đã gây sự cố gì cho ngành hàng không ở Úc, kéo dài bao lâu, và hãng công nghệ liên quan nói nguyên nhân là gì?",
+    "sources": [
+      {
+        "url": "https://www.theregister.com/2012/07/02/leap_second_crashes_airlines/",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.itnews.com.au/news/qantas-outage-pinpointed-on-leap-second-linux-bug-307379",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c030",
+    "claim": "Cũng trong giây nhuận năm 2012, trang Reddit không truy cập được khoảng 30 đến 40 phút, vì việc đổi giờ làm rối bộ hẹn giờ độ phân giải cao (hrtimer) của Linux, khiến máy chủ quá tải và CPU bị treo.",
+    "question": "Giây nhuận năm 2012 đã khiến trang Reddit gặp sự cố gì, kéo dài bao lâu, và vì bộ phận nào của hệ điều hành?",
+    "sources": [
+      {
+        "url": "https://engineering.fb.com/2022/07/25/production-engineering/its-time-to-leave-the-leap-second-in-the-past/",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.theregister.com/2012/07/02/leap_second_crashes_airlines/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c031",
+    "claim": "Giây nhuận lúc 0 giờ UTC ngày 1/1/2017 làm một phần dịch vụ DNS của Cloudflare (phần mềm RRDNS viết bằng Go) bị lỗi: mã giả định thời gian không thể chạy lùi, nên một phép đo ra số âm, hàm rand.Int63n() của Go gặp số âm và \"panic\". Lúc cao điểm khoảng 0,2% truy vấn DNS bị ảnh hưởng; bản sửa được triển khai toàn cầu lúc 6 giờ 45 UTC.",
+    "question": "Ngày 1/1/2017 giây nhuận gây ra lỗi gì ở Cloudflare, nguyên nhân kỹ thuật là gì, bao nhiêu phần trăm truy vấn DNS bị ảnh hưởng lúc cao điểm, và đến mấy giờ thì sửa xong toàn cầu?",
+    "sources": [
+      {
+        "url": "https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://engineering.fb.com/2022/07/25/production-engineering/its-time-to-leave-the-leap-second-in-the-past/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c032",
+    "claim": "Go 1.9, phát hành ngày 24/8/2017, cho gói time tự theo dõi \"giờ đơn điệu\" (monotonic time, chỉ chạy tới), để tính khoảng thời gian vẫn an toàn khi đồng hồ treo tường bị chỉnh.",
+    "question": "Phiên bản Go nào bắt đầu tự theo dõi giờ đơn điệu trong gói time, phát hành ngày nào, và nhằm giải quyết vấn đề gì?",
+    "sources": [
+      {
+        "url": "https://go.dev/doc/go1.9",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://go.dev/doc/devel/release",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c033",
+    "claim": "Từ năm 2008, Google không chèn giây nhuận đột ngột mà \"rải\" (smear) nó ra; cách làm chuẩn hiện nay là rải đều trong 24 giờ, từ trưa tới trưa giờ UTC, mỗi giây dài hơn giây chuẩn khoảng 11,6 micro giây. (1/86.400 giây ≈ 11,6 micro giây là phép tính kiểm lại.)",
+    "question": "Google xử lý giây nhuận theo cách nào từ năm nào, rải trong bao nhiêu giờ, và mỗi giây bị kéo dài thêm bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://developers.google.com/time/smear",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c034",
+    "claim": "Meta (Facebook) rải giây nhuận trong 17 giờ, bắt đầu lúc 0 giờ UTC.",
+    "question": "Meta rải giây nhuận trong bao nhiêu giờ và bắt đầu lúc nào?",
+    "sources": [
+      {
+        "url": "https://engineering.fb.com/2022/07/25/production-engineering/its-time-to-leave-the-leap-second-in-the-past/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c035",
+    "claim": "Năm 2022, Nghị quyết 4 của Đại hội Cân đo Quốc tế (CGPM) lần thứ 27 quyết định nâng mức lệch tối đa cho phép giữa UT1 và UTC \"trong hoặc trước năm 2035\", tức thực tế là ngừng thêm giây nhuận; nghị quyết cũng nhắc khả năng cần một giây nhuận âm đầu tiên, điều \"chưa bao giờ được tính trước hay thử nghiệm\".",
+    "question": "Năm 2022 tổ chức đo lường quốc tế đã quyết định gì về giây nhuận, mốc năm nào, và nghị quyết lo ngại khả năng gì?",
+    "sources": [
+      {
+        "url": "https://www.bipm.org/en/cgpm-2022/resolution-4",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://engineering.fb.com/2022/07/25/production-engineering/its-time-to-leave-the-leap-second-in-the-past/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c036",
+    "claim": "Theo nghiên cứu của nhà địa vật lý Duncan Agnew (Viện Hải dương học Scripps, UC San Diego) đăng trên tạp chí Nature ngày 27/3/2024, có thể cần một giây nhuận âm (bớt một giây) vào cuối thập niên 2020; băng tan ở hai cực đã làm mốc này lùi khoảng ba năm; việc bớt một giây chưa từng xảy ra.",
+    "question": "Nghiên cứu năm 2024 trên Nature dự báo khi nào có thể cần bớt một giây khỏi đồng hồ thế giới, băng tan làm mốc này thay đổi ra sao, và việc này đã từng xảy ra chưa?",
+    "sources": [
+      {
+        "url": "https://today.ucsd.edu/story/global-warming-is-influencing-global-timekeeping",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.pbs.org/newshour/science/timekeepers-may-subtract-a-second-from-clocks-as-soon-as-2029-as-planet-spins-slightly-faster",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c037",
+    "claim": "Theo tzdb, sau 1945 giờ còn đổi thêm: từ 1/4/1947 vùng Đông Dương do Pháp kiểm soát dùng UTC+8; từ 1 giờ ngày 1/7/1955 miền Nam lùi về UTC+7 (Dụ số 46 ngày 25/6/1955). Đếm theo bảng của tzdb cho Asia/Ho_Chi_Minh, từ 1/7/1906 đến 13/6/1975 giờ ở Sài Gòn đổi tất cả 9 lần. (Con số 9 là phép đếm các dòng chuyển giờ trong tzdb.)",
+    "question": "Theo cơ sở dữ liệu múi giờ, giờ ở miền Nam đổi thế nào trong các năm 1947 và 1955, và từ 1906 đến 1975 giờ ở Sài Gòn đổi tổng cộng bao nhiêu lần?",
+    "sources": [
+      {
+        "url": "https://github.com/eggert/tz/blob/main/asia",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  }
+]

@@ -1295,6 +1295,31 @@
       "unresolvedSevere": null,
       "prevHash": "24025595efbf4368bee4f6e67a005ec7827430d3e17926eb7204667862558862",
       "entryHash": "c8c29c5539373dc6c8d14927ea981c43d661ca896df8441acf139a5682a27e01"
+    },
+    {
+      "seq": 36,
+      "ts": "2026-11-20T15:15:32Z",
+      "stage": "cong3",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "b81a0915520d5e7e556be7c796b4951b6f83726cdfcc2071bb27c899b72cdb09",
+      "verdict": "DAT",
+      "scriptHash": "b81a0915520d5e7e556be7c796b4951b6f83726cdfcc2071bb27c899b72cdb09",
+      "claimsHash": "e0ced8c0f7794c56a36e94a04c70e603f472eb1140568b67c52ecbf9fa2330b0",
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": null,
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "c8c29c5539373dc6c8d14927ea981c43d661ca896df8441acf139a5682a27e01",
+      "entryHash": "9af59ee0b23a436da83e98dd984ee412cbcb09805ec514b01bbb464b4b3b3ac6"
     }
   ]
 }

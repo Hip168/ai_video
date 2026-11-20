@@ -41,8 +41,8 @@
   },
   {
     "id": "c004",
-    "claim": "Theo bài tổng quan chuẩn JPEG của Gregory Wallace (IEEE Transactions on Consumer Electronics, 1992), với ảnh màu có cảnh vừa phức tạp, nén JPEG ở mức 1,5 đến 2 bit cho mỗi điểm ảnh thường không phân biệt được với ảnh gốc, và 0,75 đến 1,5 bit cho chất lượng rất tốt; so với 24 bit khi chưa nén, mức 1,5 đến 2 bit tức là nhỏ đi khoảng 12 đến 16 lần (phép tính).",
-    "question": "Trong bài tổng quan của Wallace về chuẩn JPEG, ở mức bao nhiêu bit cho mỗi điểm ảnh thì ảnh nén thường không phân biệt được với ảnh gốc, và ở mức nào thì chất lượng được xếp là rất tốt?",
+    "claim": "Theo bài tổng quan chuẩn JPEG của Gregory Wallace (IEEE Transactions on Consumer Electronics, 1992), với ảnh màu có cảnh vừa phức tạp, nén JPEG ở mức 1,5 đến 2 bit cho mỗi điểm ảnh thường không phân biệt được với ảnh gốc, 0,75 đến 1,5 bit cho chất lượng xuất sắc, còn 0,5 đến 0,75 bit cho chất lượng từ tốt tới rất tốt; so với 24 bit khi chưa nén, mức 1,5 đến 2 bit tức là nhỏ đi khoảng 12 đến 16 lần (phép tính).",
+    "question": "Trong bài tổng quan của Wallace về chuẩn JPEG, các khoảng bit cho mỗi điểm ảnh từ 0,5 tới 2 được xếp vào những mức chất lượng nào?",
     "sources": [
       {
         "url": "https://www.comp.nus.edu.sg/~cs5342/readings/wallace.pdf",
@@ -121,7 +121,7 @@
   },
   {
     "id": "c010",
-    "claim": "Trong JPEG, mỗi kênh ảnh được chia thành các ô 8×8 điểm, tức 64 điểm, và mỗi ô được đổi sang dạng tần số bằng phép biến đổi cosin rời rạc (DCT); hệ số đầu tiên (DC) là giá trị trung bình của 64 điểm trong ô.",
+    "claim": "Trong JPEG, mỗi kênh ảnh được chia thành các ô 8×8 điểm, tức 64 điểm, và mỗi ô được đổi sang dạng tần số bằng phép biến đổi cosin rời rạc (DCT); hệ số đầu tiên (DC) đại diện cho độ sáng trung bình của 64 điểm trong ô (tỉ lệ với giá trị trung bình, không bằng đúng giá trị đó).",
     "question": "Trong nén JPEG, ảnh được chia thành các khối kích thước bao nhiêu, mỗi khối được biến đổi bằng phép gì, và hệ số DC của khối mang ý nghĩa gì?",
     "sources": [
       {
@@ -137,24 +137,20 @@
   },
   {
     "id": "c011",
-    "claim": "Nasir Ahmed kể rằng đầu năm 1972 ông gửi Quỹ Khoa học Quốc gia Mỹ (NSF) đề xuất nghiên cứu một \"phép biến đổi cosin\" nhưng không được cấp tiền, một người thẩm định nhận xét ý tưởng \"quá đơn giản\"; ông cùng T. Natarajan và K. R. Rao làm tiếp suốt mùa hè 1973, và bài \"Discrete Cosine Transform\" đăng trên IEEE Transactions on Computers tháng 1/1974.",
-    "question": "Nasir Ahmed kể lại thế nào về đề xuất nghiên cứu phép biến đổi cosin gửi NSF (năm, kết quả, lý do), ai làm cùng ông, và bài báo về DCT được đăng ở đâu, khi nào?",
+    "claim": "Năm 1972, Nasir Ahmed xin Quỹ Khoa học Quốc gia Mỹ (NSF) tài trợ để nghiên cứu phép biến đổi cosin nhưng bị từ chối, vì những người thẩm định cho rằng ý tưởng quá đơn giản; sau đó ông cùng T. Natarajan và K. R. Rao đăng bài \"Discrete Cosine Transform\" trên IEEE Transactions on Computers tháng 1/1974.",
+    "question": "Đề xuất nghiên cứu phép biến đổi cosin của Nasir Ahmed gửi NSF năm nào, kết quả ra sao và vì lý do gì; bài báo về DCT do ai viết, đăng ở đâu, khi nào?",
     "sources": [
       {
-        "url": "https://www.cse.iitd.ac.in/~pkalra/siv864-2019/assignment/DCT-History.pdf",
-        "credibility": "primary"
-      },
-      {
-        "url": "https://doi.org/10.1016/1051-2004(91)90086-Z",
-        "credibility": "primary"
+        "url": "https://spectrum.ieee.org/compression-algorithms",
+        "credibility": "secondary"
       },
       {
         "url": "https://doi.org/10.1109/T-C.1974.223784",
         "credibility": "primary"
       },
       {
-        "url": "https://spectrum.ieee.org/compression-algorithms",
-        "credibility": "secondary"
+        "url": "https://www.cse.iitd.ac.in/~pkalra/siv864-2019/assignment/DCT-History.pdf",
+        "credibility": "primary"
       }
     ],
     "status": "CHUA_KIEM"
@@ -245,15 +241,15 @@
   },
   {
     "id": "c018",
-    "claim": "Nén lại một ảnh JPEG với đúng cài đặt cũ thì ảnh gần như không đổi thêm: thí nghiệm năm 2025 cho thấy với JPEG truyền thống, nén lặp lại hầu như không làm giảm PSNR, nhất là ở tốc độ bit thấp; và theo Hany Farid (2009), sai khác giữa hai lần lượng tử là nhỏ nhất khi lần sau dùng cùng bước lượng tử như lần trước.",
-    "question": "Khi nén lại một ảnh JPEG nhiều lần với cùng cài đặt, chất lượng (theo PSNR) thay đổi ra sao? Sai khác giữa hai lần lượng tử nhỏ nhất trong trường hợp nào?",
+    "claim": "Nén lại một ảnh JPEG với cài đặt giống lần trước thì ảnh gần như không đổi thêm: thí nghiệm năm 2025 cho thấy với JPEG truyền thống, nén lặp lại hầu như không làm giảm PSNR, nhất là ở tốc độ bit thấp; và theo nghiên cứu pháp chứng ảnh (Zach và cộng sự, 2012, nhắc lại quan sát của Hany Farid), khi nén lại một vùng ảnh với mức chất lượng càng gần mức đã dùng trước đó thì sai khác so với trước càng nhỏ.",
+    "question": "Khi nén lại một ảnh JPEG nhiều lần với cùng cài đặt, chất lượng (theo PSNR) thay đổi ra sao? Khi nén lại một vùng ảnh, sai khác so với trước phụ thuộc thế nào vào mức chất lượng đã dùng lần trước?",
     "sources": [
       {
         "url": "https://arxiv.org/pdf/2504.03191",
         "credibility": "primary"
       },
       {
-        "url": "https://farid.berkeley.edu/downloads/publications/tifs09.pdf",
+        "url": "https://faui1-files.cs.fau.de/public/publications/mmsec/2012-Zach-AIF.pdf",
         "credibility": "primary"
       }
     ],
@@ -261,11 +257,11 @@
   },
   {
     "id": "c019",
-    "claim": "Theo Hany Farid (2009), nén lại với bước lượng tử khác lần trước làm giá trị các hệ số bị xê dịch; và nếu ảnh bị dịch khỏi lưới ô 8×8 cũ (có 64 vị trí lệch, từ 0 đến 7 điểm theo mỗi chiều) thì lần lưu mới tạo ra các tần số mới.",
-    "question": "Theo bài JPEG Ghosts của Hany Farid, chuyện gì xảy ra với các hệ số khi ảnh được nén lại bằng bước lượng tử khác, và khi ảnh không còn nằm đúng lưới khối cũ?",
+    "claim": "Khi ảnh JPEG bị nén lại lần hai, lưới ô 8×8 của lần sau có thể trùng hoặc lệch so với lưới lần trước (có tất cả 64 cách đặt lưới); dùng bảng lượng tử khác nhau ở hai lần nén để lại dấu vết riêng trong các hệ số DCT, và các nhà pháp chứng ảnh dựa vào đó để phát hiện ảnh đã bị nén hai lần.",
+    "question": "Theo nghiên cứu về phát hiện nén JPEG hai lần (Zach và cộng sự, 2012), lưới khối của lần nén thứ hai có quan hệ thế nào với lưới lần đầu, có bao nhiêu cách đặt lưới, và việc dùng bảng lượng tử khác nhau ở hai lần nén để lại dấu vết gì?",
     "sources": [
       {
-        "url": "https://farid.berkeley.edu/downloads/publications/tifs09.pdf",
+        "url": "https://faui1-files.cs.fau.de/public/publications/mmsec/2012-Zach-AIF.pdf",
         "credibility": "primary"
       }
     ],

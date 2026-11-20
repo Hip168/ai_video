@@ -114,22 +114,69 @@ def _find_word(line: str, word: str, start: int = 0):
     return re.compile(rf"(?<![\w-]){re.escape(word)}(?![\w-])", re.IGNORECASE).search(line, start)
 
 
-EXPANDED_MAX_RATIO = 0.6
+EXPANSIONS_FILE = "mo-rong.json"
 
 
-def _expanded(term: str, form: str) -> bool:
-    """`form` mở `term` thành chữ tiếng Anh khác hẳn (vd PS5 -> "PlayStation năm", Cerny -> "ông Mark").
+def _norm_form(s: str) -> str:
+    return " ".join(TOKEN_RE.findall(s)).lower()
 
-    Chữ tiếng Anh trong `form` cũng nằm trong lời nên được chấm riêng như một từ của nhịp; còn `term`
-    không được đọc. Chữ tiếng Anh giống `term` (vd Kraken -> "Kra-ken") vẫn là phiên âm, chấm theo `term`.
+
+RESPELL_MIN_RATIO = 0.6
+
+
+def check_expansion(term: str, form: str) -> str | None:
+    """Lỗi của một cách mở rộng khai trong mo-rong.json, hoặc None nếu hợp lệ.
+
+    Hợp lệ: có ít nhất một chữ tiếng Anh, không có gạch nối, phần còn lại là cụm tiếng Việt, và chữ
+    tiếng Anh không phải lối viết lại của chính `term` (vd Kraken -> "Kra ken": đó là phiên âm, phải chấm).
     """
-    words = [t for t in TOKEN_RE.findall(form) if t.isascii() and is_foreign(t)]
-    return bool(words) and all(
-        difflib.SequenceMatcher(a=term.lower(), b=w.lower()).ratio() < EXPANDED_MAX_RATIO for w in words)
+    tokens = TOKEN_RE.findall(form)
+    english = [t for t in tokens if t.isascii() and is_foreign(t)]
+    rest = [t for t in tokens if t not in english]
+    if "-" in form:
+        return "không được có gạch nối"
+    if not english:
+        return "không có chữ tiếng Anh nào (dùng nghia-viet.json)"
+    if rest and not _vi_phrase(" ".join(rest)):
+        return f"phần không phải tiếng Anh {' '.join(rest)!r} không phải cụm tiếng Việt"
+    for w in english:
+        if difflib.SequenceMatcher(a=term.lower(), b=w.lower()).ratio() >= RESPELL_MIN_RATIO:
+            return f"{w!r} là lối viết lại của {term!r}: đó là phiên âm, không phải mở rộng"
+    return None
+
+
+def load_expansions(ep_dir: Path, content_lexicon: Path | None) -> dict[str, set[str]]:
+    """Từ được mở thành tên tiếng Anh khác, khai rõ: {từ (chữ thường): {cách đọc đã chuẩn hoá}}.
+
+    `mo-rong.json` cạnh `content/lexicon.json` hoặc trong thư mục tập: {"PS": ["Playstation năm"]}.
+    Từ gốc không được đọc nên không chấm; chữ tiếng Anh của cách đọc nằm trong lời và được chấm riêng.
+    """
+    out: dict[str, set[str]] = {}
+    for p in ((Path(content_lexicon).parent if content_lexicon else None), ep_dir):
+        f = p / EXPANSIONS_FILE if p else None
+        if not (f and f.is_file()):
+            continue
+        data = json.loads(f.read_text(encoding="utf-8"))
+        if not isinstance(data, dict) or not all(
+                isinstance(k, str) and isinstance(v, list) and all(isinstance(x, str) for x in v)
+                for k, v in data.items()):
+            raise ValueError(f"{f}: phải là {{từ: [cách đọc, ...]}}")
+        for term, forms in data.items():
+            for form in forms:
+                if (err := check_expansion(term, form)) is not None:
+                    raise ValueError(f"{f}: {term!r} -> {form!r}: {err}")
+                out.setdefault(term.lower(), set()).add(_norm_form(form))
+    return out
+
+
+def _kind(term: str, form: str, expansions: dict[str, set[str]] | None) -> str:
+    """`mo-rong` chỉ khi cách đọc đúng là một cách đã khai trong mo-rong.json; còn lại là phiên âm."""
+    return "mo-rong" if _norm_form(form) in (expansions or {}).get(term.lower(), ()) else "phien-am"
 
 
 def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
-                 meanings: set[str] | frozenset[str] = frozenset()):
+                 meanings: set[str] | frozenset[str] = frozenset(),
+                 expansions: dict[str, set[str]] | None = None):
     """Cách từ `term` (trong text) được đọc trong `line`: (dạng đọc, loại) hoặc (None, lý do).
 
     Giá trị lexicon là phiên âm, trừ khi khoá có trong `meanings` (nghia-viet.json) và giá trị là cụm tiếng Việt.
@@ -140,7 +187,7 @@ def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
     if val and _find_word(line, val):
         if term.lower() in meanings and _vi_phrase(val):
             return val, "nghia-viet"
-        return val, ("mo-rong" if _expanded(term, val) else "phien-am")
+        return val, _kind(term, val, expansions)
     a = [t.lower() for t in TOKEN_RE.findall(text)]
     b = TOKEN_RE.findall(line)
     sm = difflib.SequenceMatcher(a=a, b=[t.lower() for t in b], autojunk=False)
@@ -156,7 +203,7 @@ def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
             if form:
                 if _vi_phrase(form):
                     return form, "nghia-viet"
-                return form, ("mo-rong" if _expanded(term, form) else "phien-am")
+                return form, _kind(term, form, expansions)
             break
     # Lời không còn chữ ngoại nào lạ so với text -> từ đã bị lược, không được đọc: bỏ qua.
     text_lower = set(a)
@@ -166,7 +213,8 @@ def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
 
 
 def find_occurrences(script: dict, lexicon: dict[str, str],
-                     meanings: set[str] | frozenset[str] = frozenset()) -> list[dict]:
+                     meanings: set[str] | frozenset[str] = frozenset(),
+                     expansions: dict[str, set[str]] | None = None) -> list[dict]:
     """Mọi lần một từ tiếng Anh được đọc trong lời. Mỗi mục: beat, term, spoken, kind, line, span.
 
     `meanings`: khoá lexicon (chữ thường) có giá trị là nghĩa tiếng Việt, xem `load_meanings`.
@@ -188,7 +236,7 @@ def find_occurrences(script: dict, lexicon: dict[str, str],
                 if t.isascii() and is_foreign(t) and not any(t.lower() == x.lower() for x in terms):
                     terms.append(casing.get(t.lower(), t))
             for term in terms:
-                form, kind = _spoken_form(term, text, line, lex_lower, meanings)
+                form, kind = _spoken_form(term, text, line, lex_lower, meanings, expansions)
                 base = {"beat": b["id"], "term": term, "spoken": form, "kind": kind, "line": line}
                 if form is None or kind in ("nghia-viet", "mo-rong"):
                     out.append({**base, "span": None})
@@ -459,7 +507,7 @@ def _episode(slug: str, root: Path):
         raise ValueError(f"không có {ep / 'script.json'}")
     script = json.loads((ep / "script.json").read_text(encoding="utf-8"))
     content = root / "content" / "lexicon.json"
-    return ep, script, load_lexicon(ep, content), load_meanings(ep, content)
+    return ep, script, load_lexicon(ep, content), load_meanings(ep, content), load_expansions(ep, content)
 
 
 def episode_voice(slug: str, root: Path) -> tuple[str, str, float]:
@@ -472,8 +520,8 @@ def episode_voice(slug: str, root: Path) -> tuple[str, str, float]:
 
 
 def scan(slug: str, root: Path) -> list[dict]:
-    _ep, script, lex, meanings = _episode(slug, root)
-    return find_occurrences(script, lex, meanings)
+    _ep, script, lex, meanings, expansions = _episode(slug, root)
+    return find_occurrences(script, lex, meanings, expansions)
 
 
 def print_scan(occ: list[dict]) -> None:
@@ -507,14 +555,14 @@ def _forced_text(o: dict, same_beat: list[dict]) -> tuple[str, str]:
 
 
 def check(slug: str, root: Path) -> dict:
-    _ep, script, lex, meanings = _episode(slug, root)
+    _ep, script, lex, meanings, expansions = _episode(slug, root)
     out = root / "out" / "episodes" / slug
     narr, tl_path = out / "narration.wav", out / "timeline.json"
     if not narr.is_file() or not tl_path.is_file():
         raise ValueError(f"chưa dựng giọng: thiếu {narr} hoặc {tl_path}")
     timeline = json.loads(tl_path.read_text(encoding="utf-8"))
     beats = {b["id"]: b for sc in timeline["scenes"] for b in sc["beats"]}
-    occ = find_occurrences(script, lex, meanings)
+    occ = find_occurrences(script, lex, meanings, expansions)
     rows, jobs = [], []
     with tempfile.TemporaryDirectory() as d:
         for o in occ:

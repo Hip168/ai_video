@@ -834,7 +834,7 @@
         {
           "id": "b030",
           "text": "Lấy ví dụ Unreal Engine, một bộ công cụ làm game.",
-          "spoken": "Lấy ví dụ một bộ công cụ làm game rất phổ biến.",
+          "spoken": "Lấy ví dụ một bộ công cụ làm game.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1597,7 +1597,7 @@
         {
           "id": "b064",
           "text": "Cerny kể, trên PS4, lúc nhận ra cần một mẩu dữ liệu thì đã quá muộn để đi lấy.",
-          "spoken": null,
+          "spoken": "Ông Mark kể, trên Playstation bốn, lúc nhận ra cần một mẩu dữ liệu thì đã quá muộn để đi lấy.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -2377,7 +2377,7 @@
         {
           "id": "b098",
           "text": "Theo Mark Cerny, người trình bày phần cứng PS5, máy dùng định dạng nén Kraken.",
-          "spoken": null,
+          "spoken": "Theo ông Mark, người trình bày phần cứng Playstation năm, máy dùng một định dạng nén khác, mạnh hơn.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2389,7 +2389,7 @@
         {
           "id": "b099",
           "text": "Ông nói Kraken nén tốt hơn kiểu zlib của PS4 khoảng 10%.",
-          "spoken": "Ông nói kiểu nén mới này nén tốt hơn kiểu nén cũ của Playstation bốn khoảng mười phần trăm.",
+          "spoken": "Ông nói kiểu nén này nén tốt hơn kiểu nén cũ của Playstation bốn khoảng mười phần trăm.",
           "cue": null,
           "pause_ms": 500,
           "sfx": null,
@@ -2487,7 +2487,7 @@
         {
           "id": "b104",
           "text": "Muốn làm việc ấy bằng bộ xử lý thường, Cerny ước tính cần sức mạnh của 9 nhân Zen 2.",
-          "spoken": "Muốn làm việc ấy bằng bộ xử lý thường, ông ước tính cần sức mạnh của chín nhân xử lý cùng loại với nhân trong máy.",
+          "spoken": "Muốn làm việc ấy bằng bộ xử lý thường, ông ước tính cần sức mạnh của chín nhân xử lý.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -2846,7 +2846,7 @@
         {
           "id": "b119",
           "text": "Cerny kể, trên PS4, gắn một ổ SSD nhanh gấp 10 lần ổ cứng có khi chỉ nạp nhanh gấp đôi.",
-          "spoken": null,
+          "spoken": "Ông Mark kể, trên Playstation bốn, gắn một ổ SSD nhanh gấp mười lần ổ cứng có khi chỉ nạp nhanh gấp đôi.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,

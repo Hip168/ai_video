@@ -90,17 +90,41 @@ def load_lexicon(ep_dir: Path, content_lexicon: Path | None) -> dict[str, str]:
     return lex
 
 
+MEANINGS_FILE = "nghia-viet.json"
+
+
+def load_meanings(ep_dir: Path, content_lexicon: Path | None) -> set[str]:
+    """Khoá lexicon có giá trị là nghĩa tiếng Việt (không phải phiên âm), chữ thường.
+
+    Đọc `nghia-viet.json` (danh sách khoá) cạnh `content/lexicon.json` và trong thư mục tập.
+    Phải khai rõ vì phiên âm như "u ti ép tám" cũng toàn âm tiết tiếng Việt, không tách được bằng chữ.
+    """
+    out: set[str] = set()
+    for p in ((Path(content_lexicon).parent if content_lexicon else None), ep_dir):
+        f = p / MEANINGS_FILE if p else None
+        if f and f.is_file():
+            data = json.loads(f.read_text(encoding="utf-8"))
+            if not isinstance(data, list) or not all(isinstance(k, str) for k in data):
+                raise ValueError(f"{f}: phải là danh sách khoá lexicon (chuỗi)")
+            out.update(k.lower() for k in data)
+    return out
+
+
 def _find_word(line: str, word: str, start: int = 0):
     return re.compile(rf"(?<![\w-]){re.escape(word)}(?![\w-])", re.IGNORECASE).search(line, start)
 
 
-def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str]):
-    """Cách từ `term` (trong text) được đọc trong `line`: (dạng đọc, loại) hoặc (None, lý do)."""
+def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
+                 meanings: set[str] | frozenset[str] = frozenset()):
+    """Cách từ `term` (trong text) được đọc trong `line`: (dạng đọc, loại) hoặc (None, lý do).
+
+    Giá trị lexicon là phiên âm, trừ khi khoá có trong `meanings` (nghia-viet.json) và giá trị là cụm tiếng Việt.
+    """
     if _find_word(line, term):
         return term, "giu-tieng-anh"
     val = lex_lower.get(term.lower())
     if val and _find_word(line, val):
-        return val, "phien-am"
+        return val, ("nghia-viet" if term.lower() in meanings and _vi_phrase(val) else "phien-am")
     a = [t.lower() for t in TOKEN_RE.findall(text)]
     b = TOKEN_RE.findall(line)
     sm = difflib.SequenceMatcher(a=a, b=[t.lower() for t in b], autojunk=False)
@@ -123,9 +147,14 @@ def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str]):
     return None, "khong-xac-dinh"
 
 
-def find_occurrences(script: dict, lexicon: dict[str, str]) -> list[dict]:
-    """Mọi lần một từ tiếng Anh được đọc trong lời. Mỗi mục: beat, term, spoken, kind, line, span."""
+def find_occurrences(script: dict, lexicon: dict[str, str],
+                     meanings: set[str] | frozenset[str] = frozenset()) -> list[dict]:
+    """Mọi lần một từ tiếng Anh được đọc trong lời. Mỗi mục: beat, term, spoken, kind, line, span.
+
+    `meanings`: khoá lexicon (chữ thường) có giá trị là nghĩa tiếng Việt, xem `load_meanings`.
+    """
     lex_lower = {k.lower(): v for k, v in lexicon.items()}
+    meanings = {m.lower() for m in meanings}
     out: list[dict] = []
     for sc in script["scenes"]:
         for b in sc["beats"]:
@@ -139,7 +168,7 @@ def find_occurrences(script: dict, lexicon: dict[str, str]) -> list[dict]:
                 if t.isascii() and is_foreign(t) and not any(t.lower() == x.lower() for x in terms):
                     terms.append(t)
             for term in terms:
-                form, kind = _spoken_form(term, text, line, lex_lower)
+                form, kind = _spoken_form(term, text, line, lex_lower, meanings)
                 base = {"beat": b["id"], "term": term, "spoken": form, "kind": kind, "line": line}
                 if form is None or kind == "nghia-viet":
                     out.append({**base, "span": None})
@@ -409,7 +438,8 @@ def _episode(slug: str, root: Path):
     if not (ep / "script.json").is_file():
         raise ValueError(f"không có {ep / 'script.json'}")
     script = json.loads((ep / "script.json").read_text(encoding="utf-8"))
-    return ep, script, load_lexicon(ep, root / "content" / "lexicon.json")
+    content = root / "content" / "lexicon.json"
+    return ep, script, load_lexicon(ep, content), load_meanings(ep, content)
 
 
 def episode_voice(slug: str, root: Path) -> tuple[str, str, float]:
@@ -422,8 +452,8 @@ def episode_voice(slug: str, root: Path) -> tuple[str, str, float]:
 
 
 def scan(slug: str, root: Path) -> list[dict]:
-    _ep, script, lex = _episode(slug, root)
-    return find_occurrences(script, lex)
+    _ep, script, lex, meanings = _episode(slug, root)
+    return find_occurrences(script, lex, meanings)
 
 
 def print_scan(occ: list[dict]) -> None:
@@ -457,14 +487,14 @@ def _forced_text(o: dict, same_beat: list[dict]) -> tuple[str, str]:
 
 
 def check(slug: str, root: Path) -> dict:
-    _ep, script, lex = _episode(slug, root)
+    _ep, script, lex, meanings = _episode(slug, root)
     out = root / "out" / "episodes" / slug
     narr, tl_path = out / "narration.wav", out / "timeline.json"
     if not narr.is_file() or not tl_path.is_file():
         raise ValueError(f"chưa dựng giọng: thiếu {narr} hoặc {tl_path}")
     timeline = json.loads(tl_path.read_text(encoding="utf-8"))
     beats = {b["id"]: b for sc in timeline["scenes"] for b in sc["beats"]}
-    occ = find_occurrences(script, lex)
+    occ = find_occurrences(script, lex, meanings)
     rows, jobs = [], []
     with tempfile.TemporaryDirectory() as d:
         for o in occ:

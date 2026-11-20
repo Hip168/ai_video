@@ -283,7 +283,9 @@
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c012"
+          ]
         },
         {
           "id": "b017",
@@ -324,7 +326,11 @@
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c009",
+            "c010",
+            "c012"
+          ]
         },
         {
           "id": "b020",
@@ -701,7 +707,9 @@
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c016"
+          ]
         },
         {
           "id": "b045",

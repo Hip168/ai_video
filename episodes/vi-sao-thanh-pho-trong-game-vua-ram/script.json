@@ -766,7 +766,7 @@
         },
         {
           "id": "b043",
-          "text": "Nhân lên, muốn nạp lại cả chừng ấy bộ nhớ thì phải chờ gần hai phút.",
+          "text": "Nạp lại cả chừng ấy bộ nhớ, từng GB một, là một lần chờ rất dài.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -1361,7 +1361,7 @@
         },
         {
           "id": "b080",
-          "text": "Tính ra, cả chuỗi chỉ tốn thêm khoảng một phần ba so với ảnh gốc.",
+          "text": "Đổi lại, cả chuỗi tốn thêm bộ nhớ so với chỉ giữ một ảnh gốc.",
           "spoken": null,
           "cue": null,
           "pause_ms": 700,
@@ -1558,8 +1558,8 @@
         },
         {
           "id": "b093",
-          "text": "Với các định dạng nén khối Microsoft mô tả, như BC1 hay BC7, ảnh nhỏ đi từ bốn tới tám lần.",
-          "spoken": "Với các định dạng nén khối Microsoft mô tả, ảnh nhỏ đi từ bốn tới tám lần.",
+          "text": "Định dạng BC1 mà Microsoft mô tả làm ảnh nhỏ đi tám lần, so với ảnh dùng 4 byte mỗi điểm.",
+          "spoken": "Định dạng BC một mà Microsoft mô tả làm ảnh nhỏ đi tám lần, so với ảnh dùng bốn ô nhớ mỗi điểm.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,

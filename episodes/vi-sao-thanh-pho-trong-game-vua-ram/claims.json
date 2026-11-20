@@ -1,0 +1,506 @@
+[
+  {
+    "id": "c001",
+    "claim": "GTA VI (Grand Theft Auto VI) ra mắt ngày 19/11/2026 trên PlayStation 5 và Xbox Series X|S.",
+    "question": "Grand Theft Auto VI chính thức phát hành ngày nào và trên những máy chơi game nào?",
+    "sources": [
+      {
+        "url": "https://www.rockstargames.com/newswire/article/39akk424a9oo53/grand-theft-auto-vi-now-available",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.rockstargames.com/newswire/article/ak3ak31a49a221/grand-theft-auto-vi-is-now-set-to-launch-november-19-2026",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.xbox.com/en-US/games/grand-theft-auto-vi",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.theglobeandmail.com/investing/markets/stocks/MSFT/pressreleases/8933493/take-twos-rockstar-games-announces-grand-theft-auto-vi-now-available/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c002",
+    "claim": "Rockstar cho biết bản tải trước của GTA VI cần tới 212 GB dung lượng trống, tùy theo máy.",
+    "question": "Theo thông báo của Rockstar về việc tải trước GTA VI, game cần bao nhiêu dung lượng trống?",
+    "sources": [
+      {
+        "url": "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.techradar.com/au/gaming/gta-6-digital-pre-loads-for-ps5-and-xbox-will-begin-9-days-early-and-require-a-whopping-212gb-of-free-space",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://digitaltrends.com/gaming/gta-6-is-finally-ready-to-download-all-212gb-of-it",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c003",
+    "claim": "PlayStation 5 có 16 GB bộ nhớ GDDR6, băng thông 448 GB/s.",
+    "question": "Theo thông số chính thức của Sony, PS5 có bao nhiêu bộ nhớ hệ thống, loại gì, băng thông bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://blog.playstation.com/2020/03/18/unveiling-new-details-of-playstation-5-hardware-technical-specs/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c004",
+    "claim": "PlayStation 5 có ổ SSD 825 GB, tốc độ đọc thô 5,5 GB/s.",
+    "question": "Theo Sony, ổ SSD gắn sẵn trong PS5 có dung lượng và tốc độ đọc thô bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://blog.playstation.com/2020/03/18/unveiling-new-details-of-playstation-5-hardware-technical-specs/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c005",
+    "claim": "Xbox Series X có 16 GB bộ nhớ GDDR6, trong đó 10 GB chạy ở 560 GB/s và 6 GB chạy ở 336 GB/s.",
+    "question": "Theo trang thông số của Microsoft, Xbox Series X có bao nhiêu bộ nhớ và băng thông được chia ra sao?",
+    "sources": [
+      {
+        "url": "https://www.xbox.com/en-US/consoles/xbox-series-x",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c006",
+    "claim": "Xbox Series S có 10 GB bộ nhớ GDDR6; bản Series S dung lượng thấp nhất có ổ SSD 512 GB.",
+    "question": "Theo trang thông số của Microsoft, Xbox Series S có bao nhiêu bộ nhớ, và các bản Series S có ổ SSD dung lượng bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c007",
+    "claim": "Phép tính: 212 GB dữ liệu cài đặt GTA VI gấp khoảng 13 lần 16 GB bộ nhớ của PS5 (212 ÷ 16 ≈ 13,25).",
+    "question": "Lấy dung lượng trống Rockstar yêu cầu cho GTA VI chia cho dung lượng bộ nhớ hệ thống của PS5 thì được bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.techradar.com/au/gaming/gta-6-digital-pre-loads-for-ps5-and-xbox-will-begin-9-days-early-and-require-a-whopping-212gb-of-free-space",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://digitaltrends.com/gaming/gta-6-is-finally-ready-to-download-all-212gb-of-it",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://blog.playstation.com/2020/03/18/unveiling-new-details-of-playstation-5-hardware-technical-specs/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c008",
+    "claim": "GTA V ra mắt ngày 17/9/2013 trên PlayStation 3 và Xbox 360.",
+    "question": "Grand Theft Auto V phát hành ngày nào và trên những máy nào?",
+    "sources": [
+      {
+        "url": "https://ir.take2games.com/static-files/cd1abec3-a89b-44ce-8fb2-04636febfe8e",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://ir.take2games.com/static-files/dd93d264-3d54-404a-ab30-bc6c0fa07ed2",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c009",
+    "claim": "PlayStation 3 có 256 MB bộ nhớ chính XDR và 256 MB bộ nhớ đồ họa GDDR3, tổng cộng 512 MB.",
+    "question": "Bộ nhớ của PlayStation 3 gồm những phần nào và mỗi phần bao nhiêu MB?",
+    "sources": [
+      {
+        "url": "https://www.itmedia.co.jp/news/article/0505/17/1050517019/",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/PlayStation_3_technical_specifications",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c010",
+    "claim": "Xbox 360 có 512 MB bộ nhớ GDDR3 dùng chung cho cả bộ xử lý chính và đồ họa.",
+    "question": "Xbox 360 có bao nhiêu bộ nhớ, loại gì, và bộ nhớ đó dùng cho những phần nào của máy?",
+    "sources": [
+      {
+        "url": "https://www.computerbase.de/2005-05/xbox-360-enthuellt-und-spezifikationen-bestaetigt/",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Xbox_360_technical_specifications",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c011",
+    "claim": "Năm 1976, James H. Clark viết trên tạp chí Communications of the ACM rằng nhờ cấu trúc phân cấp, môi trường có thể phức tạp hơn rất nhiều trong khi độ phức tạp nhìn thấy ở mỗi cảnh được giữ dưới một mức trần cố định; bài cũng đề xuất cách thay đổi lượng chi tiết trong cảnh, cắt bỏ phần ngoài tầm nhìn bằng phép tìm logarit, và một \"tập làm việc\" (working set) đồ họa là phần cần có trong bộ nhớ chính.",
+    "question": "Bài \"Hierarchical geometric models for visible surface algorithms\" do ai viết, đăng ở đâu, năm nào, và tóm tắt bài nêu những cải tiến gì?",
+    "sources": [
+      {
+        "url": "https://doi.org/10.1145/360349.360354",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://api.crossref.org/works/10.1145/360349.360354",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c012",
+    "claim": "Theo Mark Cerny, ổ cứng quay đọc được 50 đến 100 MB mỗi giây nếu dữ liệu nằm liền một khối, tùy vị trí trên đĩa; ở vùng ngoài của đĩa thì nạp 1 GB mất khoảng 10 giây.",
+    "question": "Trong bài \"The Road to PS5\" (khoảng phút 05:50 đến 06:15), Mark Cerny nói ổ cứng đọc dữ liệu liền khối nhanh cỡ nào và nạp một gigabyte mất bao lâu?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c013",
+    "claim": "Theo Mark Cerny, vì dữ liệu nằm rải rác, ổ cứng dành khoảng hai phần ba thời gian để tìm (seek) và một phần ba để đọc; gộp lại, nạp 1 GB từ ổ cứng mất khoảng 20 giây.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 06:34 đến 07:01), Cerny ước lượng ổ cứng chia thời gian giữa tìm và đọc ra sao, và thực tế nạp một gigabyte mất bao lâu?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c014",
+    "claim": "Theo Mark Cerny, game trên PS4 dùng 5 đến 6 GB RAM.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 07:05), Cerny nói game trên PS4 dùng bao nhiêu RAM?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c015",
+    "claim": "Theo Mark Cerny, PS4 hỗ trợ giải nén zlib, giúp chứa thêm khoảng 50% dữ liệu trên đĩa và tăng khoảng 50% tốc độ đọc hiệu dụng.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 06:15 đến 06:34), Cerny nói PS4 hỗ trợ kiểu nén nào và lợi ích đo bằng phần trăm là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c016",
+    "claim": "Theo Mark Cerny, để chuyển giữa hai khu vực giàu chi tiết với ổ cứng, nhà làm game dùng cầu thang dài, thang máy hoặc hành lang ngoằn ngoèo để bỏ dữ liệu cũ và mất khoảng 30 giây nạp dữ liệu mới; hoặc chia thế giới thành nhiều mảnh nhỏ và tính toán tầm nhìn, tốc độ chạy, như khi làm thành phố Haven City trong Jak 2.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 09:09 đến 09:57), Cerny kể những mẹo thiết kế màn chơi nào để che thời gian nạp của ổ cứng, và ông lấy ví dụ từ game nào?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c017",
+    "claim": "Theo Mark Cerny, một cách tăng tốc ổ cứng là gom mọi dữ liệu của mỗi khối phố thành một khúc liền; Marvel's Spider-Man dùng cách này, và hệ quả là chép trùng rất nhiều: những vật như hộp thư, sạp báo nằm trên ổ cứng hàng trăm lần.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 10:31 đến 11:07), Cerny mô tả cách gom dữ liệu theo khối phố, game nào dùng cách đó, và hệ quả về chép trùng dữ liệu ra sao?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c018",
+    "claim": "Theo Mark Cerny, hậu quả của giới hạn ổ cứng là hoặc dữ liệu chép trùng nhiều tới mức không vừa đĩa Blu-ray, hoặc phải giới hạn tốc độ chạy và lái của người chơi, vì người chơi không được đi nhanh hơn tốc độ nạp của ổ.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 11:07 đến 11:25), Cerny nói giới hạn của ổ cứng buộc nhà làm game chịu những hậu quả nào?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c019",
+    "claim": "Theo Mark Cerny, trên PS4, bộ nhớ hệ thống phải chứa mọi dữ liệu có thể dùng trong khoảng 30 giây chơi tới, nên nhiều phần trong 8 GB bộ nhớ chỉ nằm chờ.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 12:09 đến 12:34), Cerny nói bộ nhớ PS4 phải giữ sẵn dữ liệu cho khoảng thời gian chơi bao lâu, và PS4 có bao nhiêu bộ nhớ hệ thống?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c020",
+    "claim": "Trong Unreal Engine, hệ thống World Partition chia không gian thành các ô lưới; các ô được nạp và dỡ khi game đang chạy tùy theo khoảng cách tới nguồn nạp như người chơi, và \"tầm nạp\" (Loading Range) quyết định bán kính nạp.",
+    "question": "Theo tài liệu Unreal Engine, World Partition chia thế giới ra sao và quyết định nạp phần nào của thế giới dựa vào đâu?",
+    "sources": [
+      {
+        "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/world-partition-in-unreal-engine",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c021",
+    "claim": "Theo tài liệu Unreal Engine, view frustum culling bỏ những vật nằm ngoài khung nhìn của camera, occlusion culling bỏ những vật bị vật khác che, và distance culling bỏ những vật ở xa hơn khoảng cách vẽ.",
+    "question": "Theo tài liệu Unreal Engine, ba kiểu culling: theo khung nhìn, theo vật che và theo khoảng cách, mỗi kiểu bỏ đi những vật nào?",
+    "sources": [
+      {
+        "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/visibility-and-occlusion-culling-in-unreal-engine",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c022",
+    "claim": "Theo Microsoft, mipmap là chuỗi ảnh bề mặt cùng nội dung với độ phân giải giảm dần, mỗi mức nhỏ đi một nửa chiều rộng và chiều cao; vật ở gần dùng ảnh độ phân giải cao, vật ở xa dùng ảnh nhỏ hơn, đổi lại tốn thêm bộ nhớ.",
+    "question": "Theo tài liệu Direct3D của Microsoft, mipmap là gì, các mức khác nhau ra sao, mức nào được dùng khi nào và cái giá là gì?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/direct3d9/texture-filtering-with-mipmaps",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c023",
+    "claim": "Theo Microsoft, định dạng nén ảnh bề mặt BC1 cất mỗi khối 4×4 điểm ảnh trong 8 byte, BC7 dùng 16 byte cho mỗi khối, và các định dạng này được phần cứng giải mã nhanh.",
+    "question": "Theo tài liệu Direct3D 11 của Microsoft, các định dạng nén khối BC1 và BC7 dùng bao nhiêu byte cho mỗi khối điểm ảnh, khối kích thước bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/direct3d11/texture-block-compression-in-direct3d-11",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c024",
+    "claim": "Phép tính: ảnh bề mặt không nén dùng 4 byte mỗi điểm (8 bit cho mỗi kênh đỏ, xanh lá, xanh dương, độ trong) thì 16 điểm tốn 64 byte; BC1 cất 16 điểm đó trong 8 byte, tức còn một phần tám.",
+    "question": "Một khối 4×4 điểm ảnh ở dạng 4 byte mỗi điểm tốn bao nhiêu byte, và so với dung lượng một khối BC1 thì gấp mấy lần?",
+    "sources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/direct3d11/texture-block-compression-in-direct3d-11",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c025",
+    "claim": "Theo Mark Cerny, mọi máy PS4 đều có ổ cứng, và vào năm 2015–2016 các nhà làm game đã chạm vào giới hạn của ổ cứng, mất nhiều thời gian thiết kế để né tốc độ nạp chậm.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 05:23 đến 05:45), Cerny nói gì về ổ cứng trên PS4 và tình hình của nhà làm game khoảng năm 2015–2016?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c026",
+    "claim": "Theo Mark Cerny, PS5 dùng định dạng nén Kraken của RAD Game Tools, nén tốt hơn zlib khoảng 10%.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 16:53 đến 17:20), Cerny nói PS5 dùng thêm định dạng nén nào, của ai, và so với zlib thì tốt hơn bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c027",
+    "claim": "Theo Mark Cerny, bộ giải nén Kraken gắn trong chip PS5 nhận hơn 5 GB dữ liệu nén mỗi giây, sau giải nén thường thành 8 đến 9 GB mỗi giây, và có thể xuất tới 22 GB mỗi giây nếu dữ liệu nén đặc biệt tốt.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 17:31 đến 17:54), Cerny nói bộ giải nén phần cứng của PS5 nhận vào và xuất ra bao nhiêu GB mỗi giây?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c028",
+    "claim": "Theo Mark Cerny, để giải nén luồng Kraken của PS5 bằng CPU thông thường thì cần sức mạnh tương đương 9 nhân CPU Zen 2.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 17:54 đến 18:04), Cerny so sánh bộ giải nén phần cứng với bao nhiêu nhân CPU?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c029",
+    "claim": "Xbox Series X và Series S đều có tốc độ đọc 2,4 GB/s dữ liệu thô và 4,8 GB/s dữ liệu nén, nhờ khối giải nén phần cứng riêng.",
+    "question": "Theo trang thông số của Microsoft, tốc độ đọc dữ liệu của Xbox Series X và Series S là bao nhiêu, thô và sau giải nén?",
+    "sources": [
+      {
+        "url": "https://www.xbox.com/en-US/consoles/xbox-series-x",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c030",
+    "claim": "Theo Microsoft, GPU thường chỉ truy cập chưa tới một phần ba dữ liệu ảnh bề mặt đã phải nạp vào bộ nhớ; Sampler Feedback Streaming chỉ nạp những phần ảnh cần, trung bình cho hiệu quả khoảng 2,5 lần về tốc độ đọc và bộ nhớ; Xbox Series X|S còn có thuật toán nén riêng cho ảnh bề mặt tên BCPack.",
+    "question": "Theo bài Xbox Wire về Xbox Velocity Architecture, GPU thường dùng bao nhiêu phần dữ liệu ảnh bề mặt đã nạp, Sampler Feedback Streaming đem lại hiệu quả gấp mấy lần, và thuật toán nén riêng cho ảnh bề mặt tên là gì?",
+    "sources": [
+      {
+        "url": "https://news.xbox.com/en-us/2020/07/14/a-closer-look-at-xbox-velocity-architecture/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c031",
+    "claim": "Theo Microsoft, Xbox Velocity Architecture cho truy cập trực tiếp, tức thì hơn 100 GB dữ liệu game trên ổ SSD.",
+    "question": "Theo bài Xbox Wire về Xbox Velocity Architecture, kiến trúc này cho truy cập nhanh tới bao nhiêu dữ liệu game trên SSD?",
+    "sources": [
+      {
+        "url": "https://news.xbox.com/en-us/2020/07/14/a-closer-look-at-xbox-velocity-architecture/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c032",
+    "claim": "Theo Mark Cerny, với ổ SSD của PS5, nạp 2 GB mất khoảng một phần tư giây, nhanh hơn ổ cứng chừng 100 lần.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 07:52 đến 08:10), Cerny nói SSD của PS5 nạp bao nhiêu GB trong bao lâu, và nhanh hơn ổ cứng khoảng mấy lần?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c033",
+    "claim": "Theo Mark Cerny, nếu người chơi mất nửa giây để quay người lại, SSD của PS5 có thể nạp khoảng 4 GB dữ liệu nén cho mọi thứ phía sau lưng trong khoảng thời gian đó.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 10:10 đến 10:28), Cerny lấy ví dụ người chơi quay người: mất bao lâu và nạp được bao nhiêu dữ liệu?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c034",
+    "claim": "Theo Mark Cerny, SSD của PS5 nhanh tới mức gần như là thêm RAM: cần dữ liệu thì nạp ngay, không cần đỗ sẵn nhiều dữ liệu trong bộ nhớ; đây là một lý do PS5 không cần tăng dung lượng bộ nhớ quá lớn so với đời trước.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 12:38 đến 13:10), Cerny nói SSD thay đổi cách dùng bộ nhớ hệ thống của PS5 ra sao, và điều đó liên quan gì tới dung lượng bộ nhớ của máy?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c035",
+    "claim": "Theo Mark Cerny, trên PS4, gắn một ổ SSD nhanh gấp 10 lần ổ cứng thường có khi chỉ nạp nhanh gấp đôi, vì còn nhiều nút thắt khác giữa ổ đĩa và mã game.",
+    "question": "Trong \"The Road to PS5\" (khoảng phút 13:32 đến 13:50), Cerny nói gắn SSD nhanh hơn nhiều lần vào PS4 thì tốc độ nạp thực tế tăng bao nhiêu, và vì sao?",
+    "sources": [
+      {
+        "url": "https://www.youtube.com/watch?v=ph8LyNIT9sg",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c036",
+    "claim": "Phép tính trên con số in trên hộp: 212 GB chiếm khoảng một phần tư ổ 825 GB của PS5 (212 ÷ 825 ≈ 26%) và hơn 40% ổ 512 GB của bản Xbox Series S thấp nhất (212 ÷ 512 ≈ 41%); dung lượng thực sự dùng được còn nhỏ hơn.",
+    "question": "Lấy dung lượng trống Rockstar yêu cầu cho GTA VI chia cho dung lượng SSD danh nghĩa của PS5 và của bản Xbox Series S 512 GB thì được bao nhiêu phần trăm?",
+    "sources": [
+      {
+        "url": "https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.techradar.com/au/gaming/gta-6-digital-pre-loads-for-ps5-and-xbox-will-begin-9-days-early-and-require-a-whopping-212gb-of-free-space",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://digitaltrends.com/gaming/gta-6-is-finally-ready-to-download-all-212gb-of-it",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://blog.playstation.com/2020/03/18/unveiling-new-details-of-playstation-5-hardware-technical-specs/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.xbox.com/en-US/consoles/xbox-series-s",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  }
+]

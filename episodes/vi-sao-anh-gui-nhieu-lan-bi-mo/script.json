@@ -3,7 +3,7 @@
     "title": "Vì sao ảnh gửi qua gửi lại nhiều lần thì cứ mờ dần",
     "voice": "Thiện Minh",
     "speed": 1.0,
-    "theme": "mau-a",
+    "theme": "mau-b",
     "outro": true,
     "music": {
       "track": "reverence-endless",
@@ -48,20 +48,35 @@
     {
       "id": "s01",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Ảnh cả nhà, qua mấy nhóm chat thì nhoè",
+        "kicker": "Bạn chắc từng gặp"
+      },
       "holdMs": 0,
-      "sfx": null,
+      "sfx": "whoosh",
       "beats": [
         {
           "id": "b001",
           "text": "Bạn chắc từng gặp cảnh này: tấm ảnh cả nhà chụp chung, chuyền qua mấy nhóm chat, tới tay thì nhoè.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "custom:anh-mo",
+      "props": {
+        "mode": "chuoi"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b002",
           "text": "Vì sao gửi qua gửi lại vài lần, ảnh lại cứ mờ dần?",
@@ -74,10 +89,48 @@
       ]
     },
     {
-      "id": "s02",
+      "id": "s03",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Ảnh gốc"
+          },
+          {
+            "id": "n1",
+            "label": "Ứng dụng chat"
+          },
+          {
+            "id": "n2",
+            "label": "Ảnh nhỏ đi, nén lại"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "gửi"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "thu nhỏ, nén"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -107,10 +160,15 @@
       ]
     },
     {
-      "id": "s03",
+      "id": "s04",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 3,
+        "from": 3,
+        "suffix": " câu hỏi",
+        "label": "tập này trả lời"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -122,7 +180,29 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Thứ gì bị vứt đi?"
+          },
+          {
+            "name": "Vứt nhiều lần thì mờ?"
+          },
+          {
+            "name": "Gửi sao giữ ảnh gốc?"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b006",
           "text": "Thứ gì trong ảnh bị vứt đi? Vì sao vứt một lần không ai thấy, mà vứt nhiều lần thì ảnh mờ dần?",
@@ -144,10 +224,24 @@
       ]
     },
     {
-      "id": "s04",
+      "id": "c1",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Một tấm ảnh nặng bao nhiêu",
+        "number": 1
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s06",
+      "chapter": "chuong-1",
+      "type": "custom:diem-anh",
+      "props": {
+        "mode": "luoi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -163,10 +257,16 @@
       ]
     },
     {
-      "id": "s05",
+      "id": "s07",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 24,
+        "from": 24,
+        "suffix": " bit",
+        "label": "mỗi điểm của ảnh màu thông thường, khi chưa nén",
+        "note": "Ảnh 12 triệu điểm: khoảng 36 MB"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -191,12 +291,25 @@
           "claims": [
             "c003"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "chuong-1",
+      "type": "cold-open",
+      "props": {
+        "hook": "Vừa chậm, vừa tốn dữ liệu di động",
+        "kicker": "Gửi nguyên như thế qua mạng"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b011",
           "text": "Gửi nguyên như thế qua mạng thì vừa chậm, vừa tốn dữ liệu di động.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": []
@@ -204,10 +317,14 @@
       ]
     },
     {
-      "id": "s06",
+      "id": "s09",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "JPEG",
+        "tag": "Nén ảnh",
+        "definition": "Cách nén phổ biến nhất cho ảnh chụp"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -221,18 +338,45 @@
           "claims": [
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "chuong-1",
+      "type": "cold-open",
+      "props": {
+        "hook": "Định dạng ảnh tĩnh thống trị nhất hiện nay",
+        "kicker": "Ủy ban làm chuẩn JPEG gọi nó là"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b013",
           "text": "Ủy ban làm chuẩn JPEG gọi nó là định dạng ảnh tĩnh thống trị nhất hiện nay.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "Tên JPEG",
+        "tag": "Viết tắt",
+        "definition": "Tên một nhóm chuyên gia về ảnh, lập ra từ sự hợp tác của hai tổ chức làm chuẩn"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b014",
           "text": "Tên JPEG là viết tắt tên một nhóm chuyên gia về ảnh, lập ra từ sự hợp tác của hai tổ chức làm chuẩn.",
@@ -247,10 +391,34 @@
       ]
     },
     {
-      "id": "s07",
+      "id": "s12",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "1986: bắt đầu xây dựng"
+          },
+          {
+            "id": "n1",
+            "label": "1992: bản đầu tiên"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -269,10 +437,13 @@
       ]
     },
     {
-      "id": "s08",
+      "id": "s13",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Vứt bớt dữ liệu, nhưng có chọn lọc",
+        "kicker": "Bí quyết của JPEG"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -280,13 +451,27 @@
           "id": "b016",
           "text": "Bí quyết của JPEG là chịu vứt bớt dữ liệu, nhưng vứt có chọn lọc.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "Gregory Wallace",
+        "tag": "Kỹ sư",
+        "definition": "Viết bài giới thiệu chuẩn JPEG: kết quả rất đáng kinh ngạc"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b017",
           "text": "Theo bài giới thiệu chuẩn JPEG của kỹ sư Gregory Wallace, kết quả rất đáng kinh ngạc.",
@@ -297,7 +482,24 @@
           "claims": [
             "c004"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "chapter": "chuong-1",
+      "type": "big-number",
+      "props": {
+        "value": 16,
+        "from": 16,
+        "suffix": " lần",
+        "label": "ảnh nhỏ đi",
+        "note": "thường vẫn không phân biệt được với ảnh gốc",
+        "prefix": "12–"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b018",
           "text": "Ảnh nhỏ đi khoảng 12 đến 16 lần mà thường vẫn không phân biệt được với ảnh gốc.",
@@ -312,10 +514,15 @@
       ]
     },
     {
-      "id": "s09",
+      "id": "s16",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 3,
+        "from": 3,
+        "suffix": " bước",
+        "label": "để vứt thứ mắt không nhận ra"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -331,7 +538,30 @@
             "c010",
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "chapter": "chuong-1",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Bớt màu"
+          },
+          {
+            "name": "Ghi lại từng ô nhỏ",
+            "detail": "theo cách khác"
+          },
+          {
+            "name": "Làm tròn thô"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b020",
           "text": "Bớt màu, ghi lại từng ô nhỏ theo cách khác, rồi làm tròn thô.",
@@ -348,10 +578,25 @@
       ]
     },
     {
-      "id": "s10",
+      "id": "c2",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Bớt màu, và cắt ô tám nhân tám",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s18",
+      "chapter": "chuong-2",
+      "type": "cold-open",
+      "props": {
+        "hook": "Một điểm yếu của mắt người",
+        "kicker": "Bước một"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -359,11 +604,36 @@
           "id": "b021",
           "text": "Bước một dựa vào một điểm yếu của mắt người.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-2",
+      "type": "compare",
+      "props": {
+        "titleA": "Độ sáng",
+        "titleB": "Màu",
+        "rows": [
+          {
+            "label": "Mắt nhạy với thay đổi",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Bớt chi tiết mà không thấy kém",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b022",
           "text": "Mắt người nhạy với thay đổi về độ sáng hơn là thay đổi về màu.",
@@ -389,10 +659,12 @@
       ]
     },
     {
-      "id": "s11",
+      "id": "s20",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:diem-anh",
+      "props": {
+        "mode": "lop-mau"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -417,17 +689,7 @@
           "claims": [
             "c009"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s12",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b026",
           "text": "Hình dung một ảnh đen trắng thật nét, phủ lên một lớp màu hơi nhoè. Mắt vẫn thấy như ảnh thật.",
@@ -440,10 +702,14 @@
       ]
     },
     {
-      "id": "s13",
+      "id": "s21",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Ô 8×8",
+        "tag": "Bước hai",
+        "definition": "Mỗi lớp được cắt thành những ô vuông nhỏ 8×8, tức 64 điểm"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -457,7 +723,54 @@
           "claims": [
             "c010"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s21b",
+      "chapter": "chuong-2",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Ô 8×8 điểm"
+          },
+          {
+            "id": "n1",
+            "label": "Biến đổi cosin rời rạc"
+          },
+          {
+            "id": "n2",
+            "label": "Một bộ con số mới"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "ghi lại bằng"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b028",
           "text": "Mỗi ô được ghi lại bằng một phép toán tên là phép biến đổi cosin rời rạc.",
@@ -472,10 +785,12 @@
       ]
     },
     {
-      "id": "s14",
+      "id": "s22",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:o-tam",
+      "props": {
+        "mode": "khuon"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -513,10 +828,25 @@
       ]
     },
     {
-      "id": "s15",
+      "id": "s23",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Ô trời xanh trơn",
+        "titleB": "Ô viền chữ sắc",
+        "rows": [
+          {
+            "label": "Gần như chỉ cần khuôn trơn",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Cần nhiều khuôn sọc li ti",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -541,10 +871,13 @@
       ]
     },
     {
-      "id": "s16",
+      "id": "s24",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Gom chi tiết li ti vào những con số riêng",
+        "kicker": "Bước này gần như chưa mất gì"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -552,7 +885,7 @@
           "id": "b034",
           "text": "Bước này gần như chưa mất gì. Nhưng nó gom chi tiết li ti vào những con số riêng, để bước ba dễ vứt.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 900,
           "sfx": null,
           "claims": []
@@ -560,10 +893,26 @@
       ]
     },
     {
-      "id": "s17",
+      "id": "c3",
+      "chapter": "chuong-3",
+      "type": "chapter-title",
+      "props": {
+        "title": "Làm tròn thô: chỗ ảnh thật sự mất",
+        "number": 3
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s25",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Lượng tử hoá",
+        "tag": "Bước ba",
+        "definition": "Chỗ ảnh thật sự mất dữ liệu. Nói nôm na là làm tròn thô"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -581,10 +930,12 @@
       ]
     },
     {
-      "id": "s18",
+      "id": "s26",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:lam-tron",
+      "props": {
+        "mode": "mot"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -618,10 +969,46 @@
       ]
     },
     {
-      "id": "s19",
+      "id": "s27",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Con số trong ô"
+          },
+          {
+            "id": "n1",
+            "label": "Chia cho mức 1 đến 255"
+          },
+          {
+            "id": "n2",
+            "label": "Làm tròn"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -635,7 +1022,19 @@
           "claims": [
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s28",
+      "chapter": "chuong-3",
+      "type": "custom:o-tam",
+      "props": {
+        "mode": "luong-tu"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b040",
           "text": "Nhiều giá trị khác nhau bị dồn về cùng một số. Đó là nguồn mất dữ liệu chính của JPEG.",
@@ -646,17 +1045,7 @@
           "claims": [
             "c012"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s20",
-      "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b041",
           "text": "Con số của các khuôn sọc li ti thường gặp mức làm tròn lớn, nên bị làm tròn về không và biến mất.",
@@ -681,10 +1070,12 @@
       ]
     },
     {
-      "id": "s21",
+      "id": "s29",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:anh-mo",
+      "props": {
+        "mode": "chat-luong"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -692,7 +1083,7 @@
           "id": "b043",
           "text": "Lưu ảnh JPEG ở chất lượng 100, mức cao nhất của thang, ảnh vẫn mất dữ liệu.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -715,10 +1106,14 @@
       ]
     },
     {
-      "id": "s22",
+      "id": "s30",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Mức 100",
+        "tag": "Chất lượng JPEG",
+        "definition": "Phần làm tròn giảm ít nhất. Nhưng phần màu vẫn bị bớt, và vẫn còn làm tròn"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -736,10 +1131,13 @@
       ]
     },
     {
-      "id": "s23",
+      "id": "s31",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Đẩy chất lượng lên thật cao cũng chẳng đáng",
+        "kicker": "Mà"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -747,11 +1145,27 @@
           "id": "b046",
           "text": "Mà đẩy chất lượng lên thật cao cũng chẳng đáng.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s32",
+      "chapter": "chuong-3",
+      "type": "big-number",
+      "props": {
+        "value": 75,
+        "from": 75,
+        "suffix": "",
+        "label": "mặc định của thư viện libjpeg-turbo",
+        "note": "Khuyên dùng 50 đến 95 cho ảnh chụp"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b047",
           "text": "Thư viện nén ảnh libjpeg-turbo đặt mặc định là 75, và khuyên dùng từ 50 đến 95 cho ảnh chụp.",
@@ -762,7 +1176,21 @@
           "claims": [
             "c015"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s33",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "Trên khoảng 95",
+        "tag": "Chất lượng",
+        "definition": "Tệp to lên rất nhiều, mà mắt người hiếm khi thấy khác"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b048",
           "text": "Đặt trên khoảng 95 thì tệp to lên rất nhiều, mà mắt người hiếm khi thấy khác.",
@@ -773,12 +1201,25 @@
           "claims": [
             "c015"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s34",
+      "chapter": "chuong-3",
+      "type": "cold-open",
+      "props": {
+        "hook": "Mức 100 không có nghĩa là ảnh gốc",
+        "kicker": "Lưu JPEG"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b049",
           "text": "Nên lưu JPEG ở mức 100 không có nghĩa là giữ nguyên ảnh gốc.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 800,
           "sfx": null,
           "claims": [
@@ -788,10 +1229,12 @@
       ]
     },
     {
-      "id": "s24",
+      "id": "s35",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:o-tam",
+      "props": {
+        "mode": "luoi64"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -799,14 +1242,28 @@
           "id": "b050",
           "text": "Phép toán nằm ở lõi của ảnh JPEG từng bị chê là quá đơn giản.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 450,
           "sfx": null,
           "claims": [
             "c011",
             "c006"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s36",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {
+        "term": "Nasir Ahmed",
+        "tag": "Năm 1972",
+        "definition": "Xin Quỹ Khoa học Quốc gia Mỹ tài trợ để nghiên cứu phép toán ấy"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b051",
           "text": "Năm 1972, nhà nghiên cứu Nasir Ahmed xin Quỹ Khoa học Quốc gia Mỹ tài trợ để nghiên cứu nó.",
@@ -817,7 +1274,53 @@
           "claims": [
             "c011"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s37",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Bị chê: quá đơn giản"
+          },
+          {
+            "id": "n1",
+            "label": "Ông vẫn làm tiếp"
+          },
+          {
+            "id": "n2",
+            "label": "1/1974: công bố"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b052",
           "text": "Ông bị từ chối. Những người thẩm định cho rằng ý tưởng ấy quá đơn giản.",
@@ -828,17 +1331,7 @@
           "claims": [
             "c011"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s25",
-      "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b053",
           "text": "Ông vẫn làm tiếp, và tháng 1/1974 cùng hai đồng nghiệp công bố phép biến đổi cosin rời rạc.",
@@ -853,10 +1346,47 @@
       ]
     },
     {
-      "id": "s26",
+      "id": "s39",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Nhiều cách nén ảnh"
+          },
+          {
+            "id": "n1",
+            "label": "Thi với nhau, chấm mù"
+          },
+          {
+            "id": "n2",
+            "label": "Cách dựa trên cosin"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "thắng"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -881,12 +1411,25 @@
           "claims": [
             "c006"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-3",
+      "type": "cold-open",
+      "props": {
+        "hook": "Từng bị chê quá đơn giản",
+        "kicker": "Nay trong gần như mọi tấm ảnh JPEG"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b056",
           "text": "Ý tưởng từng bị chê quá đơn giản ấy, nay nằm trong gần như mọi tấm ảnh JPEG.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 800,
           "sfx": null,
           "claims": [
@@ -897,10 +1440,25 @@
       ]
     },
     {
-      "id": "s27",
+      "id": "s41",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Ảnh chụp, màu chuyển dần",
+        "titleB": "Nét mảnh, cạnh sắc",
+        "rows": [
+          {
+            "label": "Nén tốt",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Dễ lộ vết nén",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -940,10 +1498,25 @@
       ]
     },
     {
-      "id": "s28",
+      "id": "c4",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Mất thế hệ",
+        "number": 4
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s42",
+      "chapter": "chuong-4",
+      "type": "cold-open",
+      "props": {
+        "hook": "Vứt một lần không ai thấy, nhiều lần thì mờ",
+        "kicker": "Câu hỏi thứ hai"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -951,11 +1524,25 @@
           "id": "b060",
           "text": "Giờ tới câu hỏi thứ hai: vì sao vứt một lần không ai thấy, mà vứt nhiều lần thì ảnh mờ dần?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s43",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "Mất thế hệ",
+        "tag": "Thuật ngữ",
+        "definition": "Giống bản sao chụp của một bản sao chụp"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b061",
           "text": "Hiện tượng này gọi là mất thế hệ, giống bản sao chụp của một bản sao chụp.",
@@ -968,10 +1555,12 @@
       ]
     },
     {
-      "id": "s29",
+      "id": "s44",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:anh-mo",
+      "props": {
+        "mode": "the-he"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1000,10 +1589,28 @@
       ]
     },
     {
-      "id": "s30",
+      "id": "s45",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Bức thư gốc"
+          },
+          {
+            "name": "Bản chép",
+            "detail": "mỗi lần sai một chút"
+          },
+          {
+            "name": "Chép từ bản chép"
+          },
+          {
+            "name": "Lần thứ mười",
+            "detail": "nét chữ khác hẳn"
+          }
+        ],
+        "highlight": 3
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1028,10 +1635,35 @@
       ]
     },
     {
-      "id": "s31",
+      "id": "s47",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Nén lại đúng cài đặt cũ"
+          },
+          {
+            "id": "n1",
+            "label": "Gần như không đổi thêm"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "thí nghiệm 2025"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1069,10 +1701,46 @@
       ]
     },
     {
-      "id": "s32",
+      "id": "s48",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "12.000"
+          },
+          {
+            "id": "n1",
+            "label": "Làm tròn tới nghìn"
+          },
+          {
+            "id": "n2",
+            "label": "Vẫn 12.000"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1088,10 +1756,12 @@
       ]
     },
     {
-      "id": "s33",
+      "id": "s49",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:anh-mo",
+      "props": {
+        "mode": "hanh-trinh"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1116,10 +1786,16 @@
       ]
     },
     {
-      "id": "s34",
+      "id": "s50",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 3,
+        "from": 3,
+        "suffix": " thứ",
+        "label": "làm ảnh xấu dần",
+        "note": "Thứ nhất: nơi khác nén lại với một mức làm tròn khác"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1131,17 +1807,7 @@
           "pause_ms": 500,
           "sfx": null,
           "claims": []
-        }
-      ]
-    },
-    {
-      "id": "s35",
-      "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b073",
           "text": "Thứ nhất: nơi khác nén lại với một mức làm tròn khác.",
@@ -1156,10 +1822,12 @@
       ]
     },
     {
-      "id": "s36",
+      "id": "s52",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:lam-tron",
+      "props": {
+        "mode": "hai"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1193,10 +1861,12 @@
       ]
     },
     {
-      "id": "s37",
+      "id": "s53",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:o-tam",
+      "props": {
+        "mode": "lech"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1223,10 +1893,14 @@
       ]
     },
     {
-      "id": "s38",
+      "id": "s54",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Thu nhỏ ảnh",
+        "tag": "Thứ ba",
+        "definition": "Mỗi lần thu nhỏ là mất hẳn một phần điểm ảnh"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1238,7 +1912,19 @@
           "pause_ms": 400,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-4",
+      "type": "custom:diem-anh",
+      "props": {
+        "mode": "thu-nho"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b080",
           "text": "Ví dụ thu nhỏ một nửa mỗi chiều: cứ bốn điểm ảnh cạnh nhau bị trộn thành một điểm.",
@@ -1260,10 +1946,13 @@
       ]
     },
     {
-      "id": "s39",
+      "id": "s56",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Dấu vết cho biết ảnh bị nén hai lần",
+        "kicker": "Nhà pháp chứng ảnh soi ra được"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1271,7 +1960,7 @@
           "id": "b082",
           "text": "Các lần nén chồng lên nhau còn để lại dấu vết, rõ tới mức nhà pháp chứng ảnh dựa được vào đó.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
@@ -1292,10 +1981,23 @@
       ]
     },
     {
-      "id": "s40",
+      "id": "s58",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Mức làm tròn khác"
+          },
+          {
+            "name": "Lưới ô lệch"
+          },
+          {
+            "name": "Thu nhỏ ảnh"
+          }
+        ],
+        "highlight": 2
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1307,12 +2009,25 @@
           "pause_ms": 400,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-4",
+      "type": "cold-open",
+      "props": {
+        "hook": "Ảnh mờ vì bị nhiều nơi nén lại",
+        "kicker": "Không phải vì bị gửi nhiều"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b085",
           "text": "Nên ảnh không mờ vì bị gửi nhiều. Ảnh mờ vì bị nhiều nơi nén lại, mỗi nơi một kiểu.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 900,
           "sfx": null,
           "claims": []
@@ -1320,10 +2035,47 @@
       ]
     },
     {
-      "id": "s41",
+      "id": "c5",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Ứng dụng làm gì với ảnh của bạn",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s60",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Ảnh của bạn"
+          },
+          {
+            "id": "n1",
+            "label": "Những trạm nào?"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "ngoài đời"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1339,10 +2091,12 @@
       ]
     },
     {
-      "id": "s42",
+      "id": "s61",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:anh-mo",
+      "props": {
+        "mode": "goc-nhan"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1350,7 +2104,7 @@
           "id": "b087",
           "text": "Ảnh bạn nhận qua ứng dụng chat thường không phải ảnh gốc. Chính các ứng dụng nói vậy.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -1361,10 +2115,14 @@
       ]
     },
     {
-      "id": "s43",
+      "id": "s62",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Telegram",
+        "tag": "Trang hỏi đáp",
+        "definition": "Làm ảnh nhỏ đi trước khi gửi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1378,7 +2136,42 @@
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s63",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Ảnh nhỏ đi"
+          },
+          {
+            "id": "n1",
+            "label": "Tải ngay, ít dữ liệu"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "để"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b089",
           "text": "Để ảnh tải ngay và tốn ít dữ liệu di động.",
@@ -1389,7 +2182,23 @@
           "claims": [
             "c001"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s64",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 0.5,
+        "from": 0.5,
+        "suffix": " MB",
+        "label": "chế độ High Definition của Telegram vẫn giữ ảnh dưới mức này",
+        "decimals": 1
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b090",
           "text": "Ngay cả chế độ High Definition của Telegram cũng giữ ảnh dưới 0,5 MB.",
@@ -1404,10 +2213,12 @@
       ]
     },
     {
-      "id": "s44",
+      "id": "s65",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:diem-anh",
+      "props": {
+        "mode": "ung-dung"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1436,10 +2247,22 @@
       ]
     },
     {
-      "id": "s45",
+      "id": "s66",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "WhatsApp",
+            "detail": "thường hoặc HD"
+          },
+          {
+            "name": "Kể cả khi gửi HD",
+            "detail": "đường truyền vẫn ảnh hưởng"
+          }
+        ],
+        "highlight": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1464,7 +2287,21 @@
           "claims": [
             "c024"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s68",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Messenger",
+        "tag": "Từ 9/4/2024",
+        "definition": "Thêm nút gửi ảnh HD"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b095",
           "text": "Messenger cũng thêm nút gửi ảnh HD từ ngày 9/4/2024.",
@@ -1475,7 +2312,32 @@
           "claims": [
             "c025"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s69",
+      "chapter": "chuong-5",
+      "type": "compare",
+      "props": {
+        "titleA": "Nút HD",
+        "titleB": "Bình thường",
+        "rows": [
+          {
+            "label": "Gửi ở mức nét nhất",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Ảnh không ở mức nét nhất",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b096",
           "text": "Có hẳn một nút HD, tức là bình thường ảnh không được gửi ở mức nét nhất.",
@@ -1491,10 +2353,16 @@
       ]
     },
     {
-      "id": "s46",
+      "id": "s70",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 2720,
+        "from": 2720,
+        "suffix": " ảnh",
+        "label": "qua 10 nền tảng, đo năm 2016 bởi một nhóm ở Đại học Catania",
+        "note": "Facebook, Twitter, Telegram, WhatsApp, Instagram đều nén lại mọi ảnh"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1523,10 +2391,24 @@
       ]
     },
     {
-      "id": "s47",
+      "id": "s71",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Ngưỡng cạnh dài, đo năm 2016",
+        "unit": "",
+        "data": [
+          {
+            "label": "WhatsApp",
+            "value": 1600
+          },
+          {
+            "label": "Instagram",
+            "value": 1080
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1551,18 +2433,45 @@
           "claims": [
             "c021"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s72",
+      "chapter": "chuong-5",
+      "type": "cold-open",
+      "props": {
+        "hook": "Nay các ngưỡng có thể đã khác",
+        "kicker": "Twitter đổi ngưỡng ngay lúc thí nghiệm"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b101",
           "text": "Nay các ngưỡng này có thể đã khác. Ngay lúc làm thí nghiệm, Twitter đã đổi ngưỡng của mình.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 450,
           "sfx": null,
           "claims": [
             "c021"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s73",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Thông tin đi kèm ảnh",
+        "tag": "Bị xoá",
+        "definition": "Các nền tảng xoá cả thông tin máy chụp"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b102",
           "text": "Cũng theo nghiên cứu ấy, các nền tảng còn xoá thông tin đi kèm ảnh, kể cả thông tin máy chụp.",
@@ -1577,10 +2486,12 @@
       ]
     },
     {
-      "id": "s48",
+      "id": "s74",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:chup-man-hinh",
+      "props": {
+        "mode": "chup"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1614,10 +2525,12 @@
       ]
     },
     {
-      "id": "s49",
+      "id": "s75",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:chup-man-hinh",
+      "props": {
+        "mode": "lem"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1656,10 +2569,25 @@
       ]
     },
     {
-      "id": "s50",
+      "id": "c6",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Định dạng mới có cứu được không",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s76",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "Có định dạng nào cứu được không?",
+        "kicker": "Câu hỏi cuối"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1667,11 +2595,25 @@
           "id": "b109",
           "text": "Có định dạng ảnh nào cứu được chuyện này không?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s77",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "PNG",
+        "tag": "Nén không mất dữ liệu",
+        "definition": "Giải nén ra giống hệt ảnh gốc, tới từng bit"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b110",
           "text": "PNG nén không mất dữ liệu: giải nén ra giống hệt ảnh gốc, tới từng bit.",
@@ -1682,18 +2624,45 @@
           "claims": [
             "c026"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s78",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "Ra đời từ một vụ bản quyền",
+        "kicker": "Quanh định dạng ảnh GIF"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b111",
           "text": "Định dạng này ra đời từ một vụ bản quyền quanh định dạng ảnh GIF.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c027"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s79",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "LZW",
+        "tag": "Thuật toán nén của GIF",
+        "definition": "Bằng sáng chế thuộc về hãng Unisys"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b112",
           "text": "Ảnh GIF dùng thuật toán nén LZW, mà bằng sáng chế của nó thuộc về hãng Unisys.",
@@ -1704,7 +2673,21 @@
           "claims": [
             "c027"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s80",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "CompuServe",
+        "tag": "28/12/1994",
+        "definition": "Lặng lẽ công bố thoả thuận phí bản quyền với Unisys"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b113",
           "text": "Ngày 28/12/1994, hãng CompuServe lặng lẽ công bố thoả thuận phí bản quyền với Unisys.",
@@ -1715,7 +2698,42 @@
           "claims": [
             "c027"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s81",
+      "chapter": "chuong-6",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "4/1/1995: bản nháp đầu"
+          },
+          {
+            "id": "n1",
+            "label": "1/10/1996: PNG 1.0"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "W3C công nhận"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b114",
           "text": "Chỉ vài ngày sau, ngày 4/1/1995, bản nháp đầu tiên của một định dạng mới được đăng.",
@@ -1737,7 +2755,32 @@
           "claims": [
             "c027"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s82",
+      "chapter": "chuong-6",
+      "type": "compare",
+      "props": {
+        "titleA": "Hình vẽ, chữ",
+        "titleB": "Ảnh chụp",
+        "rows": [
+          {
+            "label": "Kiểu nén PNG hợp",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Tệp thường lớn hơn nhiều",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b116",
           "text": "Nhưng kiểu nén này hợp với hình vẽ và chữ hơn. Với ảnh chụp, tệp thường lớn hơn nhiều.",
@@ -1750,10 +2793,17 @@
       ]
     },
     {
-      "id": "s51",
+      "id": "s83",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 34,
+        "from": 34,
+        "suffix": " %",
+        "label": "ảnh WebP nhỏ hơn ảnh JPEG tương đương, theo Google",
+        "note": "Định dạng mới nén giỏi hơn JPEG",
+        "prefix": "25–"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1778,7 +2828,21 @@
           "claims": [
             "c028"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s84",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "HEIF",
+        "tag": "Từ iOS 11",
+        "definition": "Gửi sang máy chưa hỗ trợ, ảnh có thể tự đổi về JPEG"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b119",
           "text": "Apple đưa định dạng HEIF vào iOS 11. Nhưng gửi sang máy chưa hỗ trợ, ảnh có thể tự đổi về JPEG.",
@@ -1793,10 +2857,13 @@
       ]
     },
     {
-      "id": "s52",
+      "id": "s85",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Đừng để ảnh bị nén lại",
+        "kicker": "Định dạng nào cũng vẫn mất thế hệ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1804,7 +2871,7 @@
           "id": "b120",
           "text": "Nhưng định dạng nào cũng vậy: ảnh cứ bị nén lại kiểu mất dữ liệu thì vẫn mất thế hệ.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": []
@@ -1821,10 +2888,41 @@
       ]
     },
     {
-      "id": "s53",
+      "id": "c7",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Kết"
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s86",
+      "chapter": "ket",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Ba mẹo",
+            "detail": "để có đúng ảnh gốc"
+          },
+          {
+            "name": "Gửi dạng tệp",
+            "detail": "Telegram: không nén chút nào"
+          },
+          {
+            "name": "Giữ bản gốc trong máy",
+            "detail": "đừng lưu rồi gửi tiếp"
+          },
+          {
+            "name": "Đừng chụp màn hình",
+            "detail": "để gửi lại"
+          }
+        ],
+        "highlight": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1869,10 +2967,25 @@
       ]
     },
     {
-      "id": "s54",
+      "id": "s87",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Lưu đúng cài đặt cũ",
+        "titleB": "Mỗi ứng dụng một luật",
+        "rows": [
+          {
+            "label": "Gần như không mất thêm",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Ảnh rỗ dần qua từng chặng",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1900,10 +3013,13 @@
       ]
     },
     {
-      "id": "s55",
+      "id": "s88",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Tấm ảnh rỗ nhất bạn từng nhận?",
+        "kicker": "Kể dưới bình luận nhé"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1911,7 +3027,7 @@
           "id": "b128",
           "text": "Còn bạn, tấm ảnh rỗ nhất bạn từng nhận trong nhóm gia đình là ảnh gì? Kể dưới bình luận nhé.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 800,
           "sfx": null,
           "claims": []
@@ -1919,10 +3035,17 @@
       ]
     },
     {
-      "id": "s56",
+      "id": "s89",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "JPEG cố ý vứt phần mắt khó thấy",
+          "Mỗi nơi nén lại một kiểu: ảnh mờ dần",
+          "Cần ảnh gốc: gửi dạng tệp"
+        ],
+        "next": "Hẹn gặp bạn ở tập sau"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [

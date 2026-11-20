@@ -1,0 +1,2052 @@
+{
+  "meta": {
+    "title": "Vì sao ảnh gửi qua gửi lại nhiều lần thì cứ mờ dần",
+    "voice": "Thiện Minh",
+    "speed": 1.0,
+    "theme": "mau-a",
+    "outro": true,
+    "music": {
+      "track": "reverence-endless",
+      "gainDb": -24
+    }
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu"
+    },
+    {
+      "id": "chuong-1",
+      "title": "Một tấm ảnh nặng bao nhiêu"
+    },
+    {
+      "id": "chuong-2",
+      "title": "Bớt màu, và cắt ô tám nhân tám"
+    },
+    {
+      "id": "chuong-3",
+      "title": "Làm tròn thô: chỗ ảnh thật sự mất"
+    },
+    {
+      "id": "chuong-4",
+      "title": "Mất thế hệ"
+    },
+    {
+      "id": "chuong-5",
+      "title": "Ứng dụng làm gì với ảnh của bạn"
+    },
+    {
+      "id": "chuong-6",
+      "title": "PNG và các định dạng mới"
+    },
+    {
+      "id": "ket",
+      "title": "Kết"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b001",
+          "text": "Bức ảnh bạn vừa nhận qua ứng dụng chat rất có thể không còn là bức ảnh người ta đã chụp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b002",
+          "text": "Chính Telegram viết trong trang hỏi đáp của họ: Telegram làm ảnh nhỏ đi trước khi gửi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b003",
+          "text": "Còn tài liệu của libjpeg-turbo, một bộ thư viện nén ảnh JPEG, cảnh báo thêm một điều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        },
+        {
+          "id": "b004",
+          "text": "Nén đi nén lại chừng mười vòng, ảnh có thể xấu đi thấy rõ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b005",
+          "text": "Vậy mỗi lần gửi, thứ gì trong ảnh bị vứt đi?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b006",
+          "text": "Vì sao vứt một lần thì không ai thấy, mà vứt nhiều lần thì ai cũng thấy?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b007",
+          "text": "Và có cách nào gửi ảnh mà không mất gì không? Có, và câu trả lời nằm ở cuối tập.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b008",
+          "text": "Muốn hiểu, hãy xem một tấm ảnh thật ra là gì, và một chuẩn nén ra đời năm 1992 làm gì với nó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c005",
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b009",
+          "text": "Với máy tính, một tấm ảnh chỉ là một lưới điểm, và mỗi điểm là vài con số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b010",
+          "text": "Một ảnh màu thông thường lưu mỗi điểm bằng 3 thành phần màu, mỗi thành phần 8 bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        },
+        {
+          "id": "b011",
+          "text": "Tức 24 bit cho một điểm ảnh, khi chưa nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b012",
+          "text": "Làm phép tính: một ảnh 12 triệu điểm sẽ cần khoảng 36 MB.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        },
+        {
+          "id": "b013",
+          "text": "Gửi nguyên như thế qua mạng thì vừa chậm, vừa tốn dữ liệu di động.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b014",
+          "text": "Nên người ta nén ảnh. Và có một kiểu nén chịu vứt bớt dữ liệu, nhưng vứt có chọn lọc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b015",
+          "text": "Năm 1992, kỹ sư Gregory Wallace viết một bài tổng quan về chuẩn nén ảnh JPEG.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b016",
+          "text": "Theo bài này, nén còn 1,5 đến 2 bit mỗi điểm thì ảnh thường không phân biệt được với ảnh gốc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b017",
+          "text": "So với 24 bit lúc đầu, làm phép tính thì ảnh nhỏ đi khoảng 12 đến 16 lần, mà mắt không nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b018",
+          "text": "Chuẩn JPEG ấy được xây dựng từ năm 1986, và bản chuẩn đầu tiên ra đời tháng 9/1992.",
+          "spoken": "Chuẩn JPEG ấy được xây dựng từ năm một nghìn chín trăm tám mươi sáu, và bản chuẩn đầu tiên ra đời tháng chín năm một nghìn chín trăm chín mươi hai.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        },
+        {
+          "id": "b019",
+          "text": "Tên JPEG là viết tắt tên một nhóm chuyên gia về ảnh, lập ra từ sự hợp tác giữa CCITT và ISO.",
+          "spoken": "Tên JPEG là viết tắt tên một nhóm chuyên gia về ảnh, lập ra từ sự hợp tác giữa hai tổ chức làm chuẩn.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b020",
+          "text": "Tới nay, chính ủy ban JPEG gọi nó là định dạng ảnh tĩnh thống trị nhất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b021",
+          "text": "Nhưng muốn nhỏ đi cả chục lần mà mắt không thấy, JPEG phải vứt đi rất nhiều. Vứt gì, và vứt thế nào?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b022",
+          "text": "JPEG làm việc đó qua ba bước: bớt màu, ghi lại từng ô nhỏ theo cách khác, rồi làm tròn thô.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c009",
+            "c010",
+            "c012"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b023",
+          "text": "Bước một dựa vào một điểm yếu của mắt người.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b024",
+          "text": "Mắt người nhạy với thay đổi về độ sáng hơn là thay đổi về màu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        },
+        {
+          "id": "b025",
+          "text": "Nên phần màu có thể bị bớt chi tiết nhiều hơn, mà ta không thấy ảnh kém đi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b026",
+          "text": "Khi nén, JPEG thường tách ảnh thành một kênh độ sáng và hai kênh màu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        },
+        {
+          "id": "b027",
+          "text": "Trong thư viện libjpeg, mặc định mỗi kênh màu chỉ giữ một nửa chiều ngang và một nửa chiều dọc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        },
+        {
+          "id": "b028",
+          "text": "Làm phép tính: phần màu chỉ còn một phần tư số điểm. Kiểu này hay được ghi là 4:2:0.",
+          "spoken": "Làm phép tính: phần màu chỉ còn một phần tư số điểm. Kiểu này hay được ghi là bốn hai không.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b029",
+          "text": "Hình dung một ảnh đen trắng thật nét, phủ lên một lớp màu hơi nhoè. Mắt vẫn thấy như ảnh thật.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b030",
+          "text": "Bước hai: mỗi kênh được cắt thành những ô vuông 8×8, tức 64 điểm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        },
+        {
+          "id": "b031",
+          "text": "Rồi mỗi ô được ghi lại theo cách khác, bằng phép biến đổi cosin rời rạc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b032",
+          "text": "Thay vì nhớ 64 con số rời, máy nhớ cách pha trộn một bộ hoa văn sọc có sẵn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        },
+        {
+          "id": "b033",
+          "text": "Số đầu tiên đại diện cho độ sáng trung bình của cả ô.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        },
+        {
+          "id": "b034",
+          "text": "Các số sau cho biết cần thêm bao nhiêu sọc to, bao nhiêu sọc li ti.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s20",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b035",
+          "text": "Đổi cách ghi như vậy gần như chưa mất gì. Nhưng nó tách riêng chi tiết li ti, để bước sau dễ vứt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s21",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b036",
+          "text": "Phép toán nằm ở lõi của ảnh JPEG từng bị chê là quá đơn giản.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c011",
+            "c006"
+          ]
+        },
+        {
+          "id": "b037",
+          "text": "Năm 1972, Nasir Ahmed xin Quỹ Khoa học Quốc gia Mỹ tài trợ để nghiên cứu phép biến đổi cosin.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        },
+        {
+          "id": "b038",
+          "text": "Ông bị từ chối. Những người thẩm định cho rằng ý tưởng ấy quá đơn giản.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s22",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b039",
+          "text": "Tháng 1/1974, ông cùng Natarajan và Rao đăng bài về phép biến đổi cosin rời rạc.",
+          "spoken": "Tháng một năm một nghìn chín trăm bảy mươi tư, ông cùng Natarajan và Rao đăng bài về phép biến đổi cô sin rời rạc.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s23",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b040",
+          "text": "Tháng 6/1987, nhóm chuyên gia JPEG chấm mù 12 cách nén ảnh, giữ lại 3.",
+          "spoken": "Tháng sáu năm một nghìn chín trăm tám mươi bảy, nhóm chuyên gia JPEG chấm mù mười hai cách nén ảnh, giữ lại ba.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        },
+        {
+          "id": "b041",
+          "text": "Tháng 1/1988, cách dựa trên phép biến đổi cosin, chia ảnh thành ô 8×8, cho chất lượng tốt nhất.",
+          "spoken": "Tháng một năm một nghìn chín trăm tám mươi tám, cách dựa trên phép biến đổi cô sin, chia ảnh thành ô tám nhân tám, cho chất lượng tốt nhất.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        },
+        {
+          "id": "b042",
+          "text": "Rồi nó thành lõi của chuẩn JPEG ra đời tháng 9/1992.",
+          "spoken": "Rồi nó thành lõi của chuẩn JPEG ra đời tháng chín năm một nghìn chín trăm chín mươi hai.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s24",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b043",
+          "text": "Ý tưởng từng bị chê quá đơn giản ấy, nay nằm trong gần như mọi tấm ảnh JPEG.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c011",
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s25",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b044",
+          "text": "Bước ba mới là chỗ ảnh thật sự mất dữ liệu: lượng tử hoá, nói nôm na là làm tròn thô.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c012"
+          ]
+        },
+        {
+          "id": "b045",
+          "text": "Mỗi con số trong ô được chia cho một bước nhảy, từ 1 đến 255, rồi làm tròn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c012"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s26",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046",
+          "text": "Nghĩ tới giá tiền: mười hai nghìn tư, mười hai nghìn chín hay mười ba nghìn ba.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b047",
+          "text": "Làm tròn tới nghìn, cả ba đều thành mười ba nghìn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b048",
+          "text": "Chỉ biết mười ba nghìn, bạn không đoán lại được giá gốc. Phần lẻ đã mất hẳn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b049",
+          "text": "Đó là bước mất dữ liệu chính của JPEG: nhiều giá trị khác nhau bị dồn về cùng một số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c012"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s28",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b050",
+          "text": "Những sọc li ti thường bị chia cho bước nhảy lớn, nên bị làm tròn về không và biến mất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c012",
+            "c010"
+          ]
+        },
+        {
+          "id": "b051",
+          "text": "Vì vậy ảnh nén mạnh mất nét, mảng trời nổi lên từng ô vuông: mỗi ô còn lại quá ít hoa văn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s29",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b052",
+          "text": "Chuẩn JPEG có sẵn một bảng bước nhảy mẫu, và nói bảng này cho chất lượng tốt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        },
+        {
+          "id": "b053",
+          "text": "Thư viện libjpeg dùng đúng bảng ấy ở mức chất lượng 50.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s30",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b054",
+          "text": "Khi lưu ảnh JPEG, nhiều phần mềm cho chọn chất lượng từ 0 đến 100.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c014"
+          ]
+        },
+        {
+          "id": "b055",
+          "text": "Nhưng thang 0 đến 100 ấy không phải một đơn vị chung. Mỗi phần mềm quy đổi theo cách riêng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c014"
+          ]
+        },
+        {
+          "id": "b056",
+          "text": "Thư viện nén ảnh libjpeg tự gọi cách của mình là đường co giãn khuyến nghị của chúng tôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c014"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s31",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b057",
+          "text": "Vì vậy câu nén còn 85% không cho biết chính xác ảnh bị nén bao nhiêu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c014"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s32",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b058",
+          "text": "Thư viện libjpeg-turbo đặt mặc định là 75, và khuyên dùng từ 50 đến 95 cho ảnh chụp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b059",
+          "text": "Đặt trên khoảng 95 thì tệp to lên rất nhiều, mà mắt người hiếm khi thấy khác.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s33",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b060",
+          "text": "Và điều bất ngờ: ngay cả ở chất lượng 100, JPEG vẫn mất dữ liệu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        },
+        {
+          "id": "b061",
+          "text": "Ở mức đó, bước làm tròn mất ít nhất có thể. Nhưng phần màu vẫn bị bớt, và con số vẫn bị làm tròn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        },
+        {
+          "id": "b062",
+          "text": "Nên lưu JPEG ở mức 100 không có nghĩa là giữ nguyên ảnh gốc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s34",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b063",
+          "text": "JPEG cũng có sở trường và sở đoản.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b064",
+          "text": "Nó nén tốt ảnh chụp có màu và độ sáng chuyển dần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b065",
+          "text": "Nhưng nét mảnh, cạnh sắc thì nén không tốt và dễ lộ vết nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b066",
+          "text": "Hãy nhớ điều này. Nó sẽ quay lại ở cái bẫy chụp màn hình.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s35",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b067",
+          "text": "Giờ tới câu hỏi chính: vì sao ảnh nén lại nhiều lần thì mờ dần?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b068",
+          "text": "Hiện tượng này gọi là mất thế hệ, giống bản sao chụp của một bản sao chụp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s36",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b069",
+          "text": "Libjpeg-turbo khuyên tránh cho ảnh đi qua nhiều vòng nén rồi giải nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        },
+        {
+          "id": "b070",
+          "text": "Vì chất lượng mất đi sẽ cộng dồn qua từng vòng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s37",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b071",
+          "text": "Nhưng có một chi tiết ít người biết.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b072",
+          "text": "Nén lại một ảnh JPEG với đúng cài đặt cũ thì ảnh thường gần như không đổi thêm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        },
+        {
+          "id": "b073",
+          "text": "Một thí nghiệm năm 2025 đo thấy như vậy, nhất là khi ảnh đã bị nén mạnh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s38",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b074",
+          "text": "Lý do dễ hiểu: số đã làm tròn rồi, làm tròn lại theo đúng bước cũ thì vẫn ra số đó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s39",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b075",
+          "text": "Những nhà pháp chứng ảnh, người chuyên soi xem ảnh có bị chỉnh sửa không, cũng thấy điều tương tự.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        },
+        {
+          "id": "b076",
+          "text": "Nén lại với mức chất lượng càng gần mức cũ, ảnh càng ít khác so với trước.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b077",
+          "text": "Vậy cái gì làm ảnh xấu dần? Có ba thứ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s41",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b078",
+          "text": "Thứ nhất: nén lại bằng một bảng bước nhảy khác. Mỗi lần như vậy để lại dấu vết mới trong các con số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s42",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b079",
+          "text": "Thứ hai: lưới ô 8×8 của lần sau có thể lệch so với lưới lần trước. Có tất cả 64 cách đặt lưới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b080",
+          "text": "Ảnh bị cắt hay thêm viền thì ô cũ bị chia lại theo lưới mới, và lần lưu mới phải làm tròn tiếp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s43",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b081",
+          "text": "Thứ ba: thu nhỏ ảnh. Mỗi lần thu nhỏ là mất hẳn một phần điểm ảnh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s44",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b082",
+          "text": "Ba thứ này cùng xảy ra khi ảnh đi qua nhiều ứng dụng khác nhau, mỗi nơi một luật.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b083",
+          "text": "Nên ảnh không mờ vì bị gửi nhiều. Ảnh mờ vì bị nhiều nơi nén lại, mỗi nơi một kiểu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s45",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b084",
+          "text": "Ảnh bạn nhận qua ứng dụng chat thường không phải ảnh gốc. Chính các ứng dụng nói vậy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s46",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b085",
+          "text": "Trang hỏi đáp của Telegram ghi: Telegram làm ảnh nhỏ đi trước khi gửi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b086",
+          "text": "Để ảnh tải ngay và tốn ít dữ liệu di động.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s47",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b087",
+          "text": "Chế độ mặc định là Standard. Chế độ High Definition có gấp 4 lần số điểm ảnh, nhưng vẫn dưới 0,5 MB.",
+          "spoken": "Chế độ mặc định là chế độ chuẩn. Chế độ nét cao có gấp bốn lần số điểm ảnh, nhưng vẫn dưới không phẩy năm mê-ga-bai.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s48",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b088",
+          "text": "Instagram ghi trong trang trợ giúp: ảnh rộng hơn 1.080 điểm bị giảm xuống còn 1.080.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        },
+        {
+          "id": "b089",
+          "text": "Ví dụ ảnh rộng 4.000 điểm. Làm phép tính, số điểm ảnh chỉ còn khoảng 7%.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s49",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b090",
+          "text": "WhatsApp cho chọn gửi ảnh chất lượng thường hoặc HD.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        },
+        {
+          "id": "b091",
+          "text": "Messenger thêm nút gửi ảnh HD từ ngày 9/4/2024.",
+          "spoken": "Messenger thêm nút gửi ảnh HD từ ngày chín tháng tư năm hai nghìn không trăm hai mươi tư.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        },
+        {
+          "id": "b092",
+          "text": "Có hẳn một nút HD, tức là mặc định thì ảnh không được gửi ở mức nét nhất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c024",
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s50",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b093",
+          "text": "Năm 2016, một nhóm ở Đại học Catania tải 2.720 ảnh JPEG qua 10 nền tảng để đo.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        },
+        {
+          "id": "b094",
+          "text": "Facebook, Twitter, Telegram, WhatsApp và Instagram đều nén lại mọi ảnh, bằng bảng bước nhảy mới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s51",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b095",
+          "text": "Ảnh còn bị thu nhỏ khi cạnh dài vượt một ngưỡng, mỗi nơi một khác.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
+          "id": "b096",
+          "text": "Theo số đo năm 2016 ấy: WhatsApp 1.600 điểm, Telegram 2.560, Instagram 1.080.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
+          "id": "b097",
+          "text": "Nay các ngưỡng này có thể đã khác. Ngay lúc làm thí nghiệm, Twitter đã đổi từ 1.024 lên 2.048.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s52",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b098",
+          "text": "Cũng theo nghiên cứu năm 2016, các nền tảng ấy còn xoá thông tin đi kèm ảnh, kể cả máy chụp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s53",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b099",
+          "text": "Muốn người nhận có ảnh gốc? Telegram ghi rõ: gửi dạng tệp thì không nén chút nào.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s54",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b100",
+          "text": "Còn một cái bẫy mà ai cũng từng rơi vào: chụp màn hình một tấm ảnh để gửi lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b101",
+          "text": "Chụp màn hình là chụp lại đúng những điểm đang hiện trên màn, kèm cả vết nén cũ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b102",
+          "text": "Ảnh mới có kích thước theo màn hình, thêm viền của ứng dụng, nên lưới ô cũ bị lệch đi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b103",
+          "text": "Gửi đi, ứng dụng lại thu nhỏ và nén thêm một lần nữa, với lưới mới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c020",
+            "c019"
+          ]
+        },
+        {
+          "id": "b104",
+          "text": "Mà ảnh chụp màn hình tin nhắn toàn chữ, nét mảnh, cạnh sắc, đúng là loại JPEG nén kém nhất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b105",
+          "text": "Chữ lem quanh viền là vì vậy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b106",
+          "text": "Vậy có cách nén nào không mất gì không? Có. Định dạng PNG.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b107",
+          "text": "PNG nén không mất dữ liệu: giải nén ra giống hệt ảnh gốc, tới từng bit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s57",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b108",
+          "text": "PNG ra đời vì chuyện bản quyền của định dạng ảnh GIF.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b109",
+          "text": "Cuối tháng 12/1994, lộ chuyện thuật toán nén trong GIF có bằng sáng chế, phải trả phí bản quyền.",
+          "spoken": "Cuối tháng mười hai năm một nghìn chín trăm chín mươi tư, lộ chuyện thuật toán nén trong GIF có bằng sáng chế, phải trả phí bản quyền.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b110",
+          "text": "Chỉ vài ngày sau, ngày 4/1/1995, bản nháp đầu tiên của một định dạng mới được đăng.",
+          "spoken": "Chỉ vài ngày sau, ngày bốn tháng một năm một nghìn chín trăm chín mươi lăm, bản nháp đầu tiên của một định dạng mới được đăng.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b111",
+          "text": "Ngày 1/10/1996, PNG 1.0 thành khuyến nghị của W3C, một tổ chức làm chuẩn.",
+          "spoken": "Ngày một tháng mười năm một nghìn chín trăm chín mươi sáu, PNG bản một chấm không thành khuyến nghị của một tổ chức làm chuẩn.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s58",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b112",
+          "text": "Nhưng kiểu nén này hợp với hình vẽ, chữ, ảnh chụp màn hình. Với ảnh chụp, tệp thường lớn hơn nhiều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b113",
+          "text": "Và gửi qua chat ở chế độ ảnh thường thì ứng dụng vẫn có thể đổi và nén lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b114",
+          "text": "Các định dạng mới thì nén giỏi hơn JPEG.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b115",
+          "text": "Theo Google, ảnh WebP nhỏ hơn ảnh JPEG tương đương từ 25 đến 34%.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b116",
+          "text": "Apple đưa định dạng HEIF vào iOS 11. Gửi sang máy chưa hỗ trợ, ảnh có thể tự đổi về JPEG.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        },
+        {
+          "id": "b117",
+          "text": "JPEG XL thành chuẩn năm 2022, và đổi được ảnh JPEG cũ sang mà không mất gì.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s60",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b118",
+          "text": "Nhưng định dạng mới chỉ làm mỗi lần nén đỡ phí hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b119",
+          "text": "Ảnh vẫn mất thế hệ nếu cứ bị nén lại kiểu mất dữ liệu. Thứ thật sự giữ được ảnh là đừng nén lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s61",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b120",
+          "text": "Vậy vì sao ảnh gửi qua gửi lại cứ mờ dần?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b121",
+          "text": "JPEG cố ý vứt đi phần mắt khó thấy: bớt màu, rồi làm tròn thô từng ô.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c012"
+          ]
+        },
+        {
+          "id": "b122",
+          "text": "Lưu lại đúng cài đặt cũ thì gần như không mất thêm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b123",
+          "text": "Nhưng mỗi ứng dụng một luật, một kích thước, một lưới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b124",
+          "text": "Và ảnh rỗ dần qua từng chặng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s62",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b125",
+          "text": "Ba mẹo để giữ ảnh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b126",
+          "text": "Một: cần giữ ảnh gốc thì gửi dạng tệp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 350,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        },
+        {
+          "id": "b127",
+          "text": "Hai: giữ bản gốc trong máy, đừng lưu ảnh nhận được rồi gửi tiếp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 350,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b128",
+          "text": "Ba: đừng chụp màn hình một tấm ảnh để gửi lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s63",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b129",
+          "text": "Còn bạn, tấm ảnh rỗ nhất bạn từng nhận trong nhóm gia đình là ảnh gì? Kể dưới bình luận nhé.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s64",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b130",
+          "text": "Hẹn gặp bạn ở tập sau.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1000,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    }
+  ]
+}

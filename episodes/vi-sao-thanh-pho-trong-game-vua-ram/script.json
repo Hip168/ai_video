@@ -1498,7 +1498,7 @@
       "beats": [
         {
           "id": "b089",
-          "text": "Khu phố ngoài tầm nhìn thì bỏ luôn mọi tòa nhà, mọi căn phòng bên trong, bằng một phép tìm rất nhanh.",
+          "text": "Khu phố ngoài tầm nhìn thì bỏ luôn mọi tòa nhà, mọi căn phòng bên trong, nhờ một phép tìm rất nhanh.",
           "spoken": null,
           "cue": null,
           "pause_ms": 500,
@@ -2250,7 +2250,7 @@
       "beats": [
         {
           "id": "b137",
-          "text": "Tập sau: vì sao một tấm ảnh gửi qua gửi lại nhiều lần thì cứ mờ dần.",
+          "text": "Tập sau: vì sao đồng hồ trong máy tính, điện thoại của bạn lại có lúc chạy sai giờ.",
           "spoken": null,
           "cue": null,
           "pause_ms": 1000,

@@ -63,6 +63,59 @@ def test_thay_bang_nghia_viet_thi_khong_cham():
     assert [(o["spoken"], o["kind"], o["span"]) for o in occ] == [("sai", "nghia-viet", None)]
 
 
+_LEX6 = {"UTC": "giờ quốc tế", "NTP": "giao thức giờ mạng", "DNS": "danh bạ tên miền",
+         "ASCII": "a ét xi ai ai", "false": "phôn"}
+
+
+def test_lexicon_khai_nghia_viet_thi_xep_nghia_viet():
+    b = {"id": "b1", "text": "Máy hỏi NTP theo UTC qua DNS."}
+    occ = phatam.find_occurrences(_script(b), _LEX6, {"utc", "NTP", "dns"})
+    assert [(o["term"], o["spoken"], o["kind"], o["span"]) for o in occ] == [
+        ("NTP", "giao thức giờ mạng", "nghia-viet", None), ("UTC", "giờ quốc tế", "nghia-viet", None),
+        ("DNS", "danh bạ tên miền", "nghia-viet", None)]
+
+
+def test_lexicon_phien_am_van_la_phien_am_du_toan_am_tiet_viet():
+    # "a ét xi ai ai", "phôn" cũng toàn âm tiết tiếng Việt: không khai thì vẫn là phiên âm, vẫn nghe kiểm.
+    assert phatam._vi_phrase("a ét xi ai ai") and phatam._vi_phrase("phôn")
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": "Mã ASCII trả về false."}), _LEX6, {"utc"})
+    assert [(o["term"], o["spoken"], o["kind"]) for o in occ] == [
+        ("ASCII", "a ét xi ai ai", "phien-am"), ("false", "phôn", "phien-am")]
+    assert all(o["span"] for o in occ)
+
+
+def test_lexicon_nghia_viet_khong_khai_thi_van_cham_nhu_cu():
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": "Theo UTC."}), _LEX6)
+    assert [(o["spoken"], o["kind"]) for o in occ] == [("giờ quốc tế", "phien-am")]
+
+
+def test_khai_nghia_viet_nhung_gia_tri_khong_phai_cum_viet_thi_van_phien_am():
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": "Máy ENIAC."}), {"ENIAC": "ê-ni-ác"}, {"eniac"})
+    assert [(o["spoken"], o["kind"]) for o in occ] == [("ê-ni-ác", "phien-am")]
+
+
+def test_spoken_khong_doi_khi_co_danh_sach_nghia_viet():
+    b = {"id": "b3", "text": "Máy đáp: false, tức là không.", "spoken": "Máy đáp: sai, tức là không."}
+    assert [(o["spoken"], o["kind"]) for o in phatam.find_occurrences(_script(b), {}, {"false"})] == [
+        ("sai", "nghia-viet")]
+    b2 = {"id": "b4", "text": "Máy đáp: false, tức là không.", "spoken": "Máy đáp: phôn-xơ, tức là không."}
+    for meanings in (frozenset(), {"false"}):
+        occ = phatam.find_occurrences(_script(b2), {"false": "phôn"}, meanings)
+        assert [(o["spoken"], o["kind"]) for o in occ] == [("phôn-xơ", "phien-am")]
+
+
+def test_doc_danh_sach_nghia_viet(tmp_path):
+    ep = tmp_path / "episodes" / "tap"
+    content = tmp_path / "content" / "lexicon.json"
+    assert phatam.load_meanings(ep, content) == set()
+    write_json(tmp_path / "content" / "nghia-viet.json", ["router"])
+    write_json(ep / "nghia-viet.json", ["UTC", "NTP"])
+    assert phatam.load_meanings(ep, content) == {"router", "utc", "ntp"}
+    write_json(ep / "nghia-viet.json", {"UTC": "giờ quốc tế"})
+    with pytest.raises(ValueError):
+        phatam.load_meanings(ep, content)
+
+
 def test_giu_nguyen_tieng_anh_va_dem_moi_lan():
     occ = phatam.find_occurrences(_script({"id": "b1", "text": "Dùng decimal, chỉ decimal thôi."}), {})
     assert [(o["term"], o["kind"]) for o in occ] == [("decimal", "giu-tieng-anh")] * 2
@@ -256,6 +309,30 @@ def test_check_tu_khong_duoc_doc_thi_bo_qua(tmp_path, monkeypatch, capsys, no_ph
     monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.5) for _ in items])
     assert phatam.main(["--root", str(root), "check", "tap"]) == 0
     assert [i["term"] for i in seen] == ["decimal"]
+
+
+def test_check_lexicon_nghia_viet_da_khai_thi_khong_nghe_tieng_anh(tmp_path, monkeypatch, capsys, no_phoneme):
+    root = _repo(tmp_path, [{"id": "b1", "text": "Máy hỏi NTP theo UTC."},
+                            {"id": "b2", "text": "Mã ASCII nhé."}], _LEX6)
+    write_json(root / "episodes" / "tap" / "nghia-viet.json", ["UTC", "NTP"])
+    seen = []
+    monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.01) for _ in items])
+    assert phatam.main(["--root", str(root), "check", "tap"]) == 1  # phiên âm ASCII vẫn bị nghe, trượt
+    assert [i["term"] for i in seen] == ["ASCII"]
+    seen.clear()
+    monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.5) for _ in items])
+    assert phatam.main(["--root", str(root), "check", "tap"]) == 0
+    assert [i["term"] for i in seen] == ["ASCII"]
+
+
+def test_gate3_khong_doi_phat_am_khi_moi_tu_da_khai_nghia_viet(tmp_path):
+    eps, ep = make_episode(tmp_path, texts={"b001": "Máy hỏi theo UTC."})
+    write_json(ep / "lexicon.json", {"UTC": "giờ quốc tế"})
+    checks = {c["name"]: c for c in gates.gate3(SLUG, eps, kenh_path=tmp_path / "k.json")["checks"]}
+    assert checks["phat-am"]["ok"] is False
+    write_json(ep / "nghia-viet.json", ["UTC"])
+    checks = {c["name"]: c for c in gates.gate3(SLUG, eps, kenh_path=tmp_path / "k.json")["checks"]}
+    assert checks["phat-am"]["ok"] is True
 
 
 def test_check_thieu_giong_thi_loi(tmp_path, capsys):

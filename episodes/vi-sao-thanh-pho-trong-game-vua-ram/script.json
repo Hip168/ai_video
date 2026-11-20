@@ -1,0 +1,2368 @@
+{
+  "meta": {
+    "title": "Vì sao cả một thành phố trong game vừa trong bộ nhớ RAM",
+    "voice": "Thiện Minh",
+    "speed": 1.0,
+    "theme": "mau-a",
+    "outro": true,
+    "music": {
+      "track": "reverence-endless",
+      "gainDb": -24
+    }
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu"
+    },
+    {
+      "id": "chuong-1",
+      "title": "Mặt bàn nhỏ và cái kho to"
+    },
+    {
+      "id": "chuong-2",
+      "title": "Cắt thành phố thành ô, và cái chậm của ổ cứng"
+    },
+    {
+      "id": "chuong-3",
+      "title": "Cái hộp thư nằm trên ổ hàng trăm lần"
+    },
+    {
+      "id": "chuong-4",
+      "title": "Xa thì vẽ thô, khuất thì không vẽ"
+    },
+    {
+      "id": "chuong-5",
+      "title": "Nén hai lớp, và con chip chỉ để giải nén"
+    },
+    {
+      "id": "chuong-6",
+      "title": "Khi ổ đĩa gần như thành RAM"
+    },
+    {
+      "id": "ket",
+      "title": "Kết"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b001",
+          "text": "Tới 212 GB. Đó là chỗ trống Rockstar báo phải dọn sẵn trên ổ để tải trước GTA VI, tùy máy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c002",
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b002",
+          "text": "Còn bộ nhớ RAM của PS5 chỉ có 16 GB.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c003",
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b003",
+          "text": "Tính ra, chỗ trống trên ổ gấp khoảng 13 lần toàn bộ RAM của máy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b004",
+          "text": "Vậy cả một thành phố trong game được cất ở đâu, khi RAM nhỏ hơn thế cả chục lần?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        },
+        {
+          "id": "b005",
+          "text": "Và làm sao bạn lái xe xuyên thành phố mà không gặp một màn hình chờ nạp nào?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b006",
+          "text": "GTA VI ra mắt ngày 19/11/2026, trên PS5 và Xbox Series X|S.",
+          "spoken": "GTA sáu ra mắt ngày mười chín tháng mười một năm hai nghìn không trăm hai mươi sáu, trên PlayStation năm và Xbox Series X và S.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c007"
+          ]
+        },
+        {
+          "id": "b007",
+          "text": "Nhưng thành phố trong game thì không mới. Hãy lùi lại một đời máy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b008",
+          "text": "GTA V ra mắt ngày 17/9/2013, trên PlayStation 3 và Xbox 360.",
+          "spoken": "GTA năm ra mắt ngày mười bảy tháng chín năm hai nghìn không trăm mười ba, trên PlayStation ba và Xbox ba trăm sáu mươi.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b009",
+          "text": "PlayStation 3 có tổng cộng 512 MB bộ nhớ: 256 MB bộ nhớ chính và 256 MB cho đồ họa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        },
+        {
+          "id": "b010",
+          "text": "Xbox 360 cũng có 512 MB, dùng chung cho cả bộ xử lý chính lẫn phần đồ họa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b011",
+          "text": "Ít hơn RAM của PS5 hàng chục lần. Vậy mà vẫn chạy được cả một thành phố.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c009",
+            "c003",
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b012",
+          "text": "Bí mật là: máy chưa bao giờ giữ cả thành phố trong đầu. Nó chỉ giả vờ là có.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b013",
+          "text": "Tập này kể năm mẹo giúp máy giả vờ khéo tới mức bạn không nhận ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b014",
+          "text": "Có mẹo đã được viết ra từ năm 1976, có mẹo được gắn thẳng vào trong con chip.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c011",
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b015",
+          "text": "Trước hết, máy chơi game có hai loại chỗ chứa dữ liệu.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b016",
+          "text": "Loại thứ nhất là RAM, bộ nhớ làm việc. Rất nhanh, nhưng nhỏ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b017",
+          "text": "Loại thứ hai là ổ đĩa. Rất to, cất được lâu dài, nhưng chậm hơn nhiều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b018",
+          "text": "Bộ xử lý đồ họa, gọi tắt là GPU, chỉ vẽ được những gì đang nằm trong RAM.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b019",
+          "text": "Hãy hình dung RAM là mặt bàn làm việc, còn ổ đĩa là cái kho rộng ở phía sau.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b020",
+          "text": "Không ai bê cả cái kho lên bàn. Bạn chỉ để trên bàn những thứ đang cần dùng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b021",
+          "text": "Thế giới game cũng vậy. Mỗi tòa nhà, mỗi cái cây, mỗi tiếng còi xe đều là dữ liệu nằm trong kho.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b022",
+          "text": "Ý tưởng chỉ giữ phần cần dùng có từ rất sớm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b023",
+          "text": "Năm 1976, James Clark viết một bài báo trên tạp chí Communications of the ACM.",
+          "spoken": "Năm một nghìn chín trăm bảy mươi sáu, James Clark viết một bài báo trên một tạp chí khoa học máy tính.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b024",
+          "text": "Ông chỉ ra: cả môi trường có thể phức tạp hơn nhiều, mà phần hiện ra mỗi cảnh vẫn dưới một mức trần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        },
+        {
+          "id": "b025",
+          "text": "Phần cần có trong bộ nhớ chính, ông gọi là tập làm việc đồ họa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b026",
+          "text": "Nói gọn: máy không cần cả thế giới. Máy chỉ cần đúng phần thế giới đang dùng tới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b027",
+          "text": "Từ đó, game phải liên tục trả lời ba câu hỏi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b028",
+          "text": "Nạp phần nào của thế giới? Vẽ chi tiết tới đâu? Và cất dữ liệu cho gọn thế nào?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s20",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b029",
+          "text": "Ta đi lần lượt, bắt đầu từ câu khó nhất với những máy đời cũ: nạp phần nào.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s21",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b030",
+          "text": "Cách làm phổ biến là cắt thành phố thành nhiều ô, như một tờ giấy kẻ ô vuông phủ lên bản đồ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s22",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b031",
+          "text": "Lấy ví dụ Unreal Engine, một bộ công cụ làm game.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        },
+        {
+          "id": "b032",
+          "text": "Trong đó, hệ thống World Partition chia thế giới thành các ô lưới. Đây chỉ là một ví dụ.",
+          "spoken": "Trong đó, có một hệ thống chia thế giới thành các ô lưới. Đây chỉ là một ví dụ.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s23",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b033",
+          "text": "Khi game đang chạy, ô gần người chơi được nạp vào, ô ở xa được dỡ ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        },
+        {
+          "id": "b034",
+          "text": "Bán kính nạp quanh người chơi gọi là tầm nạp. Ô nào lọt vào vòng ấy thì được đưa lên bàn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s24",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b035",
+          "text": "Ý tưởng thì đơn giản. Cái khó là ô phải được nạp kịp, trước khi người chơi tới nơi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s25",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b036",
+          "text": "Những gì kể tiếp theo là lời Mark Cerny, trong một bài nói giới thiệu phần cứng PS5.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c025",
+            "c032"
+          ]
+        },
+        {
+          "id": "b037",
+          "text": "Theo Cerny, mọi máy PS4 đều dùng ổ cứng, loại ổ có đĩa từ quay tròn và đầu đọc chạy qua lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s26",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b038",
+          "text": "Ông kể, tới khoảng 2015–2016, các nhà làm game đã chạm vào giới hạn của ổ cứng ấy.",
+          "spoken": "Ông kể, tới khoảng năm hai nghìn không trăm mười lăm, mười sáu, các nhà làm game đã chạm vào giới hạn của ổ cứng ấy.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b039",
+          "text": "Theo Cerny, nếu dữ liệu nằm liền một khối, ổ cứng đọc được 50 đến 100 MB mỗi giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c012"
+          ]
+        },
+        {
+          "id": "b040",
+          "text": "Ông nói, ở vùng ngoài của đĩa, nạp 1 GB mất khoảng 10 giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c012"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s28",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b041",
+          "text": "Nhưng dữ liệu hiếm khi nằm liền nhau. Nó rải rác khắp đĩa, và đầu đọc phải chạy đi tìm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s29",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b042",
+          "text": "Theo ước lượng của Cerny, ổ cứng mất chừng hai phần ba thời gian để tìm, chỉ một phần ba để đọc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        },
+        {
+          "id": "b043",
+          "text": "Gộp lại, ông ước tính nạp 1 GB từ ổ cứng mất khoảng 20 giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s30",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b044",
+          "text": "Trong khi đó, cũng theo Cerny, một game trên PS4 dùng 5 đến 6 GB RAM.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c014"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s31",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b045",
+          "text": "Vẫn chưa đủ. Nên người thiết kế màn chơi phải bày thêm mẹo.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s32",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046",
+          "text": "Cerny kể: giữa hai khu nhiều chi tiết, người ta đặt cầu thang dài, thang máy, hành lang ngoằn ngoèo.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        },
+        {
+          "id": "b047",
+          "text": "Trong lúc bạn đi qua, máy bỏ dữ liệu cũ và có khoảng 30 giây để nạp khu mới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s33",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b048",
+          "text": "Nên lần sau gặp một hành lang dài lê thê trong game cũ, hãy nhớ: nhiều khi nó có lý do của nó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s34",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b049",
+          "text": "Cách khác là chia thế giới thành nhiều mảnh nhỏ, rồi tính kỹ tầm nhìn và tốc độ chạy của người chơi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        },
+        {
+          "id": "b050",
+          "text": "Theo Cerny, thành phố Haven City trong game Jak 2 đã được làm theo cách đó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s35",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b051",
+          "text": "Có một game mà cái hộp thư được chép trên ổ cứng tới hàng trăm lần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b052",
+          "text": "Đó là game Marvel's Spider-Man, theo lời Mark Cerny trong một bài nói về PS5.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c017",
+            "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s36",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b053",
+          "text": "Vì sao lại chép trùng như thế? Vì ổ cứng quay rất tốn thời gian mỗi lần phải đi tìm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        },
+        {
+          "id": "b054",
+          "text": "Dữ liệu nằm rải rác thì đầu đọc phải chạy hết chỗ này tới chỗ khác, và từng giây trôi mất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s37",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b055",
+          "text": "Nên người làm game gom mọi thứ của một khối phố thành một khúc liền trên ổ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b056",
+          "text": "Đi tới khối phố nào, máy chỉ việc đọc một mạch khúc của khối phố đó, gần như không phải tìm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s38",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b057",
+          "text": "Cái giá là: hộp thư, sạp báo có mặt ở khối phố nào thì phải chép vào khúc của khối phố ấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b058",
+          "text": "Nên cùng một cái hộp thư bị chép lại hàng trăm lần trên ổ cứng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s39",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b059",
+          "text": "Theo Cerny, giới hạn ấy buộc người làm game chọn một trong hai đường.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        },
+        {
+          "id": "b060",
+          "text": "Hoặc dữ liệu chép trùng nhiều tới mức không vừa đĩa Blu-ray.",
+          "spoken": "Hoặc dữ liệu chép trùng nhiều tới mức không vừa đĩa quang.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        },
+        {
+          "id": "b061",
+          "text": "Hoặc phải giới hạn tốc độ chạy và lái của người chơi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b062",
+          "text": "Vì người chơi không được đi nhanh hơn tốc độ nạp của ổ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        },
+        {
+          "id": "b063",
+          "text": "Phóng xe nhanh hơn thế là bạn sẽ tới nơi trước dữ liệu của nơi đó.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s41",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b064",
+          "text": "Còn một cái giá nữa, nằm ngay trên mặt bàn, tức là trong RAM.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b065",
+          "text": "Theo Cerny, trên PS4, lúc nhận ra cần một mẩu dữ liệu thì đã quá muộn để đi lấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s42",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b066",
+          "text": "Nên bộ nhớ phải giữ sẵn mọi thứ có thể dùng tới trong khoảng 30 giây chơi sắp tới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b067",
+          "text": "Trong 8 GB bộ nhớ của PS4, nhiều phần chỉ nằm đó chờ, phòng khi cần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s43",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b068",
+          "text": "Mặt bàn đã nhỏ, lại còn phải bày sẵn đồ cho cả nửa phút sau.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s44",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b069",
+          "text": "Vì sao tòa nhà ở thật xa trong game trông thô hơn, rồi nét dần khi bạn tới gần?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b070",
+          "text": "Vì máy không vẽ mọi thứ chi tiết như nhau. Máy chỉ tốn công cho thứ bạn thấy rõ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s45",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b071",
+          "text": "Ý tưởng thay đổi lượng chi tiết theo cảnh đã có trong bài báo của James Clark từ năm 1976.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s46",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b072",
+          "text": "Thử hình dung một tòa nhà. Ở gần, nó có từng ô cửa sổ, từng gờ tường, từng chậu cây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b073",
+          "text": "Ở thật xa, nó chỉ còn là một khối hộp. Trên màn hình, bạn khó thấy khác biệt.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s47",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b074",
+          "text": "Cách này gọi là mức chi tiết: cùng một vật, có sẵn vài phiên bản từ kỹ tới thô.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b075",
+          "text": "Vật càng xa thì máy càng dùng bản thô, đỡ phải tính toán những chi tiết không ai nhìn thấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s48",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b076",
+          "text": "Tấm ảnh phủ lên vật, như tường gạch hay mặt đường, gọi là ảnh bề mặt. Nó cũng có nhiều mức.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s49",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b077",
+          "text": "Theo Microsoft, mipmap là chuỗi ảnh cùng nội dung, mỗi mức nhỏ đi một nửa chiều rộng và chiều cao.",
+          "spoken": "Theo Microsoft, có một kỹ thuật gọi là chuỗi ảnh thu nhỏ: cùng nội dung, mỗi mức nhỏ đi một nửa chiều rộng và chiều cao.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b078",
+          "text": "Vật ở gần dùng ảnh nét, vật ở xa dùng ảnh nhỏ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s50",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b079",
+          "text": "Microsoft cũng ghi rõ cái giá: chuỗi ảnh ấy tốn thêm bộ nhớ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b080",
+          "text": "Làm phép cộng: mỗi mức chỉ bằng một phần tư mức trước, nên cả chuỗi thêm chừng một phần ba ảnh gốc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s51",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b081",
+          "text": "Còn một cách tiết kiệm hơn nữa: thứ gì bạn không thấy thì không vẽ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b082",
+          "text": "Tài liệu của Unreal Engine kể ba kiểu loại bỏ như vậy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s52",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b083",
+          "text": "Một: vật nằm ngoài khung nhìn của máy quay thì bỏ. Thứ ở sau lưng bạn không cần vẽ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
+          "id": "b084",
+          "text": "Hai: vật bị vật khác che khuất thì bỏ. Ngôi nhà nấp sau tòa cao ốc không cần vẽ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
+          "id": "b085",
+          "text": "Ba: vật ở xa hơn khoảng cách vẽ thì bỏ luôn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s53",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b086",
+          "text": "Ý cắt bỏ phần ngoài tầm nhìn cũng nằm trong bài báo của Clark năm 1976.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        },
+        {
+          "id": "b087",
+          "text": "Cảnh được sắp thành các nhóm lồng nhau, và một phép tìm rất nhanh cho biết nhóm nào nằm ngoài.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s54",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b088",
+          "text": "Nhóm nào nằm ngoài thì bỏ cả nhóm một lượt, khỏi xét từng vật bên trong.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b089",
+          "text": "Lại là chia nhỏ, cách mà máy tính vẫn dùng để trị những bài toán lớn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b090",
+          "text": "Câu hỏi cuối cùng: cất dữ liệu cho gọn thế nào. Câu trả lời là nén, và nén hai lớp.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b091",
+          "text": "Lớp thứ nhất là nén ảnh bề mặt theo kiểu mà phần cứng đồ họa tự giải mã được.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        },
+        {
+          "id": "b092",
+          "text": "Theo Microsoft, định dạng BC1 cất mỗi khối 4×4 điểm ảnh, tức 16 điểm, chỉ trong 8 byte.",
+          "spoken": "Theo Microsoft, định dạng BC một cất mỗi khối bốn nhân bốn điểm ảnh, tức mười sáu điểm, chỉ trong tám ô nhớ.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c023",
+            "c024"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s57",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b093",
+          "text": "Ảnh không nén dùng 4 byte cho mỗi điểm, nên 16 điểm tốn 64 byte. BC1 chỉ còn một phần tám.",
+          "spoken": "Ảnh không nén dùng bốn ô nhớ cho mỗi điểm, nên mười sáu điểm tốn sáu mươi tư ô nhớ. BC một chỉ còn một phần tám.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        },
+        {
+          "id": "b094",
+          "text": "Định dạng BC7 dùng 16 byte cho mỗi khối, vẫn chỉ bằng một phần tư.",
+          "spoken": "Định dạng BC bảy dùng mười sáu ô nhớ cho mỗi khối, vẫn chỉ bằng một phần tư.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c023",
+            "c024"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s58",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b095",
+          "text": "Theo Microsoft, phần cứng giải mã các khối này rất nhanh, nên ảnh cứ thế nằm ở dạng nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b096",
+          "text": "Lớp thứ hai là nén cả gói dữ liệu trên ổ, rồi giải nén mỗi khi nạp lên.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b097",
+          "text": "Theo Cerny, PS4 đã làm vậy với kiểu nén zlib.",
+          "spoken": "Theo Cerny, PlayStation bốn đã làm vậy với kiểu nén quen thuộc.",
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s60",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b098",
+          "text": "PS5 có hẳn một bộ phận trong chip chỉ làm đúng một việc: giải nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s61",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b099",
+          "text": "Theo Mark Cerny, PS5 dùng định dạng nén Kraken của RAD Game Tools.",
+          "spoken": "Theo Mark Cerny, PlayStation năm dùng định dạng nén Kraken.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b100",
+          "text": "Ông nói Kraken nén tốt hơn kiểu zlib của PS4 khoảng 10%.",
+          "spoken": "Ông nói Kraken nén tốt hơn kiểu nén cũ của PlayStation bốn khoảng mười phần trăm.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c026",
+            "c015"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s62",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b101",
+          "text": "Nhưng giải nén cũng tốn sức. Nên PS5 gắn hẳn một bộ giải nén Kraken vào trong chip.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s63",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b102",
+          "text": "Theo Cerny, bộ giải nén này nhận hơn 5 GB dữ liệu nén mỗi giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b103",
+          "text": "Sau khi giải nén, thường ra 8 đến 9 GB mỗi giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b104",
+          "text": "Nếu dữ liệu nén đặc biệt tốt, nó có thể xuất tới 22 GB mỗi giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s64",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b105",
+          "text": "Muốn làm việc ấy bằng bộ xử lý thường, Cerny ước tính cần sức mạnh của 9 nhân Zen 2.",
+          "spoken": "Muốn làm việc ấy bằng bộ xử lý thường, Cerny ước tính cần sức mạnh của chín nhân xử lý loại Zen hai.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        },
+        {
+          "id": "b106",
+          "text": "Mỗi nhân là một bộ óc tính toán bên trong bộ xử lý. Chín bộ óc, chỉ để giải nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c028"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s65",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b107",
+          "text": "Thay vì bắt bộ xử lý chính còng lưng giải nén, PS5 giao hẳn việc ấy cho một bộ phận chuyên trách.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s66",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b108",
+          "text": "Xbox Series X|S cũng có khối giải nén phần cứng riêng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        },
+        {
+          "id": "b109",
+          "text": "Theo thông số của Xbox, máy đọc 2,4 GB mỗi giây dữ liệu thô, và 4,8 GB mỗi giây với dữ liệu nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s67",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b110",
+          "text": "Microsoft còn làm riêng một thuật toán nén cho ảnh bề mặt, tên là BCPack.",
+          "spoken": "Microsoft còn làm riêng một thuật toán nén cho ảnh bề mặt.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s68",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b111",
+          "text": "Microsoft cho biết: GPU thường chỉ dùng chưa tới một phần ba dữ liệu ảnh bề mặt đã nạp vào bộ nhớ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        },
+        {
+          "id": "b112",
+          "text": "Nên họ làm tính năng Sampler Feedback Streaming, chỉ nạp phần ảnh thật sự cần.",
+          "spoken": "Nên họ làm một tính năng chỉ nạp phần ảnh thật sự cần.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        },
+        {
+          "id": "b113",
+          "text": "Theo Microsoft, trung bình nó cho hiệu quả khoảng 2,5 lần, cả về tốc độ đọc lẫn bộ nhớ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s69",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b114",
+          "text": "Mẹo cuối cùng thay đổi cách làm game nhiều nhất: một ổ đĩa thật nhanh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b115",
+          "text": "PS5 dùng ổ thể rắn SSD 825 GB, đọc dữ liệu thô 5,5 GB mỗi giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c004",
+            "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s70",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b116",
+          "text": "Cerny hỏi lại câu cũ: nạp 2 GB mất bao lâu? Với SSD của PS5, khoảng một phần tư giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        },
+        {
+          "id": "b117",
+          "text": "Theo ông, tức là nhanh hơn ổ cứng chừng 100 lần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s71",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b118",
+          "text": "Ông lấy một ví dụ dễ hình dung: bạn quay người lại, mất chừng nửa giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        },
+        {
+          "id": "b119",
+          "text": "Trong nửa giây ấy, theo Cerny, SSD của PS5 nạp được khoảng 4 GB dữ liệu nén.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        },
+        {
+          "id": "b120",
+          "text": "Đủ cho mọi thứ đang ở sau lưng bạn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s72",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b121",
+          "text": "Nhưng ổ nhanh thôi thì chưa đủ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b122",
+          "text": "Cerny kể, trên PS4, gắn một ổ SSD nhanh gấp 10 lần ổ cứng có khi chỉ nạp nhanh gấp đôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s73",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b123",
+          "text": "Vì còn nhiều nút thắt khác nằm giữa ổ đĩa và mã của game.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        },
+        {
+          "id": "b124",
+          "text": "Nên PS5 phải làm thêm phần cứng riêng, như bộ giải nén vừa kể.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s74",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b125",
+          "text": "Khi mọi khâu đều nhanh, theo Cerny, SSD gần như là thêm RAM.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b126",
+          "text": "Cần dữ liệu gì thì nạp ngay, không phải bày sẵn đồ cho nửa phút sau như thời PS4.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c034",
+            "c019"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s75",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b127",
+          "text": "Ông nói đây là một lý do PS5 không cần tăng dung lượng bộ nhớ quá lớn so với đời trước.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b128",
+          "text": "Làm phép tính: từ 8 GB của PS4 lên 16 GB của PS5, bộ nhớ chỉ gấp đôi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c019",
+            "c003",
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s76",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b129",
+          "text": "Nhưng ổ nhanh không làm game nhỏ đi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b130",
+          "text": "Chỗ trống tới 212 GB, tùy máy, đã chiếm khoảng một phần tư ổ 825 GB của PS5.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s77",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b131",
+          "text": "Với bản Xbox Series S có ổ nhỏ nhất, 512 GB, con số ấy là hơn 40%.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c036",
+            "c006"
+          ]
+        },
+        {
+          "id": "b132",
+          "text": "Đó là tính trên con số in trên hộp. Dung lượng thật sự dùng được còn nhỏ hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s78",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b133",
+          "text": "Vậy máy cất cả thành phố ở đâu? Câu trả lời là: máy không hề cất cả thành phố trong RAM.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s79",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b134",
+          "text": "Máy chỉ giữ tập làm việc, tức phần thế giới đang cần dùng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 350,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b135",
+          "text": "Máy cắt thành phố thành ô, nạp ô gần, dỡ ô xa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 350,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b136",
+          "text": "Xa thì vẽ thô, khuất thì không vẽ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 350,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b137",
+          "text": "Dữ liệu được nén hai lớp, giải nén bằng cả phần cứng riêng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 350,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b138",
+          "text": "Và ổ đĩa nhanh để máy bớt phải giả vờ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s80",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b139",
+          "text": "Từ 512 MB thời GTA V tới 16 GB của PS5 hôm nay, bộ nhớ đã to lên nhiều lần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c009",
+            "c010",
+            "c008",
+            "c003",
+            "c007"
+          ]
+        },
+        {
+          "id": "b140",
+          "text": "Nhưng thế giới game luôn to hơn bộ nhớ. Nên game chưa bao giờ có cả thành phố cùng một lúc.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b141",
+          "text": "Nó chỉ có đúng phần bạn đang nhìn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s81",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b142",
+          "text": "Còn bạn, game thế giới mở nào bạn thấy nạp mượt nhất? Kể dưới bình luận nhé.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s82",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b143",
+          "text": "Tập sau: vì sao một tấm ảnh gửi qua gửi lại nhiều lần thì cứ mờ dần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1000,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    }
+  ]
+}

@@ -46,6 +46,13 @@ import { RaiGiay } from "./vi-sao-may-tinh-lai-sai-gio/rai-giay";
 import { Samoa } from "./vi-sao-may-tinh-lai-sai-gio/samoa";
 import { SoMuiGio } from "./vi-sao-may-tinh-lai-sai-gio/so-mui-gio";
 import { ThachAnh } from "./vi-sao-may-tinh-lai-sai-gio/thach-anh";
+import { HanhLang } from "./vi-sao-thanh-pho-trong-game-vua-ram/hanh-lang";
+import { HopThu } from "./vi-sao-thanh-pho-trong-game-vua-ram/hop-thu";
+import { KhoBan } from "./vi-sao-thanh-pho-trong-game-vua-ram/kho-ban";
+import { Lod } from "./vi-sao-thanh-pho-trong-game-vua-ram/lod";
+import { Nen } from "./vi-sao-thanh-pho-trong-game-vua-ram/nen";
+import { OCung } from "./vi-sao-thanh-pho-trong-game-vua-ram/o-cung";
+import { ThanhPho } from "./vi-sao-thanh-pho-trong-game-vua-ram/thanh-pho";
 import { BiteByte } from "./vi-sao-may-tinh-dung-nhi-phan/bite-byte";
 import { BoDemVong } from "./vi-sao-may-tinh-dung-nhi-phan/bo-dem-vong";
 import { BonMuoiBit } from "./vi-sao-may-tinh-dung-nhi-phan/bon-muoi-bit";
@@ -121,6 +128,14 @@ export const CUSTOM_SCENES: Record<string, React.FC<SceneProps>> = {
   "giay-nhuan": GiayNhuan,
   "do-am": DoAm,
   "rai-giay": RaiGiay,
+  // vi-sao-thanh-pho-trong-game-vua-ram
+  "hanh-lang": HanhLang,
+  "hop-thu": HopThu,
+  "kho-ban": KhoBan,
+  "lod": Lod,
+  "nen": Nen,
+  "o-cung": OCung,
+  "thanh-pho": ThanhPho,
 };
 
 /** Cảnh riêng đã tự vẽ vừa hộp vuông của Short (đọc `useBox()`); cảnh khác không được nằm trong Short (D33). */
@@ -136,4 +151,6 @@ export const CUSTOM_SQUARE: ReadonlySet<string> = new Set<string>([
   "chu-ma", "ngan-keo", "bit-byte", "hai-tu-dien", "phong-cu", "utf8-bit", "chu-ej", "notepad", "sms-bit",
   // vi-sao-may-tinh-lai-sai-gio
   "chrome-cham", "thach-anh", "lech-dan", "hoi-gio", "bo-dem", "gio-sai-gon", "samoa", "so-mui-gio", "giay-nhuan", "do-am", "rai-giay",
+  // vi-sao-thanh-pho-trong-game-vua-ram
+  "hanh-lang", "hop-thu", "kho-ban", "lod", "nen", "o-cung", "thanh-pho",
 ]);

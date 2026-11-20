@@ -3,7 +3,7 @@
     "title": "Vì sao cả một thành phố trong game vừa trong bộ nhớ RAM",
     "voice": "Thiện Minh",
     "speed": 1.0,
-    "theme": "mau-a",
+    "theme": "mau-c",
     "outro": true,
     "music": {
       "track": "reverence-endless",
@@ -48,16 +48,19 @@
     {
       "id": "s01",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "212 GB trống để tải trước",
+        "kicker": "Theo Rockstar, GTA VI, tùy máy"
+      },
       "holdMs": 0,
-      "sfx": null,
+      "sfx": "whoosh",
       "beats": [
         {
           "id": "b001",
           "text": "Theo Rockstar, GTA VI cần tới 212 GB trống trên ổ để tải trước, tùy máy.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -70,8 +73,23 @@
     {
       "id": "s02",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Nhỏ hơn khoảng 13 lần",
+        "unit": " GB",
+        "highlight": 1,
+        "data": [
+          {
+            "label": "Chỗ trống GTA VI",
+            "value": 212
+          },
+          {
+            "label": "RAM của PS5",
+            "value": 16
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -92,8 +110,11 @@
     {
       "id": "s03",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Cả một thành phố được cất ở đâu?",
+        "kicker": "Lái xe xuyên phố, không màn hình chờ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -101,7 +122,7 @@
           "id": "b003",
           "text": "Vậy cả một thành phố trong game được cất ở đâu?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": []
@@ -121,7 +142,11 @@
       "id": "s04",
       "chapter": "mo-dau",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "GTA VI",
+        "tag": "19/11/2026",
+        "definition": "Ra mắt trên PS5 và Xbox Series X|S"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -136,12 +161,25 @@
             "c001",
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "cold-open",
+      "props": {
+        "hook": "Lùi lại một đời máy",
+        "kicker": "Thành phố trong game thì không mới"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b006",
           "text": "Nhưng thành phố trong game thì không mới. Hãy lùi lại một đời máy.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": []
@@ -149,10 +187,14 @@
       ]
     },
     {
-      "id": "s05",
+      "id": "s06",
       "chapter": "mo-dau",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "GTA V",
+        "tag": "17/9/2013",
+        "definition": "Ra mắt trên PlayStation 3 và Xbox 360"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -170,10 +212,24 @@
       ]
     },
     {
-      "id": "s06",
+      "id": "s07",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Tổng bộ nhớ",
+        "unit": " MB",
+        "data": [
+          {
+            "label": "PlayStation 3",
+            "value": 512
+          },
+          {
+            "label": "Xbox 360",
+            "value": 512
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -202,10 +258,16 @@
       ]
     },
     {
-      "id": "s07",
+      "id": "s08",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 512,
+        "from": 512,
+        "suffix": " MB",
+        "label": "Ít hơn RAM của PS5 hàng chục lần",
+        "note": "Vậy mà vẫn chạy được cả một thành phố"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -225,10 +287,13 @@
       ]
     },
     {
-      "id": "s08",
+      "id": "s09",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Máy chỉ giả vờ là có cả thành phố",
+        "kicker": "Bí mật là"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -236,7 +301,7 @@
           "id": "b011",
           "text": "Bí mật là: máy chưa bao giờ giữ cả thành phố trong đầu. Nó chỉ giả vờ là có.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": []
@@ -244,10 +309,15 @@
       ]
     },
     {
-      "id": "s09",
+      "id": "s10",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 3,
+        "from": 3,
+        "suffix": " câu hỏi",
+        "label": "máy phải trả lời liên tục, để giả vờ khéo"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -259,7 +329,42 @@
           "pause_ms": 400,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s10b",
+      "chapter": "mo-dau",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Năm 1976: viết ra"
+          },
+          {
+            "id": "n1",
+            "label": "Ngày nay: gắn vào chip"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "lời giải"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b013",
           "text": "Có lời giải đã được viết ra từ năm 1976, có lời giải được gắn thẳng vào trong con chip.",
@@ -275,10 +380,27 @@
       ]
     },
     {
-      "id": "s10",
+      "id": "c1",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Mặt bàn nhỏ và cái kho to",
+        "number": 1
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s11",
+      "chapter": "chuong-1",
+      "type": "big-number",
+      "props": {
+        "value": 2,
+        "from": 2,
+        "suffix": " loại",
+        "label": "chỗ chứa dữ liệu trong máy chơi game"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -294,10 +416,25 @@
       ]
     },
     {
-      "id": "s11",
+      "id": "s12",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "RAM",
+        "titleB": "Ổ đĩa",
+        "rows": [
+          {
+            "label": "Rất nhanh, nhưng nhỏ",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Rất to, cất lâu dài, nhưng chậm",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -322,10 +459,14 @@
       ]
     },
     {
-      "id": "s12",
+      "id": "s12b",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "GPU",
+        "tag": "Bộ xử lý đồ họa",
+        "definition": "Chỉ vẽ được những gì đang nằm trong RAM"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -343,8 +484,10 @@
     {
       "id": "s13",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:kho-ban",
+      "props": {
+        "mode": "ban-kho"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -371,8 +514,24 @@
     {
       "id": "s14",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Mỗi tòa nhà",
+            "detail": "là dữ liệu trong kho"
+          },
+          {
+            "name": "Mỗi cái cây",
+            "detail": "là dữ liệu trong kho"
+          },
+          {
+            "name": "Mỗi tiếng còi xe",
+            "detail": "là dữ liệu trong kho"
+          }
+        ],
+        "highlight": 2
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -390,8 +549,11 @@
     {
       "id": "s15",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Chỉ giữ phần cần dùng",
+        "kicker": "Ý tưởng có từ rất sớm"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -399,11 +561,25 @@
           "id": "b021",
           "text": "Ý tưởng chỉ giữ phần cần dùng có từ rất sớm.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "James Clark, 1976",
+        "tag": "Bài báo",
+        "definition": "Viết một bài báo trên tạp chí Communications of the ACM"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b022",
           "text": "Năm 1976, James Clark viết một bài báo trên tạp chí Communications of the ACM.",
@@ -418,10 +594,25 @@
       ]
     },
     {
-      "id": "s16",
+      "id": "s17",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Cả môi trường",
+        "titleB": "Phần hiện ra mỗi cảnh",
+        "rows": [
+          {
+            "label": "Phức tạp hơn nhiều",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Dưới một mức trần",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -435,7 +626,21 @@
           "claims": [
             "c011"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s17b",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "Tập làm việc đồ họa",
+        "tag": "James Clark gọi",
+        "definition": "Phần cần có trong bộ nhớ chính"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b024",
           "text": "Phần cần có trong bộ nhớ chính, ông gọi là tập làm việc đồ họa.",
@@ -450,10 +655,35 @@
       ]
     },
     {
-      "id": "s17",
+      "id": "s17c",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Cả thế giới"
+          },
+          {
+            "id": "n1",
+            "label": "Phần đang dùng tới"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "máy chỉ cần"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -471,8 +701,11 @@
     {
       "id": "s18",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Ba câu hỏi",
+        "kicker": "Từ đó, game phải liên tục trả lời"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -480,11 +713,35 @@
           "id": "b026",
           "text": "Từ đó, game phải liên tục trả lời ba câu hỏi.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-1",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Nạp phần nào?",
+            "detail": "phần nào của thế giới"
+          },
+          {
+            "name": "Vẽ chi tiết tới đâu?"
+          },
+          {
+            "name": "Cất cho gọn thế nào?"
+          }
+        ],
+        "highlight": 0
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b027",
           "text": "Nạp phần nào của thế giới? Vẽ chi tiết tới đâu? Và cất dữ liệu cho gọn thế nào?",
@@ -497,10 +754,16 @@
       ]
     },
     {
-      "id": "s19",
+      "id": "s20",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 1,
+        "from": 1,
+        "suffix": " · nạp phần nào?",
+        "label": "Câu thứ nhất, khó nhất với máy đời cũ",
+        "prefix": "Câu "
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -516,10 +779,24 @@
       ]
     },
     {
-      "id": "s20",
+      "id": "c2",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Cắt thành phố thành ô, và cái chậm của ổ cứng",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s21",
+      "chapter": "chuong-2",
+      "type": "custom:thanh-pho",
+      "props": {
+        "mode": "o-luoi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -535,10 +812,22 @@
       ]
     },
     {
-      "id": "s21",
+      "id": "s22",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Unreal Engine",
+            "detail": "một bộ công cụ làm game"
+          },
+          {
+            "name": "World Partition",
+            "detail": "chia thế giới thành ô lưới"
+          }
+        ],
+        "highlight": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -567,10 +856,12 @@
       ]
     },
     {
-      "id": "s22",
+      "id": "s24",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:thanh-pho",
+      "props": {
+        "mode": "tam-nap"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -599,10 +890,13 @@
       ]
     },
     {
-      "id": "s23",
+      "id": "s25",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Ô phải được nạp kịp",
+        "kicker": "trước khi người chơi tới nơi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -610,7 +904,7 @@
           "id": "b034",
           "text": "Ý tưởng thì đơn giản. Cái khó là ô phải được nạp kịp, trước khi người chơi tới nơi.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": []
@@ -618,10 +912,14 @@
       ]
     },
     {
-      "id": "s24",
+      "id": "s26",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Mark Cerny",
+        "tag": "Bài nói về PS5",
+        "definition": "Người trình bày phần cứng PS5. Nhiều chuyện từ đây kể theo lời ông"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -636,7 +934,21 @@
             "c025",
             "c032"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {
+        "term": "Ổ cứng quay",
+        "tag": "Mọi máy PS4",
+        "definition": "Có đĩa từ quay tròn và đầu đọc chạy qua lại"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b036",
           "text": "Ông kể, mọi máy PS4 đều dùng ổ cứng quay, có đĩa từ quay tròn và đầu đọc chạy qua lại.",
@@ -651,10 +963,13 @@
       ]
     },
     {
-      "id": "s25",
+      "id": "s27b",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Khoảng 2015–2016: chạm giới hạn",
+        "kicker": "Các nhà làm game và ổ cứng quay"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -662,7 +977,7 @@
           "id": "b037",
           "text": "Tới khoảng 2015–2016, các nhà làm game đã chạm vào giới hạn của nó.",
           "spoken": "Tới khoảng năm hai nghìn không trăm mười lăm, mười sáu, các nhà làm game đã chạm vào giới hạn của nó.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -672,10 +987,25 @@
       ]
     },
     {
-      "id": "s26",
+      "id": "s28",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Liền một khối",
+        "titleB": "Rải rác khắp đĩa",
+        "rows": [
+          {
+            "label": "Đọc nhanh",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Đầu đọc phải chạy đi tìm",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -689,17 +1019,7 @@
           "claims": [
             "c012"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s27",
-      "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b039",
           "text": "Nhưng dữ liệu hiếm khi nằm liền nhau. Nó rải rác khắp đĩa, và đầu đọc phải chạy đi tìm.",
@@ -714,9 +1034,9 @@
       ]
     },
     {
-      "id": "s28",
+      "id": "s29",
       "chapter": "chuong-2",
-      "type": "term-card",
+      "type": "custom:o-cung",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -746,10 +1066,17 @@
       ]
     },
     {
-      "id": "s29",
+      "id": "s30",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 6,
+        "from": 6,
+        "suffix": " GB",
+        "label": "RAM mà một game trên PS4 dùng",
+        "note": "Nạp lại cả chừng ấy, từng GB một: chờ rất lâu",
+        "prefix": "5–"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -779,10 +1106,13 @@
       ]
     },
     {
-      "id": "s30",
+      "id": "s31",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Giấu thời gian nạp",
+        "kicker": "Không người chơi nào chịu ngồi chờ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -790,7 +1120,7 @@
           "id": "b044",
           "text": "Không người chơi nào chịu ngồi chờ như vậy. Nên người thiết kế màn chơi phải giấu thời gian nạp.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": []
@@ -798,9 +1128,9 @@
       ]
     },
     {
-      "id": "s31",
+      "id": "s32",
       "chapter": "chuong-2",
-      "type": "term-card",
+      "type": "custom:hanh-lang",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -830,10 +1160,14 @@
       ]
     },
     {
-      "id": "s32",
+      "id": "s33",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Hành lang dài lê thê",
+        "tag": "Trong game cũ",
+        "definition": "Nhiều khi nó có lý do của nó"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -849,10 +1183,47 @@
       ]
     },
     {
-      "id": "s33",
+      "id": "s34",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Cắt thế giới thật nhỏ"
+          },
+          {
+            "id": "n1",
+            "label": "Tính tầm nhìn, tốc độ"
+          },
+          {
+            "id": "n2",
+            "label": "Mảnh kế tiếp nạp kịp"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "Haven City"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -881,10 +1252,13 @@
       ]
     },
     {
-      "id": "s34",
+      "id": "s35",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:hop-thu",
+      "props": {
+        "mode": "ke",
+        "chapterLabel": "Chương 3"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -892,7 +1266,7 @@
           "id": "b050",
           "text": "Có một game mà cái hộp thư được chép trên ổ cứng tới hàng trăm lần.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -914,10 +1288,46 @@
       ]
     },
     {
-      "id": "s35",
+      "id": "s36",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Dữ liệu rải rác"
+          },
+          {
+            "id": "n1",
+            "label": "Đầu đọc chạy khắp nơi"
+          },
+          {
+            "id": "n2",
+            "label": "Từng giây trôi mất"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -946,10 +1356,25 @@
       ]
     },
     {
-      "id": "s36",
+      "id": "s37",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Rải rác",
+        "titleB": "Khúc liền",
+        "rows": [
+          {
+            "label": "Gom mọi thứ của một khối phố một chỗ",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Đọc một mạch, gần như không phải tìm",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -978,10 +1403,12 @@
       ]
     },
     {
-      "id": "s37",
+      "id": "s38",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:hop-thu",
+      "props": {
+        "mode": "chep"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1010,10 +1437,13 @@
       ]
     },
     {
-      "id": "s38",
+      "id": "s39",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Chọn một trong hai đường",
+        "kicker": "Giới hạn của ổ cứng buộc người làm game"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1021,13 +1451,38 @@
           "id": "b058",
           "text": "Ông kể, giới hạn của ổ cứng buộc người làm game chọn một trong hai đường.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c018"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-3",
+      "type": "compare",
+      "props": {
+        "titleA": "Đường 1",
+        "titleB": "Đường 2",
+        "rows": [
+          {
+            "label": "Chép trùng tới mức không vừa đĩa Blu-ray",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Giới hạn tốc độ chạy và lái",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b059",
           "text": "Hoặc dữ liệu chép trùng nhiều tới mức không vừa đĩa Blu-ray.",
@@ -1053,10 +1508,46 @@
       ]
     },
     {
-      "id": "s39",
+      "id": "s41",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Phóng xe quá nhanh"
+          },
+          {
+            "id": "n1",
+            "label": "Nhanh hơn tốc độ nạp"
+          },
+          {
+            "id": "n2",
+            "label": "Tới trước dữ liệu"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1085,10 +1576,12 @@
       ]
     },
     {
-      "id": "s40",
+      "id": "s42",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:kho-ban",
+      "props": {
+        "mode": "ram-cho"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1111,17 +1604,7 @@
           "claims": [
             "c019"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s41",
-      "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b065",
           "text": "Nên bộ nhớ phải chứa sẵn mọi thứ có thể cần trong khoảng 30 giây chơi kế tiếp, dù chưa chắc đã dùng.",
@@ -1132,7 +1615,23 @@
           "claims": [
             "c019"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s43",
+      "chapter": "chuong-3",
+      "type": "big-number",
+      "props": {
+        "value": 8,
+        "from": 8,
+        "suffix": " GB",
+        "label": "Bộ nhớ PS4: nhiều phần chỉ nằm chờ, phòng khi cần",
+        "note": "Mặt bàn đã nhỏ, lại phải bày sẵn đồ cho nửa phút sau"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b066",
           "text": "Trong 8 GB bộ nhớ của PS4, nhiều phần chỉ nằm đó chờ, phòng khi cần.",
@@ -1143,17 +1642,7 @@
           "claims": [
             "c019"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s42",
-      "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b067",
           "text": "Mặt bàn đã nhỏ, lại còn phải bày sẵn đồ cho cả nửa phút sau.",
@@ -1166,10 +1655,22 @@
       ]
     },
     {
-      "id": "s43",
+      "id": "s45",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Nạp phần nào?",
+            "detail": "câu hỏi thứ nhất"
+          },
+          {
+            "name": "Vẽ chi tiết tới đâu?",
+            "detail": "câu hỏi thứ hai"
+          }
+        ],
+        "highlight": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1185,10 +1686,13 @@
       ]
     },
     {
-      "id": "s44",
+      "id": "s46",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:lod",
+      "props": {
+        "mode": "xa-gan",
+        "chapterLabel": "Chương 4"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1196,7 +1700,7 @@
           "id": "b069",
           "text": "Vì sao tòa nhà ở thật xa trong game trông thô hơn, rồi nét dần khi bạn tới gần?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": []
@@ -1213,10 +1717,12 @@
       ]
     },
     {
-      "id": "s45",
+      "id": "s47",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:lod",
+      "props": {
+        "mode": "ba-muc"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1241,10 +1747,14 @@
       ]
     },
     {
-      "id": "s46",
+      "id": "s48",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Mức chi tiết",
+        "tag": "Thuật ngữ",
+        "definition": "Cùng một vật, có sẵn vài phiên bản từ kỹ tới thô"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1256,7 +1766,32 @@
           "pause_ms": 450,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s49",
+      "chapter": "chuong-4",
+      "type": "compare",
+      "props": {
+        "titleA": "Vật ở gần",
+        "titleB": "Vật ở xa",
+        "rows": [
+          {
+            "label": "Dùng bản kỹ",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Dùng bản thô, đỡ tính toán",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b074",
           "text": "Vật càng xa thì máy càng dùng bản thô, đỡ phải tính toán những chi tiết không ai nhìn thấy.",
@@ -1269,10 +1804,14 @@
       ]
     },
     {
-      "id": "s47",
+      "id": "s50",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "James Clark",
+        "tag": "Năm 1976",
+        "definition": "Nhà khoa học máy tính, đã viết ra ý tưởng mức chi tiết"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1290,10 +1829,15 @@
       ]
     },
     {
-      "id": "s48",
+      "id": "s51",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Ảnh bề mặt",
+        "tag": "Thuật ngữ",
+        "definition": "Tấm ảnh phủ lên vật, như tường gạch hay mặt đường",
+        "example": "Nó cũng có nhiều mức"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1309,10 +1853,12 @@
       ]
     },
     {
-      "id": "s49",
+      "id": "s52",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:lod",
+      "props": {
+        "mode": "mipmap"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1341,10 +1887,13 @@
       ]
     },
     {
-      "id": "s50",
+      "id": "s53",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Cái giá: tốn thêm bộ nhớ",
+        "kicker": "Microsoft ghi rõ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1352,7 +1901,7 @@
           "id": "b079",
           "text": "Microsoft cũng ghi rõ cái giá: chuỗi ảnh ấy tốn thêm bộ nhớ.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
@@ -1373,10 +1922,12 @@
       ]
     },
     {
-      "id": "s51",
+      "id": "s54",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:thanh-pho",
+      "props": {
+        "mode": "culling"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1384,7 +1935,7 @@
           "id": "b081",
           "text": "Trong game, thứ gì bạn không thấy thì máy không vẽ.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 450,
           "sfx": null,
           "claims": []
@@ -1403,10 +1954,12 @@
       ]
     },
     {
-      "id": "s52",
+      "id": "s55",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:thanh-pho",
+      "props": {
+        "mode": "culling-ba"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1442,7 +1995,21 @@
           "claims": [
             "c021"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {
+        "term": "Khoảng cách vẽ",
+        "tag": "Thuật ngữ",
+        "definition": "Mốc xa nhất mà game chịu vẽ. Quá mốc ấy, vật không được vẽ ra nữa"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b086",
           "text": "Khoảng cách vẽ là mốc xa nhất mà game chịu vẽ. Quá mốc ấy, vật không được vẽ ra nữa.",
@@ -1457,10 +2024,52 @@
       ]
     },
     {
-      "id": "s53",
+      "id": "s57",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "tree-graph",
+      "props": {
+        "nodes": [
+          {
+            "id": "canh",
+            "label": "Cảnh"
+          },
+          {
+            "id": "kp1",
+            "parent": "canh",
+            "label": "Khu phố"
+          },
+          {
+            "id": "kp2",
+            "parent": "canh",
+            "label": "Khu phố"
+          },
+          {
+            "id": "tn1",
+            "parent": "kp1",
+            "label": "Tòa nhà"
+          },
+          {
+            "id": "tn2",
+            "parent": "kp1",
+            "label": "Tòa nhà"
+          },
+          {
+            "id": "tn3",
+            "parent": "kp2",
+            "label": "Tòa nhà"
+          },
+          {
+            "id": "p1",
+            "parent": "tn1",
+            "label": "Căn phòng"
+          },
+          {
+            "id": "p2",
+            "parent": "tn3",
+            "label": "Căn phòng"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1489,10 +2098,47 @@
       ]
     },
     {
-      "id": "s54",
+      "id": "s58",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Khu phố ngoài tầm nhìn"
+          },
+          {
+            "id": "n1",
+            "label": "Bỏ mọi nhà, mọi phòng"
+          },
+          {
+            "id": "n2",
+            "label": "Chia nhỏ, bỏ cả nhóm"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "một phép tìm"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1519,10 +2165,27 @@
       ]
     },
     {
-      "id": "s55",
+      "id": "c5",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Nén hai lớp, và con chip chỉ để giải nén",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 2,
+        "from": 2,
+        "suffix": " lớp nén",
+        "label": "Câu hỏi thứ ba: cất dữ liệu cho gọn thế nào?"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1538,10 +2201,12 @@
       ]
     },
     {
-      "id": "s56",
+      "id": "s60",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:nen",
+      "props": {
+        "mode": "khoi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1571,10 +2236,14 @@
       ]
     },
     {
-      "id": "s57",
+      "id": "s61",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Giải mã bằng phần cứng",
+        "tag": "Theo Microsoft",
+        "definition": "Phần cứng giải mã các khối này rất nhanh, nên ảnh cứ thế nằm ở dạng nén"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1592,10 +2261,48 @@
       ]
     },
     {
-      "id": "s58",
+      "id": "s62",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "o",
+            "label": "Gói dữ liệu nén trên ổ"
+          },
+          {
+            "id": "g",
+            "label": "Giải nén"
+          },
+          {
+            "id": "r",
+            "label": "Nạp lên RAM"
+          }
+        ],
+        "edges": [
+          {
+            "from": "o",
+            "to": "g",
+            "label": "khi nạp"
+          },
+          {
+            "from": "g",
+            "to": "r"
+          }
+        ],
+        "packets": [
+          {
+            "from": "o",
+            "to": "g",
+            "label": "zlib"
+          },
+          {
+            "from": "g",
+            "to": "r"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1622,10 +2329,12 @@
       ]
     },
     {
-      "id": "s59",
+      "id": "s63",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:nen",
+      "props": {
+        "mode": "chip"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1633,7 +2342,7 @@
           "id": "b097",
           "text": "PS5 có hẳn một bộ phận trong chip chỉ làm đúng một việc: giải nén.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -1643,10 +2352,25 @@
       ]
     },
     {
-      "id": "s60",
+      "id": "s64",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Kraken (PS5)",
+        "titleB": "zlib (PS4)",
+        "rows": [
+          {
+            "label": "Định dạng nén của PS5",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Nén tốt hơn khoảng 10%",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1677,10 +2401,14 @@
       ]
     },
     {
-      "id": "s61",
+      "id": "s65",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Bộ giải nén Kraken",
+        "tag": "Gắn trong chip",
+        "definition": "Giải nén cũng tốn sức, nên bộ giải nén được gắn thẳng vào chip"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1698,10 +2426,12 @@
       ]
     },
     {
-      "id": "s62",
+      "id": "s66",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:nen",
+      "props": {
+        "mode": "pheu"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1741,10 +2471,16 @@
       ]
     },
     {
-      "id": "s63",
+      "id": "s67",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 9,
+        "from": 9,
+        "suffix": " nhân Zen 2",
+        "label": "Sức mạnh cần có nếu giải nén bằng bộ xử lý thường",
+        "note": "Mỗi nhân là một bộ óc tính toán. Chín bộ óc, chỉ để giải nén"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1773,10 +2509,14 @@
       ]
     },
     {
-      "id": "s64",
+      "id": "s68",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Xbox Series X|S",
+        "tag": "Cũng vậy",
+        "definition": "Có khối giải nén phần cứng riêng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1794,10 +2534,13 @@
       ]
     },
     {
-      "id": "s65",
+      "id": "s69",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Chưa tới một phần ba ảnh đã nạp được dùng",
+        "kicker": "Theo Microsoft"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1805,13 +2548,60 @@
           "id": "b107",
           "text": "Microsoft còn chỉ ra: GPU thường chỉ dùng chưa tới một phần ba ảnh bề mặt đã nạp vào bộ nhớ.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 450,
           "sfx": null,
           "claims": [
             "c030"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s70",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Ảnh bề mặt"
+          },
+          {
+            "id": "n1",
+            "label": "Chỉ nạp phần thật sự cần"
+          },
+          {
+            "id": "n2",
+            "label": "Bộ nhớ"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "Xbox"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b108",
           "text": "Nên Xbox có tính năng chỉ nạp phần ảnh thật sự cần.",
@@ -1822,7 +2612,24 @@
           "claims": [
             "c030"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s71",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 2.5,
+        "from": 2.5,
+        "suffix": " lần",
+        "label": "Theo Microsoft: đỡ được trung bình, cả tốc độ đọc lẫn bộ nhớ",
+        "note": "Cùng bộ nhớ, chứa được nhiều thứ hơn",
+        "decimals": 1
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b109",
           "text": "Theo Microsoft, trung bình nó đỡ được khoảng 2,5 lần, cả về tốc độ đọc lẫn bộ nhớ.",
@@ -1848,10 +2655,25 @@
       ]
     },
     {
-      "id": "s66",
+      "id": "c6",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Khi ổ đĩa gần như thành RAM",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s72",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "Một ổ đĩa thật nhanh đổi hẳn cách trả lời",
+        "kicker": "Quay lại câu hỏi thứ nhất: nạp phần nào"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1859,11 +2681,25 @@
           "id": "b111",
           "text": "Giờ quay lại câu hỏi thứ nhất, nạp phần nào. Một ổ đĩa thật nhanh đã đổi hẳn cách trả lời.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 450,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s73",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {
+        "term": "SSD của PS5",
+        "tag": "Ổ thể rắn",
+        "definition": "825 GB, đọc dữ liệu thô 5,5 GB mỗi giây"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b112",
           "text": "PS5 dùng ổ thể rắn SSD 825 GB, đọc dữ liệu thô 5,5 GB mỗi giây.",
@@ -1879,10 +2715,17 @@
       ]
     },
     {
-      "id": "s67",
+      "id": "s74",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 0.25,
+        "from": 0.25,
+        "suffix": " giây",
+        "label": "để nạp 2 GB với SSD của PS5, theo Cerny",
+        "note": "Nhanh hơn ổ cứng chừng 100 lần",
+        "decimals": 2
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1912,10 +2755,12 @@
       ]
     },
     {
-      "id": "s68",
+      "id": "s75",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:thanh-pho",
+      "props": {
+        "mode": "quay-dau"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1955,10 +2800,13 @@
       ]
     },
     {
-      "id": "s69",
+      "id": "s76",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Ổ nhanh thôi thì chưa đủ",
+        "kicker": "Còn những khâu khác"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1966,11 +2814,35 @@
           "id": "b118",
           "text": "Nhưng ổ nhanh thôi thì chưa đủ.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s77",
+      "chapter": "chuong-6",
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Trên PS4, theo Cerny",
+        "unit": " lần",
+        "data": [
+          {
+            "label": "SSD nhanh hơn",
+            "value": 10
+          },
+          {
+            "label": "Nạp nhanh hơn",
+            "value": 2
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b119",
           "text": "Cerny kể, trên PS4, gắn một ổ SSD nhanh gấp 10 lần ổ cứng có khi chỉ nạp nhanh gấp đôi.",
@@ -1985,10 +2857,47 @@
       ]
     },
     {
-      "id": "s70",
+      "id": "s78",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "o",
+            "label": "Ổ đĩa"
+          },
+          {
+            "id": "k",
+            "label": "Nhiều khâu ở giữa"
+          },
+          {
+            "id": "m",
+            "label": "Mã của game"
+          }
+        ],
+        "edges": [
+          {
+            "from": "o",
+            "to": "k"
+          },
+          {
+            "from": "k",
+            "to": "m",
+            "label": "nút thắt"
+          }
+        ],
+        "packets": [
+          {
+            "from": "o",
+            "to": "k"
+          },
+          {
+            "from": "k",
+            "to": "m"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2017,10 +2926,25 @@
       ]
     },
     {
-      "id": "s71",
+      "id": "s79",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "PS4, ổ cứng",
+        "titleB": "PS5, SSD",
+        "rows": [
+          {
+            "label": "Gần như là thêm RAM",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Bày sẵn đồ cho nửa phút sau",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2050,10 +2974,25 @@
       ]
     },
     {
-      "id": "s72",
+      "id": "s80",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Bộ nhớ chỉ gấp đôi",
+        "unit": " GB",
+        "highlight": 1,
+        "data": [
+          {
+            "label": "PS4",
+            "value": 8
+          },
+          {
+            "label": "PS5",
+            "value": 16
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2084,10 +3023,25 @@
       ]
     },
     {
-      "id": "s73",
+      "id": "s81",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Khoảng một phần tư ổ, theo số trên hộp",
+        "unit": " GB",
+        "highlight": 1,
+        "data": [
+          {
+            "label": "Ổ PS5 trên hộp",
+            "value": 825
+          },
+          {
+            "label": "Chỗ trống cần",
+            "value": 212
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2114,10 +3068,24 @@
       ]
     },
     {
-      "id": "s74",
+      "id": "c7",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Kết"
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s82",
+      "chapter": "ket",
+      "type": "cold-open",
+      "props": {
+        "hook": "Máy không hề cất cả thành phố trong RAM",
+        "kicker": "Vậy máy cất cả thành phố ở đâu?"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2125,7 +3093,7 @@
           "id": "b128",
           "text": "Vậy máy cất cả thành phố ở đâu? Câu trả lời là: máy không hề cất cả thành phố trong RAM.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": []
@@ -2133,10 +3101,30 @@
       ]
     },
     {
-      "id": "s75",
+      "id": "s83",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Nạp phần nào?",
+            "detail": "ô gần thì nạp, ô xa thì dỡ"
+          },
+          {
+            "name": "Vẽ chi tiết tới đâu?",
+            "detail": "xa vẽ thô, khuất không vẽ"
+          },
+          {
+            "name": "Cất gọn thế nào?",
+            "detail": "nén hai lớp, chip giải nén riêng"
+          },
+          {
+            "name": "Ổ đĩa nhanh",
+            "detail": "máy bớt phải giả vờ"
+          }
+        ],
+        "highlight": 3
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2179,10 +3167,35 @@
       ]
     },
     {
-      "id": "s76",
+      "id": "s84",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "512 MB thời GTA V"
+          },
+          {
+            "id": "n1",
+            "label": "16 GB của PS5"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "to lên nhiều lần"
+          }
+        ],
+        "direction": "LR",
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2200,12 +3213,25 @@
             "c003",
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s85",
+      "chapter": "ket",
+      "type": "cold-open",
+      "props": {
+        "hook": "Chỉ có phần bạn đang nhìn",
+        "kicker": "Thế giới game luôn to hơn bộ nhớ"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b134",
           "text": "Nhưng thế giới game luôn to hơn bộ nhớ. Nên game chưa bao giờ có cả thành phố cùng một lúc.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 450,
           "sfx": null,
           "claims": []
@@ -2222,10 +3248,13 @@
       ]
     },
     {
-      "id": "s77",
+      "id": "s86",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Game thế giới mở nào nạp mượt nhất?",
+        "kicker": "Kể dưới bình luận nhé"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2233,7 +3262,7 @@
           "id": "b136",
           "text": "Còn bạn, game thế giới mở nào bạn thấy nạp mượt nhất? Kể dưới bình luận nhé.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 800,
           "sfx": null,
           "claims": []
@@ -2241,10 +3270,18 @@
       ]
     },
     {
-      "id": "s78",
+      "id": "s87",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Nạp phần nào: ô gần nạp, ô xa dỡ",
+          "Vẽ tới đâu: xa vẽ thô, khuất không vẽ",
+          "Cất gọn: nén hai lớp",
+          "Ổ nhanh: bớt phải giả vờ"
+        ],
+        "next": "Tập sau: vì sao đồng hồ trong máy có lúc chạy sai giờ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [

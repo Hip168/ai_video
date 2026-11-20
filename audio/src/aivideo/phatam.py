@@ -114,6 +114,20 @@ def _find_word(line: str, word: str, start: int = 0):
     return re.compile(rf"(?<![\w-]){re.escape(word)}(?![\w-])", re.IGNORECASE).search(line, start)
 
 
+EXPANDED_MAX_RATIO = 0.6
+
+
+def _expanded(term: str, form: str) -> bool:
+    """`form` mở `term` thành chữ tiếng Anh khác hẳn (vd PS5 -> "PlayStation năm", Cerny -> "ông Mark").
+
+    Chữ tiếng Anh trong `form` cũng nằm trong lời nên được chấm riêng như một từ của nhịp; còn `term`
+    không được đọc. Chữ tiếng Anh giống `term` (vd Kraken -> "Kra-ken") vẫn là phiên âm, chấm theo `term`.
+    """
+    words = [t for t in TOKEN_RE.findall(form) if t.isascii() and is_foreign(t)]
+    return bool(words) and all(
+        difflib.SequenceMatcher(a=term.lower(), b=w.lower()).ratio() < EXPANDED_MAX_RATIO for w in words)
+
+
 def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
                  meanings: set[str] | frozenset[str] = frozenset()):
     """Cách từ `term` (trong text) được đọc trong `line`: (dạng đọc, loại) hoặc (None, lý do).
@@ -124,7 +138,9 @@ def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
         return term, "giu-tieng-anh"
     val = lex_lower.get(term.lower())
     if val and _find_word(line, val):
-        return val, ("nghia-viet" if term.lower() in meanings and _vi_phrase(val) else "phien-am")
+        if term.lower() in meanings and _vi_phrase(val):
+            return val, "nghia-viet"
+        return val, ("mo-rong" if _expanded(term, val) else "phien-am")
     a = [t.lower() for t in TOKEN_RE.findall(text)]
     b = TOKEN_RE.findall(line)
     sm = difflib.SequenceMatcher(a=a, b=[t.lower() for t in b], autojunk=False)
@@ -138,7 +154,9 @@ def _spoken_form(term: str, text: str, line: str, lex_lower: dict[str, str],
             else:
                 break
             if form:
-                return form, ("nghia-viet" if _vi_phrase(form) else "phien-am")
+                if _vi_phrase(form):
+                    return form, "nghia-viet"
+                return form, ("mo-rong" if _expanded(term, form) else "phien-am")
             break
     # Lời không còn chữ ngoại nào lạ so với text -> từ đã bị lược, không được đọc: bỏ qua.
     text_lower = set(a)
@@ -155,6 +173,8 @@ def find_occurrences(script: dict, lexicon: dict[str, str],
     """
     lex_lower = {k.lower(): v for k, v in lexicon.items()}
     meanings = {m.lower() for m in meanings}
+    # Khoá lexicon chỉ đổi hoa thường để TTS đọc hay hơn (PlayStation -> Playstation): máy nghe chấm theo chữ gốc.
+    casing = {k.lower(): k for k, v in lexicon.items() if k.lower() == v.lower() and k != v}
     out: list[dict] = []
     for sc in script["scenes"]:
         for b in sc["beats"]:
@@ -166,11 +186,11 @@ def find_occurrences(script: dict, lexicon: dict[str, str],
                     terms.append(t)
             for t in TOKEN_RE.findall(line):  # tiếng Anh viết thẳng trong lời (chỉ chữ ASCII)
                 if t.isascii() and is_foreign(t) and not any(t.lower() == x.lower() for x in terms):
-                    terms.append(t)
+                    terms.append(casing.get(t.lower(), t))
             for term in terms:
                 form, kind = _spoken_form(term, text, line, lex_lower, meanings)
                 base = {"beat": b["id"], "term": term, "spoken": form, "kind": kind, "line": line}
-                if form is None or kind == "nghia-viet":
+                if form is None or kind in ("nghia-viet", "mo-rong"):
                     out.append({**base, "span": None})
                     continue
                 pos = 0
@@ -505,6 +525,9 @@ def check(slug: str, root: Path) -> dict:
                 continue
             if o["kind"] == "khong-doc":
                 row.update({"pass": True, "note": "không được đọc trong lời, bỏ qua"})
+                continue
+            if o["kind"] == "mo-rong":
+                row.update({"pass": True, "note": "đọc thành tên tiếng Anh đầy đủ, chữ tiếng Anh được chấm riêng"})
                 continue
             if o["span"] is None:
                 row.update({"pass": False, "note": "không xác định được cách đọc trong lời"})

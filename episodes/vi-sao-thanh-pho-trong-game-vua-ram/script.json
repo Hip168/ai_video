@@ -153,7 +153,7 @@
         {
           "id": "b005",
           "text": "GTA VI ra mắt ngày 19/11/2026, trên PS5 và Xbox Series X|S.",
-          "spoken": "GTA sáu ra mắt ngày mười chín tháng mười một năm hai nghìn không trăm hai mươi sáu, trên PlayStation năm và Xbox Series X và S.",
+          "spoken": "Game GTA sáu ra mắt ngày mười chín tháng mười một năm hai nghìn không trăm hai mươi sáu, trên Playstation năm và Xbox Series X và S.",
           "cue": null,
           "pause_ms": 500,
           "sfx": null,
@@ -201,7 +201,7 @@
         {
           "id": "b007",
           "text": "GTA V ra mắt ngày 17/9/2013, trên PlayStation 3 và Xbox 360.",
-          "spoken": "GTA năm ra mắt ngày mười bảy tháng chín năm hai nghìn không trăm mười ba, trên PlayStation ba và Xbox ba trăm sáu mươi.",
+          "spoken": "GTA năm ra mắt ngày mười bảy tháng chín năm hai nghìn không trăm mười ba, trên Playstation ba và Xbox ba trăm sáu mươi.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -834,7 +834,7 @@
         {
           "id": "b030",
           "text": "Lấy ví dụ Unreal Engine, một bộ công cụ làm game.",
-          "spoken": null,
+          "spoken": "Lấy ví dụ một bộ công cụ làm game rất phổ biến.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1138,7 +1138,7 @@
         {
           "id": "b045",
           "text": "Cerny kể: giữa hai khu nhiều chi tiết, người ta đặt cầu thang dài, thang máy, hành lang ngoằn ngoèo.",
-          "spoken": null,
+          "spoken": "Ông Mark kể rằng, giữa hai khu nhiều chi tiết, người ta đặt cầu thang dài, thang máy, hành lang ngoằn ngoèo.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -1241,7 +1241,7 @@
         {
           "id": "b049",
           "text": "Ông kể thành phố Haven City trong game Jak 2 được làm theo cách đó, để mảnh kế tiếp luôn nạp kịp.",
-          "spoken": null,
+          "spoken": "Ông kể thành phố trong một game khác được làm theo cách đó, để mảnh kế tiếp luôn nạp kịp.",
           "cue": null,
           "pause_ms": 900,
           "sfx": null,
@@ -1818,7 +1818,7 @@
         {
           "id": "b075",
           "text": "Ý tưởng này đã được nhà khoa học máy tính James Clark viết ra từ năm 1976.",
-          "spoken": null,
+          "spoken": "Ý tưởng này, nhà khoa học máy tính James Clark đã viết ra từ năm một nghìn chín trăm bảy mươi sáu.",
           "cue": null,
           "pause_ms": 500,
           "sfx": null,
@@ -1943,7 +1943,7 @@
         {
           "id": "b082",
           "text": "Tài liệu của Unreal Engine, một bộ công cụ làm game, kể ba kiểu loại bỏ như vậy.",
-          "spoken": null,
+          "spoken": "Tài liệu của bộ công cụ làm game ấy kể ba kiểu loại bỏ như vậy.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -2318,7 +2318,7 @@
         {
           "id": "b096",
           "text": "PS4 đã làm vậy với kiểu nén zlib, theo Cerny.",
-          "spoken": "PlayStation bốn đã làm vậy với kiểu nén quen thuộc, theo Cerny.",
+          "spoken": "Máy Playstation bốn đã làm vậy với kiểu nén quen thuộc, theo ông Mark.",
           "cue": null,
           "pause_ms": 700,
           "sfx": null,
@@ -2389,7 +2389,7 @@
         {
           "id": "b099",
           "text": "Ông nói Kraken nén tốt hơn kiểu zlib của PS4 khoảng 10%.",
-          "spoken": "Ông nói Kraken nén tốt hơn kiểu nén cũ của PlayStation bốn khoảng mười phần trăm.",
+          "spoken": "Ông nói kiểu nén mới này nén tốt hơn kiểu nén cũ của Playstation bốn khoảng mười phần trăm.",
           "cue": null,
           "pause_ms": 500,
           "sfx": null,
@@ -2487,7 +2487,7 @@
         {
           "id": "b104",
           "text": "Muốn làm việc ấy bằng bộ xử lý thường, Cerny ước tính cần sức mạnh của 9 nhân Zen 2.",
-          "spoken": "Muốn làm việc ấy bằng bộ xử lý thường, Cerny ước tính cần sức mạnh của chín nhân xử lý loại Zen hai.",
+          "spoken": "Muốn làm việc ấy bằng bộ xử lý thường, ông ước tính cần sức mạnh của chín nhân xử lý cùng loại với nhân trong máy.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -3202,7 +3202,7 @@
         {
           "id": "b133",
           "text": "Từ 512 MB thời GTA V tới 16 GB của PS5 hôm nay, bộ nhớ đã to lên nhiều lần.",
-          "spoken": null,
+          "spoken": "Từ năm trăm mười hai mê-ga-bai thời game GTA năm, tới mười sáu gi-ga-bai của Playstation năm hôm nay, bộ nhớ đã to lên nhiều lần.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,

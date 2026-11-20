@@ -1,0 +1,434 @@
+[
+  {
+    "id": "c001",
+    "claim": "Theo trang Hỏi đáp chính thức của Telegram, Telegram làm ảnh nhỏ đi trước khi gửi để ảnh tải ngay và tốn ít dữ liệu di động; chế độ mặc định là Standard; chế độ High Definition có gấp 4 lần số điểm ảnh nhưng vẫn dưới 0,5 MB; còn gửi dạng tệp thì người nhận có ảnh gốc, không nén chút nào.",
+    "question": "Theo trang Hỏi đáp chính thức của Telegram, ảnh gửi đi được xử lý thế nào ở chế độ mặc định, chế độ chất lượng cao khác gì (về số điểm ảnh và dung lượng), và cách nào giữ nguyên ảnh gốc?",
+    "sources": [
+      {
+        "url": "https://telegram.org/faq",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c002",
+    "claim": "Tài liệu hướng dẫn của thư viện libjpeg-turbo khuyên tránh cho một ảnh đi qua nhiều vòng nén rồi giải nén JPEG: chất lượng mất đi sẽ cộng dồn, sau khoảng mười vòng ảnh có thể xấu đi thấy rõ so với sau vòng đầu; nên dùng định dạng không mất dữ liệu khi đang chỉnh ảnh rồi mới chuyển sang JPEG khi cất.",
+    "question": "Tài liệu sử dụng của libjpeg-turbo nói gì về việc nén rồi giải nén JPEG lặp lại nhiều lần, và sau khoảng bao nhiêu vòng thì ảnh có thể xấu đi thấy rõ?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c003",
+    "claim": "Một ảnh màu thông thường lưu mỗi điểm ảnh bằng 3 thành phần màu, mỗi thành phần 8 bit (256 mức), tức 24 bit (3 byte) cho một điểm ảnh khi chưa nén; ví dụ một ảnh 12 triệu điểm ảnh sẽ cần khoảng 36 triệu byte, tức khoảng 36 MB (phép tính).",
+    "question": "Theo đặc tả JFIF và tài liệu libjpeg, một ảnh màu có mấy thành phần, mỗi thành phần bao nhiêu bit, và tổng số bit cho một điểm ảnh khi chưa nén là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.w3.org/Graphics/JPEG/jfif.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c004",
+    "claim": "Theo bài tổng quan chuẩn JPEG của Gregory Wallace (IEEE Transactions on Consumer Electronics, 1992), với ảnh màu có cảnh vừa phức tạp, nén JPEG ở mức 1,5 đến 2 bit cho mỗi điểm ảnh thường không phân biệt được với ảnh gốc, và 0,75 đến 1,5 bit cho chất lượng rất tốt; so với 24 bit khi chưa nén, mức 1,5 đến 2 bit tức là nhỏ đi khoảng 12 đến 16 lần (phép tính).",
+    "question": "Trong bài tổng quan của Wallace về chuẩn JPEG, ở mức bao nhiêu bit cho mỗi điểm ảnh thì ảnh nén thường không phân biệt được với ảnh gốc, và ở mức nào thì chất lượng được xếp là rất tốt?",
+    "sources": [
+      {
+        "url": "https://www.comp.nus.edu.sg/~cs5342/readings/wallace.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c005",
+    "claim": "Chuẩn nén ảnh JPEG đầu tiên là Khuyến nghị ITU-T T.81, bản tháng 9/1992, cùng nội dung với chuẩn ISO/IEC 10918-1 (bản mới nhất năm 1994); quá trình xây dựng chuẩn bắt đầu từ năm 1986.",
+    "question": "Chuẩn JPEG đầu tiên mang số hiệu gì ở ITU-T và ISO/IEC, được ban hành năm nào, và quá trình xây dựng bắt đầu từ năm nào?",
+    "sources": [
+      {
+        "url": "https://www.itu.int/rec/T-REC-T.81",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://jpeg.org/jpeg/index.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c006",
+    "claim": "JPEG là viết tắt của Joint Photographic Experts Group, chữ \"Joint\" chỉ sự hợp tác giữa CCITT và ISO; tháng 6/1987 nhóm chấm mù 12 phương pháp được đề xuất và chọn còn 3; tháng 1/1988 phương pháp dựa trên phép biến đổi DCT 8×8 cho chất lượng ảnh tốt nhất.",
+    "question": "Theo bài của Wallace, chữ \"Joint\" trong JPEG chỉ sự hợp tác giữa những tổ chức nào, và nhóm JPEG đã chọn phương pháp nén qua những vòng nào, vào thời điểm nào, từ bao nhiêu đề xuất?",
+    "sources": [
+      {
+        "url": "https://www.comp.nus.edu.sg/~cs5342/readings/wallace.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c007",
+    "claim": "Trang chính thức của ủy ban JPEG gọi JPEG là định dạng ảnh tĩnh thống trị nhất hiện nay và là một trong những chuẩn đa phương tiện thành công nhất từng được xây dựng.",
+    "question": "Trang chính thức của ủy ban JPEG mô tả mức độ phổ biến của chuẩn JPEG 1 như thế nào?",
+    "sources": [
+      {
+        "url": "https://jpeg.org/jpeg/index.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c008",
+    "claim": "Mắt người nhạy với thay đổi về độ sáng trong không gian hơn là thay đổi về màu, nên phần màu của ảnh có thể bị bớt chi tiết nhiều hơn phần độ sáng mà không thấy giảm chất lượng.",
+    "question": "Tài liệu libjpeg-turbo giải thích lý do gì về thị giác để bớt dữ liệu ở phần màu nhiều hơn phần độ sáng?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c009",
+    "claim": "Khi nén JPEG, ảnh thường được tách thành một kênh độ sáng và hai kênh màu, và hai kênh màu được lấy mẫu thưa đi hai lần; trong libjpeg mặc định là 2x2, còn gọi là 4:2:0, tức mỗi kênh màu chỉ giữ một nửa chiều ngang và một nửa chiều dọc, bằng 1/4 số điểm (phép tính).",
+    "question": "Khi nén JPEG, các kênh màu thường được lấy mẫu như thế nào so với kênh độ sáng, và mức lấy mẫu mặc định của libjpeg-turbo là gì?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://farid.berkeley.edu/downloads/publications/tifs09.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c010",
+    "claim": "Trong JPEG, mỗi kênh ảnh được chia thành các ô 8×8 điểm, tức 64 điểm, và mỗi ô được đổi sang dạng tần số bằng phép biến đổi cosin rời rạc (DCT); hệ số đầu tiên (DC) là giá trị trung bình của 64 điểm trong ô.",
+    "question": "Trong nén JPEG, ảnh được chia thành các khối kích thước bao nhiêu, mỗi khối được biến đổi bằng phép gì, và hệ số DC của khối mang ý nghĩa gì?",
+    "sources": [
+      {
+        "url": "https://www.comp.nus.edu.sg/~cs5342/readings/wallace.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://farid.berkeley.edu/downloads/publications/tifs09.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c011",
+    "claim": "Nasir Ahmed kể rằng đầu năm 1972 ông gửi Quỹ Khoa học Quốc gia Mỹ (NSF) đề xuất nghiên cứu một \"phép biến đổi cosin\" nhưng không được cấp tiền, một người thẩm định nhận xét ý tưởng \"quá đơn giản\"; ông cùng T. Natarajan và K. R. Rao làm tiếp suốt mùa hè 1973, và bài \"Discrete Cosine Transform\" đăng trên IEEE Transactions on Computers tháng 1/1974.",
+    "question": "Nasir Ahmed kể lại thế nào về đề xuất nghiên cứu phép biến đổi cosin gửi NSF (năm, kết quả, lý do), ai làm cùng ông, và bài báo về DCT được đăng ở đâu, khi nào?",
+    "sources": [
+      {
+        "url": "https://www.cse.iitd.ac.in/~pkalra/siv864-2019/assignment/DCT-History.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://doi.org/10.1016/1051-2004(91)90086-Z",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://doi.org/10.1109/T-C.1974.223784",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://spectrum.ieee.org/compression-algorithms",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c012",
+    "claim": "Lượng tử hoá là bước chia mỗi hệ số DCT cho một bước nhảy (một số nguyên từ 1 đến 255 trong bảng lượng tử) rồi làm tròn; đây là phép nhiều-thành-một nên về bản chất làm mất dữ liệu, và là nguồn mất dữ liệu chính của bộ nén JPEG dựa trên DCT.",
+    "question": "Theo bài của Wallace, bước nào là nguồn mất dữ liệu chính trong nén JPEG dựa trên DCT, vì sao bước đó mất dữ liệu, và các giá trị trong bảng của bước này nằm trong khoảng nào?",
+    "sources": [
+      {
+        "url": "https://www.comp.nus.edu.sg/~cs5342/readings/wallace.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://farid.berkeley.edu/downloads/publications/tifs09.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c013",
+    "claim": "Phụ lục K của ITU-T T.81 có bảng lượng tử mẫu mà chuẩn nói cho chất lượng \"tốt\", chia đôi thì \"rất tốt\"; thư viện libjpeg dùng đúng bảng này ở mức chất lượng 50 và co giãn nó cho các mức khác.",
+    "question": "Bảng lượng tử mặc định trong libjpeg lấy từ đâu, chuẩn mô tả chất lượng của bảng đó ra sao, và ở mức chất lượng nào libjpeg dùng bảng đó nguyên vẹn?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/src/jcparam.c",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c014",
+    "claim": "Thang \"chất lượng\" 0 đến 100 của JPEG là cách quy đổi riêng của từng phần mềm (libjpeg gọi là \"đường co giãn khuyến nghị của chúng tôi\"), không có một cách tính duy nhất; vì vậy nói \"nén còn 85%\" không cho biết chính xác ảnh bị nén bao nhiêu.",
+    "question": "Mức \"chất lượng\" (quality factor) của JPEG có được tính theo một cách thống nhất giữa các phần mềm không? Libjpeg mô tả cách đổi mức chất lượng ra bảng lượng tử như thế nào?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/src/jcparam.c",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://arxiv.org/pdf/1610.06347",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c015",
+    "claim": "Trong libjpeg-turbo, chất lượng mặc định là 75, khuyên dùng từ 50 đến 95 cho ảnh chụp; đặt trên khoảng 95 làm tệp to lên rất nhiều mà phần hơn về chất lượng hiếm khi mắt người thấy được.",
+    "question": "Mức chất lượng mặc định của công cụ nén JPEG trong libjpeg-turbo là bao nhiêu, khoảng khuyên dùng cho ảnh chụp là gì, và đặt quá cao thì sao?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c016",
+    "claim": "Ngay cả ở mức chất lượng 100, JPEG vẫn mất dữ liệu: bảng lượng tử toàn số 1 giảm tối đa mất mát ở bước lượng tử, nhưng vẫn mất ở bước lấy mẫu thưa phần màu và do làm tròn.",
+    "question": "Theo libjpeg-turbo, nén JPEG ở mức chất lượng cao nhất có còn mất dữ liệu không, và nếu có thì mất ở những bước nào?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c017",
+    "claim": "JPEG nén tốt ảnh chụp có màu và độ sáng chuyển dần, nhưng ảnh có nét mảnh, cạnh sắc thì nén không tốt và dễ lộ vết nén; tài liệu libjpeg khuyên đừng chuyển tranh hoạt hình, hình vẽ nét sang JPEG.",
+    "question": "Theo tài liệu libjpeg, JPEG hợp với loại ảnh nào và không hợp với loại ảnh nào?",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/README.ijg",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c018",
+    "claim": "Nén lại một ảnh JPEG với đúng cài đặt cũ thì ảnh gần như không đổi thêm: thí nghiệm năm 2025 cho thấy với JPEG truyền thống, nén lặp lại hầu như không làm giảm PSNR, nhất là ở tốc độ bit thấp; và theo Hany Farid (2009), sai khác giữa hai lần lượng tử là nhỏ nhất khi lần sau dùng cùng bước lượng tử như lần trước.",
+    "question": "Khi nén lại một ảnh JPEG nhiều lần với cùng cài đặt, chất lượng (theo PSNR) thay đổi ra sao? Sai khác giữa hai lần lượng tử nhỏ nhất trong trường hợp nào?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2504.03191",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://farid.berkeley.edu/downloads/publications/tifs09.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c019",
+    "claim": "Theo Hany Farid (2009), nén lại với bước lượng tử khác lần trước làm giá trị các hệ số bị xê dịch; và nếu ảnh bị dịch khỏi lưới ô 8×8 cũ (có 64 vị trí lệch, từ 0 đến 7 điểm theo mỗi chiều) thì lần lưu mới tạo ra các tần số mới.",
+    "question": "Theo bài JPEG Ghosts của Hany Farid, chuyện gì xảy ra với các hệ số khi ảnh được nén lại bằng bước lượng tử khác, và khi ảnh không còn nằm đúng lưới khối cũ?",
+    "sources": [
+      {
+        "url": "https://farid.berkeley.edu/downloads/publications/tifs09.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c020",
+    "claim": "Một nghiên cứu năm 2016 của nhóm Đại học Catania (Giudice và cộng sự) tải 2.720 ảnh JPEG qua 10 nền tảng và thấy Facebook, Twitter, Telegram, WhatsApp, Instagram luôn nén lại mọi ảnh bằng bảng lượng tử mới.",
+    "question": "Nghiên cứu \"A Classification Engine for Image Ballistics of Social Data\" (2016) dùng bao nhiêu ảnh, qua bao nhiêu nền tảng, và những nền tảng nào luôn nén lại ảnh?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/1610.06347",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c021",
+    "claim": "Trong nghiên cứu năm 2016 đó, ảnh bị thu nhỏ khi cạnh dài vượt ngưỡng: WhatsApp 1.600 điểm, Telegram 2.560, Instagram 1.080, Facebook 960 ở chế độ thường và 2.048 ở chế độ chất lượng cao; các ngưỡng này đổi theo thời gian (ngay trong lúc làm thí nghiệm, Twitter đổi từ 1.024 lên 2.048).",
+    "question": "Theo nghiên cứu của Giudice và cộng sự (2016), ảnh bị thu nhỏ khi cạnh dài vượt ngưỡng bao nhiêu trên WhatsApp, Telegram, Instagram và Facebook, và các ngưỡng này có cố định không?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/1610.06347",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c022",
+    "claim": "Cũng theo nghiên cứu năm 2016, phần lớn nền tảng xoá hết siêu dữ liệu EXIF đi kèm ảnh, kể cả thông tin về máy chụp; Facebook, WhatsApp, Telegram và Instagram đều xoá.",
+    "question": "Theo nghiên cứu của Giudice và cộng sự (2016), các nền tảng xử lý siêu dữ liệu EXIF của ảnh ra sao?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/1610.06347",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c023",
+    "claim": "Theo trang trợ giúp chính thức của Instagram, ảnh rộng từ 320 đến 1.080 điểm được giữ độ phân giải gốc nếu tỉ lệ khung từ 1,91:1 đến 3:4; ảnh rộng hơn bị giảm xuống 1.080 điểm, ảnh hẹp hơn được phóng lên 320 điểm; tỉ lệ khung không hỗ trợ thì ảnh bị cắt. Ví dụ một ảnh rộng 4.000 điểm bị giảm xuống 1.080 điểm thì mỗi chiều còn khoảng 27% và số điểm ảnh còn khoảng 7% (phép tính).",
+    "question": "Theo trang trợ giúp của Instagram, ảnh chia sẻ lên bị thay đổi độ phân giải và khung hình như thế nào?",
+    "sources": [
+      {
+        "url": "https://www.facebook.com/help/instagram/1631821640426723",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://help.instagram.com/1631821640426723",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c024",
+    "claim": "WhatsApp cho chọn gửi ảnh ở chất lượng Standard hoặc HD; có thể đặt HD làm mặc định trong mục Storage and data > Media upload quality của phần Cài đặt; WhatsApp cũng ghi rằng đường truyền mạng vẫn ảnh hưởng tới chất lượng ảnh gửi và nhận, kể cả khi gửi ở chế độ HD.",
+    "question": "Theo trang trợ giúp của WhatsApp, có những mức chất lượng nào khi gửi ảnh, đặt mức mặc định ở đâu, và chất lượng ảnh nhận được còn phụ thuộc vào điều gì?",
+    "sources": [
+      {
+        "url": "https://faq.whatsapp.com/759301289012856/?cms_platform=android",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c025",
+    "claim": "Ngày 9/4/2024, Meta thông báo Messenger cho gửi ảnh HD: chọn ảnh, bật nút HD rồi gửi.",
+    "question": "Meta thông báo tính năng gửi ảnh HD trên Messenger vào ngày nào và người dùng làm thế nào để gửi?",
+    "sources": [
+      {
+        "url": "https://about.fb.com/news/2024/04/hd-photos-shared-albums-and-more-on-messenger/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c026",
+    "claim": "PNG là định dạng nén không mất dữ liệu: ảnh giải nén giống hệt ảnh gốc từng bit; PNG nén bằng thuật toán deflate, lưu ở dạng zlib. Bản thứ ba của đặc tả PNG thành Khuyến nghị W3C ngày 24/6/2025.",
+    "question": "Theo đặc tả PNG của W3C, PNG nén có mất dữ liệu không, dùng phương pháp nén gì, và bản đặc tả mới nhất được công bố khi nào?",
+    "sources": [
+      {
+        "url": "https://www.w3.org/TR/png-3/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://www.w3.org/TR/REC-png-961001",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c027",
+    "claim": "PNG ra đời vì chuyện bản quyền của GIF: ngày 28/12/1994 CompuServe lặng lẽ công bố thoả thuận phí bản quyền với Unisys (hãng giữ bằng sáng chế thuật toán LZW dùng trong GIF); bản nháp đầu tiên của định dạng mới đăng ngày 4/1/1995; đặc tả PNG 1.0 thành Khuyến nghị W3C ngày 1/10/1996.",
+    "question": "PNG ra đời trong hoàn cảnh nào liên quan tới GIF, bản nháp đầu tiên xuất hiện khi nào, và PNG 1.0 thành Khuyến nghị W3C ngày nào?",
+    "sources": [
+      {
+        "url": "http://www.libpng.org/pub/png/pnghist.html",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://www.w3.org/TR/REC-png-961001",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c028",
+    "claim": "Theo Google, ảnh WebP không mất dữ liệu nhỏ hơn PNG 26%, còn ảnh WebP có mất dữ liệu nhỏ hơn ảnh JPEG tương đương 25 đến 34% ở cùng chỉ số chất lượng SSIM.",
+    "question": "Theo trang WebP của Google, WebP nhỏ hơn PNG và JPEG khoảng bao nhiêu phần trăm, và so ở điều kiện nào?",
+    "sources": [
+      {
+        "url": "https://developers.google.com/speed/webp",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c029",
+    "claim": "Apple đưa định dạng ảnh HEIF vào iOS 11 và macOS High Sierra; HEIF nén tốt hơn JPEG nên tốn ít bộ nhớ hơn; khi chia sẻ sang thiết bị chưa hỗ trợ, ảnh có thể tự được đổi sang định dạng phổ biến hơn như JPEG.",
+    "question": "Theo Apple, định dạng HEIF được hỗ trợ từ phiên bản iOS và macOS nào, ưu điểm so với JPEG là gì, và khi chia sẻ sang thiết bị chưa hỗ trợ thì sao?",
+    "sources": [
+      {
+        "url": "https://support.apple.com/en-us/116944",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c030",
+    "claim": "Bản 1.0.0 của đặc tả AVIF do Liên minh AOMedia công bố ngày 19/2/2019; AVIF chứa ảnh nén bằng AV1 trong khung tệp HEIF.",
+    "question": "Đặc tả định dạng AVIF bản 1.0.0 ra ngày nào, và AVIF dựa trên những chuẩn nào?",
+    "sources": [
+      {
+        "url": "https://aomediacodec.github.io/av1-avif/v1.0.0.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c031",
+    "claim": "JPEG XL được chuẩn hoá năm 2022 thành ISO/IEC 18181; ảnh JPEG có sẵn có thể chuyển sang JPEG XL mà không mất dữ liệu và nhỏ đi đáng kể, rồi khôi phục lại đúng tệp JPEG ban đầu.",
+    "question": "JPEG XL mang số hiệu chuẩn nào, được chuẩn hoá năm nào, và nó xử lý ảnh JPEG có sẵn ra sao?",
+    "sources": [
+      {
+        "url": "https://jpeg.org/jpegxl/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://github.com/libjxl/libjxl",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  }
+]

@@ -141,8 +141,8 @@
   },
   {
     "id": "c012",
-    "claim": "NTP đếm giờ từ mốc 0 giờ UTC ngày 1/1/1900; \"kỷ\" đầu tiên của bộ đếm NTP hết vào ngày 8/2/2036, khi trường thời gian quay vòng về 0 và bắt đầu kỷ thứ hai.",
-    "question": "NTP lấy mốc thời gian 0 là ngày nào, và kỷ đầu tiên của bộ đếm NTP kết thúc vào ngày nào?",
+    "claim": "NTP đếm giờ từ mốc 0 giờ UTC ngày 1/1/1900 bằng trường giây 32 bit; theo RFC 5905, bộ đếm quay vòng về 0 vào \"some time in 2036\" (một lúc nào đó năm 2036). Phép tính tại chỗ: 2^32 = 4.294.967.296 giây sau mốc đó là 06:28:16 UTC ngày 7/2/2036 (13:28:16 giờ Việt Nam, vẫn ngày 7/2). (Bảng Hình 4 của RFC ghi 8/2/2036 là \"ngày đầu tiên\" của kỷ mới, không phải lúc quay vòng.)",
+    "question": "NTP lấy mốc thời gian 0 là ngày nào, và bộ đếm giây 32 bit của NTP quay vòng về 0 vào thời điểm nào?",
     "sources": [
       {
         "url": "https://www.rfc-editor.org/rfc/rfc5905",
@@ -409,8 +409,8 @@
   },
   {
     "id": "c031",
-    "claim": "Giây nhuận lúc 0 giờ UTC ngày 1/1/2017 làm một phần dịch vụ DNS của Cloudflare (phần mềm RRDNS viết bằng Go) bị lỗi: mã giả định thời gian không thể chạy lùi, nên một phép đo ra số âm, hàm rand.Int63n() của Go gặp số âm và \"panic\". Lúc cao điểm khoảng 0,2% truy vấn DNS bị ảnh hưởng; bản sửa được triển khai toàn cầu lúc 6 giờ 45 UTC.",
-    "question": "Ngày 1/1/2017 giây nhuận gây ra lỗi gì ở Cloudflare, nguyên nhân kỹ thuật là gì, bao nhiêu phần trăm truy vấn DNS bị ảnh hưởng lúc cao điểm, và đến mấy giờ thì sửa xong toàn cầu?",
+    "claim": "Giây nhuận lúc 0 giờ UTC ngày 1/1/2017 làm một phần dịch vụ DNS của Cloudflare (phần mềm RRDNS viết bằng Go) bị lỗi: mã giả định thời gian không thể chạy lùi, nên một phép đo ra số âm, hàm rand.Int63n() của Go gặp số âm và \"panic\". Lúc cao điểm khoảng 0,2% truy vấn DNS bị ảnh hưởng; bản sửa được triển khai toàn cầu xong trước 6 giờ 45 UTC, và tác động chấm dứt lúc 6 giờ 45 UTC.",
+    "question": "Ngày 1/1/2017 giây nhuận gây ra lỗi gì ở Cloudflare, nguyên nhân kỹ thuật là gì, bao nhiêu phần trăm truy vấn DNS bị ảnh hưởng lúc cao điểm, và đến mấy giờ thì tác động chấm dứt?",
     "sources": [
       {
         "url": "https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/",
@@ -502,6 +502,22 @@
     "sources": [
       {
         "url": "https://github.com/eggert/tz/blob/main/asia",
+        "credibility": "primary"
+      }
+    ],
+    "status": "DAT"
+  },
+  {
+    "id": "c038",
+    "claim": "Khi chèn giây nhuận, nhân Linux đặt đồng hồ hệ thống lùi lại một giây vào cuối ngày (ghi nhật ký \"inserting leap second 23:59:60 UTC\"), nên một lần đọc giờ ngay sau đó có thể nhỏ hơn lần đọc trước. Cloudflare mô tả đúng điều này trong sự cố năm 2017: nếu đúng lúc đang đo mà thời gian lùi một giây thì thời gian đo được thành số âm.",
+    "question": "Theo mã nguồn nhân Linux, khi chèn một giây nhuận thì đồng hồ hệ thống được chỉnh theo hướng nào và bao nhiêu, và Cloudflare nói điều đó ảnh hưởng thế nào tới phép đo thời gian của họ?",
+    "sources": [
+      {
+        "url": "https://github.com/torvalds/linux/blob/65e4fd942f72a9dba0e4e257290c4fa1aa756854/kernel/time/ntp.c#L612-L616",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/",
         "credibility": "primary"
       }
     ],

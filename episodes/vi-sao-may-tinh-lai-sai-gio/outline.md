@@ -26,7 +26,7 @@ Ghi chú lời đọc (theo luật từ tiếng Anh của kênh): nói "giây nh
 Ý chính: máy tự sửa giờ bằng cách hỏi máy chủ giờ; còn bên trong, "giờ" chỉ là một con số giây đếm từ một mốc.
 - Điện thoại Android mặc định tự lấy giờ từ hai nguồn: máy chủ giờ qua giao thức NTP và tín hiệu NITZ của mạng di động, ưu tiên NTP (c009). Nói rõ đây là tài liệu Android; KHÔNG khẳng định iPhone làm giống hệt.
 - NTP ra đời năm 1985, RFC 958 của David Mills (c010). Bản 4 (RFC 5905, 2010): máy chủ gốc chính xác tới vài chục micro giây, trong mạng nội bộ vài trăm micro giây (c011).
-- Giờ trong máy là một con số: chuẩn POSIX lấy mốc 0 giờ UTC ngày 1/1/1970 (c013). Ví dụ: 7 giờ sáng hôm nay 20/11/2026 giờ Việt Nam là số 1.795.132.800 (c015, phép tính). Một câu nối tập 3: bộ đếm này từng được nói tới ở chuyện năm 2038; NTP cũng có mốc riêng, 1/1/1900, và quay vòng vào ngày 8/2/2036 (c012). Không đào sâu phần tràn số.
+- Giờ trong máy là một con số: chuẩn POSIX lấy mốc 0 giờ UTC ngày 1/1/1970 (c013). Ví dụ: 7 giờ sáng hôm nay 20/11/2026 giờ Việt Nam là số 1.795.132.800 (c015, phép tính). Một câu nối tập 3: bộ đếm này từng được nói tới ở chuyện năm 2038; NTP cũng có mốc riêng, 1/1/1900, và quay vòng vào ngày 7/2/2036 theo phép tính 2^32 giây (c012). Không đào sâu phần tràn số.
 - Chuyện nhỏ: năm 2016 Apple thừa nhận chỉnh tay ngày iPhone về tháng 5/1970 hoặc sớm hơn có thể làm máy không khởi động lại được (c016). KHÔNG nói nguyên nhân (Apple không nêu; giả thuyết "tràn số âm" chỉ là suy đoán của người ngoài). Chỉ dùng như ví dụ "mốc 0 nguy hiểm", và nhắc người xem đừng thử.
 - Gợi ý hình ảnh: điện thoại hỏi "mấy giờ rồi?" lên máy chủ; một dãy số giây chạy liên tục.
 
@@ -54,7 +54,7 @@ Ghi chú lời đọc (theo luật từ tiếng Anh của kênh): nói "giây nh
 - Từ 1972 đến nay đã chèn 27 lần; lần gần nhất là đêm 31/12/2016 (c027). Bản tin mới nhất của IERS: không có giây nhuận cuối năm 2026 (c028). Theo giờ Việt Nam, giây nhuận rơi vào 6 giờ 59 phút 60 giây sáng (phép tính UTC+7; scriptwriter ghi rõ là phép tính).
 - Trong khi đó chuẩn POSIX coi mỗi ngày đúng 86.400 giây (c014): bộ đếm giây không có chỗ cho giây thứ 60. Đây là gốc của lỗi.
 - Câu chuyện 1, 30/6/2012: hệ thống đặt chỗ Altea của Amadeus ngừng khoảng một giờ, Qantas và Virgin Australia phải làm thủ tục cho khách bằng tay; Amadeus đổ cho một lỗi trong nhân Linux bị giây nhuận kích hoạt (c029). Cùng đêm đó Reddit không vào được khoảng 30 đến 40 phút (c030).
-- Câu chuyện 2, 1/1/2017 (đúng 7 giờ sáng ngày đầu năm ở Việt Nam): mã DNS của Cloudflare tin rằng thời gian không thể chạy lùi; một phép đo ra số âm, hàm của Go gặp số âm thì dừng hẳn; lúc cao điểm khoảng 0,2% truy vấn DNS bị lỗi, đến 6 giờ 45 UTC mới sửa xong toàn cầu (c031). Kết của chuyện: tháng 8/2017, Go 1.9 thêm "giờ đơn điệu", loại giờ chỉ chạy tới, để đo khoảng thời gian an toàn (c032).
+- Câu chuyện 2, 1/1/2017 (đúng 7 giờ sáng ngày đầu năm ở Việt Nam): mã DNS của Cloudflare tin rằng thời gian không thể chạy lùi; một phép đo ra số âm, hàm của Go gặp số âm thì dừng hẳn; lúc cao điểm khoảng 0,2% truy vấn DNS bị lỗi, tác động chấm dứt lúc 6 giờ 45 UTC (c031). Kết của chuyện: tháng 8/2017, Go 1.9 thêm "giờ đơn điệu", loại giờ chỉ chạy tới, để đo khoảng thời gian an toàn (c032).
 - Bài học nhỏ cho người xem: "giờ trên đồng hồ" và "thời gian đã trôi qua" là hai thứ khác nhau.
 - Gợi ý hình ảnh: phút có 61 ô; đồ thị thời gian đo được rơi xuống dưới 0.
 

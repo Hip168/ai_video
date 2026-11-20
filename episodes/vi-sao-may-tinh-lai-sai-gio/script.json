@@ -1,0 +1,2276 @@
+{
+  "meta": {
+    "title": "Vì sao máy tính lại sai giờ",
+    "voice": "Thiện Minh",
+    "speed": 1.0,
+    "theme": "mau-a",
+    "outro": true,
+    "music": {
+      "track": "reverence-endless",
+      "gainDb": -24
+    }
+  },
+  "chapters": [
+    {
+      "id": "mo-dau",
+      "title": "Mở đầu"
+    },
+    {
+      "id": "chuong-1",
+      "title": "Một viên đá rung 32.768 lần mỗi giây"
+    },
+    {
+      "id": "chuong-2",
+      "title": "Hỏi giờ qua mạng, và cái mốc năm 1970"
+    },
+    {
+      "id": "chuong-3",
+      "title": "Cùng một con số, mỗi nơi một giờ"
+    },
+    {
+      "id": "chuong-4",
+      "title": "Cuốn sổ múi giờ suýt bị kiện mất"
+    },
+    {
+      "id": "chuong-5",
+      "title": "Khi một phút có 61 giây"
+    },
+    {
+      "id": "chuong-6",
+      "title": "Rải giây, bỏ giây, và giây nhuận âm"
+    },
+    {
+      "id": "ket",
+      "title": "Kết"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s01",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b001",
+          "text": "Bạn mở lại chiếc máy tính cũ cất lâu ngày, vào một trang báo quen, và bị chặn ngay ở cửa.",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b002",
+          "text": "Chrome hiện một dòng lạ: đồng hồ của bạn bị chậm. Your clock is behind.",
+          "spoken": "Chrome hiện một dòng lạ: đồng hồ của bạn bị chậm.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b003",
+          "text": "Trang web không hỏng, mạng cũng không rớt. Thứ duy nhất sai là ngày giờ trên chính máy của bạn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s03",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b004",
+          "text": "Theo Google, cách sửa là chỉnh lại ngày giờ cho đúng. Nhưng vì sao giờ sai lại chặn cả trang web?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s04",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b005",
+          "text": "Trang web có ổ khóa trên thanh địa chỉ đều mang một tấm giấy tờ điện tử, gọi là chứng chỉ bảo mật.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        },
+        {
+          "id": "b006",
+          "text": "Chứng chỉ giống một tấm vé có hạn dùng: nó ghi ngày bắt đầu có hiệu lực và ngày hết hiệu lực.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b007",
+          "text": "Trình duyệt chỉ tin chứng chỉ khi hôm nay nằm giữa hai mốc ấy. Mà hôm nay là ngày nào, nó hỏi máy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c002"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s06",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b008",
+          "text": "Chứng chỉ mặc định của Let's Encrypt, một nơi chuyên cấp chứng chỉ, chỉ sống vỏn vẹn 90 ngày.",
+          "spoken": "Chứng chỉ mặc định của một nơi chuyên cấp chứng chỉ bảo mật chỉ sống vỏn vẹn chín mươi ngày.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c003"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s07",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b009",
+          "text": "Thử làm một phép tính. Một chứng chỉ có hiệu lực từ tháng 11/2026 tới tháng 2/2027.",
+          "spoken": "Thử làm một phép tính. Một chứng chỉ có hiệu lực từ tháng mười một năm nay tới tháng hai năm sau.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b010",
+          "text": "Còn chiếc máy cũ của bạn lại tưởng hôm nay vẫn là năm 2015.",
+          "spoken": "Còn chiếc máy cũ của bạn lại tưởng hôm nay vẫn là năm hai nghìn không trăm mười lăm.",
+          "cue": null,
+          "pause_ms": 200,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s08",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b011",
+          "text": "Với nó, chứng chỉ kia chưa tới ngày có hiệu lực, nên bị từ chối, dù trang web hoàn toàn bình thường.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s09",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b012",
+          "text": "Nên gặp dòng báo này, đừng vội nghĩ trang web hỏng. Hãy bật đặt giờ tự động để máy tự sửa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c009"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b013",
+          "text": "Nghe thì đơn giản. Nhưng máy tính biết bây giờ là mấy giờ bằng cách nào?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "chapter": "mo-dau",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b014",
+          "text": "Và vì sao câu hỏi tưởng dễ nhất ấy từng làm tê liệt cả hệ thống bán vé máy bay lẫn trang web lớn?",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c029",
+            "c030"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b015",
+          "text": "Vì sao đồng hồ trong máy có lúc chạy sai? Hãy bắt đầu từ chiếc đồng hồ đeo trên tay bạn.",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b016",
+          "text": "Phần lớn đồng hồ đeo tay là đồng hồ thạch anh, chạy nhờ một mảnh tinh thể thạch anh rất nhỏ.",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        },
+        {
+          "id": "b017",
+          "text": "Mảnh đá ấy rung rất đều, thường là 32.768 lần trong mỗi giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b018",
+          "text": "Đồng hồ không hiểu giây là gì. Nó chỉ đếm: đủ 32.768 nhịp rung thì tính là một giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c005"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s15",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b019",
+          "text": "Vì sao lại là con số lẻ như vậy? Vì 32.768 chính là 2 mũ 15, tức số 2 nhân với chính nó 15 lần.",
+          "spoken": "Vì sao lại là con số lẻ như vậy? Vì ba mươi hai nghìn bảy trăm sáu mươi tám chính là hai mũ mười lăm, tức số hai nhân với chính nó mười lăm lần.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        },
+        {
+          "id": "b020",
+          "text": "Nên mạch điện chỉ cần chia đôi 15 lần liên tiếp là từ 32.768 nhịp còn đúng 1 nhịp mỗi giây.",
+          "spoken": "Nên mạch điện chỉ cần chia đôi mười lăm lần liên tiếp là từ ba mươi hai nghìn bảy trăm sáu mươi tám nhịp còn đúng một nhịp mỗi giây.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b021",
+          "text": "Đó là hệ nhị phân, cách máy móc đếm bằng hai trạng thái. Với mạch điện, chia đôi là phép dễ nhất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c006"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s17",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b022",
+          "text": "Nhưng không mảnh đá nào rung chuẩn tuyệt đối. Lệch một chút thôi là đồng hồ trôi dần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b023",
+          "text": "Viện đo lường NIST lấy ví dụ: đá rung lệch 0,1 Hz, tức chênh một phần mười nhịp mỗi giây.",
+          "spoken": "Viện đo lường quốc gia của Mỹ lấy ví dụ: đá rung lệch không phẩy một héc, tức chênh một phần mười nhịp mỗi giây.",
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        },
+        {
+          "id": "b024",
+          "text": "Khi đó cứ sau 327.680 giây, đồng hồ sai một giây. Tính ra khoảng 0,26 giây mỗi ngày.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b025",
+          "text": "Nghe thì nhỏ. Nhưng làm phép tính trên ví dụ ấy, để nguyên một năm là lệch hơn một phút rưỡi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s20",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b026",
+          "text": "Muốn đúng hơn thì phải có một chiếc đồng hồ tốt hơn để so. Và thế giới đã chọn nguyên tử.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        },
+        {
+          "id": "b027",
+          "text": "Từ năm 1967, một giây được định nghĩa bằng 9.192.631.770 chu kỳ bức xạ của nguyên tử xêsi-133.",
+          "spoken": "Từ năm một nghìn chín trăm sáu mươi bảy, một giây được định nghĩa bằng hơn chín tỷ chu kỳ bức xạ của nguyên tử xê si một trăm ba mươi ba.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c008"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s21",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b028",
+          "text": "Nên đồng hồ đếm nhịp nào cũng chỉ đúng khi thỉnh thoảng được so lại với một chiếc đồng hồ chuẩn hơn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c007"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s22",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b029",
+          "text": "Máy tính không mang theo đồng hồ nguyên tử. Nên nó so giờ bằng cách hỏi qua mạng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b030",
+          "text": "Ở đầu bên kia là máy chủ giờ, những máy tính chuyên trả lời đúng một câu: bây giờ là mấy giờ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s23",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b031",
+          "text": "Theo tài liệu của Android, điện thoại mặc định lấy giờ từ hai nguồn: máy chủ giờ và mạng di động.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c009"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s24",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b032",
+          "text": "Cách hỏi giờ ấy theo một bộ luật chung gọi là giao thức giờ mạng, NTP, mô tả lần đầu tháng 9/1985.",
+          "spoken": "Cách hỏi giờ ấy theo một bộ luật chung gọi là giao thức giờ mạng, được mô tả lần đầu vào tháng chín năm một nghìn chín trăm tám mươi lăm.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c010"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s25",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b033",
+          "text": "Theo phiên bản 4, ra tháng 6/2010, máy chủ giờ gốc chính xác tới vài chục micro giây.",
+          "spoken": "Theo phiên bản thứ tư, ra tháng sáu năm hai nghìn không trăm mười, máy chủ giờ gốc chính xác tới vài chục micro giây.",
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        },
+        {
+          "id": "b034",
+          "text": "Một micro giây là một phần triệu giây. Máy trong mạng nội bộ nhanh thì lệch vài trăm micro giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c011"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s26",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b035",
+          "text": "Giờ đã về tới máy. Nhưng máy cất nó ở đâu, dưới dạng gì? Câu trả lời: một con số.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b036",
+          "text": "Với máy tính, thời gian là số giây đã trôi qua kể từ một cái mốc, gọi là mốc không.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b037",
+          "text": "Theo POSIX, bộ chuẩn chung của nhiều hệ điều hành, mốc không là 0 giờ UTC ngày 1/1/1970.",
+          "spoken": "Theo một bộ chuẩn chung của nhiều hệ điều hành, mốc không là không giờ ngày một tháng một năm một nghìn chín trăm bảy mươi, tính theo giờ quốc tế.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s28",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b038",
+          "text": "UTC là giờ quốc tế, giờ gốc chung của cả thế giới. Giờ Việt Nam đi trước nó 7 tiếng.",
+          "spoken": "Giờ quốc tế là giờ gốc chung của cả thế giới. Giờ Việt Nam đi trước nó bảy tiếng.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b039",
+          "text": "Làm phép tính: 7 giờ sáng ngày 20/11/2026 ở Việt Nam ứng với con số 1.795.132.800.",
+          "spoken": "Làm một phép tính: bảy giờ sáng ngày hai mươi tháng mười một năm hai nghìn không trăm hai mươi sáu, giờ Việt Nam, là con số gần một tỷ tám trăm triệu.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c015"
+          ]
+        },
+        {
+          "id": "b040",
+          "text": "Bộ đếm này có ngày bị tràn, chuyện ấy kênh đã kể ở tập về số nguyên có trần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s29",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b041",
+          "text": "Mốc không cũng là chỗ dễ vấp. Tháng 2/2016, Apple thừa nhận một lỗi trên các thiết bị iOS.",
+          "spoken": "Mốc không cũng là chỗ dễ vấp. Tháng hai năm hai nghìn không trăm mười sáu, Apple thừa nhận một lỗi trên điện thoại và máy tính bảng của hãng.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        },
+        {
+          "id": "b042",
+          "text": "Chỉnh tay ngày về tháng 5/1970 hoặc sớm hơn có thể làm máy không bật được sau khi khởi động lại.",
+          "spoken": "Chỉnh tay ngày về tháng năm năm một nghìn chín trăm bảy mươi hoặc sớm hơn có thể làm máy không bật được sau khi khởi động lại.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s30",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b043",
+          "text": "Apple hứa sửa bằng bản cập nhật phần mềm. Còn bạn thì đừng thử chuyện này trên máy mình.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c016"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s31",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b044",
+          "text": "Đến đây có một chỗ lạ. Con số giây là chung cho cả thế giới, nhưng đồng hồ mỗi nơi chỉ một giờ khác.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c013"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s32",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b045",
+          "text": "Muốn ra giờ địa phương, máy phải tra thêm một bảng luật. Với nước ta, bảng ấy chứa cả lịch sử.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1000,
+          "sfx": null,
+          "claims": [
+            "c021",
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s33",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b046",
+          "text": "Bạn có biết: từ tháng 7/1906 tới tháng 6/1975, giờ ở Sài Gòn đã đổi tất cả 9 lần?",
+          "spoken": "Bạn có biết: từ năm một nghìn chín trăm linh sáu tới năm một nghìn chín trăm bảy mươi lăm, giờ ở Sài Gòn đã đổi tất cả chín lần?",
+          "cue": "hook",
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c037"
+          ]
+        },
+        {
+          "id": "b047",
+          "text": "Con số 9 ấy là phép đếm trên cuốn sổ múi giờ mà máy tính khắp thế giới dùng chung.",
+          "spoken": "Con số chín ấy là phép đếm trên cuốn sổ múi giờ mà máy tính khắp thế giới dùng chung.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c037",
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s34",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b048",
+          "text": "Múi giờ là khoảng một nơi đi trước hay đi sau giờ quốc tế, tức giờ gốc chung của cả thế giới.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s35",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b049",
+          "text": "Từ ngày 1/7/1906, Đông Dương lấy giờ theo đài thiên văn Phù Liễn ở Hải Phòng.",
+          "spoken": "Từ tháng bảy năm một nghìn chín trăm linh sáu, Đông Dương lấy giờ theo đài thiên văn Phù Liễn ở Hải Phòng.",
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        },
+        {
+          "id": "b050",
+          "text": "Giờ ấy nhanh hơn giờ Greenwich khoảng 7 giờ 6 phút 30 giây. Lẻ tới từng giây.",
+          "spoken": "Giờ ấy nhanh hơn giờ gốc của thế giới thời đó khoảng bảy giờ sáu phút ba mươi giây. Lẻ tới từng giây.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s36",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b051",
+          "text": "Từ ngày 1/5/1911 thì làm tròn thành đúng 7 tiếng, tức UTC+7, giờ ta vẫn dùng hôm nay.",
+          "spoken": "Từ năm một nghìn chín trăm mười một thì làm tròn thành đúng bảy tiếng, tức giờ quốc tế cộng bảy, giờ ta vẫn dùng hôm nay.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c017"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s37",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b052",
+          "text": "Rồi thời cuộc kéo cả kim đồng hồ theo. Cuối năm 1942, Đông Dương chuyển sang UTC+8.",
+          "spoken": "Rồi thời cuộc kéo cả kim đồng hồ theo. Cuối năm một nghìn chín trăm bốn mươi hai, Đông Dương chuyển sang giờ quốc tế cộng tám.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        },
+        {
+          "id": "b053",
+          "text": "Ngày 14/3/1945 lại sang UTC+9, tức giờ Nhật.",
+          "spoken": "Tháng ba năm một nghìn chín trăm bốn mươi lăm lại sang cộng chín, tức giờ Nhật.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s38",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b054",
+          "text": "Từ 24 giờ ngày 1/9/1945, theo Việt Nam Dân Quốc Công Báo số 1, Việt Nam lùi về UTC+7.",
+          "spoken": "Từ nửa đêm ngày một tháng chín năm ấy, theo số đầu tiên của Việt Nam Dân Quốc Công Báo, Việt Nam lùi về cộng bảy.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c018"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s39",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b055",
+          "text": "Chưa hết. Từ 1/4/1947, vùng Pháp kiểm soát dùng UTC+8. Ngày 1/7/1955, miền Nam lùi về UTC+7.",
+          "spoken": "Chưa hết. Từ năm một nghìn chín trăm bốn mươi bảy, vùng Pháp kiểm soát dùng cộng tám. Đến giữa năm một nghìn chín trăm năm mươi lăm, miền Nam lùi về cộng bảy.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c037"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s40",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b056",
+          "text": "Rồi từ đêm 31/12/1959, theo sắc lệnh số 362-TTP, miền Nam vặn nhanh 1 giờ, sang UTC+8.",
+          "spoken": "Rồi từ đêm giao thừa dương lịch năm một nghìn chín trăm sáu mươi, theo một sắc lệnh, miền Nam vặn nhanh một giờ, sang cộng tám.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b057",
+          "text": "Cùng một lúc, ngoài Bắc mới 7 giờ thì trong Nam đã 8 giờ. Hai miền lệch nhau đúng 1 tiếng.",
+          "spoken": "Cùng một lúc, ngoài Bắc mới bảy giờ thì trong Nam đã tám giờ. Hai miền lệch nhau đúng một tiếng.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c019",
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s41",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b058",
+          "text": "Ngày 13/6/1975, cả nước thống nhất dùng chung UTC+7. Đồng hồ ở Sài Gòn được vặn chậm lại 1 giờ.",
+          "spoken": "Ngày mười ba tháng sáu năm một nghìn chín trăm bảy mươi lăm, cả nước thống nhất dùng chung giờ quốc tế cộng bảy. Đồng hồ ở Sài Gòn được vặn chậm lại một giờ.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s42",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b059",
+          "text": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi 9 lần đổi.",
+          "spoken": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi chín lần đổi.",
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c037"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s43",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b060",
+          "text": "Có một đất nước từng xóa hẳn một ngày khỏi lịch. Đó là Samoa.",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b061",
+          "text": "Sau 23:59:59 tối thứ Năm 29/12/2011, đồng hồ ở Samoa nhảy thẳng sang 00:00:00 thứ Bảy.",
+          "spoken": "Sau hai mươi ba giờ năm mươi chín phút năm mươi chín giây tối thứ Năm, ngày hai mươi chín tháng mười hai năm hai nghìn không trăm mười một, đồng hồ ở Samoa nhảy thẳng sang không giờ thứ Bảy.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s44",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b062",
+          "text": "Thứ Sáu 30/12/2011 không hề tồn tại ở đó. Ai sinh ngày ấy thì năm đó không có ngày để mừng.",
+          "spoken": "Thứ Sáu, ngày ba mươi tháng mười hai năm ấy, không hề tồn tại ở đó. Ai sinh vào ngày ấy thì năm đó không có ngày để mừng.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s45",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b063",
+          "text": "Lý do: Samoa chuyển từ UTC−11 sang UTC+13, sang phía tây đường đổi ngày.",
+          "spoken": "Lý do: Samoa chuyển từ chậm hơn giờ quốc tế mười một tiếng sang nhanh hơn mười ba tiếng, nhảy qua đường đổi ngày, nơi lịch thế giới lật sang trang mới.",
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b064",
+          "text": "Mục đích là để khớp ngày với các đối tác thương mại chính, New Zealand và Úc.",
+          "spoken": "Mục đích là để khớp ngày với các đối tác thương mại chính, trong đó có Úc.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s46",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b065",
+          "text": "Phần mềm lịch nào không biết luật mới sẽ tính sai cả một ngày khi đổi giờ ở Samoa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b066",
+          "text": "Nên giờ của một nơi không tính được bằng một phép cộng cố định. Máy phải tra xem luật đổi lúc nào.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s47",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b067",
+          "text": "Vậy máy tính biết luật đổi giờ như thế từ đâu? Từ một cuốn sổ chung: cơ sở dữ liệu múi giờ.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
+          "id": "b068",
+          "text": "Cuốn sổ do IANA phát hành, ghi lại lịch sử giờ địa phương của nhiều nơi trên thế giới.",
+          "spoken": "Cuốn sổ do một tổ chức điều phối mạng toàn cầu phát hành, ghi lại lịch sử giờ địa phương của nhiều nơi trên thế giới.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s48",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b069",
+          "text": "Nơi nào đổi giờ, sổ thêm một dòng, và điện thoại của bạn nhận bản mới qua cập nhật hệ điều hành.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s49",
+      "chapter": "chuong-3",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b070",
+          "text": "Bản mới nhất lúc làm video là 2026f, ra ngày 27/10/2026. Cuốn sổ vẫn đang được viết tiếp.",
+          "spoken": "Bản mới nhất lúc làm video ra ngày hai mươi bảy tháng mười năm hai nghìn không trăm hai mươi sáu. Cuốn sổ vẫn đang được viết tiếp.",
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s50",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b071",
+          "text": "Cuốn sổ mà điện thoại khắp nơi dựa vào hẳn phải do một cơ quan lớn giữ? Không hẳn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s51",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b072",
+          "text": "Theo ICANN, gần ba thập kỷ, cuốn sổ do một nhóm tình nguyện viên duy trì.",
+          "spoken": "Theo tổ chức quản lý tên miền quốc tế, gần ba thập kỷ, cuốn sổ do một nhóm tình nguyện viên duy trì.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        },
+        {
+          "id": "b073",
+          "text": "Người điều phối là Arthur David Olson, làm ở Viện Y tế Quốc gia Mỹ, không phải ở một hãng phần mềm.",
+          "spoken": "Người điều phối là một nhà nghiên cứu làm ở Viện Y tế Quốc gia Mỹ, không phải ở một hãng phần mềm.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s52",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b074",
+          "text": "Ngày 30/9/2011, Astrolabe, một công ty phần mềm chiêm tinh, kiện những người giữ sổ.",
+          "spoken": "Ngày ba mươi tháng chín năm hai nghìn không trăm mười một, một công ty làm phần mềm chiêm tinh kiện những người giữ cuốn sổ.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c023",
+            "c024"
+          ]
+        },
+        {
+          "id": "b075",
+          "text": "Họ cáo buộc vi phạm bản quyền. Người bị kiện là Olson và một tình nguyện viên khác, Paul Eggert.",
+          "spoken": "Họ cáo buộc vi phạm bản quyền. Người bị kiện là người điều phối ấy và một tình nguyện viên khác.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c023",
+            "c024"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s53",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b076",
+          "text": "Tháng 10/2011, ICANN nhận vận hành cuốn sổ, theo đề nghị của IETF.",
+          "spoken": "Tháng mười năm ấy, tổ chức quản lý tên miền nhận vận hành cuốn sổ, theo đề nghị của nhóm soạn chuẩn kỹ thuật cho mạng.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s54",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b077",
+          "text": "Tháng 2/2012, vụ kiện bị rút. Astrolabe xin lỗi và cam kết không kiện lại.",
+          "spoken": "Tháng hai năm hai nghìn không trăm mười hai, vụ kiện bị rút. Công ty kia xin lỗi và cam kết không kiện lại.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        },
+        {
+          "id": "b078",
+          "text": "Luật sư của EFF, tổ chức bảo vệ quyền người dùng mạng, tóm gọn: sự thật không có bản quyền.",
+          "spoken": "Một luật sư của tổ chức bảo vệ quyền người dùng mạng đứng về phía những người giữ sổ tóm gọn: sự thật không có bản quyền.",
+          "cue": null,
+          "pause_ms": 900,
+          "sfx": null,
+          "claims": [
+            "c024"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b079",
+          "text": "Sau vụ ấy, cách giữ sổ được ghi thành văn bản kỹ thuật RFC 6557, cũng vào tháng 2/2012.",
+          "spoken": "Sau vụ ấy, cách giữ sổ được ghi thành một văn bản kỹ thuật, cũng vào tháng hai năm hai nghìn không trăm mười hai.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b080",
+          "text": "Người điều phối không được tự quyết giờ cho một vùng, chỉ ghi lại giờ người dân nơi đó coi là đúng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s57",
+      "chapter": "chuong-4",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b081",
+          "text": "Vậy mỗi lần điện thoại hiện đúng giờ của một nơi xa, phía sau là công của những người ghi sổ ấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1000,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s58",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b082",
+          "text": "Múi giờ là chuyện con người tự đặt ra. Nhưng có một thứ khó đoán hơn nhiều: chính Trái Đất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1000,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b083",
+          "text": "Có lúc đồng hồ chuẩn của thế giới chỉ một giờ trông như lỗi: 23 giờ 59 phút 60 giây.",
+          "spoken": "Có lúc đồng hồ chuẩn của thế giới chỉ một giờ trông như lỗi: hai mươi ba giờ năm mươi chín phút sáu mươi giây.",
+          "cue": "hook",
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b084",
+          "text": "Đó không phải lỗi. Đó là giây nhuận, một giây được chèn thêm, làm phút cuối ngày dài hơn một giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s60",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b085",
+          "text": "Vì sao phải chèn? Vì đồng hồ nguyên tử chạy đều tăm tắp, còn Trái Đất thì quay không đều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b086",
+          "text": "Giây nhuận giữ giờ quốc tế UTC lệch không quá 0,9 giây so với giờ theo vòng quay Trái Đất.",
+          "spoken": "Giây nhuận giữ giờ quốc tế lệch không quá không phẩy chín giây so với giờ theo vòng quay Trái Đất.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s61",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b087",
+          "text": "Nó chỉ được chèn vào giây cuối cùng của ngày cuối tháng 6 hoặc cuối tháng 12.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s62",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b088",
+          "text": "Từ năm 1972 tới nay đã có 27 giây nhuận. Lần gần nhất là cuối ngày 31/12/2016.",
+          "spoken": "Từ năm một nghìn chín trăm bảy mươi hai tới nay đã có hai mươi bảy giây nhuận. Lần gần nhất là cuối ngày ba mươi mốt tháng mười hai năm hai nghìn không trăm mười sáu.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s63",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b089",
+          "text": "Vấn đề nằm ở bộ đếm giây trong máy. Theo POSIX, mỗi ngày luôn đúng 86.400 giây, không hơn.",
+          "spoken": "Vấn đề nằm ở bộ đếm giây trong máy. Theo bộ chuẩn chung của hệ điều hành, mỗi ngày luôn đúng tám mươi sáu nghìn bốn trăm giây, không hơn.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c014"
+          ]
+        },
+        {
+          "id": "b090",
+          "text": "Nghĩa là con số đếm giây không có chỗ cho giây thứ 60. Phần mềm gặp nó có thể rối loạn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c014",
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s64",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b091",
+          "text": "Ngày 30/6/2012, giây nhuận làm sập hệ thống đặt chỗ máy bay Altea khoảng một giờ.",
+          "spoken": "Ngày ba mươi tháng sáu năm hai nghìn không trăm mười hai, giây nhuận làm sập một hệ thống đặt chỗ máy bay khoảng một giờ.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        },
+        {
+          "id": "b092",
+          "text": "Hai hãng bay Qantas và Virgin Australia phải làm thủ tục cho khách bằng tay.",
+          "spoken": "Hai hãng bay của Úc phải làm thủ tục cho khách bằng tay.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s65",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b093",
+          "text": "Hãng làm hệ thống, Amadeus, đổ cho một lỗi trong lõi Linux bị giây nhuận kích hoạt.",
+          "spoken": "Hãng làm hệ thống ấy đổ cho một lỗi trong lõi của Linux, bị giây nhuận kích hoạt.",
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s66",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b094",
+          "text": "Cũng giây nhuận năm 2012 ấy, trang Reddit không vào được khoảng 30 đến 40 phút.",
+          "spoken": "Cũng giây nhuận năm hai nghìn không trăm mười hai ấy, trang Reddit không vào được khoảng ba mươi đến bốn mươi phút.",
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        },
+        {
+          "id": "b095",
+          "text": "Việc đổi giờ làm rối bộ hẹn giờ của Linux, máy chủ quá tải rồi treo.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c030"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s67",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b096",
+          "text": "Thêm một giây mà hãng bay phải làm tay, trang lớn phải sập, vì phần mềm tin phút nào cũng 60 giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c026",
+            "c029",
+            "c030"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s68",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b097",
+          "text": "Có một lỗi phần mềm sinh ra chỉ vì tin rằng thời gian không bao giờ chạy lùi.",
+          "spoken": null,
+          "cue": "hook",
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s69",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b098",
+          "text": "Lúc 0 giờ UTC ngày 1/1/2017, tức 7 giờ sáng ở Việt Nam, thế giới chèn thêm một giây nhuận.",
+          "spoken": "Lúc bảy giờ sáng ngày một tháng một năm hai nghìn không trăm mười bảy, giờ Việt Nam, thế giới chèn thêm một giây nhuận.",
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c031",
+            "c015"
+          ]
+        },
+        {
+          "id": "b099",
+          "text": "Giây nhuận là một giây chèn thêm cho đồng hồ khớp với vòng quay Trái Đất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s70",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b100",
+          "text": "Ở Cloudflare, một phần dịch vụ DNS bị lỗi. DNS là cuốn danh bạ giúp máy tìm địa chỉ trang web.",
+          "spoken": "Ở Cloudflare, một phần dịch vụ danh bạ tên miền bị lỗi. Đó là cuốn danh bạ giúp máy tìm địa chỉ trang web.",
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s71",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b101",
+          "text": "Phần mềm ấy viết bằng ngôn ngữ Go, và mã của nó mặc định rằng thời gian không thể chạy lùi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        },
+        {
+          "id": "b102",
+          "text": "Máy đo một khoảng thời gian bằng cách đọc giờ hai lần, rồi lấy lần sau trừ lần trước.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s72",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b103",
+          "text": "Nhưng bộ đếm giây không có chỗ cho giây thứ 60, và đêm ấy giờ trên máy đã lùi lại.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c014",
+            "c026",
+            "c031"
+          ]
+        },
+        {
+          "id": "b104",
+          "text": "Lần đọc sau nhỏ hơn lần đọc trước, nên phép đo ra một số âm.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s73",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b105",
+          "text": "Một hàm của Go nhận phải số âm thì dừng hẳn, không chạy tiếp được nữa.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s74",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b106",
+          "text": "Lúc cao điểm, khoảng 0,2% lượt hỏi DNS bị ảnh hưởng. Bản sửa chạy khắp thế giới lúc 6 giờ 45 UTC.",
+          "spoken": "Lúc cao điểm, khoảng không phẩy hai phần trăm lượt hỏi danh bạ bị ảnh hưởng. Bản sửa chạy khắp thế giới lúc sáu giờ bốn mươi lăm, giờ quốc tế.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c031"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s75",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b107",
+          "text": "Bài học được sửa tận gốc. Ngày 24/8/2017, Go 1.9 ra mắt, kèm một thứ gọi là giờ đơn điệu.",
+          "spoken": "Bài học được sửa tận gốc. Tháng tám năm hai nghìn không trăm mười bảy, Go bản một chấm chín ra mắt, kèm một thứ gọi là giờ đơn điệu.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        },
+        {
+          "id": "b108",
+          "text": "Giờ đơn điệu chỉ chạy tới, không bao giờ lùi, dùng để đo khoảng thời gian cho an toàn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s76",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b109",
+          "text": "Giờ đồng hồ có thể bị chỉnh lùi, còn thời gian trôi qua thì chỉ tăng. Nhầm hai thứ, phần mềm ngã.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s77",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b110",
+          "text": "Giây nhuận gây rối như thế, nên các hãng lớn tìm cách né.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        },
+        {
+          "id": "b111",
+          "text": "Từ năm 2008, Google không chèn giây nhuận đột ngột, mà rải nó ra: kéo mỗi giây dài thêm một chút.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        },
+        {
+          "id": "b112",
+          "text": "Cách làm chuẩn hiện nay rải trong 24 giờ, mỗi giây dài hơn giây chuẩn khoảng 11,6 micro giây.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s78",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b113",
+          "text": "Như kéo giãn một sợi dây thay vì thắt thêm một nút. Đồng hồ không phải hiện giây thứ 60.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c033",
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s79",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b114",
+          "text": "Nhưng né mãi không bằng bỏ hẳn. Năm 2022, Đại hội Cân đo Quốc tế quyết định nới mức lệch cho phép.",
+          "spoken": "Nhưng né mãi không bằng bỏ hẳn. Năm hai nghìn không trăm hai mươi hai, Đại hội Cân đo Quốc tế quyết định nới mức lệch cho phép.",
+          "cue": null,
+          "pause_ms": 250,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        },
+        {
+          "id": "b115",
+          "text": "Việc ấy làm trong hoặc trước năm 2035, tức thực tế là ngừng thêm giây nhuận.",
+          "spoken": "Việc ấy làm trong hoặc trước năm hai nghìn không trăm ba mươi lăm, tức thực tế là ngừng thêm giây nhuận.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s80",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b116",
+          "text": "Đúng lúc ấy, vòng quay của hành tinh lại đặt ra một bài toán ngược.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s81",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b117",
+          "text": "Theo nhà địa vật lý Duncan Agnew, trên tạp chí Nature 27/3/2024, có thể sắp cần một giây nhuận âm.",
+          "spoken": "Theo một nghiên cứu đăng trên tạp chí Nature cuối tháng ba năm hai nghìn không trăm hai mươi tư, có thể sắp cần một giây nhuận âm.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        },
+        {
+          "id": "b118",
+          "text": "Giây nhuận âm là bớt đi một giây khỏi đồng hồ, việc chưa từng xảy ra.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 450,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s82",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b119",
+          "text": "Mốc ấy có thể rơi vào cuối thập niên 2020. Băng tan ở hai cực đã đẩy nó lùi khoảng ba năm.",
+          "spoken": "Mốc ấy có thể rơi vào những năm cuối của thập niên này. Băng tan ở hai cực đã đẩy nó lùi khoảng ba năm.",
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c036"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s83",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b120",
+          "text": "Chính nghị quyết năm 2022 cũng lo: giây nhuận âm chưa bao giờ được tính trước hay thử nghiệm.",
+          "spoken": "Chính nghị quyết năm hai nghìn không trăm hai mươi hai cũng lo: giây nhuận âm chưa bao giờ được tính trước hay thử nghiệm.",
+          "cue": null,
+          "pause_ms": 1100,
+          "sfx": null,
+          "claims": [
+            "c035"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s84",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b121",
+          "text": "Tóm lại có bốn tầng: đá đếm nhịp, máy chủ giờ, bảng múi giờ, và một Trái Đất quay không đều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s85",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b122",
+          "text": "Nên khi trình duyệt báo đồng hồ bị chậm, hãy bật đặt giờ tự động trước khi nghĩ trang web hỏng.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c001",
+            "c009"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s86",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b123",
+          "text": "Hỏi thử ông bà, bố mẹ xem: có ai còn nhớ ngày 13/6/1975, Sài Gòn vặn đồng hồ chậm một giờ?",
+          "spoken": "Hỏi thử ông bà, bố mẹ xem: có ai còn nhớ ngày mười ba tháng sáu năm một nghìn chín trăm bảy mươi lăm, Sài Gòn vặn đồng hồ chậm một giờ?",
+          "cue": null,
+          "pause_ms": 700,
+          "sfx": null,
+          "claims": [
+            "c020"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s87",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b124",
+          "text": "Tập sau: vì sao một tấm ảnh gửi qua gửi lại nhiều lần thì cứ mờ dần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 1000,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    }
+  ]
+}

@@ -48,10 +48,13 @@
     {
       "id": "s01",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Vào trang báo quen, bị chặn ngay ở cửa",
+        "kicker": "Mở lại chiếc máy tính cũ"
+      },
       "holdMs": 0,
-      "sfx": null,
+      "sfx": "whoosh",
       "beats": [
         {
           "id": "b001",
@@ -61,7 +64,19 @@
           "pause_ms": 500,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s02",
+      "chapter": "mo-dau",
+      "type": "custom:chrome-cham",
+      "props": {
+        "mode": "canh-bao"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b002",
           "text": "Chrome hiện một dòng lạ: đồng hồ của bạn bị chậm. Your clock is behind.",
@@ -72,17 +87,7 @@
           "claims": [
             "c001"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s02",
-      "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b003",
           "text": "Trang web không hỏng, mạng cũng không rớt. Thứ duy nhất sai là ngày giờ trên chính máy của bạn.",
@@ -99,8 +104,11 @@
     {
       "id": "s03",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Vì sao giờ sai lại chặn cả trang web?",
+        "kicker": "Google: chỉnh lại ngày giờ cho đúng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -108,7 +116,7 @@
           "id": "b004",
           "text": "Theo Google, cách sửa là chỉnh lại ngày giờ cho đúng. Nhưng vì sao giờ sai lại chặn cả trang web?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 900,
           "sfx": null,
           "claims": [
@@ -121,7 +129,12 @@
       "id": "s04",
       "chapter": "mo-dau",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Chứng chỉ bảo mật",
+        "tag": "Trang có ổ khóa",
+        "definition": "Tấm giấy tờ điện tử mà trang web có ổ khóa mang theo",
+        "example": "Ổ khóa nằm trên thanh địa chỉ của trình duyệt"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -135,7 +148,19 @@
           "claims": [
             "c002"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s05",
+      "chapter": "mo-dau",
+      "type": "custom:chrome-cham",
+      "props": {
+        "mode": "ve"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b006",
           "text": "Chứng chỉ giống một tấm vé có hạn dùng: nó ghi ngày bắt đầu có hiệu lực và ngày hết hiệu lực.",
@@ -146,17 +171,7 @@
           "claims": [
             "c002"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s05",
-      "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b007",
           "text": "Trình duyệt chỉ tin chứng chỉ khi hôm nay nằm giữa hai mốc ấy. Mà hôm nay là ngày nào, nó hỏi máy.",
@@ -173,8 +188,13 @@
     {
       "id": "s06",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 90,
+        "suffix": " ngày",
+        "label": "Hạn dùng chứng chỉ mặc định của Let's Encrypt",
+        "note": "Let's Encrypt: một nơi chuyên cấp chứng chỉ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -194,8 +214,10 @@
     {
       "id": "s07",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:chrome-cham",
+      "props": {
+        "mode": "phep-tinh"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -220,24 +242,14 @@
           "claims": [
             "c004"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s08",
-      "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b011",
           "text": "Với nó, chứng chỉ kia chưa tới ngày có hiệu lực, nên bị từ chối, dù trang web hoàn toàn bình thường.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c004"
           ]
@@ -245,10 +257,46 @@
       ]
     },
     {
-      "id": "s09",
+      "id": "s08",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "bao",
+            "label": "Báo đồng hồ bị chậm"
+          },
+          {
+            "id": "bat",
+            "label": "Bật đặt giờ tự động"
+          },
+          {
+            "id": "sua",
+            "label": "Máy tự sửa giờ"
+          }
+        ],
+        "edges": [
+          {
+            "from": "bao",
+            "to": "bat"
+          },
+          {
+            "from": "bat",
+            "to": "sua"
+          }
+        ],
+        "packets": [
+          {
+            "from": "bao",
+            "to": "bat"
+          },
+          {
+            "from": "bat",
+            "to": "sua"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -267,10 +315,13 @@
       ]
     },
     {
-      "id": "s10",
+      "id": "s09",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Máy tính biết bây giờ là mấy giờ bằng cách nào?",
+        "kicker": "Nghe thì đơn giản"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -278,7 +329,7 @@
           "id": "b013",
           "text": "Nghe thì đơn giản. Nhưng máy tính biết bây giờ là mấy giờ bằng cách nào?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": []
@@ -286,10 +337,38 @@
       ]
     },
     {
-      "id": "s11",
+      "id": "s10",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "hoi",
+            "label": "Bây giờ là mấy giờ?"
+          },
+          {
+            "id": "ve",
+            "label": "Hệ thống bán vé máy bay"
+          },
+          {
+            "id": "web",
+            "label": "Trang web lớn"
+          }
+        ],
+        "edges": [
+          {
+            "from": "hoi",
+            "to": "ve",
+            "label": "tê liệt"
+          },
+          {
+            "from": "hoi",
+            "to": "web",
+            "label": "tê liệt"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -297,7 +376,7 @@
           "id": "b014",
           "text": "Và vì sao câu hỏi tưởng dễ nhất ấy từng làm tê liệt cả hệ thống bán vé máy bay lẫn trang web lớn?",
           "spoken": null,
-          "cue": "hook",
+          "cue": null,
           "pause_ms": 1100,
           "sfx": null,
           "claims": [
@@ -308,10 +387,13 @@
       ]
     },
     {
-      "id": "s12",
+      "id": "s11",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:thach-anh",
+      "props": {
+        "mode": "rung",
+        "chapterLabel": "Chương 1"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -323,22 +405,12 @@
           "pause_ms": 900,
           "sfx": null,
           "claims": []
-        }
-      ]
-    },
-    {
-      "id": "s13",
-      "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b016",
           "text": "Phần lớn đồng hồ đeo tay là đồng hồ thạch anh, chạy nhờ một mảnh tinh thể thạch anh rất nhỏ.",
           "spoken": null,
-          "cue": "hook",
+          "cue": null,
           "pause_ms": 450,
           "sfx": null,
           "claims": [
@@ -359,10 +431,15 @@
       ]
     },
     {
-      "id": "s14",
+      "id": "s12",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 32768,
+        "suffix": " nhịp",
+        "label": "Đếm đủ chừng ấy nhịp rung thì tính là một giây",
+        "note": "Đồng hồ không hiểu giây là gì, nó chỉ đếm"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -380,10 +457,12 @@
       ]
     },
     {
-      "id": "s15",
+      "id": "s13",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:thach-anh",
+      "props": {
+        "mode": "chia-doi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -412,10 +491,13 @@
       ]
     },
     {
-      "id": "s16",
+      "id": "s14",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Với mạch điện, chia đôi là phép dễ nhất",
+        "kicker": "Hệ nhị phân: đếm bằng hai trạng thái"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -423,7 +505,7 @@
           "id": "b021",
           "text": "Đó là hệ nhị phân, cách máy móc đếm bằng hai trạng thái. Với mạch điện, chia đôi là phép dễ nhất.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 700,
           "sfx": null,
           "claims": [
@@ -433,9 +515,9 @@
       ]
     },
     {
-      "id": "s17",
+      "id": "s15",
       "chapter": "chuong-1",
-      "type": "term-card",
+      "type": "custom:lech-dan",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -450,17 +532,7 @@
           "claims": [
             "c007"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s18",
-      "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b023",
           "text": "Viện đo lường NIST lấy ví dụ: đá rung lệch 0,1 Hz, tức chênh một phần mười nhịp mỗi giây.",
@@ -471,7 +543,22 @@
           "claims": [
             "c007"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s16",
+      "chapter": "chuong-1",
+      "type": "big-number",
+      "props": {
+        "value": 327680,
+        "suffix": " giây",
+        "label": "Đá lệch 0,1 Hz: sau chừng ấy giây, đồng hồ sai 1 giây",
+        "note": "Tính ra khoảng 0,26 giây mỗi ngày"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b024",
           "text": "Khi đó cứ sau 327.680 giây, đồng hồ sai một giây. Tính ra khoảng 0,26 giây mỗi ngày.",
@@ -486,10 +573,28 @@
       ]
     },
     {
-      "id": "s19",
+      "id": "s17",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "scale-ladder",
+      "props": {
+        "rungs": [
+          {
+            "label": "Mỗi ngày",
+            "value": "0,26 giây",
+            "power": -0.59
+          },
+          {
+            "label": "Sau 327.680 giây",
+            "value": "1 giây",
+            "power": 0
+          },
+          {
+            "label": "Để nguyên một năm",
+            "value": "hơn 1,5 phút",
+            "power": 1.98
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -507,10 +612,14 @@
       ]
     },
     {
-      "id": "s20",
+      "id": "s18",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Một giây",
+        "tag": "Đồng hồ nguyên tử",
+        "definition": "Từ năm 1967: bằng 9.192.631.770 chu kỳ bức xạ của nguyên tử xêsi-133"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -539,10 +648,59 @@
       ]
     },
     {
-      "id": "s21",
+      "id": "s19",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "da",
+            "label": "Đồng hồ đếm nhịp"
+          },
+          {
+            "id": "lech",
+            "label": "Lệch dần"
+          },
+          {
+            "id": "chuan",
+            "label": "So với đồng hồ chuẩn hơn"
+          },
+          {
+            "id": "dung",
+            "label": "Đúng trở lại"
+          }
+        ],
+        "edges": [
+          {
+            "from": "da",
+            "to": "lech"
+          },
+          {
+            "from": "lech",
+            "to": "chuan",
+            "label": "thỉnh thoảng"
+          },
+          {
+            "from": "chuan",
+            "to": "dung"
+          }
+        ],
+        "packets": [
+          {
+            "from": "da",
+            "to": "lech"
+          },
+          {
+            "from": "lech",
+            "to": "chuan"
+          },
+          {
+            "from": "chuan",
+            "to": "dung"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -560,9 +718,21 @@
       ]
     },
     {
-      "id": "s22",
+      "id": "c2",
       "chapter": "chuong-2",
-      "type": "term-card",
+      "type": "chapter-title",
+      "props": {
+        "title": "Hỏi giờ qua mạng, và cái mốc năm 1970",
+        "number": 2
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s20",
+      "chapter": "chuong-2",
+      "type": "custom:hoi-gio",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -590,10 +760,50 @@
       ]
     },
     {
-      "id": "s23",
+      "id": "s21",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "ntp",
+            "label": "Máy chủ giờ"
+          },
+          {
+            "id": "dd",
+            "label": "Mạng di động"
+          },
+          {
+            "id": "dt",
+            "label": "Điện thoại Android"
+          }
+        ],
+        "edges": [
+          {
+            "from": "ntp",
+            "to": "dt",
+            "label": "nguồn 1"
+          },
+          {
+            "from": "dd",
+            "to": "dt",
+            "label": "nguồn 2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "ntp",
+            "to": "dt",
+            "label": "giờ"
+          },
+          {
+            "from": "dd",
+            "to": "dt",
+            "label": "giờ"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -611,10 +821,14 @@
       ]
     },
     {
-      "id": "s24",
+      "id": "s22",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "NTP",
+        "tag": "Giao thức giờ mạng",
+        "definition": "Bộ luật chung để máy hỏi giờ qua mạng, mô tả lần đầu tháng 9/1985"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -632,10 +846,33 @@
       ]
     },
     {
-      "id": "s25",
+      "id": "s23",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "scale-ladder",
+      "props": {
+        "rungs": [
+          {
+            "label": "Một micro giây",
+            "value": "1 µs",
+            "power": -6
+          },
+          {
+            "label": "Máy chủ giờ gốc",
+            "value": "vài chục µs",
+            "power": -4.7
+          },
+          {
+            "label": "Mạng nội bộ nhanh",
+            "value": "vài trăm µs",
+            "power": -3.7
+          },
+          {
+            "label": "Một giây",
+            "value": "1 giây",
+            "power": 0
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -664,10 +901,13 @@
       ]
     },
     {
-      "id": "s26",
+      "id": "s24",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Máy cất giờ ở đâu, dưới dạng gì?",
+        "kicker": "Câu trả lời: một con số"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -675,7 +915,7 @@
           "id": "b035",
           "text": "Giờ đã về tới máy. Nhưng máy cất nó ở đâu, dưới dạng gì? Câu trả lời: một con số.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 700,
           "sfx": null,
           "claims": []
@@ -683,9 +923,9 @@
       ]
     },
     {
-      "id": "s27",
+      "id": "s25",
       "chapter": "chuong-2",
-      "type": "term-card",
+      "type": "custom:bo-dem",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -713,10 +953,15 @@
       ]
     },
     {
-      "id": "s28",
+      "id": "s26",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "UTC",
+        "tag": "Giờ quốc tế",
+        "definition": "Giờ gốc chung của cả thế giới",
+        "example": "Giờ Việt Nam đi trước UTC 7 tiếng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -730,7 +975,21 @@
           "claims": [
             "c015"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s27",
+      "chapter": "chuong-2",
+      "type": "big-number",
+      "props": {
+        "value": 1795132800,
+        "label": "7 giờ sáng 20/11/2026 ở Việt Nam, theo bộ đếm giây",
+        "note": "Bộ đếm này có ngày bị tràn: chuyện ở tập về số nguyên có trần"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b039",
           "text": "Làm phép tính: 7 giờ sáng ngày 20/11/2026 ở Việt Nam ứng với con số 1.795.132.800.",
@@ -754,10 +1013,14 @@
       ]
     },
     {
-      "id": "s29",
+      "id": "s28",
       "chapter": "chuong-2",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Lỗi trên iOS",
+        "tag": "Apple, 2/2016",
+        "definition": "Chỉnh tay ngày về tháng 5/1970 hoặc sớm hơn có thể làm máy không bật được sau khi khởi động lại"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -786,10 +1049,13 @@
       ]
     },
     {
-      "id": "s30",
+      "id": "s29",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Đừng thử chuyện này trên máy mình",
+        "kicker": "Apple hứa sửa bằng bản cập nhật"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -797,7 +1063,7 @@
           "id": "b043",
           "text": "Apple hứa sửa bằng bản cập nhật phần mềm. Còn bạn thì đừng thử chuyện này trên máy mình.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 1100,
           "sfx": null,
           "claims": [
@@ -807,10 +1073,37 @@
       ]
     },
     {
-      "id": "s31",
+      "id": "c3",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Cùng một con số, mỗi nơi một giờ",
+        "number": 3
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s30",
+      "chapter": "chuong-3",
+      "type": "compare",
+      "props": {
+        "titleA": "Con số giây",
+        "titleB": "Đồng hồ treo tường",
+        "rows": [
+          {
+            "label": "Chung cho cả thế giới",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Mỗi nơi chỉ một giờ khác",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -828,10 +1121,47 @@
       ]
     },
     {
-      "id": "s32",
+      "id": "s31",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "so",
+            "label": "Con số giây"
+          },
+          {
+            "id": "luat",
+            "label": "Bảng luật múi giờ"
+          },
+          {
+            "id": "gio",
+            "label": "Giờ địa phương"
+          }
+        ],
+        "edges": [
+          {
+            "from": "so",
+            "to": "luat",
+            "label": "tra"
+          },
+          {
+            "from": "luat",
+            "to": "gio"
+          }
+        ],
+        "packets": [
+          {
+            "from": "so",
+            "to": "luat"
+          },
+          {
+            "from": "luat",
+            "to": "gio"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -850,10 +1180,12 @@
       ]
     },
     {
-      "id": "s33",
+      "id": "s32",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:gio-sai-gon",
+      "props": {
+        "mode": "tong"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -883,10 +1215,15 @@
       ]
     },
     {
-      "id": "s34",
+      "id": "s33",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Múi giờ",
+        "tag": "Thuật ngữ",
+        "definition": "Khoảng một nơi đi trước hay đi sau giờ quốc tế, giờ gốc chung của cả thế giới",
+        "example": "Việt Nam hôm nay: UTC+7"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -902,10 +1239,12 @@
       ]
     },
     {
-      "id": "s35",
+      "id": "s34",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:gio-sai-gon",
+      "props": {
+        "mode": "phu-lien"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -934,10 +1273,15 @@
       ]
     },
     {
-      "id": "s36",
+      "id": "s35",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "UTC+7",
+        "tag": "Từ 1/5/1911",
+        "definition": "Giờ Phù Liễn được làm tròn thành đúng 7 tiếng",
+        "example": "Giờ ta vẫn dùng hôm nay"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -955,10 +1299,24 @@
       ]
     },
     {
-      "id": "s37",
+      "id": "s36",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Mức giờ ở Đông Dương: UTC + …",
+        "unit": "",
+        "data": [
+          {
+            "label": "Cuối 1942",
+            "value": 8
+          },
+          {
+            "label": "14/3/1945",
+            "value": 9
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -987,10 +1345,16 @@
       ]
     },
     {
-      "id": "s38",
+      "id": "s37",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 7,
+        "from": 9,
+        "prefix": "UTC+",
+        "label": "Từ 24 giờ ngày 1/9/1945, Việt Nam lùi về",
+        "note": "Theo Việt Nam Dân Quốc Công Báo số 1"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1008,10 +1372,26 @@
       ]
     },
     {
-      "id": "s39",
+      "id": "s38",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "9/1945",
+            "title": "Việt Nam về UTC+7",
+            "detail": "theo Công Báo số 1"
+          },
+          {
+            "year": "1/4/1947",
+            "title": "Vùng Pháp kiểm soát: UTC+8"
+          },
+          {
+            "year": "1/7/1955",
+            "title": "Miền Nam lùi về UTC+7"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1029,10 +1409,12 @@
       ]
     },
     {
-      "id": "s40",
+      "id": "s39",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:gio-sai-gon",
+      "props": {
+        "mode": "hai-mien"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1062,10 +1444,30 @@
       ]
     },
     {
-      "id": "s41",
+      "id": "s40",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Trước 13/6/1975",
+        "titleB": "Từ 13/6/1975",
+        "rows": [
+          {
+            "label": "Hai miền lệch nhau 1 tiếng",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Cả nước chung UTC+7",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Sài Gòn vặn chậm lại 1 giờ",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1083,10 +1485,13 @@
       ]
     },
     {
-      "id": "s42",
+      "id": "s41",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Giờ Sài Gòn: một chuỗi 8 lần đổi",
+        "kicker": "Không phải một con số cố định"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1094,7 +1499,7 @@
           "id": "b059",
           "text": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi 8 lần đổi.",
           "spoken": "Nên với máy tính, giờ ở Sài Gòn không phải một con số cố định, mà là một chuỗi tám lần đổi.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 1100,
           "sfx": null,
           "claims": [
@@ -1104,10 +1509,12 @@
       ]
     },
     {
-      "id": "s43",
+      "id": "s42",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:samoa",
+      "props": {
+        "mode": "lich"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1136,10 +1543,14 @@
       ]
     },
     {
-      "id": "s44",
+      "id": "s43",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Thứ Sáu 30/12/2011",
+        "tag": "Samoa",
+        "definition": "Không hề tồn tại ở Samoa. Ai sinh ngày ấy thì năm đó không có ngày để mừng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1157,10 +1568,12 @@
       ]
     },
     {
-      "id": "s45",
+      "id": "s44",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:samoa",
+      "props": {
+        "mode": "doi-ngay"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1189,10 +1602,25 @@
       ]
     },
     {
-      "id": "s46",
+      "id": "s45",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Cộng một số cố định",
+        "titleB": "Tra luật đổi giờ",
+        "rows": [
+          {
+            "label": "Biết luật mới của Samoa",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Tính đúng ngày ở Samoa",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1219,9 +1647,9 @@
       ]
     },
     {
-      "id": "s47",
+      "id": "s46",
       "chapter": "chuong-3",
-      "type": "term-card",
+      "type": "custom:so-mui-gio",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -1251,10 +1679,58 @@
       ]
     },
     {
-      "id": "s48",
+      "id": "s47",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "noi",
+            "label": "Một nơi đổi giờ"
+          },
+          {
+            "id": "so",
+            "label": "Sổ thêm một dòng"
+          },
+          {
+            "id": "os",
+            "label": "Cập nhật hệ điều hành"
+          },
+          {
+            "id": "dt",
+            "label": "Điện thoại của bạn"
+          }
+        ],
+        "edges": [
+          {
+            "from": "noi",
+            "to": "so"
+          },
+          {
+            "from": "so",
+            "to": "os"
+          },
+          {
+            "from": "os",
+            "to": "dt"
+          }
+        ],
+        "packets": [
+          {
+            "from": "noi",
+            "to": "so"
+          },
+          {
+            "from": "so",
+            "to": "os"
+          },
+          {
+            "from": "os",
+            "to": "dt"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1272,10 +1748,14 @@
       ]
     },
     {
-      "id": "s49",
+      "id": "s48",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Bản 2026f",
+        "tag": "Bản mới nhất",
+        "definition": "Ra ngày 27/10/2026. Cuốn sổ vẫn đang được viết tiếp"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1293,10 +1773,25 @@
       ]
     },
     {
-      "id": "s50",
+      "id": "c4",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Cuốn sổ múi giờ suýt bị kiện mất",
+        "number": 4
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s49",
+      "chapter": "chuong-4",
+      "type": "cold-open",
+      "props": {
+        "hook": "Cuốn sổ hẳn phải do một cơ quan lớn giữ?",
+        "kicker": "Không hẳn"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1304,7 +1799,7 @@
           "id": "b071",
           "text": "Cuốn sổ mà điện thoại khắp nơi dựa vào hẳn phải do một cơ quan lớn giữ? Không hẳn.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 700,
           "sfx": null,
           "claims": [
@@ -1314,10 +1809,14 @@
       ]
     },
     {
-      "id": "s51",
+      "id": "s50",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Nhóm tình nguyện viên",
+        "tag": "Gần ba thập kỷ",
+        "definition": "Người điều phối: Arthur David Olson, làm ở Viện Y tế Quốc gia Mỹ, không phải ở một hãng phần mềm"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1346,10 +1845,14 @@
       ]
     },
     {
-      "id": "s52",
+      "id": "s51",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Astrolabe kiện",
+        "tag": "30/9/2011",
+        "definition": "Cáo buộc vi phạm bản quyền. Người bị kiện: Olson và Paul Eggert"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1380,10 +1883,48 @@
       ]
     },
     {
-      "id": "s53",
+      "id": "s52",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "ietf",
+            "label": "IETF"
+          },
+          {
+            "id": "icann",
+            "label": "ICANN"
+          },
+          {
+            "id": "so",
+            "label": "Cuốn sổ múi giờ"
+          }
+        ],
+        "edges": [
+          {
+            "from": "ietf",
+            "to": "icann",
+            "label": "đề nghị"
+          },
+          {
+            "from": "icann",
+            "to": "so",
+            "label": "vận hành"
+          }
+        ],
+        "packets": [
+          {
+            "from": "ietf",
+            "to": "icann"
+          },
+          {
+            "from": "icann",
+            "to": "so"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1401,10 +1942,13 @@
       ]
     },
     {
-      "id": "s54",
+      "id": "s53",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Sự thật không có bản quyền",
+        "kicker": "2/2012: vụ kiện bị rút"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1412,7 +1956,7 @@
           "id": "b077",
           "text": "Tháng 2/2012, vụ kiện bị rút. Astrolabe xin lỗi và cam kết không kiện lại.",
           "spoken": "Tháng hai năm hai nghìn không trăm mười hai, vụ kiện bị rút. Công ty kia xin lỗi và cam kết không kiện lại.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -1433,10 +1977,14 @@
       ]
     },
     {
-      "id": "s55",
+      "id": "s54",
       "chapter": "chuong-4",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "RFC 6557",
+        "tag": "2/2012",
+        "definition": "Người điều phối không tự quyết giờ cho một vùng, chỉ ghi lại giờ người dân nơi đó coi là đúng"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1450,17 +1998,7 @@
           "claims": [
             "c025"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s56",
-      "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b080",
           "text": "Người điều phối không được tự quyết giờ cho một vùng, chỉ ghi lại giờ người dân nơi đó coi là đúng.",
@@ -1475,10 +2013,26 @@
       ]
     },
     {
-      "id": "s57",
+      "id": "s55",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Điện thoại hiện đúng giờ",
+            "detail": "của một nơi xa"
+          },
+          {
+            "name": "Cuốn sổ múi giờ",
+            "detail": "bảng luật đổi giờ"
+          },
+          {
+            "name": "Những người ghi sổ",
+            "detail": "công phía sau"
+          }
+        ],
+        "highlight": 2
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1496,10 +2050,25 @@
       ]
     },
     {
-      "id": "s58",
+      "id": "c5",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Khi một phút có 61 giây",
+        "number": 5
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-5",
+      "type": "cold-open",
+      "props": {
+        "hook": "Thứ khó đoán hơn: chính Trái Đất",
+        "kicker": "Múi giờ do con người đặt ra"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1507,7 +2076,7 @@
           "id": "b082",
           "text": "Múi giờ là chuyện con người tự đặt ra. Nhưng có một thứ khó đoán hơn nhiều: chính Trái Đất.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 1000,
           "sfx": null,
           "claims": [
@@ -1517,10 +2086,12 @@
       ]
     },
     {
-      "id": "s59",
+      "id": "s57",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:giay-nhuan",
+      "props": {
+        "mode": "dong-ho"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1549,10 +2120,25 @@
       ]
     },
     {
-      "id": "s60",
+      "id": "s58",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Đồng hồ nguyên tử",
+        "titleB": "Trái Đất quay",
+        "rows": [
+          {
+            "label": "Chạy đều tăm tắp",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Không đều",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1566,7 +2152,23 @@
           "claims": [
             "c026"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s59",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 0.9,
+        "decimals": 1,
+        "suffix": " giây",
+        "label": "Giây nhuận giữ UTC lệch không quá mức này",
+        "note": "so với giờ theo vòng quay Trái Đất"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b086",
           "text": "Giây nhuận giữ giờ quốc tế UTC lệch không quá 0,9 giây so với giờ theo vòng quay Trái Đất.",
@@ -1581,10 +2183,14 @@
       ]
     },
     {
-      "id": "s61",
+      "id": "s60",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "23:59:60",
+        "tag": "Chỉ chèn vào",
+        "definition": "Giây cuối cùng của ngày cuối tháng 6 hoặc cuối tháng 12"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1602,10 +2208,15 @@
       ]
     },
     {
-      "id": "s62",
+      "id": "s61",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 27,
+        "suffix": " giây nhuận",
+        "label": "Từ năm 1972 tới nay",
+        "note": "Lần gần nhất: cuối ngày 31/12/2016"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1623,10 +2234,25 @@
       ]
     },
     {
-      "id": "s63",
+      "id": "s62",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Đồng hồ thế giới",
+        "titleB": "Bộ đếm POSIX",
+        "rows": [
+          {
+            "label": "Mỗi ngày luôn đúng 86.400 giây",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Có chỗ cho giây thứ 60",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1656,10 +2282,47 @@
       ]
     },
     {
-      "id": "s64",
+      "id": "s63",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "gn",
+            "label": "Giây nhuận 30/6/2012"
+          },
+          {
+            "id": "altea",
+            "label": "Altea sập khoảng 1 giờ"
+          },
+          {
+            "id": "tay",
+            "label": "Làm thủ tục bằng tay"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gn",
+            "to": "altea"
+          },
+          {
+            "from": "altea",
+            "to": "tay",
+            "label": "hai hãng bay"
+          }
+        ],
+        "packets": [
+          {
+            "from": "gn",
+            "to": "altea"
+          },
+          {
+            "from": "altea",
+            "to": "tay"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1688,10 +2351,14 @@
       ]
     },
     {
-      "id": "s65",
+      "id": "s64",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Amadeus",
+        "tag": "Hãng làm Altea",
+        "definition": "Đổ cho một lỗi trong lõi Linux bị giây nhuận kích hoạt"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1709,10 +2376,58 @@
       ]
     },
     {
-      "id": "s66",
+      "id": "s65",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "gn",
+            "label": "Giây nhuận 2012"
+          },
+          {
+            "id": "hen",
+            "label": "Bộ hẹn giờ Linux rối"
+          },
+          {
+            "id": "tai",
+            "label": "Máy chủ quá tải, treo"
+          },
+          {
+            "id": "rd",
+            "label": "Reddit: 30–40 phút"
+          }
+        ],
+        "edges": [
+          {
+            "from": "gn",
+            "to": "hen"
+          },
+          {
+            "from": "hen",
+            "to": "tai"
+          },
+          {
+            "from": "tai",
+            "to": "rd"
+          }
+        ],
+        "packets": [
+          {
+            "from": "gn",
+            "to": "hen"
+          },
+          {
+            "from": "hen",
+            "to": "tai"
+          },
+          {
+            "from": "tai",
+            "to": "rd"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1741,10 +2456,13 @@
       ]
     },
     {
-      "id": "s67",
+      "id": "s66",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Phần mềm tin phút nào cũng 60 giây",
+        "kicker": "Hãng bay làm tay, trang lớn phải sập"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1752,7 +2470,7 @@
           "id": "b096",
           "text": "Thêm một giây mà hãng bay phải làm tay, trang lớn phải sập, vì phần mềm tin phút nào cũng 60 giây.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 1100,
           "sfx": null,
           "claims": [
@@ -1764,10 +2482,13 @@
       ]
     },
     {
-      "id": "s68",
+      "id": "s67",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Thời gian không bao giờ chạy lùi?",
+        "kicker": "Một lỗi phần mềm sinh ra từ niềm tin ấy"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1785,10 +2506,14 @@
       ]
     },
     {
-      "id": "s69",
+      "id": "s68",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "1/1/2017",
+        "tag": "7 giờ sáng VN",
+        "definition": "Thế giới chèn thêm một giây nhuận, cho đồng hồ khớp với vòng quay Trái Đất"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1818,10 +2543,48 @@
       ]
     },
     {
-      "id": "s70",
+      "id": "s69",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "may",
+            "label": "Máy của bạn"
+          },
+          {
+            "id": "dns",
+            "label": "DNS: cuốn danh bạ"
+          },
+          {
+            "id": "web",
+            "label": "Địa chỉ trang web"
+          }
+        ],
+        "edges": [
+          {
+            "from": "may",
+            "to": "dns",
+            "label": "hỏi tên"
+          },
+          {
+            "from": "dns",
+            "to": "web",
+            "label": "tìm ra"
+          }
+        ],
+        "packets": [
+          {
+            "from": "may",
+            "to": "dns"
+          },
+          {
+            "from": "dns",
+            "to": "web"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1839,10 +2602,31 @@
       ]
     },
     {
-      "id": "s71",
+      "id": "s70",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "terminal",
+      "props": {
+        "title": "Phần mềm viết bằng Go",
+        "prompt": ">",
+        "lines": [
+          {
+            "kind": "out",
+            "text": "Giả định: thời gian không thể chạy lùi"
+          },
+          {
+            "kind": "cmd",
+            "text": "lần 1 = đọc giờ"
+          },
+          {
+            "kind": "cmd",
+            "text": "lần 2 = đọc giờ"
+          },
+          {
+            "kind": "cmd",
+            "text": "khoảng = lần 2 − lần 1"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1869,9 +2653,9 @@
       ]
     },
     {
-      "id": "s72",
+      "id": "s71",
       "chapter": "chuong-5",
-      "type": "term-card",
+      "type": "custom:do-am",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -1895,7 +2679,7 @@
           "spoken": null,
           "cue": null,
           "pause_ms": 450,
-          "sfx": null,
+          "sfx": "buzz",
           "claims": [
             "c031",
             "c038"
@@ -1904,10 +2688,47 @@
       ]
     },
     {
-      "id": "s73",
+      "id": "s72",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "am",
+            "label": "Khoảng đo: số âm"
+          },
+          {
+            "id": "ham",
+            "label": "Một hàm của Go"
+          },
+          {
+            "id": "dung",
+            "label": "Dừng hẳn"
+          }
+        ],
+        "edges": [
+          {
+            "from": "am",
+            "to": "ham",
+            "label": "đưa vào"
+          },
+          {
+            "from": "ham",
+            "to": "dung"
+          }
+        ],
+        "packets": [
+          {
+            "from": "am",
+            "to": "ham"
+          },
+          {
+            "from": "ham",
+            "to": "dung"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1925,10 +2746,16 @@
       ]
     },
     {
-      "id": "s74",
+      "id": "s73",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 0.2,
+        "decimals": 1,
+        "suffix": " %",
+        "label": "Lượt hỏi DNS bị ảnh hưởng lúc cao điểm",
+        "note": "Đến 6 giờ 45 UTC, sự cố mới chấm dứt"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1946,10 +2773,14 @@
       ]
     },
     {
-      "id": "s75",
+      "id": "s74",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Giờ đơn điệu",
+        "tag": "Go 1.9, 24/8/2017",
+        "definition": "Chỉ chạy tới, không bao giờ lùi, dùng để đo khoảng thời gian cho an toàn"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1978,10 +2809,25 @@
       ]
     },
     {
-      "id": "s76",
+      "id": "s75",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Giờ đồng hồ",
+        "titleB": "Thời gian trôi qua",
+        "rows": [
+          {
+            "label": "Có thể bị chỉnh lùi",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Chỉ tăng",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1999,10 +2845,25 @@
       ]
     },
     {
-      "id": "s77",
+      "id": "c6",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Rải giây, bỏ giây, và giây nhuận âm",
+        "number": 6
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s76",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "Các hãng lớn tìm cách né giây nhuận",
+        "kicker": "Giây nhuận gây rối như thế"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2010,13 +2871,23 @@
           "id": "b110",
           "text": "Giây nhuận gây rối như thế, nên các hãng lớn tìm cách né.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c033"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s77",
+      "chapter": "chuong-6",
+      "type": "custom:rai-giay",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b111",
           "text": "Từ năm 2008, Google không chèn giây nhuận đột ngột, mà rải nó ra: kéo mỗi giây dài thêm một chút.",
@@ -2044,8 +2915,28 @@
     {
       "id": "s78",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Chèn đột ngột",
+        "titleB": "Rải giây",
+        "rows": [
+          {
+            "label": "Như thắt thêm một nút",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Như kéo giãn sợi dây",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Đồng hồ hiện giây thứ 60",
+            "a": true,
+            "b": false
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2066,8 +2957,26 @@
     {
       "id": "s79",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "history-timeline",
+      "props": {
+        "events": [
+          {
+            "year": "2022",
+            "title": "Đại hội Cân đo Quốc tế",
+            "detail": "quyết định nới mức lệch cho phép"
+          },
+          {
+            "year": "≤ 2035",
+            "title": "Mức nới được áp dụng",
+            "detail": "trong hoặc trước năm 2035"
+          },
+          {
+            "year": "Sau đó",
+            "title": "Giây nhuận thưa hẳn",
+            "detail": "không còn phải chèn thường xuyên"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2098,8 +3007,11 @@
     {
       "id": "s80",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Một bài toán ngược",
+        "kicker": "Vòng quay của hành tinh"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2107,7 +3019,7 @@
           "id": "b116",
           "text": "Đúng lúc ấy, vòng quay của hành tinh lại đặt ra một bài toán ngược.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -2120,7 +3032,11 @@
       "id": "s81",
       "chapter": "chuong-6",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Giây nhuận âm",
+        "tag": "Nature, 27/3/2024",
+        "definition": "Bớt đi một giây khỏi đồng hồ, việc chưa từng xảy ra"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2151,8 +3067,13 @@
     {
       "id": "s82",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 3,
+        "suffix": " năm",
+        "label": "Băng tan ở hai cực đã đẩy mốc ấy lùi khoảng",
+        "note": "Mốc có thể rơi vào cuối thập niên 2020"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2172,8 +3093,11 @@
     {
       "id": "s83",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Chưa bao giờ được tính trước hay thử nghiệm",
+        "kicker": "Nghị quyết 2022 lo về giây nhuận âm"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2181,7 +3105,7 @@
           "id": "b120",
           "text": "Chính nghị quyết năm 2022 cũng lo: giây nhuận âm chưa bao giờ được tính trước hay thử nghiệm.",
           "spoken": "Chính nghị quyết năm hai nghìn không trăm hai mươi hai cũng lo: giây nhuận âm chưa bao giờ được tính trước hay thử nghiệm.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 1100,
           "sfx": null,
           "claims": [
@@ -2191,10 +3115,41 @@
       ]
     },
     {
+      "id": "c7",
+      "chapter": "ket",
+      "type": "chapter-title",
+      "props": {
+        "title": "Kết"
+      },
+      "holdMs": 2500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
       "id": "s84",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Đá đếm nhịp",
+            "detail": "thạch anh rung 32.768 lần"
+          },
+          {
+            "name": "Máy chủ giờ",
+            "detail": "so giờ qua mạng"
+          },
+          {
+            "name": "Bảng múi giờ",
+            "detail": "cuốn sổ chứa cả lịch sử"
+          },
+          {
+            "name": "Trái Đất",
+            "detail": "quay không đều"
+          }
+        ],
+        "highlight": 3
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2214,8 +3169,41 @@
     {
       "id": "s85",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "bao",
+            "label": "Đồng hồ bị chậm"
+          },
+          {
+            "id": "bat",
+            "label": "Bật đặt giờ tự động"
+          },
+          {
+            "id": "web",
+            "label": "Rồi mới nghĩ tới web"
+          }
+        ],
+        "edges": [
+          {
+            "from": "bao",
+            "to": "bat",
+            "label": "trước hết"
+          },
+          {
+            "from": "bat",
+            "to": "web"
+          }
+        ],
+        "packets": [
+          {
+            "from": "bao",
+            "to": "bat"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2236,8 +3224,11 @@
     {
       "id": "s86",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Ai còn nhớ ngày 13/6/1975?",
+        "kicker": "Hỏi thử ông bà, bố mẹ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2245,7 +3236,7 @@
           "id": "b123",
           "text": "Hỏi thử ông bà, bố mẹ xem: có ai còn nhớ ngày 13/6/1975, Sài Gòn vặn đồng hồ chậm một giờ?",
           "spoken": "Hỏi thử ông bà, bố mẹ xem: có ai còn nhớ ngày mười ba tháng sáu năm một nghìn chín trăm bảy mươi lăm, Sài Gòn vặn đồng hồ chậm một giờ?",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 700,
           "sfx": null,
           "claims": [
@@ -2257,8 +3248,16 @@
     {
       "id": "s87",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Đá thạch anh đếm nhịp, và đếm thì lệch dần",
+          "Máy hỏi giờ qua mạng, cất giờ thành con số giây",
+          "Bảng múi giờ mang cả lịch sử",
+          "Trái Đất quay không đều: giây nhuận"
+        ],
+        "next": "Tập sau: vì sao ảnh gửi qua gửi lại thì cứ mờ dần"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [

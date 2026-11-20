@@ -35,6 +35,17 @@ import { DoLech } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/do-lech";
 import { HaiLanDo } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/hai-lan-do";
 import { PhanSoLap } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/phan-so-lap";
 import { ThuocVach } from "./vi-sao-0-1-cong-0-2-khong-bang-0-3/thuoc-vach";
+import { BoDem } from "./vi-sao-may-tinh-lai-sai-gio/bo-dem";
+import { ChromeCham } from "./vi-sao-may-tinh-lai-sai-gio/chrome-cham";
+import { DoAm } from "./vi-sao-may-tinh-lai-sai-gio/do-am";
+import { GiayNhuan } from "./vi-sao-may-tinh-lai-sai-gio/giay-nhuan";
+import { GioSaiGon } from "./vi-sao-may-tinh-lai-sai-gio/gio-sai-gon";
+import { HoiGio } from "./vi-sao-may-tinh-lai-sai-gio/hoi-gio";
+import { LechDan } from "./vi-sao-may-tinh-lai-sai-gio/lech-dan";
+import { RaiGiay } from "./vi-sao-may-tinh-lai-sai-gio/rai-giay";
+import { Samoa } from "./vi-sao-may-tinh-lai-sai-gio/samoa";
+import { SoMuiGio } from "./vi-sao-may-tinh-lai-sai-gio/so-mui-gio";
+import { ThachAnh } from "./vi-sao-may-tinh-lai-sai-gio/thach-anh";
 import { BiteByte } from "./vi-sao-may-tinh-dung-nhi-phan/bite-byte";
 import { BoDemVong } from "./vi-sao-may-tinh-dung-nhi-phan/bo-dem-vong";
 import { BonMuoiBit } from "./vi-sao-may-tinh-dung-nhi-phan/bon-muoi-bit";
@@ -98,6 +109,18 @@ export const CUSTOM_SCENES: Record<string, React.FC<SceneProps>> = {
   "chu-ej": ChuEj,
   "notepad": Notepad,
   "sms-bit": SmsBit,
+  // vi-sao-may-tinh-lai-sai-gio
+  "chrome-cham": ChromeCham,
+  "thach-anh": ThachAnh,
+  "lech-dan": LechDan,
+  "hoi-gio": HoiGio,
+  "bo-dem": BoDem,
+  "gio-sai-gon": GioSaiGon,
+  "samoa": Samoa,
+  "so-mui-gio": SoMuiGio,
+  "giay-nhuan": GiayNhuan,
+  "do-am": DoAm,
+  "rai-giay": RaiGiay,
 };
 
 /** Cảnh riêng đã tự vẽ vừa hộp vuông của Short (đọc `useBox()`); cảnh khác không được nằm trong Short (D33). */
@@ -111,4 +134,6 @@ export const CUSTOM_SQUARE: ReadonlySet<string> = new Set<string>([
   "sao-hoa", "xung-luc", "hai-doi", "banh-da", "hai-thuoc", "doppler", "lia-thia", "do-cao",
   // vi-sao-chu-viet-bi-loi-font
   "chu-ma", "ngan-keo", "bit-byte", "hai-tu-dien", "phong-cu", "utf8-bit", "chu-ej", "notepad", "sms-bit",
+  // vi-sao-may-tinh-lai-sai-gio
+  "chrome-cham", "thach-anh", "lech-dan", "hoi-gio", "bo-dem", "gio-sai-gon", "samoa", "so-mui-gio", "giay-nhuan", "do-am", "rai-giay",
 ]);

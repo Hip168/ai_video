@@ -18,7 +18,7 @@ export const GiayNhuan: React.FC<SceneProps> = ({ scene }) => {
   const t1 = at(scene, 1);
   const a1 = p(f, t1, 12);
   const blink = 0.75 + 0.25 * Math.cos(f * 0.25);
-  const P = sq ? { x: 30, y: 40, w: 780, h: 250, s: 150, ty: 215 } : { x: 360, y: 50, w: 1200, h: 330, s: 220, ty: 300 };
+  const P = sq ? { x: 30, y: 40, w: 780, h: 250, s: 150, ty: 215 } : { x: 300, y: 50, w: 1160, h: 330, s: 210, ty: 296 };
   const cx = P.x + P.w / 2;
   const cells = Array.from({ length: 61 }, (_, i) => i);
   const geom = (i: number) => {
@@ -39,7 +39,7 @@ export const GiayNhuan: React.FC<SceneProps> = ({ scene }) => {
             60
           </tspan>
         </text>
-        {!sq && <Txt text="trông như lỗi?" x={P.x + P.w + 30} y={P.y + 120} w={340} s={44} fill={t.warn} anchor="start" />}
+        {!sq && <Txt text="trông như lỗi?" x={P.x + P.w + 30} y={P.y + 120} w={260} s={44} fill={t.warn} anchor="start" lines={2} />}
         {!sq && <Txt text="đồng hồ chuẩn của thế giới" x={cx} y={P.y + P.h + 60} w={1200} s={40} fill={t.muted} weight={400} />}
       </g>
       <g>

@@ -205,7 +205,8 @@ const HaiMien: React.FC<SceneProps> = ({ scene }) => {
       ))}
       {!sq && (
         <g opacity={p(f, 36, 14) * (1 - a1)}>
-          <Txt text="vặn nhanh 1 giờ" x={G.sx} y={G.cy + G.r + 56} w={500} s={40} fill={t.accent2} />
+          <Txt text="vặn nhanh 1 giờ" x={(G.nx + G.sx) / 2} y={G.cy - 20} w={440} s={40} fill={t.accent2} />
+          <Arrow x1={(G.nx + G.sx) / 2 + 120} y1={G.cy + 20} x2={G.sx - G.r - 24} y2={G.cy + 20} color={t.accent2} w={5} head={18} />
         </g>
       )}
       <g opacity={a1}>

@@ -193,7 +193,8 @@
         "value": 90,
         "suffix": " ngày",
         "label": "Hạn dùng chứng chỉ mặc định của Let's Encrypt",
-        "note": "Let's Encrypt: một nơi chuyên cấp chứng chỉ"
+        "note": "Let's Encrypt: một nơi chuyên cấp chứng chỉ",
+        "from": 90
       },
       "holdMs": 0,
       "sfx": null,
@@ -391,8 +392,7 @@
       "chapter": "chuong-1",
       "type": "custom:thach-anh",
       "props": {
-        "mode": "rung",
-        "chapterLabel": "Chương 1"
+        "mode": "rung"
       },
       "holdMs": 0,
       "sfx": null,
@@ -438,7 +438,8 @@
         "value": 32768,
         "suffix": " nhịp",
         "label": "Đếm đủ chừng ấy nhịp rung thì tính là một giây",
-        "note": "Đồng hồ không hiểu giây là gì, nó chỉ đếm"
+        "note": "Đồng hồ không hiểu giây là gì, nó chỉ đếm",
+        "from": 32768
       },
       "holdMs": 0,
       "sfx": null,
@@ -554,7 +555,8 @@
         "value": 327680,
         "suffix": " giây",
         "label": "Đá lệch 0,1 Hz: sau chừng ấy giây, đồng hồ sai 1 giây",
-        "note": "Tính ra khoảng 0,26 giây mỗi ngày"
+        "note": "Tính ra khoảng 0,26 giây mỗi ngày",
+        "from": 327680
       },
       "holdMs": 0,
       "sfx": null,
@@ -614,11 +616,10 @@
     {
       "id": "s18",
       "chapter": "chuong-1",
-      "type": "term-card",
+      "type": "cold-open",
       "props": {
-        "term": "Một giây",
-        "tag": "Đồng hồ nguyên tử",
-        "definition": "Từ năm 1967: bằng 9.192.631.770 chu kỳ bức xạ của nguyên tử xêsi-133"
+        "hook": "Thế giới đã chọn nguyên tử",
+        "kicker": "Một chiếc đồng hồ tốt hơn để so"
       },
       "holdMs": 0,
       "sfx": null,
@@ -627,13 +628,28 @@
           "id": "b026",
           "text": "Muốn đúng hơn thì phải có một chiếc đồng hồ tốt hơn để so. Và thế giới đã chọn nguyên tử.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c008"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s18b",
+      "chapter": "chuong-1",
+      "type": "big-number",
+      "props": {
+        "value": 9192631770,
+        "from": 9192631770,
+        "label": "chu kỳ bức xạ của nguyên tử xêsi-133 là một giây",
+        "note": "Định nghĩa từ năm 1967"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b027",
           "text": "Từ năm 1967, một giây được định nghĩa bằng 9.192.631.770 chu kỳ bức xạ của nguyên tử xêsi-133.",
@@ -985,7 +1001,8 @@
       "props": {
         "value": 1795132800,
         "label": "7 giờ sáng 20/11/2026 ở Việt Nam, theo bộ đếm giây",
-        "note": "Bộ đếm này có ngày bị tràn: chuyện ở tập về số nguyên có trần"
+        "note": "Bộ đếm này có ngày bị tràn: chuyện ở tập về số nguyên có trần",
+        "from": 1795132800
       },
       "holdMs": 0,
       "sfx": null,
@@ -1019,7 +1036,7 @@
       "props": {
         "term": "Lỗi trên iOS",
         "tag": "Apple, 2/2016",
-        "definition": "Chỉnh tay ngày về tháng 5/1970 hoặc sớm hơn có thể làm máy không bật được sau khi khởi động lại"
+        "definition": "Mốc không cũng là chỗ dễ vấp: Apple thừa nhận một lỗi trên các thiết bị iOS"
       },
       "holdMs": 0,
       "sfx": null,
@@ -1034,7 +1051,54 @@
           "claims": [
             "c016"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s28b",
+      "chapter": "chuong-2",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "chinh",
+            "label": "Chỉnh ngày về 5/1970"
+          },
+          {
+            "id": "kd",
+            "label": "Khởi động lại"
+          },
+          {
+            "id": "tat",
+            "label": "Có thể không bật được"
+          }
+        ],
+        "edges": [
+          {
+            "from": "chinh",
+            "to": "kd",
+            "label": "rồi"
+          },
+          {
+            "from": "kd",
+            "to": "tat"
+          }
+        ],
+        "packets": [
+          {
+            "from": "chinh",
+            "to": "kd"
+          },
+          {
+            "from": "kd",
+            "to": "tat"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b042",
           "text": "Chỉnh tay ngày về tháng 5/1970 hoặc sớm hơn có thể làm máy không bật được sau khi khởi động lại.",
@@ -1350,7 +1414,7 @@
       "type": "big-number",
       "props": {
         "value": 7,
-        "from": 9,
+        "from": 7,
         "prefix": "UTC+",
         "label": "Từ 24 giờ ngày 1/9/1945, Việt Nam lùi về",
         "note": "Theo Việt Nam Dân Quốc Công Báo số 1"
@@ -1815,7 +1879,7 @@
       "props": {
         "term": "Nhóm tình nguyện viên",
         "tag": "Gần ba thập kỷ",
-        "definition": "Người điều phối: Arthur David Olson, làm ở Viện Y tế Quốc gia Mỹ, không phải ở một hãng phần mềm"
+        "definition": "Theo ICANN, cuốn sổ do một nhóm tình nguyện viên duy trì"
       },
       "holdMs": 0,
       "sfx": null,
@@ -1830,7 +1894,32 @@
           "claims": [
             "c023"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s50b",
+      "chapter": "chuong-4",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Arthur David Olson",
+            "detail": "người điều phối"
+          },
+          {
+            "name": "Viện Y tế Quốc gia Mỹ",
+            "detail": "nơi ông làm việc"
+          },
+          {
+            "name": "Không phải hãng phần mềm"
+          }
+        ],
+        "highlight": 0
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b073",
           "text": "Người điều phối là Arthur David Olson, làm ở Viện Y tế Quốc gia Mỹ, không phải ở một hãng phần mềm.",
@@ -1851,7 +1940,7 @@
       "props": {
         "term": "Astrolabe kiện",
         "tag": "30/9/2011",
-        "definition": "Cáo buộc vi phạm bản quyền. Người bị kiện: Olson và Paul Eggert"
+        "definition": "Một công ty phần mềm chiêm tinh kiện những người giữ sổ"
       },
       "holdMs": 0,
       "sfx": null,
@@ -1867,12 +1956,25 @@
             "c023",
             "c024"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s51b",
+      "chapter": "chuong-4",
+      "type": "cold-open",
+      "props": {
+        "hook": "Cáo buộc vi phạm bản quyền",
+        "kicker": "Bị kiện: Olson và Paul Eggert"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b075",
           "text": "Họ cáo buộc vi phạm bản quyền. Người bị kiện là Olson và một tình nguyện viên khác, Paul Eggert.",
           "spoken": "Họ cáo buộc vi phạm bản quyền. Người bị kiện là người điều phối ấy và một tình nguyện viên khác.",
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1983,7 +2085,7 @@
       "props": {
         "term": "RFC 6557",
         "tag": "2/2012",
-        "definition": "Người điều phối không tự quyết giờ cho một vùng, chỉ ghi lại giờ người dân nơi đó coi là đúng"
+        "definition": "Sau vụ kiện, cách giữ sổ được ghi thành văn bản kỹ thuật"
       },
       "holdMs": 0,
       "sfx": null,
@@ -1998,7 +2100,55 @@
           "claims": [
             "c025"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s54b",
+      "chapter": "chuong-4",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "dan",
+            "label": "Người dân một nơi"
+          },
+          {
+            "id": "gio",
+            "label": "Giờ họ coi là đúng"
+          },
+          {
+            "id": "so",
+            "label": "Người điều phối ghi lại"
+          }
+        ],
+        "edges": [
+          {
+            "from": "dan",
+            "to": "gio",
+            "label": "dùng"
+          },
+          {
+            "from": "gio",
+            "to": "so",
+            "label": "chỉ ghi"
+          }
+        ],
+        "packets": [
+          {
+            "from": "dan",
+            "to": "gio"
+          },
+          {
+            "from": "gio",
+            "to": "so"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b080",
           "text": "Người điều phối không được tự quyết giờ cho một vùng, chỉ ghi lại giờ người dân nơi đó coi là đúng.",
@@ -2164,7 +2314,8 @@
         "decimals": 1,
         "suffix": " giây",
         "label": "Giây nhuận giữ UTC lệch không quá mức này",
-        "note": "so với giờ theo vòng quay Trái Đất"
+        "note": "so với giờ theo vòng quay Trái Đất",
+        "from": 0.9
       },
       "holdMs": 0,
       "sfx": null,
@@ -2215,7 +2366,8 @@
         "value": 27,
         "suffix": " giây nhuận",
         "label": "Từ năm 1972 tới nay",
-        "note": "Lần gần nhất: cuối ngày 31/12/2016"
+        "note": "Lần gần nhất: cuối ngày 31/12/2016",
+        "from": 27
       },
       "holdMs": 0,
       "sfx": null,
@@ -2512,7 +2664,7 @@
       "props": {
         "term": "1/1/2017",
         "tag": "7 giờ sáng VN",
-        "definition": "Thế giới chèn thêm một giây nhuận, cho đồng hồ khớp với vòng quay Trái Đất"
+        "definition": "Lúc 0 giờ UTC, tức 7 giờ sáng ở Việt Nam, thế giới chèn thêm một giây nhuận"
       },
       "holdMs": 0,
       "sfx": null,
@@ -2528,7 +2680,23 @@
             "c031",
             "c015"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s68b",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 1,
+        "from": 1,
+        "suffix": " giây",
+        "label": "chèn thêm cho đồng hồ khớp với vòng quay Trái Đất",
+        "note": "Đó là giây nhuận"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b099",
           "text": "Giây nhuận là một giây chèn thêm cho đồng hồ khớp với vòng quay Trái Đất.",
@@ -2754,7 +2922,8 @@
         "decimals": 1,
         "suffix": " %",
         "label": "Lượt hỏi DNS bị ảnh hưởng lúc cao điểm",
-        "note": "Đến 6 giờ 45 UTC, sự cố mới chấm dứt"
+        "note": "Đến 6 giờ 45 UTC, sự cố mới chấm dứt",
+        "from": 0.2
       },
       "holdMs": 0,
       "sfx": null,
@@ -2779,7 +2948,7 @@
       "props": {
         "term": "Giờ đơn điệu",
         "tag": "Go 1.9, 24/8/2017",
-        "definition": "Chỉ chạy tới, không bao giờ lùi, dùng để đo khoảng thời gian cho an toàn"
+        "definition": "Bài học được sửa tận gốc: Go 1.9 ra mắt kèm giờ đơn điệu"
       },
       "holdMs": 0,
       "sfx": null,
@@ -2794,7 +2963,54 @@
           "claims": [
             "c032"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s74b",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "dd",
+            "label": "Giờ đơn điệu"
+          },
+          {
+            "id": "toi",
+            "label": "Chỉ chạy tới"
+          },
+          {
+            "id": "do",
+            "label": "Đo khoảng thời gian"
+          }
+        ],
+        "edges": [
+          {
+            "from": "dd",
+            "to": "toi"
+          },
+          {
+            "from": "toi",
+            "to": "do",
+            "label": "an toàn"
+          }
+        ],
+        "packets": [
+          {
+            "from": "dd",
+            "to": "toi"
+          },
+          {
+            "from": "toi",
+            "to": "do"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b108",
           "text": "Giờ đơn điệu chỉ chạy tới, không bao giờ lùi, dùng để đo khoảng thời gian cho an toàn.",
@@ -3035,7 +3251,7 @@
       "props": {
         "term": "Giây nhuận âm",
         "tag": "Nature, 27/3/2024",
-        "definition": "Bớt đi một giây khỏi đồng hồ, việc chưa từng xảy ra"
+        "definition": "Theo nhà địa vật lý Duncan Agnew, có thể sắp cần một giây nhuận âm"
       },
       "holdMs": 0,
       "sfx": null,
@@ -3050,7 +3266,23 @@
           "claims": [
             "c036"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s81b",
+      "chapter": "chuong-6",
+      "type": "big-number",
+      "props": {
+        "value": -1,
+        "from": -1,
+        "suffix": " giây",
+        "label": "Giây nhuận âm: bớt đi một giây khỏi đồng hồ",
+        "note": "Việc chưa từng xảy ra"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b118",
           "text": "Giây nhuận âm là bớt đi một giây khỏi đồng hồ, việc chưa từng xảy ra.",
@@ -3072,7 +3304,8 @@
         "value": 3,
         "suffix": " năm",
         "label": "Băng tan ở hai cực đã đẩy mốc ấy lùi khoảng",
-        "note": "Mốc có thể rơi vào cuối thập niên 2020"
+        "note": "Mốc có thể rơi vào cuối thập niên 2020",
+        "from": 3
       },
       "holdMs": 0,
       "sfx": null,

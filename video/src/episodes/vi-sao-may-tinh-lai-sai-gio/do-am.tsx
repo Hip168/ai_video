@@ -58,9 +58,9 @@ export const DoAm: React.FC<SceneProps> = ({ scene }) => {
         <Txt text="nửa đêm" x={X(uB) + (sq ? 70 : 90)} y={ay + (sq ? 56 : 60)} w={sq ? 200 : 260} s={sq ? 30 : 36} fill={t.fg} />
         {/* mũi tên lùi */}
         <g opacity={fJump}>
-          <path d={`M${X(uB)} ${ay - 24} Q${(X(uA) + X(uB)) / 2} ${ay - (sq ? 150 : 190)} ${X(uA) + 16} ${ay - 30}`} fill="none" stroke={t.warn} strokeWidth={6} />
-          <polygon points={`${X(uA) + 6},${ay - 22} ${X(uA) + 36},${ay - 30} ${X(uA) + 18},${ay - 52}`} fill={t.warn} />
-          <Txt text="đặt lùi lại một giây" x={(X(uA) + X(uB)) / 2} y={ay - (sq ? 162 : 206)} w={sq ? 460 : 600} s={sq ? 34 : 42} fill={t.warn} />
+          <path d={`M${X(uB)} ${ay - 70} Q${(X(uA) + X(uB)) / 2} ${ay - (sq ? 170 : 180)} ${X(uA) + 16} ${ay - 76}`} fill="none" stroke={t.warn} strokeWidth={6} />
+          <polygon points={`${X(uA) + 6},${ay - 66} ${X(uA) + 36},${ay - 74} ${X(uA) + 18},${ay - 96}`} fill={t.warn} />
+          <Txt text="đặt lùi lại một giây" x={(X(uA) + X(uB)) / 2} y={ay - (sq ? 178 : 200)} w={sq ? 460 : 600} s={sq ? 34 : 42} fill={t.warn} />
         </g>
         {flag(r1, "lần đọc 1", t.accent2, false, r1On)}
         {flag(r2, "lần đọc 2", t.ok, false, r2On, sq ? 76 : 0)}

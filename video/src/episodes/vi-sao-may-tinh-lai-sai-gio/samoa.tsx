@@ -108,7 +108,15 @@ const DoiNgay: React.FC<SceneProps> = ({ scene }) => {
       <line x1={G.lineX} y1={G.top - 20} x2={G.lineX} y2={G.bot + 20} stroke={t.accent2} strokeWidth={6} strokeDasharray="18 14" />
       <Txt text="đường đổi ngày" x={G.lineX} y={G.bot + (sq ? 70 : 76)} w={sq ? 400 : 500} s={G.s} fill={t.accent2} />
       {/* vệt nhảy */}
-      {mv > 0 && <Arrow x1={G.sFrom} y1={G.sY + 60} x2={sx + (mv < 1 ? 0 : 50)} y2={G.sY + 60} color={t.muted} w={4} head={18} dashed opacity={0.8} />}
+      <Txt text="phía tây" x={G.lineX - (sq ? 170 : 300)} y={G.bot - (sq ? 24 : 30)} w={sq ? 260 : 400} s={G.s} fill={t.muted} weight={400} />
+      <Txt text="phía đông" x={G.lineX + (sq ? 190 : 300)} y={G.bot - (sq ? 24 : 30)} w={sq ? 260 : 400} s={G.s} fill={t.muted} weight={400} />
+      {/* mốc cũ UTC−11 còn để lại khi Samoa đã nhảy */}
+      <g opacity={mv > 0.5 ? 1 : 0} transform={`translate(${G.sFrom} ${G.sY})`}>
+        <circle r={G.dot} fill="none" stroke={t.warn} strokeWidth={4} strokeDasharray="8 6" />
+        <rect x={sq ? -90 : -110} y={G.dot + 14} width={sq ? 180 : 220} height={sq ? 56 : 64} rx={14} fill="none" stroke={t.warn} strokeWidth={4} />
+        <Txt text="UTC−11" x={0} y={G.dot + (sq ? 54 : 58)} w={sq ? 170 : 210} s={sq ? 34 : 40} fill={t.warn} />
+      </g>
+      {mv > 0 && <Arrow x1={G.sFrom} y1={G.sY + (sq ? 130 : 150)} x2={sx} y2={G.sY + (sq ? 130 : 150)} color={t.accent2} w={6} head={22} />}
       <g transform={`translate(${sx} ${G.sY - arc})`}>
         <circle r={G.dot} fill={t.warn} stroke={t.fg} strokeWidth={4} />
         <Txt text="Samoa" x={0} y={-G.dot - 20} w={sq ? 220 : 260} s={sq ? 40 : 48} fill={t.fg} />

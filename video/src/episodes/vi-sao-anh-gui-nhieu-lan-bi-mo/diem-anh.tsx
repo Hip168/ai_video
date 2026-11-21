@@ -145,24 +145,34 @@ const ThuNho: React.FC<SceneProps> = ({ scene }) => {
   const avg = cells.map(([x, y]) => col(x, y)).reduce((a, c) => [a[0] + c[0] / 4, a[1] + c[1] / 4, a[2] + c[2] / 4], [0, 0, 0]);
   const rgbS = (c: number[]) => `rgb(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])})`;
   const merge = p(f, 20, 30);
-  const c4 = sq ? 120 : 150;
-  const gx = sq ? 80 : 200;
-  const gy = sq ? 60 : 120;
   const half = halveAndBack(g0);
   const crop = { sx: 12, sy: 2, sw: 20, sh: 15 };
+  // Ảnh gốc (khoanh 2×2 điểm có dây điện), lưới 4 điểm phóng to, ô trộn cùng diện tích: luôn hiện đủ, không mờ dần về nền.
+  const I = sq ? { x: 40, y: 30, s: 360 } : { x: 110, y: 70, s: 560 };
+  const ic = I.s / g0.w;
+  const G = sq ? { x: 470, y: 30, c: 130 } : { x: 790, y: 110, c: 180 };
+  const M = sq ? { x: 500, y: 400, s: 200 } : { x: 1400, y: G.y, s: 2 * G.c };
   return (
     <g>
       <g opacity={1 - a1}>
-        {cells.map(([x, y], i) => {
-          const dx = (i % 2) * c4;
-          const dy = Math.floor(i / 2) * c4;
-          return <rect key={i} x={gx + lerp(dx, c4 / 2, merge)} y={gy + lerp(dy, c4 / 2, merge)} width={c4 - 6} height={c4 - 6} fill={rgbS(col(x, y))} stroke={t.fg} strokeWidth={3} opacity={1 - merge * 0.6} />;
-        })}
-        <Txt text="4 điểm cạnh nhau" x={gx + c4} y={gy + 2 * c4 + (sq ? 44 : 56)} w={sq ? 320 : 400} s={sq ? 32 : 42} fill={t.fg} />
-        <Arrow x1={gx + 2 * c4 + 30} y1={gy + c4} x2={sq ? 520 : 1100} y2={gy + c4} color={t.accent2} w={6} head={22} />
-        <rect x={sq ? 540 : 1140} y={gy + c4 / 2} width={c4} height={c4} fill={rgbS(avg)} stroke={t.accent2} strokeWidth={5} opacity={merge} />
-        <Txt text="1 điểm trộn" x={(sq ? 540 : 1140) + c4 / 2} y={gy + 2 * c4 + (sq ? 44 : 56)} w={sq ? 260 : 400} s={sq ? 32 : 42} fill={t.accent2} />
-        <Txt text="thu nhỏ một nửa mỗi chiều" x={sq ? 420 : 960} y={sq ? 420 : 620} w={sq ? 760 : 1200} s={sq ? 36 : 46} fill={t.fg} />
+        <PixelImage im={g0} x={I.x} y={I.y} size={I.s} />
+        <rect x={I.x + sx * ic - 3} y={I.y + sy * ic - 3} width={2 * ic + 6} height={2 * ic + 6} fill="none" stroke={t.accent2} strokeWidth={4} />
+        <line x1={I.x + (sx + 2) * ic + 3} y1={I.y + sy * ic} x2={G.x - 6} y2={G.y} stroke={t.accent2} strokeWidth={3} strokeDasharray="8 6" />
+        <line x1={I.x + (sx + 2) * ic + 3} y1={I.y + (sy + 2) * ic} x2={G.x - 6} y2={G.y + 2 * G.c} stroke={t.accent2} strokeWidth={3} strokeDasharray="8 6" />
+        {cells.map(([x, y], i) => (
+          <rect key={i} x={G.x + (i % 2) * G.c} y={G.y + Math.floor(i / 2) * G.c} width={G.c - 6} height={G.c - 6} fill={rgbS(col(x, y))} stroke={t.fg} strokeWidth={3} />
+        ))}
+        <Txt text="4 điểm cạnh nhau" x={G.x + G.c} y={G.y + 2 * G.c + (sq ? 40 : 56)} w={sq ? 300 : 400} s={sq ? 32 : 42} fill={t.fg} />
+        {sq ? (
+          <Arrow x1={G.x + G.c} y1={G.y + 2 * G.c + 56} x2={M.x + M.s / 2} y2={M.y - 10} color={t.accent2} w={6} head={20} opacity={merge} />
+        ) : (
+          <Arrow x1={G.x + 2 * G.c + 20} y1={G.y + G.c} x2={M.x - 20} y2={G.y + G.c} color={t.accent2} w={6} head={22} opacity={merge} />
+        )}
+        <g opacity={merge}>
+          <rect x={M.x} y={M.y} width={M.s} height={M.s} fill={rgbS(avg)} stroke={t.accent2} strokeWidth={5} />
+          <Txt text="1 điểm trộn" x={M.x + M.s / 2} y={M.y + M.s + (sq ? 40 : 56)} w={sq ? 300 : 400} s={sq ? 32 : 42} fill={t.accent2} />
+        </g>
+        <Txt text="thu nhỏ một nửa mỗi chiều" x={sq ? 210 : 960} y={sq ? 480 : 700} w={sq ? 360 : 1200} s={sq ? 32 : 46} fill={t.fg} lines={sq ? 2 : 1} />
       </g>
       <g opacity={a1}>
         <PixelImage im={g0} x={sq ? 40 : 200} y={sq ? 40 : 60} size={sq ? 370 : 680} {...crop} stroke={t.ok} />

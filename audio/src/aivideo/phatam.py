@@ -430,19 +430,25 @@ def score(heard: dict, ipa: str | None, phones: dict | None) -> dict:
 
 
 def case_variants(term: str) -> list[str]:
-    """Các dạng hoa thường của `term` để ép Whisper đọc: chính nó, và nếu có từ 2 chữ hoa thì thêm
-    dạng chữ thường và dạng Viết-hoa-đầu (CAPTCHA -> captcha, Captcha).
+    """Các dạng hoa thường của `term` để ép Whisper đọc: chính nó, và nếu là chữ ASCII có từ 2 chữ hoa
+    thì thêm dạng chữ thường và dạng Viết-hoa-đầu (CAPTCHA -> captcha, Captcha).
 
     pEn phụ thuộc hoa thường (cùng tiếng: "recaptcha" 0,722, "reCAPTCHA" 0,038) nên viết tắt hoa
     bị trượt oan. Chỉ đổi hoa thường: các chữ cái giữ nguyên, không bao giờ thêm lối viết khác.
+    Chữ ngoài ASCII (İ, ﬁ: đổi hoa thường làm đổi chữ hoặc độ dài) thì không sinh dạng nào.
     """
     out = [term]
-    if sum(c.isupper() for c in term) >= 2:
+    if term.isascii() and sum(c.isupper() for c in term) >= 2:
         for v in (term.lower(), term.capitalize()):
-            if v not in out:
+            if v not in out and len(v) == len(term) and v.casefold() == term.casefold():
                 out.append(v)
-    assert all(v.lower() == term.lower() for v in out)
     return out
+
+
+def _heard_has(heard: dict, term: str) -> bool:
+    """Nghe tự do (heardEn, bỏ dấu câu, không phân biệt hoa thường) có đúng từ `term` không."""
+    words = re.findall(r"[^\W_]+", " ".join(w["word"] for w in heard.get("heardEn") or []).casefold())
+    return term.casefold() in words
 
 
 def _hear(jobs: list[dict], term_ipa: dict[str, str | None]) -> list[dict]:
@@ -455,11 +461,15 @@ def _hear(jobs: list[dict], term_ipa: dict[str, str | None]) -> list[dict]:
     for vs in variants:
         group = flat[i:i + len(vs)]
         i += len(vs)
-        best = max(range(len(vs)), key=lambda k: group[k]["pEn"])  # hoà thì giữ dạng gốc (đứng đầu)
+        # Dạng khác chữ gốc chỉ được tính khi nghe tự do cũng ra đúng từ đó (chống đạt oan,
+        # vd "Recaptcha" 0,369 mà Whisper nghe "But we cut down"). Dạng gốc luôn được tính như cũ.
+        ok = [k for k in range(len(vs)) if k == 0 or _heard_has(group[k], vs[k])]
+        best = max(ok, key=lambda k: group[k]["pEn"])  # hoà thì giữ dạng gốc (đứng đầu)
         h = dict(group[best])
         h["termScored"] = vs[best]
         if len(vs) > 1:
             h["variants"] = {v: g["pEn"] for v, g in zip(vs, group)}
+            h["variantsUnconfirmed"] = [vs[k] for k in range(1, len(vs)) if k not in ok]
         heard.append(h)
     ph = phonemes([{"wav": j["wav"], "start": h["start"], "end": h["end"]} for j, h in zip(jobs, heard)])
     return [score(h, term_ipa.get(j["term"]), ph[i] if ph else None)
@@ -635,7 +645,8 @@ def print_check(res: dict) -> None:
         extra = r.get("note") or ""
         if r.get("variants"):
             extra = (extra + " " if extra else "") + f"chấm theo {r['termScored']!r} (" + ", ".join(
-                f"{v} {_fmt(p)}" for v, p in r["variants"].items()) + ")"
+                f"{v} {_fmt(p)}" + (" chưa nghe ra" if v in r.get("variantsUnconfirmed", ()) else "")
+                for v, p in r["variants"].items()) + ")"
         print(f"{r['beat']:<8} {r['term']:<14} {(r['spoken'] or '?'):<16} {_fmt(r.get('pEn')):>6} "
               f"{_fmt(r.get('per'), 2):>5}  {(_heard_en(r) if 'heardEn' in r else '—'):<20} {verdict} {extra}")
     bad = [r for r in res["rows"] if not r["pass"]]

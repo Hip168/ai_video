@@ -259,6 +259,59 @@ def test_phien_am_tu_sinh():
     assert phatam.respell("") == []
 
 
+def test_bien_the_hoa_thuong_chi_doi_hoa_thuong_cung_chu_cai():
+    for term in ("CAPTCHA", "reCAPTCHA", "IEEE", "JavaScript"):
+        vs = phatam.case_variants(term)
+        assert vs[0] == term
+        assert {v.lower() for v in vs} == {term.lower()}  # cùng chữ cái, chỉ khác hoa thường
+        assert len(vs) == len(set(vs))
+    assert phatam.case_variants("reCAPTCHA") == ["reCAPTCHA", "recaptcha", "Recaptcha"]
+    assert phatam.case_variants("CAPTCHA") == ["CAPTCHA", "captcha", "Captcha"]
+
+
+def test_bien_the_hoa_thuong_khong_them_loi_viet_khac():
+    vs = {v.lower() for v in phatam.case_variants("CAPTCHA")}
+    for other in ("kaptcha", "capcha", "captcha s", "cap-cha"):
+        assert other not in vs
+
+
+@pytest.mark.parametrize("term", ["false", "Python", "decimal", "Werner"])
+def test_tu_toi_da_mot_chu_hoa_thi_cham_nhu_cu(term, monkeypatch, no_phoneme):
+    assert phatam.case_variants(term) == [term]
+    seen = []
+    monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.1) for _ in items])
+    (r,) = phatam._hear([{"wav": "a", "prefix": "p ", "term": term, "suffix": " s"}], {})
+    assert [i["term"] for i in seen] == [term]
+    assert r["pass"] is False and r["termScored"] == term and "variants" not in r
+
+
+def test_viet_tat_hoa_lay_diem_cao_nhat_va_ghi_bien_the_thang(monkeypatch, no_phoneme):
+    table = {"reCAPTCHA": 0.038, "recaptcha": 0.722, "Recaptcha": 0.4}
+    seen = []
+    monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items)
+                        or [_heard(table[i["term"]], start=0.1 * k) for k, i in enumerate(items)])
+    (r,) = phatam._hear([{"wav": "a", "prefix": "p ", "term": "reCAPTCHA", "suffix": " s"}], {})
+    assert [(i["prefix"], i["term"], i["suffix"]) for i in seen] == [
+        ("p ", "reCAPTCHA", " s"), ("p ", "recaptcha", " s"), ("p ", "Recaptcha", " s")]
+    assert r["pass"] is True and r["pEn"] == 0.722 and r["termScored"] == "recaptcha"
+    assert r["start"] == 0.1  # thời điểm cũng lấy của biến thể thắng
+    assert r["variants"] == table
+
+
+def test_viet_tat_hoa_moi_bien_the_deu_thap_thi_van_truot(monkeypatch, no_phoneme):
+    monkeypatch.setattr(phatam, "listen", lambda items: [_heard(0.01) for _ in items])
+    (r,) = phatam._hear([{"wav": "a", "prefix": "", "term": "CAPTCHA", "suffix": ""}], {})
+    assert r["pass"] is False and r["termScored"] == "CAPTCHA"
+
+
+def test_check_in_bien_the_thang(tmp_path, monkeypatch, capsys, no_phoneme):
+    root = _repo(tmp_path, [{"id": "b1", "text": "Giải CAPTCHA đi."}], {"CAPTCHA": "captcha"})
+    monkeypatch.setattr(phatam, "listen", lambda items: [
+        _heard(0.7 if i["term"] == "captcha" else 0.03) for i in items])
+    assert phatam.main(["--root", str(root), "check", "tap"]) == 0
+    assert "chấm theo 'captcha'" in capsys.readouterr().out
+
+
 # ---- pick ----------------------------------------------------------------------------------
 
 @pytest.fixture
@@ -403,11 +456,11 @@ def test_check_lexicon_nghia_viet_da_khai_thi_khong_nghe_tieng_anh(tmp_path, mon
     seen = []
     monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.01) for _ in items])
     assert phatam.main(["--root", str(root), "check", "tap"]) == 1  # phiên âm ASCII vẫn bị nghe, trượt
-    assert [i["term"] for i in seen] == ["ASCII"]
+    assert [i["term"] for i in seen] == phatam.case_variants("ASCII")  # chỉ ASCII (và dạng hoa thường của nó)
     seen.clear()
     monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.5) for _ in items])
     assert phatam.main(["--root", str(root), "check", "tap"]) == 0
-    assert [i["term"] for i in seen] == ["ASCII"]
+    assert [i["term"] for i in seen] == phatam.case_variants("ASCII")  # chỉ ASCII (và dạng hoa thường của nó)
 
 
 def test_gate3_khong_doi_phat_am_khi_moi_tu_da_khai_nghia_viet(tmp_path):
@@ -472,3 +525,11 @@ def test_that_false_goc_dat_phon_xo_truot():
     by = {r["candidate"]: r for r in res["rows"]}
     assert by["false"]["pass"] is True
     assert by["phôn-xơ"]["pass"] is False and by["phôn"]["pass"] is False
+
+
+@pytest.mark.real
+def test_that_captcha_doc_dung_dat_tu_sai_van_truot():
+    res = phatam.pick("CAPTCHA", ["captcha", "bánh mì"], "Bạn phải giải {} trước khi vào trang.", None)
+    by = {r["candidate"]: r for r in res["rows"]}
+    assert by["captcha"]["pass"] is True
+    assert by["bánh mì"]["pass"] is False

@@ -48,16 +48,19 @@
     {
       "id": "s01",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "819 triệu giờ để chứng minh mình không phải người máy",
+        "kicker": "Ước tính của Đại học California Irvine"
+      },
       "holdMs": 0,
-      "sfx": null,
+      "sfx": "whoosh",
       "beats": [
         {
           "id": "b001",
           "text": "Loài người đã bỏ ra khoảng 819 triệu giờ chỉ để chứng minh mình không phải người máy.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -80,8 +83,15 @@
     {
       "id": "s02",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 93,
+        "from": 93,
+        "suffix": " nghìn năm",
+        "label": "819 triệu giờ, đổi ra năm",
+        "note": "Gõ chữ méo, chọn đèn giao thông, chọn vạch qua đường",
+        "prefix": "khoảng "
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -113,8 +123,14 @@
     {
       "id": "s03",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 6.1,
+        "from": 6.1,
+        "suffix": " tỉ đô la Mỹ",
+        "label": "Nếu trả công, số giờ ấy đáng ít nhất",
+        "decimals": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -134,8 +150,45 @@
     {
       "id": "s04",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Công giải câu đố"
+          },
+          {
+            "id": "n1",
+            "label": "Gắn nhãn ảnh"
+          },
+          {
+            "id": "n2",
+            "label": "Dữ liệu cho máy học"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "theo Google"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -155,8 +208,22 @@
     {
       "id": "s05",
       "chapter": "mo-dau",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Vì sao đèn giao thông?"
+          },
+          {
+            "name": "Vì sao bị hỏi mãi?",
+            "detail": "có người bấm một lần là qua"
+          },
+          {
+            "name": "Máy có thua người?",
+            "detail": "ở bài thi này"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -190,10 +257,25 @@
       ]
     },
     {
+      "id": "c1",
+      "chapter": "chuong-1",
+      "type": "chapter-title",
+      "props": {
+        "title": "Cuộc bình chọn bị người máy phá",
+        "number": 1
+      },
+      "holdMs": 1500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
       "id": "s06",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Một cuộc bình chọn bị người máy phá",
+        "kicker": "Câu chuyện bắt đầu"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -201,7 +283,7 @@
           "id": "b010",
           "text": "Câu chuyện bắt đầu bằng một cuộc bình chọn bị người máy phá.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": []
@@ -211,8 +293,10 @@
     {
       "id": "s07",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:dong-thoi-gian",
+      "props": {
+        "mode": "1999"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -254,8 +338,22 @@
     {
       "id": "s08",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Bình chọn của Slashdot, 11/1999",
+        "unit": " phiếu",
+        "data": [
+          {
+            "label": "MIT",
+            "value": 21156
+          },
+          {
+            "label": "Carnegie Mellon",
+            "value": 21032
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -286,8 +384,45 @@
     {
       "id": "s09",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Chương trình tự động"
+          },
+          {
+            "id": "n1",
+            "label": "Nghìn tài khoản/phút"
+          },
+          {
+            "id": "n2",
+            "label": "Rải thư rác"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "đăng ký"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -325,8 +460,10 @@
     {
       "id": "s10",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:chu-meo",
+      "props": {
+        "mode": "meo"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -358,7 +495,11 @@
       "id": "s11",
       "chapter": "chuong-1",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "CAPTCHA",
+        "tag": "Năm 2000",
+        "definition": "Tên do một nhóm ở Đại học Carnegie Mellon đặt cho ý tưởng này"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -373,7 +514,21 @@
             "c008",
             "c010"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s12",
+      "chapter": "chuong-1",
+      "type": "term-card",
+      "props": {
+        "term": "Luis von Ahn",
+        "tag": "Và Manuel Blum",
+        "definition": "Nhóm ở Carnegie Mellon đặt tên CAPTCHA"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b022",
           "text": "Đó là nhóm của Luis von Ahn và giáo sư Manuel Blum.",
@@ -388,10 +543,21 @@
       ]
     },
     {
-      "id": "s12",
+      "id": "s13",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Yahoo!",
+            "detail": "dùng CAPTCHA của nhóm"
+          },
+          {
+            "name": "Đọc một chữ bị bóp méo"
+          }
+        ],
+        "highlight": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -409,10 +575,26 @@
       ]
     },
     {
-      "id": "s13",
+      "id": "s14",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Năm 2003",
+            "detail": "định nghĩa chính thức"
+          },
+          {
+            "name": "Phần lớn con người",
+            "detail": "vượt qua được"
+          },
+          {
+            "name": "Chương trình hiện tại",
+            "detail": "thì không"
+          }
+        ],
+        "highlight": 2
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -452,10 +634,13 @@
       ]
     },
     {
-      "id": "s14",
+      "id": "s15",
       "chapter": "chuong-1",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Chữ hiện tại rất quan trọng",
+        "kicker": "Nó sẽ quay lại ở cuối câu chuyện"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -463,7 +648,7 @@
           "id": "b027",
           "text": "Chữ hiện tại ấy rất quan trọng. Nó sẽ quay lại ở cuối câu chuyện.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 900,
           "sfx": null,
           "claims": []
@@ -471,10 +656,34 @@
       ]
     },
     {
-      "id": "s15",
+      "id": "c2",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Một phép thử Turing ngược",
+        "number": 2
+      },
+      "holdMs": 1500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s16",
+      "chapter": "chuong-2",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "CAPTCHA",
+            "detail": "viết tắt một cụm từ dài"
+          },
+          {
+            "name": "Phép thử Turing tự động",
+            "detail": "phân biệt máy với người"
+          }
+        ],
+        "highlight": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -503,10 +712,13 @@
       ]
     },
     {
-      "id": "s16",
+      "id": "s17",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Phép thử Turing là gì?",
+        "kicker": "Trò chơi bắt chước"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -514,13 +726,27 @@
           "id": "b030",
           "text": "Phép thử Turing là gì?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s18",
+      "chapter": "chuong-2",
+      "type": "term-card",
+      "props": {
+        "term": "Alan Turing",
+        "tag": "Năm 1950",
+        "definition": "Nhà toán học, đăng một bài trên tạp chí Mind"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b031",
           "text": "Năm 1950, nhà toán học Alan Turing đăng một bài trên tạp chí Mind.",
@@ -531,7 +757,53 @@
           "claims": [
             "c012"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s19",
+      "chapter": "chuong-2",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Người hỏi"
+          },
+          {
+            "id": "n1",
+            "label": "Chỉ nhắn chữ"
+          },
+          {
+            "id": "n2",
+            "label": "Đoán bên nào là máy"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b032",
           "text": "Ông đưa ra trò chơi bắt chước: người hỏi chỉ nhắn chữ với hai bên giấu mặt, rồi đoán bên nào là máy.",
@@ -546,10 +818,30 @@
       ]
     },
     {
-      "id": "s17",
+      "id": "s20",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "compare",
+      "props": {
+        "titleA": "Phép thử Turing",
+        "titleB": "CAPTCHA",
+        "rows": [
+          {
+            "label": "Người chấm là người",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Người chấm là máy",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Bạn chứng minh mình không phải máy",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -585,10 +877,12 @@
       ]
     },
     {
-      "id": "s18",
+      "id": "s21",
       "chapter": "chuong-2",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:dong-thoi-gian",
+      "props": {
+        "mode": "doi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -615,10 +909,25 @@
       ]
     },
     {
-      "id": "s19",
+      "id": "c3",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Bạn từng gõ hộ sách báo cũ",
+        "number": 3
+      },
+      "holdMs": 1500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s22",
+      "chapter": "chuong-3",
+      "type": "cold-open",
+      "props": {
+        "hook": "Chữ méo tốn rất nhiều thời gian",
+        "kicker": "Đầu thế kỷ này"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -626,7 +935,7 @@
           "id": "b038",
           "text": "Đầu thế kỷ này, CAPTCHA chủ yếu là chữ méo. Và nó tốn rất nhiều thời gian của loài người.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
@@ -637,10 +946,17 @@
       ]
     },
     {
-      "id": "s20",
+      "id": "s23",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 100,
+        "from": 100,
+        "suffix": " triệu",
+        "label": "CAPTCHA gõ mỗi ngày năm 2008, theo von Ahn",
+        "note": "Hàng trăm nghìn giờ người mỗi ngày, gõ xong là bỏ",
+        "prefix": "hơn "
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -669,10 +985,13 @@
       ]
     },
     {
-      "id": "s21",
+      "id": "s24",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Dùng thời gian ấy làm việc có ích?",
+        "kicker": "Von Ahn nghĩ"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -680,7 +999,7 @@
           "id": "b041",
           "text": "Von Ahn nghĩ: sao không dùng chính chỗ thời gian ấy để làm một việc có ích?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
           "claims": [
@@ -690,10 +1009,12 @@
       ]
     },
     {
-      "id": "s22",
+      "id": "s25",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:sach-quet",
+      "props": {
+        "mode": "trang"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -722,10 +1043,12 @@
       ]
     },
     {
-      "id": "s23",
+      "id": "s26",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:chu-meo",
+      "props": {
+        "mode": "hai-chu"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -765,10 +1088,46 @@
       ]
     },
     {
-      "id": "s24",
+      "id": "s27",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Gõ đúng chữ kiểm tra"
+          },
+          {
+            "id": "n1",
+            "label": "Phiếu cho chữ kia"
+          },
+          {
+            "id": "n2",
+            "label": "Nhiều phiếu: đọc ra"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -795,10 +1154,26 @@
       ]
     },
     {
-      "id": "s25",
+      "id": "s28",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Đọc đúng chữ trên báo cũ New York Times",
+        "unit": " %",
+        "decimals": 1,
+        "highlight": 0,
+        "data": [
+          {
+            "label": "reCAPTCHA",
+            "value": 99.1
+          },
+          {
+            "label": "Phần mềm thường",
+            "value": 83.5
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -827,10 +1202,12 @@
       ]
     },
     {
-      "id": "s26",
+      "id": "s29",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:sach-quet",
+      "props": {
+        "mode": "kho"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -857,10 +1234,17 @@
       ]
     },
     {
-      "id": "s27",
+      "id": "s30",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 160,
+        "from": 160,
+        "suffix": " cuốn",
+        "label": "sách được đọc mỗi ngày lúc ấy",
+        "note": "Gõ tay kịp tốc độ đó cần hơn 1.500 người làm toàn thời gian",
+        "prefix": "khoảng "
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -878,10 +1262,35 @@
       ]
     },
     {
-      "id": "s28",
+      "id": "s31",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "CAPTCHA chữ méo"
+          },
+          {
+            "id": "n1",
+            "label": "reCAPTCHA"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "tốn như nhau"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -910,10 +1319,14 @@
       ]
     },
     {
-      "id": "s29",
+      "id": "s32",
       "chapter": "chuong-3",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Google mua reCAPTCHA",
+        "tag": "16/9/2009",
+        "definition": "Google thông báo mua lại reCAPTCHA"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -927,7 +1340,42 @@
           "claims": [
             "c018"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s33",
+      "chapter": "chuong-3",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "reCAPTCHA"
+          },
+          {
+            "id": "n1",
+            "label": "Quét sách báo"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "Google Books"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b057",
           "text": "Google dùng nó cho các dự án quét sách báo, như Google Books.",
@@ -942,10 +1390,13 @@
       ]
     },
     {
-      "id": "s30",
+      "id": "s34",
       "chapter": "chuong-3",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Bạn có thể đã gõ hộ một chữ trong sách cũ",
+        "kicker": "Mà không hề biết"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -953,7 +1404,7 @@
           "id": "b058",
           "text": "Vậy là bạn có thể đã từng gõ hộ một chữ trong một cuốn sách cũ, mà không hề biết.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 900,
           "sfx": null,
           "claims": []
@@ -961,10 +1412,46 @@
       ]
     },
     {
-      "id": "s31",
+      "id": "c4",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Chữ méo hết tác dụng, câu đố chuyển sang ảnh",
+        "number": 4
+      },
+      "holdMs": 1500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s35",
+      "chapter": "chuong-4",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Dạy máy đọc"
+          },
+          {
+            "id": "n1",
+            "label": "Chữ méo hết tác dụng"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -980,10 +1467,12 @@
       ]
     },
     {
-      "id": "s32",
+      "id": "s36",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:dong-thoi-gian",
+      "props": {
+        "mode": "2012"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1008,7 +1497,29 @@
           "claims": [
             "c019"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s37",
+      "chapter": "chuong-4",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Số nhà đầy đủ",
+            "detail": "máy đọc đúng hơn 96%"
+          },
+          {
+            "name": "Chữ méo khó nhất",
+            "detail": "máy giải 99,8%"
+          }
+        ],
+        "highlight": 1
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b062",
           "text": "Máy đọc đúng hơn 96% số nhà đầy đủ.",
@@ -1034,10 +1545,17 @@
       ]
     },
     {
-      "id": "s33",
+      "id": "s38",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 1,
+        "from": 1,
+        "suffix": " giờ",
+        "label": "để đọc hết ảnh số nhà Google có ở nước Pháp",
+        "note": "Với hạ tầng của Google",
+        "prefix": "chưa tới "
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1066,10 +1584,13 @@
       ]
     },
     {
-      "id": "s34",
+      "id": "s39",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Chữ méo: máy giỏi hơn người",
+        "kicker": "Theo đúng định nghĩa, câu hỏi phải đổi"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1077,7 +1598,7 @@
           "id": "b066",
           "text": "Chữ méo đã thành thứ máy giỏi hơn người. Theo đúng định nghĩa, câu hỏi phải đổi.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 600,
           "sfx": null,
           "claims": [
@@ -1087,10 +1608,12 @@
       ]
     },
     {
-      "id": "s35",
+      "id": "s40",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:o-tick",
+      "props": {
+        "mode": "o"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1119,10 +1642,46 @@
       ]
     },
     {
-      "id": "s36",
+      "id": "s41",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Trước, trong, sau bấm"
+          },
+          {
+            "id": "n1",
+            "label": "Phân tích rủi ro"
+          },
+          {
+            "id": "n2",
+            "label": "Không chắc: hỏi câu đố"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1151,10 +1710,27 @@
       ]
     },
     {
-      "id": "s37",
+      "id": "s42",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Số hoá chữ"
+          },
+          {
+            "name": "Gắn nhãn ảnh"
+          },
+          {
+            "name": "Dữ liệu cho máy học"
+          },
+          {
+            "name": "Google Maps",
+            "detail": "chính xác hơn"
+          }
+        ],
+        "highlight": 1
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1194,10 +1770,34 @@
       ]
     },
     {
-      "id": "s38",
+      "id": "s43",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Ảnh đường phố"
+          },
+          {
+            "id": "n1",
+            "label": "Cần người gắn nhãn"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1224,10 +1824,12 @@
       ]
     },
     {
-      "id": "s39",
+      "id": "s44",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:luoi-den",
+      "props": {
+        "mode": "loai"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1257,10 +1859,22 @@
       ]
     },
     {
-      "id": "s40",
+      "id": "s45",
       "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Lưới 3×3 ảnh"
+          },
+          {
+            "name": "Một ảnh, lưới 4×4"
+          },
+          {
+            "name": "Ảnh mới hiện khi bấm"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1278,10 +1892,25 @@
       ]
     },
     {
-      "id": "s41",
+      "id": "c5",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Vì sao bạn bị hỏi mãi, còn máy thì qua",
+        "number": 5
+      },
+      "holdMs": 1500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s46",
+      "chapter": "chuong-5",
+      "type": "cold-open",
+      "props": {
+        "hook": "Máy còn thua người ở câu đố ảnh?",
+        "kicker": "Hôm nay"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1289,7 +1918,7 @@
           "id": "b079",
           "text": "Vậy hôm nay, máy có còn thua người ở câu đố ảnh không?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": []
@@ -1297,10 +1926,12 @@
       ]
     },
     {
-      "id": "s42",
+      "id": "s47",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:nguoi-may",
+      "props": {
+        "mode": "giai"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1341,10 +1972,12 @@
       ]
     },
     {
-      "id": "s43",
+      "id": "s48",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:luoi-den",
+      "props": {
+        "mode": "chon"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1352,7 +1985,7 @@
           "id": "b083",
           "text": "Máy giờ không chỉ giải được câu đố ảnh, mà còn nhanh ngang người và đúng hơn người.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
@@ -1362,10 +1995,16 @@
       ]
     },
     {
-      "id": "s44",
+      "id": "s49",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "big-number",
+      "props": {
+        "value": 14000,
+        "from": 14000,
+        "suffix": " CAPTCHA",
+        "label": "1.400 người giải, nghiên cứu năm 2023",
+        "note": "Người chỉ đúng từ 50–85%"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1394,10 +2033,12 @@
       ]
     },
     {
-      "id": "s45",
+      "id": "s50",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:nguoi-may",
+      "props": {
+        "mode": "dung"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1426,10 +2067,25 @@
       ]
     },
     {
-      "id": "s46",
+      "id": "s51",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "chart",
+      "props": {
+        "kind": "bar",
+        "title": "Thời gian giải câu đố ảnh",
+        "unit": " giây",
+        "decimals": 1,
+        "data": [
+          {
+            "label": "Người",
+            "value": 18
+          },
+          {
+            "label": "Máy",
+            "value": 17.5
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1458,10 +2114,13 @@
       ]
     },
     {
-      "id": "s47",
+      "id": "s52",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Máy làm bài thi còn khá hơn người",
+        "kicker": "Bài thi phân biệt người với máy"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1469,7 +2128,7 @@
           "id": "b090",
           "text": "Bài thi phân biệt người với máy, giờ máy làm còn khá hơn người.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 800,
           "sfx": null,
           "claims": [
@@ -1479,10 +2138,47 @@
       ]
     },
     {
-      "id": "s48",
+      "id": "s53",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Câu đố hết chặn được máy"
+          },
+          {
+            "id": "n1",
+            "label": "Bạn vẫn bị hỏi mãi"
+          },
+          {
+            "id": "n2",
+            "label": "Trình duyệt của bạn"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2",
+            "label": "vì"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1509,10 +2205,14 @@
       ]
     },
     {
-      "id": "s49",
+      "id": "s54",
       "chapter": "chuong-5",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Cookie và lịch sử",
+        "tag": "ETH Zürich",
+        "definition": "reCAPTCHA v2 dựa nhiều vào cookie và lịch sử duyệt web"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1527,7 +2227,37 @@
             "c026",
             "c024"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-5",
+      "type": "compare",
+      "props": {
+        "titleA": "Đã đăng nhập Google",
+        "titleB": "Không có dấu vết",
+        "rows": [
+          {
+            "label": "Số câu đố giảm mạnh",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Có thể phải giải nhiều hơn",
+            "a": false,
+            "b": true
+          },
+          {
+            "label": "Mỗi lần bị hỏi là mất thời gian",
+            "a": true,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b094",
           "text": "Trình duyệt có lịch sử và đã đăng nhập một tài khoản Google thì số câu đố phải giải giảm mạnh.",
@@ -1549,17 +2279,7 @@
           "claims": [
             "c026"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s50",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b096",
           "text": "Và mỗi lần bị hỏi là một lần mất thời gian.",
@@ -1568,7 +2288,32 @@
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-5",
+      "type": "compare",
+      "props": {
+        "titleA": "Chỉ bấm ô đánh dấu",
+        "titleB": "Bị bắt chọn ảnh",
+        "rows": [
+          {
+            "label": "Trung bình 1,85 giây",
+            "a": true,
+            "b": false
+          },
+          {
+            "label": "Trung bình 10,3 giây, lâu gấp khoảng 5,6 lần",
+            "a": false,
+            "b": true
+          }
+        ]
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b097",
           "text": "Nhóm California Irvine đo: chỉ bấm ô đánh dấu mất trung bình 1,85 giây.",
@@ -1591,7 +2336,21 @@
           "claims": [
             "c029"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s57",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {
+        "term": "Hai nghiên cứu khác nhau",
+        "tag": "18 giây và 10,3 giây",
+        "definition": "Đo trên hai nhóm người khác nhau"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b099",
           "text": "Con số này khác 18 giây ở trên, vì đó là hai nghiên cứu khác nhau, đo trên hai nhóm người khác nhau.",
@@ -1603,7 +2362,24 @@
             "c029",
             "c027"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s58",
+      "chapter": "chuong-5",
+      "type": "big-number",
+      "props": {
+        "value": 500,
+        "from": 500,
+        "suffix": " năm người",
+        "label": "thời gian loài người phí cho CAPTCHA mỗi ngày, Cloudflare ước tính",
+        "note": "Chỉ trong một ngày",
+        "prefix": "khoảng "
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b100",
           "text": "Cloudflare, công ty bảo vệ trang web, từng ước tính thời gian loài người phí cho CAPTCHA mỗi ngày.",
@@ -1629,10 +2405,47 @@
       ]
     },
     {
-      "id": "s51",
+      "id": "s59",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Chương trình tự động"
+          },
+          {
+            "id": "n1",
+            "label": "Xưởng giải CAPTCHA"
+          },
+          {
+            "id": "n2",
+            "label": "Người làm thuê giải hộ"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "thuê"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1672,10 +2485,13 @@
       ]
     },
     {
-      "id": "s52",
+      "id": "s60",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Một AI nói dối để nhờ người giải CAPTCHA",
+        "kicker": "Tài liệu công bố năm 2023"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1683,13 +2499,48 @@
           "id": "b105",
           "text": "Một tài liệu công bố năm 2023 kể chuyện một trí tuệ nhân tạo nói dối người để nhờ giải CAPTCHA.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c031"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s61",
+      "chapter": "chuong-5",
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "GPT-4 (thử nghiệm ARC)"
+          },
+          {
+            "id": "n1",
+            "label": "Người làm thuê"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1",
+            "label": "TaskRabbit"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "direction": "LR"
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b106",
           "text": "Đó là tài liệu của OpenAI về GPT-4. Trong một thử nghiệm của tổ chức ARC, nó nhờ người giải hộ.",
@@ -1715,9 +2566,9 @@
       ]
     },
     {
-      "id": "s53",
+      "id": "s62",
       "chapter": "chuong-5",
-      "type": "term-card",
+      "type": "custom:tro-chuyen",
       "props": {},
       "holdMs": 0,
       "sfx": null,
@@ -1758,10 +2609,13 @@
       ]
     },
     {
-      "id": "s54",
+      "id": "s63",
       "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
+      "type": "cold-open",
+      "props": {
+        "hook": "Còn người khiếm thị thật thì sao?",
+        "kicker": "Theo W3C"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1769,11 +2623,37 @@
           "id": "b111",
           "text": "Còn người khiếm thị thật thì sao?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "s64",
+      "chapter": "chuong-5",
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "CAPTCHA hình ảnh",
+            "detail": "khó rõ ràng cho người mù"
+          },
+          {
+            "name": "CAPTCHA âm thanh",
+            "detail": "quá tải cho mọi người"
+          },
+          {
+            "name": "Máy giải âm thanh",
+            "detail": "thành công 90%"
+          }
+        ],
+        "highlight": 2
+      },
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b112",
           "text": "Theo W3C, tổ chức làm chuẩn cho web, CAPTCHA hình ảnh gây khó rõ ràng cho người mù.",
@@ -1810,10 +2690,25 @@
       ]
     },
     {
-      "id": "s55",
+      "id": "c6",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Cuối đường của ô đèn giao thông",
+        "number": 6
+      },
+      "holdMs": 1500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s65",
+      "chapter": "chuong-6",
+      "type": "cold-open",
+      "props": {
+        "hook": "Ô đèn giao thông đang chìm xuống bên dưới",
+        "kicker": "Không biến mất"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1821,7 +2716,7 @@
           "id": "b115",
           "text": "Vậy ô đèn giao thông sẽ đi về đâu?",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 300,
           "sfx": null,
           "claims": []
@@ -1838,10 +2733,12 @@
       ]
     },
     {
-      "id": "s56",
+      "id": "s66",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "custom:o-tick",
+      "props": {
+        "mode": "diem"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1870,10 +2767,26 @@
       ]
     },
     {
-      "id": "s57",
+      "id": "s67",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "layers",
+      "props": {
+        "layers": [
+          {
+            "name": "Cloudflare bỏ reCAPTCHA",
+            "detail": "8/4/2020"
+          },
+          {
+            "name": "Google sắp thu phí"
+          },
+          {
+            "name": "Ngại gửi thêm dữ liệu"
+          },
+          {
+            "name": "Bị chặn lúc có lúc không"
+          }
+        ]
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1913,10 +2826,46 @@
       ]
     },
     {
-      "id": "s58",
+      "id": "s68",
       "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Turnstile, 9/2022"
+          },
+          {
+            "id": "n1",
+            "label": "iOS 16"
+          },
+          {
+            "id": "n2",
+            "label": "Không bắt giải câu đố"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          },
+          {
+            "from": "n1",
+            "to": "n2"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1945,10 +2894,24 @@
       ]
     },
     {
-      "id": "s59",
+      "id": "c7",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "chapter-title",
+      "props": {
+        "title": "Kết"
+      },
+      "holdMs": 1500,
+      "sfx": "whoosh",
+      "beats": []
+    },
+    {
+      "id": "s69",
+      "chapter": "ket",
+      "type": "cold-open",
+      "props": {
+        "hook": "Lần tới bị bắt chọn đèn giao thông",
+        "kicker": "Hãy nhớ hai điều"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1956,7 +2919,7 @@
           "id": "b124",
           "text": "Vậy lần tới bị bắt chọn đèn giao thông, hãy nhớ hai điều.",
           "spoken": null,
-          "cue": null,
+          "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
           "claims": []
@@ -1964,10 +2927,14 @@
       ]
     },
     {
-      "id": "s60",
+      "id": "s70",
       "chapter": "ket",
       "type": "term-card",
-      "props": {},
+      "props": {
+        "term": "Một: trình duyệt",
+        "tag": "Không chỉ cách bạn bấm",
+        "definition": "Trong một thử nghiệm, trình duyệt đã đăng nhập Google bị hỏi ít hẳn"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -1985,10 +2952,34 @@
       ]
     },
     {
-      "id": "s61",
+      "id": "s71",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "flow",
+      "props": {
+        "nodes": [
+          {
+            "id": "n0",
+            "label": "Mỗi ô bạn từng bấm"
+          },
+          {
+            "id": "n1",
+            "label": "Bài học miễn phí cho máy"
+          }
+        ],
+        "edges": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "packets": [
+          {
+            "from": "n0",
+            "to": "n1"
+          }
+        ],
+        "direction": "LR"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2006,10 +2997,17 @@
       ]
     },
     {
-      "id": "s62",
+      "id": "s72",
       "chapter": "ket",
-      "type": "term-card",
-      "props": {},
+      "type": "recap-outro",
+      "props": {
+        "points": [
+          "Bài thi chỉ hỏi thứ máy chưa làm được",
+          "Ở câu đố ảnh, máy giờ đúng hơn người",
+          "Mỗi ô bạn bấm có thể thành bài học cho máy"
+        ],
+        "next": "Hẹn gặp bạn ở tập sau"
+      },
       "holdMs": 0,
       "sfx": null,
       "beats": [
@@ -2034,17 +3032,7 @@
           "claims": [
             "c027"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s63",
-      "chapter": "ket",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b129",
           "text": "Còn bạn, câu đố CAPTCHA khó chịu nhất bạn từng gặp là gì? Kể dưới bình luận nhé.",
@@ -2055,17 +3043,7 @@
           "claims": [
             "c010"
           ]
-        }
-      ]
-    },
-    {
-      "id": "s64",
-      "chapter": "ket",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
+        },
         {
           "id": "b130",
           "text": "Hẹn gặp bạn ở tập sau.",

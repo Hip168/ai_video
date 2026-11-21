@@ -51,6 +51,13 @@ import { ChupManHinh } from "./vi-sao-anh-gui-nhieu-lan-bi-mo/chup-man-hinh";
 import { DiemAnh } from "./vi-sao-anh-gui-nhieu-lan-bi-mo/diem-anh";
 import { LamTron } from "./vi-sao-anh-gui-nhieu-lan-bi-mo/lam-tron";
 import { OTam } from "./vi-sao-anh-gui-nhieu-lan-bi-mo/o-tam";
+import { ChuMeo } from "./vi-sao-captcha-bat-chon-den-giao-thong/chu-meo";
+import { DongThoiGian } from "./vi-sao-captcha-bat-chon-den-giao-thong/dong-thoi-gian";
+import { LuoiDen } from "./vi-sao-captcha-bat-chon-den-giao-thong/luoi-den";
+import { NguoiMay } from "./vi-sao-captcha-bat-chon-den-giao-thong/nguoi-may";
+import { OTick } from "./vi-sao-captcha-bat-chon-den-giao-thong/o-tick";
+import { SachQuet } from "./vi-sao-captcha-bat-chon-den-giao-thong/sach-quet";
+import { TroChuyen } from "./vi-sao-captcha-bat-chon-den-giao-thong/tro-chuyen";
 import { BiteByte } from "./vi-sao-may-tinh-dung-nhi-phan/bite-byte";
 import { BoDemVong } from "./vi-sao-may-tinh-dung-nhi-phan/bo-dem-vong";
 import { BonMuoiBit } from "./vi-sao-may-tinh-dung-nhi-phan/bon-muoi-bit";
@@ -132,6 +139,14 @@ export const CUSTOM_SCENES: Record<string, React.FC<SceneProps>> = {
   "diem-anh": DiemAnh,
   "lam-tron": LamTron,
   "o-tam": OTam,
+  // vi-sao-captcha-bat-chon-den-giao-thong
+  "chu-meo": ChuMeo,
+  "dong-thoi-gian": DongThoiGian,
+  "luoi-den": LuoiDen,
+  "nguoi-may": NguoiMay,
+  "o-tick": OTick,
+  "sach-quet": SachQuet,
+  "tro-chuyen": TroChuyen,
 };
 
 /** Cảnh riêng đã tự vẽ vừa hộp vuông của Short (đọc `useBox()`); cảnh khác không được nằm trong Short (D33). */
@@ -149,4 +164,6 @@ export const CUSTOM_SQUARE: ReadonlySet<string> = new Set<string>([
   "chrome-cham", "thach-anh", "lech-dan", "hoi-gio", "bo-dem", "gio-sai-gon", "samoa", "so-mui-gio", "giay-nhuan", "do-am", "rai-giay",
   // vi-sao-anh-gui-nhieu-lan-bi-mo
   "anh-mo", "chup-man-hinh", "diem-anh", "lam-tron", "o-tam",
+  // vi-sao-captcha-bat-chon-den-giao-thong
+  "chu-meo", "dong-thoi-gian", "luoi-den", "nguoi-may", "o-tick", "sach-quet", "tro-chuyen",
 ]);

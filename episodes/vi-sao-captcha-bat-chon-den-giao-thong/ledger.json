@@ -588,6 +588,31 @@
       "unresolvedSevere": null,
       "prevHash": "c31616d1f5e3cf716c1bcd0424bf88cfdef3eb0a78b004e81f866042f42da858",
       "entryHash": "31fccc30f8abeb320e6d5ed0b69236d6f16957cbcbdd43dd4ffe3fcb3416b798"
+    },
+    {
+      "seq": 17,
+      "ts": "2026-11-21T08:18:21Z",
+      "stage": "viet",
+      "role": "scriptwriter",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": "8b7932033a37d5301ded1b9b1d942bcfab21e0c80ae10d895d65e8869cd68537",
+      "claimsHash": null,
+      "artifactHash": "7030f58b400cb63164321d740e94967060b41c200f9e420d419ce22c514635a1",
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "vòng 5: sửa b120 theo fact-2 lo-oqinqjc6, 130 nhịp",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "31fccc30f8abeb320e6d5ed0b69236d6f16957cbcbdd43dd4ffe3fcb3416b798",
+      "entryHash": "4ee0f290e1934421120d68dbaf12b0a593f855cee1177836415c5fd6520a8203"
     }
   ]
 }

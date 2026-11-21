@@ -1890,7 +1890,18 @@
         },
         {
           "id": "b120",
-          "text": "Họ còn ngại gửi thêm dữ liệu cho Google, và dịch vụ Google bị chặn lúc có lúc không ở vài nơi.",
+          "text": "Ngoài ra, một số khách hàng của họ ngại gửi thêm dữ liệu cho Google.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b121",
+          "text": "Và dịch vụ Google bị chặn lúc có lúc không ở vài nơi.",
           "spoken": null,
           "cue": null,
           "pause_ms": 500,
@@ -1910,7 +1921,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b121",
+          "id": "b122",
           "text": "Tháng 9/2022, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
           "spoken": "Tháng chín năm hai nghìn không trăm hai mươi hai, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
           "cue": null,
@@ -1921,7 +1932,7 @@
           ]
         },
         {
-          "id": "b122",
+          "id": "b123",
           "text": "Cùng năm, Apple đưa vào iOS 16 một cách để máy chủ tin thiết bị mà không bắt bạn giải câu đố.",
           "spoken": null,
           "cue": null,
@@ -1942,7 +1953,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b123",
+          "id": "b124",
           "text": "Vậy lần tới bị bắt chọn đèn giao thông, hãy nhớ hai điều.",
           "spoken": null,
           "cue": null,
@@ -1961,7 +1972,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b124",
+          "id": "b125",
           "text": "Một: không chỉ cách bạn bấm. Trong một thử nghiệm, trình duyệt đã đăng nhập Google bị hỏi ít hẳn.",
           "spoken": null,
           "cue": null,
@@ -1982,7 +1993,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b125",
+          "id": "b126",
           "text": "Hai: mỗi ô bạn từng bấm có thể đã thành một bài học miễn phí cho máy.",
           "spoken": null,
           "cue": null,
@@ -2003,7 +2014,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b126",
+          "id": "b127",
           "text": "Bài thi chỉ hỏi thứ máy chưa làm được. Mà máy làm được ngày càng nhiều.",
           "spoken": null,
           "cue": null,
@@ -2014,7 +2025,7 @@
           ]
         },
         {
-          "id": "b127",
+          "id": "b128",
           "text": "Ở câu đố ảnh, máy giờ đã làm đúng hơn người.",
           "spoken": null,
           "cue": null,
@@ -2035,7 +2046,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b128",
+          "id": "b129",
           "text": "Còn bạn, câu đố CAPTCHA khó chịu nhất bạn từng gặp là gì? Kể dưới bình luận nhé.",
           "spoken": null,
           "cue": null,
@@ -2056,7 +2067,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b129",
+          "id": "b130",
           "text": "Hẹn gặp bạn ở tập sau.",
           "spoken": null,
           "cue": null,

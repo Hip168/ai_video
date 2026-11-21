@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "shorts": [
+    {
+      "part": 1,
+      "total": 3,
+      "from": "b050",
+      "to": "b062",
+      "title": "Spider-Man trên PS4 chép một cái hộp thư hàng trăm lần. Vì sao?",
+      "hook": "Cố tình chép trùng dữ liệu",
+      "tiktok": {
+        "title": "Spider-Man trên PS4 chép một cái hộp thư hàng trăm lần. Vì sao?",
+        "intro": "Ổ cứng quay mất nhiều thời gian đi tìm dữ liệu hơn là đọc. Nên người làm game gom mọi thứ của một khối phố thành một khúc liền trên ổ, và cùng một cái hộp thư bị chép lại hàng trăm lần. Cái giá còn lại: người chơi không được đi nhanh hơn tốc độ nạp của ổ.",
+        "question": "Bạn từng lái xe nhanh tới mức thấy game nạp không kịp chưa? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #game"
+      }
+    },
+    {
+      "part": 2,
+      "total": 3,
+      "from": "b069",
+      "to": "b080",
+      "title": "Vì sao tòa nhà ở xa trong game trông thô, tới gần mới nét?",
+      "hook": "Nhà ở xa trông thô là cố ý",
+      "tiktok": {
+        "title": "Vì sao tòa nhà ở xa trong game trông thô, tới gần mới nét?",
+        "intro": "Máy không vẽ mọi thứ chi tiết như nhau. Cùng một tòa nhà có sẵn vài phiên bản từ kỹ tới thô, vật càng xa thì dùng bản càng thô. Ảnh phủ lên tường, lên mặt đường cũng có nhiều mức như vậy.",
+        "question": "Game nào bạn thấy cảnh xa hiện ra mượt nhất? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #game"
+      }
+    },
+    {
+      "part": 3,
+      "total": 3,
+      "from": "b097",
+      "to": "b105",
+      "title": "Con chip trong PS5 có một bộ phận chỉ làm đúng một việc: giải nén",
+      "hook": "Sức 9 nhân, chỉ để giải nén",
+      "tiktok": {
+        "title": "Con chip trong PS5 có một bộ phận chỉ làm đúng một việc: giải nén",
+        "intro": "Theo Mark Cerny, PS5 dùng định dạng nén Kraken, và bộ giải nén được gắn thẳng vào trong chip. Đầu vào hơn 5 GB dữ liệu nén mỗi giây, đầu ra thường 8 đến 9 GB. Làm việc ấy bằng bộ xử lý thường thì cần sức của 9 nhân Zen 2.",
+        "question": "Bạn chơi game trên máy nào? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #game"
+      }
+    }
+  ]
+}

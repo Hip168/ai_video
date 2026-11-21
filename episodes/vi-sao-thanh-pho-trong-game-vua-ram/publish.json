@@ -1,0 +1,21 @@
+{
+  "title": "GTA VI cần tới 212 GB, sao thành phố vừa 16 GB RAM?",
+  "description": "GTA VI cần tới 212 GB trống trên ổ để tải trước, tùy máy, trong khi RAM của PS5 chỉ có 16 GB. Video giải thích máy chưa bao giờ giữ cả thành phố trong bộ nhớ: game cắt thế giới thành ô và chỉ nạp phần gần người chơi, vẽ thô vật ở xa và bỏ hẳn thứ bạn không thấy, rồi nén dữ liệu hai lớp. Có cả chuyện cái hộp thư trong Marvel's Spider-Man bị chép hàng trăm lần trên ổ cứng, bộ giải nén Kraken gắn thẳng trong chip PS5, và vì sao ổ SSD nhanh gần như thành thêm RAM.\n\nMục lục:\n00:00 Mở đầu\n01:14 Mặt bàn nhỏ và cái kho to\n02:23 Cắt thành phố thành ô, và cái chậm của ổ cứng\n04:03 Cái hộp thư nằm trên ổ hàng trăm lần\n05:27 Xa thì vẽ thô, khuất thì không vẽ\n07:09 Nén hai lớp, và con chip chỉ để giải nén\n08:49 Khi ổ đĩa gần như thành RAM\n10:16 Kết\n\nNguồn chính:\n- Rockstar Newswire, GTA VI phát hành 19/11/2026: https://www.rockstargames.com/newswire/article/39akk424a9oo53/grand-theft-auto-vi-now-available\n- Rockstar Newswire, tải trước GTA VI: https://www.rockstargames.com/newswire/article/k4ak9okk485712/grand-theft-auto-vi-pre-load-begins-on-november-10\n- TechRadar (3/11/2026), tới 212 GB tùy máy: https://www.techradar.com/au/gaming/gta-6-digital-pre-loads-for-ps5-and-xbox-will-begin-9-days-early-and-require-a-whopping-212gb-of-free-space\n- PlayStation Blog (18/3/2020), thông số PS5: https://blog.playstation.com/2020/03/18/unveiling-new-details-of-playstation-5-hardware-technical-specs/\n- Mark Cerny, \"The Road to PS5\" (18/3/2020): https://www.youtube.com/watch?v=ph8LyNIT9sg\n- Take-Two (17/9/2013), GTA V phát hành: https://ir.take2games.com/static-files/dd93d264-3d54-404a-ab30-bc6c0fa07ed2\n- ITmedia (17/5/2005), bộ nhớ PS3: https://www.itmedia.co.jp/news/article/0505/17/1050517019/\n- ComputerBase (17/5/2005), bộ nhớ Xbox 360: https://www.computerbase.de/2005-05/xbox-360-enthuellt-und-spezifikationen-bestaetigt/\n- J. H. Clark (1976), Communications of the ACM: https://doi.org/10.1145/360349.360354\n- Unreal Engine, World Partition: https://dev.epicgames.com/documentation/en-us/unreal-engine/world-partition-in-unreal-engine\n- Unreal Engine, Visibility and Occlusion Culling: https://dev.epicgames.com/documentation/en-us/unreal-engine/visibility-and-occlusion-culling-in-unreal-engine\n- Microsoft Learn, mipmap: https://learn.microsoft.com/en-us/windows/win32/direct3d9/texture-filtering-with-mipmaps\n- Microsoft Learn, nén khối BC: https://learn.microsoft.com/en-us/windows/win32/direct3d11/texture-block-compression-in-direct3d-11\n- Xbox Wire (14/7/2020), Xbox Velocity Architecture: https://news.xbox.com/en-us/2020/07/14/a-closer-look-at-xbox-velocity-architecture/\n- Xbox Series X, thông số: https://www.xbox.com/en-US/consoles/xbox-series-x\n\nNhạc nền: Reverence, Abstraction (https://abstractionmusic.com/), giấy phép CC0, nguồn https://tallbeard.itch.io/music-loop-bundle\n\n#conbit7 #GTAVI\n\nGiọng đọc trong video do AI tạo.",
+  "tags": [
+    "GTA VI",
+    "GTA 6",
+    "GTA 6 bao nhiêu GB",
+    "RAM PS5",
+    "game thế giới mở",
+    "streaming thế giới game",
+    "mức chi tiết LOD",
+    "SSD PS5",
+    "nén dữ liệu game",
+    "tin học"
+  ],
+  "chapters": "00:00 Mở đầu\n01:14 Mặt bàn nhỏ và cái kho to\n02:23 Cắt thành phố thành ô, và cái chậm của ổ cứng\n04:03 Cái hộp thư nằm trên ổ hàng trăm lần\n05:27 Xa thì vẽ thô, khuất thì không vẽ\n07:09 Nén hai lớp, và con chip chỉ để giải nén\n08:49 Khi ổ đĩa gần như thành RAM\n10:16 Kết",
+  "thumbnail": "thumbnail.png",
+  "privacy": "public",
+  "channelId": "UC1aPohYcigcmBGPl7OlQaEw",
+  "containsSyntheticMedia": false
+}

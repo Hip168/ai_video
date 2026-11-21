@@ -49,7 +49,13 @@
       "from": "b060",
       "to": "b066",
       "title": "Samoa từng xoá hẳn một ngày khỏi lịch: thứ Sáu 30/12/2011 không tồn tại",
-      "hook": "Samoa xoá một ngày"
+      "hook": "Samoa xoá một ngày",
+      "tiktok": {
+        "title": "Samoa từng xoá hẳn một ngày khỏi lịch: thứ Sáu 30/12/2011 không tồn tại",
+        "intro": "Sau 23:59:59 tối thứ Năm 29/12/2011, đồng hồ ở Samoa nhảy thẳng sang 00:00:00 thứ Bảy. Thứ Sáu 30/12/2011 không hề tồn tại ở đó, vì Samoa chuyển từ UTC−11 sang UTC+13 để khớp ngày với New Zealand và Úc.",
+        "question": "Nếu bạn sinh đúng ngày 30/12, năm 2011 ở Samoa bạn mừng sinh nhật vào hôm nào? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #meotinhoc"
+      }
     },
     {
       "part": 5,
@@ -57,7 +63,13 @@
       "from": "b083",
       "to": "b096",
       "title": "Khi đồng hồ chỉ 23:59:60: giây nhuận làm sập hệ thống đặt chỗ máy bay",
-      "hook": "Phút có 61 giây"
+      "hook": "Phút có 61 giây",
+      "tiktok": {
+        "title": "Khi đồng hồ chỉ 23:59:60: giây nhuận làm sập hệ thống đặt chỗ máy bay",
+        "intro": "Có lúc đồng hồ chuẩn của thế giới chỉ 23:59:60. Đó là giây nhuận, một giây chèn thêm cho giờ quốc tế khớp với vòng quay Trái Đất. Ngày 30/6/2012, một giây như thế làm sập hệ thống đặt chỗ máy bay Altea khoảng một giờ.",
+        "question": "Bạn đã bao giờ thấy đồng hồ chỉ giây thứ 60 chưa? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #meotinhoc"
+      }
     },
     {
       "part": 6,
@@ -65,7 +77,13 @@
       "from": "b097",
       "to": "b109",
       "title": "Một giây nhuận làm đồng hồ chạy lùi và gây lỗi một phần DNS của Cloudflare",
-      "hook": "Khi thời gian chạy lùi"
+      "hook": "Khi thời gian chạy lùi",
+      "tiktok": {
+        "title": "Một giây nhuận làm đồng hồ chạy lùi và gây lỗi một phần DNS của Cloudflare",
+        "intro": "Lúc 0 giờ UTC ngày 1/1/2017, tức 7 giờ sáng ở Việt Nam, thế giới chèn thêm một giây nhuận. Để chèn nó, nhân Linux đặt đồng hồ lùi lại một giây, một phép đo ra số âm, và một phần dịch vụ DNS của Cloudflare bị lỗi.",
+        "question": "Bạn nghĩ đồng hồ trong máy có nên được phép chạy lùi không? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #meotinhoc"
+      }
     }
   ]
 }

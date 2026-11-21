@@ -217,15 +217,15 @@
   },
   {
     "id": "c017",
-    "claim": "Theo bài Science 2008, thử trên 1.000 người dùng ngẫu nhiên, giải một CAPTCHA thông thường 7 chữ cái mất trung bình 13,51 giây, còn giải một reCAPTCHA mất trung bình 13,06 giây.",
-    "question": "Theo bài Science 2008, thời gian trung bình để giải một CAPTCHA thông thường và một reCAPTCHA là bao nhiêu giây?",
+    "claim": "Theo bài Science 2008, một nhóm 1.000 người dùng ngẫu nhiên giải một CAPTCHA thông thường 7 chữ cái mất trung bình 13,51 giây, còn một nhóm 1.000 người khác giải một reCAPTCHA mất trung bình 13,06 giây.",
+    "question": "Theo bài Science 2008, thời gian trung bình để giải một CAPTCHA thông thường và một reCAPTCHA là bao nhiêu giây, và hai con số được đo trên những nhóm người nào?",
     "sources": [
       {
         "url": "https://www.cs.cmu.edu/~biglou/reCAPTCHA_Science.pdf",
         "credibility": "primary"
       }
     ],
-    "status": "DAT"
+    "status": "CHUA_KIEM"
   },
   {
     "id": "c018",
@@ -281,9 +281,21 @@
   },
   {
     "id": "c022",
-    "claim": "Bài \"Dazed & Confused\" viết rằng năm 2012 Google chuyển reCAPTCHA từ chữ méo sang phân loại hình ảnh, dùng ảnh từ dự án Google Street View; tới năm 2023 reCAPTCHA có mặt trên hơn 13 triệu trang web.",
-    "question": "Theo bài \"Dazed & Confused\", năm nào Google chuyển reCAPTCHA từ chữ méo sang ảnh, ảnh lấy từ đâu, và năm 2023 reCAPTCHA có trên bao nhiêu trang web?",
+    "claim": "Khoảng tháng 3/2012, reCAPTCHA bắt đầu hiện ảnh số nhà lấy từ Google Street View cho người dùng gõ lại (Google xác nhận đó là thử nghiệm để làm dữ liệu Google Maps tốt hơn), tức vẫn là gõ chữ và số; câu đố chọn ảnh chỉ xuất hiện cùng \"No CAPTCHA reCAPTCHA\" ngày 3/12/2014. Tới năm 2023 reCAPTCHA có mặt trên hơn 13 triệu trang web.",
+    "question": "reCAPTCHA bắt đầu dùng ảnh Street View từ khi nào và người dùng phải làm gì với các ảnh đó; câu đố chọn ảnh được Google giới thiệu ngày nào; và năm 2023 reCAPTCHA có trên bao nhiêu trang web?",
     "sources": [
+      {
+        "url": "https://web.archive.org/web/20130102130831/http://techcrunch.com/2012/03/29/google-now-using-recaptcha-to-decode-street-view-addresses",
+        "credibility": "secondary"
+      },
+      {
+        "url": "https://web.archive.org/web/20180102231056/https://www.google.com/recaptcha/intro/index.html",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://security.googleblog.com/2014/12/are-you-robot-introducing-no-captcha.html",
+        "credibility": "primary"
+      },
       {
         "url": "https://arxiv.org/pdf/2311.10911",
         "credibility": "primary"
@@ -345,15 +357,15 @@
   },
   {
     "id": "c027",
-    "claim": "Nghiên cứu \"An Empirical Study & Evaluation of Modern CAPTCHAs\" (Searles và cộng sự, Đại học California Irvine, arXiv 2023) cho 1.400 người giải tổng cộng 14.000 CAPTCHA; máy giải đúng 85–100% (đa số trên 96%), còn người chỉ đúng 50–85%; với câu đố ảnh của reCAPTCHA, người mất khoảng 18 giây, máy khoảng 17,5 giây.",
-    "question": "Nghiên cứu \"An Empirical Study & Evaluation of Modern CAPTCHAs\" có bao nhiêu người tham gia, giải bao nhiêu CAPTCHA, và độ chính xác, thời gian của người so với máy ra sao?",
+    "claim": "Nghiên cứu \"An Empirical Study & Evaluation of Modern CAPTCHAs\" (Searles và cộng sự, Đại học California Irvine, arXiv 2023) cho 1.400 người giải tổng cộng 14.000 CAPTCHA, người chỉ đúng 50–85%; nhóm so với kết quả các tấn công tự động trong những nghiên cứu trước (không tự đo máy): máy đúng 85–100% (đa số trên 96%); với câu đố ảnh của reCAPTCHA, người mất khoảng 18 giây, còn máy trong các nghiên cứu đó khoảng 17,5 giây.",
+    "question": "Nghiên cứu \"An Empirical Study & Evaluation of Modern CAPTCHAs\" có bao nhiêu người tham gia, giải bao nhiêu CAPTCHA, người đúng bao nhiêu phần trăm, và số liệu về máy (độ chính xác, thời gian với câu đố ảnh reCAPTCHA) lấy từ đâu, là bao nhiêu?",
     "sources": [
       {
         "url": "https://arxiv.org/pdf/2307.12108",
         "credibility": "primary"
       }
     ],
-    "status": "DAT"
+    "status": "CHUA_KIEM"
   },
   {
     "id": "c028",
@@ -369,8 +381,8 @@
   },
   {
     "id": "c029",
-    "claim": "Bài \"Dazed & Confused\" đo được: chỉ bấm ô đánh dấu \"Tôi không phải người máy\" mất trung bình 1,85 giây, còn khi bị bắt chọn ảnh thì mất trung bình 10,3 giây, lâu hơn 557%.",
-    "question": "Theo bài \"Dazed & Confused\", thời gian trung bình khi chỉ bấm ô đánh dấu và khi phải giải câu đố ảnh là bao nhiêu, chênh bao nhiêu phần trăm?",
+    "claim": "Bài \"Dazed & Confused\" đo được: chỉ bấm ô đánh dấu \"Tôi không phải người máy\" mất trung bình 1,85 giây, còn khi bị bắt chọn ảnh thì mất trung bình 10,3 giây, tức lâu gấp khoảng 5,6 lần.",
+    "question": "Theo bài \"Dazed & Confused\", thời gian trung bình khi chỉ bấm ô đánh dấu và khi phải giải câu đố ảnh là bao nhiêu giây, và câu đố ảnh lâu gấp mấy lần?",
     "sources": [
       {
         "url": "https://arxiv.org/pdf/2311.10911",

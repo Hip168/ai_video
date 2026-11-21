@@ -32,7 +32,7 @@ Ghi chú lời đọc (luật từ tiếng Anh của kênh): đọc "captcha" th
 - Mẹo hai chữ: một chữ kiểm tra, một chữ máy đọc không ra (c013).
 - Kết quả: 99,1% so với OCR 83,5% trên báo New York Times cũ (c014).
 - Con số một năm: 1,2 tỉ CAPTCHA, 440 triệu chữ, 17.600 cuốn sách; 160 cuốn mỗi ngày; thay bằng 1.500 người gõ toàn thời gian (c015). Có thể thành Short (con số bất ngờ).
-- Bài đăng Science 12/9/2008, hơn 40.000 trang web (c016); giải mất khoảng 13 giây như CAPTCHA thường (c017).
+- Bài đăng Science 12/9/2008, hơn 40.000 trang web (c016); giải mất khoảng 13 giây như CAPTCHA thường, đo trên hai nhóm 1.000 người khác nhau (c017).
 - Google mua reCAPTCHA 16/9/2009, hơn 100.000 trang, cho Google Books và News Archive (c018).
 - Gợi ý hình ảnh: trang báo cũ ố vàng, một chữ bị khoanh, hai ô nhập.
 
@@ -41,7 +41,7 @@ Ghi chú lời đọc (luật từ tiếng Anh của kênh): đọc "captcha" th
 - Nhóm Google đọc số nhà trên Street View: hơn 96% số nhà, 99,8% với loại reCAPTCHA khó nhất (c019).
 - Đọc hết số nhà của cả nước Pháp trong chưa tới một giờ (c020). Short "thời gian bất ngờ".
 - 3/12/2014: "No CAPTCHA reCAPTCHA", ô đánh dấu, phân tích rủi ro trước/trong/sau; không chắc mới hỏi ảnh, dễ bấm trên điện thoại (c021).
-- 2012 chuyển sang ảnh Street View (c022). Trang của Google nói công sức người giải dùng để gắn nhãn ảnh, xây dữ liệu học máy, làm bản đồ chính xác hơn (c023).
+- Từ khoảng tháng 3/2012 reCAPTCHA đã cho gõ số nhà trên ảnh Street View (vẫn là gõ chữ); câu đố chọn ảnh chỉ có từ 3/12/2014 (c022, c021). Trang của Google nói công sức người giải dùng để gắn nhãn ảnh, xây dữ liệu học máy, làm bản đồ chính xác hơn (c023).
 - Trả lời câu hỏi "vì sao đèn giao thông": ảnh đường phố là thứ Google có sẵn khổng lồ và cần gắn nhãn; câu đố xoay quanh khoảng 13 loại vật trên phố (c023, c024). Không nói thêm mục đích nào ngoài c023.
 - Gợi ý hình ảnh: lưới 3×3, lưới 4×4 cắt một ảnh, ô ảnh mờ dần thay ảnh mới (c024).
 
@@ -49,8 +49,8 @@ Ghi chú lời đọc (luật từ tiếng Anh của kênh): đọc "captcha" th
 Ý chính: ngày nay câu đố ảnh không còn phân biệt được người với máy; thứ quyết định là dấu vết trình duyệt của bạn.
 - 2024: máy giải 100% câu đố; người và máy phải giải số câu đố như nhau (c025).
 - Cookie và lịch sử duyệt web của tài khoản Google đã đăng nhập làm số câu đố giảm mạnh (c026). Lời khuyên đời thường suy ra (không phải claim mới): trình duyệt ẩn danh, vừa xoá dữ liệu, dùng VPN thì hay bị hỏi hơn; scriptwriter chỉ nói tới mức c026 cho phép.
-- Người đúng 50–85%, máy 85–100%; câu đố ảnh: người 18 giây, máy 17,5 giây (c027). Mỗi năm tuổi thêm khoảng 0,09 giây (c028). Short "bạn chậm hơn máy".
-- Bấm ô: 1,85 giây; bị bắt chọn ảnh: 10,3 giây (c029).
+- Người đúng 50–85%; theo các nghiên cứu tấn công trước mà nhóm UC Irvine tổng hợp, máy đúng 85–100%; câu đố ảnh: người 18 giây, máy 17,5 giây (c027). Mỗi năm tuổi thêm khoảng 0,09 giây (c028). Short "bạn chậm hơn máy".
+- Bấm ô: 1,85 giây; bị bắt chọn ảnh: 10,3 giây, gấp khoảng 5,6 lần (c029). Không nói "557%".
 - Robot còn thuê người giải hộ (c030); chuyện GPT-4 nói dối người làm thuê "tôi bị suy giảm thị lực" (c031). Short mạnh.
 - Người khiếm thị bị CAPTCHA chặn, CAPTCHA âm thanh còn khó hơn, và máy giải được 90% (c032).
 

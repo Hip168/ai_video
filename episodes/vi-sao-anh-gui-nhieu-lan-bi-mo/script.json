@@ -2658,7 +2658,7 @@
       "props": {
         "term": "LZW",
         "tag": "Thuật toán nén của GIF",
-        "definition": "Bằng sáng chế thuộc về hãng Unisys"
+        "definition": "Bằng sáng chế từng thuộc về hãng Unisys"
       },
       "holdMs": 0,
       "sfx": null,
@@ -2666,7 +2666,7 @@
         {
           "id": "b112",
           "text": "Ảnh GIF dùng thuật toán nén LZW, mà bằng sáng chế của nó thuộc về hãng Unisys.",
-          "spoken": "Loại ảnh GIF dùng một thuật toán nén, mà hãng Unisys giữ bằng sáng chế.",
+          "spoken": "Hồi đó, loại ảnh GIF dùng một thuật toán nén mà hãng Unisys giữ bằng sáng chế.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,

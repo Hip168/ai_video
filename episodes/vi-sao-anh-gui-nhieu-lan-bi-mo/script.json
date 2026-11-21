@@ -2665,7 +2665,7 @@
       "beats": [
         {
           "id": "b112",
-          "text": "Ảnh GIF dùng thuật toán nén LZW, mà bằng sáng chế của nó thuộc về hãng Unisys.",
+          "text": "Hồi đó, ảnh GIF dùng một thuật toán nén mà bằng sáng chế của nó thuộc về hãng Unisys.",
           "spoken": "Hồi đó, loại ảnh GIF dùng một thuật toán nén mà hãng Unisys giữ bằng sáng chế.",
           "cue": null,
           "pause_ms": 400,

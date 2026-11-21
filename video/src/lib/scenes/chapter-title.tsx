@@ -2,11 +2,13 @@ import React, { useMemo } from "react";
 import { useCurrentFrame } from "remotion";
 import { ease, useTheme } from "../hooks";
 import { assertShortText, Stage, useBox } from "../theme";
-import { fitText, MIN_MARGIN } from "../text";
+import { fitText } from "../text";
 import type { SceneProps } from "../types";
 
-/** Bề rộng khả dụng của chữ: bên phải số (x từ 780, lề phải MIN_MARGIN) hoặc căn giữa. */
-export const CHAPTER_WIDTH_WITH_NUMBER = 1920 - 780 - MIN_MARGIN;
+/** Lề trái, phải tối thiểu của chữ ở khung ngang (vùng an toàn chữ). */
+export const CHAPTER_SIDE_MARGIN = 96;
+/** Bề rộng khả dụng của chữ: bên phải số (x từ 780, lề phải CHAPTER_SIDE_MARGIN) hoặc căn giữa. */
+export const CHAPTER_WIDTH_WITH_NUMBER = 1920 - 780 - CHAPTER_SIDE_MARGIN;
 export const CHAPTER_WIDTH_CENTERED = 1600;
 
 export const ChapterTitle: React.FC<SceneProps> = ({ scene }) => {

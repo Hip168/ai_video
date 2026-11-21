@@ -26,7 +26,8 @@ export interface LintScene {
   chapter?: string;
   props?: unknown;
   durationFrames?: number;
-  beats?: { cue?: string }[];
+  /** `offset`: frame bắt đầu beat tính từ đầu cảnh (có khi đã có timeline). */
+  beats?: { cue?: string; offset?: number }[];
 }
 
 export interface LintInput {
@@ -48,6 +49,8 @@ export const SIMILARITY_LIMIT = 0.6;
 export const FLOW_MIN_NODE_FONT = 24;
 export const FLOW_MIN_LABEL_FONT = 20;
 export const FLOW_MAX_LABEL_OVERLAP = 4;
+/** Ý cuối của thẻ "Tóm lại" (recap-outro) phải hiện đủ ít nhất chừng ấy frame trước đoạn kết. */
+export const RECAP_MIN_TAIL_FRAMES = 3 * FPS;
 
 export function levenshtein(a: string[], b: string[]): number {
   let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
@@ -126,6 +129,23 @@ export function lintEpisode(input: LintInput): Finding[] {
     for (const s of scenes) {
       if ((s.durationFrames ?? 0) > MAX_SCENE_FRAMES)
         err("max-scene-duration", `cảnh ${s.id} dài ${s.durationFrames} frame, tối đa ${MAX_SCENE_FRAMES} (20 giây)`);
+    }
+  }
+
+  // Thẻ "Tóm lại": ý cuối hiện đủ (sau 14 frame hiện dần) ít nhất RECAP_MIN_TAIL_FRAMES trước đoạn kết.
+  if (input.hasDurations) {
+    for (const s of scenes) {
+      if (s.type !== "recap-outro" || s.durationFrames === undefined) continue;
+      const pts = Array.isArray((s.props as { points?: unknown })?.points) ? ((s.props as { points: unknown[] }).points.length) : 0;
+      if (pts === 0) continue;
+      const bs = s.beats ?? [];
+      const nb = bs.length;
+      const off = (i: number) => bs[Math.min(i, nb - 1)]?.offset ?? 0;
+      const last = pts - 1;
+      const appear = nb === 0 ? 10 + last * 20 : off(last) + (last >= nb ? (last - nb + 1) * 10 : 0);
+      const tail = s.durationFrames - appear - 14;
+      if (tail < RECAP_MIN_TAIL_FRAMES)
+        warn("recap-last-point", `cảnh ${s.id} (recap-outro): ý cuối chỉ hiện đủ ${(tail / FPS).toFixed(1)} s trước đoạn kết, nên ít nhất ${RECAP_MIN_TAIL_FRAMES / FPS} s; gộp thêm beat vào cảnh tóm lại`);
     }
   }
 

@@ -48,9 +48,13 @@ if (!Array.isArray(script?.scenes)) usage("script.json thiếu mảng scenes");
 
 const hasTimeline = existsSync(timelineFile);
 const dur = new Map<string, number>();
+const offs = new Map<string, number>();
 if (hasTimeline) {
   const tl = readJson(timelineFile, "timeline.json");
-  for (const s of tl?.scenes ?? []) dur.set(s.id, s.durationFrames);
+  for (const s of tl?.scenes ?? []) {
+    dur.set(s.id, s.durationFrames);
+    for (const b of s.beats ?? []) offs.set(b.id, b.startFrame - s.startFrame);
+  }
 }
 
 let index: IndexEntry[] = [];
@@ -65,7 +69,7 @@ const scenes: LintScene[] = script.scenes.map((s: any) => ({
   chapter: s.chapter,
   props: s.props ?? {},
   durationFrames: dur.get(s.id),
-  beats: Array.isArray(s.beats) ? s.beats.map((b: any) => ({ cue: b?.cue ?? undefined })) : [],
+  beats: Array.isArray(s.beats) ? s.beats.map((b: any) => ({ cue: b?.cue ?? undefined, offset: offs.get(b?.id) })) : [],
 }));
 
 const findings: Finding[] = lintEpisode({

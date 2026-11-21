@@ -38,7 +38,7 @@ const Ke: React.FC<SceneProps> = ({ scene }) => {
   const f = useCurrentFrame();
   const { sq } = useGeom();
   const t1 = at(scene, 1);
-  const G = sq ? { x: 40, y: 40, w: 760, h: 520, cols: 6, rows: 4 } : { x: 120, y: 110, w: 1680, h: 470, cols: 10, rows: 4 };
+  const G = sq ? { x: 60, y: 40, w: 720, h: 520, cols: 6, rows: 4 } : { x: 120, y: 110, w: 1680, h: 470, cols: 10, rows: 4 };
   const cw = G.w / G.cols;
   const ch = G.h / G.rows;
   const hot = Math.floor(f / 6) % (G.cols * G.rows);
@@ -57,7 +57,7 @@ const Ke: React.FC<SceneProps> = ({ scene }) => {
           </g>
         );
       })}
-      <Txt text="cùng một cái hộp thư, chép trên ổ cứng tới hàng trăm lần" x={sq ? 420 : 960} y={sq ? 620 : 660} w={sq ? 760 : 1600} s={sq ? 36 : 50} fill={t.fg} lines={2} />
+      <Txt text="cùng một cái hộp thư, chép trên ổ cứng tới hàng trăm lần" x={sq ? 420 : 960} y={sq ? 620 : 660} w={sq ? 720 : 1600} s={sq ? 36 : 50} fill={t.fg} lines={2} />
       <g opacity={p(f, t1, 14)}>
         <Chip x={sq ? 60 : 560} y={sq ? 720 : 710} w={sq ? 720 : 800} h={sq ? 76 : 84} text="Marvel's Spider-Man, theo Mark Cerny" s={sq ? 32 : 40} fill={t.accent2} color={t.bg} />
       </g>
@@ -72,8 +72,8 @@ const Chep: React.FC<SceneProps> = ({ scene }) => {
   const t1 = at(scene, 1);
   const a1 = p(f, t1, 16);
   const n = 4;
-  const bw = sq ? 170 : 300;
-  const gap = sq ? 26 : 120;
+  const bw = sq ? 160 : 300;
+  const gap = sq ? 24 : 120;
   const x0 = (sq ? 840 : 1920) / 2 - (n * bw + (n - 1) * gap) / 2;
   const by = sq ? 50 : 70;
   const bh = sq ? 160 : 200;
@@ -102,10 +102,10 @@ const Chep: React.FC<SceneProps> = ({ scene }) => {
           </g>
         );
       })}
-      <Txt text="khối phố có hộp thư thì khúc của nó cũng có" x={sq ? 420 : 960} y={dy + dh + (sq ? 50 : 70)} w={sq ? 760 : 1500} s={sq ? 32 : 42} fill={t.accent2} lines={sq ? 2 : 1} />
+      <Txt text="khối phố có hộp thư thì khúc của nó cũng có" x={sq ? 420 : 960} y={dy + dh + (sq ? 50 : 70)} w={sq ? 700 : 1500} s={sq ? 32 : 42} fill={t.accent2} lines={sq ? 2 : 1} />
       <g opacity={a1}>
-        <rect x={sq ? 40 : 460} y={sq ? 640 : 720} width={sq ? 760 : 1000} height={sq ? 110 : 90} rx={22} fill={t.warn} />
-        <Txt text="cùng một hộp thư: chép lại hàng trăm lần" x={sq ? 420 : 960} y={sq ? 684 : 778} w={sq ? 720 : 960} s={sq ? 36 : 44} fill={t.bg} lines={sq ? 2 : 1} />
+        <rect x={sq ? 60 : 460} y={sq ? 640 : 720} width={sq ? 720 : 1000} height={sq ? 110 : 90} rx={22} fill={t.warn} />
+        <Txt text="cùng một hộp thư: chép lại hàng trăm lần" x={sq ? 420 : 960} y={sq ? 684 : 778} w={sq ? 680 : 960} s={sq ? 36 : 44} fill={t.bg} lines={sq ? 2 : 1} />
       </g>
     </g>
   );

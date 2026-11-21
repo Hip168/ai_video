@@ -106,8 +106,8 @@ const Pheu: React.FC<SceneProps> = ({ scene }) => {
   const inY = B.y + B.h / 2;
   const inH = sq ? 50 : 70;
   const outH = lerp(sq ? 90 : 130, sq ? 170 : 250, a2);
-  const inX0 = sq ? 40 : 120;
-  const outX1 = sq ? 800 : 1800;
+  const inX0 = sq ? 60 : 120;
+  const outX1 = sq ? 780 : 1800;
   const dots = (x0: number, x1: number, h: number, n: number, color: string, speed: number, op: number) =>
     Array.from({ length: n }, (_, i) => {
       const u = ((f * speed) / (x1 - x0) + i / n) % 1;
@@ -122,13 +122,13 @@ const Pheu: React.FC<SceneProps> = ({ scene }) => {
       {a1 > 0 && dots(B.x + B.w, outX1, outH, a2 > 0 ? 40 : 22, t.ok, a2 > 0 ? 12 : 6, a1)}
       <rect x={B.x} y={B.y} width={B.w} height={B.h} rx={24} fill={t.accent2} />
       <Txt text="bộ giải nén" x={B.x + B.w / 2} y={B.y + B.h / 2 + 14} w={B.w - 20} s={sq ? 34 : 46} fill={t.bg} />
-      <Txt text="Vào: hơn 5 GB dữ liệu nén mỗi giây" x={sq ? 420 : 440} y={sq ? 90 : 130} w={sq ? 760 : 660} s={sq ? 34 : 42} fill={t.accent} lines={2} />
+      <Txt text="Vào: hơn 5 GB dữ liệu nén mỗi giây" x={sq ? 420 : 440} y={sq ? 90 : 130} w={sq ? 700 : 660} s={sq ? 34 : 42} fill={t.accent} lines={2} />
       <g opacity={a1}>
-        <Txt text="Ra: thường 8 đến 9 GB mỗi giây" x={sq ? 420 : 1480} y={sq ? 600 : 130} w={sq ? 760 : 620} s={sq ? 36 : 44} fill={t.ok} lines={2} />
+        <Txt text="Ra: thường 8 đến 9 GB mỗi giây" x={sq ? 420 : 1480} y={sq ? 600 : 130} w={sq ? 700 : 620} s={sq ? 36 : 44} fill={t.ok} lines={2} />
       </g>
       <g opacity={a2}>
-        <rect x={sq ? 40 : 1160} y={sq ? 680 : 620} width={sq ? 760 : 660} height={sq ? 110 : 120} rx={22} fill={t.warn} />
-        <Txt text="nén đặc biệt tốt: tới 22 GB mỗi giây" x={sq ? 420 : 1490} y={sq ? 746 : 694} w={sq ? 720 : 620} s={sq ? 36 : 42} fill={t.bg} lines={sq ? 1 : 2} />
+        <rect x={sq ? 60 : 1160} y={sq ? 680 : 620} width={sq ? 720 : 660} height={sq ? 110 : 120} rx={22} fill={t.warn} />
+        <Txt text="nén đặc biệt tốt: tới 22 GB mỗi giây" x={sq ? 420 : 1490} y={sq ? 746 : 694} w={sq ? 680 : 620} s={sq ? 36 : 42} fill={t.bg} lines={sq ? 1 : 2} />
       </g>
     </g>
   );

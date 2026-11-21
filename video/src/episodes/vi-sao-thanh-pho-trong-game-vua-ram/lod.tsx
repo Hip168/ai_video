@@ -78,12 +78,12 @@ const XaGan: React.FC<SceneProps> = ({ scene }) => {
     <g>
       <polygon points={`${vx - 6},${vy} ${vx + 6},${vy} ${vx + 520 * k},${ground} ${vx - 520 * k},${ground}`} fill={t.panel} />
       <line x1={vx} y1={vy} x2={vx} y2={ground} stroke={t.accent2} strokeWidth={4} strokeDasharray="20 18" opacity={0.6} />
-      <line x1={sq ? 20 : 100} y1={vy} x2={sq ? 820 : 1820} y2={vy} stroke={t.muted} strokeWidth={2} opacity={0.5} />
+      <line x1={sq ? 60 : 100} y1={vy} x2={sq ? 780 : 1820} y2={vy} stroke={t.muted} strokeWidth={2} opacity={0.5} />
       {items.map((it, i) => {
         const d = it.d;
         const h = (sq ? 420 : 560) * d;
         const w = (sq ? 190 : 300) * d;
-        const x = vx + it.side * (60 + (sq ? 300 : 560) * d) * (sq ? 0.95 : 1);
+        const x = vx + it.side * (60 + (sq ? 300 : 560) * d) * (sq ? 0.78 : 1);
         const y = vy + (ground - vy) * d * 0.98;
         const lv = d > 0.6 ? 2 : d > 0.32 ? 1 : 0;
         return <Building key={i} x={x} y={y} w={w} h={h} lv={lv} body={lv === 0 ? t.muted : t.accent} win={t.bg} line={t.fg} plant={t.ok} />;
@@ -91,8 +91,8 @@ const XaGan: React.FC<SceneProps> = ({ scene }) => {
       <Txt text="ở xa: vẽ thô" x={sq ? 210 : 560} y={vy - (sq ? 24 : 30)} w={sq ? 360 : 500} s={sq ? 34 : 44} fill={t.muted} />
       <Txt text="ở gần: vẽ nét" x={sq ? 630 : 1360} y={vy - (sq ? 24 : 30)} w={sq ? 360 : 500} s={sq ? 34 : 44} fill={t.accent} />
       <g opacity={p(f, t1, 14)}>
-        <rect x={sq ? 30 : 460} y={sq ? 690 : 700} width={sq ? 780 : 1000} height={sq ? 110 : 96} rx={22} fill={t.accent2} />
-        <Txt text="máy chỉ tốn công cho thứ bạn thấy rõ" x={sq ? 420 : 960} y={sq ? 742 : 762} w={sq ? 740 : 960} s={sq ? 36 : 46} fill={t.bg} lines={sq ? 2 : 1} />
+        <rect x={sq ? 60 : 460} y={sq ? 690 : 700} width={sq ? 720 : 1000} height={sq ? 110 : 96} rx={22} fill={t.accent2} />
+        <Txt text="máy chỉ tốn công cho thứ bạn thấy rõ" x={sq ? 420 : 960} y={sq ? 742 : 762} w={sq ? 680 : 960} s={sq ? 36 : 46} fill={t.bg} lines={sq ? 2 : 1} />
       </g>
     </g>
   );
@@ -150,7 +150,7 @@ const Mipmap: React.FC<SceneProps> = ({ scene }) => {
   const t1 = at(scene, 1);
   const a1 = p(f, t1, 16);
   const s0 = sq ? 300 : 440;
-  const x0 = sq ? 40 : 120;
+  const x0 = sq ? 60 : 120;
   const y0 = sq ? 40 : 60;
   const sizes = [s0, s0 / 2, s0 / 4, s0 / 8];
   let x = x0;
@@ -166,7 +166,7 @@ const Mipmap: React.FC<SceneProps> = ({ scene }) => {
           <Brick x={q.x} y={q.y} s={q.s} a="#b5523b" b="#e8d8c4" line={t.fg} />
         </g>
       ))}
-      <Txt text="mỗi mức nhỏ đi một nửa chiều rộng và chiều cao" x={sq ? 420 : 960} y={y0 + s0 + (sq ? 56 : 70)} w={sq ? 760 : 1500} s={sq ? 34 : 46} fill={t.fg} lines={2} />
+      <Txt text="mỗi mức nhỏ đi một nửa chiều rộng và chiều cao" x={sq ? 420 : 960} y={y0 + s0 + (sq ? 56 : 70)} w={sq ? 700 : 1500} s={sq ? 34 : 46} fill={t.fg} lines={2} />
       <g opacity={a1}>
         <Txt text="vật ở gần: ảnh nét" x={sq ? 210 : x0 + s0 / 2} y={sq ? 560 : 700} w={sq ? 380 : 500} s={sq ? 34 : 44} fill={t.accent} />
         <Arrow x1={sq ? 160 : x0 + s0 / 2} y1={sq ? 520 : 650} x2={x0 + s0 / 2} y2={y0 + s0 + (sq ? 84 : 110)} color={t.accent} w={5} head={18} opacity={sq ? 0 : 1} />
@@ -174,9 +174,9 @@ const Mipmap: React.FC<SceneProps> = ({ scene }) => {
       </g>
       {sq && (
         <g opacity={a1}>
-          <rect x={30} y={610} width={780} height={180} rx={20} fill={t.panel} />
-          <Brick x={70} y={630} s={140} a="#b5523b" b="#e8d8c4" line={t.fg} />
-          <Brick x={600} y={690} s={40} a="#b5523b" b="#e8d8c4" line={t.fg} />
+          <rect x={60} y={610} width={720} height={180} rx={20} fill={t.panel} />
+          <Brick x={90} y={630} s={140} a="#b5523b" b="#e8d8c4" line={t.fg} />
+          <Brick x={590} y={690} s={40} a="#b5523b" b="#e8d8c4" line={t.fg} />
           <Txt text="gần" x={290} y={710} w={200} s={34} fill={t.accent} />
           <Txt text="xa" x={540} y={720} w={120} s={34} fill={t.accent2} />
         </g>

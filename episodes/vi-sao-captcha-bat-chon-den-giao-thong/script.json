@@ -1620,7 +1620,7 @@
         {
           "id": "b067",
           "text": "Ngày 3/12/2014, Google giới thiệu một kiểu reCAPTCHA mới.",
-          "spoken": "Ngày ba tháng mười hai năm hai nghìn không trăm mười bốn, Google giới thiệu một kiểu recaptcha mới.",
+          "spoken": "Ngày ba tháng mười hai năm hai nghìn không trăm mười bốn, Google giới thiệu một kiểu kiểm tra mới.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2657,7 +2657,7 @@
         {
           "id": "b112",
           "text": "Theo W3C, tổ chức làm chuẩn cho web, CAPTCHA hình ảnh gây khó rõ ràng cho người mù.",
-          "spoken": "Theo một tổ chức làm chuẩn quốc tế cho trang web, captcha hình ảnh gây khó rõ ràng cho người mù.",
+          "spoken": "Theo một tổ chức làm chuẩn quốc tế cho trang web, bài kiểm tra bằng hình ảnh gây khó rõ ràng cho người mù.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2872,7 +2872,7 @@
         {
           "id": "b122",
           "text": "Tháng 9/2022, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
-          "spoken": "Tháng chín năm hai nghìn không trăm hai mươi hai, Cloudflare giới thiệu Turnstile, một thứ thay captcha chạy ngầm.",
+          "spoken": "Tháng chín năm hai nghìn không trăm hai mươi hai, Cloudflare giới thiệu công cụ Turnstile, một thứ chạy ngầm thay cho các ô kiểm tra.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,

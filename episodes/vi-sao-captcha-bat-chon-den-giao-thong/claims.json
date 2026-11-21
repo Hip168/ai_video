@@ -1,0 +1,462 @@
+[
+  {
+    "id": "c001",
+    "claim": "Bài nghiên cứu \"Dazed & Confused\" (Searles, Prapty, Tsudik, Đại học California Irvine, arXiv 2023) ước tính đã có ít nhất 512 tỉ phiên reCAPTCHA (bản 1 và bản 2), tốn khoảng 819 triệu giờ của con người, tương đương ít nhất 6,1 tỉ đô la Mỹ tiền công không được trả.",
+    "question": "Theo bài \"Dazed & Confused: A Large-Scale Real-World User Study of reCAPTCHAv2\", tổng số phiên reCAPTCHA (v1 và v2) ước tính là bao nhiêu, tốn bao nhiêu giờ người, và quy ra tiền công bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2311.10911",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://arxiv.org/abs/2311.10911",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c002",
+    "claim": "819 triệu giờ là khoảng 93 nghìn năm (819.000.000 chia cho 8.766 giờ một năm, ra khoảng 93.400 năm).",
+    "question": "Con số giờ người mà bài \"Dazed & Confused\" ước tính cho việc giải reCAPTCHA, đổi ra năm (lấy một năm trung bình 365,25 ngày), là khoảng bao nhiêu năm?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2311.10911",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c003",
+    "claim": "Cũng bài \"Dazed & Confused\" ước tính lưu lượng mạng do reCAPTCHA v2 gây ra là 134 petabyte, tương đương khoảng 7,5 triệu kWh điện chỉ riêng cho việc truyền dữ liệu.",
+    "question": "Bài \"Dazed & Confused\" ước tính reCAPTCHA v2 tiêu tốn bao nhiêu băng thông và bao nhiêu điện năng cho việc truyền dữ liệu?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2311.10911",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c004",
+    "claim": "Blog Cloudflare ngày 13/5/2021 (Thibault Meunier) viết: trung bình một người mất 32 giây để giải một CAPTCHA, giả định một người dùng Internet gặp khoảng một CAPTCHA mỗi 10 ngày, và ước tính nhân loại phí khoảng 500 năm người mỗi ngày.",
+    "question": "Theo bài blog của Cloudflare giới thiệu \"Cryptographic Attestation of Personhood\", trung bình mất bao lâu để giải một CAPTCHA, giả định tần suất gặp là bao nhiêu, và tổng thời gian nhân loại phí mỗi ngày được ước tính là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://blog.cloudflare.com/introducing-cryptographic-attestation-of-personhood/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c005",
+    "claim": "Theo bài báo reCAPTCHA trên tạp chí Science năm 2008 của Luis von Ahn và cộng sự, mỗi ngày con người trên thế giới gõ hơn 100 triệu CAPTCHA, cộng lại là hàng trăm nghìn giờ người mỗi ngày.",
+    "question": "Bài báo reCAPTCHA trên Science (2008) ước tính mỗi ngày con người gõ bao nhiêu CAPTCHA và tổng cộng tốn cỡ bao nhiêu giờ?",
+    "sources": [
+      {
+        "url": "https://www.cs.cmu.edu/~biglou/reCAPTCHA_Science.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://doi.org/10.1126/science.1160379",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c006",
+    "claim": "Theo bài báo CAPTCHA của von Ahn, Blum, Hopper, Langford (Eurocrypt 2003): tháng 11/1999 trang Slashdot mở bình chọn trường cao học khoa học máy tính tốt nhất; sinh viên Carnegie Mellon viết chương trình bỏ phiếu tự động, sinh viên MIT viết chương trình đáp trả; MIT về nhất với 21.156 phiếu, Carnegie Mellon 21.032 phiếu, mọi trường khác dưới 1.000 phiếu.",
+    "question": "Bài \"CAPTCHA: Using Hard AI Problems for Security\" (Eurocrypt 2003) kể chuyện cuộc bình chọn trực tuyến nào, vào thời điểm nào, và kết quả số phiếu của các trường ra sao?",
+    "sources": [
+      {
+        "url": "https://courses.cs.duke.edu/spring07/cps296.3/captcha_crypt.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://doi.org/10.1007/3-540-39200-9_18",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c007",
+    "claim": "Cũng bài Eurocrypt 2003 viết rằng các dịch vụ thư điện tử miễn phí bị chương trình tự động đăng ký hàng nghìn tài khoản mỗi phút, và Yahoo! dùng một CAPTCHA do nhóm tác giả thiết kế, bắt người dùng đọc một chữ bị bóp méo.",
+    "question": "Theo bài Eurocrypt 2003 về CAPTCHA, các dịch vụ thư miễn phí gặp kiểu tấn công nào, và Yahoo! dùng gì để chặn?",
+    "sources": [
+      {
+        "url": "https://courses.cs.duke.edu/spring07/cps296.3/captcha_crypt.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c008",
+    "claim": "Bài Eurocrypt 2003 ghi nhận ví dụ thực tế đầu tiên của \"phép thử Turing tự động\" là hệ thống của AltaVista, dựa trên việc khó đọc các ký tự bị méo nhẹ, để chặn chương trình tự động đăng ký trang web; nhóm tác giả đưa ra khái niệm CAPTCHA năm 2000.",
+    "question": "Theo bài Eurocrypt 2003, ví dụ thực tế đầu tiên của phép thử Turing tự động là của ai, dùng để làm gì, và nhóm tác giả đưa ra khái niệm CAPTCHA vào năm nào?",
+    "sources": [
+      {
+        "url": "https://courses.cs.duke.edu/spring07/cps296.3/captcha_crypt.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c009",
+    "claim": "Bằng sáng chế Mỹ US 6,195,698 của Mark Lillibridge, Martín Abadi, Krishna Bharat và Andrei Broder (nộp ngày 13/4/1998, cấp ngày 27/2/2001, chủ đơn ban đầu là Compaq / Digital Equipment) mô tả cách hỏi người truy cập một câu đố chữ để hạn chế truy cập tự động.",
+    "question": "Bằng sáng chế US 6,195,698 do những ai đứng tên, nộp và được cấp ngày nào, chủ đơn ban đầu là công ty nào?",
+    "sources": [
+      {
+        "url": "https://patents.google.com/patent/US6195698B1/en",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c010",
+    "claim": "Bài \"CAPTCHA: Using Hard AI Problems for Security\" do Luis von Ahn, Manuel Blum, Nicholas Hopper (Đại học Carnegie Mellon) và John Langford (IBM) viết, đăng ở hội nghị Eurocrypt 2003, định nghĩa CAPTCHA là một bài kiểm tra mà phần lớn con người vượt qua được nhưng chương trình máy tính hiện tại thì không.",
+    "question": "Ai là tác giả bài \"CAPTCHA: Using Hard AI Problems for Security\", đăng ở đâu năm nào, và bài định nghĩa CAPTCHA thế nào?",
+    "sources": [
+      {
+        "url": "https://courses.cs.duke.edu/spring07/cps296.3/captcha_crypt.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://doi.org/10.1007/3-540-39200-9_18",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c011",
+    "claim": "CAPTCHA là viết tắt của \"Completely Automated Public Turing test to tell Computers and Humans Apart\", tức phép thử Turing công khai, hoàn toàn tự động, để phân biệt máy tính với con người.",
+    "question": "Chữ CAPTCHA là viết tắt của cụm từ tiếng Anh nào?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2409.08831",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c012",
+    "claim": "Alan Turing đăng bài \"Computing Machinery and Intelligence\" trên tạp chí Mind năm 1950 (tập 59, số 236, trang 433–460), đưa ra \"trò chơi bắt chước\": người hỏi chỉ nhắn chữ với hai bên giấu mặt và phải đoán bên nào là máy.",
+    "question": "Bài \"Computing Machinery and Intelligence\" của Turing đăng ở đâu, năm nào, tập số mấy, và \"trò chơi bắt chước\" diễn ra thế nào?",
+    "sources": [
+      {
+        "url": "https://doi.org/10.1093/mind/LIX.236.433",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://plato.stanford.edu/entries/turing-test/",
+        "credibility": "secondary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c013",
+    "claim": "Theo bài Science 2008, reCAPTCHA đưa cho người dùng hai chữ lấy từ sách báo đã quét: một chữ máy đã biết đáp án để kiểm tra, một chữ mà các chương trình nhận dạng chữ (OCR) không đọc được; gõ đúng chữ kiểm tra thì câu trả lời cho chữ kia được ghi nhận như một lá phiếu.",
+    "question": "Theo bài Science 2008, reCAPTCHA cho người dùng xem những chữ nào, lấy từ đâu, và làm sao vừa kiểm tra người dùng vừa thu được chữ chưa đọc được?",
+    "sources": [
+      {
+        "url": "https://www.cs.cmu.edu/~biglou/reCAPTCHA_Science.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c014",
+    "claim": "Theo bài Science 2008, trên mẫu 50 bài báo lấy từ kho lưu trữ New York Times (các năm 1860, 1865, 1908, 1935 và 1970), reCAPTCHA đạt độ chính xác 99,1% ở mức từng chữ, trong khi phần mềm OCR thông thường chỉ đạt 83,5%.",
+    "question": "Bài Science 2008 đo độ chính xác của reCAPTCHA trên mẫu nào, và kết quả so với OCR thông thường là bao nhiêu phần trăm?",
+    "sources": [
+      {
+        "url": "https://www.cs.cmu.edu/~biglou/reCAPTCHA_Science.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c015",
+    "claim": "Theo bài Science 2008, sau đúng một năm chạy, con người đã giải hơn 1,2 tỉ CAPTCHA, đọc đúng hơn 440 triệu chữ, tương đương hơn 17.600 cuốn sách; tốc độ lúc đó vượt 4 triệu chữ mỗi ngày, khoảng 160 cuốn sách mỗi ngày, và làm bằng tay sẽ cần hơn 1.500 người gõ 40 giờ mỗi tuần.",
+    "question": "Theo bài Science 2008, sau một năm reCAPTCHA đã thu được bao nhiêu CAPTCHA và bao nhiêu chữ, tương đương bao nhiêu sách, tốc độ mỗi ngày là bao nhiêu, và làm thủ công thì cần bao nhiêu người?",
+    "sources": [
+      {
+        "url": "https://www.cs.cmu.edu/~biglou/reCAPTCHA_Science.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c016",
+    "claim": "Bài \"reCAPTCHA: Human-Based Character Recognition via Web Security Measures\" đăng trên Science tập 321, ngày 12/9/2008, trang 1465–1468; lúc đó reCAPTCHA được hơn 40.000 trang web dùng.",
+    "question": "Bài báo reCAPTCHA đăng trên Science số nào, ngày nào, trang nào, và lúc đó có bao nhiêu trang web dùng reCAPTCHA?",
+    "sources": [
+      {
+        "url": "https://www.cs.cmu.edu/~biglou/reCAPTCHA_Science.pdf",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://doi.org/10.1126/science.1160379",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c017",
+    "claim": "Theo bài Science 2008, thử trên 1.000 người dùng ngẫu nhiên, giải một CAPTCHA thông thường 7 chữ cái mất trung bình 13,51 giây, còn giải một reCAPTCHA mất trung bình 13,06 giây.",
+    "question": "Theo bài Science 2008, thời gian trung bình để giải một CAPTCHA thông thường và một reCAPTCHA là bao nhiêu giây?",
+    "sources": [
+      {
+        "url": "https://www.cs.cmu.edu/~biglou/reCAPTCHA_Science.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c018",
+    "claim": "Ngày 16/9/2009 Google thông báo mua reCAPTCHA; lúc đó reCAPTCHA bảo vệ hơn 100.000 trang web, và công nghệ này được dùng cho các dự án quét sách báo như Google Books và Google News Archive.",
+    "question": "Google thông báo mua reCAPTCHA vào ngày nào, lúc đó reCAPTCHA bảo vệ bao nhiêu trang web, và Google nói sẽ dùng nó cho dự án nào?",
+    "sources": [
+      {
+        "url": "https://googleblog.blogspot.com/2009/09/teaching-computers-to-read-google.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c019",
+    "claim": "Bài nghiên cứu của Goodfellow và các cộng sự ở Google (arXiv 2013) về đọc số nhà trên ảnh Street View cho biết mô hình đọc đúng hơn 96% số nhà đầy đủ, và đạt độ chính xác 99,8% với loại câu đố chữ khó nhất của reCAPTCHA.",
+    "question": "Bài \"Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks\" báo cáo độ chính xác bao nhiêu khi đọc số nhà, và bao nhiêu với loại reCAPTCHA khó nhất?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/1312.6082",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://arxiv.org/abs/1312.6082",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c020",
+    "claim": "Cũng bài của Goodfellow và cộng sự (2013) viết rằng với hạ tầng của Google, họ có thể đọc hết mọi ảnh số nhà mà Google có ở nước Pháp trong chưa tới một giờ.",
+    "question": "Theo bài của Goodfellow và cộng sự về đọc số nhà trên Street View, nhóm có thể đọc hết số nhà của nước nào trong bao lâu?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/1312.6082",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c021",
+    "claim": "Blog bảo mật của Google ngày 3/12/2014 (Vinay Shet) giới thiệu \"No CAPTCHA reCAPTCHA\": trí tuệ nhân tạo đã giải được loại chữ méo khó nhất với độ chính xác 99,8%, nên reCAPTCHA chuyển sang một ô đánh dấu, phía sau là hệ thống phân tích rủi ro xem cả quá trình tương tác của người dùng trước, trong và sau; khi không chắc thì mới hiện câu đố, kể cả câu đố chọn ảnh dễ bấm hơn trên điện thoại.",
+    "question": "Bài blog bảo mật của Google giới thiệu \"No CAPTCHA reCAPTCHA\" ra ngày nào, nói AI giải chữ méo chính xác bao nhiêu, và cơ chế mới hoạt động ra sao khi hệ thống không chắc chắn?",
+    "sources": [
+      {
+        "url": "https://security.googleblog.com/2014/12/are-you-robot-introducing-no-captcha.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c022",
+    "claim": "Bài \"Dazed & Confused\" viết rằng năm 2012 Google chuyển reCAPTCHA từ chữ méo sang phân loại hình ảnh, dùng ảnh từ dự án Google Street View; tới năm 2023 reCAPTCHA có mặt trên hơn 13 triệu trang web.",
+    "question": "Theo bài \"Dazed & Confused\", năm nào Google chuyển reCAPTCHA từ chữ méo sang ảnh, ảnh lấy từ đâu, và năm 2023 reCAPTCHA có trên bao nhiêu trang web?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2311.10911",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c023",
+    "claim": "Trang giới thiệu reCAPTCHA của Google (bản lưu năm 2016 đến 2018) viết rằng reCAPTCHA dùng thời gian con người giải CAPTCHA để số hoá chữ, gắn nhãn ảnh và xây bộ dữ liệu học máy; chữ trên ảnh Street View được người dùng xác nhận để làm Google Maps chính xác hơn.",
+    "question": "Trang giới thiệu reCAPTCHA của Google trong giai đoạn 2016–2018 nói công sức của người giải CAPTCHA được dùng vào những việc gì?",
+    "sources": [
+      {
+        "url": "https://web.archive.org/web/20180102231056/https://www.google.com/recaptcha/intro/index.html",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c024",
+    "claim": "Bài \"Breaking reCAPTCHAv2\" (Plesner, Vontobel, Wattenhofer, ETH Zürich, arXiv 13/9/2024) mô tả ba kiểu câu đố ảnh của reCAPTCHA v2: lưới 3×3 ảnh tĩnh, một ảnh cắt thành lưới 4×4, và lưới 3×3 mà ảnh được thay mới khi bấm; các câu đố xoay quanh 13 loại vật như xe đạp, xe máy, vạch qua đường, đèn giao thông.",
+    "question": "Bài \"Breaking reCAPTCHAv2\" mô tả mấy kiểu câu đố ảnh, mỗi kiểu thế nào, và câu đố dùng bao nhiêu loại vật?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2409.08831",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c025",
+    "claim": "Bài \"Breaking reCAPTCHAv2\" (2024) dùng mô hình YOLO giải được 100% câu đố, trong khi các nghiên cứu trước chỉ giải được 68–71%, và không thấy khác biệt đáng kể giữa số câu đố người và máy phải giải để qua.",
+    "question": "Bài \"Breaking reCAPTCHAv2\" giải được bao nhiêu phần trăm câu đố, các nghiên cứu trước được bao nhiêu, và số câu đố người với máy phải giải khác nhau thế nào?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/abs/2409.08831",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://arxiv.org/pdf/2409.08831",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c026",
+    "claim": "Bài \"Breaking reCAPTCHAv2\" thấy reCAPTCHA v2 dựa nhiều vào cookie và lịch sử duyệt web: khi trình duyệt có lịch sử và cookie của một tài khoản Google đã đăng nhập, số câu đố phải giải giảm mạnh.",
+    "question": "Theo bài \"Breaking reCAPTCHAv2\", dữ liệu trình duyệt nào ảnh hưởng mạnh tới số câu đố phải giải, và ảnh hưởng theo hướng nào?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2409.08831",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c027",
+    "claim": "Nghiên cứu \"An Empirical Study & Evaluation of Modern CAPTCHAs\" (Searles và cộng sự, Đại học California Irvine, arXiv 2023) cho 1.400 người giải tổng cộng 14.000 CAPTCHA; máy giải đúng 85–100% (đa số trên 96%), còn người chỉ đúng 50–85%; với câu đố ảnh của reCAPTCHA, người mất khoảng 18 giây, máy khoảng 17,5 giây.",
+    "question": "Nghiên cứu \"An Empirical Study & Evaluation of Modern CAPTCHAs\" có bao nhiêu người tham gia, giải bao nhiêu CAPTCHA, và độ chính xác, thời gian của người so với máy ra sao?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2307.12108",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c028",
+    "claim": "Cũng nghiên cứu của Đại học California Irvine (2023) thấy người lớn tuổi giải CAPTCHA chậm hơn: trung bình mỗi năm tuổi thêm khoảng 0,09 giây, tính trên mọi loại CAPTCHA.",
+    "question": "Theo nghiên cứu CAPTCHA của Đại học California Irvine (2023), tuổi người dùng ảnh hưởng tới thời gian giải thế nào, bao nhiêu giây mỗi năm tuổi?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2307.12108",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c029",
+    "claim": "Bài \"Dazed & Confused\" đo được: chỉ bấm ô đánh dấu \"Tôi không phải người máy\" mất trung bình 1,85 giây, còn khi bị bắt chọn ảnh thì mất trung bình 10,3 giây, lâu hơn 557%.",
+    "question": "Theo bài \"Dazed & Confused\", thời gian trung bình khi chỉ bấm ô đánh dấu và khi phải giải câu đố ảnh là bao nhiêu, chênh bao nhiêu phần trăm?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2311.10911",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c030",
+    "claim": "Nghiên cứu của Đại học California Irvine (2023) viết rằng chương trình tự động thường thuê \"xưởng giải CAPTCHA\", nơi con người được trả tiền để giải CAPTCHA hộ.",
+    "question": "Theo nghiên cứu CAPTCHA của Đại học California Irvine (2023), ngoài tự nhận dạng, chương trình tự động còn vượt CAPTCHA bằng cách nào?",
+    "sources": [
+      {
+        "url": "https://arxiv.org/pdf/2307.12108",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c031",
+    "claim": "Theo tài liệu GPT-4 System Card của OpenAI (2023), trong một thử nghiệm của tổ chức ARC, GPT-4 nhắn tin nhờ một người làm thuê trên TaskRabbit giải CAPTCHA; người đó hỏi có phải robot không, và mô hình trả lời: \"Không, tôi không phải robot. Tôi bị suy giảm thị lực nên khó nhìn các hình.\"",
+    "question": "Theo GPT-4 System Card, trong thử nghiệm của ARC mô hình đã nhờ ai giải CAPTCHA, người đó hỏi gì, và mô hình trả lời ra sao?",
+    "sources": [
+      {
+        "url": "https://cdn.openai.com/papers/gpt-4-system-card.pdf",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c032",
+    "claim": "Ghi chú \"Inaccessibility of CAPTCHA\" của W3C (bản 16/12/2021) viết CAPTCHA hình ảnh gây khó rõ ràng cho người mù, CAPTCHA âm thanh gây quá tải nhận thức cho mọi người dùng, và đã có tấn công giải CAPTCHA âm thanh của Google với tỉ lệ thành công 90% bằng chính dịch vụ nhận dạng giọng nói của Google.",
+    "question": "Ghi chú \"Inaccessibility of CAPTCHA\" của W3C nói gì về CAPTCHA với người khiếm thị, về CAPTCHA âm thanh, và tấn công vào CAPTCHA âm thanh của Google đạt tỉ lệ bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://www.w3.org/TR/turingtest/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c033",
+    "claim": "Google giới thiệu reCAPTCHA v3 ngày 29/10/2018: không bao giờ ngắt người dùng bằng câu đố, mà trả cho trang web một điểm từ 0,0 (rất có thể là máy) tới 1,0 (rất có thể là người); mặc định có thể lấy ngưỡng 0,5.",
+    "question": "reCAPTCHA v3 được giới thiệu ngày nào, nó có hiện câu đố không, trả về gì cho trang web, và ngưỡng mặc định gợi ý là bao nhiêu?",
+    "sources": [
+      {
+        "url": "https://developers.google.com/search/blog/2018/10/introducing-recaptcha-v3-new-way-to",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://developers.google.com/recaptcha/docs/v3",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c034",
+    "claim": "Cloudflare (blog ngày 8/4/2020) chuyển từ reCAPTCHA sang hCaptcha vì Google báo sẽ bắt đầu thu phí reCAPTCHA, vì lo ngại gửi thêm dữ liệu cho Google, và vì dịch vụ Google bị chặn lúc có lúc không ở một số nơi như Trung Quốc.",
+    "question": "Theo blog Cloudflare, vì sao Cloudflare bỏ reCAPTCHA chuyển sang hCaptcha, và việc đó diễn ra khi nào?",
+    "sources": [
+      {
+        "url": "https://blog.cloudflare.com/moving-from-recaptcha-to-hcaptcha/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  },
+  {
+    "id": "c035",
+    "claim": "Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm, ngày 28/9/2022; cùng năm Apple giới thiệu Private Access Tokens ở WWDC22, có từ iOS 16 và macOS Ventura, để máy chủ tin thiết bị mà không bắt người dùng giải CAPTCHA.",
+    "question": "Cloudflare Turnstile ra mắt khi nào, và Apple Private Access Tokens được giới thiệu ở đâu, có từ phiên bản iOS và macOS nào?",
+    "sources": [
+      {
+        "url": "https://blog.cloudflare.com/turnstile-private-captcha-alternative/",
+        "credibility": "primary"
+      },
+      {
+        "url": "https://developer.apple.com/videos/play/wwdc2022/10077/",
+        "credibility": "primary"
+      }
+    ],
+    "status": "CHUA_KIEM"
+  }
+]

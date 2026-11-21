@@ -561,6 +561,33 @@
       "unresolvedSevere": null,
       "prevHash": "d06585bfbe855c19d2ecc2528f4f91c6aa5d759babbc9b74851a9f020f12690c",
       "entryHash": "c31616d1f5e3cf716c1bcd0424bf88cfdef3eb0a78b004e81f866042f42da858"
+    },
+    {
+      "seq": 16,
+      "ts": "2026-11-21T08:17:59Z",
+      "stage": "fact-2",
+      "role": "sep-tong",
+      "pair": "scriptwriter/fact-checker",
+      "round": 2,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "DAT",
+      "scriptHash": "8a30df8a6abaf691b2de4bbd2e5870e25f6efee2cf34f09b8d4f34de9911f108",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": "e81daf5e32297da40d3a40781056ea63b6f86db8bff0ed5847d60c7513960509",
+      "findingKeys": [
+        "9854b03e9e0e"
+      ],
+      "returnTo": null,
+      "escalate": false,
+      "note": "lo-oqinqjc6",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "c31616d1f5e3cf716c1bcd0424bf88cfdef3eb0a78b004e81f866042f42da858",
+      "entryHash": "31fccc30f8abeb320e6d5ed0b69236d6f16957cbcbdd43dd4ffe3fcb3416b798"
     }
   ]
 }

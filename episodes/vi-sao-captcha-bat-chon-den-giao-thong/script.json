@@ -532,7 +532,7 @@
         {
           "id": "b022",
           "text": "Đó là nhóm của Luis von Ahn và giáo sư Manuel Blum.",
-          "spoken": null,
+          "spoken": "Đó là nhóm của giáo sư Manuel Blum và một học trò của ông.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -612,7 +612,7 @@
         {
           "id": "b025",
           "text": "CAPTCHA là bài kiểm tra mà phần lớn con người vượt qua được.",
-          "spoken": null,
+          "spoken": "Hiểu đơn giản, captcha là bài kiểm tra mà phần lớn con người vượt qua được.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -750,7 +750,7 @@
         {
           "id": "b031",
           "text": "Năm 1950, nhà toán học Alan Turing đăng một bài trên tạp chí Mind.",
-          "spoken": null,
+          "spoken": "Năm một nghìn chín trăm năm mươi, nhà toán học Alan Turing đăng một bài trên một tạp chí triết học.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -963,7 +963,7 @@
         {
           "id": "b039",
           "text": "Theo Luis von Ahn và cộng sự, năm 2008 mỗi ngày người ta gõ hơn 100 triệu CAPTCHA.",
-          "spoken": null,
+          "spoken": "Theo một bài báo của chính nhóm này, năm hai nghìn không trăm linh tám mỗi ngày người ta gõ hơn một trăm triệu captcha.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -998,7 +998,7 @@
         {
           "id": "b041",
           "text": "Von Ahn nghĩ: sao không dùng chính chỗ thời gian ấy để làm một việc có ích?",
-          "spoken": null,
+          "spoken": "Người học trò ấy nghĩ: sao không dùng chính chỗ thời gian ấy để làm một việc có ích?",
           "cue": "hook",
           "pause_ms": 500,
           "sfx": null,
@@ -1333,7 +1333,7 @@
         {
           "id": "b056",
           "text": "Ngày 16/9/2009, Google thông báo mua lại reCAPTCHA.",
-          "spoken": "Ngày mười sáu tháng chín năm hai nghìn không trăm linh chín, Google thông báo mua lại reCAPTCHA.",
+          "spoken": "Ngày mười sáu tháng chín năm hai nghìn không trăm linh chín, Google thông báo mua lại recaptcha.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1379,7 +1379,7 @@
         {
           "id": "b057",
           "text": "Google dùng nó cho các dự án quét sách báo, như Google Books.",
-          "spoken": null,
+          "spoken": "Google dùng nó cho các dự án quét sách báo, như kho sách số của hãng.",
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
@@ -1479,7 +1479,7 @@
         {
           "id": "b060",
           "text": "Từ khoảng tháng 3/2012, reCAPTCHA đã bắt đầu cho người dùng gõ lại số nhà trên ảnh Street View.",
-          "spoken": "Từ khoảng tháng ba năm hai nghìn không trăm mười hai, reCAPTCHA đã bắt đầu cho người dùng gõ lại số nhà trên ảnh đường phố của Google.",
+          "spoken": "Từ khoảng tháng ba năm hai nghìn không trăm mười hai, recaptcha đã bắt đầu cho người dùng gõ lại số nhà trên ảnh Street View của Google.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1620,7 +1620,7 @@
         {
           "id": "b067",
           "text": "Ngày 3/12/2014, Google giới thiệu một kiểu reCAPTCHA mới.",
-          "spoken": "Ngày ba tháng mười hai năm hai nghìn không trăm mười bốn, Google giới thiệu một kiểu reCAPTCHA mới.",
+          "spoken": "Ngày ba tháng mười hai năm hai nghìn không trăm mười bốn, Google giới thiệu một kiểu recaptcha mới.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1938,7 +1938,7 @@
         {
           "id": "b080",
           "text": "Nhóm ETH Zürich cho máy giải câu đố ảnh của reCAPTCHA v2.",
-          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ ấy cho máy giải câu đố ảnh của reCAPTCHA bản hai.",
+          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ ấy cho máy giải câu đố ảnh của recaptcha bản hai.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2219,7 +2219,7 @@
         {
           "id": "b093",
           "text": "Nhóm ETH Zürich thấy reCAPTCHA v2 dựa nhiều vào cookie và lịch sử duyệt web.",
-          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ thấy reCAPTCHA bản hai dựa nhiều vào tệp ghi nhớ của trình duyệt và lịch sử duyệt web.",
+          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ thấy recaptcha bản hai dựa nhiều vào tệp ghi nhớ của trình duyệt và lịch sử duyệt web.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2317,7 +2317,7 @@
         {
           "id": "b097",
           "text": "Nhóm California Irvine đo: chỉ bấm ô đánh dấu mất trung bình 1,85 giây.",
-          "spoken": null,
+          "spoken": "Nhóm nghiên cứu ở California ấy đo: chỉ bấm ô đánh dấu mất trung bình một phẩy tám mươi lăm giây.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2498,7 +2498,7 @@
         {
           "id": "b105",
           "text": "Một tài liệu công bố năm 2023 kể chuyện một trí tuệ nhân tạo nói dối người để nhờ giải CAPTCHA.",
-          "spoken": null,
+          "spoken": "Một tài liệu công bố năm hai nghìn không trăm hai mươi ba kể chuyện một trí tuệ nhân tạo nói dối người để nhờ giải hộ bài kiểm tra ấy.",
           "cue": "hook",
           "pause_ms": 400,
           "sfx": null,
@@ -2657,7 +2657,7 @@
         {
           "id": "b112",
           "text": "Theo W3C, tổ chức làm chuẩn cho web, CAPTCHA hình ảnh gây khó rõ ràng cho người mù.",
-          "spoken": "Theo một tổ chức làm chuẩn quốc tế cho trang web, CAPTCHA hình ảnh gây khó rõ ràng cho người mù.",
+          "spoken": "Theo một tổ chức làm chuẩn quốc tế cho trang web, captcha hình ảnh gây khó rõ ràng cho người mù.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2745,7 +2745,7 @@
         {
           "id": "b117",
           "text": "Ngày 29/10/2018, Google giới thiệu reCAPTCHA v3. Bản này không bao giờ hỏi câu đố.",
-          "spoken": "Ngày hai mươi chín tháng mười năm hai nghìn không trăm mười tám, Google giới thiệu reCAPTCHA bản ba. Bản này không bao giờ hỏi câu đố.",
+          "spoken": "Ngày hai mươi chín tháng mười năm hai nghìn không trăm mười tám, Google giới thiệu recaptcha bản ba. Bản này không bao giờ hỏi câu đố.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2793,7 +2793,7 @@
         {
           "id": "b119",
           "text": "Ngày 8/4/2020, Cloudflare cho biết vừa bỏ reCAPTCHA. Một lý do là Google sắp thu phí.",
-          "spoken": "Ngày tám tháng tư năm hai nghìn không trăm hai mươi, Cloudflare cho biết vừa bỏ reCAPTCHA. Một lý do là Google sắp thu phí.",
+          "spoken": "Ngày tám tháng tư năm hai nghìn không trăm hai mươi, Cloudflare cho biết vừa bỏ recaptcha. Một lý do là Google sắp thu phí.",
           "cue": null,
           "pause_ms": 300,
           "sfx": null,
@@ -2872,7 +2872,7 @@
         {
           "id": "b122",
           "text": "Tháng 9/2022, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
-          "spoken": "Tháng chín năm hai nghìn không trăm hai mươi hai, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
+          "spoken": "Tháng chín năm hai nghìn không trăm hai mươi hai, Cloudflare giới thiệu Turnstile, một thứ thay captcha chạy ngầm.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,

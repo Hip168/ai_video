@@ -104,6 +104,91 @@ def test_spoken_khong_doi_khi_co_danh_sach_nghia_viet():
         assert [(o["spoken"], o["kind"]) for o in occ] == [("phôn-xơ", "phien-am")]
 
 
+_EXP = {"ps": {"playstation năm"}, "cerny": {"ông mark"}}
+
+
+def test_viet_tat_mo_thanh_ten_tieng_anh_da_khai_thi_cham_ten_khong_cham_viet_tat():
+    # PS5 -> "Playstation năm" (khai trong mo-rong.json): chữ "PS" không được đọc; "Playstation" được chấm riêng.
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": "RAM của PS5 chỉ có 16 GB."}),
+                                  {"PS5": "Playstation năm"}, expansions=_EXP)
+    assert [(o["term"], o["kind"], o["span"] is None) for o in occ] == [
+        ("PS", "mo-rong", True), ("Playstation", "giu-tieng-anh", False)]
+    b = {"id": "b2", "text": "Trên PS5.", "spoken": "Trên Playstation năm."}
+    assert [(o["term"], o["kind"]) for o in phatam.find_occurrences(_script(b), {}, expansions=_EXP)] == [
+        ("PS", "mo-rong"), ("Playstation", "giu-tieng-anh")]
+
+
+def test_mo_rong_khong_khai_thi_van_la_phien_am_va_bi_cham():
+    b = {"id": "b2", "text": "Trên PS5.", "spoken": "Trên Playstation năm."}
+    occ = phatam.find_occurrences(_script(b), {})
+    assert occ[0]["term"] == "PS" and occ[0]["kind"] == "phien-am" and occ[0]["span"] is not None
+
+
+def test_lexicon_chi_doi_hoa_thuong_thi_cham_theo_chu_goc():
+    # TTS đọc "Playstation" hay hơn "PlayStation"; Whisper viết "PlayStation", nên ép đọc bằng chữ gốc.
+    lex = {"PS5": "Playstation năm", "PlayStation": "Playstation"}
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": "RAM của PS5."},
+                                          {"id": "b2", "text": "Máy PlayStation 3."}), lex, expansions=_EXP)
+    rows = [(o["beat"], o["term"], o["kind"]) for o in occ]
+    assert rows == [("b1", "PS", "mo-rong"), ("b1", "PlayStation", "giu-tieng-anh"),
+                    ("b2", "PlayStation", "giu-tieng-anh")]
+    a, z = occ[1]["span"]
+    assert occ[1]["line"][a:z] == "Playstation"
+    assert phatam._forced_text(occ[1], occ[:2])[1].startswith(" năm")
+
+
+def test_lexicon_thay_ten_bang_ten_tieng_anh_khac_da_khai_thi_cham_ten_moi():
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": "Theo lời Mark Cerny, rồi Cerny kể."}),
+                                  {"Mark Cerny": "ông Mark", "Cerny": "ông Mark"}, expansions=_EXP)
+    assert [(o["term"], o["kind"]) for o in occ] == [
+        ("Mark", "giu-tieng-anh"), ("Mark", "giu-tieng-anh"), ("Cerny", "mo-rong")]
+
+
+def test_phien_am_bang_chu_anh_giong_tu_goc_van_cham_theo_tu_goc():
+    occ = phatam.find_occurrences(_script({"id": "b1", "text": "Định dạng nén Kraken."}), {"Kraken": "Kra-ken"})
+    assert (occ[0]["term"], occ[0]["spoken"], occ[0]["kind"]) == ("Kraken", "Kra-ken", "phien-am")
+    assert occ[0]["span"] is not None
+
+
+# Ba ca trước đây lọt qua `mo-rong` tự suy: nay đều là phiên âm và bị chấm theo chữ gốc.
+@pytest.mark.parametrize("text,lex,spoken,term,form", [
+    ("Định dạng nén Kraken.", {"Kraken": "Cờ-rác-ken format"}, None, "Kraken", "Cờ-rác-ken format"),
+    ("Theo Cerny.", {}, "Theo Bob.", "Cerny", "Bob"),
+    ("Theo Cerny.", {"Cerny": "Sir knee"}, None, "Cerny", "Sir knee"),
+])
+def test_doi_sang_chu_anh_khac_ma_khong_khai_thi_van_bi_cham(text, lex, spoken, term, form):
+    b = {"id": "b1", "text": text, **({"spoken": spoken} if spoken else {})}
+    for expansions in (None, _EXP):
+        occ = phatam.find_occurrences(_script(b), lex, expansions=expansions)
+        row = next(o for o in occ if o["term"] == term)
+        assert (row["spoken"], row["kind"]) == (form, "phien-am")
+        a, z = row["span"]
+        assert row["line"][a:z] == form
+
+
+def test_doc_mo_rong_json(tmp_path):
+    ep = tmp_path / "episodes" / "tap"
+    content = tmp_path / "content" / "lexicon.json"
+    assert phatam.load_expansions(ep, content) == {}
+    write_json(ep / "mo-rong.json", {"PS": ["Playstation năm", "Máy Playstation bốn"], "Cerny": ["ông Mark"]})
+    assert phatam.load_expansions(ep, content) == {
+        "ps": {"playstation năm", "máy playstation bốn"}, "cerny": {"ông mark"}}
+
+
+@pytest.mark.parametrize("data", [
+    ["PS"],                                   # không phải {từ: [cách đọc]}
+    {"PS": "Playstation năm"},               # cách đọc phải là danh sách
+    {"Kraken": ["Cờ-rác-ken format"]},       # gạch nối, phần còn lại không phải cụm tiếng Việt
+    {"Cerny": ["ông Mác"]},                  # không có chữ tiếng Anh: dùng nghia-viet.json
+    {"Kraken": ["Kra ken"]},                 # "Kra" là lối viết lại của Kraken: phiên âm, không phải mở rộng
+])
+def test_mo_rong_json_sai_thi_loi(tmp_path, data):
+    ep = tmp_path / "episodes" / "tap"
+    write_json(ep / "mo-rong.json", data)
+    with pytest.raises(ValueError):
+        phatam.load_expansions(ep, tmp_path / "content" / "lexicon.json")
+
+
 def test_doc_danh_sach_nghia_viet(tmp_path):
     ep = tmp_path / "episodes" / "tap"
     content = tmp_path / "content" / "lexicon.json"

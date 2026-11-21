@@ -768,7 +768,8 @@ def _speaks_english(ep: Path) -> bool:
         script = _read_json(ep / "script.json")
         content = ep.resolve().parent.parent / "content" / "lexicon.json"
         lex = phatam.load_lexicon(ep, content)
-        occ = phatam.find_occurrences(script, lex, phatam.load_meanings(ep, content))
+        occ = phatam.find_occurrences(script, lex, phatam.load_meanings(ep, content),
+                                      phatam.load_expansions(ep, content))
     except (OSError, ValueError, KeyError, TypeError, AttributeError, GateError):
         return True
     return any(o["kind"] != "nghia-viet" for o in occ)

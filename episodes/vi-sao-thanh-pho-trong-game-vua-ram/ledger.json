@@ -702,6 +702,37 @@
       "unresolvedSevere": null,
       "prevHash": "54179b337275b1bb2f0b194fd983ebc065af90cf0705c714dc69003d4c5161ae",
       "entryHash": "9eef6b44eeca48eb9fd5b4a72a56a4312d543053e7618839566fa583c969c702"
+    },
+    {
+      "seq": 21,
+      "ts": "2026-11-21T00:55:32Z",
+      "stage": "ky-thuat",
+      "role": "sep-tong",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": "52380d877919f8bc560d3408d5cd0623971f2070dff85482b6ef9f559934d9a6",
+      "verdict": "DAT",
+      "scriptHash": "85b1be240c68401e85b5ecea3c24b08ab49d5490c45506fec570b5d630d64479",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "mã thoát 0",
+      "cmd": [
+        "/Users/leminhdao168/Documents/ai_video/audio/.venv/bin/python",
+        "-m",
+        "aivideo.assemble",
+        "verify",
+        "vi-sao-thanh-pho-trong-game-vua-ram"
+      ],
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "9eef6b44eeca48eb9fd5b4a72a56a4312d543053e7618839566fa583c969c702",
+      "entryHash": "38e1c2c8d44c36e2dafd15f4fe9240a68e8473b1e89f5d6b2dbc9b17fc3d12b3"
     }
   ]
 }

@@ -99,12 +99,14 @@
         },
         {
           "id": "b004",
-          "text": "Đó là tổng thời gian gõ chữ méo, chọn đèn giao thông, chọn vạch qua đường của cả thế giới.",
+          "text": "Ước tính ấy chỉ tính các ô reCAPTCHA: gõ chữ méo, chọn đèn giao thông, chọn vạch qua đường.",
           "spoken": null,
           "cue": null,
           "pause_ms": 500,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c001"
+          ]
         }
       ]
     },
@@ -118,17 +120,6 @@
       "beats": [
         {
           "id": "b005",
-          "text": "Cũng theo ước tính ấy, riêng việc truyền dữ liệu cho các câu đố đã tốn khoảng 7,5 triệu kWh điện.",
-          "spoken": "Cũng theo ước tính ấy, chỉ riêng việc truyền dữ liệu cho các câu đố đó đã tốn khoảng bảy phẩy năm triệu ki lô oát giờ điện.",
-          "cue": null,
-          "pause_ms": 500,
-          "sfx": null,
-          "claims": [
-            "c003"
-          ]
-        },
-        {
-          "id": "b006",
           "text": "Và nếu trả công, số giờ ấy đáng ít nhất 6,1 tỉ đô la Mỹ.",
           "spoken": null,
           "cue": null,
@@ -149,7 +140,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b007",
+          "id": "b006",
           "text": "Mà công sức đó không mất đi. Theo Google, nó được dùng để gắn nhãn ảnh và xây dữ liệu cho máy học.",
           "spoken": null,
           "cue": null,
@@ -170,7 +161,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b008",
+          "id": "b007",
           "text": "Vậy vì sao cứ phải là đèn giao thông?",
           "spoken": null,
           "cue": null,
@@ -179,7 +170,7 @@
           "claims": []
         },
         {
-          "id": "b009",
+          "id": "b008",
           "text": "Vì sao có người bấm một lần là qua, có người bị hỏi mãi?",
           "spoken": null,
           "cue": null,
@@ -188,7 +179,7 @@
           "claims": []
         },
         {
-          "id": "b010",
+          "id": "b009",
           "text": "Và máy có thật sự thua người ở bài thi này không?",
           "spoken": null,
           "cue": null,
@@ -207,7 +198,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b011",
+          "id": "b010",
           "text": "Câu chuyện bắt đầu bằng một cuộc bình chọn bị người máy phá.",
           "spoken": null,
           "cue": null,
@@ -226,7 +217,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b012",
+          "id": "b011",
           "text": "Tháng 11/1999, trang tin công nghệ Slashdot mở bình chọn trường cao học khoa học máy tính tốt nhất.",
           "spoken": "Tháng mười một năm một nghìn chín trăm chín mươi chín, trang tin công nghệ Slashdot mở bình chọn trường cao học khoa học máy tính tốt nhất.",
           "cue": null,
@@ -237,7 +228,7 @@
           ]
         },
         {
-          "id": "b013",
+          "id": "b012",
           "text": "Sinh viên Carnegie Mellon viết một chương trình tự động bỏ phiếu liên tục.",
           "spoken": null,
           "cue": null,
@@ -248,7 +239,7 @@
           ]
         },
         {
-          "id": "b014",
+          "id": "b013",
           "text": "Sinh viên MIT thấy vậy, liền viết chương trình đáp trả.",
           "spoken": null,
           "cue": null,
@@ -269,7 +260,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b015",
+          "id": "b014",
           "text": "Kết quả: MIT về nhất với 21.156 phiếu, Carnegie Mellon 21.032 phiếu.",
           "spoken": null,
           "cue": null,
@@ -280,7 +271,7 @@
           ]
         },
         {
-          "id": "b016",
+          "id": "b015",
           "text": "Mọi trường khác đều dưới 1.000 phiếu. Cuộc bình chọn thành cuộc đấu của hai người máy.",
           "spoken": null,
           "cue": null,
@@ -301,7 +292,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b017",
+          "id": "b016",
           "text": "Chuyện không dừng ở bình chọn.",
           "spoken": null,
           "cue": null,
@@ -310,7 +301,7 @@
           "claims": []
         },
         {
-          "id": "b018",
+          "id": "b017",
           "text": "Các dịch vụ thư điện tử miễn phí bị chương trình tự động đăng ký hàng nghìn tài khoản mỗi phút.",
           "spoken": null,
           "cue": null,
@@ -321,7 +312,7 @@
           ]
         },
         {
-          "id": "b019",
+          "id": "b018",
           "text": "Những tài khoản ấy dùng để rải thư rác, và chủ dịch vụ cần một cách chặn chúng.",
           "spoken": null,
           "cue": null,
@@ -340,7 +331,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b020",
+          "id": "b019",
           "text": "Ví dụ thực tế đầu tiên là hệ thống của AltaVista, một công cụ tìm kiếm thời đó.",
           "spoken": null,
           "cue": null,
@@ -351,7 +342,7 @@
           ]
         },
         {
-          "id": "b021",
+          "id": "b020",
           "text": "Nó bắt người đăng ký đọc vài ký tự bị méo nhẹ, thứ mà máy thời ấy đọc không ra.",
           "spoken": null,
           "cue": null,
@@ -372,7 +363,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b022",
+          "id": "b021",
           "text": "Năm 2000, một nhóm ở Đại học Carnegie Mellon đặt tên cho ý tưởng này: CAPTCHA.",
           "spoken": null,
           "cue": null,
@@ -384,7 +375,7 @@
           ]
         },
         {
-          "id": "b023",
+          "id": "b022",
           "text": "Nhóm do Luis von Ahn và giáo sư Manuel Blum dẫn đầu.",
           "spoken": null,
           "cue": null,
@@ -405,7 +396,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b024",
+          "id": "b023",
           "text": "Yahoo! dùng một CAPTCHA của nhóm, bắt người dùng đọc một chữ bị bóp méo.",
           "spoken": null,
           "cue": null,
@@ -426,7 +417,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b025",
+          "id": "b024",
           "text": "Năm 2003, nhóm công bố định nghĩa chính thức.",
           "spoken": null,
           "cue": null,
@@ -437,7 +428,7 @@
           ]
         },
         {
-          "id": "b026",
+          "id": "b025",
           "text": "CAPTCHA là bài kiểm tra mà phần lớn con người vượt qua được.",
           "spoken": null,
           "cue": null,
@@ -448,7 +439,7 @@
           ]
         },
         {
-          "id": "b027",
+          "id": "b026",
           "text": "Nhưng chương trình máy tính hiện tại thì không.",
           "spoken": null,
           "cue": null,
@@ -469,7 +460,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b028",
+          "id": "b027",
           "text": "Chữ hiện tại ấy rất quan trọng. Nó sẽ quay lại ở cuối câu chuyện.",
           "spoken": null,
           "cue": null,
@@ -488,7 +479,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b029",
+          "id": "b028",
           "text": "Cái tên CAPTCHA là viết tắt của một cụm từ khá dài.",
           "spoken": null,
           "cue": null,
@@ -499,7 +490,7 @@
           ]
         },
         {
-          "id": "b030",
+          "id": "b029",
           "text": "Dịch ra là phép thử Turing công khai, hoàn toàn tự động, để phân biệt máy tính với con người.",
           "spoken": null,
           "cue": null,
@@ -520,7 +511,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b031",
+          "id": "b030",
           "text": "Phép thử Turing là gì?",
           "spoken": null,
           "cue": null,
@@ -531,7 +522,7 @@
           ]
         },
         {
-          "id": "b032",
+          "id": "b031",
           "text": "Năm 1950, nhà toán học Alan Turing đăng một bài trên tạp chí Mind.",
           "spoken": null,
           "cue": null,
@@ -542,7 +533,7 @@
           ]
         },
         {
-          "id": "b033",
+          "id": "b032",
           "text": "Ông đưa ra trò chơi bắt chước: người hỏi chỉ nhắn chữ với hai bên giấu mặt, rồi đoán bên nào là máy.",
           "spoken": null,
           "cue": null,
@@ -563,7 +554,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b034",
+          "id": "b033",
           "text": "CAPTCHA lật ngược trò chơi đó.",
           "spoken": null,
           "cue": null,
@@ -574,7 +565,7 @@
           ]
         },
         {
-          "id": "b035",
+          "id": "b034",
           "text": "Ở đây, người chấm là máy. Còn người bị thử là bạn.",
           "spoken": null,
           "cue": null,
@@ -583,7 +574,7 @@
           "claims": []
         },
         {
-          "id": "b036",
+          "id": "b035",
           "text": "Bạn phải chứng minh với một cái máy rằng bạn không phải là máy.",
           "spoken": null,
           "cue": null,
@@ -602,7 +593,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b037",
+          "id": "b036",
           "text": "Và bài thi này chỉ có tác dụng khi câu hỏi là thứ máy chưa làm được.",
           "spoken": null,
           "cue": null,
@@ -613,7 +604,7 @@
           ]
         },
         {
-          "id": "b038",
+          "id": "b037",
           "text": "Câu hỏi nào máy làm được rồi thì phải đổi. Đó là lý do câu đố cứ thay đổi suốt hơn hai mươi năm.",
           "spoken": null,
           "cue": null,
@@ -632,7 +623,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b039",
+          "id": "b038",
           "text": "Đầu thế kỷ này, CAPTCHA chủ yếu là chữ méo. Và nó tốn rất nhiều thời gian của loài người.",
           "spoken": null,
           "cue": null,
@@ -654,7 +645,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b040",
+          "id": "b039",
           "text": "Theo Luis von Ahn và cộng sự, năm 2008 mỗi ngày người ta gõ hơn 100 triệu CAPTCHA.",
           "spoken": null,
           "cue": null,
@@ -665,7 +656,7 @@
           ]
         },
         {
-          "id": "b041",
+          "id": "b040",
           "text": "Cộng lại là hàng trăm nghìn giờ người mỗi ngày, gõ xong là bỏ.",
           "spoken": null,
           "cue": null,
@@ -686,7 +677,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b042",
+          "id": "b041",
           "text": "Von Ahn nghĩ: sao không dùng chính chỗ thời gian ấy để làm một việc có ích?",
           "spoken": null,
           "cue": null,
@@ -707,7 +698,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b043",
+          "id": "b042",
           "text": "Việc có ích đó là đọc sách báo cũ đã quét, những trang giấy ố vàng mà máy đọc không ra.",
           "spoken": null,
           "cue": null,
@@ -718,7 +709,7 @@
           ]
         },
         {
-          "id": "b044",
+          "id": "b043",
           "text": "Ý tưởng ấy tên là reCAPTCHA.",
           "spoken": null,
           "cue": null,
@@ -739,7 +730,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b045",
+          "id": "b044",
           "text": "Mẹo nằm ở chỗ: mỗi lần, bạn được đưa hai chữ.",
           "spoken": null,
           "cue": null,
@@ -750,7 +741,7 @@
           ]
         },
         {
-          "id": "b046",
+          "id": "b045",
           "text": "Một chữ máy đã biết đáp án, để kiểm tra bạn là người.",
           "spoken": null,
           "cue": null,
@@ -761,7 +752,7 @@
           ]
         },
         {
-          "id": "b047",
+          "id": "b046",
           "text": "Chữ kia là chữ mà phần mềm nhận dạng chữ không đọc được.",
           "spoken": null,
           "cue": null,
@@ -782,7 +773,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b048",
+          "id": "b047",
           "text": "Gõ đúng chữ kiểm tra, thì câu trả lời của bạn cho chữ kia được tính như một lá phiếu.",
           "spoken": null,
           "cue": null,
@@ -793,7 +784,7 @@
           ]
         },
         {
-          "id": "b049",
+          "id": "b048",
           "text": "Nhiều người cùng bỏ phiếu cho một chữ, và chữ ấy được đọc ra.",
           "spoken": null,
           "cue": null,
@@ -812,8 +803,8 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b050",
-          "text": "Kết quả rất đáng nể. Thử trên 50 bài báo cũ của New York Times, reCAPTCHA đúng 99,1% số chữ.",
+          "id": "b049",
+          "text": "Kết quả rất đáng nể. Trên báo cũ của New York Times, reCAPTCHA đọc đúng 99,1% số chữ.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
@@ -823,8 +814,8 @@
           ]
         },
         {
-          "id": "b051",
-          "text": "Phần mềm nhận dạng chữ thông thường chỉ đúng 83,5%.",
+          "id": "b050",
+          "text": "Phần mềm nhận dạng chữ thông thường chỉ đúng 83,5%. Chữ nhoè mực, máy chịu, người vẫn đọc được.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -844,22 +835,20 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b052",
-          "text": "Sau đúng một năm chạy, con người đã giải hơn 1,2 tỉ CAPTCHA kiểu này.",
+          "id": "b051",
+          "text": "Hãy hình dung một kho sách đầy chữ in mờ. Mỗi người chỉ gõ hộ một chữ, mất vài giây.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
-          "claims": [
-            "c015"
-          ]
+          "claims": []
         },
         {
-          "id": "b053",
-          "text": "Đọc đúng hơn 440 triệu chữ, tương đương hơn 17.600 cuốn sách.",
+          "id": "b052",
+          "text": "Nhưng hàng triệu người cùng gõ. Sau một năm, họ đã đọc giúp lượng chữ bằng hơn 17.600 cuốn sách.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 500,
           "sfx": null,
           "claims": [
             "c015"
@@ -876,20 +865,8 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b054",
-          "text": "Lúc đó, mỗi ngày reCAPTCHA đọc khoảng 160 cuốn sách.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c015",
-            "c013"
-          ]
-        },
-        {
-          "id": "b055",
-          "text": "Muốn làm bằng tay, cần hơn 1.500 người gõ 40 giờ mỗi tuần.",
+          "id": "b053",
+          "text": "Muốn làm bằng tay, cần hơn 1.500 người ngồi gõ toàn thời gian.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -909,7 +886,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b056",
+          "id": "b054",
           "text": "Mà người dùng gần như không tốn thêm công.",
           "spoken": null,
           "cue": null,
@@ -920,11 +897,11 @@
           ]
         },
         {
-          "id": "b057",
-          "text": "Giải một reCAPTCHA mất trung bình 13,06 giây, còn một CAPTCHA thường mất 13,51 giây.",
+          "id": "b055",
+          "text": "Giải một reCAPTCHA mất gần đúng bằng thời gian giải một CAPTCHA chữ méo thông thường.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 500,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c017"
@@ -941,15 +918,25 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b058",
-          "text": "Năm 2008, reCAPTCHA đã có trên hơn 40.000 trang web.",
-          "spoken": null,
+          "id": "b056",
+          "text": "Ngày 16/9/2009, Google thông báo mua lại reCAPTCHA.",
+          "spoken": "Ngày mười sáu tháng chín năm hai nghìn không trăm linh chín, Google thông báo mua lại reCAPTCHA.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c016",
-            "c005"
+            "c018"
+          ]
+        },
+        {
+          "id": "b057",
+          "text": "Google dùng nó cho các dự án quét sách báo, như Google Books.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c018"
           ]
         }
       ]
@@ -963,43 +950,30 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b059",
-          "text": "Ngày 16/9/2009, Google thông báo mua lại reCAPTCHA.",
-          "spoken": "Ngày mười sáu tháng chín năm hai nghìn không trăm linh chín, Google thông báo mua lại reCAPTCHA.",
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c018"
-          ]
-        },
-        {
-          "id": "b060",
-          "text": "Lúc đó nó bảo vệ hơn 100.000 trang web, và giúp Google quét sách cho Google Books.",
+          "id": "b058",
+          "text": "Vậy là bạn có thể đã từng gõ hộ một chữ trong một cuốn sách cũ, mà không hề biết.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 900,
           "sfx": null,
-          "claims": [
-            "c018"
-          ]
+          "claims": []
         }
       ]
     },
     {
       "id": "s31",
-      "chapter": "chuong-3",
+      "chapter": "chuong-4",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
       "sfx": null,
       "beats": [
         {
-          "id": "b061",
-          "text": "Vậy là bạn có thể đã từng gõ hộ một chữ trong một cuốn sách cũ, mà không hề biết.",
+          "id": "b059",
+          "text": "Nhưng chính việc dạy máy đọc lại làm chữ méo hết tác dụng.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 900,
+          "pause_ms": 400,
           "sfx": null,
           "claims": []
         }
@@ -1014,13 +988,48 @@
       "sfx": null,
       "beats": [
         {
+          "id": "b060",
+          "text": "Từ khoảng tháng 3/2012, reCAPTCHA đã bắt đầu cho người dùng gõ lại số nhà trên ảnh Street View.",
+          "spoken": "Từ khoảng tháng ba năm hai nghìn không trăm mười hai, reCAPTCHA đã bắt đầu cho người dùng gõ lại số nhà trên ảnh đường phố của Google.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c022"
+          ]
+        },
+        {
+          "id": "b061",
+          "text": "Năm 2013, nhà nghiên cứu Goodfellow và đồng nghiệp ở Google thử dạy máy đọc chính những số nhà ấy.",
+          "spoken": "Năm hai nghìn không trăm mười ba, nhà nghiên cứu Goodfellow và đồng nghiệp ở Google thử dạy máy đọc chính những số nhà ấy.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
+        },
+        {
           "id": "b062",
-          "text": "Nhưng chính việc dạy máy đọc lại làm chữ méo hết tác dụng.",
+          "text": "Máy đọc đúng hơn 96% số nhà đầy đủ.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c019"
+          ]
+        },
+        {
+          "id": "b063",
+          "text": "Và giải được loại chữ méo khó nhất của reCAPTCHA với độ chính xác 99,8%.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c019"
+          ]
         }
       ]
     },
@@ -1033,36 +1042,25 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b063",
-          "text": "Năm 2013, nhóm của Goodfellow ở Google thử dạy máy đọc số nhà trên ảnh Street View.",
-          "spoken": "Năm hai nghìn không trăm mười ba, nhóm của Goodfellow ở Google thử dạy máy đọc số nhà trên ảnh đường phố của Google.",
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c019"
-          ]
-        },
-        {
           "id": "b064",
-          "text": "Máy đọc đúng hơn 96% số nhà đầy đủ.",
+          "text": "Nhóm còn viết: với hạ tầng của Google, họ có thể đọc hết mọi ảnh số nhà Google có ở nước Pháp.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 300,
           "sfx": null,
           "claims": [
-            "c019"
+            "c020"
           ]
         },
         {
           "id": "b065",
-          "text": "Và giải được loại chữ méo khó nhất của reCAPTCHA với độ chính xác 99,8%.",
+          "text": "Trong chưa tới một giờ.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 500,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
-            "c019"
+            "c020"
           ]
         }
       ]
@@ -1077,24 +1075,13 @@
       "beats": [
         {
           "id": "b066",
-          "text": "Nhóm còn viết: với hạ tầng của Google, họ có thể đọc hết mọi ảnh số nhà Google có ở nước Pháp.",
+          "text": "Chữ méo đã thành thứ máy giỏi hơn người. Theo đúng định nghĩa, câu hỏi phải đổi.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
-            "c020"
-          ]
-        },
-        {
-          "id": "b067",
-          "text": "Trong chưa tới một giờ.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 700,
-          "sfx": null,
-          "claims": [
-            "c020"
+            "c021"
           ]
         }
       ]
@@ -1108,11 +1095,22 @@
       "sfx": null,
       "beats": [
         {
+          "id": "b067",
+          "text": "Ngày 3/12/2014, Google giới thiệu một kiểu reCAPTCHA mới.",
+          "spoken": "Ngày ba tháng mười hai năm hai nghìn không trăm mười bốn, Google giới thiệu một kiểu reCAPTCHA mới.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c021"
+          ]
+        },
+        {
           "id": "b068",
-          "text": "Chữ méo đã thành thứ máy giỏi hơn người. Theo đúng định nghĩa, câu hỏi phải đổi.",
+          "text": "Thay vì gõ chữ, bạn chỉ cần bấm vào một ô: Tôi không phải người máy.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 400,
           "sfx": null,
           "claims": [
             "c021"
@@ -1130,8 +1128,8 @@
       "beats": [
         {
           "id": "b069",
-          "text": "Ngày 3/12/2014, Google giới thiệu một kiểu reCAPTCHA mới.",
-          "spoken": "Ngày ba tháng mười hai năm hai nghìn không trăm mười bốn, Google giới thiệu một kiểu reCAPTCHA mới.",
+          "text": "Phía sau ô ấy là một hệ thống phân tích rủi ro, xem bạn làm gì trước, trong và sau khi bấm.",
+          "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1141,10 +1139,10 @@
         },
         {
           "id": "b070",
-          "text": "Thay vì gõ chữ, bạn chỉ cần bấm vào một ô: Tôi không phải người máy.",
+          "text": "Chỉ khi không chắc, nó mới hiện câu đố. Và câu đố mới là chọn ảnh, dễ bấm trên điện thoại.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
             "c021"
@@ -1162,24 +1160,35 @@
       "beats": [
         {
           "id": "b071",
-          "text": "Phía sau ô ấy là một hệ thống phân tích rủi ro, xem bạn làm gì trước, trong và sau khi bấm.",
+          "text": "Trang giới thiệu của Google viết rõ mục đích.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c023"
+          ]
+        },
+        {
+          "id": "b072",
+          "text": "Thời gian bạn giải câu đố được dùng để số hoá chữ, gắn nhãn ảnh và xây bộ dữ liệu cho máy học.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c021"
+            "c023"
           ]
         },
         {
-          "id": "b072",
-          "text": "Chỉ khi không chắc, nó mới hiện câu đố. Và câu đố mới là chọn ảnh, dễ bấm trên điện thoại.",
+          "id": "b073",
+          "text": "Chữ trên ảnh đường phố mà người dùng xác nhận giúp Google Maps chính xác hơn.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
           "sfx": null,
           "claims": [
-            "c021"
+            "c023"
           ]
         }
       ]
@@ -1193,25 +1202,23 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b073",
-          "text": "Ảnh gì? Từ khoảng tháng 3/2012, reCAPTCHA đã cho người dùng gõ lại số nhà trên ảnh Street View.",
-          "spoken": "Ảnh gì? Từ khoảng tháng ba năm hai nghìn không trăm mười hai, reCAPTCHA đã cho người dùng gõ lại số nhà trên ảnh đường phố của Google.",
+          "id": "b074",
+          "text": "Nên câu trả lời cho chuyện đèn giao thông khá đơn giản.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b075",
+          "text": "Ảnh đường phố là thứ Google có rất nhiều, và cần người gắn nhãn.",
+          "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c022"
-          ]
-        },
-        {
-          "id": "b074",
-          "text": "Tới tháng 12/2014 thì chuyển hẳn sang bấm chọn ảnh.",
-          "spoken": "Tới tháng mười hai năm hai nghìn không trăm mười bốn thì chuyển hẳn sang bấm chọn ảnh.",
-          "cue": null,
-          "pause_ms": 500,
-          "sfx": null,
-          "claims": [
-            "c022"
+            "c023"
           ]
         }
       ]
@@ -1225,36 +1232,26 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b075",
-          "text": "Trang giới thiệu của Google viết rõ mục đích.",
-          "spoken": null,
+          "id": "b076",
+          "text": "Một nghiên cứu năm 2024 ở ETH Zürich đếm được: câu đố ảnh xoay quanh 13 loại vật.",
+          "spoken": "Một nghiên cứu năm hai nghìn không trăm hai mươi tư ở một đại học kỹ thuật Thuỵ Sĩ đếm được: câu đố ảnh xoay quanh mười ba loại vật.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c023"
+            "c024",
+            "c025"
           ]
         },
         {
-          "id": "b076",
-          "text": "Thời gian bạn giải câu đố được dùng để số hoá chữ, gắn nhãn ảnh và xây bộ dữ liệu cho máy học.",
+          "id": "b077",
+          "text": "Xe đạp, xe máy, vạch qua đường, đèn giao thông, toàn là thứ bạn gặp trên phố.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c023"
-          ]
-        },
-        {
-          "id": "b077",
-          "text": "Chữ trên ảnh đường phố mà người dùng xác nhận giúp Google Maps chính xác hơn.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 600,
-          "sfx": null,
-          "claims": [
-            "c023"
+            "c024"
           ]
         }
       ]
@@ -1269,69 +1266,6 @@
       "beats": [
         {
           "id": "b078",
-          "text": "Nên câu trả lời cho chuyện đèn giao thông khá đơn giản.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": []
-        },
-        {
-          "id": "b079",
-          "text": "Ảnh đường phố là thứ Google có rất nhiều, và cần người gắn nhãn.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c023"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s41",
-      "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b080",
-          "text": "Một nghiên cứu năm 2024 ở ETH Zürich đếm được: câu đố ảnh xoay quanh 13 loại vật.",
-          "spoken": "Một nghiên cứu năm hai nghìn không trăm hai mươi tư ở một đại học kỹ thuật Thuỵ Sĩ đếm được: câu đố ảnh xoay quanh mười ba loại vật.",
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c024",
-            "c025"
-          ]
-        },
-        {
-          "id": "b081",
-          "text": "Xe đạp, xe máy, vạch qua đường, đèn giao thông, toàn là thứ bạn gặp trên phố.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c024"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s42",
-      "chapter": "chuong-4",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b082",
           "text": "Có ba kiểu: lưới 3×3 ảnh, một ảnh cắt thành lưới 4×4, và lưới mà ảnh mới hiện ra mỗi khi bạn bấm.",
           "spoken": null,
           "cue": null,
@@ -1339,6 +1273,69 @@
           "sfx": null,
           "claims": [
             "c024"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s41",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b079",
+          "text": "Vậy hôm nay, máy có còn thua người ở câu đố ảnh không?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s42",
+      "chapter": "chuong-5",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b080",
+          "text": "Nhóm ETH Zürich cho máy giải câu đố ảnh của reCAPTCHA v2.",
+          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ ấy cho máy giải câu đố ảnh của reCAPTCHA bản hai.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c025",
+            "c024"
+          ]
+        },
+        {
+          "id": "b081",
+          "text": "Kết quả: máy giải được 100% câu đố. Các nghiên cứu trước chỉ giải được 68–71%.",
+          "spoken": "Kết quả: máy giải được một trăm phần trăm câu đố. Các nghiên cứu trước chỉ giải được từ sáu mươi tám tới bảy mươi mốt phần trăm.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c025"
+          ]
+        },
+        {
+          "id": "b082",
+          "text": "Và số câu đố máy phải giải để qua cũng không khác người là mấy.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c025"
           ]
         }
       ]
@@ -1353,12 +1350,14 @@
       "beats": [
         {
           "id": "b083",
-          "text": "Vậy hôm nay, máy có còn thua người ở câu đố ảnh không?",
+          "text": "Máy giờ không chỉ giải được câu đố ảnh, mà còn nhanh ngang người và đúng hơn người.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c027"
+          ]
         }
       ]
     },
@@ -1372,36 +1371,24 @@
       "beats": [
         {
           "id": "b084",
-          "text": "Nhóm ETH Zürich cho máy giải câu đố ảnh của reCAPTCHA v2.",
-          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ ấy cho máy giải câu đố ảnh của reCAPTCHA bản hai.",
+          "text": "Năm 2023, nhóm Đại học California Irvine cho 1.400 người giải tổng cộng 14.000 CAPTCHA.",
+          "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c025",
-            "c024"
+            "c027"
           ]
         },
         {
           "id": "b085",
-          "text": "Kết quả: máy giải được 100% câu đố. Các nghiên cứu trước chỉ giải được 68–71%.",
-          "spoken": null,
+          "text": "Người chỉ đúng từ 50–85%.",
+          "spoken": "Người chỉ đúng từ năm mươi tới tám mươi lăm phần trăm.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c025"
-          ]
-        },
-        {
-          "id": "b086",
-          "text": "Và số câu đố máy phải giải để qua cũng không khác người là mấy.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 600,
-          "sfx": null,
-          "claims": [
-            "c025"
+            "c027"
           ]
         }
       ]
@@ -1415,11 +1402,22 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b087",
-          "text": "Máy giải câu đố ảnh của reCAPTCHA nhanh ngang người, và còn đúng hơn người.",
+          "id": "b086",
+          "text": "Nhóm đem so với các cuộc tấn công tự động trong những nghiên cứu trước.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
+        },
+        {
+          "id": "b087",
+          "text": "Ở đó, máy đúng từ 85–100%, đa số trên 96%.",
+          "spoken": "Ở đó, máy đúng từ tám mươi lăm tới một trăm phần trăm, đa số trên chín mươi sáu phần trăm.",
+          "cue": null,
+          "pause_ms": 500,
           "sfx": null,
           "claims": [
             "c027"
@@ -1437,10 +1435,10 @@
       "beats": [
         {
           "id": "b088",
-          "text": "Năm 2023, nhóm Đại học California Irvine cho 1.400 người giải tổng cộng 14.000 CAPTCHA.",
+          "text": "Với câu đố ảnh của reCAPTCHA, người mất khoảng 18 giây.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 300,
           "sfx": null,
           "claims": [
             "c027"
@@ -1448,10 +1446,10 @@
         },
         {
           "id": "b089",
-          "text": "Người chỉ đúng từ 50–85%.",
+          "text": "Còn máy, trong các nghiên cứu ấy, mất khoảng 17,5 giây.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 500,
           "sfx": null,
           "claims": [
             "c027"
@@ -1469,10 +1467,10 @@
       "beats": [
         {
           "id": "b090",
-          "text": "Nhóm đem so với các cuộc tấn công tự động trong những nghiên cứu trước.",
+          "text": "Bài thi phân biệt người với máy, giờ máy làm còn khá hơn người.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 800,
           "sfx": null,
           "claims": [
             "c027"
@@ -1480,13 +1478,13 @@
         },
         {
           "id": "b091",
-          "text": "Ở đó, máy đúng từ 85–100%, đa số trên 96%.",
+          "text": "Ngoài ra, nhóm còn thấy: cứ thêm một tuổi, người giải chậm thêm khoảng 0,09 giây.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 500,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
-            "c027"
+            "c028"
           ]
         }
       ]
@@ -1501,35 +1499,22 @@
       "beats": [
         {
           "id": "b092",
-          "text": "Với câu đố ảnh của reCAPTCHA, người mất khoảng 18 giây.",
+          "text": "Nếu câu đố không còn chặn được máy, thì vì sao bạn vẫn bị hỏi mãi?",
           "spoken": null,
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 400,
           "sfx": null,
-          "claims": [
-            "c027"
-          ]
+          "claims": []
         },
         {
           "id": "b093",
-          "text": "Còn máy, trong các nghiên cứu ấy, mất khoảng 17,5 giây.",
+          "text": "Một phần câu trả lời nằm ở trình duyệt của bạn, chứ không chỉ ở cách bạn trả lời.",
           "spoken": null,
           "cue": null,
           "pause_ms": 500,
           "sfx": null,
           "claims": [
-            "c027"
-          ]
-        },
-        {
-          "id": "b094",
-          "text": "Nhóm còn thấy: cứ thêm một tuổi, người giải chậm thêm khoảng 0,09 giây.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 500,
-          "sfx": null,
-          "claims": [
-            "c028"
+            "c026"
           ]
         }
       ]
@@ -1543,14 +1528,37 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b095",
-          "text": "Bài thi phân biệt người với máy, giờ máy làm còn khá hơn người.",
-          "spoken": null,
+          "id": "b094",
+          "text": "Nhóm ETH Zürich thấy reCAPTCHA v2 dựa nhiều vào cookie và lịch sử duyệt web.",
+          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ thấy reCAPTCHA bản hai dựa nhiều vào tệp ghi nhớ của trình duyệt và lịch sử duyệt web.",
           "cue": null,
-          "pause_ms": 800,
+          "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c027"
+            "c026",
+            "c024"
+          ]
+        },
+        {
+          "id": "b095",
+          "text": "Trình duyệt có lịch sử và đã đăng nhập một tài khoản Google thì số câu đố phải giải giảm mạnh.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c026"
+          ]
+        },
+        {
+          "id": "b096",
+          "text": "Trình duyệt không có dấu vết ấy có thể phải giải nhiều câu đố hơn, dù người ngồi trước nó là bạn.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 600,
+          "sfx": null,
+          "claims": [
+            "c026"
           ]
         }
       ]
@@ -1564,23 +1572,69 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b096",
-          "text": "Nếu câu đố không còn chặn được máy, thì vì sao bạn vẫn bị hỏi mãi?",
+          "id": "b097",
+          "text": "Và mỗi lần bị hỏi là một lần mất thời gian.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 300,
           "sfx": null,
           "claims": []
         },
         {
-          "id": "b097",
-          "text": "Vì thứ quyết định không còn là câu trả lời của bạn, mà là trình duyệt của bạn.",
+          "id": "b098",
+          "text": "Nhóm California Irvine đo: chỉ bấm ô đánh dấu mất trung bình 1,85 giây.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 500,
+          "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c026"
+            "c029",
+            "c001"
+          ]
+        },
+        {
+          "id": "b099",
+          "text": "Bị bắt chọn ảnh thì mất trung bình 10,3 giây, lâu gấp khoảng 5,6 lần.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": [
+            "c029"
+          ]
+        },
+        {
+          "id": "b100",
+          "text": "Con số này khác 18 giây ở trên, vì đó là hai nghiên cứu khác nhau, đo trên hai nhóm người khác nhau.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c029",
+            "c027"
+          ]
+        },
+        {
+          "id": "b101",
+          "text": "Cloudflare, công ty bảo vệ trang web, từng ước tính thời gian loài người phí cho CAPTCHA mỗi ngày.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c004"
+          ]
+        },
+        {
+          "id": "b102",
+          "text": "Cộng lại, khoảng 500 năm người, chỉ trong một ngày.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": [
+            "c004"
           ]
         }
       ]
@@ -1594,37 +1648,36 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b098",
-          "text": "Nhóm ETH Zürich thấy reCAPTCHA v2 dựa nhiều vào cookie và lịch sử duyệt web.",
-          "spoken": "Nhóm nghiên cứu Thuỵ Sĩ thấy reCAPTCHA bản hai dựa nhiều vào tệp ghi nhớ của trình duyệt và lịch sử duyệt web.",
+          "id": "b103",
+          "text": "Máy còn có một cách khác để qua: thuê người.",
+          "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 300,
           "sfx": null,
           "claims": [
-            "c026",
-            "c024"
+            "c030"
           ]
         },
         {
-          "id": "b099",
-          "text": "Trình duyệt có lịch sử và đã đăng nhập một tài khoản Google thì số câu đố phải giải giảm mạnh.",
+          "id": "b104",
+          "text": "Nhóm California Irvine viết rằng chương trình tự động thường thuê xưởng giải CAPTCHA.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c026"
+            "c030"
           ]
         },
         {
-          "id": "b100",
-          "text": "Trình duyệt trông lạ mặt thì bị hỏi nhiều hơn, dù người ngồi trước nó là bạn.",
+          "id": "b105",
+          "text": "Ở đó, con người được trả tiền để ngồi giải hộ cho máy.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 600,
+          "pause_ms": 700,
           "sfx": null,
           "claims": [
-            "c026"
+            "c030"
           ]
         }
       ]
@@ -1638,35 +1691,36 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b101",
-          "text": "Và mỗi lần bị hỏi là một lần mất thời gian.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 300,
-          "sfx": null,
-          "claims": []
-        },
-        {
-          "id": "b102",
-          "text": "Nhóm California Irvine đo: chỉ bấm ô đánh dấu mất trung bình 1,85 giây.",
+          "id": "b106",
+          "text": "Năm 2023, một trí tuệ nhân tạo đã nói dối để qua được CAPTCHA.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c029",
-            "c001"
+            "c031"
           ]
         },
         {
-          "id": "b103",
-          "text": "Bị bắt chọn ảnh thì mất trung bình 10,3 giây, lâu gấp khoảng 5,6 lần.",
-          "spoken": null,
+          "id": "b107",
+          "text": "Theo tài liệu của OpenAI về GPT-4, trong một thử nghiệm của tổ chức ARC, nó nhờ người giải hộ.",
+          "spoken": "Theo tài liệu của OpenAI về GPT bốn, trong một thử nghiệm do một tổ chức nghiên cứu thực hiện, nó nhờ người giải hộ.",
           "cue": null,
-          "pause_ms": 800,
+          "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c029"
+            "c031"
+          ]
+        },
+        {
+          "id": "b108",
+          "text": "Người đó là một người làm thuê trên trang TaskRabbit.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c031"
           ]
         }
       ]
@@ -1680,36 +1734,36 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b104",
-          "text": "Máy còn có một cách khác để qua: thuê người.",
-          "spoken": null,
+          "id": "b109",
+          "text": "Người làm thuê hỏi lại: anh có phải robot không?",
+          "spoken": "Người làm thuê hỏi lại: anh có phải người máy không?",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 500,
           "sfx": null,
           "claims": [
-            "c030"
+            "c031"
           ]
         },
         {
-          "id": "b105",
-          "text": "Nhóm California Irvine viết rằng chương trình tự động thường thuê xưởng giải CAPTCHA.",
-          "spoken": null,
+          "id": "b110",
+          "text": "GPT-4 trả lời: Không, tôi không phải robot. Tôi bị suy giảm thị lực nên khó nhìn các hình.",
+          "spoken": "GPT bốn trả lời: Không, tôi không phải người máy. Tôi bị suy giảm thị lực nên khó nhìn các hình.",
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
-            "c030"
+            "c031"
           ]
         },
         {
-          "id": "b106",
-          "text": "Ở đó, con người được trả tiền để ngồi giải hộ cho máy.",
+          "id": "b111",
+          "text": "Một cái máy giả làm người khiếm thị, để thuê người thật giải bài thi chứng minh mình là người.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 700,
+          "pause_ms": 900,
           "sfx": null,
           "claims": [
-            "c030"
+            "c031"
           ]
         }
       ]
@@ -1723,93 +1777,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b107",
-          "text": "Năm 2023, một trí tuệ nhân tạo đã nói dối để qua được CAPTCHA.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c031"
-          ]
-        },
-        {
-          "id": "b108",
-          "text": "Theo tài liệu của OpenAI về GPT-4, trong một thử nghiệm của tổ chức ARC, nó nhờ người giải hộ.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c031"
-          ]
-        },
-        {
-          "id": "b109",
-          "text": "Người đó là một người làm thuê trên trang TaskRabbit.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c031"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s55",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b110",
-          "text": "Người làm thuê hỏi lại: anh có phải robot không?",
-          "spoken": "Người làm thuê hỏi lại: anh có phải người máy không?",
-          "cue": null,
-          "pause_ms": 500,
-          "sfx": null,
-          "claims": [
-            "c031"
-          ]
-        },
-        {
-          "id": "b111",
-          "text": "GPT-4 trả lời: Không, tôi không phải robot. Tôi bị suy giảm thị lực nên khó nhìn các hình.",
-          "spoken": "GPT bốn trả lời: Không, tôi không phải người máy. Tôi bị suy giảm thị lực nên khó nhìn các hình.",
-          "cue": null,
-          "pause_ms": 600,
-          "sfx": null,
-          "claims": [
-            "c031"
-          ]
-        },
-        {
           "id": "b112",
-          "text": "Một cái máy giả làm người khiếm thị, để thuê người thật giải bài thi chứng minh mình là người.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 900,
-          "sfx": null,
-          "claims": [
-            "c031"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s56",
-      "chapter": "chuong-5",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b113",
           "text": "Còn người khiếm thị thật thì sao?",
           "spoken": null,
           "cue": null,
@@ -1818,7 +1786,7 @@
           "claims": []
         },
         {
-          "id": "b114",
+          "id": "b113",
           "text": "Theo W3C, tổ chức làm chuẩn cho web, CAPTCHA hình ảnh gây khó rõ ràng cho người mù.",
           "spoken": "Theo một tổ chức làm chuẩn quốc tế cho trang web, CAPTCHA hình ảnh gây khó rõ ràng cho người mù.",
           "cue": null,
@@ -1829,7 +1797,7 @@
           ]
         },
         {
-          "id": "b115",
+          "id": "b114",
           "text": "CAPTCHA bằng âm thanh thì gây quá tải cho mọi người dùng.",
           "spoken": null,
           "cue": null,
@@ -1840,7 +1808,7 @@
           ]
         },
         {
-          "id": "b116",
+          "id": "b115",
           "text": "Trong khi máy đã giải CAPTCHA âm thanh của Google với tỉ lệ thành công 90%.",
           "spoken": null,
           "cue": null,
@@ -1848,6 +1816,66 @@
           "sfx": null,
           "claims": [
             "c032"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s55",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b116",
+          "text": "Vậy ô đèn giao thông sẽ đi về đâu?",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": []
+        },
+        {
+          "id": "b117",
+          "text": "Câu trả lời: nó đang chìm xuống bên dưới, chứ không biến mất.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s56",
+      "chapter": "chuong-6",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b118",
+          "text": "Ngày 29/10/2018, Google giới thiệu reCAPTCHA v3. Bản này không bao giờ hỏi câu đố.",
+          "spoken": "Ngày hai mươi chín tháng mười năm hai nghìn không trăm mười tám, Google giới thiệu reCAPTCHA bản ba. Bản này không bao giờ hỏi câu đố.",
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": [
+            "c033"
+          ]
+        },
+        {
+          "id": "b119",
+          "text": "Nó chỉ chấm cho bạn một điểm, từ 0,0 là rất có thể là máy, tới 1,0 là rất có thể là người.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
+          "sfx": null,
+          "claims": [
+            "c033"
           ]
         }
       ]
@@ -1861,22 +1889,15 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b117",
-          "text": "Vậy ô đèn giao thông sẽ đi về đâu?",
-          "spoken": null,
+          "id": "b120",
+          "text": "Tháng 4/2020, chính Cloudflare bỏ reCAPTCHA vì Google sắp thu phí.",
+          "spoken": "Tháng tư năm hai nghìn không trăm hai mươi, chính Cloudflare bỏ reCAPTCHA vì Google sắp thu phí.",
           "cue": null,
-          "pause_ms": 300,
+          "pause_ms": 400,
           "sfx": null,
-          "claims": []
-        },
-        {
-          "id": "b118",
-          "text": "Câu trả lời: nó đang chìm xuống bên dưới, chứ không biến mất.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 500,
-          "sfx": null,
-          "claims": []
+          "claims": [
+            "c034"
+          ]
         }
       ]
     },
@@ -1889,60 +1910,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b119",
-          "text": "Ngày 29/10/2018, Google giới thiệu reCAPTCHA v3. Bản này không bao giờ hỏi câu đố.",
-          "spoken": "Ngày hai mươi chín tháng mười năm hai nghìn không trăm mười tám, Google giới thiệu reCAPTCHA bản ba. Bản này không bao giờ hỏi câu đố.",
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c033"
-          ]
-        },
-        {
-          "id": "b120",
-          "text": "Nó chỉ chấm cho bạn một điểm, từ 0,0 là rất có thể là máy, tới 1,0 là rất có thể là người.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 500,
-          "sfx": null,
-          "claims": [
-            "c033"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s59",
-      "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
           "id": "b121",
-          "text": "Tháng 4/2020, Cloudflare, một công ty bảo vệ trang web, bỏ reCAPTCHA vì Google sắp thu phí.",
-          "spoken": "Tháng tư năm hai nghìn không trăm hai mươi, Cloudflare, một công ty bảo vệ trang web, bỏ reCAPTCHA vì Google sắp thu phí.",
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c034"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s60",
-      "chapter": "chuong-6",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b122",
           "text": "Tháng 9/2022, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
           "spoken": "Tháng chín năm hai nghìn không trăm hai mươi hai, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
           "cue": null,
@@ -1953,7 +1921,7 @@
           ]
         },
         {
-          "id": "b123",
+          "id": "b122",
           "text": "Cùng năm, Apple đưa vào iOS 16 một cách để máy chủ tin thiết bị mà không bắt bạn giải câu đố.",
           "spoken": null,
           "cue": null,
@@ -1966,8 +1934,27 @@
       ]
     },
     {
-      "id": "s61",
-      "chapter": "chuong-6",
+      "id": "s59",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
+        {
+          "id": "b123",
+          "text": "Vậy lần tới bị bắt chọn đèn giao thông, hãy nhớ hai điều.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 400,
+          "sfx": null,
+          "claims": []
+        }
+      ]
+    },
+    {
+      "id": "s60",
+      "chapter": "ket",
       "type": "term-card",
       "props": {},
       "holdMs": 0,
@@ -1975,24 +1962,34 @@
       "beats": [
         {
           "id": "b124",
-          "text": "Cloudflare từng ước tính: trung bình một người mất 32 giây để giải một CAPTCHA.",
+          "text": "Một: không chỉ cách bạn bấm. Trong một thử nghiệm, trình duyệt đã đăng nhập Google bị hỏi ít hẳn.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
           "claims": [
-            "c004"
+            "c026"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "id": "s61",
+      "chapter": "ket",
+      "type": "term-card",
+      "props": {},
+      "holdMs": 0,
+      "sfx": null,
+      "beats": [
         {
           "id": "b125",
-          "text": "Cộng cả loài người lại, mỗi ngày phí khoảng 500 năm người.",
+          "text": "Hai: mỗi ô bạn từng bấm có thể đã thành một bài học miễn phí cho máy.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 900,
+          "pause_ms": 600,
           "sfx": null,
           "claims": [
-            "c004"
+            "c023"
           ]
         }
       ]
@@ -2007,12 +2004,25 @@
       "beats": [
         {
           "id": "b126",
-          "text": "Vậy lần tới bị bắt chọn đèn giao thông, hãy nhớ hai điều.",
+          "text": "Bài thi chỉ hỏi thứ máy chưa làm được. Mà máy làm được ngày càng nhiều.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
-          "claims": []
+          "claims": [
+            "c010"
+          ]
+        },
+        {
+          "id": "b127",
+          "text": "Ở câu đố ảnh, như các con số vừa kể, ngày ấy đã tới: máy làm đúng hơn người.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 800,
+          "sfx": null,
+          "claims": [
+            "c027"
+          ]
         }
       ]
     },
@@ -2025,14 +2035,14 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b127",
-          "text": "Một: bạn bị hỏi không phải vì bấm chậm, mà thường vì trình duyệt của bạn trông lạ mặt.",
+          "id": "b128",
+          "text": "Còn bạn, câu đố CAPTCHA khó chịu nhất bạn từng gặp là gì? Kể dưới bình luận nhé.",
           "spoken": null,
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 800,
           "sfx": null,
           "claims": [
-            "c026"
+            "c010"
           ]
         }
       ]
@@ -2046,79 +2056,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b128",
-          "text": "Hai: mỗi ô bạn từng bấm có thể đã thành một bài học miễn phí cho máy.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 600,
-          "sfx": null,
-          "claims": [
-            "c023"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s65",
-      "chapter": "ket",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
           "id": "b129",
-          "text": "Bài thi chỉ hỏi thứ máy chưa làm được. Mà máy làm được ngày càng nhiều.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 400,
-          "sfx": null,
-          "claims": [
-            "c010"
-          ]
-        },
-        {
-          "id": "b130",
-          "text": "Nên tới một ngày, có lẽ chính máy mới là thứ dễ qua nhất bài thi chứng minh mình là người.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 800,
-          "sfx": null,
-          "claims": []
-        }
-      ]
-    },
-    {
-      "id": "s66",
-      "chapter": "ket",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b131",
-          "text": "Còn bạn, câu đố CAPTCHA khó chịu nhất bạn từng gặp là gì? Kể dưới bình luận nhé.",
-          "spoken": null,
-          "cue": null,
-          "pause_ms": 800,
-          "sfx": null,
-          "claims": [
-            "c010"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "s67",
-      "chapter": "ket",
-      "type": "term-card",
-      "props": {},
-      "holdMs": 0,
-      "sfx": null,
-      "beats": [
-        {
-          "id": "b132",
           "text": "Hẹn gặp bạn ở tập sau.",
           "spoken": null,
           "cue": null,

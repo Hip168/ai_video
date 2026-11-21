@@ -40,6 +40,29 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
     return { k, start, pts };
   });
 
+  const packetLayer = (
+    <g>
+      {pk.map(({ k, start, pts }, i) => {
+        if (!pts) return null;
+        const t = (frame - start) / TRAVEL;
+        if (t < 0) return null;
+        const u = ease(t);
+        const pos = pointAlong(pts, u);
+        const fade = t <= 1 ? 1 : 1 - clamp01((t - 1) * TRAVEL / 14);
+        if (fade <= 0) return null;
+        const lbl = k.label ?? "";
+        const w = lbl === "" ? 44 : sq ? 130 : 112;
+        return (
+          <g key={i} opacity={fade} transform={`translate(${pos.x} ${pos.y})`}>
+            <rect x={-w / 2} y={-22} width={w} height={44} rx={12} fill={theme.accent2} />
+            {lbl !== "" && <TextBlock text={lbl} x={0} y={sq ? 10 : 8} width={w - 16} fontSize={sq ? 30 : 26} fill={theme.bg} />}
+            {lbl === "" && <circle r={9} fill={theme.bg} />}
+          </g>
+        );
+      })}
+    </g>
+  );
+
   return (
     <Stage>
       {edges.map((e, i) => {
@@ -48,7 +71,6 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
         const last = pts[pts.length - 1];
         const prev = pts[pts.length - 2];
         const ang = Math.atan2(last.y - prev.y, last.x - prev.x);
-        const mid = pointAlong(pts, 0.5);
         return (
           <g key={`${e.from}>${e.to}`} opacity={a}>
             <polyline points={pts.map((q) => `${q.x},${q.y}`).join(" ")} fill="none" stroke={theme.muted} strokeWidth={5} strokeLinejoin="round" />
@@ -57,12 +79,20 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
               fill={theme.muted}
               transform={`translate(${last.x} ${last.y}) rotate(${(ang * 180) / Math.PI})`}
             />
-            {e.label && e.label !== "" && (
-              <g>
-                <rect x={mid.x - lblW / 2} y={mid.y - lblH / 2} width={lblW} height={lblH} rx={10} fill={theme.bg} opacity={0.9} />
-                <TextBlock text={e.label} x={mid.x} y={mid.y + lblH * 0.22} width={lblW - 12} fontSize={lblFont} fill={theme.muted} weight={400} minPx={SHORT_MIN_EDGE_LABEL_PX} />
-              </g>
-            )}
+          </g>
+        );
+      })}
+      {/* Gói dữ liệu chạy dưới nhãn cạnh và dưới nút: chấm không che chữ. */}
+      {packetLayer}
+      {edges.map((e, i) => {
+        if (!e.label || e.label === "") return null;
+        const pts = lay.paths[`${e.from}>${e.to}`];
+        const a = ease((frame - graphStart - 6 - i * 3) / 14);
+        const mid = pointAlong(pts, 0.5);
+        return (
+          <g key={`lbl-${e.from}>${e.to}`} opacity={a}>
+            <rect x={mid.x - lblW / 2} y={mid.y - lblH / 2} width={lblW} height={lblH} rx={10} fill={theme.bg} opacity={0.9} />
+            <TextBlock text={e.label} x={mid.x} y={mid.y + lblH * 0.22} width={lblW - 12} fontSize={lblFont} fill={theme.muted} weight={400} minPx={SHORT_MIN_EDGE_LABEL_PX} />
           </g>
         );
       })}
@@ -82,24 +112,6 @@ export const Flow: React.FC<SceneProps> = ({ scene }) => {
             <rect x={c.x - w / 2} y={c.y - h / 2} width={w} height={h} rx={18 * lay.scale} fill={theme.panel} stroke={hit ? theme.accent2 : theme.accent} strokeWidth={hit ? 7 : 5} />
             {pulse > 0 && <rect x={c.x - w / 2 - 10 * pulse} y={c.y - h / 2 - 10 * pulse} width={w + 20 * pulse} height={h + 20 * pulse} rx={24} fill="none" stroke={theme.accent2} strokeWidth={3} opacity={pulse} />}
             <TextBlock text={nd.label} x={c.x} y={ty} width={tw} fontSize={fs} maxLines={nodeLines} fill={theme.fg} lineHeight={1.1} />
-          </g>
-        );
-      })}
-      {pk.map(({ k, start, pts }, i) => {
-        if (!pts) return null;
-        const t = (frame - start) / TRAVEL;
-        if (t < 0) return null;
-        const u = ease(t);
-        const pos = pointAlong(pts, u);
-        const fade = t <= 1 ? 1 : 1 - clamp01((t - 1) * TRAVEL / 14);
-        if (fade <= 0) return null;
-        const lbl = k.label ?? "";
-        const w = lbl === "" ? 44 : sq ? 130 : 112;
-        return (
-          <g key={i} opacity={fade} transform={`translate(${pos.x} ${pos.y})`}>
-            <rect x={-w / 2} y={-22} width={w} height={44} rx={12} fill={theme.accent2} />
-            {lbl !== "" && <TextBlock text={lbl} x={0} y={sq ? 10 : 8} width={w - 16} fontSize={sq ? 30 : 26} fill={theme.bg} />}
-            {lbl === "" && <circle r={9} fill={theme.bg} />}
           </g>
         );
       })}

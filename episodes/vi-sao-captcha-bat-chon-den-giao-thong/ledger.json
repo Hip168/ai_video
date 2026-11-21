@@ -352,6 +352,31 @@
       "unresolvedSevere": null,
       "prevHash": "fbbd58f62817408d368b63123dd1b4afba390bb24d3fb0224b3a943452817d21",
       "entryHash": "ee19e26391c94fdf7477a6d481896bedf43a28944ca57e3e1e63dcb51393079c"
+    },
+    {
+      "seq": 11,
+      "ts": "2026-11-21T08:13:35Z",
+      "stage": "viet",
+      "role": "scriptwriter",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": "b662a7f5dc63c787b68f4aa912bdac9ce1ae7325b7fb85578d1853209d2de7bf",
+      "claimsHash": null,
+      "artifactHash": "2d03b7457bf5cfa6181ae6fd01df1aa880ca5a355939f031731f6881ad34370a",
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "vòng 3: sửa 3 MINOR biên tập vòng 2, 128 nhịp",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "ee19e26391c94fdf7477a6d481896bedf43a28944ca57e3e1e63dcb51393079c",
+      "entryHash": "dd72affc920a3d36880eadaa9451fe9b6ef85f979e0210c8bee99bd5b6dacda0"
     }
   ]
 }

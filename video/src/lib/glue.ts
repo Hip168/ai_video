@@ -1,10 +1,14 @@
 // Ghép từ cho phụ đề: thay khoảng trắng bằng khoảng trắng không ngắt (U+00A0) ở những chỗ không được xuống dòng,
 // để trình duyệt (phụ đề in trên hình) và bộ chia đoạn phụ đề Short không tách:
 //  - số với đơn vị đi sau ("212 GB", "hơn 5 GB", "30 giây", "2,5 lần"), kể cả đơn vị hai chữ ("11,6 micro giây");
-//  - vài từ ghép tiếng Việt hay gặp ("máy tính", "bộ nhớ", "người làm game"...).
-// Hàm thuần. Không đổi chữ nào, chỉ đổi loại khoảng trắng.
+//  - vài từ ghép tiếng Việt hay gặp ("máy tính", "bộ nhớ", "người làm game"...);
+//  - dấu "-" nằm giữa chữ hoặc số ("362-TTP", "xêsi-133"): thêm nối chữ không ngắt hai bên.
+// Hàm thuần. Không đổi chữ nào: chỉ đổi loại khoảng trắng và thêm ký tự nối vô hình.
 
-export const NBSP = " ";
+export const NBSP = "\u00a0";
+/** Nối chữ không ngắt (U+2060, vô hình). Dùng hai bên dấu "-" giữa chữ hoặc số ("362-TTP") thay cho U+2011:
+ * phông Be Vietnam Pro không có hình chữ U+2011 (sẽ rơi sang phông khác), còn U+2060 là ký tự ẩn nên không cần hình. */
+export const WJ = "\u2060";
 
 /** Đơn vị đi sau số. Đơn vị dài đứng trước để khớp tham lam (GB/s trước GB, micro giây trước giây). */
 const UNITS = [
@@ -33,5 +37,6 @@ const UNIT_RE = new RegExp(`(\\d[\\d.,]*)[ ]+(${UNITS.map((u) => u.split(" ").ma
 export function glueVi(text: string): string {
   return text
     .replace(PHRASE_RE, (m) => m.replace(/ +/g, NBSP))
-    .replace(UNIT_RE, (_m, num: string, unit: string) => `${num}${NBSP}${unit.replace(/ +/g, NBSP)}`);
+    .replace(UNIT_RE, (_m, num: string, unit: string) => `${num}${NBSP}${unit.replace(/ +/g, NBSP)}`)
+    .replace(/(?<=[\p{L}\p{N}])-(?=[\p{L}\p{N}])/gu, `${WJ}-${WJ}`);
 }

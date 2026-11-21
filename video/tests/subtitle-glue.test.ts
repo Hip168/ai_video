@@ -1,7 +1,7 @@
 import {createElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {describe, expect, test} from 'vitest';
-import {glueVi, NBSP} from '../src/lib/glue';
+import {glueVi, NBSP, WJ} from '../src/lib/glue';
 import {Subtitle} from '../src/lib/subtitle';
 import {splitSubtitleShort} from '../src/Short';
 
@@ -9,7 +9,7 @@ import {splitSubtitleShort} from '../src/Short';
 // glueVi đổi khoảng trắng ở những chỗ đó thành khoảng trắng không ngắt (U+00A0): trình duyệt không xuống dòng ở đó,
 // bộ chia đoạn phụ đề Short (chỉ cắt ở dấu cách thường) cũng không cắt ở đó.
 
-const plain = (s: string) => s.replace(/ /g, ' ');
+const plain = (s: string) => s.replace(/\u00a0/g, ' ').replace(/\u2060/g, '');
 
 describe('glueVi', () => {
   test.each([
@@ -43,6 +43,29 @@ describe('glueVi', () => {
     expect(glueVi(t)).toBe(t);
     expect(glueVi('Năm 1976, James Clark viết bài.')).toBe('Năm 1976, James Clark viết bài.');
     expect(glueVi('bộ nhớ đệm')).toBe(`bộ${NBSP}nhớ đệm`);
+  });
+});
+
+describe('glueVi: dấu "-" giữa chữ hoặc số không ngắt', () => {
+  test.each([
+    ['theo sắc lệnh số 362-TTP, miền Nam vặn nhanh 1 giờ', '362', 'TTP'],
+    ['nguyên tử xêsi-133', 'xêsi', '133'],
+    ['libjpeg-turbo đặt mặc định là 75', 'libjpeg', 'turbo'],
+  ])('%s', (text, a, b) => {
+    const out = glueVi(text);
+    expect(out).toContain(`${a}${WJ}-${WJ}${b}`);
+    expect(plain(out)).toBe(text);
+  });
+
+  test('dấu "-" đứng riêng hoặc gạch nối dài thì giữ nguyên', () => {
+    expect(glueVi('a - b')).toBe('a - b');
+    expect(glueVi('5–6 GB')).toBe(`5–6${NBSP}GB`);
+  });
+
+  test('phụ đề Short không cắt đôi "362-TTP"', () => {
+    const raw = 'Rồi từ đêm 31/12/1959, theo sắc lệnh số 362-TTP, miền Nam vặn nhanh 1 giờ, sang UTC+8.';
+    const segs = splitSubtitleShort(glueVi(raw), 300);
+    expect(segs.some((s) => plain(s.text).includes('362-TTP'))).toBe(true);
   });
 });
 

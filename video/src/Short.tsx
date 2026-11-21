@@ -5,6 +5,7 @@ import { SceneFade } from "./Episode";
 import { clamp01, ThemeContext, useTheme } from "./lib/hooks";
 import { SceneBox, SHORT_SUBTITLE_PX, SQUARE_BOX } from "./lib/theme";
 import { getTheme } from "./lib/theme-data";
+import { glueVi } from "./lib/glue";
 import { activeBeat2, type Timeline2 } from "./timeline2";
 
 /** Khung Short 1080×1920 (D28, D32). */
@@ -141,7 +142,8 @@ const ShortSubtitle: React.FC<{ timeline: Timeline2; frame: number; start: numbe
   const beat = activeBeat2(timeline, frame);
   if (!beat) return null;
   const rel = frame - beat.startFrame;
-  const seg = splitSubtitleShort(beat.text, beat.durationFrames).find((s) => rel >= s.start && rel < s.start + s.durationFrames);
+  // glueVi: chỗ chia đoạn và chỗ xuống dòng không rơi vào giữa số với đơn vị hay giữa từ ghép.
+  const seg = splitSubtitleShort(glueVi(beat.text), beat.durationFrames).find((s) => rel >= s.start && rel < s.start + s.durationFrames);
   if (!seg) return null;
   const fadeIn = beat.startFrame + seg.start > start ? clamp01((rel - seg.start) / 4) : 1;
   const opacity = Math.min(fadeIn, clamp01((seg.start + seg.durationFrames - rel) / 4));

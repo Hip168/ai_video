@@ -1,0 +1,21 @@
+{
+  "title": "Tại sao ảnh gửi qua lại nhiều lần cứ mờ dần?",
+  "description": "Ảnh chuyền qua mấy nhóm chat, tới tay thì nhoè. Video giải thích JPEG vứt bớt dữ liệu thế nào: bớt chi tiết phần màu, cắt ảnh thành ô 8×8, rồi làm tròn thô, và vì sao lưu ở chất lượng 100 vẫn không giữ nguyên ảnh gốc. Sau đó là chuyện mất thế hệ: mỗi ứng dụng nén lại theo một mức làm tròn, một lưới, một kích thước riêng, nên ảnh rỗ dần qua từng chặng. Cuối video là ba mẹo để người nhận có đúng ảnh gốc.\n\nMục lục:\n00:00 Mở đầu\n00:27 Một tấm ảnh nặng bao nhiêu\n01:27 Bớt màu, và cắt ô tám nhân tám\n02:34 Làm tròn thô: chỗ ảnh thật sự mất\n04:38 Mất thế hệ\n06:40 Ứng dụng làm gì với ảnh của bạn\n08:27 Định dạng mới có cứu được không\n09:34 Kết\n\nNguồn chính:\n- Telegram FAQ, gửi ảnh chất lượng gốc: https://telegram.org/faq\n- libjpeg-turbo, hướng dẫn sử dụng (chất lượng, nén nhiều vòng): https://raw.githubusercontent.com/libjpeg-turbo/libjpeg-turbo/main/doc/usage.txt\n- G. K. Wallace, \"The JPEG Still Picture Compression Standard\" (1991): https://www.comp.nus.edu.sg/~cs5342/readings/wallace.pdf\n- ITU-T T.81, chuẩn JPEG: https://www.itu.int/rec/T-REC-T.81\n- Ủy ban JPEG: https://jpeg.org/jpeg/index.html\n- JFIF 1.02 (1992): https://www.w3.org/Graphics/JPEG/jfif.pdf\n- N. Ahmed, \"How I Came Up with the Discrete Cosine Transform\" (1991): https://doi.org/10.1016/1051-2004(91)90086-Z\n- Ahmed, Natarajan, Rao, \"Discrete Cosine Transform\" (1/1974): https://doi.org/10.1109/T-C.1974.223784\n- H. Farid, \"Exposing Digital Forgeries from JPEG Ghosts\" (2009): https://farid.berkeley.edu/downloads/publications/tifs09.pdf\n- \"Three Forensic Cues for JPEG AI Images\" (arXiv 2025): https://arxiv.org/pdf/2504.03191\n- Đại học Catania, \"A Classification Engine for Image Ballistics of Social Data\" (2016): https://arxiv.org/pdf/1610.06347\n- Instagram, độ phân giải ảnh: https://help.instagram.com/1631821640426723\n- WhatsApp, ảnh và video HD: https://faq.whatsapp.com/759301289012856/?cms_platform=android\n- Meta (9/4/2024), ảnh HD trên Messenger: https://about.fb.com/news/2024/04/hd-photos-shared-albums-and-more-on-messenger/\n- W3C, PNG 1.0 (1/10/1996): https://www.w3.org/TR/REC-png-961001\n- Greg Roelofs, lịch sử định dạng PNG: http://www.libpng.org/pub/png/pnghist.html\n- Google, WebP: https://developers.google.com/speed/webp\n- Apple, HEIF/HEVC: https://support.apple.com/en-us/116944\n\nNhạc nền: Reverence, Abstraction (https://abstractionmusic.com/), giấy phép CC0, nguồn https://tallbeard.itch.io/music-loop-bundle\n\n#conbit8\n\nGiọng đọc trong video do AI tạo.",
+  "tags": [
+    "ảnh bị mờ",
+    "gửi ảnh bị mờ",
+    "ảnh gửi qua Messenger bị mờ",
+    "nén ảnh JPEG",
+    "JPEG là gì",
+    "chất lượng ảnh",
+    "mất thế hệ",
+    "gửi ảnh gốc",
+    "Telegram gửi ảnh",
+    "tin học"
+  ],
+  "chapters": "00:00 Mở đầu\n00:27 Một tấm ảnh nặng bao nhiêu\n01:27 Bớt màu, và cắt ô tám nhân tám\n02:34 Làm tròn thô: chỗ ảnh thật sự mất\n04:38 Mất thế hệ\n06:40 Ứng dụng làm gì với ảnh của bạn\n08:27 Định dạng mới có cứu được không\n09:34 Kết",
+  "thumbnail": "thumbnail.png",
+  "privacy": "public",
+  "channelId": "UC1aPohYcigcmBGPl7OlQaEw",
+  "containsSyntheticMedia": false
+}

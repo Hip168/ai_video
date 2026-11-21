@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "shorts": [
+    {
+      "part": 1,
+      "total": 3,
+      "from": "b043",
+      "to": "b049",
+      "title": "Lưu ảnh JPEG chất lượng 100 có giữ nguyên ảnh gốc không?",
+      "hook": "Mức 100 vẫn không phải gốc",
+      "tiktok": {
+        "title": "Lưu ảnh JPEG chất lượng 100 có giữ nguyên ảnh gốc không?",
+        "intro": "Lưu JPEG ở chất lượng 100, mức cao nhất của thang, ảnh vẫn mất dữ liệu: phần màu vẫn bị bớt chi tiết và vẫn còn làm tròn. Thư viện libjpeg-turbo đặt mặc định là 75 và khuyên dùng từ 50 đến 95 cho ảnh chụp.",
+        "question": "Bạn hay lưu ảnh ở mức chất lượng nào? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #meotinhoc"
+      }
+    },
+    {
+      "part": 2,
+      "total": 3,
+      "from": "b050",
+      "to": "b056",
+      "title": "Phép toán trong gần như mọi ảnh JPEG từng bị chê là quá đơn giản",
+      "hook": "Bị từ chối tài trợ năm 1972",
+      "tiktok": {
+        "title": "Phép toán trong gần như mọi ảnh JPEG từng bị chê là quá đơn giản",
+        "intro": "Năm 1972, nhà nghiên cứu Nasir Ahmed xin tài trợ để nghiên cứu phép biến đổi cosin rời rạc và bị từ chối vì ý tưởng quá đơn giản. Ông vẫn làm tiếp. Hơn chục năm sau, phép toán ấy thành lõi của JPEG.",
+        "question": "Bạn có biết ý tưởng nào từng bị chê rồi thành công không? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #lichsu"
+      }
+    },
+    {
+      "part": 3,
+      "total": 3,
+      "from": "b087",
+      "to": "b096",
+      "title": "Telegram, Instagram, WhatsApp làm gì với ảnh bạn gửi?",
+      "hook": "Ảnh bạn nhận đã bị thu nhỏ",
+      "tiktok": {
+        "title": "Telegram, Instagram, WhatsApp làm gì với ảnh bạn gửi?",
+        "intro": "Ảnh bạn nhận qua ứng dụng chat thường không phải ảnh gốc, chính các ứng dụng nói vậy. Telegram làm ảnh nhỏ đi trước khi gửi, Instagram giảm ảnh rộng hơn 1.080 điểm xuống còn 1.080, còn WhatsApp và Messenger có hẳn nút gửi ảnh HD.",
+        "question": "Bạn hay gửi ảnh qua ứng dụng nào? Kể dưới bình luận nhé.",
+        "tags": "#tinhoc #meotinhoc"
+      }
+    }
+  ]
+}

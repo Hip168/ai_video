@@ -441,6 +441,37 @@
       "unresolvedSevere": null,
       "prevHash": "dd72affc920a3d36880eadaa9451fe9b6ef85f979e0210c8bee99bd5b6dacda0",
       "entryHash": "55cd1fd1629fd744f8f543693b8ff758226de522e48708f59db439e120006e89"
+    },
+    {
+      "seq": 13,
+      "ts": "2026-11-21T08:15:58Z",
+      "stage": "fact-2",
+      "role": "sep-tong",
+      "pair": "scriptwriter/fact-checker",
+      "round": 1,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": "SUA",
+      "scriptHash": "b662a7f5dc63c787b68f4aa912bdac9ce1ae7325b7fb85578d1853209d2de7bf",
+      "claimsHash": null,
+      "artifactHash": null,
+      "findingsHash": "67ef4c292d6e7a2f11272fe067130012199569999194b321e868955c7ff6df25",
+      "findingKeys": [
+        "e09271e94f02",
+        "54dc7dc3c7bc",
+        "830b12d25838",
+        "5a05a5054fcd",
+        "95e435b85c10"
+      ],
+      "returnTo": null,
+      "escalate": false,
+      "note": "lo-_8iynb38",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "55cd1fd1629fd744f8f543693b8ff758226de522e48708f59db439e120006e89",
+      "entryHash": "ab863117b513e0f3b9ac7d1d8b8270eeece1bb742940f45f122cc5daaa19b032"
     }
   ]
 }

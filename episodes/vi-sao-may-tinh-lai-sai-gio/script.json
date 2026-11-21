@@ -741,7 +741,7 @@
         "title": "Hỏi giờ qua mạng, và cái mốc năm 1970",
         "number": 2
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1144,7 +1144,7 @@
         "title": "Cùng một con số, mỗi nơi một giờ",
         "number": 3
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1844,7 +1844,7 @@
         "title": "Cuốn sổ múi giờ suýt bị kiện mất",
         "number": 4
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2207,7 +2207,7 @@
         "title": "Khi một phút có 61 giây",
         "number": 5
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -3068,7 +3068,7 @@
         "title": "Rải giây, bỏ giây, và giây nhuận âm",
         "number": 6
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -3354,7 +3354,7 @@
       "props": {
         "title": "Kết"
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },

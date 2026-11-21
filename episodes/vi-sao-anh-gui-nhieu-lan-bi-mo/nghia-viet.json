@@ -1,1 +1,4 @@
-["cosin"]
+[
+  "cosin",
+  "libjpeg-turbo"
+]

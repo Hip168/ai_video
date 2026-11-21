@@ -529,7 +529,7 @@
         {
           "id": "b019",
           "text": "Vứt gì mà mắt không nhận ra? JPEG làm việc đó qua ba bước.",
-          "spoken": null,
+          "spoken": "Vứt gì mà mắt không nhận ra? Chuẩn JPEG làm việc đó qua ba bước.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1094,7 +1094,7 @@
         {
           "id": "b044",
           "text": "Vì JPEG vứt dữ liệu ở hai chỗ: bớt chi tiết phần màu, và làm tròn những con số mô tả ảnh.",
-          "spoken": null,
+          "spoken": "Vì chuẩn JPEG vứt dữ liệu ở hai chỗ: bớt chi tiết phần màu, và làm tròn những con số mô tả ảnh.",
           "cue": null,
           "pause_ms": 450,
           "sfx": null,
@@ -2617,7 +2617,7 @@
         {
           "id": "b110",
           "text": "PNG nén không mất dữ liệu: giải nén ra giống hệt ảnh gốc, tới từng bit.",
-          "spoken": null,
+          "spoken": "Ảnh PNG nén không mất dữ liệu: giải nén ra giống hệt ảnh gốc, tới từng bit.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2666,7 +2666,7 @@
         {
           "id": "b112",
           "text": "Ảnh GIF dùng thuật toán nén LZW, mà bằng sáng chế của nó thuộc về hãng Unisys.",
-          "spoken": "Ảnh GIF dùng một thuật toán nén mà bằng sáng chế thuộc về hãng Unisys.",
+          "spoken": "Ảnh định dạng GIF dùng một thuật toán nén, mà bằng sáng chế của nó thuộc về hãng Unisys.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,

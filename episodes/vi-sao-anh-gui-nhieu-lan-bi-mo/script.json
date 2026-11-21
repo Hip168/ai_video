@@ -1169,7 +1169,7 @@
         {
           "id": "b047",
           "text": "Thư viện nén ảnh libjpeg-turbo đặt mặc định là 75, và khuyên dùng từ 50 đến 95 cho ảnh chụp.",
-          "spoken": null,
+          "spoken": "Một thư viện nén ảnh JPEG đặt mặc định là bảy mươi lăm, và khuyên dùng từ năm mươi đến chín mươi lăm cho ảnh chụp.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1567,7 +1567,7 @@
         {
           "id": "b062",
           "text": "Thư viện libjpeg-turbo khuyên tránh cho một ảnh đi qua nhiều vòng nén rồi giải nén.",
-          "spoken": null,
+          "spoken": "Tài liệu của chính thư viện ấy khuyên tránh cho một ảnh đi qua nhiều vòng nén rồi giải nén.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -2666,7 +2666,7 @@
         {
           "id": "b112",
           "text": "Ảnh GIF dùng thuật toán nén LZW, mà bằng sáng chế của nó thuộc về hãng Unisys.",
-          "spoken": "Ảnh định dạng GIF dùng một thuật toán nén, mà bằng sáng chế của nó thuộc về hãng Unisys.",
+          "spoken": "Loại ảnh GIF dùng một thuật toán nén, mà hãng Unisys giữ bằng sáng chế.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,

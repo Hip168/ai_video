@@ -7,7 +7,7 @@ import { appearAt, Cross, prog, T, Tick } from "./a-common";
 
 /** Hình học theo khung: `wide` giữ đúng số cũ; `square` (Short) 840x840. */
 const WIDE = { colA: 1280, colB: 1620, top: 250, h: 560, titleY: 150, titleW: 310, titleSize: 50, divX: 1280 - 170, rowX: 100, rowW: 1720, labelX: 140, labelW: 1000, labelSize: 40, labelLines: 2, r: 32, pitch: 150 };
-const SQUARE = { colA: 530, colB: 730, top: 210, h: 600, titleY: 110, titleW: 190, titleSize: 32, divX: 430, rowX: 20, rowW: 800, labelX: 44, labelW: 370, labelSize: 40, labelLines: 2, r: 28, pitch: 180 }; // hàng cao hơn: nhãn 3 dòng không tràn hộp
+const SQUARE = { colA: 515, colB: 705, top: 210, h: 600, titleY: 110, titleW: 180, titleSize: 32, divX: 425, rowX: 41, rowW: 758, labelX: 60, labelW: 355, labelSize: 40, labelLines: 2, r: 28, pitch: 180 }; // hàng cao hơn: nhãn 3 dòng không tràn hộp; hàng x 41..799 để lề Short (hộp 984 tại x 48) >= 96 px
 
 interface Row {
   label: string;

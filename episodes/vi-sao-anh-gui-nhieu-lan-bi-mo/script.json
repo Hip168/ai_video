@@ -231,7 +231,7 @@
         "title": "Một tấm ảnh nặng bao nhiêu",
         "number": 1
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -585,7 +585,7 @@
         "title": "Bớt màu, và cắt ô tám nhân tám",
         "number": 2
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -900,7 +900,7 @@
         "title": "Làm tròn thô: chỗ ảnh thật sự mất",
         "number": 3
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -1505,7 +1505,7 @@
         "title": "Mất thế hệ",
         "number": 4
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2042,7 +2042,7 @@
         "title": "Ứng dụng làm gì với ảnh của bạn",
         "number": 5
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2576,7 +2576,7 @@
         "title": "Định dạng mới có cứu được không",
         "number": 6
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },
@@ -2894,7 +2894,7 @@
       "props": {
         "title": "Kết"
       },
-      "holdMs": 2500,
+      "holdMs": 1500,
       "sfx": "whoosh",
       "beats": []
     },

@@ -10,7 +10,7 @@ const COUNT_FRAMES = 48;
 
 /** Hình học theo khung: `wide` giữ đúng số cũ; `square` (Short) 840x840. */
 const WIDE = { cx: 960, panel: [160, 80, 1600, 700], numY: 280, numW: 1400, numMax: 280, bar: [360, 440, 1200], labelY: 530, labelSize: 56, noteY: 690, noteSize: 40, textW: 1400, lines: 2 };
-const SQUARE = { cx: 420, panel: [30, 30, 780, 780], numY: 190, numW: 700, numMax: 200, bar: [120, 330, 600], labelY: 420, labelSize: 48, noteY: 640, noteSize: 40, textW: 700, lines: 3 };
+const SQUARE = { cx: 420, panel: [44, 30, 752, 780], numY: 190, numW: 700, numMax: 200, bar: [120, 330, 600], labelY: 420, labelSize: 48, noteY: 640, noteSize: 40, textW: 700, lines: 3 };
 type Geom = typeof WIDE;
 
 export const BigNumber: React.FC<SceneProps> = ({ scene }) => {

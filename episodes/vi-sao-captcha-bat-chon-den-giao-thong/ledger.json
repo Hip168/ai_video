@@ -472,6 +472,31 @@
       "unresolvedSevere": null,
       "prevHash": "55cd1fd1629fd744f8f543693b8ff758226de522e48708f59db439e120006e89",
       "entryHash": "ab863117b513e0f3b9ac7d1d8b8270eeece1bb742940f45f122cc5daaa19b032"
+    },
+    {
+      "seq": 14,
+      "ts": "2026-11-21T08:16:56Z",
+      "stage": "viet",
+      "role": "scriptwriter",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": "8a30df8a6abaf691b2de4bbd2e5870e25f6efee2cf34f09b8d4f34de9911f108",
+      "claimsHash": null,
+      "artifactHash": "7d5195ccb4ff06c052ad703032e8c4272cb404fc2fd60227f3a680d50e5ef1c9",
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "vòng 4: sửa 5 dòng theo fact-2 lo-_8iynb38, 129 nhịp",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "ab863117b513e0f3b9ac7d1d8b8270eeece1bb742940f45f122cc5daaa19b032",
+      "entryHash": "d06585bfbe855c19d2ecc2528f4f91c6aa5d759babbc9b74851a9f020f12690c"
     }
   ]
 }

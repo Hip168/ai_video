@@ -376,7 +376,7 @@
         },
         {
           "id": "b022",
-          "text": "Nhóm do Luis von Ahn và giáo sư Manuel Blum dẫn đầu.",
+          "text": "Đó là nhóm của Luis von Ahn và giáo sư Manuel Blum.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
@@ -866,7 +866,7 @@
       "beats": [
         {
           "id": "b053",
-          "text": "Muốn làm bằng tay, cần hơn 1.500 người ngồi gõ toàn thời gian.",
+          "text": "Lúc ấy mỗi ngày đọc khoảng 160 cuốn. Gõ tay kịp tốc độ đó cần hơn 1.500 người làm toàn thời gian.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -1139,7 +1139,7 @@
         },
         {
           "id": "b070",
-          "text": "Chỉ khi không chắc, nó mới hiện câu đố. Và câu đố mới là chọn ảnh, dễ bấm trên điện thoại.",
+          "text": "Chỉ khi không chắc, nó mới hiện câu đố. Một kiểu câu đố mới là chọn ảnh, dễ bấm trên điện thoại.",
           "spoken": null,
           "cue": null,
           "pause_ms": 600,
@@ -1681,7 +1681,7 @@
       "beats": [
         {
           "id": "b105",
-          "text": "Năm 2023, một trí tuệ nhân tạo đã nói dối để qua được CAPTCHA.",
+          "text": "Một tài liệu công bố năm 2023 kể chuyện một trí tuệ nhân tạo nói dối người để nhờ giải CAPTCHA.",
           "spoken": null,
           "cue": null,
           "pause_ms": 400,
@@ -1692,8 +1692,8 @@
         },
         {
           "id": "b106",
-          "text": "Theo tài liệu của OpenAI về GPT-4, trong một thử nghiệm của tổ chức ARC, nó nhờ người giải hộ.",
-          "spoken": "Theo tài liệu của OpenAI về GPT bốn, trong một thử nghiệm do một tổ chức nghiên cứu thực hiện, nó nhờ người giải hộ.",
+          "text": "Đó là tài liệu của OpenAI về GPT-4. Trong một thử nghiệm của tổ chức ARC, nó nhờ người giải hộ.",
+          "spoken": "Đó là tài liệu của OpenAI về GPT bốn. Trong một thử nghiệm do một tổ chức nghiên cứu thực hiện, nó nhờ người giải hộ.",
           "cue": null,
           "pause_ms": 400,
           "sfx": null,
@@ -1746,7 +1746,7 @@
         },
         {
           "id": "b110",
-          "text": "Một cái máy giả làm người khiếm thị, để thuê người thật giải bài thi chứng minh mình là người.",
+          "text": "Tài liệu không nói CAPTCHA có được giải không. Nhưng máy đã giả làm người khiếm thị để nhờ người.",
           "spoken": null,
           "cue": null,
           "pause_ms": 900,
@@ -1879,10 +1879,21 @@
       "beats": [
         {
           "id": "b119",
-          "text": "Tháng 4/2020, chính Cloudflare bỏ reCAPTCHA vì Google sắp thu phí.",
-          "spoken": "Tháng tư năm hai nghìn không trăm hai mươi, chính Cloudflare bỏ reCAPTCHA vì Google sắp thu phí.",
+          "text": "Ngày 8/4/2020, Cloudflare cho biết vừa bỏ reCAPTCHA. Một lý do là Google sắp thu phí.",
+          "spoken": "Ngày tám tháng tư năm hai nghìn không trăm hai mươi, Cloudflare cho biết vừa bỏ reCAPTCHA. Một lý do là Google sắp thu phí.",
           "cue": null,
-          "pause_ms": 400,
+          "pause_ms": 300,
+          "sfx": null,
+          "claims": [
+            "c034"
+          ]
+        },
+        {
+          "id": "b120",
+          "text": "Họ còn ngại gửi thêm dữ liệu cho Google, và dịch vụ Google bị chặn lúc có lúc không ở vài nơi.",
+          "spoken": null,
+          "cue": null,
+          "pause_ms": 500,
           "sfx": null,
           "claims": [
             "c034"
@@ -1899,7 +1910,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b120",
+          "id": "b121",
           "text": "Tháng 9/2022, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
           "spoken": "Tháng chín năm hai nghìn không trăm hai mươi hai, Cloudflare giới thiệu Turnstile, một thứ thay CAPTCHA chạy ngầm.",
           "cue": null,
@@ -1910,7 +1921,7 @@
           ]
         },
         {
-          "id": "b121",
+          "id": "b122",
           "text": "Cùng năm, Apple đưa vào iOS 16 một cách để máy chủ tin thiết bị mà không bắt bạn giải câu đố.",
           "spoken": null,
           "cue": null,
@@ -1931,7 +1942,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b122",
+          "id": "b123",
           "text": "Vậy lần tới bị bắt chọn đèn giao thông, hãy nhớ hai điều.",
           "spoken": null,
           "cue": null,
@@ -1950,7 +1961,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b123",
+          "id": "b124",
           "text": "Một: không chỉ cách bạn bấm. Trong một thử nghiệm, trình duyệt đã đăng nhập Google bị hỏi ít hẳn.",
           "spoken": null,
           "cue": null,
@@ -1971,7 +1982,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b124",
+          "id": "b125",
           "text": "Hai: mỗi ô bạn từng bấm có thể đã thành một bài học miễn phí cho máy.",
           "spoken": null,
           "cue": null,
@@ -1992,7 +2003,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b125",
+          "id": "b126",
           "text": "Bài thi chỉ hỏi thứ máy chưa làm được. Mà máy làm được ngày càng nhiều.",
           "spoken": null,
           "cue": null,
@@ -2003,7 +2014,7 @@
           ]
         },
         {
-          "id": "b126",
+          "id": "b127",
           "text": "Ở câu đố ảnh, máy giờ đã làm đúng hơn người.",
           "spoken": null,
           "cue": null,
@@ -2024,7 +2035,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b127",
+          "id": "b128",
           "text": "Còn bạn, câu đố CAPTCHA khó chịu nhất bạn từng gặp là gì? Kể dưới bình luận nhé.",
           "spoken": null,
           "cue": null,
@@ -2045,7 +2056,7 @@
       "sfx": null,
       "beats": [
         {
-          "id": "b128",
+          "id": "b129",
           "text": "Hẹn gặp bạn ở tập sau.",
           "spoken": null,
           "cue": null,

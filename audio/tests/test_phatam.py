@@ -269,6 +269,14 @@ def test_bien_the_hoa_thuong_chi_doi_hoa_thuong_cung_chu_cai():
     assert phatam.case_variants("CAPTCHA") == ["CAPTCHA", "captcha", "Captcha"]
 
 
+@pytest.mark.parametrize("term", ["İSTANBUL", "ﬁLE", "ĐÀ NẴNG"])
+def test_chu_ngoai_ascii_khong_sinh_bien_the(term, monkeypatch, no_phoneme):
+    assert phatam.case_variants(term) == [term]
+    monkeypatch.setattr(phatam, "listen", lambda items: [_heard(0.5, word=i["term"]) for i in items])
+    (r,) = phatam._hear([{"wav": "a", "prefix": "", "term": term, "suffix": ""}], {})
+    assert r["termScored"] == term and "variants" not in r
+
+
 def test_bien_the_hoa_thuong_khong_them_loi_viet_khac():
     vs = {v.lower() for v in phatam.case_variants("CAPTCHA")}
     for other in ("kaptcha", "capcha", "captcha s", "cap-cha"):
@@ -289,13 +297,40 @@ def test_viet_tat_hoa_lay_diem_cao_nhat_va_ghi_bien_the_thang(monkeypatch, no_ph
     table = {"reCAPTCHA": 0.038, "recaptcha": 0.722, "Recaptcha": 0.4}
     seen = []
     monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items)
-                        or [_heard(table[i["term"]], start=0.1 * k) for k, i in enumerate(items)])
+                        or [_heard(table[i["term"]], start=0.1 * k, word="Recaptcha.") for k, i in enumerate(items)])
     (r,) = phatam._hear([{"wav": "a", "prefix": "p ", "term": "reCAPTCHA", "suffix": " s"}], {})
     assert [(i["prefix"], i["term"], i["suffix"]) for i in seen] == [
         ("p ", "reCAPTCHA", " s"), ("p ", "recaptcha", " s"), ("p ", "Recaptcha", " s")]
     assert r["pass"] is True and r["pEn"] == 0.722 and r["termScored"] == "recaptcha"
     assert r["start"] == 0.1  # thời điểm cũng lấy của biến thể thắng
-    assert r["variants"] == table
+    assert r["variants"] == table and r["variantsUnconfirmed"] == []
+
+
+def _hear_bien_the(monkeypatch, term, table, heard_word):
+    monkeypatch.setattr(phatam, "listen", lambda items: [_heard(table[i["term"]], word=heard_word) for i in items])
+    (r,) = phatam._hear([{"wav": "a", "prefix": "", "term": term, "suffix": ""}], {})
+    return r
+
+
+def test_bien_the_khong_duoc_nghe_tu_do_xac_nhan_thi_khong_tinh(monkeypatch, no_phoneme):
+    # như b080 tập 9: "Recaptcha" 0,369 nhưng Whisper nghe tự do "But we cut down"
+    r = _hear_bien_the(monkeypatch, "reCAPTCHA",
+                       {"reCAPTCHA": 0.0936, "recaptcha": 0.1352, "Recaptcha": 0.3689}, "But we cut down.")
+    assert r["pass"] is False and r["termScored"] == "reCAPTCHA" and r["pEn"] == 0.0936
+    assert r["variantsUnconfirmed"] == ["recaptcha", "Recaptcha"]
+
+
+def test_bien_the_duoc_nghe_tu_do_xac_nhan_thi_dat(monkeypatch, no_phoneme):
+    # như b023 tập 9: "captcha" 0,712, Whisper nghe tự do "Captcha."
+    r = _hear_bien_the(monkeypatch, "CAPTCHA",
+                       {"CAPTCHA": 0.1899, "captcha": 0.7118, "Captcha": 0.1481}, "Captcha.")
+    assert r["pass"] is True and r["termScored"] == "captcha" and r["pEn"] == 0.7118
+
+
+def test_dang_goc_dat_thi_van_dat_du_bien_the_khong_duoc_xac_nhan(monkeypatch, no_phoneme):
+    r = _hear_bien_the(monkeypatch, "CAPTCHA",
+                       {"CAPTCHA": 0.2148, "captcha": 0.3379, "Captcha": 0.0191}, "Capture")
+    assert r["pass"] is True and r["termScored"] == "CAPTCHA" and r["pEn"] == 0.2148
 
 
 def test_viet_tat_hoa_moi_bien_the_deu_thap_thi_van_truot(monkeypatch, no_phoneme):
@@ -307,7 +342,7 @@ def test_viet_tat_hoa_moi_bien_the_deu_thap_thi_van_truot(monkeypatch, no_phonem
 def test_check_in_bien_the_thang(tmp_path, monkeypatch, capsys, no_phoneme):
     root = _repo(tmp_path, [{"id": "b1", "text": "Giải CAPTCHA đi."}], {"CAPTCHA": "captcha"})
     monkeypatch.setattr(phatam, "listen", lambda items: [
-        _heard(0.7 if i["term"] == "captcha" else 0.03) for i in items])
+        _heard(0.7 if i["term"] == "captcha" else 0.03, word="Captcha.") for i in items])
     assert phatam.main(["--root", str(root), "check", "tap"]) == 0
     assert "chấm theo 'captcha'" in capsys.readouterr().out
 
@@ -456,11 +491,11 @@ def test_check_lexicon_nghia_viet_da_khai_thi_khong_nghe_tieng_anh(tmp_path, mon
     seen = []
     monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.01) for _ in items])
     assert phatam.main(["--root", str(root), "check", "tap"]) == 1  # phiên âm ASCII vẫn bị nghe, trượt
-    assert [i["term"] for i in seen] == phatam.case_variants("ASCII")  # chỉ ASCII (và dạng hoa thường của nó)
+    assert [i["term"] for i in seen] == ["ASCII", "ascii", "Ascii"]  # chỉ ASCII (và dạng hoa thường của nó)
     seen.clear()
     monkeypatch.setattr(phatam, "listen", lambda items: seen.extend(items) or [_heard(0.5) for _ in items])
     assert phatam.main(["--root", str(root), "check", "tap"]) == 0
-    assert [i["term"] for i in seen] == phatam.case_variants("ASCII")  # chỉ ASCII (và dạng hoa thường của nó)
+    assert [i["term"] for i in seen] == ["ASCII", "ascii", "Ascii"]  # chỉ ASCII (và dạng hoa thường của nó)
 
 
 def test_gate3_khong_doi_phat_am_khi_moi_tu_da_khai_nghia_viet(tmp_path):

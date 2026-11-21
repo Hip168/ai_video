@@ -233,6 +233,31 @@
       "unresolvedSevere": null,
       "prevHash": "488706a97b6dbd4addca45070b569bf8037d3017a6d0ce5957c62ada817f6319",
       "entryHash": "a183673aa77d65f9d4829286f2d7a0b0f7787126a5d66935134a4a83b088f7b7"
+    },
+    {
+      "seq": 7,
+      "ts": "2026-11-21T08:05:17Z",
+      "stage": "viet",
+      "role": "scriptwriter",
+      "pair": null,
+      "round": null,
+      "inputHash": null,
+      "outputHash": null,
+      "verdict": null,
+      "scriptHash": "6fedde637cc462776274652acd49527ec093b7de67d7d6099962010bac3023d0",
+      "claimsHash": null,
+      "artifactHash": "2cad4a4ee77ad4c9f55a4feb1240020a698cc66c7309a5ede9a90b91bf12efba",
+      "findingsHash": null,
+      "findingKeys": null,
+      "returnTo": null,
+      "escalate": false,
+      "note": "vòng 1: 132 nhịp, 8 chương",
+      "cmd": null,
+      "claimHashes": null,
+      "fileHashes": null,
+      "unresolvedSevere": null,
+      "prevHash": "a183673aa77d65f9d4829286f2d7a0b0f7787126a5d66935134a4a83b088f7b7",
+      "entryHash": "0679782543ba806c258328e21d9760aed78a85e9db9ee423d219f5afe4566b72"
     }
   ]
 }

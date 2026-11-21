@@ -193,7 +193,7 @@ const UngDung: React.FC<SceneProps> = ({ scene }) => {
   const a1 = p(f, t1, 16);
   const g0 = generation(0);
   const BIG = sq ? 520 : 760;
-  const ox = sq ? 40 : 110;
+  const ox = sq ? 160 : 110;
   const oy = sq ? 40 : 50;
   const small = (BIG * 1080) / 4000;
   const shrink = p(f, 20, 30);
@@ -202,12 +202,12 @@ const UngDung: React.FC<SceneProps> = ({ scene }) => {
     <g>
       <rect x={ox} y={oy} width={BIG} height={(BIG * 3) / 4} fill="none" stroke={t.muted} strokeWidth={4} strokeDasharray="14 10" />
       <PixelImage im={g0} x={ox} y={oy} size={w} stroke={t.accent2} />
-      <Txt text="Instagram, theo trang trợ giúp" x={sq ? 420 : 1450} y={sq ? 530 : 140} w={sq ? 760 : 680} s={sq ? 34 : 44} fill={t.fg} />
-      <Txt text="ảnh rộng hơn 1.080 điểm: giảm xuống còn 1.080" x={sq ? 420 : 1450} y={sq ? 582 : 230} w={sq ? 760 : 680} s={sq ? 32 : 40} fill={t.accent2} lines={2} />
+      <Txt text="Instagram, theo trang trợ giúp" x={sq ? 420 : 1450} y={sq ? 530 : 140} w={sq ? 700 : 680} s={sq ? 34 : 44} fill={t.fg} />
+      <Txt text="ảnh rộng hơn 1.080 điểm: giảm xuống còn 1.080" x={sq ? 420 : 1450} y={sq ? 582 : 230} w={sq ? 700 : 680} s={sq ? 32 : 40} fill={t.accent2} lines={2} />
       <g opacity={a1}>
         <Txt text="ví dụ: rộng 4.000 điểm" x={ox + BIG / 2} y={oy + (BIG * 3) / 4 + (sq ? 40 : 54)} w={BIG} s={sq ? 32 : 40} fill={t.muted} />
-        <rect x={sq ? 40 : 1150} y={sq ? 670 : 420} width={sq ? 760 : 600} height={sq ? 130 : 200} rx={24} fill={t.warn} />
-        <Txt text="số điểm ảnh chỉ còn khoảng 7%" x={sq ? 420 : 1450} y={sq ? 748 : 540} w={sq ? 720 : 560} s={sq ? 40 : 48} fill={t.bg} lines={2} />
+        <rect x={sq ? 60 : 1150} y={sq ? 670 : 420} width={sq ? 720 : 600} height={sq ? 130 : 200} rx={24} fill={t.warn} />
+        <Txt text="số điểm ảnh chỉ còn khoảng 7%" x={sq ? 420 : 1450} y={sq ? 748 : 540} w={sq ? 680 : 560} s={sq ? 40 : 48} fill={t.bg} lines={2} />
       </g>
     </g>
   );

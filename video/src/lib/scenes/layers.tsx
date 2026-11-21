@@ -12,7 +12,7 @@ interface LayerIn {
 
 /** Hình học theo khung: `wide` giữ đúng số cũ; `square` (Short) 840x840. */
 const WIDE = { top: 60, area: 700, x0: 160, w0: 1600, inset: 46, hMax: 120 };
-const SQUARE = { top: 40, area: 760, x0: 70, w0: 740, inset: 16, hMax: 130 };
+const SQUARE = { top: 40, area: 760, x0: 96, w0: 700, inset: 16, hMax: 130 }; // tầng và gói x 44..796: lề Short (hộp 984 tại x 48) >= 96 px
 const GAP = 14;
 
 /** Các tầng xếp chồng, tầng đầu ở trên cùng; tầng i hiện ở beat i, rồi một gói dữ liệu đi xuống qua các tầng. */
@@ -63,8 +63,8 @@ export const Layers: React.FC<SceneProps> = ({ scene }) => {
         <g opacity={clamp01(1 - Math.abs(phase - 0.5) * 0.4)}>
           {sq ? (
             <>
-              <rect x={4} y={packetY - 18} width={36} height={36} rx={8} fill={theme.accent2} />
-              <polygon points={`40,${packetY} 62,${packetY - 12} 62,${packetY + 12}`} fill={theme.accent2} />
+              <rect x={44} y={packetY - 18} width={30} height={36} rx={8} fill={theme.accent2} />
+              <polygon points={`74,${packetY} 92,${packetY - 12} 92,${packetY + 12}`} fill={theme.accent2} />
             </>
           ) : (
             <>

@@ -142,13 +142,13 @@ const GocNhan: React.FC = () => {
   if (sq)
     return (
       <g>
-        <Txt text="Ảnh gốc" x={225} y={50} w={380} s={36} fill={t.ok} />
-        <Txt text="Ảnh nhận qua chat" x={615} y={50} w={380} s={36} fill={t.warn} />
-        <PixelImage im={a} x={40} y={70} size={370} />
-        <PixelImage im={b} x={430} y={70} size={370} />
-        <PixelImage im={a} x={40} y={370} size={370} {...CROP} stroke={t.ok} />
-        <PixelImage im={b} x={430} y={370} size={370} {...CROP} stroke={t.warn} />
-        <Txt text="phóng to cùng một chỗ" x={420} y={700} w={760} s={34} fill={t.muted} weight={400} />
+        <Txt text="Ảnh gốc" x={240} y={50} w={350} s={36} fill={t.ok} />
+        <Txt text="Ảnh nhận qua chat" x={600} y={50} w={350} s={36} fill={t.warn} />
+        <PixelImage im={a} x={65} y={70} size={350} />
+        <PixelImage im={b} x={425} y={70} size={350} />
+        <PixelImage im={a} x={65} y={370} size={350} {...CROP} stroke={t.ok} />
+        <PixelImage im={b} x={425} y={370} size={350} {...CROP} stroke={t.warn} />
+        <Txt text="phóng to cùng một chỗ" x={420} y={700} w={700} s={34} fill={t.muted} weight={400} />
       </g>
     );
   return (
@@ -181,13 +181,13 @@ const ChatLuong: React.FC<SceneProps> = ({ scene }) => {
   if (sq)
     return (
       <g>
-        <Labeled im={a} x={40} y={20} size={370} label="ảnh gốc" color={t.ok} s={32} />
-        <Labeled im={q} x={430} y={20} size={370} label="JPEG chất lượng 100" color={t.fg} s={32} />
+        <Labeled im={a} x={65} y={20} size={350} label="ảnh gốc" color={t.ok} s={32} />
+        <Labeled im={q} x={425} y={20} size={350} label="JPEG chất lượng 100" color={t.fg} s={32} />
         <PixelImage im={a} x={230} y={360} size={380} map={map} stroke={t.warn} />
-        <Txt text="phần khác đi (phóng đại để dễ thấy)" x={420} y={680} w={760} s={32} fill={t.warn} />
+        <Txt text="phần khác đi (phóng đại để dễ thấy)" x={420} y={680} w={700} s={32} fill={t.warn} />
         {badges.map((b, i) => (
           <g key={i} opacity={p(f, t1 + i * 10, 12)}>
-            <Chip x={30 + i * 400} y={710} w={380} h={90} text={b} s={30} fill={t.accent2} color={t.bg} />
+            <Chip x={50 + i * 380} y={710} w={360} h={90} text={b} s={30} fill={t.accent2} color={t.bg} />
           </g>
         ))}
       </g>

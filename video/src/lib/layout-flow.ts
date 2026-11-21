@@ -20,6 +20,10 @@ export interface Box {
 
 /** Vùng cho phép của hình chính: lề 40 px, y < 830. */
 export const FLOW_AREA = { x: 40, y: 40, w: 1840, h: 750 };
+/** Lề trái, phải tối thiểu của sơ đồ ở khung ngang (vùng an toàn chữ, bài học QC tập 6): hộp nút nằm trong x 96..1824. */
+export const FLOW_SIDE_MARGIN = 96;
+/** Bề rộng nút thử lần lượt ở khung ngang khi sơ đồ chạy ngang quá dài: thu hẹp nút (chữ xuống hai dòng) thay vì thu nhỏ chữ. */
+const NW_STEPS = [240, 210, 190];
 /** Khung vuông của Short (840x840, lề 30). Ở khung này đồ thị luôn chạy từ trên xuống, khoảng cách tầng 90. */
 export const FLOW_AREA_SQUARE = { x: 30, y: 30, w: 780, h: 780 };
 /** Chừa nửa nét viền và vòng sáng (16 px) để cả nét vẽ nằm trong FLOW_AREA. */
@@ -65,24 +69,41 @@ export function layoutFlow(props: Record<string, unknown>, square = false): Flow
   const area = square ? FLOW_AREA_SQUARE : FLOW_AREA;
   const ids = new Set(nodes.map((n) => n.id));
   const edges = raw.filter((e) => ids.has(e.from) && ids.has(e.to) && e.from !== e.to);
-  const g = new dagre.graphlib.Graph();
-  g.setGraph({ rankdir: dir, ranksep: square ? 90 : 170, nodesep: 56, marginx: 0, marginy: 0 });
-  g.setDefaultEdgeLabel(() => ({}));
-  for (const n of nodes) g.setNode(n.id, { width: NW, height: NH });
-  for (const e of edges) g.setEdge(e.from, e.to);
-  dagre.layout(g);
-  const gl = g.graph();
-  const gw = Math.max(1, gl.width ?? NW);
-  const gh = Math.max(1, gl.height ?? NH);
-  const s = Math.min(square ? LABEL_BASE_SCALE : MAX_SCALE, (area.w - 2 * INSET) / gw, (area.h - 2 * INSET) / gh);
-  const ox = area.x + (area.w - gw * s) / 2;
-  const oy = area.y + (area.h - gh * s) / 2;
+  // Khung ngang, sơ đồ chạy ngang tới 5 nút: chừa lề hai bên FLOW_SIDE_MARGIN (hợp đồng FLOW_AREA giữ nguyên, vùng thật
+  // hẹp hơn bên trong nó). Từ 6 nút ngang trở lên chữ nút đã dưới ngưỡng lint (phải tách cảnh) nên giữ bố cục cũ;
+  // hướng TB giữ bố cục cũ (sơ đồ dọc hẹp, chỉ chạm mép khi quạt rất nhiều nhánh).
+  const guard = !square && dir === "LR" && nodes.length <= 5;
+  const box = guard ? { ...area, x: FLOW_SIDE_MARGIN, w: 1920 - 2 * FLOW_SIDE_MARGIN } : area;
+  const run = (nw: number) => {
+    const g = new dagre.graphlib.Graph();
+    g.setGraph({ rankdir: dir, ranksep: square ? 90 : 170, nodesep: 56, marginx: 0, marginy: 0 });
+    g.setDefaultEdgeLabel(() => ({}));
+    for (const n of nodes) g.setNode(n.id, { width: nw, height: NH });
+    for (const e of edges) g.setEdge(e.from, e.to);
+    dagre.layout(g);
+    const gl = g.graph();
+    const gw = Math.max(1, gl.width ?? nw);
+    const gh = Math.max(1, gl.height ?? NH);
+    const s = Math.min(square ? LABEL_BASE_SCALE : MAX_SCALE, (box.w - 2 * INSET) / gw, (box.h - 2 * INSET) / gh);
+    return { g, gw, gh, s, nw };
+  };
+  // Sơ đồ ngang quá dài (hệ số < 1): thử nút hẹp hơn để chữ không nhỏ đi.
+  let L = run(NW);
+  if (guard)
+    for (const nw of NW_STEPS.slice(1)) {
+      if (L.s >= 1) break;
+      L = run(nw);
+    }
+  const { g, gw, gh, s } = L;
+  const NWc = L.nw;
+  const ox = box.x + (box.w - gw * s) / 2;
+  const oy = box.y + (box.h - gh * s) / 2;
   const T = (p: Pt): Pt => ({ x: r2(ox + p.x * s), y: r2(oy + p.y * s) });
   const centre: Record<string, Pt> = {};
   const boxes: Box[] = nodes.map((n) => {
     const v = g.node(n.id);
     centre[n.id] = T({ x: v.x, y: v.y });
-    return { id: n.id, x: r2(centre[n.id].x - (NW * s) / 2), y: r2(centre[n.id].y - (NH * s) / 2), w: r2(NW * s), h: r2(NH * s) };
+    return { id: n.id, x: r2(centre[n.id].x - (NWc * s) / 2), y: r2(centre[n.id].y - (NH * s) / 2), w: r2(NWc * s), h: r2(NH * s) };
   });
   const paths: Record<string, Pt[]> = {};
   for (const e of edges) {

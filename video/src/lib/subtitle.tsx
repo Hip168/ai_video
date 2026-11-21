@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { FONT_FAMILY } from "../font";
 import type { Beat2 } from "../timeline2";
 import { clamp01, useTheme } from "./hooks";
+import { glueVi } from "./glue";
 import { measureWidth, MIN_FONT_SCALE, type MeasureWidth } from "./text";
 
 /** `fadeIn = false`: hiện đủ ngay frame đầu của beat (beat mở đầu tập, khung 0 không trống). */
@@ -23,7 +24,8 @@ const SUB_TEXT_W = (SUB_MAX_W - 2 * SUB_PAD_X) * 0.97;
 function countLines(text: string, size: number, measure: MeasureWidth): number {
   let lines = 0;
   let cur = "";
-  for (const w of text.split(/\s+/).filter((x) => x !== "")) {
+  // Chỉ ngắt ở khoảng trắng thường; khoảng trắng không ngắt (glueVi) giữ cặp chữ trên cùng dòng.
+  for (const w of text.split(/[ \t\n]+/).filter((x) => x !== "")) {
     const next = cur === "" ? w : `${cur} ${w}`;
     if (measure(next, size) <= SUB_TEXT_W) {
       cur = next;
@@ -49,8 +51,10 @@ export function subtitleFontSize(text: string, measure: MeasureWidth = measureWi
   return size;
 }
 
-export const Subtitle: React.FC<{ text: string; opacity?: number }> = ({ text, opacity = 1 }) => {
+export const Subtitle: React.FC<{ text: string; opacity?: number }> = ({ text: raw, opacity = 1 }) => {
   const theme = useTheme();
+  // Không tách số với đơn vị, không tách từ ghép hay gặp (khoảng trắng không ngắt).
+  const text = useMemo(() => glueVi(raw), [raw]);
   const fontSize = useMemo(() => subtitleFontSize(text), [text]);
   return (
     <div

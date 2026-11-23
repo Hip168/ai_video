@@ -352,20 +352,45 @@ def test_export_caption_co_tieu_de_hook_hashtag_va_dong_ai(env):
     assert "AI" in c
 
 
+BIO = "Theo dõi để xem phần tiếp."
+LAST = "Các phần còn lại và bản đầy đủ: link ở bio nha."
+TAGS2 = "#conbit2 #conbit #tinhoc #hoccungtiktok"
+QDEF = "Bạn đã biết chuyện này chưa?"
+
+
 def _check_d43(c, qmark=True, no_youtube=True):
-    """Các điều kiện khuôn D43 cho mọi caption TikTok."""
+    """Các điều kiện khuôn D43 cho mọi caption TikTok (LUAT/con-bit.md §6–7)."""
+    import re
     assert "(Phần" not in c
     assert "http" not in c
     if no_youtube:
         assert "youtube" not in c.lower()
-    lines = [x for x in c.rstrip("\n").split("\n") if x]
-    tags = lines[-1].split()
-    assert 3 <= len(tags) <= 4 and all(x.startswith("#") for x in tags), lines[-1]
-    assert tags[1] == "#conbit" and tags[0] == lines[0].split()[0]
     assert "#LearnOnTikTok" not in c
+    # Thứ tự 6 đoạn, cách nhau đúng một dòng trống: tiêu đề, đoạn mở, dòng AI, theo dõi/bio, câu hỏi, hashtag.
+    assert c.endswith("\n") and not c.endswith("\n\n")
+    paras = c.rstrip("\n").split("\n\n")
+    assert len(paras) == 6, paras
+    assert all(p.strip() and not p.startswith("\n") for p in paras), paras
+    m = re.fullmatch(r"(#conbit(\d+)) \S.*", paras[0])
+    assert m, paras[0]
+    assert paras[2] == "Giọng đọc trong video do AI tạo."
+    assert paras[3] in (BIO, LAST)
+    assert not paras[4].startswith("#")
     if qmark:
-        assert lines[-2].endswith("?"), lines[-2]
-    assert not lines[-2].startswith("#")
+        assert paras[4].endswith("?"), paras[4]
+    tags = paras[5].split()
+    assert paras[5] == " ".join(tags)
+    assert 3 <= len(tags) <= 4, tags
+    assert tags[0] == m[1], tags
+    assert tags[1] == "#conbit", tags
+    assert re.fullmatch(r"#\w+", tags[2]) and not re.fullmatch(r"#\d+", tags[2]), tags
+    assert tags[2].lower() not in ("#conbit", m[1], "#hoccungtiktok", "#learnontiktok"), tags
+    if len(tags) == 4:
+        assert tags[3] == "#hoccungtiktok", tags
+
+
+def _paras(c):
+    return c.rstrip("\n").split("\n\n")
 
 
 @pytest.mark.parametrize("tiktok_kw", [None, {"question": "Bạn đoán sao?", "tags": "#tinhoc #laptrinh #mang"},
@@ -378,6 +403,32 @@ def test_tiktok_caption_dung_khuon_d43(tiktok_kw, last):
     _check_d43(c)
     assert c.startswith("#conbit7 ")
     assert (LAST in c) == last and (BIO in c) == (not last)
+    # Thứ tự đoạn đúng D43, từng đoạn lấy đúng nguồn.
+    t = tiktok_kw or {}
+    assert _paras(c) == [f"#conbit7 {t.get('title') or 'Tiêu đề'}", t.get("intro") or "Móc",
+                         "Giọng đọc trong video do AI tạo.", LAST if last else BIO,
+                         t.get("question") or QDEF, "#conbit7 #conbit #tinhoc #hoccungtiktok"]
+
+
+@pytest.mark.parametrize("c", [
+    "#conbit7 T\n\nGiọng đọc trong video do AI tạo.\n\nMở.\n\n" + BIO + "\n\nHỏi?\n\n#conbit7 #conbit #tinhoc\n",
+    "#conbit7 T\n\nMở.\n\nGiọng đọc trong video do AI tạo.\n\nHỏi?\n\n" + BIO + "\n\n#conbit7 #conbit #tinhoc\n",
+    "#conbit7 T\n\nMở.\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO + "\n\n#conbit7 #conbit #tinhoc\n\nHỏi?\n",
+    "Mở.\n\n#conbit7 T\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO + "\n\nHỏi?\n\n#conbit7 #conbit #tinhoc\n",
+    "#conbit7 T\n\nMở.\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO + "\n\nHỏi?\n\n#conbit7 #conbit #tinhoc #laptrinh\n",
+    "#conbit7 T\n\nMở.\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO + "\n\nHỏi?\n\n#conbit7 #conbit #tinhoc #LearnOnTikTok\n",
+])
+def test_check_d43_bat_sai_thu_tu_doan_va_the(c):
+    """Bộ kiểm `_check_d43` phải bắt được caption đổi chỗ đoạn hoặc thẻ thứ 4 sai (tránh xanh giả)."""
+    with pytest.raises(AssertionError):
+        _check_d43(c)
+
+
+def test_check_d43_dat_voi_caption_dung():
+    _check_d43("#conbit7 T\n\nMở.\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO
+               + "\n\nHỏi?\n\n#conbit7 #conbit #tinhoc #hoccungtiktok\n")
+    _check_d43("#conbit7 T\n\nMở.\n\nGiọng đọc trong video do AI tạo.\n\n" + LAST
+               + "\n\nHỏi?\n\n#conbit7 #conbit #tinhoc\n")
 
 
 def test_export_moi_caption_dung_khuon_d43(env):
@@ -401,12 +452,6 @@ def test_export_caption_khong_co_url_ke_ca_khi_so_da_co_videoid(tmp_path):
         c = cap(env, k)
         assert "http" not in c and "vLong" not in c
         assert "youtube" not in c.lower()
-
-
-BIO = "Theo dõi để xem phần tiếp."
-LAST = "Các phần còn lại và bản đầy đủ: link ở bio nha."
-TAGS2 = "#conbit2 #conbit #tinhoc #hoccungtiktok"
-QDEF = "Bạn đã biết chuyện này chưa?"
 
 
 def test_export_caption_dung_mau_moi_khi_chua_co_chu_rieng_tiktok(env):
@@ -444,7 +489,7 @@ def test_tiktok_caption_ghep_lai_mau_cu_theo_khuon_d43(f):
          "tiktok": {"title": m[2], "intro": paras[1], "question": paras[3], "tags": tags[1]}}
     n = m[1]
     want = "\n\n".join([f"#conbit{n} {m[2]}", paras[1], "Giọng đọc trong video do AI tạo.", paras[2], paras[3],
-                         f"#conbit{n} #conbit {' '.join(tags[1].split()[:2])}"]) + "\n"
+                         f"#conbit{n} #conbit {tags[1].split()[0]} #hoccungtiktok"]) + "\n"
     got = shorts.tiktok_caption(e, int(n), part == 3)
     assert got == want
     # Vài câu hỏi mẫu cũ kết bằng "…dưới bình luận."; tap3-phan1 nói về bộ đếm của YouTube (nội dung, không phải lời mời).
@@ -470,7 +515,7 @@ def test_export_dung_chu_rieng_tiktok_trong_shorts_json(env):
     ex(env, "1-3")
     assert cap(env, 1) == (
         "#conbit2 Tựa TikTok\n\nĐoạn mở.\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO + "\n\n"
-        "Bạn đoán sao?\n\n#conbit2 #conbit #tinhoc #laptrinh\n")
+        "Bạn đoán sao?\n\n#conbit2 #conbit #tinhoc #hoccungtiktok\n")
 
 
 def test_export_so_tap_theo_thu_tu_trong_index_json(env):
@@ -543,3 +588,152 @@ def test_export_khong_doi_short_youtube_va_don_thu_muc_tam(env):
         assert (env.out / f"{SLUG}-short-{k}.mp4").read_bytes() == b"mp4-%d" % k
     assert not (env.out / "shorts").exists()
     assert not (tiktok(env) / ".work").exists()
+
+
+# ------------------------------------------------------------ review PR #103
+@pytest.mark.parametrize("tags,want", [
+    ("#laptrinh #tinhoc #mang", "#conbit7 #conbit #laptrinh #hoccungtiktok"),
+    ("#hoccungtiktok #baomat", "#conbit7 #conbit #baomat #hoccungtiktok"),
+    ("#conbit7 #conbit", "#conbit7 #conbit #tinhoc #hoccungtiktok"),
+    ("", "#conbit7 #conbit #tinhoc #hoccungtiktok"),
+])
+def test_tiktok_caption_dung_mot_the_chu_de(tags, want):
+    """D43: đúng MỘT thẻ chủ đề; thẻ thứ 4 chỉ được là #hoccungtiktok."""
+    from aivideo import shorts
+    e = {"part": 1, "total": 3, "title": "T", "hook": "M", "tiktok": {"tags": tags, "question": "Q?"}}
+    c = shorts.tiktok_caption(e, 7, False)
+    assert _paras(c)[-1] == want
+    _check_d43(c)
+
+
+def test_export_parts_1_2_tap_co_3_phan_tro_len_khong_ghi_link_bio(env):
+    """Bài cuối trong phần 1–3 của TẬP mới có "link ở bio", không phải bài cuối của dải xuất."""
+    seed(env, 4)
+    ex(env, "1-2")
+    assert BIO in cap(env, 1) and BIO in cap(env, 2)
+    assert LAST not in cap(env, 1) and LAST not in cap(env, 2)
+    ex(env, "3-3")
+    assert LAST in cap(env, 3)
+
+
+def test_export_tap_2_phan_mac_dinh_xuat_ca_2_phan_phan_2_la_bai_cuoi(env):
+    seed(env, 2)
+    ex(env, None)
+    names = sorted(f.name for f in tiktok(env).glob("phan-*.mp4"))
+    assert names == ["phan-1.mp4", "phan-2.mp4"]
+    assert BIO in cap(env, 1) and LAST not in cap(env, 1)
+    assert LAST in cap(env, 2) and BIO not in cap(env, 2)
+    for k in (1, 2):
+        _check_d43(cap(env, k))
+
+
+def test_export_tap_2_phan_qua_cli_mac_dinh_ma_0(env):
+    seed(env, 2)
+    p = env.cli("export")
+    assert p.returncode == 0, both(p)
+    assert LAST in cap(env, 2)
+
+
+def test_export_tap_1_phan_mac_dinh_xuat_phan_1_la_bai_cuoi(env):
+    seed(env, 1)
+    ex(env, None)
+    assert LAST in cap(env, 1)
+
+
+def test_export_tap_2_phan_parts_1_3_van_bi_tu_choi(env):
+    """Chỉ mặc định mới co theo số phần; dải người dùng ghi vượt số phần vẫn lỗi."""
+    seed(env, 2)
+    p = env.cli("export", "--parts", "1-3")
+    assert p.returncode == 1, both(p)
+
+
+def test_export_canh_bao_khi_thieu_cau_hoi_tiktok(env):
+    seed(env, 3)
+    items = json.loads((env.ep / "shorts.json").read_text("utf-8"))
+    items["shorts"][0]["tiktok"] = {"question": "Bạn đoán sao?"}
+    items["shorts"][1]["tiktok"] = {"intro": "Mở."}
+    (env.ep / "shorts.json").write_text(json.dumps(items, ensure_ascii=False), "utf-8")
+    p = env.cli("export")
+    assert p.returncode == 0, both(p)
+    warn = [x for x in p.stderr.splitlines() if "tiktok.question" in x]
+    assert [x.split(":")[1].strip() for x in warn] == ["phần 2", "phần 3"], p.stderr
+    assert QDEF in cap(env, 2)
+
+
+BAD_TEXT = [
+    ("title", "Xem tại https://x.vn"),
+    ("title", "Ghé chuyenconbit.vercel.app"),
+    ("title", "Như trên YouTube"),
+    ("title", "Top #1 thuật toán"),
+    ("intro", "Đoạn mở có www.example.com."),
+    ("intro", "Bản đầy đủ trên youtube nha."),
+    ("intro", "Đây là #1 đó."),
+    ("intro", "Học #LearnOnTikTok"),
+    ("tags", "#tinhoc #LearnOnTikTok"),
+    ("tags", "#1"),
+    ("tags", "#youtube"),
+    ("tags", "tinhoc"),
+    ("tags", "#tinhoc https://x.vn"),
+]
+
+
+@pytest.mark.parametrize("field,value", BAD_TEXT)
+def test_check_tiktok_input_bat_loi(field, value):
+    from aivideo import shorts
+    assert shorts.check_tiktok_input({"title": "T", "hook": "M", "tiktok": {field: value}})
+
+
+@pytest.mark.parametrize("field,value", [("title", "Bug Y2K tốn 300 tỷ đô"), ("intro", "Năm 1999, 2 số cuối."),
+                                         ("tags", "#tinhoc"), ("tags", "#baomat #tinhoc"), ("title", "C# có 3 kiểu")])
+def test_check_tiktok_input_dat(field, value):
+    from aivideo import shorts
+    assert shorts.check_tiktok_input({"title": "T", "hook": "M", "tiktok": {field: value}}) == []
+
+
+@pytest.mark.parametrize("key,value", [("title", "Như trên YouTube"), ("hook", "Xem #1")])
+def test_check_tiktok_input_kiem_ca_title_hook_cua_muc_khi_khong_co_chu_rieng(key, value):
+    from aivideo import shorts
+    e = {"title": "T", "hook": "M", key: value}
+    assert shorts.check_tiktok_input(e)
+
+
+@pytest.mark.parametrize("field,value", BAD_TEXT[::3])
+def test_export_chu_tiktok_sai_thi_loi_khong_ghi_file(env, field, value):
+    seed(env, 3)
+    items = json.loads((env.ep / "shorts.json").read_text("utf-8"))
+    items["shorts"][1]["tiktok"] = {field: value}
+    (env.ep / "shorts.json").write_text(json.dumps(items, ensure_ascii=False), "utf-8")
+    p = env.cli("export")
+    assert p.returncode == 1, both(p)
+    assert p.stderr.startswith("lỗi:") and "phần 2" in p.stderr
+    assert not tiktok(env).exists() or not list(tiktok(env).glob("phan-*"))
+
+
+# D43: cảnh báo 30–45 s ở `aivideo.shorts validate` (cùng ngưỡng `video/src/shorts.ts`).
+def _warns(p):
+    return [x for x in p.stdout.splitlines() if x.startswith("cảnh báo:") and "30–45 s" in x]
+
+
+def test_validate_bien_30_45_giay_899_900_1350_1351_frame(tmp_path):
+    e = Env(tmp_path, plan=[899, 900, 1350, 1351, 600])
+    p = ok_or_fail(e, e.parts([(0, 0), (1, 1), (2, 2), (3, 3)]), 0)
+    assert _warns(p) == ["cảnh báo: phần 1: dài 30.0 s, ngoài khoảng 30–45 s (D43)",
+                         "cảnh báo: phần 4: dài 45.0 s, ngoài khoảng 30–45 s (D43)"], p.stdout
+
+
+def test_validate_nguong_theo_fps_cua_timeline(tmp_path):
+    e = Env(tmp_path, plan=[1799, 1800, 2700, 2701, 600])
+    e.tl["fps"] = 60
+    (e.out / "timeline.json").write_text(json.dumps(e.tl, ensure_ascii=False), "utf-8")
+    p = ok_or_fail(e, e.parts([(0, 0), (1, 1), (2, 2), (3, 3)]), 0)
+    assert [x.split(":")[1].strip() for x in _warns(p)] == ["phần 1", "phần 4"], p.stdout
+
+
+def test_validate_timeline_thieu_fps_dung_30(tmp_path):
+    from aivideo import shorts
+    e = Env(tmp_path, plan=[899, 900, 600])
+    tl = dict(e.tl)
+    tl.pop("fps", None)
+    errs, warns = shorts.validate(e.parts([(0, 0), (1, 1)]), tl)
+    assert errs == []
+    assert [w for w in warns if "30–45 s" in w] == ["phần 1: dài 30.0 s, ngoài khoảng 30–45 s (D43)"]

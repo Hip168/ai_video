@@ -6,11 +6,17 @@ import type { Timeline2 } from "./timeline2";
 
 export const SHORT_MIN_PARTS = 1;
 export const SHORT_MAX_PARTS = 8;
-export const SHORT_MAX_FRAMES = 5400; // 180 s
-export const SHORT_WARN_FRAMES = 4500; // 150 s
+// Ngưỡng tính theo giây; số frame theo `fps` của timeline (thiếu thì 30). Hằng *_FRAMES là số frame ở 30 fps.
+export const SHORT_DEFAULT_FPS = 30;
+export const SHORT_MAX_SEC = 180;
+export const SHORT_WARN_SEC = 150;
 // D43 (LUAT/con-bit.md §5): mỗi Short 30–45 s. Ngoài khoảng này chỉ cảnh báo lúc lên kế hoạch, không chặn.
-export const SHORT_IDEAL_MIN_FRAMES = 900; // 30 s
-export const SHORT_IDEAL_MAX_FRAMES = 1350; // 45 s
+export const SHORT_IDEAL_MIN_SEC = 30;
+export const SHORT_IDEAL_MAX_SEC = 45;
+export const SHORT_MAX_FRAMES = SHORT_MAX_SEC * SHORT_DEFAULT_FPS; // 5400
+export const SHORT_WARN_FRAMES = SHORT_WARN_SEC * SHORT_DEFAULT_FPS; // 4500
+export const SHORT_IDEAL_MIN_FRAMES = SHORT_IDEAL_MIN_SEC * SHORT_DEFAULT_FPS; // 900
+export const SHORT_IDEAL_MAX_FRAMES = SHORT_IDEAL_MAX_SEC * SHORT_DEFAULT_FPS; // 1350
 export const SHORT_MAX_HOOK = 40;
 export const SHORT_MAX_TITLE = 100;
 
@@ -33,6 +39,8 @@ export function validateShorts(raw: unknown, timeline: Timeline2): { errors: str
   if (!list) return { errors: ["shorts.json cần object có mảng `shorts`"], warnings };
   const n = list.length;
   if (n < SHORT_MIN_PARTS || n > SHORT_MAX_PARTS) errors.push(`cần ${SHORT_MIN_PARTS}..${SHORT_MAX_PARTS} phần, có ${n}`);
+  const f = (timeline as {fps?: unknown}).fps;
+  const fps = typeof f === "number" && f > 0 ? f : SHORT_DEFAULT_FPS;
   const order = new Map(timeline.scenes.flatMap((s) => s.beats).map((b, i) => [b.id, i]));
   let prevEnd = -1;
   list.forEach((e0, k) => {
@@ -57,10 +65,11 @@ export function validateShorts(raw: unknown, timeline: Timeline2): { errors: str
     if (start < prevEnd) errors.push(`${w}: chồng lên phần trước`);
     prevEnd = end;
     const len = end - start;
-    if (len > SHORT_MAX_FRAMES) errors.push(`${w}: dài ${(len / 30).toFixed(1)} s, tối đa ${SHORT_MAX_FRAMES / 30} s`);
-    else if (len > SHORT_WARN_FRAMES) warnings.push(`${w}: dài ${(len / 30).toFixed(1)} s, nên dưới ${SHORT_WARN_FRAMES / 30} s`);
-    else if (len < SHORT_IDEAL_MIN_FRAMES || len > SHORT_IDEAL_MAX_FRAMES)
-      warnings.push(`${w}: dài ${(len / 30).toFixed(1)} s, ngoài khoảng ${SHORT_IDEAL_MIN_FRAMES / 30}–${SHORT_IDEAL_MAX_FRAMES / 30} s (D43)`);
+    const sec = (len / fps).toFixed(1);
+    if (len > SHORT_MAX_SEC * fps) errors.push(`${w}: dài ${sec} s, tối đa ${SHORT_MAX_SEC} s`);
+    else if (len > SHORT_WARN_SEC * fps) warnings.push(`${w}: dài ${sec} s, nên dưới ${SHORT_WARN_SEC} s`);
+    else if (len < SHORT_IDEAL_MIN_SEC * fps || len > SHORT_IDEAL_MAX_SEC * fps)
+      warnings.push(`${w}: dài ${sec} s, ngoài khoảng ${SHORT_IDEAL_MIN_SEC}–${SHORT_IDEAL_MAX_SEC} s (D43)`);
     const { first, last } = sceneRange(timeline, { from: e.from, to: e.to });
     for (const s of timeline.scenes.slice(first, last + 1)) {
       if (s.type.startsWith("custom:") && !CUSTOM_SQUARE.has(s.type.slice("custom:".length)))

@@ -8,6 +8,9 @@ export const SHORT_MIN_PARTS = 1;
 export const SHORT_MAX_PARTS = 8;
 export const SHORT_MAX_FRAMES = 5400; // 180 s
 export const SHORT_WARN_FRAMES = 4500; // 150 s
+// D43 (LUAT/con-bit.md §5): mỗi Short 30–45 s. Ngoài khoảng này chỉ cảnh báo lúc lên kế hoạch, không chặn.
+export const SHORT_IDEAL_MIN_FRAMES = 900; // 30 s
+export const SHORT_IDEAL_MAX_FRAMES = 1350; // 45 s
 export const SHORT_MAX_HOOK = 40;
 export const SHORT_MAX_TITLE = 100;
 
@@ -56,6 +59,8 @@ export function validateShorts(raw: unknown, timeline: Timeline2): { errors: str
     const len = end - start;
     if (len > SHORT_MAX_FRAMES) errors.push(`${w}: dài ${(len / 30).toFixed(1)} s, tối đa ${SHORT_MAX_FRAMES / 30} s`);
     else if (len > SHORT_WARN_FRAMES) warnings.push(`${w}: dài ${(len / 30).toFixed(1)} s, nên dưới ${SHORT_WARN_FRAMES / 30} s`);
+    else if (len < SHORT_IDEAL_MIN_FRAMES || len > SHORT_IDEAL_MAX_FRAMES)
+      warnings.push(`${w}: dài ${(len / 30).toFixed(1)} s, ngoài khoảng ${SHORT_IDEAL_MIN_FRAMES / 30}–${SHORT_IDEAL_MAX_FRAMES / 30} s (D43)`);
     const { first, last } = sceneRange(timeline, { from: e.from, to: e.to });
     for (const s of timeline.scenes.slice(first, last + 1)) {
       if (s.type.startsWith("custom:") && !CUSTOM_SQUARE.has(s.type.slice("custom:".length)))

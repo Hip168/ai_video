@@ -289,11 +289,21 @@ def test_export_mp4_la_ban_sao_dung_cua_phan_k(env):
         assert (tiktok(env) / f"phan-{k}.mp4").read_bytes() == b"mp4-%d" % k
 
 
-def test_export_parts_2_4_xuat_dung_cac_phan_do(env):
+def test_export_parts_2_3_xuat_dung_cac_phan_do(env):
     seed(env, 4)
-    ex(env, "2-4")
+    ex(env, "2-3")
     names = sorted(f.name for f in tiktok(env).glob("phan-*.mp4"))
-    assert names == ["phan-2.mp4", "phan-3.mp4", "phan-4.mp4"]
+    assert names == ["phan-2.mp4", "phan-3.mp4"]
+
+
+@pytest.mark.parametrize("parts", ["1-4", "2-4", "4-4"])
+def test_export_tiktok_chi_phan_1_den_3_d43(env, parts):
+    """D43: TikTok chỉ dùng Short phần 1–3, kể cả khi tập có đủ phần 4."""
+    seed(env, 4)
+    p = env.cli("export", "--parts", parts)
+    assert p.returncode == 1, both(p)
+    assert p.stderr.startswith("lỗi:")
+    assert not tiktok(env).exists() or not list(tiktok(env).glob("phan-*"))
 
 
 def test_export_parts_chi_xuat_phan_co_mp4_khong_doi_phan_khac(env):
@@ -332,15 +342,49 @@ def cap(env, k):
     return (tiktok(env) / f"phan-{k}.txt").read_text("utf-8")
 
 
-def test_export_caption_co_tieu_de_phan_k_n_hook_hashtag_va_dong_ai(env):
+def test_export_caption_co_tieu_de_hook_hashtag_va_dong_ai(env):
     seed(env, 4)
     ex(env, "1-2")
     c = cap(env, 2)
-    assert "Tiêu đề (Phần 2/2)" in c
-    assert "/4" not in c
+    assert c.startswith("#conbit2 Tiêu đề\n")
     assert "Móc" in c
-    assert "#tinhoc #khoahocmaytinh" in c
+    assert "#tinhoc" in c
     assert "AI" in c
+
+
+def _check_d43(c, qmark=True, no_youtube=True):
+    """Các điều kiện khuôn D43 cho mọi caption TikTok."""
+    assert "(Phần" not in c
+    assert "http" not in c
+    if no_youtube:
+        assert "youtube" not in c.lower()
+    lines = [x for x in c.rstrip("\n").split("\n") if x]
+    tags = lines[-1].split()
+    assert 3 <= len(tags) <= 4 and all(x.startswith("#") for x in tags), lines[-1]
+    assert tags[1] == "#conbit" and tags[0] == lines[0].split()[0]
+    assert "#LearnOnTikTok" not in c
+    if qmark:
+        assert lines[-2].endswith("?"), lines[-2]
+    assert not lines[-2].startswith("#")
+
+
+@pytest.mark.parametrize("tiktok_kw", [None, {"question": "Bạn đoán sao?", "tags": "#tinhoc #laptrinh #mang"},
+                                       {"tags": "#tinhoc"}, {"title": "Tựa", "intro": "Mở."}])
+@pytest.mark.parametrize("last", [False, True])
+def test_tiktok_caption_dung_khuon_d43(tiktok_kw, last):
+    from aivideo import shorts
+    e = {"part": 1, "total": 3, "title": "Tiêu đề", "hook": "Móc", **({"tiktok": tiktok_kw} if tiktok_kw else {})}
+    c = shorts.tiktok_caption(e, 7, last)
+    _check_d43(c)
+    assert c.startswith("#conbit7 ")
+    assert (LAST in c) == last and (BIO in c) == (not last)
+
+
+def test_export_moi_caption_dung_khuon_d43(env):
+    seed(env, 4)
+    ex(env, "1-3")
+    for k in (1, 2, 3):
+        _check_d43(cap(env, k))
 
 
 def test_export_caption_khong_co_url_ke_ca_khi_so_da_co_videoid(tmp_path):
@@ -361,21 +405,23 @@ def test_export_caption_khong_co_url_ke_ca_khi_so_da_co_videoid(tmp_path):
 
 BIO = "Theo dõi để xem phần tiếp."
 LAST = "Các phần còn lại và bản đầy đủ: link ở bio nha."
-TAGS2 = "#conbit2 #conbit #tinhoc #khoahocmaytinh #hoccungtiktok #LearnOnTikTok"
+TAGS2 = "#conbit2 #conbit #tinhoc #hoccungtiktok"
+QDEF = "Bạn đã biết chuyện này chưa?"
 
 
 def test_export_caption_dung_mau_moi_khi_chua_co_chu_rieng_tiktok(env):
     seed(env, 4)
     ex(env, "1-3")
     assert cap(env, 1) == (
-        "#conbit2 Tiêu đề (Phần 1/3)\n\nMóc\n\n" + BIO + "\n\n"
-        "Giọng đọc trong video do AI tạo.\n\n" + TAGS2 + "\n")
+        "#conbit2 Tiêu đề\n\nMóc\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO + "\n\n"
+        + QDEF + "\n\n" + TAGS2 + "\n")
     assert cap(env, 3) == (
-        "#conbit2 Tiêu đề (Phần 3/3)\n\nMóc\n\n" + LAST + "\n\n"
-        "Giọng đọc trong video do AI tạo.\n\n" + TAGS2 + "\n")
+        "#conbit2 Tiêu đề\n\nMóc\n\nGiọng đọc trong video do AI tạo.\n\n" + LAST + "\n\n"
+        + QDEF + "\n\n" + TAGS2 + "\n")
 
 
-# Bản chép nguyên văn 9 caption người dùng đang đăng (out/tiktok-dang/, sửa lần cuối 2026-11-15 20:13).
+# Bản chép nguyên văn 9 caption khuôn cũ D35 (out/tiktok-dang/, 2026-11-15 20:13): dùng làm nguồn chữ riêng,
+# ghép lại theo khuôn D43 (LUAT/con-bit.md §7).
 MAU = sorted((Path(__file__).parent / "data" / "tiktok-caption").glob("tap*-phan*.txt"))
 
 
@@ -384,8 +430,8 @@ def test_co_du_9_mau_caption():
 
 
 @pytest.mark.parametrize("f", MAU, ids=lambda f: f.stem)
-def test_tiktok_caption_trung_tung_byte_voi_mau_dang_dung(f):
-    """Lấy chữ riêng (tiêu đề, đoạn mở, câu hỏi, hashtag chủ đề) từ mẫu, ghép lại phải ra đúng từng byte."""
+def test_tiktok_caption_ghep_lai_mau_cu_theo_khuon_d43(f):
+    """Lấy chữ riêng (tiêu đề, đoạn mở, câu hỏi, hashtag chủ đề) từ mẫu cũ, ghép lại đúng thứ tự D43."""
     import re
     from aivideo import shorts
     sample = f.read_text(encoding="utf-8")
@@ -396,7 +442,23 @@ def test_tiktok_caption_trung_tung_byte_voi_mau_dang_dung(f):
     part = int(m[3])
     e = {"part": part, "total": 3, "title": "Tiêu đề Short", "hook": "Móc",
          "tiktok": {"title": m[2], "intro": paras[1], "question": paras[3], "tags": tags[1]}}
-    assert shorts.tiktok_caption(e, int(m[1]), part == 3).encode("utf-8") == f.read_bytes()
+    n = m[1]
+    want = "\n\n".join([f"#conbit{n} {m[2]}", paras[1], "Giọng đọc trong video do AI tạo.", paras[2], paras[3],
+                         f"#conbit{n} #conbit {' '.join(tags[1].split()[:2])}"]) + "\n"
+    got = shorts.tiktok_caption(e, int(n), part == 3)
+    assert got == want
+    # Vài câu hỏi mẫu cũ kết bằng "…dưới bình luận."; tap3-phan1 nói về bộ đếm của YouTube (nội dung, không phải lời mời).
+    _check_d43(got, qmark=paras[3].endswith("?"), no_youtube="youtube" not in sample.lower())
+
+
+def test_export_canh_bao_cau_hoi_khong_ket_bang_dau_hoi(env):
+    seed(env, 3)
+    items = json.loads((env.ep / "shorts.json").read_text("utf-8"))
+    items["shorts"][1]["tiktok"] = {"question": "Kể dưới bình luận nhé."}
+    (env.ep / "shorts.json").write_text(json.dumps(items, ensure_ascii=False), "utf-8")
+    p = env.cli("export")
+    assert p.returncode == 0, both(p)
+    assert "phần 2" in p.stderr and "?" in p.stderr
 
 
 def test_export_dung_chu_rieng_tiktok_trong_shorts_json(env):
@@ -407,9 +469,8 @@ def test_export_dung_chu_rieng_tiktok_trong_shorts_json(env):
     (env.ep / "shorts.json").write_text(json.dumps(items, ensure_ascii=False), "utf-8")
     ex(env, "1-3")
     assert cap(env, 1) == (
-        "#conbit2 Tựa TikTok (Phần 1/3)\n\nĐoạn mở.\n\n" + BIO + "\n\nBạn đoán sao?\n\n"
-        "Giọng đọc trong video do AI tạo.\n\n"
-        "#conbit2 #conbit #tinhoc #laptrinh #hoccungtiktok #LearnOnTikTok\n")
+        "#conbit2 Tựa TikTok\n\nĐoạn mở.\n\nGiọng đọc trong video do AI tạo.\n\n" + BIO + "\n\n"
+        "Bạn đoán sao?\n\n#conbit2 #conbit #tinhoc #laptrinh\n")
 
 
 def test_export_so_tap_theo_thu_tu_trong_index_json(env):
@@ -453,29 +514,26 @@ def test_export_nhan_phan_theo_dai_xuat_render_lai_phan_i_tren_m(env):
     assert [c[:2] for c in calls] == [(1, 3), (2, 3), (3, 3)]
     for k in (1, 2, 3):
         assert (tiktok(env) / f"phan-{k}.mp4").read_bytes() == b"render-%d/3" % k
-        assert f"(Phần {k}/3)" in cap(env, k)
-        assert "/6" not in cap(env, k)
+        assert "(Phần" not in cap(env, k)
 
 
-def test_export_parts_2_4_danh_so_lai_tu_1(env):
+def test_export_parts_2_3_danh_so_lai_tu_1(env):
     seed(env, 6)
     calls = []
-    ex(env, "2-4", calls)
-    assert [c[:2] for c in calls] == [(1, 3), (2, 3), (3, 3)]
-    assert [c[2] for c in calls] == [env.ids[i][0] for i in (1, 2, 3)]
-    assert (tiktok(env) / "phan-2.mp4").read_bytes() == b"render-1/3"
-    assert "(Phần 1/3)" in cap(env, 2)
-    assert "(Phần 3/3)" in cap(env, 4)
+    ex(env, "2-3", calls)
+    assert [c[:2] for c in calls] == [(1, 2), (2, 2)]
+    assert [c[2] for c in calls] == [env.ids[i][0] for i in (1, 2)]
+    assert (tiktok(env) / "phan-2.mp4").read_bytes() == b"render-1/2"
+    assert LAST in cap(env, 3) and BIO in cap(env, 2)
 
 
 def test_export_ca_tap_trung_nhan_youtube_thi_chep_khong_render(env):
-    seed(env, 4)
+    seed(env, 3)
     calls = []
-    ex(env, "1-4", calls)
+    ex(env, "1-3", calls)
     assert calls == []
-    for k in (1, 2, 3, 4):
+    for k in (1, 2, 3):
         assert (tiktok(env) / f"phan-{k}.mp4").read_bytes() == b"mp4-%d" % k
-        assert f"(Phần {k}/4)" in cap(env, k)
 
 
 def test_export_khong_doi_short_youtube_va_don_thu_muc_tam(env):

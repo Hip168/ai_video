@@ -1,7 +1,7 @@
 import {describe, expect, test} from 'vitest';
 import {CUSTOM_SQUARE} from '../src/episodes/registry';
 import {clipRange} from '../src/Short';
-import {validateShorts} from '../src/shorts';
+import {SHORT_IDEAL_MAX_FRAMES, SHORT_IDEAL_MIN_FRAMES, validateShorts} from '../src/shorts';
 import type {Timeline2} from '../src/timeline2';
 import {loadSample2} from './helpers/sample2';
 
@@ -68,8 +68,8 @@ const SIX = [600, 600, 600, 600, 600, 600];
 
 describe('[14-3] validateShorts: phần hợp lệ', () => {
   test('3 phần đầu của tập 6 cảnh: không lỗi, không cảnh báo (không cần phủ kín tập)', () => {
-    const e = timeline(SIX);
-    expect(validateShorts(parts(e, [[0, 1], [2, 2], [3, 3]]), e.tl)).toEqual({errors: [], warnings: []});
+    const e = timeline([1200, 1000, 1000, 600, 600, 600]);
+    expect(validateShorts(parts(e, [[0, 0], [1, 1], [2, 2]]), e.tl)).toEqual({errors: [], warnings: []});
   });
   test('1 phần và 8 phần đều đạt', () => {
     const e = timeline(SIX);
@@ -86,6 +86,15 @@ describe('[14-3] validateShorts: phần hợp lệ', () => {
     expect(validateShorts(parts(a, [[0, 0]]), a.tl).errors).toEqual([]);
     const b = timeline([5402, 600]);
     expect(validateShorts(parts(b, [[0, 0]]), b.tl).errors.length).toBeGreaterThan(0);
+  });
+  test('D43: ngoài 30–45 s chỉ cảnh báo, đúng biên 30 s và 45 s không cảnh báo', () => {
+    const e = timeline([SHORT_IDEAL_MIN_FRAMES, SHORT_IDEAL_MAX_FRAMES, SHORT_IDEAL_MIN_FRAMES - 30,
+      SHORT_IDEAL_MAX_FRAMES + 30, 600]);
+    const r = validateShorts(parts(e, [[0, 0], [1, 1], [2, 2], [3, 3]]), e.tl);
+    expect(r.errors).toEqual([]);
+    expect(r.warnings).toHaveLength(2);
+    expect(r.warnings[0]).toMatch(/^phần 3: .*30–45 s/);
+    expect(r.warnings[1]).toMatch(/^phần 4: .*30–45 s/);
   });
   test('trên 150 s chỉ cảnh báo, không lỗi', () => {
     const e = timeline([4600, 600]);

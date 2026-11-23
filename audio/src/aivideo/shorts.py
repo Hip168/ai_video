@@ -23,8 +23,11 @@ MAX_FRAMES = 5400  # 180 s ở 30 fps
 WARN_FRAMES = 4500  # 150 s
 MAX_HOOK = 40
 MAX_TITLE = 100
-TIKTOK_TAGS = "#tinhoc #khoahocmaytinh"
-TIKTOK_TAIL = "#hoccungtiktok #LearnOnTikTok"
+TIKTOK_TAGS = "#tinhoc"  # thẻ chủ đề mặc định
+TIKTOK_TAIL = "#hoccungtiktok"
+TIKTOK_MAX_TAGS = 4  # D43: dòng hashtag 3–4 thẻ
+TIKTOK_MAX_PART = 3  # D43: TikTok chỉ dùng Short phần 1–3
+TIKTOK_QUESTION = "Bạn đã biết chuyện này chưa?"
 AI_LINE = "Giọng đọc trong video do AI tạo."
 NEXT_LINE = "Theo dõi để xem phần tiếp."
 FULL_LINE = "Các phần còn lại và bản đầy đủ: link ở bio nha."
@@ -238,17 +241,21 @@ def episode_number(root: Path, slug: str) -> int:
 
 
 def tiktok_caption(e: dict, ep_no: int, last: bool) -> str:
-    """Caption TikTok (D35) theo mẫu out/tiktok-dang/ (2026-11-15): dòng 1 `#conbit<n> <tiêu đề> (Phần k/N)`, đoạn mở,
-    lời mời theo dõi (phần cuối: link ở bio), câu hỏi gợi bình luận, dòng giọng AI, hashtag `#conbit<n> #conbit`.
+    """Caption TikTok theo khuôn D43 (LUAT/con-bit.md §7), các đoạn cách nhau một dòng trống:
+    `#conbit<n> <tiêu đề>` (không "(Phần k/N)"), đoạn mở, dòng giọng AI, lời mời theo dõi (phần cuối: link ở bio),
+    câu hỏi mời bình luận (dòng chữ cuối), dòng hashtag 3–4 thẻ `#conbit<n> #conbit #<chủ đề>` [+ `#hoccungtiktok`].
+    Không URL, không nhắc YouTube.
 
-    Chữ riêng cho TikTok đặt ở khoá tuỳ chọn `tiktok` của mục `shorts.json`: `title`, `intro`, `question`, `tags`;
-    thiếu thì dùng `title`, `hook` của mục, bỏ câu hỏi, hashtag chủ đề mặc định."""
+    Chữ riêng cho TikTok đặt ở khoá tuỳ chọn `tiktok` của mục `shorts.json`: `title`, `intro`, `question`, `tags`
+    (thẻ chủ đề); thiếu thì dùng `title`, `hook` của mục, câu hỏi mặc định, thẻ chủ đề mặc định."""
     t = e.get("tiktok") or {}
-    lines = [f"#conbit{ep_no} {t.get('title') or e['title']} (Phần {e['part']}/{e['total']})", "", t.get("intro") or e["hook"],
-             "", FULL_LINE if last else NEXT_LINE]
-    if t.get("question"):
-        lines += ["", t["question"]]
-    lines += ["", AI_LINE, "", f"#conbit{ep_no} #conbit {t.get('tags') or TIKTOK_TAGS} {TIKTOK_TAIL}"]
+    base = [f"#conbit{ep_no}", "#conbit"]
+    topic = [x for x in (t.get("tags") or TIKTOK_TAGS).split() if x not in base and x != TIKTOK_TAIL]
+    tags = base + topic[:TIKTOK_MAX_TAGS - len(base)]
+    if len(tags) < TIKTOK_MAX_TAGS:
+        tags.append(TIKTOK_TAIL)
+    lines = [f"#conbit{ep_no} {t.get('title') or e['title']}", "", t.get("intro") or e["hook"], "", AI_LINE,
+             "", FULL_LINE if last else NEXT_LINE, "", t.get("question") or TIKTOK_QUESTION, "", " ".join(tags)]
     return "\n".join(lines) + "\n"
 
 
@@ -265,7 +272,7 @@ def parse_parts(s: str) -> tuple[int, int]:
 
 def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled, endcard: bool = True,
            append=None) -> Path:
-    """Ghi `<out>/tiktok/`: `phan-<k>.mp4`, `phan-<k>.txt`, `manifest.json`.
+    """Ghi `<out>/tiktok/`: `phan-<k>.mp4`, `phan-<k>.txt`, `manifest.json`. Chỉ phần 1–`TIKTOK_MAX_PART` (D43).
 
     Tập từ số `tiktok_endcard.FROM_EPISODE` (D42): mỗi phần nối thêm thẻ kết chữ (không giọng) bằng
     `append(slug, root, src, dst)` (mặc định `tiktok_endcard.append`); `endcard=False` thì bỏ. Tập trước đó chép như cũ.
@@ -278,6 +285,8 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled, en
     lo, hi = parse_parts(parts)
     if hi > len(shorts):
         raise ShortsError(f"--parts {parts} vượt số phần trong shorts.json ({len(shorts)})")
+    if hi > TIKTOK_MAX_PART:
+        raise ShortsError(f"--parts {parts}: TikTok chỉ dùng Short phần 1–{TIKTOK_MAX_PART} (D43)")
     for k in range(lo, hi + 1):
         mp4 = out / f"{slug}-short-{k}.mp4"
         if not mp4.is_file():
@@ -305,6 +314,10 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled, en
                 append(slug, root, src, mp4)
             else:
                 shutil.copyfile(src, mp4)
+            q = (e.get("tiktok") or {}).get("question")
+            if q and not q.rstrip().endswith("?"):
+                print(f"cảnh báo: phần {k}: câu hỏi TikTok nên là dòng chữ cuối kết bằng \"?\" (D43): {q}",
+                      file=sys.stderr)
             txt.write_text(tiktok_caption(e, ep_no, k == hi), encoding="utf-8")
             items.append({"part": k, "mp4": mp4.name, "caption": txt.name,
                           **({"endcard": tiktok_endcard.text()} if card else {})})

@@ -252,3 +252,25 @@ Test khoá của bộ dò giữ nguyên và phải xanh. Chấp nhận nhược 
 - Lệnh: `python -m aivideo.shorts export <slug>` tự gắn cho tập số ≥ 5 (số theo `episodes/index.json`); `--no-endcard` để bỏ. Gắn vào một MP4 bất kỳ: `python -m aivideo.tiktok_endcard append <slug> --src <mp4> --out <mp4>`.
 - Thay đổi so với D35, D38: D35 (caption) vẫn giữ nguyên: caption không ghi URL, không nhắc tên nền tảng kia, phần cuối vẫn "link ở bio". D42 chỉ thêm lời nhắc trong HÌNH ở cuối video, và cũng viết lái nên không trái tinh thần D35. Câu "Bản TikTok tạm thời KHÔNG gắn" của D38 vẫn đúng với đoạn kết thích/đăng ký; bản TikTok gắn thẻ D42 thay vào chỗ đó.
 - Short YouTube, video dài và bản Facebook (D41) không đổi.
+
+## D43. Gộp luật đăng 23–24/11 (trưởng kênh, 2026-11-24)
+Các luật đăng mấy ngày qua có chỗ chồng nhau. Nguyên tắc: luật mới nhất thắng. Gộp lại như sau:
+- **Caption TikTok** (thay khuôn D35 lần 3, theo luật 23/11), theo thứ tự:
+  - Dòng 1: `#conbit<n> <tiêu đề>`. Bỏ "(Phần k/N)".
+  - Đoạn mở.
+  - "Giọng đọc trong video do AI tạo."
+  - "Theo dõi để xem phần tiếp." Bài cuối trong các phần 1–3 thì thay bằng "Các phần còn lại và bản đầy đủ: link ở bio nha."
+  - Câu hỏi mời bình luận. Đây là dòng chữ CUỐI của caption.
+  - Dòng hashtag cuối có đúng 3–4 thẻ: `#conbit<n> #conbit #<chủ đề>`, thêm `#hoccungtiktok` nếu muốn. Bỏ `#LearnOnTikTok` và thẻ chủ đề thứ hai.
+  - Không URL, không nhắc YouTube, không xin like.
+  - Số `<n>` là số tập NGUỒN theo `episodes/index.json`, kể cả clip "TikTok thêm" (vd clip-06 lấy từ tập 5 thì ghi `#conbit5`).
+- **TikTok:** chỉ dùng Short phần 1–3 của tập, tối đa 1 bài mỗi ngày.
+- **Thứ tự nền tảng:** FB và TikTok lên SAU YouTube Short cùng nội dung (cùng ngày giờ muộn hơn, hoặc hôm sau).
+- **Ai đăng:** đội tự đăng/hẹn giờ FB + TikTok qua Brave. Mọi video đều lên Drive. Video dài YouTube ra mỗi tuần theo lịch, không đăng ngay sau QC.
+- **Shorts từ nay:** dài 30–45 s, có móc ngay giây đầu. Tiêu đề Short là câu khẳng định có số và đúng sự thật. Mỗi tập 3 Short, áp dụng từ tập 7.
+- Những dòng cũ bị thay:
+  - D35 lần 3: dòng 1 có "(Phần k/N)", thứ tự câu hỏi rồi mới tới dòng AI, hashtag 5–6 thẻ có `#LearnOnTikTok`.
+  - D39 và D41: "người dùng tự đăng TikTok/Facebook, đội chỉ xuất file". Nay đội đăng/hẹn giờ.
+  - D33 lần 2: Shorts phủ hết tập 5–6 phần, mỗi phần tối đa 150 s. Nay 3 Short mỗi tập từ tập 7, mỗi Short 30–45 s. Tập 6 đã làm 6 Short thì giữ nguyên.
+  - "Video dài đăng ngay sau QC" (ghi nhớ cũ): nay đăng theo lịch tuần.
+- Lịch và hàng chờ áp dụng luật này: `out/lich-dang-2026-11.md` (mục "Luật đang dùng (24/11)"), `out/facebook-page/caption-cho-dang/HANG-CHO-22-11-den-11-12.md`, `/tmp/hen-gio2/MANIFEST.md`.

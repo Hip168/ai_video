@@ -44,7 +44,7 @@ def _cmd(src: Path | list[Path], start: int, count: int | None, tmp: Path | None
         vf.append(f"select='gte(n\\,{start})'")
     rw, rh, rx, ry = region
     vf += [f"crop={rw}:{rh}:{rx}:{ry}", f"scale={rw // 2}:{rh // 2}:flags=area", "format=gray"]
-    cmd = ["ffmpeg", "-v", "error", *inp, "-vf", ",".join(vf), "-vsync", "0"]
+    cmd = ["ffmpeg", "-v", "error", *inp, "-vf", ",".join(vf), "-fps_mode", "passthrough"]
     if count is not None:
         cmd += ["-frames:v", str(count)]
     return cmd + ["-f", "rawvideo", "-pix_fmt", "gray", "-"]

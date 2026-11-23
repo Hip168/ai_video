@@ -96,6 +96,29 @@ describe('[14-3] validateShorts: phần hợp lệ', () => {
     expect(r.warnings[0]).toMatch(/^phần 3: .*30–45 s/);
     expect(r.warnings[1]).toMatch(/^phần 4: .*30–45 s/);
   });
+  test('D43 biên: 899 và 1351 frame cảnh báo; 900 và 1350 frame không (30 fps)', () => {
+    const e = timeline([899, 900, 1350, 1351, 600]);
+    const r = validateShorts(parts(e, [[0, 0], [1, 1], [2, 2], [3, 3]]), e.tl);
+    expect(r.errors).toEqual([]);
+    expect(r.warnings).toEqual([
+      'phần 1: dài 30.0 s, ngoài khoảng 30–45 s (D43)',
+      'phần 4: dài 45.0 s, ngoài khoảng 30–45 s (D43)',
+    ]);
+  });
+  test('D43: ngưỡng theo fps của timeline (60 fps: 1799/2700 frame cảnh báo, 1800/2700 không, 2701 có)', () => {
+    const e = timeline([1799, 1800, 2700, 2701, 600]);
+    (e.tl as unknown as {fps: number}).fps = 60;
+    const r = validateShorts(parts(e, [[0, 0], [1, 1], [2, 2], [3, 3]]), e.tl);
+    expect(r.errors).toEqual([]);
+    expect(r.warnings.map((w) => w.slice(0, 6))).toEqual(['phần 1', 'phần 4']);
+  });
+  test('timeline thiếu fps thì dùng 30', () => {
+    const e = timeline([899, 900, 600]);
+    delete (e.tl as unknown as {fps?: number}).fps;
+    const r = validateShorts(parts(e, [[0, 0], [1, 1]]), e.tl);
+    expect(r.warnings).toHaveLength(1);
+    expect(r.warnings[0]).toMatch(/^phần 1: .*30–45 s/);
+  });
   test('trên 150 s chỉ cảnh báo, không lỗi', () => {
     const e = timeline([4600, 600]);
     const r = validateShorts(parts(e, [[0, 0]]), e.tl);

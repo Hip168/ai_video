@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -19,13 +20,16 @@ from aivideo.audio import write_srt
 
 ROOT = Path(__file__).resolve().parents[3]
 MIN_PARTS, MAX_PARTS = 1, 8
-MAX_FRAMES = 5400  # 180 s ở 30 fps
-WARN_FRAMES = 4500  # 150 s
+# Ngưỡng độ dài tính theo giây, đổi ra frame theo `fps` của timeline (thiếu thì 30); giống `video/src/shorts.ts`.
+DEFAULT_FPS = 30
+MAX_SEC, WARN_SEC = 180, 150
+IDEAL_MIN_SEC, IDEAL_MAX_SEC = 30, 45  # D43 (LUAT/con-bit.md §5): mỗi Short 30–45 s, ngoài khoảng chỉ cảnh báo
+MAX_FRAMES = MAX_SEC * DEFAULT_FPS  # 5400
+WARN_FRAMES = WARN_SEC * DEFAULT_FPS  # 4500
 MAX_HOOK = 40
 MAX_TITLE = 100
 TIKTOK_TAGS = "#tinhoc"  # thẻ chủ đề mặc định
-TIKTOK_TAIL = "#hoccungtiktok"
-TIKTOK_MAX_TAGS = 4  # D43: dòng hashtag 3–4 thẻ
+TIKTOK_TAIL = "#hoccungtiktok"  # D43: thẻ thứ 4 tuỳ chọn, chỉ được là thẻ này
 TIKTOK_MAX_PART = 3  # D43: TikTok chỉ dùng Short phần 1–3
 TIKTOK_QUESTION = "Bạn đã biết chuyện này chưa?"
 AI_LINE = "Giọng đọc trong video do AI tạo."
@@ -78,6 +82,11 @@ def clip_range(timeline: dict, frm: str, to: str) -> tuple[int, int]:
     return s0["startFrame"], s1["startFrame"] + s1["durationFrames"]
 
 
+def timeline_fps(timeline: dict) -> float:
+    f = timeline.get("fps")
+    return f if isinstance(f, (int, float)) and not isinstance(f, bool) and f > 0 else DEFAULT_FPS
+
+
 def validate(shorts: list, timeline: dict) -> tuple[list[str], list[str]]:
     """Trả (lỗi, cảnh báo). Cùng luật với `validateShorts` (TS), trừ kiểm `CUSTOM_SQUARE` (chỉ TS đọc được mã cảnh)."""
     errs: list[str] = []
@@ -86,6 +95,7 @@ def validate(shorts: list, timeline: dict) -> tuple[list[str], list[str]]:
     if not MIN_PARTS <= n <= MAX_PARTS:
         errs.append(f"cần {MIN_PARTS}..{MAX_PARTS} phần, có {n}")
     pos = {b["id"]: k for k, (_, b) in enumerate(_beats(timeline))}
+    fps = timeline_fps(timeline)
     prev_end = -1
     for i, e in enumerate(shorts, 1):
         w = f"phần {i}"
@@ -122,10 +132,13 @@ def validate(shorts: list, timeline: dict) -> tuple[list[str], list[str]]:
             errs.append(f"{w}: chồng lên phần trước")
         prev_end = end
         length = end - start
-        if length > MAX_FRAMES:
-            errs.append(f"{w}: dài {length / 30:.1f} s, tối đa {MAX_FRAMES // 30} s")
-        elif length > WARN_FRAMES:
-            warns.append(f"{w}: dài {length / 30:.1f} s, nên dưới {WARN_FRAMES // 30} s")
+        sec = f"{length / fps:.1f}"
+        if length > MAX_SEC * fps:
+            errs.append(f"{w}: dài {sec} s, tối đa {MAX_SEC} s")
+        elif length > WARN_SEC * fps:
+            warns.append(f"{w}: dài {sec} s, nên dưới {WARN_SEC} s")
+        elif length < IDEAL_MIN_SEC * fps or length > IDEAL_MAX_SEC * fps:
+            warns.append(f"{w}: dài {sec} s, ngoài khoảng {IDEAL_MIN_SEC}–{IDEAL_MAX_SEC} s (D43)")
     return errs, warns
 
 
@@ -243,20 +256,50 @@ def episode_number(root: Path, slug: str) -> int:
 def tiktok_caption(e: dict, ep_no: int, last: bool) -> str:
     """Caption TikTok theo khuôn D43 (LUAT/con-bit.md §7), các đoạn cách nhau một dòng trống:
     `#conbit<n> <tiêu đề>` (không "(Phần k/N)"), đoạn mở, dòng giọng AI, lời mời theo dõi (phần cuối: link ở bio),
-    câu hỏi mời bình luận (dòng chữ cuối), dòng hashtag 3–4 thẻ `#conbit<n> #conbit #<chủ đề>` [+ `#hoccungtiktok`].
+    câu hỏi mời bình luận (dòng chữ cuối), dòng hashtag `#conbit<n> #conbit #<một chủ đề> #hoccungtiktok`.
     Không URL, không nhắc YouTube.
 
     Chữ riêng cho TikTok đặt ở khoá tuỳ chọn `tiktok` của mục `shorts.json`: `title`, `intro`, `question`, `tags`
-    (thẻ chủ đề); thiếu thì dùng `title`, `hook` của mục, câu hỏi mặc định, thẻ chủ đề mặc định."""
+    (thẻ chủ đề; D43 chỉ lấy MỘT thẻ, thẻ đầu tiên); thiếu thì dùng `title`, `hook` của mục, câu hỏi mặc định,
+    thẻ chủ đề mặc định. Kiểm chữ đầu vào bằng `check_tiktok_input` (export gọi trước khi ghi)."""
     t = e.get("tiktok") or {}
     base = [f"#conbit{ep_no}", "#conbit"]
-    topic = [x for x in (t.get("tags") or TIKTOK_TAGS).split() if x not in base and x != TIKTOK_TAIL]
-    tags = base + topic[:TIKTOK_MAX_TAGS - len(base)]
-    if len(tags) < TIKTOK_MAX_TAGS:
-        tags.append(TIKTOK_TAIL)
+    topic = [x for x in (t.get("tags") or "").split() if x.lower() not in {*base, TIKTOK_TAIL}]
+    tags = base + (topic or TIKTOK_TAGS.split())[:1] + [TIKTOK_TAIL]
     lines = [f"#conbit{ep_no} {t.get('title') or e['title']}", "", t.get("intro") or e["hook"], "", AI_LINE,
              "", FULL_LINE if last else NEXT_LINE, "", t.get("question") or TIKTOK_QUESTION, "", " ".join(tags)]
     return "\n".join(lines) + "\n"
+
+
+_URL = re.compile(r"https?://|www\.|\b[\w-]+\.(com|net|org|vn|app|io|be|ly|me|tv)\b", re.I)
+_BARE_NUM_TAG = re.compile(r"(?<![\w#])#\d+(?!\w)")
+
+
+def check_tiktok_input(e: dict) -> list[str]:
+    """Lỗi chữ đầu vào của caption TikTok (D43, LUAT/con-bit.md §6–7): tiêu đề, đoạn mở, thẻ chủ đề không được có
+    URL, chữ "YouTube", `#LearnOnTikTok`, thẻ số trần `#<số>`. Thẻ chủ đề phải dạng `#chữ`."""
+    t = e.get("tiktok") or {}
+    errs = []
+    fields = (("tiêu đề", t.get("title") or e.get("title") or ""), ("đoạn mở", t.get("intro") or e.get("hook") or ""),
+              ("tags", t.get("tags") or ""))
+    for name, v in fields:
+        if not isinstance(v, str):
+            errs.append(f"{name} phải là chuỗi")
+            continue
+        if _URL.search(v):
+            errs.append(f"{name} có URL (link chỉ để ở bio): {v!r}")
+        if "youtube" in v.lower():
+            errs.append(f"{name} nhắc YouTube: {v!r}")
+        if "#learnontiktok" in v.lower():
+            errs.append(f"{name} có #LearnOnTikTok (D43 bỏ): {v!r}")
+        if _BARE_NUM_TAG.search(v):
+            errs.append(f"{name} có thẻ số trần kiểu #1: {v!r}")
+    tags = t.get("tags")
+    if isinstance(tags, str):
+        bad = [x for x in tags.split() if not re.fullmatch(r"#\w+", x)]
+        if bad:
+            errs.append(f"tags phải là các thẻ #chữ cách nhau bằng dấu cách, sai: {' '.join(bad)}")
+    return errs
 
 
 def parse_parts(s: str) -> tuple[int, int]:
@@ -270,18 +313,26 @@ def parse_parts(s: str) -> tuple[int, int]:
     return lo, hi
 
 
-def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled, endcard: bool = True,
+def export(slug: str, root=ROOT, parts: str | None = None, render=render_relabeled, endcard: bool = True,
            append=None) -> Path:
     """Ghi `<out>/tiktok/`: `phan-<k>.mp4`, `phan-<k>.txt`, `manifest.json`. Chỉ phần 1–`TIKTOK_MAX_PART` (D43).
 
     Tập từ số `tiktok_endcard.FROM_EPISODE` (D42): mỗi phần nối thêm thẻ kết chữ (không giọng) bằng
     `append(slug, root, src, dst)` (mặc định `tiktok_endcard.append`); `endcard=False` thì bỏ. Tập trước đó chép như cũ.
 
+    `parts` mặc định `1-min(3, số phần)`. Lời "link ở bio" chỉ ở phần `min(3, số phần)` của tập (bài cuối trong
+    các phần 1–3), không phụ thuộc dải xuất.
+
     Nhãn "Phần i/m" theo dải xuất (i = vị trí trong dải, m = số phần xuất). Trùng nhãn của Short YouTube thì
     `phan-<k>.mp4` là bản sao `<slug>-short-<k>.mp4`, khác thì render lại bằng `render`."""
     root = Path(root)
     ep, out = _paths(slug, root)
     shorts = load_shorts(ep / "shorts.json")
+    if not shorts:
+        raise ShortsError("shorts.json không có phần nào")
+    last_part = min(TIKTOK_MAX_PART, len(shorts))
+    if parts is None:
+        parts = f"1-{last_part}"
     lo, hi = parse_parts(parts)
     if hi > len(shorts):
         raise ShortsError(f"--parts {parts} vượt số phần trong shorts.json ({len(shorts)})")
@@ -291,6 +342,9 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled, en
         mp4 = out / f"{slug}-short-{k}.mp4"
         if not mp4.is_file():
             raise ShortsError(f"thiếu {mp4}")
+    bad = [f"phần {k}: {m}" for k in range(lo, hi + 1) for m in check_tiktok_input(shorts[k - 1])]
+    if bad:
+        raise ShortsError("chữ TikTok không hợp lệ (D43): " + "; ".join(bad))
     ep_no = episode_number(root, slug)
     from aivideo import tiktok_endcard
     if append is None:
@@ -315,10 +369,13 @@ def export(slug: str, root=ROOT, parts: str = "1-3", render=render_relabeled, en
             else:
                 shutil.copyfile(src, mp4)
             q = (e.get("tiktok") or {}).get("question")
-            if q and not q.rstrip().endswith("?"):
+            if not q:
+                print(f"cảnh báo: phần {k}: thiếu tiktok.question, dùng câu hỏi mặc định \"{TIKTOK_QUESTION}\"",
+                      file=sys.stderr)
+            elif not q.rstrip().endswith("?"):
                 print(f"cảnh báo: phần {k}: câu hỏi TikTok nên là dòng chữ cuối kết bằng \"?\" (D43): {q}",
                       file=sys.stderr)
-            txt.write_text(tiktok_caption(e, ep_no, k == hi), encoding="utf-8")
+            txt.write_text(tiktok_caption(e, ep_no, k == last_part), encoding="utf-8")
             items.append({"part": k, "mp4": mp4.name, "caption": txt.name,
                           **({"endcard": tiktok_endcard.text()} if card else {})})
     finally:
@@ -338,7 +395,7 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("n", type=int)
     x = sub.add_parser("export")
     x.add_argument("slug")
-    x.add_argument("--parts", default="1-3")
+    x.add_argument("--parts", default=None, help="dải phần, vd 1-3 (mặc định 1-min(3, số phần))")
     x.add_argument("--no-endcard", action="store_true", help="không gắn thẻ kết chữ (D42) dù tập từ số 5")
     for p in (v, c, x):
         p.add_argument("--root", default=str(ROOT))
@@ -355,7 +412,7 @@ def main(argv: list[str] | None = None) -> int:
                 return 1
             for i, e in enumerate(shorts, 1):
                 s, t = clip_range(timeline, e["from"], e["to"])
-                print(f"phần {i}/{len(shorts)}: frame {s}-{t} ({(t - s) / 30:.1f} s)")
+                print(f"phần {i}/{len(shorts)}: frame {s}-{t} ({(t - s) / timeline_fps(timeline):.1f} s)")
             return 0
         if a.cmd == "cut":
             print(f"cắt: {cut(a.slug, a.n, a.root)}")

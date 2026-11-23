@@ -1,4 +1,23 @@
-# Trạng thái hiện tại (cập nhật 2026-11-19), đọc file này trước khi chạy tiếp
+# Trạng thái hiện tại (cập nhật 2026-11-24), đọc file này trước khi chạy tiếp
+
+## CẬP NHẬT 2026-11-24: tập 6–9 và luật đăng D43
+- Luật đăng mới gộp ở D43 (`.team/decisions.md`). Tóm tắt nằm ở đầu `out/lich-dang-2026-11.md`. Hàng chờ FB/TikTok: `out/facebook-page/caption-cho-dang/HANG-CHO-22-11-den-11-12.md`. File chờ agent Brave hẹn giờ: `/tmp/hen-gio2/MANIFEST.md`.
+- Tập 6 `vi-sao-may-tinh-lai-sai-gio` (worktree `35-tap6`): Cổng 3 đạt. YouTube đã hẹn (private + publishAt): video dài f8deqkaBimw 28/11 19:30. Short S5 seiw3OsXyeo 29/11, S1 YZ5n1OSuceY 30/11, S4 8Ws3zTQcCRA 1/12, S2 lknQ3ETbUvc 2/12, S3 _-FUABXkpj8 3/12, S6 infoy6tkG04 4/12, đều 19:30. Drive 06 có đủ: video dài, chapters.txt, youtube-shorts 1–6, facebook, tiktok phan-1..6 và bản v2 (bỏ nhãn Phần k/6).
+  - FB: video dài đã hẹn 29/11 20:30. Mục lục trong `cb6-long.txt` đã sửa theo chapters.txt (04:04/06:50/07:54/10:28/11:30); MANIFEST FB6 sửa bài đã hẹn. Reel phần 5 đã hẹn 30/11 12:00. Chrome 2/12 và Samoa 4/12 nằm ở MANIFEST 01 và 04.
+  - TikTok (MANIFEST): clip-06-v2 30/11 20:30 (R6), phan-1-v2 1/12 18:00 (00), phan-2-v2 3/12 18:00 (02), phan-3-v2 4/12 18:00 (14). Caption đã viết lại theo D43.
+- Tập 7 `vi-sao-thanh-pho-trong-game-vua-ram` GTA (worktree `36-tap7`): video dài 9iUOqs2aExQ 22/11 19:30. Short ctcI5B6Kjro 23/11, NtpaEsPfEJg 25/11, TWK13bzSanY 27/11. Drive 07 đủ. FB video dài 23/11 và Reel 24/26/28 đã hẹn. TikTok phần 1–3 đã hẹn 24/26/28 18:00, caption còn theo khuôn cũ.
+- Tập 8 `vi-sao-anh-gui-nhieu-lan-bi-mo` ảnh mờ (worktree `37-tap7`, tên nhánh ghi tap7 nhưng đây là tập ảnh mờ): Cổng 3 đạt. Video dài UiP6VqWGGB8 hẹn 5/12 19:30. Short m1QrceWL6TI 6/12, Ghg6HFuQ-fE 8/12, T6mqWuk3GmA 10/12. Drive 08 đủ. FB nằm ở MANIFEST 06/08/10/12.
+- Tập 9 `vi-sao-captcha-bat-chon-den-giao-thong` (worktree `38-tap9`): giọng VieNeu xong (587,4 s), lint đạt. **Bị chặn ở `phat-am`** (còn nhịp sát ngưỡng). Dự kiến lên 12/12 19:30.
+- TikTok thêm: clip-01 đã đăng 21/11. clip-02 đã xoá 24/11 (TikTok cảnh cáo âm thanh), không đăng lại. clip-03/04/05-v2 đã hẹn 25/27/29 20:30; MANIFEST FX3/FX4/FX5 thay caption theo D43.
+- Việc còn mở:
+  1. Agent Brave làm MANIFEST theo thứ tự FX3 → FX4 → FX5 → FB6 → R6 → 00 → 01 → 03 → 02 → 04 → 14 → 05 → 06…13.
+  2. TikTok tập 8 phần 1–3 (7, 9, 11/12, 18:00): cần thư mục MANIFEST, caption viết lại theo D43.
+  3. Caption TikTok tập 7 phần 1–3 đã hẹn theo khuôn cũ: cần dòng EDIT-CAPTION nếu muốn đúng D43.
+  4. Tập 9: gỡ `phat-am`, sau đó render, QC, Cổng 3, hẹn 12/12.
+  5. Nhánh 35-tap6, 36-tap7, 37-tap7, 38-tap9 chưa push/PR vì công tắc GitHub đang tắt.
+  6. `publishAt` Short popcorn (Buck) lệch lịch: 01/12 và 04/12 03:00 VN.
+  7. TikTok thêm còn trên Drive: clip-07, clip-11, clip-12 (bản cũ, chưa hẹn).
+
 
 MỤC TIÊU HIỆN TẠI (người dùng chốt 2026-11-11): làm tới khi 1 video lên kênh thì DỪNG. Tiết kiệm token: không mở đề mục mới, đề mục 14 tạm dừng. Đội tự đẩy lên GitHub. Chỉ hỏi người dùng ở các điểm dừng trong `autonomy.md`.
 

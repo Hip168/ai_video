@@ -1,3 +1,5 @@
+> Luật hiện hành: ~/Documents/ai_video/LUAT/ (file này chỉ để tham khảo, có chỗ cũ)
+
 # PLAYBOOK: cách sếp tổng chạy đội sản xuất
 
 Đây là nguồn duy nhất của luồng sản xuất. Thiết kế và lý do: `.team/doi-san-xuat.md` (D20, D22). Mỗi vai có file riêng ở `episodes/roles/<vai>.md`. Luật chung của đội: `~/.claude/team/CONVENTIONS.md`.

@@ -35,7 +35,7 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 - Mỗi tập 3 Short (`short-01..03`) [youtube.json ep8–14, D43].
 - Mỗi Short 30–45 s (trần cứng dưới 50 s), mở bằng câu hook riêng (`short-hooks.json`, beat `h00k`), đứng được một mình [memory video-moi-chuan-tang-view, us-econ-ep14.test.ts].
 - Phụ đề in cứng trên Short; video dài không in phụ đề, chỉ CC `.srt` [memory us-econ-channel, bible §0 #4].
-- Short kết bằng thẻ mustard "watch the full video", không đoạn kết like & sub (cả trên Facebook) [bible §13, memory facebook-outro].
+- Short kết bằng thẻ mustard "watch the full video", không đoạn kết like & sub (cả trên Facebook) [bible §13, memory facebook-outro (đã xoá 24/11, gộp vào LUAT)].
 - Tiêu đề Short: câu khẳng định có số, đúng sự thật, ≤100 ký tự, đuôi ` #Shorts`. Không lặp khuôn video dài [D43, short-01/publish.json ep14, memory ftb-title-and-audience].
 - Mô tả Short: 1–2 câu số liệu, "Full video: <link video dài>", nguồn, dòng "The voice is AI-generated; not tax, financial or investment advice." Trước khi video dài có ID thì để `FULL_VIDEO_URL`, upload video dài xong mới điền [us-econ-ep14.test.ts, publish.json ep14 `_notes`].
 - Gắn "Video liên quan" về video dài; ghi vào `out/follow-the-buck-shorts/GAN-VIDEO-LIEN-QUAN.md` [memory us-econ-channel].
@@ -47,10 +47,10 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 
 ## 7. Facebook (page Follow the Buck)
 - Video dài: bản Facebook có outro Like / Follow the page / Share (màu Denim, không Subscribe, không chuông), xuất bằng `export_facebook.py` [bible §13 Facebook cut].
-- Reel: dùng file Short, không outro [bible §13, memory facebook-outro].
+- Reel: dùng file Short, không outro [bible §13, memory facebook-outro (đã xoá 24/11, gộp vào LUAT)].
 - Caption video dài: như mô tả YouTube rút gọn + "Watch on YouTube: <link>" + "Narration uses an AI-generated voice." + hashtag [buck8-long.txt].
 - Caption Reel: tiêu đề → đoạn số liệu có nguồn → "Full breakdown: watch the full video on our page, or on YouTube: <link>" → "Our arithmetic. Not financial advice." → dòng AI → hashtag [buck8-s1.txt].
-- Đội hẹn giờ qua Business Suite. Dòng "Nothing is posted to Facebook by the team" ở bible §13 đã cũ [D43, memory hen-gio-fb-tiktok].
+- Đội hẹn giờ qua Business Suite. Dòng "Nothing is posted to Facebook by the team" ở bible §13 đã cũ [D43, memory hen-gio-fb-tiktok (đã xoá 24/11, gộp vào LUAT)].
 
 ## 8. Giờ và nhịp đăng (giờ Việt Nam)
 - Video dài: 1 video/tuần, thứ Bảy 22:00 (= 15:00Z, 10:00 sáng miền Đông Mỹ) [lich-dang-2026-11, youtube.json ep9–14].
@@ -78,7 +78,7 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 ## 11. Outro
 - Video dài YouTube: outro like & subscribe 7,9 s, Buck vẫy cạnh hoá đơn, giọng dùng chung `outro/outro.wav`, không nút đỏ nhấp nháy [bible §13, memory us-econ-channel].
 - Video dài Facebook: outro Facebook (Like / Follow / Share) [bible §13].
-- Short (YouTube và Facebook): không outro [bible §13, memory facebook-outro].
+- Short (YouTube và Facebook): không outro [bible §13, memory facebook-outro (đã xoá 24/11, gộp vào LUAT)].
 
 ## 12. Mốc kiểm
 - Giữa 12/2026: có ≥1 video dài >1.000 view, hoặc >50% giờ xem từ nước nói tiếng Anh → giữ nhịp; không thì xem lại đề tài/tiêu đề trước khi đăng thêm. Số lấy bằng `ytpub analytics` (nhánh `kenh-my-dang`), chỉ đọc, đừng gọi `load_creds()` [memory ftb-title-and-audience, chien-luoc-kenh §4].

@@ -38,20 +38,20 @@
 - `git status` trước, `git add` đúng từng đường dẫn. Không `git add .`, `git add .team`, `git commit -a` [memory commit-explicit-paths].
 - Không đụng file lạ của phiên khác. Ở `ai_video` có sẵn hai file như vậy: `.team/locks/2.sha256`, `video/tests/helpers/render.ts` [.team/tiep-theo.md].
 - Quyền push/PR/merge theo công tắc `~/.claude/team/bin/team github`. Chỉ chủ kênh đặt. Lệnh có chữ push phải chạy trong đúng repo [memory deploy-may-merge].
-- CI GitHub hết phút tới 01/12/2026: kiểm local đúng các bước trong `.github/workflows`, ghi kết quả vào PR, xanh thì merge. Từ 01/12 quay lại chờ CI xanh. Không tự tắt branch protection [memory github-ci-out-of-minutes].
+- CI GitHub hết phút tới 01/12/2026: kiểm local đúng các bước trong `.github/workflows`, ghi kết quả vào PR, xanh thì merge. Từ 01/12 quay lại chờ CI xanh. Không tự tắt branch protection [memory github-ci-out-of-minutes (đã xoá 24/11, gộp vào LUAT)].
 - PR chỉ đổi dữ liệu tập: chạy validate, lint, kiểm khoá, kiểm media. Đủ bộ test chỉ khi có sửa code [memory ci-process-fix-autonomy].
 - Lệnh kiểm rồi merge: không nối bằng pipe, kiểm exit code thật trước [memory follow-rules-strictly].
 - Sửa quy trình kiểm/CI: đội tự quyết, bắt buộc có test. Sửa chính hook hoặc `ci.yml` thì hỏi trước [memory ci-process-fix-autonomy].
 
 ## 5. Cơ chế đăng (cả hai kênh)
-- **Thứ tự:** video dài lên YouTube trước mọi Short của tập. Không bao giờ có Short trước video dài [memory long-video-first].
-- **Nhịp:** video dài ra mỗi tuần theo lịch, KHÔNG đăng ngay sau QC [D43, thay memory long-video-first].
+- **Thứ tự:** video dài lên YouTube trước mọi Short của tập. Không bao giờ có Short trước video dài [memory long-video-first (đã xoá 24/11, gộp vào LUAT)].
+- **Nhịp:** video dài ra mỗi tuần theo lịch, KHÔNG đăng ngay sau QC [D43, thay memory long-video-first (đã xoá 24/11, gộp vào LUAT)].
 - **YouTube:** chỉ qua YouTube Data API, tải lên `private` kèm `publishAt` để tự lên đúng giờ. Không mở Studio để đăng [D24, memory dang-ho-fb-tiktok-theo-lich].
-- **Facebook:** đội hẹn giờ qua Meta Business Suite trên Brave (lên lịch bài hoặc Reel). Kiểm đúng page trước khi bấm [D43, memory hen-gio-fb-tiktok].
-- **TikTok (chỉ Con Bit):** đội hẹn giờ qua TikTok Studio trên Brave, hẹn trước tối đa khoảng 10 ngày [D43, memory hen-gio-fb-tiktok].
+- **Facebook:** đội hẹn giờ qua Meta Business Suite trên Brave (lên lịch bài hoặc Reel). Kiểm đúng page trước khi bấm [D43, memory hen-gio-fb-tiktok (đã xoá 24/11, gộp vào LUAT)].
+- **TikTok (chỉ Con Bit):** đội hẹn giờ qua TikTok Studio trên Brave, hẹn trước tối đa khoảng 10 ngày [D43, memory hen-gio-fb-tiktok (đã xoá 24/11, gộp vào LUAT)].
 - KHÔNG bao giờ bấm "Đăng ngay" trên FB/TikTok. Luôn hẹn giờ theo lịch [owner 24/11].
 - FB và TikTok luôn lên SAU YouTube Short cùng nội dung (cùng ngày giờ muộn hơn, hoặc hôm sau) [D43].
-- Mọi bài FB/TikTok: bật nhãn nội dung AI, kiểm lại trong mục "Đã lên lịch", ghi vào `out/facebook-page/DA-DANG.md` hoặc `out/tiktok-dang/DA-DANG-TIKTOK.md` với nhãn "đã hẹn giờ" và giờ lên [memory hen-gio-fb-tiktok].
+- Mọi bài FB/TikTok: bật nhãn nội dung AI, kiểm lại trong mục "Đã lên lịch", ghi vào `out/facebook-page/DA-DANG.md` hoặc `out/tiktok-dang/DA-DANG-TIKTOK.md` với nhãn "đã hẹn giờ" và giờ lên [memory hen-gio-fb-tiktok (đã xoá 24/11, gộp vào LUAT)].
 - Mỗi page Facebook tối đa 3 bài mỗi ngày, cách nhau 15–20 phút. TikTok tối đa 1 bài mỗi ngày [D43, memory dang-rai-mang-xa-hoi].
 - Mỗi lô hẹn giờ giao một agent Brave nhỏ (≤3 bài) [memory dang-rai-mang-xa-hoi].
 - Bài đã hẹn giờ thì không tự sửa tiêu đề/ảnh bìa/caption, trừ khi trưởng kênh mở dòng sửa (EDIT-CAPTION/MANIFEST) hoặc theo dòng dưới [memory video-moi-chuan-tang-view, SKILL tranh-luan bước 6].
@@ -62,7 +62,7 @@
 
 ## 6. Hạn mức
 - Claude: làm liên tục, dừng khi hạn mức tuần chạm 80%. Đo bằng `python3 -I ~/.claude/studio/usage7d.py <ts mốc>`, mốc ở `~/.claude/studio/usage-baseline.json`. Khoảng 70% thì nhờ chủ kênh xem `/usage`. Tới 80% thì dừng agent, ghi `.team/tiep-theo.md`, báo [memory run-until-weekly-80].
-- Không bật job tự chạy (job-scout…) khi chưa hỏi [memory token-cap-60-2026-11-21].
+- Không bật job tự chạy (job-scout…) khi chưa hỏi [memory token-cap-60-2026-11-21 (đã xoá 24/11, gộp vào LUAT)].
 - `agy` (Google AI Pro): tôn trọng bộ chặn (60% cửa sổ 5 giờ, 50% tuần), không gọi agy trong test [memory studio-story-pivot].
 - YouTube API: lỗi "exceeded the number of videos they may upload" thì chờ khoảng 24 giờ, không thử dồn [.team/tiep-theo.md 14/11].
 - Đăng dồn nhiều video cùng ngày làm video gần như không được phân phối. Rải ra [chien-luoc-kenh §1.3, memory dang-rai-mang-xa-hoi].
@@ -72,6 +72,6 @@
 - Khởi động lại phiên thì agent cũ bị huỷ: kiểm worktree và commit thật rồi giao agent mới [.team/tiep-theo.md].
 
 ## 8. Công cụ research
-- Research đề tài dùng yt-dlp CLI chỉ đọc: --dump-json, ytsearch50:, --write-auto-subs --skip-download, --write-comments. Không tải video kênh khác, không dùng cookie, file tạm để ở /tmp/ytr-* và xoá khi xong. Không cài MCP YouTube/TTS/ảnh nào. [tranh-luan 2026-11-24 mcp-mien-phi]
+- Research đề tài dùng `yt-dlp` CLI chỉ đọc: `--dump-json`, `ytsearch50:`, `--write-auto-subs --skip-download`, `--write-comments`. Không tải video kênh khác, không dùng cookie, file tạm để ở `/tmp/ytr-*` và xoá khi xong. Không cài MCP YouTube/TTS/ảnh nào. [tranh-luan 2026-11-24 mcp-mien-phi]
 - KHÔNG dùng (cả hai kênh): yt-dlp-mcp, transcript-mcp, youtube-mcp-server, edge-tts-mcp, pexels, comfyui, ffmpeg-skill, yutu. Kokoro: Con Bit KHÔNG (không có giọng tiếng Việt), Buck THỬ bằng thư viện trực tiếp, không MCP (xem `buck.md` §9). [tranh-luan 2026-11-24 mcp-mien-phi]
 - Số Đã xem/Lướt qua (chỉ có trong YouTube Studio): mỗi tuần một agent Brave vào Studio CHỈ ĐỌC lấy số; không sửa gì, không gõ đăng nhập/mật khẩu (gặp màn đăng nhập thì dừng, về terminal, báo); theo luật Brave ở §2 [owner 2026-11-24].

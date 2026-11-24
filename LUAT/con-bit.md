@@ -1,6 +1,6 @@
 # Luật kênh Con Bit (24/11/2026, sửa theo tranh luận mcp-mien-phi)
 
-Kênh "Chuyện Của Những Con Bit": fact tin học tiếng Việt, đào sâu một chủ đề. YouTube @bitstory168 (`UC1aPohYcigcmBGPl7OlQaEw`, `.team/kenh.json`), page facebook.com/bitstory168, TikTok @chuyencuanhungconbit, link-in-bio https://chuyenconbit.vercel.app [D31, memory tiktok-con-bit, conbit-hashtag-d35].
+Kênh "Chuyện Của Những Con Bit": fact tin học tiếng Việt, đào sâu một chủ đề. YouTube @bitstory168 (`UC1aPohYcigcmBGPl7OlQaEw`, `.team/kenh.json`), page facebook.com/bitstory168, TikTok @chuyencuanhungconbit, link-in-bio https://chuyenconbit.vercel.app [D31, memory tiktok-con-bit, conbit-hashtag-d35 (đã xoá 24/11, gộp vào LUAT)].
 
 ## 1. Nội dung và độ dài
 - Một chủ đề, đào sâu, khoảng 10 phút (mục tiêu 9–11 phút lời đọc). Không kéo dài bằng thẻ chương im lặng, chỉnh bằng `pause_ms` [memory youtube-fact-channel, PLAYBOOK 4.1, tiep-theo bài học tập 5].
@@ -41,10 +41,10 @@ Kênh "Chuyện Của Những Con Bit": fact tin học tiếng Việt, đào sâ
 - Gắn "Video liên quan" về video dài cho mọi Short, trong 24 giờ sau khi Short lên (luật THỬ ở trên) [D33, tiep-theo, tranh-luan 2026-11-24 mcp-mien-phi].
 
 ## 6. Hashtag
-- YouTube video dài: dòng `#conbit<n>` trong mô tả [publish.json tập 8, memory conbit-hashtag-d35].
+- YouTube video dài: dòng `#conbit<n>` trong mô tả [publish.json tập 8, memory conbit-hashtag-d35 (đã xoá 24/11, gộp vào LUAT)].
 - Facebook: dòng cuối `#conbit<n> #conbit #tinhoc #<chủ đề>` [caption-cho-dang cb7-*.txt].
 - TikTok: dòng 1 mở bằng `#conbit<n>`; dòng hashtag cuối đúng 3–4 thẻ `#conbit<n> #conbit #<chủ đề>` (+ `#hoccungtiktok` nếu muốn). Không `#LearnOnTikTok`, không `#1` trần [D43, D35].
-- CHỜ CHỦ KÊNH: có đặt `#conbit<n>` ở ĐẦU tiêu đề/caption YouTube và Facebook không (24/11 chủ kênh nói "phải có #conbit ở đầu… cả youtube cả facebook cả tiktok")? Tới khi chốt: TikTok ở đầu, YT/FB ở dòng hashtag [memory conbit-hashtag-d35].
+- CHỜ CHỦ KÊNH: có đặt `#conbit<n>` ở ĐẦU tiêu đề/caption YouTube và Facebook không (24/11 chủ kênh nói "phải có #conbit ở đầu… cả youtube cả facebook cả tiktok")? Tới khi chốt: TikTok ở đầu, YT/FB ở dòng hashtag [memory conbit-hashtag-d35 (đã xoá 24/11, gộp vào LUAT)].
 
 ## 7. Caption TikTok (khuôn D43, thay D35 lần 3)
 Theo thứ tự, các đoạn cách nhau một dòng trống [D43]:
@@ -54,7 +54,7 @@ Theo thứ tự, các đoạn cách nhau một dòng trống [D43]:
 4. "Theo dõi để xem phần tiếp." Bài cuối trong phần 1–3 thì thay bằng "Các phần còn lại và bản đầy đủ: link ở bio nha."
 5. Câu hỏi mời bình luận. Đây là dòng chữ CUỐI.
 6. Dòng hashtag 3–4 thẻ (mục 6).
-- Không URL, không nhắc YouTube, không xin like. Link chỉ ở bio (chuyenconbit.vercel.app) [D43, D35, memory conbit-hashtag-d35].
+- Không URL, không nhắc YouTube, không xin like. Link chỉ ở bio (chuyenconbit.vercel.app) [D43, D35, memory conbit-hashtag-d35 (đã xoá 24/11, gộp vào LUAT)].
 - `aivideo.shorts export` sinh caption theo khuôn D43 từ PR #103 (đã merge, `tiktok_caption()` ở `audio/src/aivideo/shorts.py`). PR #104 (sửa theo review: đúng 1 thẻ chủ đề + `#hoccungtiktok`, "link ở bio" ở phần `min(3, N)`, chặn URL/"YouTube" trong đầu vào) còn chờ duyệt: tới khi #104 merge, vẫn đối chiếu tay caption với khuôn trên trước khi hẹn [PR #103, PR #104, owner 24/11].
 
 ## 8. TikTok khác

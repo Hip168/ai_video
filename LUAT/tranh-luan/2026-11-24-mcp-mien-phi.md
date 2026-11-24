@@ -14,6 +14,7 @@ Dùng các MCP/công cụ miễn phí (yt-dlp-mcp, transcript-mcp, youtube-mcp-s
 ## Nghiên cứu thị trường (số chính)
 - **Con Bit:** "Lỗi font" 539 view, giữ chân 31%; "GPS 2038" (Short) 4.355 view; nguồn video dài: Duyệt 701 / Đề xuất 258 / Tìm kiếm 24; lượt xem video dài đến từ Short 3 / 14.043 view Short.
 - **Buck:** 78–82% view từ Việt Nam (khoảng 20% từ nước nói tiếng Anh); trung vị độ dài video dài của đối thủ 13–16 phút; outlier khung suy thoái ("How X Got So Bad", "The Collapse of X") 2,6–2,8× trung vị kênh.
+- Lưu ý: 2,6–2,8× thấp hơn ngưỡng ≥3× của luật chọn đề tài. Ngưỡng ≥3× chỉ dùng để chọn đề tài; khung tiêu đề suy thoái là luật THỬ riêng, có thước đo riêng (view 7 ngày ≥3× trung vị video dài Buck), không dựa vào ngưỡng outlier.
 
 ## Phán quyết TRỌNG TÀI
 ### Công cụ (cả hai kênh)
@@ -46,7 +47,7 @@ Dùng các MCP/công cụ miễn phí (yt-dlp-mcp, transcript-mcp, youtube-mcp-s
 - `chung.md` §8 (mới) "Công cụ research": dòng yt-dlp CLI chỉ đọc; dòng danh sách KHÔNG; dòng đọc Studio hằng tuần [owner 2026-11-24].
 - `chung.md` §5: thêm dòng owner cho phép sửa tiêu đề/ảnh bìa video đã hẹn/đã đăng qua API, ghi `out/doi-tieu-de-2026-11-24.md`.
 - `con-bit.md` §1: thêm dòng outlier; thêm dòng cấm đề tài nhạy cảm chính trị/quan hệ Việt–Trung (owner).
-- `con-bit.md` §2: thay "≤60 ký tự (trần cứng 100)" bằng cổng cứng ≤60; "Lỗi font" (75) giữ.
+- `con-bit.md` §2: thay "≤60 ký tự (trần cứng 100)" bằng cổng cứng ≤60; video đã đăng quá 60 ("Lỗi font", 75) sửa theo dòng sửa ở chung §5.
 - `con-bit.md` §4: thay "2–3 ảnh bìa khi có" bằng "mọi tập, chấm theo Duyệt".
 - `con-bit.md` §5: thêm 2 dòng THỬ; dòng câu móc cũ trỏ về khuôn THỬ; dòng "Video liên quan" thêm hạn 24 giờ; bỏ dòng CHỜ 9 tiêu đề Short 23–30/11 (owner cho sửa).
 - `con-bit.md` §7: cập nhật dòng caption TikTok theo PR #103 (đã merge), PR #104 (chờ duyệt).
@@ -54,12 +55,15 @@ Dùng các MCP/công cụ miễn phí (yt-dlp-mcp, transcript-mcp, youtube-mcp-s
 - `buck.md` §2: dòng "kết bằng ?" đổi thành "câu hỏi kết bằng ?, hoặc khung suy thoái theo luật THỬ"; thêm dòng THỬ khung suy thoái và dòng NÊN LÀM outlier.
 - `buck.md` §4: thêm dòng ảnh bìa 1 vật + mũi tên giá, không chữ số.
 - `buck.md` §5: bỏ dòng CHỜ 9 tiêu đề Short (owner cho sửa).
-- `buck.md` §9: thêm dòng THỬ Kokoro, dòng CHỜ giữ Kokoro. §11 không đổi.
+- `buck.md` §9: thêm dòng THỬ Kokoro (outro tập THỬ ở `channels/us-econ/outro/kokoro-trial/`, không ghi đè `outro/outro.wav` dùng chung), dòng CHỜ giữ Kokoro. §11 không đổi.
+- `buck.md` §4: 3 bản ảnh bìa khác bố cục/màu (ký hiệu $, mũi tên giá), không chữ số.
+- Định dạng: mọi dòng luật mới ghi nguồn ở cuối dòng `[tranh-luan 2026-11-24 mcp-mien-phi]` theo `LUAT/README.md`.
 - `buck.md` §12: thêm dòng THỬ đo Short.
 - `flow.md` thay bằng `flow-chung.md`, `flow-con-bit.md`, `flow-buck.md` (thêm khâu outlier, cổng tiêu đề, cầu nối Short, khâu đo lường 48 giờ/7 ngày ở `out/do-luong/<kênh>-<slug>.md`, nợ DEV chặn).
 
 ## Chủ kênh quyết (24/11, sau phán quyết)
-- Đổi tiêu đề/ảnh bìa video đã hẹn và vừa đăng cho khớp luật mới: ĐỒNG Ý. Sửa qua API, ghi `out/doi-tieu-de-2026-11-24.md` (agent khác làm).
+- Đổi tiêu đề/ảnh bìa video đã hẹn và vừa đăng cho khớp luật hiện hành: ĐỒNG Ý (gồm cả "Lỗi font" 75 ký tự, theo trưởng kênh). Trưởng kênh mở dòng sửa; danh sách do một agent soạn, agent khác kiểm đúng sự thật, rồi mới sửa qua API; ghi `out/doi-tieu-de-<ngày>.md` (chung §5).
+- 9 tiêu đề Short 23–30/11 thay thế (hai kênh): theo cùng duyệt 24/11, agent tiêu đề chọn từ `out/hoc-tu-github-view.md` §6, agent kiểm độc lập xác nhận, rồi sửa. Bỏ hai dòng CHỜ tương ứng ở con-bit §5, buck §5.
 - Đề tài "Tết 1985 lệch ngày VN–TQ": BÁC. Thêm vào danh sách tránh: đề tài nhạy cảm chính trị/quan hệ Việt–Trung.
 - Agent Brave đọc Đã xem/Lướt qua trong YouTube Studio mỗi tuần: ĐỒNG Ý, chỉ đọc, không sửa, không gõ đăng nhập.
 

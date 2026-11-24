@@ -55,7 +55,7 @@
 - Mỗi page Facebook tối đa 3 bài mỗi ngày, cách nhau 15–20 phút. TikTok tối đa 1 bài mỗi ngày [D43, memory dang-rai-mang-xa-hoi].
 - Mỗi lô hẹn giờ giao một agent Brave nhỏ (≤3 bài) [memory dang-rai-mang-xa-hoi].
 - Bài đã hẹn giờ thì không tự sửa tiêu đề/ảnh bìa/caption, trừ khi trưởng kênh mở dòng sửa (EDIT-CAPTION/MANIFEST) hoặc theo dòng dưới [memory video-moi-chuan-tang-view, SKILL tranh-luan bước 6].
-- [2026-11-24] Video đã hẹn/đã đăng được sửa tiêu đề, ảnh bìa cho khớp luật mới; sửa qua API, ghi lại trong out/doi-tieu-de-2026-11-24.md [owner 2026-11-24]
+- Video đã hẹn/đã đăng được sửa tiêu đề, ảnh bìa cho khớp luật hiện hành khi trưởng kênh mở dòng sửa; danh sách do một agent soạn, agent khác kiểm đúng sự thật, rồi mới sửa qua API; ghi out/doi-tieu-de-<ngày>.md [owner 2026-11-24]
 - Short: gắn "Video liên quan" về video dài (chỉ làm được trong Studio, không có API). Mô tả Short luôn có link video dài [D32 MỞ-5, D33].
 - Video dài: bật Test & Compare (2–3 tiêu đề hoặc ảnh bìa) trong Studio. Short không dùng được [memory video-moi-chuan-tang-view].
 - Lịch và hàng chờ đang dùng: `ai_video/out/lich-dang-2026-11.md`, `ai_video/out/facebook-page/caption-cho-dang/HANG-CHO-*.md`, `/tmp/hen-gio2/MANIFEST.md` [D43].
@@ -72,6 +72,6 @@
 - Khởi động lại phiên thì agent cũ bị huỷ: kiểm worktree và commit thật rồi giao agent mới [.team/tiep-theo.md].
 
 ## 8. Công cụ research
-- [2026-11-24] Research đề tài dùng yt-dlp CLI chỉ đọc: --dump-json, ytsearch50:, --write-auto-subs --skip-download, --write-comments. Không tải video kênh khác, không dùng cookie, file tạm để ở /tmp/ytr-* và xoá khi xong. Không cài MCP YouTube/TTS/ảnh nào. Nguồn: tranh luận 2026-11-24 mcp-mien-phi
-- [2026-11-24] KHÔNG dùng (cả hai kênh): yt-dlp-mcp, transcript-mcp, youtube-mcp-server, edge-tts-mcp, pexels, comfyui, ffmpeg-skill, yutu. Kokoro: Con Bit KHÔNG (không có giọng tiếng Việt), Buck THỬ bằng thư viện trực tiếp, không MCP (xem `buck.md` §9). Nguồn: tranh luận 2026-11-24 mcp-mien-phi
-- [2026-11-24] Số Đã xem/Lướt qua (chỉ có trong YouTube Studio): mỗi tuần một agent Brave vào Studio CHỈ ĐỌC lấy số; không sửa gì, không gõ đăng nhập/mật khẩu (gặp màn đăng nhập thì dừng, về terminal, báo); theo luật Brave ở §2 [owner 2026-11-24].
+- Research đề tài dùng yt-dlp CLI chỉ đọc: --dump-json, ytsearch50:, --write-auto-subs --skip-download, --write-comments. Không tải video kênh khác, không dùng cookie, file tạm để ở /tmp/ytr-* và xoá khi xong. Không cài MCP YouTube/TTS/ảnh nào. [tranh-luan 2026-11-24 mcp-mien-phi]
+- KHÔNG dùng (cả hai kênh): yt-dlp-mcp, transcript-mcp, youtube-mcp-server, edge-tts-mcp, pexels, comfyui, ffmpeg-skill, yutu. Kokoro: Con Bit KHÔNG (không có giọng tiếng Việt), Buck THỬ bằng thư viện trực tiếp, không MCP (xem `buck.md` §9). [tranh-luan 2026-11-24 mcp-mien-phi]
+- Số Đã xem/Lướt qua (chỉ có trong YouTube Studio): mỗi tuần một agent Brave vào Studio CHỈ ĐỌC lấy số; không sửa gì, không gõ đăng nhập/mật khẩu (gặp màn đăng nhập thì dừng, về terminal, báo); theo luật Brave ở §2 [owner 2026-11-24].

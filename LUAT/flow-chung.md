@@ -6,7 +6,7 @@ Phiên làm video: đọc `chung.md` + `<kênh>.md` + file này + `flow-<kênh>.
 - Trước khi bắt đầu: đọc `ai_video/.team/tiep-theo.md`; kiểm worktree và commit thật nếu phiên trước bị huỷ [chung §7].
 - Luồng chính chỉ điều phối; mỗi khâu là một agent mới; người làm ≠ người kiểm; phán quyết do script tính [chung §1].
 - Mỗi tập một worktree/nhánh; commit đúng đường dẫn [chung §4].
-- Mỗi bước đăng/hẹn giờ có CHECKLIST ở mục 3. Agent làm bước đó dán checklist vào báo cáo, mỗi dòng ✔ hoặc ✘ + lý do, đối chiếu `con-bit.md` hoặc `buck.md`. Còn một dòng ✘ thì không đăng [owner 24/11].
+- Mỗi bước đăng/hẹn giờ có CHECKLIST ở mục 5. Agent làm bước đó dán checklist vào báo cáo, mỗi dòng ✔ hoặc ✘ + lý do, đối chiếu `con-bit.md` hoặc `buck.md`. Còn một dòng ✘ thì không đăng [owner 24/11].
 - Thứ tự đăng: video dài YouTube → Short YouTube → Facebook/TikTok cùng nội dung [chung §5].
 - Xong mỗi phần: Drive + `rclone check` + xoá bản máy, dọn rác, báo GB trống [chung §3].
 
@@ -17,15 +17,15 @@ Phiên làm video: đọc `chung.md` + `<kênh>.md` + file này + `flow-<kênh>.
 - Đăng: YouTube Data API (private + publishAt); Facebook qua Business Suite, TikTok qua TikTok Studio trên Brave, một agent Brave một lúc [chung §2 §5].
 
 ## 3. Bảng outlier (khâu research của cả hai kênh)
-- Mỗi tập có file `research-outlier.md` trong thư mục tập: bảng `video | view | trung vị kênh | × | câu móc | bình luận nổi bật`, ≥5 dòng, kèm lệnh yt-dlp đã chạy và ngày lấy số.
-- Trung vị kênh = trung vị view các video dài gần nhất của kênh đó (≥10 video, lấy bằng `--dump-json`). × = view / trung vị.
+- Mỗi tập có file `research-outlier.md` trong thư mục tập: bảng `video | view | trung vị kênh | × | câu móc | bình luận nổi bật`, ≥5 dòng, kèm lệnh yt-dlp đã chạy và ngày lấy số [tranh-luan 2026-11-24 mcp-mien-phi, owner 2026-11-24].
+- Trung vị kênh = trung vị view các video dài gần nhất của kênh đó (≥10 video, lấy bằng `--dump-json`). × = view / trung vị [tranh-luan 2026-11-24 mcp-mien-phi].
 - Đề tài chỉ qua khi có ≥1 dòng × ≥3 [con-bit §1, buck §2].
 
 ## 4. Đo sau khi lên (cho kỳ xét 2026-12-31)
-- Mốc 48 giờ và 7 ngày sau mỗi video dài và mỗi Short: ghi `out/do-luong/<kênh>-<slug>.md` (`<kênh>` = `conbit` hoặc `buck`).
-- Cột: ngày giờ đo, video/Short, view, Đã xem/Lướt qua (Short), nguồn Duyệt/Đề xuất/Tìm kiếm (video dài), % view theo nước, phút xem, giữ chân 0:30 (video dài), lượt xem video dài đến từ Short.
+- Mốc 48 giờ và 7 ngày sau mỗi video dài và mỗi Short: ghi `out/do-luong/<kênh>-<slug>.md` (`<kênh>` = `conbit` hoặc `buck`) [tranh-luan 2026-11-24 mcp-mien-phi, owner 2026-11-24].
+- Cột: ngày giờ đo, video/Short, view, Đã xem/Lướt qua (Short), nguồn Duyệt/Đề xuất/Tìm kiếm (video dài), % view theo nước, phút xem, giữ chân 0:30 (video dài), lượt xem video dài đến từ Short [tranh-luan 2026-11-24 mcp-mien-phi: thước đo các luật THỬ ở con-bit §5, buck §1 §2 §9 §12].
 - Số lấy qua API chỉ đọc: Buck dùng `ytpub analytics` (nhánh `kenh-my-dang`, đừng gọi `load_creds()`); Con Bit chưa có lệnh analytics (nợ DEV ở `flow-con-bit.md`). Đã xem/Lướt qua và số chưa có API: mỗi tuần một agent Brave đọc trong YouTube Studio, CHỈ ĐỌC, không sửa, không gõ đăng nhập; mốc 48 giờ rơi giữa hai lần đọc thì để ô "chờ lượt đọc tuần" [chung §8 owner 2026-11-24, buck §12].
-- Không sửa video hay bài đã hẹn dựa trên số đo; số đo chỉ dùng cho kỳ xét luật THỬ [chung §5].
+- Số đo không tự kích hoạt sửa video hay bài đã hẹn. Chỉ sửa qua dòng sửa ở chung §5 (trưởng kênh mở dòng sửa, agent soạn, agent khác kiểm). Số đo dùng cho kỳ xét luật THỬ 2026-12-31 [chung §5, owner 2026-11-24].
 
 ## 5. CHECKLIST (nguồn duy nhất; dán vào báo cáo, mỗi dòng ✔ hoặc ✘ + lý do)
 **Y. YouTube (mỗi video dài / Short)**

@@ -7,7 +7,9 @@ Hai kênh: **Con Bit** (tin học tiếng Việt, repo `~/Documents/ai_video`) v
 | `chung.md` | An toàn, file/Drive/dọn rác, git, cách đăng từng nền tảng, hạn mức |
 | `con-bit.md` | Tiêu đề, mô tả, ảnh bìa, Short, caption, hashtag, giờ đăng, âm thanh, fact, giọng, outro của Con Bit |
 | `buck.md` | Như trên cho Follow the Buck |
-| `flow.md` | Quy trình chuẩn từng bước + checklist bắt buộc trước mỗi lần đăng/hẹn giờ |
+| `flow-chung.md` | Nguyên tắc chung của quy trình, công cụ cho phép, bảng outlier, đo lường, CHECKLIST Y/F/T (nguồn duy nhất) |
+| `flow-con-bit.md` | Quy trình từng khâu của Con Bit + nợ DEV đang chặn. Phiên Con Bit đọc file này, không đọc flow Buck |
+| `flow-buck.md` | Quy trình từng khâu của Follow the Buck + nợ DEV đang chặn. Phiên Buck đọc file này, không đọc flow Con Bit |
 | `tranh-luan/` | Biên bản tranh luận đổi luật (`YYYY-MM-DD-<slug>.md`) |
 
 ## Thứ tự ưu tiên

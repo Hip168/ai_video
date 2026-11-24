@@ -1,15 +1,17 @@
-# Luật kênh Con Bit (24/11/2026)
+# Luật kênh Con Bit (24/11/2026, sửa theo tranh luận mcp-mien-phi)
 
 Kênh "Chuyện Của Những Con Bit": fact tin học tiếng Việt, đào sâu một chủ đề. YouTube @bitstory168 (`UC1aPohYcigcmBGPl7OlQaEw`, `.team/kenh.json`), page facebook.com/bitstory168, TikTok @chuyencuanhungconbit, link-in-bio https://chuyenconbit.vercel.app [D31, memory tiktok-con-bit, conbit-hashtag-d35].
 
 ## 1. Nội dung và độ dài
 - Một chủ đề, đào sâu, khoảng 10 phút (mục tiêu 9–11 phút lời đọc). Không kéo dài bằng thẻ chương im lặng, chỉnh bằng `pause_ms` [memory youtube-fact-channel, PLAYBOOK 4.1, tiep-theo bài học tập 5].
 - Evergreen khoảng 80%, trend khoảng 20% khi có góc tin học thật và ra kịp 3–7 ngày [chien-luoc-kenh ƯT4, memory trend-topics].
+- [2026-11-24] Chọn đề tài bằng bảng outlier yt-dlp: đề tài có ≥1 video đối chứng tiếng Việt ≥3× trung vị kênh nguồn. Ưu tiên nhóm "lỗi/hiện tượng người Việt gặp trên máy mình" và "trước khi mua/dùng". Tránh lịch sử/vũ trụ thuần. Nguồn: tranh luận 2026-11-24 mcp-mien-phi
+- Không làm đề tài nhạy cảm chính trị/quan hệ Việt–Trung (vd Tết 1985) [owner 2026-11-24]
 - 15 giây đầu: xác nhận lời hứa của tiêu đề, mở một câu hỏi. Không chào kênh, không xin sub ở đầu [chien-luoc-kenh ƯT3].
 - Số tập `<n>` = thứ tự trong `episodes/index.json` [D35].
 
 ## 2. Tiêu đề video dài
-- ≤60 ký tự (trần cứng 100), ý chính trong 40 ký tự đầu, có từ khoá người Việt gõ tìm [chien-luoc-kenh ƯT3, episodes/roles/packager.md].
+- [2026-11-24] Tiêu đề ≤60 ký tự là cổng cứng: packager và `gate3` phải đo bằng script, >60 là trượt. Video đã đăng "Lỗi font" (75 ký tự) giữ nguyên. Ý chính trong 40 ký tự đầu, có từ khoá người Việt gõ tìm. Nguồn: tranh luận 2026-11-24 mcp-mien-phi [thay "≤60 (trần cứng 100)" của chien-luoc-kenh ƯT3, packager.md]
 - Nói đúng điều người xem biết sau video. Không "bạn sẽ sốc", "bạn sẽ không tin" [packager.md, memory video-moi-chuan-tang-view].
 - Không lặp khuôn "Vì sao…" ở mọi tập; 10 tiêu đề gần nhất phải có hình dạng khác nhau [chien-luoc-kenh ƯT4].
 - Mọi số, tên, năm trong tiêu đề phải có trong lời chốt và claim `DAT` [packager.md].
@@ -23,18 +25,19 @@ Kênh "Chuyện Của Những Con Bit": fact tin học tiếng Việt, đào sâ
 ## 4. Ảnh bìa
 - 1280×720, một ý một hình, chữ tối đa 4 từ, tương phản cao, không lặp chữ của tiêu đề [packager.md; chọn ≤4 thay "≤3" của chien-luoc, owner 24/11].
 - Hình do code dựng, khớp hình có trong video. Không ảnh bản quyền, không ảnh AI [packager.md, hoc-tu-github-view §2].
-- 2–3 ảnh bìa cho Test & Compare khi có [memory video-moi-chuan-tang-view].
+- [2026-11-24] Ảnh bìa video dài được chấm theo lượt từ Duyệt (Browse). Mọi tập chạy Test & Compare 2–3 ảnh bìa. Nguồn: tranh luận 2026-11-24 mcp-mien-phi [thay "2–3 ảnh bìa khi có" của memory video-moi-chuan-tang-view]
 
 ## 5. YouTube Shorts
 - Từ tập 7: mỗi tập đúng 3 Short. Tập 6 đã làm 6 Short thì giữ [D43].
-- Mỗi Short 30–45 s. Câu móc nói ngay giây đầu; ưu tiên beat mở bằng câu hỏi hoặc sự thật gây bất ngờ. Short phải đứng được một mình [D43, hoc-tu-github-view §3, chien-luoc-kenh §2].
+- Mỗi Short 30–45 s. Câu móc nói ngay giây đầu (khuôn câu móc đang THỬ: dòng bên dưới). Short phải đứng được một mình; ý mở chỉ ở beat cuối [D43, hoc-tu-github-view §3, chien-luoc-kenh §2].
+- [2026-11-24] Câu móc Short mở bằng thứ ai cũng biết + một con số (mẫu "GPS 2038"). (THỬ đến 2026-12-31; thước đo: trung vị view Short ≥500 và Đã xem/Lướt qua cao hơn 3 tập trước; bỏ nếu: trung vị <300) Nguồn: tranh luận 2026-11-24 mcp-mien-phi
+- [2026-11-24] Mọi Short YouTube: chọn beat cuối còn mở ý, cộng thẻ chữ cuối (không đọc) dẫn về video dài; gắn Video liên quan trong 24 giờ sau khi Short lên. Chỉ dùng beat có sẵn, không thêm lời đọc mới (D32 MỞ-3). Bản TikTok và bản Facebook không có thẻ chữ này. (THỬ đến 2026-12-31; thước đo: lượt xem video dài đến từ Short ≥0,5% view Short, hiện 3/14.043; bỏ nếu: <0,1%) Nguồn: tranh luận 2026-11-24 mcp-mien-phi
 - Short chỉ dùng beat có sẵn của tập. `hook` là chữ trên màn hình, không đọc [D32 MỞ-3].
 - Khung 1080×1920 toàn màn hình, chừa lề nhỏ. Ngưỡng chữ: 30 px thường, 25 px nhãn cạnh, 48 px phụ đề [D37, D32 MỞ-2].
 - Tiêu đề Short: câu khẳng định có con số, đúng sự thật, có beat làm căn cứ. Bớt kiểu "Vì sao…?" [D43, memory video-moi-chuan-tang-view].
 - Tiêu đề YouTube do lệnh ghép: `<title> (Phần k/N) #Shorts`. Mô tả: hook, "Xem bản đầy đủ: <link video dài>", `#Shorts`, dòng AI [audio/src/aivideo/upload.py `short_body`, D33].
 - CHỜ CHỦ KÊNH: bỏ "(Phần k/N)" khỏi tiêu đề Short YouTube như chien-luoc đề xuất? Hiện giữ [chien-luoc-kenh ƯT1, hoc-tu-github-view §6].
-- CHỜ CHỦ KÊNH: 9 tiêu đề Short 23–30/11 thay thế (hoc-tu-github-view §6) chưa chọn; giữ nguyên tiêu đề đã hẹn [memory video-moi-chuan-tang-view].
-- Gắn "Video liên quan" về video dài cho mọi Short [D33, tiep-theo].
+- Gắn "Video liên quan" về video dài cho mọi Short, trong 24 giờ sau khi Short lên (luật THỬ ở trên) [D33, tiep-theo, tranh-luan 2026-11-24 mcp-mien-phi].
 
 ## 6. Hashtag
 - YouTube video dài: dòng `#conbit<n>` trong mô tả [publish.json tập 8, memory conbit-hashtag-d35].
@@ -51,7 +54,7 @@ Theo thứ tự, các đoạn cách nhau một dòng trống [D43]:
 5. Câu hỏi mời bình luận. Đây là dòng chữ CUỐI.
 6. Dòng hashtag 3–4 thẻ (mục 6).
 - Không URL, không nhắc YouTube, không xin like. Link chỉ ở bio (chuyenconbit.vercel.app) [D43, D35, memory conbit-hashtag-d35].
-- Lệnh `aivideo.shorts export` còn sinh caption khuôn cũ (D35 lần 3): phải viết lại tay theo khuôn trên trước khi hẹn, tới khi DEV sửa `tiktok_caption()` [audio/src/aivideo/shorts.py:241, owner 24/11].
+- `aivideo.shorts export` sinh caption theo khuôn D43 từ PR #103 (đã merge, `tiktok_caption()` ở `audio/src/aivideo/shorts.py`). PR #104 (sửa theo review: đúng 1 thẻ chủ đề + `#hoccungtiktok`, "link ở bio" ở phần `min(3, N)`, chặn URL/"YouTube" trong đầu vào) còn chờ duyệt: tới khi #104 merge, vẫn đối chiếu tay caption với khuôn trên trước khi hẹn [PR #103, PR #104, owner 24/11].
 
 ## 8. TikTok khác
 - Chỉ dùng Short phần 1–3 của tập. Không tạo clip "TikTok thêm" mới; clip thêm đã hẹn thì giữ [D43, memory tiktok-con-bit 22/11].

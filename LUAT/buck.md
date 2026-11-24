@@ -1,10 +1,10 @@
-# Luật kênh Follow the Buck (24/11/2026)
+# Luật kênh Follow the Buck (24/11/2026, sửa theo tranh luận mcp-mien-phi)
 
 Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday American life". YouTube `UClykX046oc534Pk2kLxe2FQ`, page facebook.com/followthebuck168. KHÔNG có TikTok. Repo `~/Documents/AI_VIDEO_FLOW_STORY`, worktree `.worktrees/kenh-my-bible` (tập ở `channels/us-econ/episodes/<nn>-<slug>/`), công cụ đăng `ytpub` ở `channels/us-econ/publish` [memory us-econ-channel, youtube.json ep14].
 `channels/us-econ/bible.md` vẫn là chuẩn hình (nhân vật, màu, font, khung, chuyển động); các dòng "no Shorts" và "team không đăng Facebook" trong đó đã cũ, theo file này [owner 24/11].
 
 ## 1. Nội dung và độ dài
-- Video dài 16:9, 8–12 phút (đối thủ thắng ở 10–17 phút; nên nhắm nửa trên) [bible.md, memory ftb-title-and-audience].
+- Video dài 10–15 phút; 2 tập kế nhắm 12–15 phút. (THỬ đến 2026-12-31; thước đo: phút xem mỗi video và tỉ lệ Đề xuất so với 3 tập trước; bỏ nếu: tổng phút xem không tăng, khi đó về 8–12) [tranh-luan 2026-11-24 mcp-mien-phi; thay "16:9, 8–12 phút" của bible.md; khung vẫn 16:9]
 - Mỗi tập khác hẳn nhau, có nguồn thật, chống "inauthentic content": ≥1 bối cảnh mới so với 3 tập trước, ≥4 loại khung, khung mở khác tập trước, ≥5 nguồn khác nhau trên hình và trong mô tả, không dùng lại cùng một cảnh [bible §9, chien-luoc-kenh ƯT5].
 - Hook 15 s đầu: khoảnh khắc đời thường + câu hỏi. Không chào kênh, không xin sub ở đầu [bible §2, chien-luoc-kenh ƯT3].
 - Lời dẫn ngôi thứ hai, điềm tĩnh, câu ≤22 từ. Không "insane", "shocking", "you won't believe" [bible §2].
@@ -14,7 +14,9 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 - Đề tài: evergreen "Why is X so expensive / Why do Americans…" là chính, trend có góc kinh tế thật [chien-luoc-kenh ƯT4, memory trend-topics].
 
 ## 2. Tiêu đề video dài
-- Câu hỏi người Mỹ hay gõ tìm, kết bằng "?", ≤60 ký tự. Mẫu tốt: "Why Do Americans Tip?" [memory ftb-title-and-audience, us-econ-ep14.test.ts].
+- Câu hỏi người Mỹ hay gõ tìm kết bằng "?", hoặc khung suy thoái theo luật THỬ bên dưới; ≤60 ký tự. Mẫu tốt: "Why Do Americans Tip?" [memory ftb-title-and-audience, us-econ-ep14.test.ts, tranh-luan 2026-11-24 mcp-mien-phi].
+- Cho phép khung tiêu đề "How X Got So Bad" / "The Collapse of X" (không cần "?"), tối đa 1 trong 2 tập; đề tài là ngành ai cũng biết, sát một video lớn. (THỬ đến 2026-12-31; thước đo: view 7 ngày ≥3× trung vị video dài Buck; bỏ nếu: 2 tập đều <1×) [tranh-luan 2026-11-24 mcp-mien-phi]
+- 2 tập kế chọn đề tài bằng bảng outlier yt-dlp: có ≥1 video đối thủ ≥3× trung vị kênh đối thủ đó. [tranh-luan 2026-11-24 mcp-mien-phi]
 - Từ tập 7 cấm khuôn "Where Your … Actually Goes". Kiểm khác kiểu 3 tập gần nhất [memory ftb-title-and-audience].
 - Viết 3 truy vấn video phải thắng, tiêu đề chứa từ của các truy vấn đó [chien-luoc-kenh ƯT3].
 - 2–3 phương án cho Test & Compare [memory video-moi-chuan-tang-view].
@@ -26,7 +28,8 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 
 ## 4. Ảnh bìa
 - Tối đa 4 từ, không chữ số, không lặp tiêu đề, không tên thương hiệu/công ty, cùng chữ với `script.json` → `thumbnail_text`. Comment "at most 3 words" trong test là cũ; test kiểm ≤4 [us-econ-ep14.test.ts; chọn ≤4, owner 24/11].
-- Gợi tò mò cho nguồn Duyệt; 3 bản Remotion (`Thumbnail.tsx`) cùng ý khác bố cục/màu số tiền cho Test & Compare [hoc-tu-github-view §3].
+- Ảnh bìa: 1 vật + mũi tên giá, không chữ số. [tranh-luan 2026-11-24 mcp-mien-phi]
+- Gợi tò mò cho nguồn Duyệt; 3 bản Remotion (`Thumbnail.tsx`) cùng ý khác bố cục/màu (ký hiệu $, mũi tên giá), không chữ số, cho Test & Compare [hoc-tu-github-view §3].
 
 ## 5. Shorts
 - Mỗi tập 3 Short (`short-01..03`) [youtube.json ep8–14, D43].
@@ -36,7 +39,7 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 - Tiêu đề Short: câu khẳng định có số, đúng sự thật, ≤100 ký tự, đuôi ` #Shorts`. Không lặp khuôn video dài [D43, short-01/publish.json ep14, memory ftb-title-and-audience].
 - Mô tả Short: 1–2 câu số liệu, "Full video: <link video dài>", nguồn, dòng "The voice is AI-generated; not tax, financial or investment advice." Trước khi video dài có ID thì để `FULL_VIDEO_URL`, upload video dài xong mới điền [us-econ-ep14.test.ts, publish.json ep14 `_notes`].
 - Gắn "Video liên quan" về video dài; ghi vào `out/follow-the-buck-shorts/GAN-VIDEO-LIEN-QUAN.md` [memory us-econ-channel].
-- CHỜ CHỦ KÊNH: 9 tiêu đề Short 23–30/11 thay thế (hoc-tu-github-view §6) chưa chọn; giữ tiêu đề đã hẹn [memory video-moi-chuan-tang-view].
+- 9 tiêu đề Short 23–30/11 thay thế: agent tiêu đề chọn từ `out/hoc-tu-github-view.md` §6, agent kiểm độc lập xác nhận đúng sự thật, rồi sửa theo dòng sửa ở chung §5 [owner 2026-11-24].
 
 ## 6. Hashtag
 - Facebook: dòng cuối `#FollowTheBuck #<chủ đề> #<chủ đề> #<chủ đề>` (4 thẻ) [buck8-long.txt, buck8-s1.txt].
@@ -63,6 +66,8 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 - Chatterbox chiếm ~22 GB RAM: chỉ tổng hợp lại beat đã đổi, không render song song lúc đang tổng hợp [tiep-theo bài học tập 5].
 - -16 LUFS. Nhạc CC0 (vd "Reverence", Abstraction Music / Tallbeard) và ghi công trong mô tả, `CREDITS.md`, `assets/manifest.json` [bible §12, buck8-long.txt, AI_VIDEO_FLOW_STORY/CLAUDE.md].
 - ElevenLabs chỉ khi kênh có doanh thu, gói Free cấm thương mại [memory us-econ-channel].
+- Buck THỬ giọng Kokoro-82M trên 1 tập ngoài lịch đã hẹn, cạnh bản Chatterbox; outro của tập THỬ làm lại cùng giọng ở đường dẫn riêng (`channels/us-econ/outro/kokoro-trial/outro.wav`, `channels/us-econ/outro/kokoro-trial/facebook/outro.wav`); không ghi đè `outro/outro.wav` dùng chung trong suốt đợt THỬ. (THỬ đến 2026-12-31; thước đo: thời gian dựng giọng giảm ≥50%, Whisper WER 0, giữ chân 0:30 ≥ trung vị 3 tập trước; bỏ nếu: trượt một ngưỡng hoặc chủ kênh nghe mù chọn Chatterbox) [tranh-luan 2026-11-24 mcp-mien-phi]
+- CHỜ CHỦ KÊNH: giữ Kokoro sau đợt THỬ. Tới khi chốt: Chatterbox vẫn là giọng chính của mọi tập trong lịch [tranh-luan 2026-11-24 mcp-mien-phi].
 
 ## 10. Fact
 - Mọi số trên hình hoặc trong lời có nguồn có tên và ngày (BLS, FRED, Fed, BEA, Census, CMS, SEC 10-K/10-Q, báo cáo công ty, bài bình duyệt). Không nguồn thì cắt. Ước tính phải ghi "estimate" trong lời và trên hình. Con số tự tính ghi "by our math" [bible §2, buck8-long.txt].
@@ -78,3 +83,4 @@ Kênh tiếng Anh cho khán giả Mỹ, ngách "the hidden economics of everyday
 ## 12. Mốc kiểm
 - Giữa 12/2026: có ≥1 video dài >1.000 view, hoặc >50% giờ xem từ nước nói tiếng Anh → giữ nhịp; không thì xem lại đề tài/tiêu đề trước khi đăng thêm. Số lấy bằng `ytpub analytics` (nhánh `kenh-my-dang`), chỉ đọc, đừng gọi `load_creds()` [memory ftb-title-and-audience, chien-luoc-kenh §4].
 - Chưa mua máy chủ; không nói tới RPM/hoà vốn khi chưa chạy `ytpub analytics` lấy số mới [memory ftb-title-and-audience].
+- Đo Short bằng Đã xem/Lướt qua và % view từ US/CA/GB/AU, không đo tổng view; câu móc Short dùng giá USD cụ thể của người hoặc chiêu thật. (THỬ đến 2026-12-31; thước đo: % view nước nói tiếng Anh ≥30%, hiện khoảng 20%; bỏ nếu: không tăng) [tranh-luan 2026-11-24 mcp-mien-phi]

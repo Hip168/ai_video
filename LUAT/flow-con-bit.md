@@ -1,4 +1,4 @@
-Phiên làm video Con Bit: đọc file này + chung.md + con-bit.md + flow-chung.md trước khi làm. Không đọc flow của kênh kia.
+Phiên làm video Con Bit: đọc file này + chung.md + con-bit.md + flow-chung.md trước khi làm. Không đọc flow của kênh kia. [owner 2026-11-24]
 
 # Quy trình Con Bit (24/11/2026, theo tranh luận mcp-mien-phi)
 

@@ -1,5 +1,15 @@
 # Trạng thái hiện tại (cập nhật 2026-11-24), đọc file này trước khi chạy tiếp
 
+## 24/11 (tối) — việc dở
+- PR #104 (nhánh 41-sua-review-103: sửa review #103 + ffmpeg -vsync→-fps_mode) mở, chờ TEST-LEAD duyệt rồi merge; merge xong sửa dòng PR #104 ở LUAT/con-bit.md §7.
+- Đổi tiêu đề/ảnh bìa video đã hẹn (chủ kênh duyệt 24/11): đề xuất out/doi-tieu-de-2026-11-24.md, đang kiểm độc lập (out/doi-tieu-de-2026-11-24-KIEM.md), kiểm xong mới sửa qua API; còn câu hỏi số tập #conbit6/#conbit7 của tập GTA vs sai giờ.
+- TikTok: 3 bài đã hẹn 25/11 SMS, 27/11 Patriot, 29/11 2038 caption sai D43, TikTok không cho sửa; chờ chủ kênh tự xoá rồi hẹn lại (caption ở /tmp/hen-gio2/FIX-CAPTION-clip03|04|05). Kháng nghị cảnh cáo âm thanh 23/11: chủ kênh tự làm.
+- TikTok tập 8 rows 15/16/17 (/tmp/hen-gio2) hẹn từ 27/11, 29/11, 1/12.
+- Con Bit tập 9 (38-tap9) kẹt phat-am, đăng 12/12 19:30; cần #104 (ffmpeg) để render.
+- Gộp nhánh tập 6–9 vào main + sửa thứ tự episodes/index.json.
+- Buck: THỬ Kokoro 1 tập; kiểm trang IRS Free File (ep14 b064/b067/b068) trước 9/1/2027; rclone client_id riêng (chủ kênh tự tạo).
+- Chủ kênh còn chưa chốt: #conbit ở đầu tiêu đề YT/FB; bỏ "(Phần k/N)"; skill thumbnail.
+
 ## CẬP NHẬT 2026-11-24: tập 6–9 và luật đăng D43
 - Luật đăng mới gộp ở D43 (`.team/decisions.md`). Tóm tắt nằm ở đầu `out/lich-dang-2026-11.md`. Hàng chờ FB/TikTok: `out/facebook-page/caption-cho-dang/HANG-CHO-22-11-den-11-12.md`. File chờ agent Brave hẹn giờ: `/tmp/hen-gio2/MANIFEST.md`.
 - Tập 6 `vi-sao-may-tinh-lai-sai-gio` (worktree `35-tap6`): Cổng 3 đạt. YouTube đã hẹn (private + publishAt): video dài f8deqkaBimw 28/11 19:30. Short S5 seiw3OsXyeo 29/11, S1 YZ5n1OSuceY 30/11, S4 8Ws3zTQcCRA 1/12, S2 lknQ3ETbUvc 2/12, S3 _-FUABXkpj8 3/12, S6 infoy6tkG04 4/12, đều 19:30. Drive 06 có đủ: video dài, chapters.txt, youtube-shorts 1–6, facebook, tiktok phan-1..6 và bản v2 (bỏ nhãn Phần k/6).
@@ -81,7 +91,7 @@ Các đề mục 5, 6, 7, 8, 9, 11 và task [12-5] (PR #67). Kênh và quyền �
 - GitHub Actions hết phút tới 01/12: kiểm local rồi merge. PR tập video đội tự merge (người dùng chốt 15/11).
 
 ## (cũ) TẠM GIỮ (người dùng, 2026-11-14 sáng)
-Người dùng dặn "hold dự án này lại". KHÔNG tự chạy tiếp, chờ người dùng mở lại. Người dùng sẽ tự lấy file TikTok trên Drive (`Chuyen Cua Nhung Con Bit/<nn> <slug>/tiktok/`) để đăng. Khi mở lại thì làm tiếp từ mục "Đang chờ" bên dưới.
+(đã gỡ hold 24/11) Người dùng dặn "hold dự án này lại". KHÔNG tự chạy tiếp, chờ người dùng mở lại. Người dùng sẽ tự lấy file TikTok trên Drive (`Chuyen Cua Nhung Con Bit/<nn> <slug>/tiktok/`) để đăng. Khi mở lại thì làm tiếp từ mục "Đang chờ" bên dưới.
 
 ## Đang chờ (cập nhật 2026-11-14 ~05:40, phiên đêm dừng lúc 06:00)
 - YouTube chặn tải lên với lỗi HTTP 400 "exceeded the number of videos they may upload" (khoảng 03:00 ngày 14/11). Hạn mức thường mở lại sau khoảng 24 giờ, tức khoảng 03:00 ngày 15/11.
